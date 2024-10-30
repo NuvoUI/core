@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Import variables
 @use '../utilities/variables' as *;
 
@@ -23,27 +25,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: map-get($font-sizes, '4xl');
+  font-size: map.get($font-sizes, '4xl');
 }
 
 h2 {
-  font-size: map-get($font-sizes, '3xl');
+  font-size: map.get($font-sizes, '3xl');
 }
 
 h3 {
-  font-size: map-get($font-sizes, '2xl');
+  font-size: map.get($font-sizes, '2xl');
 }
 
 h4 {
-  font-size: map-get($font-sizes, 'xl');
+  font-size: map.get($font-sizes, 'xl');
 }
 
 h5 {
-  font-size: map-get($font-sizes, 'lg');
+  font-size: map.get($font-sizes, 'lg');
 }
 
 h6 {
-  font-size: map-get($font-sizes, 'base');
+  font-size: map.get($font-sizes, 'base');
 }
 
 // Paragraphs
@@ -53,7 +55,7 @@ p {
 
 // Small text
 small {
-  font-size: map-get($font-sizes, 'sm');
+  font-size: map.get($font-sizes, 'sm');
 }
 
 // Links
@@ -73,14 +75,14 @@ ul, ol {
 }
 
 // Utility classes for text
-.text-xs { font-size: map-get($font-sizes, 'xs'); }
-.text-sm { font-size: map-get($font-sizes, 'sm'); }
-.text-base { font-size: map-get($font-sizes, 'base'); }
-.text-lg { font-size: map-get($font-sizes, 'lg'); }
-.text-xl { font-size: map-get($font-sizes, 'xl'); }
-.text-2xl { font-size: map-get($font-sizes, '2xl'); }
-.text-3xl { font-size: map-get($font-sizes, '3xl'); }
-.text-4xl { font-size: map-get($font-sizes, '4xl'); }
+.text-xs { font-size: map.get($font-sizes, 'xs'); }
+.text-sm { font-size: map.get($font-sizes, 'sm'); }
+.text-base { font-size: map.get($font-sizes, 'base'); }
+.text-lg { font-size: map.get($font-sizes, 'lg'); }
+.text-xl { font-size: map.get($font-sizes, 'xl'); }
+.text-2xl { font-size: map.get($font-sizes, '2xl'); }
+.text-3xl { font-size: map.get($font-sizes, '3xl'); }
+.text-4xl { font-size: map.get($font-sizes, '4xl'); }
 
 // Font weights
 .font-thin { font-weight: 100; }
@@ -132,9 +134,9 @@ ul, ol {
 // Responsive typography
 @each $breakpoint-key, $breakpoint-value in $breakpoints {
   @media (min-width: $breakpoint-value) {
-    .#{$breakpoint-key}\: {
+    .breakpoint-#{$breakpoint-key} {
       @each $size-key, $size-value in $font-sizes {
-        &text-#{$size-key} {
+        &-text-#{$size-key} {
           font-size: $size-value;
         }
       }

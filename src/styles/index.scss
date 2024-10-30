@@ -1,17 +1,19 @@
 // Global variables
+@use './global' as *;
 @use 'utilities/variables' as *;
 
+
 // Base styles
-@import 'base/reset';
-@import 'base/typography';
+@use 'base/reset';
+@use 'base/typography';
 
 // Theme
-@import 'theme/light';
-@import 'theme/dark';
+@use 'themes/light';
+@use 'themes/dark';
 
 // Utilities
-@import 'utilities/colors';
-@import 'utilities/spacing';
+@use 'utilities/colors';
+@use 'utilities/spacing';
 
 // Components
-@import 'components/button';
+@use 'components/button';

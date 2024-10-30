@@ -1,5 +1,7 @@
 /* src/utilities/_colors.scss */
 @use './variables' as *;
 
-.text-primary { color: $color-primary; }
-.bg-primary { background-color: $color-primary; }
+@each $color-name, $color-value in $colors {
+    .text-#{$color-name} { color: $color-value; }
+    .bg-#{$color-name} { background-color: $color-value; }
+}

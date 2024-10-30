@@ -1,9 +1,13 @@
+@use 'sass:color';
+@use 'sass:map';
+
+@use '../utilities/variables' as *;
+
 [data-theme="light"] {
-    // ... other light theme variables ...
-    
-    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    --font-family-heading: var(--font-family-base);
-    --text-primary: #{map-get($colors, 'dark')};
-    --link-color: #{map-get($colors, 'primary')};
-    --link-hover-color: #{darken(map-get($colors, 'primary'), 10%)};
-  }
+  // ... other light theme variables ...
+  
+  --font-family-heading: var(--font-family-base);
+  --text-primary: #{map.get($colors, 'dark')};
+  --link-color: #{map.get($colors, 'primary')};
+  --link-hover-color: #{color.scale(map.get($colors, 'primary'), $lightness: -10%)};
+}

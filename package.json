@@ -4,14 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "buildX": "sass src/index.scss .tmp/temp.css && postcss .tmp/temp.css -o dist/style.css",
-    "build": "sass src/styles/index.scss:dist/css/styles.css --style=compressed && postcss dist/css/styles.css --use autoprefixer cssnano -d dist/css",
-    "sass": "sass src/styles/index.scss:dist/css/styles.css --watch",
-    "postcss": "postcss dist/css/styles.css --use autoprefixer -d dist/css --watch",
-    "serve": "live-server --port=3000 --watch=dist/css/styles.css,src",
-    "dev": "concurrently \"npm run sass\" \"npm run postcss\" \"npm run serve\""
-  
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "keywords": [],
   "author": "",
@@ -20,11 +15,12 @@
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.0.1",
     "cssnano": "^7.0.6",
-    "live-server": "^1.2.2",
     "postcss": "^8.4.47",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
+    "postcss-apply": "^0.12.0",
     "postcss-nested": "^7.0.0",
-    "sass": "^1.80.5"
+    "sass": "^1.80.5",
+    "vite": "^4.5.5"
   }
 }

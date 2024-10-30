@@ -1,20 +1,26 @@
+@use './variables' as *;
+
 .grid {
-    display: grid;
+  display: grid;
+}
+
+// Column-based system (different from 12-column)
+@for $i from 1 through $column-count {
+  .cols-#{$i} {
+    grid-template-columns: repeat($i, minmax(0, 1fr));
   }
-  
-  // Column-based system (different from 12-column)
-  @for $i from 1 through 10 {
-    .cols-#{$i} {
-      grid-template-columns: repeat($i, minmax(0, 1fr));
+}
+
+// Auto-fit columns with minimum width based on breakpoints
+@each $breakpoint, $width in $column-widths {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    .cols-auto-#{$breakpoint} {
+      grid-template-columns: repeat(auto-fit, minmax($width, 1fr));
     }
   }
-  
-  // Auto-fit columns with minimum width
-  .cols-auto-sm { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .cols-auto-md { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .cols-auto-lg { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
-  
-  // Grid gaps
-  @each $key, $value in $spacing-units {
-    .grid-gap-#{$key} { gap: $value; }
-  }
+}
+
+// Grid gaps
+@each $key, $value in $spacing-units {
+  .grid-gap-#{$key} { gap: $value; }
+}

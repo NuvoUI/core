@@ -3,6 +3,7 @@ $enable-dark-mode: true;
 $enable-rtl: false;
 $enable-reduced-motion: true;
 
+$column-count: 12;
 // Breakpoints
 $breakpoints: (
   'sm': 640px,
@@ -19,4 +20,35 @@ $container-max-widths: (
   'lg': 960px,
   'xl': 1140px,
   '2xl': 1320px,
+);
+
+// _variables.scss
+$font-sizes: (
+  '4xl': 2.5rem,
+  '3xl': 2rem,
+  '2xl': 1.75rem,
+  'xl': 1.5rem,
+  'lg': 1.25rem,
+  'md': 1rem,
+  'sm': 0.875rem,
+  'xs': 0.75rem
+);
+
+// _variables.scss
+$colors: (
+  'primary': #007bff,
+  'secondary': #6c757d,
+  'success': #28a745,
+  'danger': #dc3545,
+  'warning': #ffc107,
+  'info': #17a2b8,
+  'light': #f8f9fa,
+  'dark': #343a40
+);
+
+// Column widths for auto-fit
+$column-widths: (
+  'sm': 200px,
+  'md': 300px,
+  'lg': 400px
 );
