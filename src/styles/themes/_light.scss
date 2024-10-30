@@ -1,0 +1,9 @@
+[data-theme="light"] {
+    // ... other light theme variables ...
+    
+    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    --font-family-heading: var(--font-family-base);
+    --text-primary: #{map-get($colors, 'dark')};
+    --link-color: #{map-get($colors, 'primary')};
+    --link-hover-color: #{darken(map-get($colors, 'primary'), 10%)};
+  }

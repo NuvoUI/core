@@ -1,0 +1,34 @@
+// Base button reset
+.btn {
+  @apply inline-flex items-center justify-center cursor-pointer select-none;
+  @apply transition-all duration-200;
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+
+// Size utilities
+.btn-xs { @apply px-2 py-1 text-xs; }
+.btn-sm { @apply px-3 py-1.5 text-sm; }
+.btn-md { @apply px-4 py-2 text-base; }
+.btn-lg { @apply px-5 py-2.5 text-lg; }
+.btn-xl { @apply px-6 py-3 text-xl; }
+
+// Shape utilities
+.btn-square { @apply aspect-square p-0; }
+.btn-circle { @apply rounded-full aspect-square p-0; }
+.btn-pill { @apply rounded-full; }
+
+// State modifiers
+.btn-disabled,
+.btn[disabled] {
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
+}
+
+// Loading state
+.btn-loading {
+  @apply relative text-transparent transition-none hover:text-transparent;
+  &::before {
+    content: "";
+    @apply absolute w-4 h-4 border-2 border-current rounded-full;
+    @apply border-r-transparent animate-spin;
+  }
+}

@@ -1,0 +1,5 @@
+/* src/utilities/_colors.scss */
+@use './variables' as *;
+
+.text-primary { color: $color-primary; }
+.bg-primary { background-color: $color-primary; }

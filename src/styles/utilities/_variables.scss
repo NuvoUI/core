@@ -1,0 +1,22 @@
+// Global variables that might be used across different modules
+$enable-dark-mode: true;
+$enable-rtl: false;
+$enable-reduced-motion: true;
+
+// Breakpoints
+$breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+);
+
+// Container max-widths
+$container-max-widths: (
+  'sm': 540px,
+  'md': 720px,
+  'lg': 960px,
+  'xl': 1140px,
+  '2xl': 1320px,
+);
