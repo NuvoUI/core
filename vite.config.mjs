@@ -3,20 +3,12 @@ import path from 'path';
 
 export default defineConfig({
   css: {
+    devSourcemap: true,
     preprocessorOptions: {
       scss: {
         api: 'modern' // or "modern"
       }
     },
-    plugins: [
-                  require('postcss-import'),
-                  require('postcss-nested'),
-                  require('postcss-apply'),
-                  require('autoprefixer'),
-                  require('cssnano')({
-                      preset: 'default'
-                  })
-              ]
   },
   build: {
     rollupOptions: {

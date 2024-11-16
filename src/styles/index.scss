@@ -1,19 +1,33 @@
-// Global variables
-@use './global' as *;
-@use 'utilities/variables' as *;
-
+// Forward all modules for external use
+@forward 'utilities/variables';
+@forward './global';
 
 // Base styles
-@use 'base/reset';
-@use 'base/typography';
-
-// Theme
-@use 'themes/light';
-@use 'themes/dark';
+@forward 'base/reset';
+@forward 'base/base';
 
 // Utilities
-@use 'utilities/colors';
-@use 'utilities/spacing';
+@forward 'utilities/animations';
+@forward 'utilities/colors';
+@forward 'utilities/position';
+@forward 'utilities/shadows';
+@forward 'utilities/spacing';
+@forward 'utilities/typography';
+
+// Layouts
+@forward 'layouts/container';
+@forward 'layouts/flex';
+@forward 'layouts/grid';
+
+// Themes
+@forward 'themes/light';
+@forward 'themes/dark';
+@forward 'themes/theme';
 
 // Components
-@use 'components/button';
+@forward 'components/button';
+@forward 'components/navbar';
+@forward 'components/form';
+
+// Local usage
+@use './global' as *;

@@ -1,4 +1,79 @@
-.p-0 { padding: 0; }
-.p-4 { padding: 1rem; }
-.m-0 { margin: 0; }
-.m-4 { margin: 1rem; }
+// _spacing.scss
+
+@use 'sass:math';
+@use './variables' as *; 
+
+
+// Padding mixins
+@mixin p($val) { $val: if($val==0, $val, $val + px); padding: $val !important; }
+@mixin px($val) { $val: if($val==0, $val, $val + px); padding-left: $val !important; padding-right: $val !important; }
+@mixin py($val) { $val: if($val==0, $val, $val + px); padding-top: $val !important; padding-bottom: $val !important; }
+@mixin pt($val) { $val: if($val==0, $val, $val + px); padding-top: $val !important; }
+@mixin pr($val) { $val: if($val==0, $val, $val + px); padding-right: $val !important; }
+@mixin pb($val) { $val: if($val==0, $val, $val + px); padding-bottom: $val !important; }
+@mixin pl($val) { $val: if($val==0, $val, $val + px); padding-left: $val !important; }
+
+// Margin mixins
+@mixin m($val) { $val: if($val==0, $val, $val + px); margin: $val !important; }
+@mixin mx($val) { $val: if($val==0, $val, $val + px); margin-left: $val !important; margin-right: $val !important; }
+@mixin my($val) { $val: if($val==0, $val, $val + px); margin-top: $val !important; margin-bottom: $val !important; }
+@mixin mt($val) { $val: if($val==0, $val, $val + px); margin-top: $val !important; }
+@mixin mr($val) { $val: if($val==0, $val, $val + px); margin-right: $val !important; }
+@mixin mb($val) { $val: if($val==0, $val, $val + px); margin-bottom: $val !important; }
+@mixin ml($val) { $val: if($val==0, $val, $val + px); margin-left: $val !important; }
+
+
+// Generate utilities from spacing map
+@for $i from 0 through 100 {
+    // Padding classes
+    .p-#{$i} { @include p($i); }
+    .px-#{$i} { @include px($i); }
+    .py-#{$i} { @include py($i); }
+    .pt-#{$i} { @include pt($i); }
+    .pr-#{$i} { @include pr($i); }
+    .pb-#{$i} { @include pb($i); }
+    .pl-#{$i} { @include pl($i); }
+
+    // Margin classes
+    .m-#{$i} { @include m($i); }
+    .mx-#{$i} { @include mx($i); }
+    .my-#{$i} { @include my($i); }
+    .mt-#{$i} { @include mt($i); }
+    .mr-#{$i} { @include mr($i); }
+    .mb-#{$i} { @include mb($i); }
+    .ml-#{$i} { @include ml($i); }
+    // .gap-#{$key} { gap: $value; }
+}
+
+// Auto margin utilities
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ml-auto { margin-left: auto; }
+.mr-auto { margin-right: auto; }
+
+
+
+// Gap Mixins
+@mixin gap($value) {
+    gap: if($value == 0, $value, $value + px);
+}
+
+@mixin gap-x($value) {
+    column-gap: if($value == 0, $value, $value + px);
+}
+
+@mixin gap-y($value) {
+    row-gap: if($value == 0, $value, $value + px);
+}
+
+// Gap Classes
+.gap-auto { gap: auto; }
+
+@for $i from 0 through 100 {
+    .gap-#{$i} { @include gap($i); }
+    .gap-x-#{$i} { @include gap-x($i); }
+    .gap-y-#{$i} { @include gap-y($i); }
+}

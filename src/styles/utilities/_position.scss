@@ -1,0 +1,75 @@
+@use './variables' as *;
+// Position Mixins
+@mixin p-static {
+  position: static;
+}
+
+@mixin p-relative {
+  position: relative;
+}
+
+@mixin p-absolute {
+  position: absolute;
+}
+
+@mixin p-fixed {
+  position: fixed;
+}
+
+@mixin p-sticky {
+  position: sticky;
+}
+
+// Position Classes
+.p-static {
+  @include p-static;
+}
+
+.p-relative {
+  @include p-relative;
+}
+
+.p-absolute {
+  @include p-absolute;
+}
+
+.p-fixed {
+  @include p-fixed;
+}
+
+.p-sticky {
+  @include p-sticky;
+}
+
+// Top, Right, Bottom, Left Mixins
+@mixin top($value) {
+  top: if($value == 0, $value, $value + px);
+}
+
+@mixin right($value) {
+  right: if($value == 0, $value, $value + px);
+}
+
+@mixin bottom($value) {
+  bottom: if($value == 0, $value, $value + px);
+}
+
+@mixin left($value) {
+  left: if($value == 0, $value, $value + px);
+}
+
+// Top, Right, Bottom, Left Classes
+@for $i from 0 through 100{
+  .top-#{$i} {
+    @include top($i);
+  }
+  .right-#{$i} {
+    @include right($i);
+  }
+  .bottom-#{$i} {
+    @include bottom($i);
+  }
+  .left-#{$i} {
+    @include left($i);
+  }
+}

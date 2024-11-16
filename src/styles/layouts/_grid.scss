@@ -1,26 +1,147 @@
-@use './variables' as *;
+@use '../utilities/variables' as *;
 
-.grid {
+// Grid Container Mixins
+@mixin grid {
   display: grid;
 }
 
-// Column-based system (different from 12-column)
-@for $i from 1 through $column-count {
-  .cols-#{$i} {
-    grid-template-columns: repeat($i, minmax(0, 1fr));
-  }
+@mixin grid-inline {
+  display: inline-grid;
 }
 
-// Auto-fit columns with minimum width based on breakpoints
-@each $breakpoint, $width in $column-widths {
-  @media (min-width: map-get($breakpoints, $breakpoint)) {
-    .cols-auto-#{$breakpoint} {
-      grid-template-columns: repeat(auto-fit, minmax($width, 1fr));
+// Grid Template Mixins
+@mixin grid-cols($count) {
+  grid-template-columns: repeat($count, minmax(0, 1fr));
+}
+
+@mixin grid-rows($count) {
+  grid-template-rows: repeat($count, minmax(0, 1fr));
+}
+
+// Auto-fit/fill Mixins
+@mixin grid-auto-fit($min-width) {
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+}
+
+@mixin grid-auto-fill($min-width) {
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+}
+
+// Grid Flow Mixins
+@mixin grid-flow-row { grid-auto-flow: row; }
+@mixin grid-flow-col { grid-auto-flow: column; }
+@mixin grid-flow-dense { grid-auto-flow: dense; }
+
+// Grid Alignment Mixins
+@mixin justify-items($value) {
+  justify-items: $value;
+}
+
+@mixin align-items($value) {
+  align-items: $value;
+}
+
+@mixin place-items($value) {
+  place-items: $value;
+}
+
+// Grid Item Placement Mixins
+@mixin col-span($span) {
+  grid-column: span $span / span $span;
+}
+
+@mixin row-span($span) {
+  grid-row: span $span / span $span;
+}
+
+@mixin col-start($start) {
+  grid-column-start: $start;
+}
+
+@mixin col-end($end) {
+  grid-column-end: $end;
+}
+
+@mixin row-start($start) {
+  grid-row-start: $start;
+}
+
+@mixin row-end($end) {
+  grid-row-end: $end;
+}
+
+// Classes
+.grid { @include grid; }
+.grid.inline { @include grid-inline; }
+
+// Grid Template Classes
+@for $i from 1 through $column-count {
+  .grid.cols-#{$i} { @include grid-cols($i); }
+  .grid.rows-#{$i} { @include grid-rows($i); }
+
+  // Responsive grid columns
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+      .grid.#{$breakpoint}\:cols-#{$i} {
+        @include grid-cols($i);
+      }
     }
   }
 }
 
-// Grid gaps
-@each $key, $value in $spacing-units {
-  .grid-gap-#{$key} { gap: $value; }
+
+
+// Generate Column Span Classes with Responsive Variants
+@for $i from 1 through $column-count {
+  .col-span-#{$i} {
+    @include col-span($i);
+  }
+
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+      .#{$breakpoint}\:col-span-#{$i} {
+        @include col-span($i);
+      }
+    }
+  }
+}
+
+
+// Auto-fit/fill Classes
+@each $breakpoint, $width in $column-widths {
+  .grid.auto-fit-#{$breakpoint} { @include grid-auto-fit($width); }
+  .grid.auto-fill-#{$breakpoint} { @include grid-auto-fill($width); }
+}
+
+// Flow Classes
+.grid.flow-row { @include grid-flow-row; }
+.grid.flow-col { @include grid-flow-col; }
+.grid.flow-dense { @include grid-flow-dense; }
+
+// Alignment Classes
+$alignments: (
+  'start': start,
+  'end': end,
+  'center': center,
+  'stretch': stretch
+);
+
+@each $name, $value in $alignments {
+  .justify-items-#{$name} { justify-items: $value; }
+  .align-items-#{$name} { align-items: $value; }
+  .place-items-#{$name} { place-items: $value; }
+
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+      .#{$breakpoint}\:justify-items-#{$name} {
+        justify-items: $value;
+      }
+      .#{$breakpoint}\:align-items-#{$name} {
+        align-items: $value;
+      }
+      .#{$breakpoint}\:place-items-#{$name} {
+        place-items: $value;
+      }
+    }
+  }
 }

@@ -3,14 +3,35 @@ $enable-dark-mode: true;
 $enable-rtl: false;
 $enable-reduced-motion: true;
 
-$column-count: 12;
+$column-count: 12 !default;
+
+$color-primary: #007bff !default;
+$color-secondary: #6c757d !default;
+$color-success: #28a745 !default;
+$color-danger: #dc3545 !default;
+$color-warning: #ffc107 !default;
+$color-info: #17a2b8 !default;
+$color-light: #f8f9fa !default;
+$color-dark: #1c1f22 !default;
+
+$colors: (
+  'primary': $color-primary,
+  'secondary': $color-secondary,
+  'success': $color-success,
+  'danger': $color-danger,
+  'warning': $color-warning,
+  'info': $color-info,
+  'light': $color-light,
+  'dark': $color-dark
+);
+
 // Breakpoints
 $breakpoints: (
   'sm': 640px,
   'md': 768px,
   'lg': 1024px,
   'xl': 1280px,
-  '2xl': 1536px,
+  'xxl': 1536px, 
 );
 
 // Container max-widths
@@ -19,32 +40,21 @@ $container-max-widths: (
   'md': 720px,
   'lg': 960px,
   'xl': 1140px,
-  '2xl': 1320px,
+  'xxl': 1320px,
 );
 
 // _variables.scss
 $font-sizes: (
-  '4xl': 2.5rem,
-  '3xl': 2rem,
-  '2xl': 1.75rem,
-  'xl': 1.5rem,
-  'lg': 1.25rem,
-  'md': 1rem,
-  'sm': 0.875rem,
-  'xs': 0.75rem
+  '4xl': 2.5rem,  // 40px
+  '3xl': 2rem,    // 32px
+  '2xl': 1.75rem, // 28px
+  'xl': 1.5rem,   // 24px
+  'lg': 1.25rem,  // 20px
+  'md': 1rem,     // 16px
+  'sm': 0.875rem, // 14px
+  'xs': 0.75rem   // 12px
 );
 
-// _variables.scss
-$colors: (
-  'primary': #007bff,
-  'secondary': #6c757d,
-  'success': #28a745,
-  'danger': #dc3545,
-  'warning': #ffc107,
-  'info': #17a2b8,
-  'light': #f8f9fa,
-  'dark': #343a40
-);
 
 // Column widths for auto-fit
 $column-widths: (

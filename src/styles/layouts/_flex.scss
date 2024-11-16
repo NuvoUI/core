@@ -1,33 +1,207 @@
-// Flex Container
-.flex {
-    display: flex;
+@use '../utilities/variables' as *;
+
+// Flex Container Mixins
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex-inline {
+  display: inline-flex;
+}
+
+// Direction Mixins
+@mixin flex-row {
+  flex-direction: row;
+}
+
+@mixin flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+@mixin flex-col {
+  flex-direction: column;
+}
+
+@mixin flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
+// Wrap Mixins
+@mixin flex-wrap {
+  flex-wrap: wrap;
+}
+
+@mixin flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+@mixin flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+// Main Axis Alignment Mixins
+@mixin justify-start {
+  justify-content: flex-start;
+}
+
+@mixin justify-end {
+  justify-content: flex-end;
+}
+
+@mixin justify-center {
+  justify-content: center;
+}
+
+@mixin justify-between {
+  justify-content: space-between;
+}
+
+@mixin justify-around {
+  justify-content: space-around;
+}
+
+@mixin justify-evenly {
+  justify-content: space-evenly;
+}
+
+// Cross Axis Alignment Mixins
+@mixin align-start {
+  align-items: flex-start;
+}
+
+@mixin align-end {
+  align-items: flex-end;
+}
+
+@mixin align-center {
+  align-items: center;
+}
+
+@mixin align-stretch {
+  align-items: stretch;
+}
+
+@mixin align-baseline {
+  align-items: baseline;
+}
+
+// Self Alignment Mixins
+@mixin self-auto {
+  align-self: auto;
+}
+
+@mixin self-start {
+  align-self: flex-start;
+}
+
+@mixin self-end {
+  align-self: flex-end;
+}
+
+@mixin self-center {
+  align-self: center;
+}
+
+@mixin self-stretch {
+  align-self: stretch;
+}
+
+// Flex Child Mixins
+@mixin flex-1 {
+  flex: 1 1 0%;
+}
+
+@mixin flex-auto {
+  flex: 1 1 auto;
+}
+
+@mixin flex-initial {
+  flex: 0 1 auto;
+}
+
+@mixin flex-none {
+  flex: none;
+}
+
+// Basis Mixins
+@mixin basis-none {
+  flex-basis: 0;
+}
+
+@mixin basis-auto {
+  flex-basis: auto;
+}
+
+@mixin basis-full {
+  flex-basis: 100%;
+}
+
+@mixin basis-1-2 {
+  flex-basis: 50%;
+}
+
+@mixin basis-1-3 {
+  flex-basis: 33.333333%;
+}
+
+@mixin basis-1-4 {
+  flex-basis: 25%;
+}
+
+// Classes
+.flex { @include flex; }
+.flex-inline { @include flex-inline; }
+
+.flex-row { @include flex-row; }
+.flex-row-reverse { @include flex-row-reverse; }
+.flex-col { @include flex-col; }
+.flex-col-reverse { @include flex-col-reverse; }
+
+.flex-wrap { @include flex-wrap; }
+.flex-nowrap { @include flex-nowrap; }
+.flex-wrap-reverse { @include flex-wrap-reverse; }
+
+.justify-start { @include justify-start; }
+.justify-end { @include justify-end; }
+.justify-center { @include justify-center; }
+.justify-between { @include justify-between; }
+.justify-around { @include justify-around; }
+.justify-evenly { @include justify-evenly; }
+
+.align-start { @include align-start; }
+.align-end { @include align-end; }
+.align-center { @include align-center; }
+.align-stretch { @include align-stretch; }
+.align-baseline { @include align-baseline; }
+
+.self-auto { @include self-auto; }
+.self-start { @include self-start; }
+.self-end { @include self-end; }
+.self-center { @include self-center; }
+.self-stretch { @include self-stretch; }
+
+// Flex values
+.flex-1 { @include flex-1; }
+.flex-auto { @include flex-auto; }
+.flex-initial { @include flex-initial; }
+.flex-none { @include flex-none; }
+
+// Basis Classes
+.basis-none { @include basis-none; }
+.basis-auto { @include basis-auto; }
+.basis-full { @include basis-full; }
+.basis-1-2 { @include basis-1-2; }
+.basis-1-3 { @include basis-1-3; }
+.basis-1-4 { @include basis-1-4; }
+
+// Responsive classes
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    .#{$breakpoint}\:basis-none { @include basis-none; }
+    .#{$breakpoint}\:basis-auto { @include basis-auto; }
+    .#{$breakpoint}\:basis-full { @include basis-full; }
+    .#{$breakpoint}\:basis-1-2 { @include basis-1-2; }
+    .#{$breakpoint}\:basis-1-3 { @include basis-1-3; }
+    .#{$breakpoint}\:basis-1-4 { @include basis-1-4; }
   }
-  
-  // Flex Direction
-  .flex-row { flex-direction: row; }
-  .flex-col { flex-direction: column; }
-  
-  // Modern naming convention for alignment
-  .main-start    { justify-content: flex-start; }
-  .main-end      { justify-content: flex-end; }
-  .main-center   { justify-content: center; }
-  .main-between  { justify-content: space-between; }
-  .main-around   { justify-content: space-around; }
-  .main-evenly   { justify-content: space-evenly; }
-  
-  .cross-start   { align-items: flex-start; }
-  .cross-end     { align-items: flex-end; }
-  .cross-center  { align-items: center; }
-  .cross-stretch { align-items: stretch; }
-  
-  // Gap system
-  .gap-auto { gap: auto; }
-  @each $key, $value in $spacing-units {
-    .gap-#{$key} { gap: $value; }
-  }
-  
-  // Flex child properties
-  .grow-0 { flex-grow: 0; }
-  .grow-1 { flex-grow: 1; }
-  .shrink-0 { flex-shrink: 0; }
-  .shrink-1 { flex-shrink: 1; }
+}

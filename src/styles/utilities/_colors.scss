@@ -1,7 +1,33 @@
-/* src/utilities/_colors.scss */
+@use "sass:math";
 @use './variables' as *;
 
 @each $color-name, $color-value in $colors {
     .text-#{$color-name} { color: $color-value; }
     .bg-#{$color-name} { background-color: $color-value; }
+}
+
+
+@function color-palette($color, $amount: 10) {
+    $palette: (
+    );
+
+    @for $i from 1 through $amount {
+        $shade: mix(white, $color, $i * (100 / $amount));
+        $palette: append($palette, $shade);
+    }
+
+    @return $palette;
+}
+
+@function lighten-darken-color($color, $amount) {
+    @return mix(if(lightness($color) > 50%, black, white), $color, $amount);
+}
+
+@mixin backdrop-filter($value) {
+    -webkit-backdrop-filter: $value;
+    backdrop-filter: $value;
+}
+
+@function hex-to-rgba($color, $alpha: 1) {
+    @return rgba(red($color), green($color), blue($color), $alpha);
 }

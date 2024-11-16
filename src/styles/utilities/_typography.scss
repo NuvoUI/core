@@ -1,0 +1,108 @@
+@use 'sass:map';
+// Import variables
+@use '../utilities/variables' as *;
+
+// Utilities for text sizes
+@mixin text-xs { font-size: map.get($font-sizes, 'xs'); }
+@mixin text-sm { font-size: map.get($font-sizes, 'sm'); }
+@mixin text-md { font-size: map.get($font-sizes, 'md'); }
+@mixin text-lg { font-size: map.get($font-sizes, 'lg'); }
+@mixin text-xl { font-size: map.get($font-sizes, 'xl'); }
+@mixin text-2xl { font-size: map.get($font-sizes, '2xl'); }
+@mixin text-3xl { font-size: map.get($font-sizes, '3xl'); }
+@mixin text-4xl { font-size: map.get($font-sizes, '4xl'); }
+
+// Font weights
+@mixin font-thin { font-weight: 100; }
+@mixin font-extralight { font-weight: 200; }
+@mixin font-light { font-weight: 300; }
+@mixin font-normal { font-weight: 400; }
+@mixin font-medium { font-weight: 500; }
+@mixin font-semibold { font-weight: 600; }
+@mixin font-bold { font-weight: 700; }
+@mixin font-extrabold { font-weight: 800; }
+@mixin font-black { font-weight: 900; }
+
+// Line heights
+@mixin leading-none { line-height: 1; }
+@mixin leading-tight { line-height: 1.25; }
+@mixin leading-snug { line-height: 1.375; }
+@mixin leading-normal { line-height: 1.5; }
+@mixin leading-relaxed { line-height: 1.625; }
+@mixin leading-loose { line-height: 2; }
+
+// Text alignment
+@mixin text-left { text-align: left; }
+@mixin text-center { text-align: center; }
+@mixin text-right { text-align: right; }
+@mixin text-justify { text-align: justify; }
+
+
+// Text transform mixins
+@mixin uppercase { text-transform: uppercase; }
+@mixin lowercase { text-transform: lowercase; }
+@mixin capitalize { text-transform: capitalize; }
+@mixin normal-case { text-transform: none; }
+
+// Font style mixins
+@mixin italic { font-style: italic; }
+@mixin not-italic { font-style: normal; }
+
+// Text decoration mixins
+@mixin underline { text-decoration: underline; }
+@mixin line-through { text-decoration: line-through; }
+@mixin no-underline { text-decoration: none; }
+
+// Text overflow mixin
+@mixin truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+
+// Generate text size utilities
+.text-xs { @include text-xs; }
+.text-sm { @include text-sm; }
+.text-md { @include text-md; }
+.text-lg { @include text-lg; }
+.text-xl { @include text-xl; }
+.text-2xl { @include text-2xl; }
+.text-3xl { @include text-3xl; }
+.text-4xl { @include text-4xl; }
+
+// Generate font weight utilities
+.font-thin { @include font-thin; }
+.font-extralight { @include font-extralight; }
+.font-light { @include font-light; }
+.font-normal { @include font-normal; }
+.font-medium { @include font-medium; }
+.font-semibold { @include font-semibold; }
+.font-bold { @include font-bold; }
+.font-extrabold { @include font-extrabold; }
+.font-black { @include font-black; }
+
+// Generate line height utilities
+.leading-none { @include leading-none; }
+.leading-tight { @include leading-tight; }
+.leading-snug { @include leading-snug; }
+.leading-normal { @include leading-normal; }
+.leading-relaxed { @include leading-relaxed; }
+.leading-loose { @include leading-loose; }
+
+// Generate text alignment utilities
+.text-left { @include text-left; }
+.text-center { @include text-center; }
+.text-right { @include text-right; }
+.text-justify { @include text-justify; }
+
+// Classes using mixins
+.uppercase { @include uppercase; }
+.lowercase { @include lowercase; }
+.capitalize { @include capitalize; }
+.normal-case { @include normal-case; }
+
+.italic { @include italic; }
+.not-italic { @include not-italic; }
+
+.underline { @include underline; }
+.line-through { @include line-through; }
+.no-underline { @include no-underline; }
+
+.truncate { @include truncate; }

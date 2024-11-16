@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use '../utilities/variables' as *;
+
+// Container mixins
+@mixin container-base {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@mixin container {
+  @include container-base;
+  & {
+    @each $breakpoint, $width in $container-max-widths {
+      @media (min-width: map.get($breakpoints, $breakpoint)) {
+          max-width: $width;
+      }
+    }
+  }
+}
+
+@mixin container-flex {
+  display: flex;
+  @include container;
+}
+
+@mixin container-grid {
+  display: grid;
+  @include container;
+}
+
+// Container classes
+.container {
+  @include container;
+}
+
+.container-flex {
+  @include container-flex;
+}
+
+.container-grid {
+  @include container-grid;
+}
+
+.container-fluid {
+  @include container-base;
+}

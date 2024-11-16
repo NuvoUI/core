@@ -1,0 +1,75 @@
+@use 'sass:map';
+
+// Import variables
+@use '../utilities/variables' as *;
+
+// Base typography styles
+html {
+  font-size: 16px;
+  font-family: var(--font-family-base);
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5em;
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: map.get($font-sizes, '4xl');
+}
+
+h2 {
+  font-size: map.get($font-sizes, '3xl');
+}
+
+h3 {
+  font-size: map.get($font-sizes, '2xl');
+}
+
+h4 {
+  font-size: map.get($font-sizes, 'xl');
+}
+
+h5 {
+  font-size: map.get($font-sizes, 'lg');
+}
+
+h6 {
+  font-size: map.get($font-sizes, 'base');
+}
+
+// Paragraphs
+p {
+  margin-bottom: 1rem;
+}
+
+// Small text
+small {
+  font-size: map.get($font-sizes, 'sm');
+}
+
+// Links
+a {
+  color: var(--link-color);
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--link-hover-color);
+  }
+}
+
+// Lists
+ul, ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}

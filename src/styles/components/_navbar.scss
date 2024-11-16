@@ -1,0 +1,125 @@
+// _navbar.scss
+
+@use '../utilities/variables' as *;
+@use '../utilities/shadows' as *;
+@use '../layouts/container' as Container;
+@use '../layouts/flex' as Flex;
+@use '../layouts/grid' as Grid;
+
+:root {
+    --shadow-color: 255, 0, 0;
+}
+
+.navbar {
+
+    @include Flex.justify-between;
+    @include Container.container-flex;
+
+    // @include Grid.grid-flow-row;
+    // @include Grid.grid-flow-col;
+    // @include Grid.grid-cols(2);
+    // @include Container.container-grid;
+
+    & {
+        @include Flex.align-center;
+        // @include shadow('md', 'colored');
+
+        background-color: var(--nav-bg);
+
+        &:hover {
+            @include shadow('lg', 'dark');
+        }
+
+        .logo {
+            img {
+                max-height: 40px;
+                width: auto;
+            }
+        }
+
+        .menu {
+            @include Flex.flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                position: relative;
+
+                a {
+                    display: block;
+                    padding: 1rem;
+                    text-decoration: none;
+                    color: var(--nav-text);
+                    transition: background-color 0.2s ease-in-out;
+
+                    &:hover {
+                        background-color: var(--nav-hover);
+                    }
+                }
+
+                // Dropdown styles
+                &:hover>.submenu {
+                    display: block;
+                    visibility: visible;
+                    opacity: 1;
+                    pointer-events: auto; // Re-enable interactions
+                }
+            }
+        }
+
+        .submenu {
+            background-color: white;
+            display: block;
+            visibility: hidden; // Use visibility instead of display
+            pointer-events: none; // Prevents interaction when hidden
+            opacity: 0;
+
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+            // Animation
+            transition:
+                opacity 0.2s ease-in-out,
+                visibility 0.2s ease-in-out;
+
+            li {
+                a {
+                    padding: 0.75rem 1rem;
+                }
+            }
+
+            // Nested dropdowns
+            .submenu {
+                top: 0;
+                left: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+
+            .menu {
+                flex-direction: column;
+                width: 100%;
+
+                .submenu {
+                    position: static;
+                    display: none;
+                    width: 100%;
+
+                    li a {
+                        padding-left: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}

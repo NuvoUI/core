@@ -1,26 +1,43 @@
 {
-  "name": "NuvoUI",
+  "name": "@nuvoui/core",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "NuvoUI Core SCSS Library",
+  "main": "dist/index.css",
+  "module": "src/styles/index.scss",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "build": "vite build && npm run build:scss",
+    "build:scss": "sass src/styles/index.scss:dist/index.css --style compressed",
+    "prepare": "npm run build"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "scss",
+    "css",
+    "nuvoui",
+    "ui-library"
+  ],
+  "author": "AALA IT Solutions",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "concurrently": "^9.0.1",
     "cssnano": "^7.0.6",
-    "postcss": "^8.4.47",
+    "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
-    "postcss-apply": "^0.12.0",
-    "postcss-nested": "^7.0.0",
-    "sass": "^1.80.5",
-    "vite": "^4.5.5"
+    "postcss-nested": "^7.0.2",
+    "sass": "^1.81.0",
+    "vite": "^5.4.11"
+  },
+  "peerDependencies": {
+    "sass": "^1.x"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

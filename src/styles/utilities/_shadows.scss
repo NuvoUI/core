@@ -1,0 +1,107 @@
+// _shadows.scss
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
+@use './variables' as *;
+
+
+// Shadow Variables
+$shadow-colors: (
+  'default': rgba(0, 0, 0, 0.1),
+  'dark': rgba(0, 0, 0, 0.2),
+  'darker': rgba(0, 0, 0, 0.35),
+  'darkest': rgba(0, 0, 0, 0.5),
+);
+
+$shadow-sizes: (
+  'sm': (
+    'x': 0,
+    'y': 1px,
+    'blur': 2px,
+    'spread': 0
+  ),
+  'md': (
+    'x': 0,
+    'y': 4px,
+    'blur': 6px,
+    'spread': -1px
+  ),
+  'lg': (
+    'x': 0,
+    'y': 10px,
+    'blur': 15px,
+    'spread': -3px
+  ),
+  'xl': (
+    'x': 0,
+    'y': 20px,
+    'blur': 25px,
+    'spread': -5px
+  ),
+  'hero': (
+    'x': 0,
+    'y': 20px,
+    'blur': 25px,
+    'spread': 5px
+  ),
+  'monster': (
+    'x': 0,
+    'y': 20px,
+    'blur': 55px,
+    'spread': 20px
+  )
+);
+
+// Shadow Mixins
+@mixin shadow-base($x, $y, $blur, $spread, $color) {
+  transition: box-shadow 0.2s ease-in-out;
+  box-shadow: $x $y $blur $spread $color;
+}
+
+@mixin shadow($size: 'md', $color: 'default') {
+  $shadow: map.get($shadow-sizes, $size);
+
+  $shadow-color: map.get($shadow-colors, $color);
+  @include shadow-base(
+    map.get($shadow, 'x'),
+    map.get($shadow, 'y'),
+    map.get($shadow, 'blur'),
+    map.get($shadow, 'spread'),
+    $shadow-color
+  );
+}
+
+@mixin shadow-inset($size: 'md', $color: 'default') {
+  $shadow: map.get($shadow-sizes, $size);
+  $shadow-color: map.get($shadow-colors, $color);
+  
+  box-shadow: inset map.get($shadow, 'x') map.get($shadow, 'y') 
+             map.get($shadow, 'blur') map.get($shadow, 'spread') 
+             $shadow-color;
+}
+
+// Utility Classes
+.shadow-none {
+  box-shadow: none;
+}
+
+@each $size, $values in $shadow-sizes {
+  .shadow-#{$size} {
+    @include shadow($size);
+  }
+  
+  .shadow-#{$size}-dark {
+    @include shadow($size, 'dark');
+  }
+  
+  .shadow-inset-#{$size} {
+    @include shadow-inset($size);
+  }
+}
+
+// Hover variants
+.shadow-hover {
+  &:hover {
+    @include shadow('lg');
+  }
+}
