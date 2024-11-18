@@ -1,5 +1,8 @@
 # NuvoUI
 
+[![](https://dcbadge.limes.pink/api/server/nWGsbQKE?style=flat&theme=default-inverted)](https://discord.gg/nWGsbQKE)
+
+
 NuvoUI isn’t your next shiny, over-engineered UI library. It’s raw, lightweight, and built for one thing: delivering responsive, clean designs fast. If you’re tired of bloated frameworks slowing you down, welcome to NuvoUI.
 
 ---
@@ -28,7 +31,7 @@ But wait, there is more... lets make it fully responsei
     py-80@lg
     outline" >...
 ```
-This will 
+This will be
 
 1. Use `padding-left: 40px;` and `padding-right: 40px;` as base
 2. Use `padding-left: 20px;` and `padding-right: 20px;` @ small screen
