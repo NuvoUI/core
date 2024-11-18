@@ -52,23 +52,22 @@
         // Generate utilities from spacing map
         @each $i in $spacings {
             // Padding classes
-            .#{$breakpoint}\:p-#{$i} { @include p($i); }
-            .#{$breakpoint}\:px-#{$i} { @include px($i); }
-            .#{$breakpoint}\:py-#{$i} { @include py($i); }
-            .#{$breakpoint}\:pt-#{$i} { @include pt($i); }
-            .#{$breakpoint}\:pr-#{$i} { @include pr($i); }
-            .#{$breakpoint}\:pb-#{$i} { @include pb($i); }
-            .#{$breakpoint}\:pl-#{$i} { @include pl($i); }
+            .p-#{$i}\@#{$breakpoint} { @include p($i); }
+            .px-#{$i}\@#{$breakpoint} { @include px($i); }
+            .py-#{$i}\@#{$breakpoint} { @include py($i); }
+            .pt-#{$i}\@#{$breakpoint} { @include pt($i); }
+            .pr-#{$i}\@#{$breakpoint} { @include pr($i); }
+            .pb-#{$i}\@#{$breakpoint} { @include pb($i); }
+            .pl-#{$i}\@#{$breakpoint} { @include pl($i); }
 
             // Margin classes
-            .#{$breakpoint}\:m-#{$i} { @include m($i); }
-            .#{$breakpoint}\:mx-#{$i} { @include mx($i); }
-            .#{$breakpoint}\:my-#{$i} { @include my($i); }
-            .#{$breakpoint}\:mt-#{$i} { @include mt($i); }
-            .#{$breakpoint}\:mr-#{$i} { @include mr($i); }
-            .#{$breakpoint}\:mb-#{$i} { @include mb($i); }
-            .#{$breakpoint}\:ml-#{$i} { @include ml($i); }
-            // .gap-#{$key} { gap: $value; }
+            .m-#{$i}\@#{$breakpoint} { @include m($i); }
+            .mx-#{$i}\@#{$breakpoint} { @include mx($i); }
+            .my-#{$i}\@#{$breakpoint} { @include my($i); }
+            .mt-#{$i}\@#{$breakpoint} { @include mt($i); }
+            .mr-#{$i}\@#{$breakpoint} { @include mr($i); }
+            .mb-#{$i}\@#{$breakpoint} { @include mb($i); }
+            .ml-#{$i}\@#{$breakpoint} { @include ml($i); }
         }
     }
 }

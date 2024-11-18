@@ -92,47 +92,45 @@
 // Responsive variants
 @each $breakpoint, $width in $breakpoints {
   @media (min-width: $width) {
-    .#{$breakpoint}\: {
-      // Direction
-      &row { flex-direction: row; }
-      &row-reverse { flex-direction: row-reverse; }
-      &col { flex-direction: column; }
-      &col-reverse { flex-direction: column-reverse; }
-      
-      // Wrap
-      &wrap { flex-wrap: wrap; }
-      &nowrap { flex-wrap: nowrap; }
-      &wrap-reverse { flex-wrap: wrap-reverse; }
-      
-      // Justify
-      &start { justify-content: flex-start; }
-      &end { justify-content: flex-end; }
-      &center { justify-content: center; }
-      &between { justify-content: space-between; }
-      &around { justify-content: space-around; }
-      &evenly { justify-content: space-evenly; }
-      
-      // Align
-      &items-start { align-items: flex-start; }
-      &items-end { align-items: flex-end; }
-      &items-center { align-items: center; }
-      &items-baseline { align-items: baseline; }
-      &items-stretch { align-items: stretch; }
-      
-      // Width (using column count)
-      &w-auto { flex: 1 1 auto; }
-      &w-full { flex: 0 0 100%; }
-      
-      @for $i from 1 through $column-count {
-        &w-#{$i} {
-          flex: 0 0 math.percentage(math.div($i, $column-count));
-        }
+    // Direction
+    .flex.row\@#{$breakpoint} { flex-direction: row; }
+    .flex.row-reverse\@#{$breakpoint} { flex-direction: row-reverse; }
+    .flex.col\@#{$breakpoint} { flex-direction: column; }
+    .flex.col-reverse\@#{$breakpoint} { flex-direction: column-reverse; }
+    
+    // Wrap
+    .flex.wrap\@#{$breakpoint} { flex-wrap: wrap; }
+    .flex.nowrap\@#{$breakpoint} { flex-wrap: nowrap; }
+    .flex.wrap-reverse\@#{$breakpoint} { flex-wrap: wrap-reverse; }
+    
+    // Justify
+    .flex.start\@#{$breakpoint} { justify-content: flex-start; }
+    .flex.end\@#{$breakpoint} { justify-content: flex-end; }
+    .flex.center\@#{$breakpoint} { justify-content: center; }
+    .flex.between\@#{$breakpoint} { justify-content: space-between; }
+    .flex.around\@#{$breakpoint} { justify-content: space-around; }
+    .flex.evenly\@#{$breakpoint} { justify-content: space-evenly; }
+
+    // Align
+    .flex.items-start\@#{$breakpoint} { align-items: flex-start; }
+    .flex.items-end\@#{$breakpoint} { align-items: flex-end; }
+    .flex.items-center\@#{$breakpoint} { align-items: center; }
+    .flex.items-baseline\@#{$breakpoint} { align-items: baseline; }
+    .flex.items-stretch\@#{$breakpoint} { align-items: stretch; }
+    
+    // Width (using column count)
+    .flex.w-auto\@#{$breakpoint} { flex: 1 1 auto; }
+    .flex.w-full\@#{$breakpoint} { flex: 0 0 100%; }
+    
+    @for $i from 1 through $column-count {
+      .flex.w-#{$i}\@#{$breakpoint} {
+        flex: 0 0 math.percentage(math.div($i, $column-count));
       }
-      
-      // Gap
-      @for $i from 0 through 8 {
-        &gap-#{$i} { gap: #{$i * 0.25}rem; }
-      }
+    }
+    
+    // Gap
+    @for $i from 0 through 8 {
+      .flex.gap-#{$i}\@#{$breakpoint} { gap: #{$i * 0.25}rem; }
     }
   }
 }

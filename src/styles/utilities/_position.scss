@@ -44,19 +44,19 @@
 // Responsive Position Classes
 @each $breakpoint, $width in $breakpoints {
   @media (min-width: $width) {
-    .#{$breakpoint}\:p-static {
+    .p-static\@#{$breakpoint} {
       @include p-static;
     }
-    .#{$breakpoint}\:p-relative {
+    .p-relative\@#{$breakpoint} {
       @include p-relative;
     }
-    .#{$breakpoint}\:p-absolute {
+    .p-absolute\@#{$breakpoint} {
       @include p-absolute;
     }
-    .#{$breakpoint}\:p-fixed {
+    .p-fixed\@#{$breakpoint} {
       @include p-fixed;
     }
-    .#{$breakpoint}\:p-sticky {
+    .p-sticky\@#{$breakpoint} {
       @include p-sticky;
     }
   }

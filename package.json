@@ -1,6 +1,6 @@
 {
   "name": "@nuvoui/core",
-  "version": "1.0.0",
+  "version": "0.2.1",
   "description": "NuvoUI Core SCSS Library",
   "main": "dist/index.css",
   "module": "src/styles/index.scss",
@@ -12,16 +12,33 @@
     "dev": "vite",
     "build": "vite build && npm run build:scss",
     "build:scss": "sass src/styles/index.scss:dist/index.css --style compressed",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "lint": "stylelint \"src/**/*.scss\"",
+    "format": "prettier --write \"src/**/*.{scss,js,json}\"",
+    "clean": "rimraf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NuvoUI/core.git"
   },
   "keywords": [
     "scss",
     "css",
     "nuvoui",
-    "ui-library"
+    "ui-library",
+    "design-system",
+    "frontend",
+    "responsive",
+    "modern"
   ],
-  "author": "AALA IT Solutions",
-  "license": "ISC",
+  "author": {
+    "name": "AALA IT Solutions",
+    "url": "https://aalasolutions.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NuvoUI/core/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
