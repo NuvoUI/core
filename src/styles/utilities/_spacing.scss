@@ -106,3 +106,14 @@
     .gap-x-#{$i} { @include gap-x($i); }
     .gap-y-#{$i} { @include gap-y($i); }
 }
+
+// Responsive Gap Classes
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    @each $i in $spacings {
+      .gap-#{$i}\@#{$breakpoint} { gap: $i; }
+      .gap-x-#{$i}\@#{$breakpoint} { column-gap: $i; }
+      .gap-y-#{$i}\@#{$breakpoint} { row-gap: $i; }
+    }
+  }
+}

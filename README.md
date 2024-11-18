@@ -71,7 +71,7 @@ Another example
 img:nth-child(1) {
     @include NuvoUI.mx-auto;
     @include NuvoUI.my(40);
-    @include NuvoUI.animate-move((
+    @include NuvoUI.animate-bounce((
         horizontal: 3%,
         duration: 25s,
     ));

@@ -1,0 +1,42 @@
+@use "sass:math";
+@use 'sass:color';
+@use 'sass:map';
+
+@use './variables' as *;
+
+
+
+// Display Mixins
+@mixin d-none { display: none; }
+@mixin d-block { display: block; }
+@mixin d-inline { display: inline; }
+@mixin d-inline-block { display: inline-block; }
+@mixin d-table { display: table; }
+@mixin d-table-row { display: table-row; }
+@mixin d-table-cell { display: table-cell; }
+
+// Base Classes
+.hide { @include d-none; }
+.block { @include d-block; }
+.inline { @include d-inline; }
+.inline-block { @include d-inline-block; }
+.d {
+  &-table { @include d-table; }
+  &-table-row { @include d-table-row; }
+  &-table-cell { @include d-table-cell; }
+}
+
+// Responsive Variants
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    .hide\@#{$breakpoint} { @include d-none; }
+    .block\@#{$breakpoint} { @include d-block; }
+    .inline\@#{$breakpoint} { @include d-inline; }
+    .inline-block\@#{$breakpoint} { @include d-inline-block; }
+    .d {
+      &-table\@#{$breakpoint} { @include d-table; }
+      &-table-row\@#{$breakpoint} { @include d-table-row; }
+      &-table-cell\@#{$breakpoint} { @include d-table-cell; }
+    }
+  }
+}

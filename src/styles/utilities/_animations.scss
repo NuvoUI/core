@@ -24,8 +24,7 @@ $generated-keyframes: ();
     }
 }
 
-
-@mixin animate-move($props) {
+@mixin animate-bounce($props) {
     $defaults: (
         vertical: 0%,
         horizontal: 0%,

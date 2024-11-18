@@ -74,11 +74,6 @@
   &.items-baseline { align-items: baseline; }
   &.items-stretch { align-items: stretch; }
   
-  // Gap modifiers
-  @for $i from 0 through 8 {
-    &.gap-#{$i} { gap: #{$i * 0.25}rem; }
-  }
-  
   // Child flex items (using column count)
   > .w-auto { @include w-auto }
   > .w-full { @include w-full }
@@ -121,11 +116,6 @@
       &.items-center\@#{$breakpoint} { align-items: center; }
       &.items-baseline\@#{$breakpoint} { align-items: baseline; }
       &.items-stretch\@#{$breakpoint} { align-items: stretch; }
-      
-      // Gap
-      @for $i from 0 through 8 {
-        &.gap-#{$i}\@#{$breakpoint} { gap: #{$i * 0.25}rem; }
-      }
 
       // Width (using column count)
       & > .w-auto\@#{$breakpoint} { flex: 1 1 auto; }
@@ -137,8 +127,6 @@
           flex: 0 0 math.percentage(math.div($i, $column-count));
         }
       }
-      
-     
     }
   }
 }

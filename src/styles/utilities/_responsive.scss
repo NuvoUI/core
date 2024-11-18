@@ -1,0 +1,183 @@
+@use 'sass:map';
+@use './variables' as *;
+
+// Breakpoint mixins
+@mixin media-up($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else if type-of($breakpoint) == number {
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin media-down($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 0.02px)) {
+      @content;
+    }
+  } @else if type-of($breakpoint) == number {
+    @media screen and (max-width: ($breakpoint - 0.02px)) {
+      @content;
+    }
+  }
+}
+
+@mixin media-between($lower, $upper) {
+  @if map.has-key($breakpoints, $lower) and map.has-key($breakpoints, $upper) {
+    @media screen and (min-width: map.get($breakpoints, $lower)) and 
+           (max-width: (map.get($breakpoints, $upper) - 0.02px)) {
+      @content;
+    }
+  }
+}
+
+// Only at specific breakpoint
+@mixin media-only($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $min: map.get($breakpoints, $breakpoint);
+    $next-breakpoint: null;
+    
+    @each $name, $width in $breakpoints {
+      @if $width > $min and ($next-breakpoint == null or $width < $next-breakpoint) {
+        $next-breakpoint: $width;
+      }
+    }
+    
+    @if $next-breakpoint {
+      @media (min-width: $min) and (max-width: $next-breakpoint - 1) {
+        @content;
+      }
+    } @else {
+      @media (min-width: $min) {
+        @content;
+      }
+    }
+  }
+}
+
+// Example: @include container(45em) { }
+@mixin container-query($size) {
+  @container (min-width: $size) {
+    @content;
+  }
+}
+
+// Touch devices
+@mixin touch {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+// Print media
+@mixin print {
+  @media print {
+    @content;
+  }
+}
+
+// Retina displays
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// Modern feature detection
+// Example: @include supports(display: grid) { }
+@mixin supports($property) {
+  @supports #{$property} {
+    @content;
+  }
+}
+
+// Reduced motion preference
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// High contrast mode
+@mixin high-contrast {
+  @media (forced-colors: active) {
+    @content;
+  }
+}
+
+// Dark mode
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// Device orientation
+@mixin landscape {
+  @media screen and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media screen and (orientation: portrait) {
+    @content;
+  }
+}
+
+// Modern hover capabilities
+@mixin hover-device {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+// Modern aspect ratio
+@mixin aspect-ratio($ratio) {
+  @supports (aspect-ratio: #{$ratio}) {
+    aspect-ratio: #{$ratio};
+  }
+  
+  @supports not (aspect-ratio: #{$ratio}) {
+    &::before {
+      float: left;
+      padding-top: percentage(1 / $ratio);
+      content: '';
+    }
+    
+    &::after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+  }
+}
+
+// Dynamic viewport units (modern browsers)
+@mixin dvh {
+  @supports (height: 100dvh) {
+    height: 100dvh;
+  }
+  
+  @supports not (height: 100dvh) {
+    height: 100vh;
+  }
+}
+
+// Safe area insets (notches, home indicators)
+@mixin safe-area-inset($property, $position) {
+  #{$property}: env(safe-area-inset-#{$position});
+}
+
+// Color scheme transition
+@mixin color-scheme-transition {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+
