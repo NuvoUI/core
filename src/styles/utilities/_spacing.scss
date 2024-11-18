@@ -24,7 +24,7 @@
 
 
 // Generate utilities from spacing map
-@for $i from 0 through 100 {
+@each $i in $spacings {
     // Padding classes
     .p-#{$i} { @include p($i); }
     .px-#{$i} { @include px($i); }
@@ -45,14 +45,44 @@
     // .gap-#{$key} { gap: $value; }
 }
 
-// Auto margin utilities
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
+
+// Responsive Position Classes
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+        // Generate utilities from spacing map
+        @each $i in $spacings {
+            // Padding classes
+            .#{$breakpoint}\:p-#{$i} { @include p($i); }
+            .#{$breakpoint}\:px-#{$i} { @include px($i); }
+            .#{$breakpoint}\:py-#{$i} { @include py($i); }
+            .#{$breakpoint}\:pt-#{$i} { @include pt($i); }
+            .#{$breakpoint}\:pr-#{$i} { @include pr($i); }
+            .#{$breakpoint}\:pb-#{$i} { @include pb($i); }
+            .#{$breakpoint}\:pl-#{$i} { @include pl($i); }
+
+            // Margin classes
+            .#{$breakpoint}\:m-#{$i} { @include m($i); }
+            .#{$breakpoint}\:mx-#{$i} { @include mx($i); }
+            .#{$breakpoint}\:my-#{$i} { @include my($i); }
+            .#{$breakpoint}\:mt-#{$i} { @include mt($i); }
+            .#{$breakpoint}\:mr-#{$i} { @include mr($i); }
+            .#{$breakpoint}\:mb-#{$i} { @include mb($i); }
+            .#{$breakpoint}\:ml-#{$i} { @include ml($i); }
+            // .gap-#{$key} { gap: $value; }
+        }
+    }
 }
 
-.ml-auto { margin-left: auto; }
-.mr-auto { margin-right: auto; }
+// Auto margin utilities
+@mixin ml-auto { margin-left: auto; }
+@mixin mr-auto { margin-right: auto; }
+@mixin mx-auto { @include ml-auto; @include mr-auto; }
+
+.mx-auto { @include mx-auto; }
+
+
+.ml-auto { @include ml-auto; }
+.mr-auto { @include mr-auto; }
 
 
 
@@ -72,7 +102,7 @@
 // Gap Classes
 .gap-auto { gap: auto; }
 
-@for $i from 0 through 100 {
+@each $i in $spacings {
     .gap-#{$i} { @include gap($i); }
     .gap-x-#{$i} { @include gap-x($i); }
     .gap-y-#{$i} { @include gap-y($i); }

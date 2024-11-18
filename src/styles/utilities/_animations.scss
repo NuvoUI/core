@@ -1,0 +1,135 @@
+@use 'sass:list';
+
+@use 'sass:map';
+@use './functions' as *;
+
+$generated-keyframes: ();
+
+
+@mixin generateBounceKeyframes($keyframeName, $x, $y) {
+    @if not list.index($generated-keyframes, $keyframeName) {
+        $generated-keyframes: list.append($generated-keyframes, $keyframeName) !global;
+        
+        @keyframes #{$keyframeName} {
+            0% {
+                transform: translateX(-#{$x}) translateY(-#{$y});
+            }
+            50% {
+                transform: translateX(#{$x}) translateY(#{$y});
+            }
+            100% {
+                transform: translateX(-#{$x}) translateY(-#{$y});
+            }
+        }
+    }
+}
+
+
+@mixin animate-move($props) {
+    $defaults: (
+        vertical: 0%,
+        horizontal: 0%,
+        duration: 5s,
+        timing: ease-in-out,
+        iteration: infinite
+    );
+    // Merge with defaults
+    $props: map.merge($defaults, $props);
+
+    $x: map.get($props, 'vertical');
+    $y: map.get($props, 'horizontal');
+    $duration: map.get($props, 'duration');
+    $easing: map.get($props, 'timing');
+    $iteration: map.get($props, 'iteration');
+    
+    // Handle units
+    $x-unit: if($x, safe-unit-name(get-unit($x)), '-');
+    $y-unit: if($y, safe-unit-name(get-unit($y)), '-');
+    
+    // Clean values (remove units)
+    $cleanX: if($x, strip-unit($x), 0);
+    $cleanY: if($y, strip-unit($y), 0);
+
+    $animationName: anim-bounce-#{$cleanX}#{$x-unit}-#{$cleanY}#{$y-unit};
+
+
+    & {
+        animation: #{$animationName} $duration $easing $iteration;
+    }
+    @include generateBounceKeyframes($animationName, $x, $y);
+}
+
+
+@keyframes fade-in-reveal {
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+    .anim__fade-in-reveal {
+        scale: .2;
+        opacity: 0.7;
+
+        animation: fade-in-reveal linear forwards;
+        animation-timeline: view();
+
+        animation-range-start: cover;
+        animation-range-end: 550px;
+
+        // animation-range: enter;
+        // animation-range: exit;
+    }
+}
+
+@keyframes fadeOutAndCollapse {
+    0% {
+        opacity: 1;
+        bottom: 0px;
+        height: auto;
+    }
+    50% {
+        bottom: -500px;
+        opacity: 0;
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+
+
+
+// @keyframes moveVertical {
+//     0% {
+//       transform: translateY(-5%);
+//     }
+  
+//     50% {
+//       transform: translateY(5%);
+//     }
+  
+//     100% {
+//       transform: translateY(-5%);
+//     }
+//   }
+  
+//   @keyframes moveHorizontal {
+//     0% {
+//       transform: translateX(-50%) translateY(-10%);
+//     }
+  
+//     50% {
+//       transform: translateX(50%) translateY(10%);
+//     }
+  
+//     100% {
+//       transform: translateX(-50%) translateY(-10%);
+//     }
+//   }
+  

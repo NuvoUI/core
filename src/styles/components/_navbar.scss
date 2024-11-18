@@ -12,7 +12,7 @@
 
 .navbar {
 
-    @include Flex.justify-between;
+    @include Flex.between;
     @include Container.container-flex;
 
     // @include Grid.grid-flow-row;

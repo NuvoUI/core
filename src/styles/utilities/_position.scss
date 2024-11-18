@@ -41,6 +41,28 @@
   @include p-sticky;
 }
 
+// Responsive Position Classes
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    .#{$breakpoint}\:p-static {
+      @include p-static;
+    }
+    .#{$breakpoint}\:p-relative {
+      @include p-relative;
+    }
+    .#{$breakpoint}\:p-absolute {
+      @include p-absolute;
+    }
+    .#{$breakpoint}\:p-fixed {
+      @include p-fixed;
+    }
+    .#{$breakpoint}\:p-sticky {
+      @include p-sticky;
+    }
+  }
+}
+
+
 // Top, Right, Bottom, Left Mixins
 @mixin top($value) {
   top: if($value == 0, $value, $value + px);

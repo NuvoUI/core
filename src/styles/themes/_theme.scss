@@ -96,54 +96,20 @@ $opacity-levels: (
   --nav-border: var(--border-color);
 
   // Tooltip
-  --tooltip-bg: #{if($theme == 'light', map.get($colors, 'dark'), map.get($colors, 'light'))};
-  --tooltip-text: #{if($theme == 'light', map.get($colors, 'light'), map.get($colors, 'dark'))};
-  --tooltip-shadow-color: #{if($theme == 'light', '0,0,0', '255,255,255')};
-  --microtip-transition-duration: 0.18s;
-  --microtip-transition-delay: 0s;
-  --microtip-transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --tooltip-bg: var(--dark);
+  --tooltip-text: var(--light);
+  --tooltip-shadow-color: rgba(0,0,0,0.4);
+  --microtip-transition-duration: 0.518s;
+  --microtip-transition-delay: .2s;
+  --microtip-transition-easing: cubic-bezier(0.16, 1, 0.9, 1);
   --microtip-font-size: 0.875rem;
-  --microtip-font-weight: 500;
+  --microtip-font-weight: 300;
   --microtip-text-transform: none;
 
   // Shadow
   // --shadow-color: #{if($theme == 'light', '0,0,0', '255,255,255')};
   // --shadow-opacity: #{if($theme == 'light', 0.1, 0.5)};
 }
-
-// --shadow-color: 255,0,0
-
-
-// --border-color
-// --bg-secondary
-// --border-color-dark
-// --primary-dark
-
-
-
-
-
-// --font-family-base
-// --font-family-heading
-// --text-primary
-// --link-color
-// --link-hover-color
-// --nav-bg
-// --nav-hover
-// --nav-text
-
-
-
-// // todo: in display.scss file not uesed
-// --microtip-transition-duration
-// --microtip-transition-delay
-// --microtip-transition-easing
-// --microtip-text-transform
-// --microtip-font-weight
-// --microtip-font-size
-
-
-
 
 /**
 .btn-primary {

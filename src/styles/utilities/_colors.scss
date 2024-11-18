@@ -1,4 +1,7 @@
 @use "sass:math";
+@use 'sass:color';
+@use 'sass:map';
+
 @use './variables' as *;
 
 @each $color-name, $color-value in $colors {
@@ -6,28 +9,150 @@
     .bg-#{$color-name} { background-color: $color-value; }
 }
 
+// Modern Color System 
+// _colors.scss
 
-@function color-palette($color, $amount: 10) {
-    $palette: (
-    );
+// Color Validation
+@function is-valid-color($color) {
+    @return type-of($color) == 'color';
+}
 
-    @for $i from 1 through $amount {
-        $shade: mix(white, $color, $i * (100 / $amount));
-        $palette: append($palette, $shade);
+// Modern Color Spaces
+@function to-lch($color) {
+    @if not is-valid-color($color) {
+        @error "Invalid color provided to to-lch";
     }
-
-    @return $palette;
+    @return color.adjust($color, $space: lch);
 }
 
-@function lighten-darken-color($color, $amount) {
-    @return mix(if(lightness($color) > 50%, black, white), $color, $amount);
+@function adaptive-color($color, $lightness-shift) {
+    @return color.adjust($color, $space: lch, $lightness: $lightness-shift);
 }
 
+// Semantic Color System
+@function get-surface-color($color, $elevation) {
+    $lch-color: to-lch($color);
+    @return color.adjust($lch-color, 
+        $lightness: if($elevation > 0, 5 * $elevation, 0)
+    );
+}
+
+// Color Harmony Generation
+@function complementary($color) {
+    @return adjust-hue($color, 180);
+}
+
+@function triadic($color) {
+    @return (
+        $color,
+        adjust-hue($color, 120),
+        adjust-hue($color, 240)
+    );
+}
+
+@function split-complementary($color) {
+    @return (
+        $color,
+        adjust-hue($color, 150),
+        adjust-hue($color, 210)
+    );
+}
+
+@function get-accent-palette($primary, $accent-angle: 45deg) {
+    $lch: to-lch($primary);
+    @return (
+        subtle: color.adjust($lch, $lightness: 15%, $hue: $accent-angle),
+        vibrant: color.adjust($lch, $saturation: 20%, $hue: $accent-angle * 2)
+    );
+}
+
+// Color Scale Generation
+@function create-scale($color, $steps: 9) {
+    $scale: ();
+    $lch-color: to-lch($color);
+    
+    @for $i from 0 through $steps {
+        $lightness: 95 - ($i * (90 / $steps));
+        $new-color: color.adjust($lch-color, $lightness: $lightness);
+        $scale: append($scale, $new-color);
+    }
+    
+    @return $scale;
+}
+
+// Color Relationship Functions
+@function find-text-color($background) {
+    $luminance: luminance($background);
+    @return if($luminance > 0.55, #000, #fff);
+}
+
+// Luminance Calculation
+@function luminance($color) {
+    $r: red($color) / 255;
+    $g: green($color) / 255;
+    $b: blue($color) / 255;
+    
+    $r: if($r <= 0.03928, $r / 12.92, pow(($r + 0.055) / 1.055, 2.4));
+    $g: if($g <= 0.03928, $g / 12.92, pow(($g + 0.055) / 1.055, 2.4));
+    $b: if($b <= 0.03928, $b / 12.92, pow(($b + 0.055) / 1.055, 2.4));
+    
+    @return $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
+}
+
+// Contrast Calculations
+@function get-contrast-ratio($foreground, $background) {
+    $l1: luminance($foreground) + 0.05;
+    $l2: luminance($background) + 0.05;
+    @return if($l1 > $l2, $l1 / $l2, $l2 / $l1);
+}
+
+// Color Validation
+@function has-sufficient-contrast($text, $background) {
+    $contrast: get-contrast-ratio($text, $background);
+    @return $contrast >= 4.5;
+}
+
+// Context-Aware Colors
+@mixin adaptive-contrast($background) {
+    background: $background;
+    color: find-text-color($background);
+    
+    @media (prefers-contrast: more) {
+        $high-contrast: adjust-contrast($background, 20%);
+        background: $high-contrast;
+    }
+}
+
+// Filter Mixins
 @mixin backdrop-filter($value) {
     -webkit-backdrop-filter: $value;
     backdrop-filter: $value;
 }
 
-@function hex-to-rgba($color, $alpha: 1) {
-    @return rgba(red($color), green($color), blue($color), $alpha);
+@mixin filter($value) {
+    -webkit-filter: $value;
+    filter: $value;
 }
+
+// Glass Effect Utilities
+.glass-effect {
+    @include backdrop-filter(blur(10px));
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.frosted-glass {
+    @include backdrop-filter(blur(5px) saturate(180%));
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+// <div class="bg-primary-0">Lightest shade</div>
+// <div class="bg-primary-4">Middle shade</div>
+// <div class="bg-primary-8">Darkest shade</div>
+
+// <div class="brand-complementary">Complementary colors</div>
+
+// <div class="text-on-background">Accessible text</div>
+
+// <div class="glass-effect">
+//   Blurred backdrop
+// </div>
