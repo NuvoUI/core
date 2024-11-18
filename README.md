@@ -23,7 +23,7 @@ when you can have, this
 <button class="btn lg primary pill outline py-40" >...
 ```
 
-But wait, there is more... lets make it fully responsei
+But wait, there is more... lets make it fully responsive
 ```html
 <button class="btn lg primary pill outline 
     py-40
