@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use 'sass:meta';
 @use './variables' as *;
 
 // Breakpoint mixins
@@ -7,7 +8,7 @@
     @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
-  } @else if type-of($breakpoint) == number {
+  } @else if meta.type-of($breakpoint) == number {
     @media screen and (min-width: $breakpoint) {
       @content;
     }
@@ -19,7 +20,7 @@
     @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 0.02px)) {
       @content;
     }
-  } @else if type-of($breakpoint) == number {
+  } @else if meta.type-of($breakpoint) == number {
     @media screen and (max-width: ($breakpoint - 0.02px)) {
       @content;
     }
