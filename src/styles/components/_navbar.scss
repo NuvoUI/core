@@ -1,34 +1,23 @@
 // _navbar.scss
 
-@use '../utilities/variables' as *;
+@use '../utilities/responsive' as Responsive;
 @use '../utilities/shadows' as *;
+@use '../utilities/variables' as *;
 @use '../layouts/container' as Container;
 @use '../layouts/flex' as Flex;
-@use '../layouts/grid' as Grid;
-
-:root {
-    --shadow-color: 255, 0, 0;
-}
 
 .navbar {
-
-    @include Flex.between;
     @include Container.container-flex;
-
-    // @include Grid.grid-flow-row;
-    // @include Grid.grid-flow-col;
-    // @include Grid.grid-cols(2);
-    // @include Container.container-grid;
 
     & {
         @include Flex.align-center;
-        // @include shadow('md', 'colored');
-
-        background-color: var(--nav-bg);
+        @include Flex.between;
 
         &:hover {
             @include shadow('lg', 'dark');
         }
+
+        background-color: var(--nav-bg);
 
         .logo {
             img {
@@ -103,22 +92,49 @@
             }
         }
 
-        @media (max-width: 768px) {
-            flex-direction: column;
-
+        // Responsive styles
+        @include Responsive.media-down(md) {
             .menu {
+                transition: all 1.3s ease;
+                display: none;
                 flex-direction: column;
+                background-color: var(--nav-bg);
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
 
-                .submenu {
-                    position: static;
-                    display: none;
-                    width: 100%;
+                &[data-visible="true"] {
+                    display: flex;
+                }
 
-                    li a {
-                        padding-left: 2rem;
+                li {
+                    width: 100%;
+                    text-align: left;
+
+                    .submenu {
+                        position: relative;
+                        left: 0;
+                        top: 0;
+                        display: none;
+                        visibility: visible;
+                        opacity: 1;
+                        pointer-events: auto;
+                        box-shadow: none;
+                        background-color: var(--nav-hover);
+
+                        &[data-visible="true"] {
+                            display: flex;
+                            flex-direction: column;
+                        }
                     }
                 }
+            }
+
+            .navbar__cta {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 0;
             }
         }
     }

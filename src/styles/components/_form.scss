@@ -83,7 +83,7 @@
 @mixin form-select {
   @include form-input;
   appearance: none;
-  background-image: url("data:image/svg+xml,...");
+  background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -110,7 +110,7 @@
   &:checked {
     background-color: var(--primary);
     border-color: var(--primary);
-    background-image: url("data:image/svg+xml,...");
+    background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
   }
 }
 
