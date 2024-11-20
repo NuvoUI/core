@@ -35,8 +35,8 @@ $generated-keyframes: ();
     // Merge with defaults
     $props: map.merge($defaults, $props);
 
-    $x: map.get($props, 'vertical');
-    $y: map.get($props, 'horizontal');
+    $x: map.get($props, 'horizontal');
+    $y: map.get($props, 'vertical');
     $duration: map.get($props, 'duration');
     $easing: map.get($props, 'timing');
     $iteration: map.get($props, 'iteration');
