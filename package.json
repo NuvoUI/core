@@ -1,6 +1,6 @@
 {
   "name": "@nuvoui/core",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "NuvoUI Core SCSS Library",
   "main": "dist/index.css",
   "module": "src/styles/index.scss",
