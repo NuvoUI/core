@@ -44,6 +44,10 @@
 @mixin grow { flex: 1 1 0%; }
 @mixin no-grow { flex: none; }
 
+@mixin w-col($size) {
+  flex: 0 0 math.percentage(math.div($size, $column-count));
+}
+
 // Base flex container
 .flex {
   display: flex;
@@ -80,9 +84,7 @@
   > .grow { @include grow; }
   > .no-grow { @include no-grow; }
   @for $i from 1 through $column-count {
-    > .w-#{$i} {
-      flex: 0 0 math.percentage( math.div($i, $column-count));
-    }
+    > .w-#{$i} { @include w-col($i) }
   }
 }
 
@@ -123,9 +125,7 @@
       & > .grow\@#{$breakpoint} { @include grow; }
       & > .no-grow\@#{$breakpoint} { @include no-grow; }
       @for $i from 1 through $column-count {
-        & > .w-#{$i}\@#{$breakpoint} {
-          flex: 0 0 math.percentage(math.div($i, $column-count));
-        }
+        & > .w-#{$i}\@#{$breakpoint} { @include w-col($i) }
       }
     }
   }
