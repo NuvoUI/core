@@ -85,6 +85,7 @@
   > .no-grow { @include no-grow; }
   @for $i from 1 through $column-count {
     > .w-#{$i} { @include w-col($i) }
+    > .order-#{$i} { order: $i; }
   }
 }
 
@@ -126,6 +127,7 @@
       & > .no-grow\@#{$breakpoint} { @include no-grow; }
       @for $i from 1 through $column-count {
         & > .w-#{$i}\@#{$breakpoint} { @include w-col($i) }
+        & > .order-#{$i}\@#{$breakpoint} { order: $i; }
       }
     }
   }
