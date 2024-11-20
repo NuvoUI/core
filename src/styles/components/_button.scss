@@ -5,14 +5,6 @@
 @use '../utilities/typography' as *;
 @use '../themes/theme' as *;
 
-// Define text size map
-$text-size-map: (
-  'xs': 0.75rem,
-  'sm': 0.875rem,
-  'md': 1rem,
-  'lg': 1.125rem,
-  'xl': 1.25rem
-);
 
 // Button Base Mixins
 @mixin btn-base {
@@ -108,16 +100,7 @@ $text-size-map: (
 
 // Button Sizes
 @mixin btn-size($size) {
-  font-size: map.get($text-size-map, $size);
-  
-  $padding-map: (
-    'xs': 0.25rem 0.5rem,
-    'sm': 0.375rem 0.75rem,
-    'md': 0.5rem 1rem,
-    'lg': 0.75rem 1.5rem,
-    'xl': 1rem 2rem
-  );
-
+  font-size: map.get($font-sizes, $size);
   padding: map.get($padding-map, $size);
 
   .btn.icon {

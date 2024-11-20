@@ -47,16 +47,26 @@ $container-max-widths: (
 
 // _variables.scss
 $font-sizes: (
-  '4xl': 2.5rem,  // 40px
-  '3xl': 2rem,    // 32px
-  '2xl': 1.75rem, // 28px
-  'xl': 1.5rem,   // 24px
-  'lg': 1.25rem,  // 20px
-  'md': 1rem,     // 16px
+  'xs': 0.75rem,  // 12px
   'sm': 0.875rem, // 14px
-  'xs': 0.75rem   // 12px
+  'md': 1rem,     // 16px
+  'lg': 1.25rem,  // 20px
+  'xl': 1.5rem,   // 24px
+  '2xl': 1.75rem, // 28px
+  '3xl': 2rem,    // 32px
+  '4xl': 2.5rem   // 40px
 );
 
+$padding-map: (
+  'xs': 0.25rem 0.5rem,
+  'sm': 0.375rem 0.75rem,
+  'md': 0.5rem 1rem,
+  'lg': 0.75rem 1.5rem,
+  'xl': 1rem 2rem,
+  '2xl': 1.25rem 2.5rem,
+  '3xl': 1.5rem 3rem,
+  '4xl': 2rem 4rem
+);
 
 // Column widths for auto-fit
 $column-widths: (
