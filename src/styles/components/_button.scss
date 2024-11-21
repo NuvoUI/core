@@ -46,7 +46,7 @@
 // Button Variants
 @mixin btn-solid($color) {
   background-color: theme-color($color);
-  color: white;//var(--text-inverse);
+  color: if($color == 'light', black, white);//var(--text-inverse);
 
   &:hover:not(:disabled) {
     background-color: theme-color($color, 'hover');
@@ -128,12 +128,52 @@
   }
 }
 
+@mixin btn-group-base {
+  display: inline-flex;
+  position: relative;
+
+  // Remove double borders between buttons
+  .btn:not(:first-child) {
+    margin-left: -1px;
+  }
+
+  // Handle z-index for hover states
+  .btn:hover {
+    z-index: 1;
+  }
+
+  // Basic button group styles
+  .btn {
+    position: relative;
+  }
+  .btn:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+  .btn:first-child:dir(ltr) {
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+
+  .btn:last-child:dir(ltr) {
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+  }
+  .btn:first-child:dir(rtl) {
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+  }
+
+  .btn:last-child:dir(rtl) {
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+  }
+}
+
 // Base Button Class
 .btn {
   @include btn-base;
   @include btn-size('md');
   @include btn-shape('rounded');
-
 
   // Outline variant
   &.outline {
@@ -168,17 +208,6 @@
 }
 
 
-// Sizes
-.btn.xs { @include btn-size('xs'); }
-.btn.sm { @include btn-size('sm'); }
-.btn.md { @include btn-size('md'); }
-.btn.lg { @include btn-size('lg'); }
-.btn.xl { @include btn-size('xl'); }
-
-// Shapes
-.btn.rounded { @include btn-shape('rounded'); }
-.btn.pill { @include btn-shape('pill'); }
-.btn.square { @include btn-shape('square'); }
 
 // Icon Only Buttons
 .btn.icon {
@@ -190,41 +219,51 @@
   &.btn-xl { padding: 1rem; }
 }
 
+// Sizes
+.btn-group.xs > .btn, .btn.xs { @include btn-size('xs'); }
+.btn-group.sm > .btn, .btn.sm { @include btn-size('sm'); }
+.btn-group.md > .btn, .btn.md { @include btn-size('md'); }
+.btn-group.lg > .btn, .btn.lg { @include btn-size('lg'); }
+.btn-group.xl > .btn, .btn.xl { @include btn-size('xl'); }
+
+// Shapes
+.btn-group.rounded > .btn, .btn.rounded { @include btn-shape('rounded'); }
+.btn-group.pill    > .btn, .btn.pill { @include btn-shape('pill'); }
+.btn-group.square  > .btn, .btn.square { @include btn-shape('square'); }
+
+.btn-group {
+  @include btn-group-base;
+   // Color variants for solid buttons
+   @each $name, $color in $colors {
+    &.#{$name} > .btn{
+      @include btn-solid($name);
+    }
+  }
+}
+// Outline variant
+.btn-group.outline > .btn {
+  @include btn-outline('text-secondary'); // Default outline style
+}
+// Color variants override
+@each $name, $color in $colors {
+  .btn-group.outline.#{$name} > .btn {
+    @include btn-outline($name);
+  }
+}
+
+
+// Outline variant
+.btn-group.ghost > .btn {
+  @include btn-ghost('text-secondary'); // Default outline style
+}
+// Color variants override
+@each $name, $color in $colors {
+  .btn-group.ghost.#{$name} > .btn {
+    @include btn-ghost($name);
+  }
+}
+
 // Loading Animation
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-
-/**
-
-
-<!-- Basic buttons -->
-<button class="btn primary">Primary</button>
-<button class="btn outline secondary">Secondary</button>
-<button class="btn ghost info">Info</button>
-
-<!-- Sizes -->
-<button class="btn primary xs">Extra Small</button>
-<button class="btn primary xl">Extra Large</button>
-
-<!-- Shapes -->
-<button class="btn primary pill">Pill Button</button>
-
-<!-- With Icons -->
-<button class="btn btn-primary">
-  <svg class="btn-icon"><!-- icon --></svg>
-  With Icon
-</button>
-
-<!-- Icon Only -->
-<button class="btn btn-primary btn-icon-only">
-  <svg class="btn-icon"><!-- icon --></svg>
-</button>
-
-<!-- Loading State -->
-<button class="btn btn-primary loading">Loading</button>
-
-<!-- Disabled State -->
-<button class="btn btn-primary" disabled>Disabled</button>
-
-*/
