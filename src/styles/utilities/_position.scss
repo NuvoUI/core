@@ -18,6 +18,8 @@
 
 @mixin p-sticky {
   position: sticky;
+  z-index: 999;
+  top: 0px;
 }
 
 // Position Classes
