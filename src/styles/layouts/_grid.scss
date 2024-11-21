@@ -108,7 +108,7 @@
 
 
 // Auto-fit/fill Classes
-@each $breakpoint, $width in $column-widths {
+@each $breakpoint, $width in $breakpoints {
   .grid.auto-fit-#{$breakpoint} { @include grid-auto-fit($width); }
   .grid.auto-fill-#{$breakpoint} { @include grid-auto-fill($width); }
 }
