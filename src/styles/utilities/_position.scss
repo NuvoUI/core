@@ -82,8 +82,12 @@
   left: if($value == 0, $value, $value + px);
 }
 
+.w-100per {
+  width: 100%;
+}
+
 // Top, Right, Bottom, Left Classes
-@for $i from 0 through 100{
+@each $i in $spacings {
   .top-#{$i} {
     @include top($i);
   }
@@ -95,5 +99,15 @@
   }
   .left-#{$i} {
     @include left($i);
+  }
+
+  .h-#{$i}{
+    height: if($i == 0, $i, $i + px);
+  }
+  .w-#{$i}{
+    width: if($i == 0, $i, $i + px);
+  }
+  .min-w-#{$i}{
+    min-width: if($i == 0, $i, $i + px);
   }
 }
