@@ -38,6 +38,10 @@
 @mixin self-center {align-self: center;}
 @mixin self-stretch {align-self: stretch;}
 
+@mixin shrink {flex-shrink: 1;}
+@mixin shrink-0 {flex-shrink: 0;}
+@mixin shrink-2 {flex-shrink: 2;}
+
 // Flex Child Mixins
 @mixin w-full {flex: 0 0 100%;}
 @mixin w-auto {flex: 1 1 auto;}
@@ -45,7 +49,7 @@
 @mixin no-grow { flex: none; }
 
 @mixin w-col($size) {
-  flex: 0 0 math.percentage(math.div($size, $column-count));
+  flex: 0 0 math.percentage(math.div($size, $column-count)) !important;
 }
 
 // Base flex container
@@ -83,6 +87,14 @@
   > .w-full { @include w-full }
   > .grow { @include grow; }
   > .no-grow { @include no-grow; }
+
+  > .order-first { order: -1; }
+  > .order-last { order: 9999; }
+  > .order-none { order: 0; }
+
+  > .shrink { @include shrink; }
+  > .shrink-0 { @include shrink-0; }
+  > .shrink-2 { @include shrink-2; }
   @for $i from 1 through $column-count {
     > .w-#{$i} { @include w-col($i) }
     > .order-#{$i} { order: $i; }
@@ -121,13 +133,19 @@
       &.items-stretch\@#{$breakpoint} { align-items: stretch; }
 
       // Width (using column count)
-      & > .w-auto\@#{$breakpoint} { flex: 1 1 auto; }
-      & > .w-full\@#{$breakpoint} { flex: 0 0 100%; }
+      & > .w-auto\@#{$breakpoint} { @include w-auto; }
+      & > .w-full\@#{$breakpoint} { @include w-full; }
       & > .grow\@#{$breakpoint} { @include grow; }
       & > .no-grow\@#{$breakpoint} { @include no-grow; }
+      & > .order-first\@#{$breakpoint} { order: -1; }
+      & > .order-last\@#{$breakpoint} { order: 9999; }
+      & > .order-none\@#{$breakpoint} { order: 0; }
       @for $i from 1 through $column-count {
         & > .w-#{$i}\@#{$breakpoint} { @include w-col($i) }
         & > .order-#{$i}\@#{$breakpoint} { order: $i; }
+        & > .shrink\@#{$breakpoint} { @include shrink; }
+        & > .shrink-0\@#{$breakpoint} { @include shrink-0; }
+        & > .shrink-2\@#{$breakpoint} { @include shrink-2; }
       }
     }
   }

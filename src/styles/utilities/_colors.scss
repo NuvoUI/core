@@ -4,14 +4,15 @@
 
 @use './variables' as *;
 
+
+// todo: only functions and may be not needed
+
 @each $color-name, $color-value in $colors {
     .text-#{$color-name} { color: $color-value; }
     .bg-#{$color-name} { background-color: $color-value; }
 }
 
 // Modern Color System 
-// _colors.scss
-
 // Color Validation
 @function is-valid-color($color) {
     @return type-of($color) == 'color';
