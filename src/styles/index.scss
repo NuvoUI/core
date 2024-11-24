@@ -8,12 +8,14 @@
 
 // Utilities
 @forward 'utilities/animations';
+@forward 'utilities/borders'; 
 @forward 'utilities/colors';
 @forward 'utilities/display';
-@forward 'utilities/hamburger';
+@forward 'utilities/opacity';
 @forward 'utilities/position';
-@forward 'utilities/responsive';
+@forward 'utilities/media-queries';
 @forward 'utilities/shadows';
+@forward 'utilities/sizing';
 @forward 'utilities/spacing';
 @forward 'utilities/typography';
 @forward 'utilities/tooltips';
@@ -30,6 +32,7 @@
 
 // Components
 @forward 'components/button';
+@forward 'components/hamburger';
 @forward 'components/navbar';
 @forward 'components/form';
 

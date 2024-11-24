@@ -29,8 +29,7 @@
 
 @mixin media-between($lower, $upper) {
   @if map.has-key($breakpoints, $lower) and map.has-key($breakpoints, $upper) {
-    @media screen and (min-width: map.get($breakpoints, $lower)) and 
-           (max-width: (map.get($breakpoints, $upper) - 0.02px)) {
+    @media screen and (min-width: map.get($breakpoints, $lower)) and (max-width: (map.get($breakpoints, $upper) - 0.02px)) {
       @content;
     }
   }
@@ -81,13 +80,6 @@
   }
 }
 
-// Retina displays
-@mixin retina {
-  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    @content;
-  }
-}
-
 // Modern feature detection
 // Example: @include supports(display: grid) { }
 @mixin supports($property) {
@@ -96,21 +88,11 @@
   }
 }
 
-// Reduced motion preference
-@mixin reduced-motion {
-  @media (prefers-reduced-motion: reduce) {
-    @content;
-  }
-}
 
-// High contrast mode
-@mixin high-contrast {
-  @media (forced-colors: active) {
-    @content;
-  }
-}
 
-// Dark mode
+
+// Mixin: Dark Mode
+// Applies styles when the user prefers a dark color scheme.
 @mixin dark-mode {
   @media (prefers-color-scheme: dark) {
     @content;
@@ -130,32 +112,9 @@
   }
 }
 
-// Modern hover capabilities
-@mixin hover-device {
-  @media (hover: hover) and (pointer: fine) {
-    @content;
-  }
-}
-
 // Modern aspect ratio
 @mixin aspect-ratio($ratio) {
-  @supports (aspect-ratio: #{$ratio}) {
-    aspect-ratio: #{$ratio};
-  }
-  
-  @supports not (aspect-ratio: #{$ratio}) {
-    &::before {
-      float: left;
-      padding-top: percentage(1 / $ratio);
-      content: '';
-    }
-    
-    &::after {
-      display: block;
-      content: '';
-      clear: both;
-    }
-  }
+  aspect-ratio: #{$ratio};
 }
 
 // Dynamic viewport units (modern browsers)
@@ -174,11 +133,15 @@
   #{$property}: env(safe-area-inset-#{$position});
 }
 
-// Color scheme transition
-@mixin color-scheme-transition {
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background-color 0.3s ease, color 0.3s ease;
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
   }
 }
 
-
+// High contrast mode
+@mixin high-contrast {
+  @media (forced-colors: active) {
+    @content;
+  }
+}
