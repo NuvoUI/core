@@ -1,29 +1,24 @@
-@use "sass:math";
-@use 'sass:color';
-@use 'sass:map';
 
 @use './variables' as *;
-
-
 
 // Display Mixins
 @mixin d-none { display: none; }
 @mixin d-block { display: block; }
 @mixin d-inline { display: inline; }
 @mixin d-inline-block { display: inline-block; }
-@mixin d-table { display: table; }
-@mixin d-table-row { display: table-row; }
-@mixin d-table-cell { display: table-cell; }
+@mixin d-tbl { display: table; }
+@mixin d-tbl-row { display: table-row; }
+@mixin d-tbl-cell { display: table-cell; }
 
-// Base Classes
+// Base Classes 
 .hide { @include d-none; }
 .block { @include d-block; }
 .inline { @include d-inline; }
 .inline-block { @include d-inline-block; }
 .d {
-  &-table { @include d-table; }
-  &-table-row { @include d-table-row; }
-  &-table-cell { @include d-table-cell; }
+  &-tbl { @include d-tbl; }
+  &-tbl-row { @include d-tbl-row; }
+  &-tbl-cell { @include d-tbl-cell; }
 }
 
 // Responsive Variants
@@ -34,9 +29,9 @@
     .inline\@#{$breakpoint} { @include d-inline; }
     .inline-block\@#{$breakpoint} { @include d-inline-block; }
     .d {
-      &-table\@#{$breakpoint} { @include d-table; }
-      &-table-row\@#{$breakpoint} { @include d-table-row; }
-      &-table-cell\@#{$breakpoint} { @include d-table-cell; }
+      &-tbl\@#{$breakpoint} { @include d-tbl; }
+      &-tbl-row\@#{$breakpoint} { @include d-tbl-row; }
+      &-tbl-cell\@#{$breakpoint} { @include d-tbl-cell; }
     }
   }
 }

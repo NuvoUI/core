@@ -1,65 +1,65 @@
 @use './variables' as *;
 // Position Mixins
-@mixin p-static {
+@mixin static {
   position: static;
 }
 
-@mixin p-relative {
+@mixin relative {
   position: relative;
 }
 
-@mixin p-absolute {
+@mixin absolute {
   position: absolute;
 }
 
-@mixin p-fixed {
+@mixin fixed {
   position: fixed;
-}
-
-@mixin p-sticky {
+} 
+ 
+@mixin sticky {
   position: sticky;
   z-index: 999;
   top: 0px;
-}
+} 
 
 // Position Classes
-.p-static {
-  @include p-static;
+.static {
+  @include static;
 }
 
-.p-relative {
-  @include p-relative;
+.relative {
+  @include relative;
 }
 
-.p-absolute {
-  @include p-absolute;
+.absolute {
+  @include absolute;
 }
 
-.p-fixed {
-  @include p-fixed;
+.fixed {
+  @include fixed;
 }
 
-.p-sticky {
-  @include p-sticky;
+.sticky {
+  @include sticky;
 }
 
 // Responsive Position Classes
 @each $breakpoint, $width in $breakpoints {
   @media (min-width: $width) {
-    .p-static\@#{$breakpoint} {
-      @include p-static;
+    .static\@#{$breakpoint} {
+      @include static;
     }
-    .p-relative\@#{$breakpoint} {
-      @include p-relative;
+    .relative\@#{$breakpoint} {
+      @include relative;
     }
-    .p-absolute\@#{$breakpoint} {
-      @include p-absolute;
+    .absolute\@#{$breakpoint} {
+      @include absolute;
     }
-    .p-fixed\@#{$breakpoint} {
-      @include p-fixed;
+    .fixed\@#{$breakpoint} {
+      @include fixed;
     }
-    .p-sticky\@#{$breakpoint} {
-      @include p-sticky;
+    .sticky\@#{$breakpoint} {
+      @include sticky;
     }
   }
 }
@@ -82,32 +82,24 @@
   left: if($value == 0, $value, $value + px);
 }
 
-.w-100per {
-  width: 100%;
-}
-
 // Top, Right, Bottom, Left Classes
 @each $i in $spacings {
-  .top-#{$i} {
-    @include top($i);
-  }
-  .right-#{$i} {
-    @include right($i);
-  }
-  .bottom-#{$i} {
-    @include bottom($i);
-  }
-  .left-#{$i} {
-    @include left($i);
-  }
+  .top-#{$i} {@include top($i);}
+  .right-#{$i} {@include right($i);}
+  .bottom-#{$i} {@include bottom($i);}
+  .left-#{$i} {@include left($i);}
+}
 
-  .h-#{$i}{
-    height: if($i == 0, $i, $i + px);
-  }
-  .w-#{$i}{
-    width: if($i == 0, $i, $i + px);
-  }
-  .min-w-#{$i}{
-    min-width: if($i == 0, $i, $i + px);
+
+// Pixel widths based on spacing scale
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+      // Generate utilities from spacing map
+      @each $i in $spacings {
+          .top-#{$i}\@#{$breakpoint} {height: if($i ==0, $i, $i + px);}
+          .right-#{$i}\@#{$breakpoint} {width: if($i ==0, $i, $i + px);}
+          .bottom-#{$i}\@#{$breakpoint} {min-width: if($i ==0, $i, $i + px);}
+          .left-#{$i}\@#{$breakpoint} {min-height: if($i ==0, $i, $i + px);}
+      }
   }
 }
