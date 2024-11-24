@@ -1,0 +1,36 @@
+// _spacing.scss
+
+@use 'sass:math';
+@use './variables' as *;
+
+// todo: mixins mising and also finalize .b .bb or not to .b
+@mixin border($val) { $val: if($val==0, $val, $val + px); border-width: $val; }
+@mixin rounded($val) { border-radius: $val; }
+
+.border { @include border(1); }
+.border-0 { @include border(0); }
+
+@each $i in 0 1 2 4 8 {
+    .border-#{$i} { @include border($i); }
+}
+
+@each $color-name, $color-value in $colors {
+    .border-#{$color-name} { border-color: $color-value; }
+}
+
+.rounded { @include rounded(0.25rem); }
+.square { @include rounded(0) }
+.pill { @include rounded(9999px); }
+
+// Responsive Position Classes
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+ 
+        @each $i in 0 1 2 4 8 {
+            .border-#{$i}\@#{$breakpoint} { @include border($i); }
+        }
+        @each $i in 0 2 3 4 5 10 15 20 25 {
+            .rounded-#{$i}\@#{$breakpoint} { @include border($i); }
+        }
+    }
+}

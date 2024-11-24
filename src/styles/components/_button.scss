@@ -3,6 +3,7 @@
 
 @use '../utilities/variables' as *;
 @use '../utilities/typography' as *;
+@use '../utilities/borders' as *;
 @use '../themes/theme' as *;
 
 
@@ -48,17 +49,9 @@
   background-color: theme-color($color);
   color: if($color == 'light', black, white);//var(--text-inverse);
 
-  &:hover:not(:disabled) {
-    background-color: theme-color($color, 'hover');
-  }
-
-  &:active:not(:disabled) {
-    background-color: theme-color($color, 'active');
-  }
-
-  &:disabled {
-    background-color: theme-color($color, 'disabled');
-  }
+  &:hover:not(:disabled) { background-color: theme-color($color, 'hover'); }
+  &:active:not(:disabled) { background-color: theme-color($color, 'active'); }
+  &:disabled { background-color: theme-color($color, 'disabled'); }
 }
 
 @mixin btn-outline($color) {
@@ -116,11 +109,11 @@
     height: map.get($icon-sizes, $size);
   }
 }
-
+ 
 // Button Shapes
 @mixin btn-shape($shape) {
   @if $shape == 'rounded' {
-    border-radius: 0.375rem;
+    @include rounded(0.375rem);
   } @else if $shape == 'pill' {
     border-radius: 9999px;
   } @else if $shape == 'square' {
@@ -133,40 +126,18 @@
   position: relative;
 
   // Remove double borders between buttons
-  .btn:not(:first-child) {
-    margin-left: -1px;
-  }
+  .btn:not(:first-child) { margin-left: -1px; }
 
   // Handle z-index for hover states
-  .btn:hover {
-    z-index: 1;
-  }
+  .btn:hover { z-index: 1; }
 
   // Basic button group styles
-  .btn {
-    position: relative;
-  }
-  .btn:not(:first-child):not(:last-child) {
-    border-radius: 0;
-  }
-  .btn:first-child:dir(ltr) {
-    border-top-right-radius: 0rem;
-    border-bottom-right-radius: 0rem;
-  }
-
-  .btn:last-child:dir(ltr) {
-    border-top-left-radius: 0rem;
-    border-bottom-left-radius: 0rem;
-  }
-  .btn:first-child:dir(rtl) {
-    border-top-left-radius: 0rem;
-    border-bottom-left-radius: 0rem;
-  }
-
-  .btn:last-child:dir(rtl) {
-    border-top-right-radius: 0rem;
-    border-bottom-right-radius: 0rem;
-  }
+  .btn { position: relative; }
+  .btn:not(:first-child):not(:last-child) { border-radius: 0; }
+  .btn:first-child:dir(ltr) { border-top-right-radius: 0rem; border-bottom-right-radius: 0rem; }
+  .btn:last-child:dir(ltr) { border-top-left-radius: 0rem; border-bottom-left-radius: 0rem; }
+  .btn:first-child:dir(rtl) { border-top-left-radius: 0rem; border-bottom-left-radius: 0rem; }
+  .btn:last-child:dir(rtl) { border-top-right-radius: 0rem; border-bottom-right-radius: 0rem; }
 }
 
 // Base Button Class
