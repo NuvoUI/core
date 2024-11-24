@@ -1,8 +1,8 @@
 @use "sass:math";
 @use 'sass:color';
 @use 'sass:map';
-@use '../utilities/responsive' as Responsive;
 
+@use '../utilities/media-queries' as Responsive;
 @use '../utilities/variables' as *;
 
 // _mixins.scss
