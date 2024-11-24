@@ -3,7 +3,7 @@
 @use 'sass:map';
 @use '../utilities/responsive' as Responsive;
 
-@use './variables' as *;
+@use '../utilities/variables' as *;
 
 // _mixins.scss
 @mixin hamburger($color: currentColor, $size: 24px, $thickness: 2px) {
