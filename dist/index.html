@@ -1,15 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UI Framework</title>
+  <title>SASS Playground</title>
+  <!-- CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/monokai.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/lesser-dark.min.css">
+
+  <style>body{font-family:Arial,sans-serif;margin:0;padding:0}.playground{height:100vh;margin:0}.panel-right,.playground{display:flex;gap:1rem;position:relative}.panel-right{flex-direction:column;max-width:600px;min-width:300px;width:400px}.resize-handle{background:transparent;bottom:0;cursor:ew-resize;left:-1rem;position:absolute;top:0;width:1rem}.resize-handle:hover{background:rgba(0,0,0,.1)}.editor,.output{border:1px solid #ccc;border-radius:4px;flex:1;height:50vh}.preview{background:#f5f5f5;border-radius:4px;flex:1;padding:2rem}.CodeMirror{height:100%}</style>
+  <script type="importmap">
+    {
+      "imports": {
+        "sass": "https://jspm.dev/sass",
+        "@nuvoui/core": "/src/styles/index.scss"
+      }
+    }
+    </script>
   <script type="module" crossorigin src="/main.js"></script>
   <link rel="stylesheet" crossorigin href="/main.css">
 </head>
-<body>
-  <h1>Hello World</h1>
 
-  <button class="center my">Click Me</button>
+<body>
+  <div class="playground">
+    <div class="preview" id="preview">
+      <h1>Hello World</h1>
+      <button class="btn primary">Click Me</button>
+    </div>
+    <div class="panel-right">
+      <div class="resize-handle" id="resize-handle"></div>
+      <div class="editor" id="editor"></div>
+      <div class="output" id="output"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js  "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/sass/sass.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/hint/css-hint.min.js"></script>
+
 </body>
+
 </html>
