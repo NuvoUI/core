@@ -88,7 +88,7 @@
   @include form-input;
 
   appearance: none;
-  background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
+  // background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -126,7 +126,7 @@
         background-color: Theme.theme-color($name); border-color: Theme.theme-color($name);}
     }
     
-    background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
+    // background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
   }
 }
 

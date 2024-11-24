@@ -8,14 +8,18 @@
 
 .navbar {
     @include Container.container-flex;
-    @include Flex.align-center;
-    @include Flex.between;
+    
+    & {
+        @include Flex.align-center;
+        @include Flex.between;
+        background-color: var(--nav-bg);
+    }
 
     &:hover {
         @include shadow('lg', 'dark');
     }
 
-    background-color: var(--nav-bg);
+    
 
     .logo {
         img {
