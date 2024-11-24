@@ -140,11 +140,11 @@
 .glass-effect {
     @include backdrop-filter(blur(10px));
 
-    background-color: color.mix(white, 10%);
+    background-color: rgb(255 255 255 / 10%);
 }
 
 .frosted-glass {
     @include backdrop-filter(blur(5px) saturate(180%));
     
-    background-color: color.mix(white, 80%);
+    background-color: rgb(255 255 255 / 80%);
 }
