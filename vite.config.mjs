@@ -18,17 +18,22 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
+        // main: path.resolve(__dirname, 'index.html'),
+        main: path.resolve(__dirname, 'src/styles/index.scss'),
         light: path.resolve(__dirname, 'src/styles/themes/_light.scss'),
         dark: path.resolve(__dirname, 'src/styles/themes/_dark.scss')
       },
       output: {
-        entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
         assetFileNames: '[name].[ext]'
       }
     }
   },
+  // Ensure assets are emitted properly
+  assetsInlineLimit: 0,
+  // Disable code splitting
+  cssCodeSplit: false,
+  // // Empty the output directory before building
+  emptyOutDir: true,
   server: {
     port: 3000,
     open: true
