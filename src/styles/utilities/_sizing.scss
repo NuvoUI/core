@@ -1,0 +1,73 @@
+// _spacing.scss
+
+@use 'sass:math';
+@use './variables' as *;
+
+@mixin width($value) { width: if($value == 0, $value, $value + px); }
+@mixin height($value) { height: if($value == 0, $value, $value + px); }
+@mixin min-width($value) { min-width: if($value == 0, $value, $value + px); }
+@mixin min-height($value) { min-height: if($value == 0, $value, $value + px); }
+@mixin max-width($value) { max-width: if($value == 0, $value, $value + px); }
+@mixin max-height($value) { max-height: if($value == 0, $value, $value + px); }
+
+@mixin width-percent($i) { width: #{$i + '%'}; }
+@mixin height-percent($i) { height: #{$i + '%'};  }
+@mixin min-width-percent($i) { min-width: #{$i + '%'}; }
+@mixin min-height-percent($i) { min-height: #{$i + '%'};  }
+@mixin max-width-percent($i) { max-width: #{$i + '%'}; }
+@mixin max-height-percent($i) { max-height: #{$i + '%'};  }
+
+
+@mixin w-auto { width: auto; }
+@mixin w-full { width: 100%; }
+@mixin h-auto { height: auto; }
+@mixin h-full { height: 100%; }
+@mixin min-w-full { min-width: 100%; }
+@mixin max-w-full { max-width: 100%; }
+@mixin min-h-full { min-height: 100%; }
+@mixin max-h-full { max-height: 100%; }
+
+:not(.flex)>.w-auto { @include w-auto; }
+:not(.flex)>.w-full { @include w-full; }
+
+.h-auto { @include h-auto; }
+.h-full { @include h-full; }
+.min-w-full { @include min-w-full }
+.max-w-full { @include max-w-full }
+.min-h-full { @include min-h-full }
+.max-h-full { @include max-h-full }
+
+// Percentage widths
+@each $i in $percentages {
+    .w-#{$i}per { @include width-percent($i); }
+    .h-#{$i}per { @include height-percent($i); }
+    .min-w-#{$i} { @include min-width-percent($i); }
+    .min-h-#{$i} { @include min-height-percent($i); }
+    .max-w-#{$i} { @include max-width-percent($i); }
+    .max-h-#{$i} { @include max-height-percent($i); }
+}
+
+// Generate utilities from spacing map
+@each $i in $spacings {
+    .w-#{$i} { @include width($i); }
+    .h-#{$i} { @include height($i); }
+    .min-w-#{$i} { @include min-width($i) }
+    .min-h-#{$i} { @include min-height($i) }
+    .max-w-#{$i} { @include max-width($i) }
+    .max-h-#{$i} { @include max-height($i) }
+}
+
+// Pixel widths based on spacing scale
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+        // Generate utilities from spacing map
+        @each $i in $spacings {
+            .w-#{$i}\@#{$breakpoint} { @include width($i); }
+            .h-#{$i}\@#{$breakpoint} { @include height($i); }
+            .min-w-#{$i}\@#{$breakpoint} { @include min-width($i) }
+            .min-h-#{$i}\@#{$breakpoint} { @include min-height($i) }
+            .max-w-#{$i}\@#{$breakpoint} { @include max-width($i) }
+            .max-h-#{$i}\@#{$breakpoint} { @include max-height($i) }
+        }
+    }
+}

@@ -43,8 +43,8 @@
 @mixin shrink-2 {flex-shrink: 2;}
 
 // Flex Child Mixins
-@mixin w-full {flex: 0 0 100%;}
-@mixin w-auto {flex: 1 1 auto;}
+@mixin f-w-full {flex: 0 0 100%;}
+@mixin f-w-auto {flex: 1 1 auto;}
 @mixin grow { flex: 1 1 0%; }
 @mixin no-grow { flex: none; }
 
@@ -83,8 +83,8 @@
   &.items-stretch { align-items: stretch; }
   
   // Child flex items (using column count)
-  > .w-auto { @include w-auto }
-  > .w-full { @include w-full }
+  > .w-auto { @include f-w-auto }
+  > .w-full { @include f-w-full }
   > .grow { @include grow; }
   > .no-grow { @include no-grow; }
 
@@ -133,8 +133,8 @@
       &.items-stretch\@#{$breakpoint} { align-items: stretch; }
 
       // Width (using column count)
-      & > .w-auto\@#{$breakpoint} { @include w-auto; }
-      & > .w-full\@#{$breakpoint} { @include w-full; }
+      & > .w-auto\@#{$breakpoint} { @include f-w-auto; }
+      & > .w-full\@#{$breakpoint} { @include f-w-full; }
       & > .grow\@#{$breakpoint} { @include grow; }
       & > .no-grow\@#{$breakpoint} { @include no-grow; }
       & > .order-first\@#{$breakpoint} { order: -1; }

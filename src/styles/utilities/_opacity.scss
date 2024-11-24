@@ -1,0 +1,21 @@
+// _spacing.scss
+
+@use 'sass:math';
+@use './variables' as *;
+// _opacity.scss
+
+// Opacity Utilities
+@each $i in $percentages {
+  .opacity-#{$i} { opacity: math.div($i, 100); }
+  .hover\:opacity-#{$i}:hover { opacity: math.div($i, 100); }
+}
+
+// Responsive Variants for Opacity
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: $width) {
+    @each $i in $percentages {
+      .opacity-#{$i}\@#{$breakpoint} { opacity: math.div($i, 100); }
+      .hover\:opacity-#{$i}\@#{$breakpoint}:hover { opacity: math.div($i, 100); }
+    }
+  }
+}
