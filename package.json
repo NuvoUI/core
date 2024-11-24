@@ -10,8 +10,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run build:scss",
-    "build:scss": "sass src/styles/index.scss:dist/index.css --style compressed",
+    "build": "vite build",
     "prepare": "npm run build",
     "lint": "stylelint \"src/**/*.scss\"",
     "format": "prettier --write \"src/**/*.{scss,js,json}\"",
