@@ -2,7 +2,6 @@
 
 @use 'sass:math';
 @use './variables' as *;
-// _opacity.scss
 
 // Opacity Utilities
 @each $i in $percentages {

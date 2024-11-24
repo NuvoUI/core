@@ -15,6 +15,7 @@
 .block { @include d-block; }
 .inline { @include d-inline; }
 .inline-block { @include d-inline-block; }
+
 .d {
   &-tbl { @include d-tbl; }
   &-tbl-row { @include d-tbl-row; }
@@ -28,6 +29,7 @@
     .block\@#{$breakpoint} { @include d-block; }
     .inline\@#{$breakpoint} { @include d-inline; }
     .inline-block\@#{$breakpoint} { @include d-inline-block; }
+    
     .d {
       &-tbl\@#{$breakpoint} { @include d-tbl; }
       &-tbl-row\@#{$breakpoint} { @include d-tbl-row; }

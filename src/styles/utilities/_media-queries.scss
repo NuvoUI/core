@@ -42,13 +42,13 @@
     $next-breakpoint: null;
     
     @each $name, $width in $breakpoints {
-      @if $width > $min and ($next-breakpoint == null or $width < $next-breakpoint) {
+      @if $width > $min and (meta.type-of($next-breakpoint) == 'null' or $width < $next-breakpoint) {
         $next-breakpoint: $width;
       }
     }
     
     @if $next-breakpoint {
-      @media (min-width: $min) and (max-width: $next-breakpoint - 1) {
+      @media (min-width: $min) and (max-width: ($next-breakpoint - 1)) {
         @content;
       }
     } @else {

@@ -7,10 +7,10 @@
 
 // Shadow Variables
 $shadow-colors: (
-  'default': rgba(0, 0, 0, 0.1),
-  'dark': rgba(0, 0, 0, 0.2),
-  'darker': rgba(0, 0, 0, 0.35),
-  'darkest': rgba(0, 0, 0, 0.5),
+  'default': rgb(0 0 0 / 10%),
+  'dark': rgb(0 0 0 / 20%),
+  'darker': rgb(0 0 0 / 35%),
+  'darkest': rgb(0 0 0 / 50%),
 );
 
 $shadow-sizes: (

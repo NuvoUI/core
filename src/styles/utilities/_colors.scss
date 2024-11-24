@@ -1,6 +1,8 @@
 @use "sass:math";
 @use 'sass:color';
 @use 'sass:map';
+@use 'sass:meta';
+@use 'sass:list';
 
 @use './variables' as *;
 
@@ -15,7 +17,7 @@
 // Modern Color System 
 // Color Validation
 @function is-valid-color($color) {
-    @return type-of($color) == 'color';
+    @return meta.type-of($color) == 'color';
 }
 
 // Modern Color Spaces
@@ -40,22 +42,22 @@
 
 // Color Harmony Generation
 @function complementary($color) {
-    @return adjust-hue($color, 180);
+    @return color.adjust($color, 180);
 }
 
 @function triadic($color) {
     @return (
         $color,
-        adjust-hue($color, 120),
-        adjust-hue($color, 240)
+        color.adjust($color, 120),
+        color.adjust($color, 240)
     );
 }
 
 @function split-complementary($color) {
     @return (
         $color,
-        adjust-hue($color, 150),
-        adjust-hue($color, 210)
+        color.adjust($color, 150),
+        color.adjust($color, 210)
     );
 }
 
@@ -75,7 +77,7 @@
     @for $i from 0 through $steps {
         $lightness: 95 - ($i * (90 / $steps));
         $new-color: color.adjust($lch-color, $lightness: $lightness);
-        $scale: append($scale, $new-color);
+        $scale: list.append($scale, $new-color);
     }
     
     @return $scale;
@@ -89,13 +91,13 @@
 
 // Luminance Calculation
 @function luminance($color) {
-    $r: red($color) / 255;
-    $g: green($color) / 255;
-    $b: blue($color) / 255;
+    $r: color.red($color) / 255;
+    $g: color.green($color) / 255;
+    $b: color.blue($color) / 255;
     
-    $r: if($r <= 0.03928, $r / 12.92, pow(($r + 0.055) / 1.055, 2.4));
-    $g: if($g <= 0.03928, $g / 12.92, pow(($g + 0.055) / 1.055, 2.4));
-    $b: if($b <= 0.03928, $b / 12.92, pow(($b + 0.055) / 1.055, 2.4));
+    $r: if($r <= 0.0393, $r / 12.92, pow(($r + 0.055) / 1.055, 2.4));
+    $g: if($g <= 0.0393, $g / 12.92, pow(($g + 0.055) / 1.055, 2.4));
+    $b: if($b <= 0.0393, $b / 12.92, pow(($b + 0.055) / 1.055, 2.4));
     
     @return $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
 }
@@ -120,28 +122,29 @@
     
     @media (prefers-contrast: more) {
         $high-contrast: adjust-contrast($background, 20%);
+        
         background: $high-contrast;
     }
 }
 
 // Filter Mixins
 @mixin backdrop-filter($value) {
-    -webkit-backdrop-filter: $value;
     backdrop-filter: $value;
 }
 
 @mixin filter($value) {
-    -webkit-filter: $value;
     filter: $value;
 }
 
 // Glass Effect Utilities
 .glass-effect {
     @include backdrop-filter(blur(10px));
-    background-color: rgba(255, 255, 255, 0.1);
+
+    background-color: color.mix(white, 10%);
 }
 
 .frosted-glass {
     @include backdrop-filter(blur(5px) saturate(180%));
-    background-color: rgba(255, 255, 255, 0.8);
+    
+    background-color: color.mix(white, 80%);
 }

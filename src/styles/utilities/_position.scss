@@ -1,4 +1,5 @@
 @use './variables' as *;
+
 // Position Mixins
 @mixin static {
   position: static;
@@ -19,7 +20,7 @@
 @mixin sticky {
   position: sticky;
   z-index: 999;
-  top: 0px;
+  top: 0;
 } 
 
 // Position Classes

@@ -10,7 +10,7 @@
         }
       ],
     "scss/dollar-variable-empty-line-before": null, 
-
+    "no-empty-source": null,
     "selector-class-pattern": [
       "^[a-zA-Z0-9\\-_:@]+$",
       {

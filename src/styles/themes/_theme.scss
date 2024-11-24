@@ -98,7 +98,7 @@ $opacity-levels: (
   // Tooltip
   --tooltip-bg: var(--dark);
   --tooltip-text: var(--light);
-  --tooltip-shadow-color: rgba(0,0,0,0.4);
+  --tooltip-shadow-color: rgb(0 0 0 / 40%);
   --microtip-transition-duration: 0.518s;
   --microtip-transition-delay: .2s;
   --microtip-transition-easing: cubic-bezier(0.16, 1, 0.9, 1);

@@ -8,67 +8,65 @@
 // _mixins.scss
 @mixin hamburger($color: currentColor, $size: 24px, $thickness: 2px) {
     .hamburger {
-        @include Responsive.media-up('md') {
-            display: none;
+        --hamburger-color: #{$color};
+        --hamburger-size: #{$size};
+        --hamburger-thickness: #{$thickness};
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
         }
 
-        & {
-            --hamburger-color: #{$color};
-            --hamburger-size: #{$size};
-            --hamburger-thickness: #{$thickness};
+        // display: none;
+        cursor: pointer;
+        width: var(--hamburger-size);
+        height: var(--hamburger-size);
+        position: relative;
+        border: 0;
+        background: transparent;
+        padding: 0;
 
-            &:focus {
-                outline: none;
-                box-shadow: none;
+        span {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: var(--hamburger-thickness);
+            background-color: var(--hamburger-color);
+            transform-origin: center;
+            transition: transform 0.2s ease,
+                opacity 0.2s ease;
+
+            &:first-child {
+                top: 20%;
             }
 
-            // display: none;
-            cursor: pointer;
-            width: var(--hamburger-size);
-            height: var(--hamburger-size);
-            position: relative;
-            border: 0;
-            background: transparent;
-            padding: 0;
-
-            &[aria-expanded="true"] span {
-                &:first-child {
-                    transform: translateY(7px) rotate(45deg);
-                }
-
-                &:nth-child(2) {
-                    opacity: 0;
-                }
-
-                &:last-child {
-                    transform: translateY(-7px) rotate(-45deg);
-                }
+            &:nth-child(2) {
+                top: 50%;
+                transform: translateY(-50%);
             }
 
-            span {
-                display: block;
-                position: absolute;
-                left: 0;
-                right: 0;
-                height: var(--hamburger-thickness);
-                background-color: var(--hamburger-color);
-                transform-origin: center;
-                transition: transform 0.2s ease,
-                    opacity 0.2s ease;
-
-                &:first-child {
-                    top: 20%;
-                }
-
-                &:nth-child(2) {
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-
-                &:last-child {
-                    bottom: 20%;
-                }
+            &:last-child {
+                bottom: 20%;
             }
+        }
+
+        &[aria-expanded="true"] span {
+            &:first-child {
+                transform: translateY(7px) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+
+            &:last-child {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+        }
+    
+        @include Responsive.media-up('md') {
+            display: none;
         }
     }
 }

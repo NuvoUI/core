@@ -12,6 +12,7 @@
 
 @mixin container {
   @include container-base;
+  
   & {
     @each $breakpoint, $width in $container-max-widths {
       @media (min-width: map.get($breakpoints, $breakpoint)) {

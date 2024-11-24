@@ -3,11 +3,7 @@
 @use '../utilities/variables' as *;
 @use '../themes/theme' as Theme;
 
-// Form Container Mixins
-@mixin form-group {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
+
 
 @mixin form-inline {
   display: flex;
@@ -55,7 +51,10 @@
 
 
 // Handle input with value or placeholder
-.form-group {
+@mixin form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+  
   &:has(input:not(:placeholder-shown)) > label.form-label,
   &:has(input:focus) > label.form-label {
     @include form-label-float;
@@ -87,6 +86,7 @@
 // Select Mixins
 @mixin form-select {
   @include form-input;
+
   appearance: none;
   background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
   background-repeat: no-repeat;
@@ -107,9 +107,11 @@
   &[type="checkbox"]{
     border-radius: 0.25rem;
   }
+  
   &[type="radio"]{
     border-radius: 20rem;
   }
+  
   appearance: none;
   width: 1.25rem;
   height: 1.25rem;
@@ -120,8 +122,10 @@
   &:checked {
     background-color: var(--primary); border-color: var(--primary);
     @each $name, $color in $colors { 
-      &.#{$name} {background-color: Theme.theme-color($name); border-color: Theme.theme-color($name);}
+      &.#{$name} {
+        background-color: Theme.theme-color($name); border-color: Theme.theme-color($name);}
     }
+    
     background-image: url("data:image/svg+xml,..."); // todo: colored arrow svg
   }
 }

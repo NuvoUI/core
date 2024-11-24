@@ -3,22 +3,22 @@
 
 
 // Padding mixins
-@mixin p($val) { $val: if($val==0, $val, $val + px); padding: $val !important; }
-@mixin px($val) { $val: if($val==0, $val, $val + px); padding-left: $val !important; padding-right: $val !important; }
-@mixin py($val) { $val: if($val==0, $val, $val + px); padding-top: $val !important; padding-bottom: $val !important; }
-@mixin pt($val) { $val: if($val==0, $val, $val + px); padding-top: $val !important; }
-@mixin pr($val) { $val: if($val==0, $val, $val + px); padding-right: $val !important; }
-@mixin pb($val) { $val: if($val==0, $val, $val + px); padding-bottom: $val !important; }
-@mixin pl($val) { $val: if($val==0, $val, $val + px); padding-left: $val !important; }
+@mixin p($val) { $val: if($val == 0, $val, $val + px); padding: $val !important; }
+@mixin px($val) { $val: if($val == 0, $val, $val + px); padding-left: $val !important; padding-right: $val !important; }
+@mixin py($val) { $val: if($val == 0, $val, $val + px); padding-top: $val !important; padding-bottom: $val !important; }
+@mixin pt($val) { $val: if($val == 0, $val, $val + px); padding-top: $val !important; }
+@mixin pr($val) { $val: if($val == 0, $val, $val + px); padding-right: $val !important; }
+@mixin pb($val) { $val: if($val == 0, $val, $val + px); padding-bottom: $val !important; }
+@mixin pl($val) { $val: if($val == 0, $val, $val + px); padding-left: $val !important; }
 
 // Margin mixins
-@mixin m($val) { $val: if($val==0, $val, $val + px); margin: $val !important; }
-@mixin mx($val) { $val: if($val==0, $val, $val + px); margin-left: $val !important; margin-right: $val !important; }
-@mixin my($val) { $val: if($val==0, $val, $val + px); margin-top: $val !important; margin-bottom: $val !important; }
-@mixin mt($val) { $val: if($val==0, $val, $val + px); margin-top: $val !important; }
-@mixin mr($val) { $val: if($val==0, $val, $val + px); margin-right: $val !important; }
-@mixin mb($val) { $val: if($val==0, $val, $val + px); margin-bottom: $val !important; }
-@mixin ml($val) { $val: if($val==0, $val, $val + px); margin-left: $val !important; }
+@mixin m($val) { $val: if($val == 0, $val, $val + px); margin: $val !important; }
+@mixin mx($val) { $val: if($val == 0, $val, $val + px); margin-left: $val !important; margin-right: $val !important; }
+@mixin my($val) { $val: if($val == 0, $val, $val + px); margin-top: $val !important; margin-bottom: $val !important; }
+@mixin mt($val) { $val: if($val == 0, $val, $val + px); margin-top: $val !important; }
+@mixin mr($val) { $val: if($val == 0, $val, $val + px); margin-right: $val !important; }
+@mixin mb($val) { $val: if($val == 0, $val, $val + px); margin-bottom: $val !important; }
+@mixin ml($val) { $val: if($val == 0, $val, $val + px); margin-left: $val !important; }
 
 // Auto margin utilities
 @mixin ml-auto { margin-left: auto; }

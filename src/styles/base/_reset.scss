@@ -27,7 +27,7 @@ dd {
 body {
   min-height: 100vh;
   min-height: 100dvh;
-  text-rendering: optimizeSpeed;
+  text-rendering: optimizespeed;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,8 +51,9 @@ textarea,
 select {
   font: inherit;
   transition: all 0.2s ease-in-out;
+  
   &:focus {
-      box-shadow: inset 0 0 7px 0px #60b0cd; /* Change this to your preferred color and width */
+      box-shadow: inset 0 0 7px 0 #60b0cd; /* Change this to your preferred color and width */
       outline: 2px solid #40c1bf; /* Change this to your preferred color and width */
   }
 }
@@ -75,6 +76,7 @@ ol {
   list-style: none;
   margin: 0;
   padding: 0;
+  
   // Modern properties
   padding-inline-start: 0;  // Replaces padding-left
   margin-block: 0;          // Replaces margin-top/bottom
