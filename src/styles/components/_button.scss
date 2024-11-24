@@ -136,8 +136,11 @@
   .btn:not(:first-child):not(:last-child) { border-radius: 0; }
   .btn:first-child:dir(ltr) { border-top-right-radius: 0rem; border-bottom-right-radius: 0rem; }
   .btn:last-child:dir(ltr) { border-top-left-radius: 0rem; border-bottom-left-radius: 0rem; }
-  .btn:first-child:dir(rtl) { border-top-left-radius: 0rem; border-bottom-left-radius: 0rem; }
-  .btn:last-child:dir(rtl) { border-top-right-radius: 0rem; border-bottom-right-radius: 0rem; }
+  
+  @if $enable-rtl {
+    .btn:first-child:dir(rtl) { border-top-left-radius: 0rem; border-bottom-left-radius: 0rem; }
+    .btn:last-child:dir(rtl) { border-top-right-radius: 0rem; border-bottom-right-radius: 0rem; }
+  }
 }
 
 // Base Button Class
