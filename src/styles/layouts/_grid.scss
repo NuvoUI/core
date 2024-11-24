@@ -82,14 +82,12 @@
   // Responsive grid columns
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: $width) {
-      .grid.#{$breakpoint}\:cols-#{$i} {
+      .grid.cols-#{$i}#{$breakpoint} {
         @include grid-cols($i);
       }
     }
   }
 }
-
-
 
 // Generate Column Span Classes with Responsive Variants
 @for $i from 1 through $column-count {
@@ -99,7 +97,7 @@
 
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: $width) {
-      .#{$breakpoint}\:col-span-#{$i} {
+      .col-span-#{$i}\@#{$breakpoint} {
         @include col-span($i);
       }
     }
@@ -133,13 +131,13 @@ $alignments: (
 
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: $width) {
-      .#{$breakpoint}\:justify-items-#{$name} {
+      .justify-items-#{$name}\@#{$breakpoint} {
         justify-items: $value;
       }
-      .#{$breakpoint}\:align-items-#{$name} {
+      .align-items-#{$name}\@#{$breakpoint} {
         align-items: $value;
       }
-      .#{$breakpoint}\:place-items-#{$name} {
+      .place-items-#{$name}\@#{$breakpoint} {
         place-items: $value;
       }
     }
