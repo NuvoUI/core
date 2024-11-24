@@ -1,7 +1,11 @@
 @use 'sass:map';
 
-// Import variables
+/* Import variables */
 @use '../utilities/variables' as *;
+
+:root {
+  --font-family-base: system-ui, -apple-system, "BlinkMacSystemFont", 'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+}
 
 // Base typography styles
 html {
@@ -85,5 +89,5 @@ a {
 }
 
 .focus\:ring:focus {
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  box-shadow: 0 0 0 3px rgb(66 153 225 / 50%);
 }

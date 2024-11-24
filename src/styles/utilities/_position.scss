@@ -96,10 +96,10 @@
   @media (min-width: $width) {
       // Generate utilities from spacing map
       @each $i in $spacings {
-          .top-#{$i}\@#{$breakpoint} {height: if($i ==0, $i, $i + px);}
-          .right-#{$i}\@#{$breakpoint} {width: if($i ==0, $i, $i + px);}
-          .bottom-#{$i}\@#{$breakpoint} {min-width: if($i ==0, $i, $i + px);}
-          .left-#{$i}\@#{$breakpoint} {min-height: if($i ==0, $i, $i + px);}
+          .top-#{$i}\@#{$breakpoint} {height: if($i == 0, $i, $i + px);}
+          .right-#{$i}\@#{$breakpoint} {width: if($i == 0, $i, $i + px);}
+          .bottom-#{$i}\@#{$breakpoint} {min-width: if($i == 0, $i, $i + px);}
+          .left-#{$i}\@#{$breakpoint} {min-height: if($i == 0, $i, $i + px);}
       }
   }
 }

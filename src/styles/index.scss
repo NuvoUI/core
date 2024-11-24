@@ -1,4 +1,4 @@
-// Forward all modules for external use
+/* Forward all modules for external use */
 @forward 'utilities/variables';
 @forward './global';
 
@@ -35,6 +35,3 @@
 @forward 'components/hamburger';
 @forward 'components/navbar';
 @forward 'components/form';
-
-// Local usage
-@use './global' as *;

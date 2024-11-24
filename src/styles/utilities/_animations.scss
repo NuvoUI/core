@@ -6,7 +6,7 @@
 $generated-keyframes: ();
 
 
-@mixin generateBounceKeyframes($keyframeName, $x, $y) {
+@mixin generate-bounce-keyframes($keyframeName, $x, $y) {
     @if not list.index($generated-keyframes, $keyframeName) {
         $generated-keyframes: list.append($generated-keyframes, $keyframeName) !global;
         
@@ -14,9 +14,11 @@ $generated-keyframes: ();
             0% {
                 transform: translateX(-#{$x}) translateY(-#{$y});
             }
+
             50% {
                 transform: translateX(#{$x}) translateY(#{$y});
             }
+
             100% {
                 transform: translateX(-#{$x}) translateY(-#{$y});
             }
@@ -32,9 +34,9 @@ $generated-keyframes: ();
         timing: ease-in-out,
         iteration: infinite
     );
+    
     // Merge with defaults
     $props: map.merge($defaults, $props);
-
     $x: map.get($props, 'horizontal');
     $y: map.get($props, 'vertical');
     $duration: map.get($props, 'duration');
@@ -46,16 +48,15 @@ $generated-keyframes: ();
     $y-unit: if($y, safe-unit-name(get-unit($y)), '-');
     
     // Clean values (remove units)
-    $cleanX: if($x, strip-unit($x), 0);
-    $cleanY: if($y, strip-unit($y), 0);
-
-    $animationName: anim-bounce-#{$cleanX}#{$x-unit}-#{$cleanY}#{$y-unit};
+    $clean-x: if($x, strip-unit($x), 0);
+    $clean-y: if($y, strip-unit($y), 0);
+    $animation-name: anim-bounce-#{$clean-x}#{$x-unit}-#{$clean-y}#{$y-unit};
 
 
     & {
-        animation: #{$animationName} $duration $easing $iteration;
+        animation: #{$animation-name} $duration $easing $iteration;
     }
-    @include generateBounceKeyframes($animationName, $x, $y);
+    @include generate-bounce-keyframes($animation-name, $x, $y);
 }
 
 
@@ -71,32 +72,9 @@ $generated-keyframes: ();
     .anim__fade-in-reveal {
         scale: .2;
         opacity: 0.7;
-
         animation: fade-in-reveal linear forwards;
         animation-timeline: view();
-
         animation-range-start: cover;
         animation-range-end: 550px;
-
-        // animation-range: enter;
-        // animation-range: exit;
-    }
-}
-
-@keyframes fadeOutAndCollapse {
-    0% {
-        opacity: 1;
-        bottom: 0px;
-        height: auto;
-    }
-    50% {
-        bottom: -500px;
-        opacity: 0;
-    }
-    100% {
-        bottom: 100%;
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
     }
 }
