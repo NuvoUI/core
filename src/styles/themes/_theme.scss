@@ -28,7 +28,6 @@ $opacity-levels: (
   @each $name, $color in $colors {
     // Base color
     --#{$name}: #{$color};
-    --#{$name}-rgb: #{color.channel($color, 'red')}, #{color.channel($color, 'green')}, #{color.channel($color, 'blue')};
     
     // Variations
     @each $variant, $percentage in $color-variations {
