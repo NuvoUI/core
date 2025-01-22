@@ -29,10 +29,4 @@
 @forward 'themes/dark';
 @forward 'themes/theme';
 
-// Components
-@forward 'components/button';
-@forward 'components/hamburger';
-@forward 'components/navbar';
-@forward 'components/form';
-
 @forward './mixins-map';

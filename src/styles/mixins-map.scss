@@ -1,26 +1,6 @@
 
 @use 'base/base' as *;
 @use 'base/reset' as *;
-@use 'components/alert' as *;
-@use 'components/avatar' as *;
-@use 'components/badge' as *;
-@use 'components/breadcrumb' as *;
-@use 'components/button' as *;
-@use 'components/calendar' as *;
-@use 'components/card' as *;
-@use 'components/checkbox' as *;
-@use 'components/dropdown' as *;
-@use 'components/form' as *;
-@use 'components/hamburger' as *;
-@use 'components/modal' as *;
-@use 'components/navbar' as *;
-@use 'components/pagination' as *;
-@use 'components/progress' as *;
-@use 'components/radio' as *;
-@use 'components/sidebar' as *;
-@use 'components/table' as *;
-@use 'components/tabs' as *;
-@use 'components/tooltip' as *;
 @use 'layouts/container' as *;
 @use 'layouts/flex' as *;
 @use 'layouts/grid' as *;
@@ -68,31 +48,7 @@
     // Wrap in media query if breakpoint exists
     @if $breakpoint {
       @include media-up($breakpoint) {
-        @if $mixin-str == 'btn-base' {
-          @include btn-base;
-        } @else if $mixin-str == 'btn-group-base' {
-          @include btn-group-base;
-        } @else if $mixin-str == 'form-inline' {
-          @include form-inline;
-        } @else if $mixin-str == 'form-label' {
-          @include form-label;
-        } @else if $mixin-str == 'form-label-float' {
-          @include form-label-float;
-        } @else if $mixin-str == 'form-input' {
-          @include form-input;
-        } @else if $mixin-str == 'form-group' {
-          @include form-group;
-        } @else if $mixin-str == 'form-valid' {
-          @include form-valid;
-        } @else if $mixin-str == 'form-invalid' {
-          @include form-invalid;
-        } @else if $mixin-str == 'form-select' {
-          @include form-select;
-        } @else if $mixin-str == 'form-selection' {
-          @include form-selection;
-        } @else if $mixin-str == 'form-selection-input' {
-          @include form-selection-input;
-        } @else if $mixin-str == 'container-base' {
+        @if $mixin-str == 'container-base' {
           @include container-base;
         } @else if $mixin-str == 'container' {
           @include container;
@@ -310,41 +266,6 @@
           @include no-underline;
         } @else if $mixin-str == 'truncate' {
           @include truncate;
-        } @else if str.index($mixin-str, 'btn-solid(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-solid(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-outline(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-outline(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-ghost(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-ghost(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-size(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-size(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-shape(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-shape(str.unquote($value));
-        } @else if str.index($mixin-str, 'input-size(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include input-size(str.unquote($value));
-        } @else if str.index($mixin-str, 'hamburger(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include hamburger(str.unquote($value));
         } @else if str.index($mixin-str, 'w-col(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -688,31 +609,7 @@
         }
       }
     } @else {
-        @if $mixin-str == 'btn-base' {
-          @include btn-base;
-        } @else if $mixin-str == 'btn-group-base' {
-          @include btn-group-base;
-        } @else if $mixin-str == 'form-inline' {
-          @include form-inline;
-        } @else if $mixin-str == 'form-label' {
-          @include form-label;
-        } @else if $mixin-str == 'form-label-float' {
-          @include form-label-float;
-        } @else if $mixin-str == 'form-input' {
-          @include form-input;
-        } @else if $mixin-str == 'form-group' {
-          @include form-group;
-        } @else if $mixin-str == 'form-valid' {
-          @include form-valid;
-        } @else if $mixin-str == 'form-invalid' {
-          @include form-invalid;
-        } @else if $mixin-str == 'form-select' {
-          @include form-select;
-        } @else if $mixin-str == 'form-selection' {
-          @include form-selection;
-        } @else if $mixin-str == 'form-selection-input' {
-          @include form-selection-input;
-        } @else if $mixin-str == 'container-base' {
+        @if $mixin-str == 'container-base' {
           @include container-base;
         } @else if $mixin-str == 'container' {
           @include container;
@@ -930,41 +827,6 @@
           @include no-underline;
         } @else if $mixin-str == 'truncate' {
           @include truncate;
-        } @else if str.index($mixin-str, 'btn-solid(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-solid(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-outline(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-outline(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-ghost(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-ghost(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-size(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-size(str.unquote($value));
-        } @else if str.index($mixin-str, 'btn-shape(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include btn-shape(str.unquote($value));
-        } @else if str.index($mixin-str, 'input-size(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include input-size(str.unquote($value));
-        } @else if str.index($mixin-str, 'hamburger(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include hamburger(str.unquote($value));
         } @else if str.index($mixin-str, 'w-col(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
