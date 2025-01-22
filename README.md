@@ -1,71 +1,64 @@
 # NuvoUI
 
+[![GitHub stars](https://img.shields.io/github/stars/NuvoUI/core?style=social)](https://github.com/NuvoUI/core)
+[![GitHub forks](https://img.shields.io/github/forks/NuvoUI/core?style=social)](https://github.com/NuvoUI/core)
+[![npm version](https://img.shields.io/npm/v/@nuvoui/core)](https://www.npmjs.com/package/@nuvoui/core)
 [![](https://dcbadge.limes.pink/api/server/nWGsbQKE?style=flat&theme=default-inverted)](https://discord.gg/nWGsbQKE)
 
+## Welcome to NuvoUI 🎉
 
-NuvoUI isn’t your next shiny, over-engineered UI library. It’s raw, lightweight, and built for one thing: delivering responsive, clean designs fast. If you’re tired of bloated frameworks slowing you down, welcome to NuvoUI.
-
----
-
-## Why NuvoUI?
-
-> Simple to start, grows with you.
-
-We do not like prefixes. Why make a button like this
-
-```html
-<button class="btn btn-lg btn-primary btn-round py-40" >...
-```
-
-when you can have, this
-
-```html
-<button class="btn lg primary pill outline py-40" >...
-```
-
-But wait, there is more... lets make it fully responsive
-```html
-<button class="btn lg primary pill outline 
-    py-40
-    py-20@sm
-    py-80@lg
-    outline" >...
-```
-This will be
-
-1. Use `padding-left: 40px;` and `padding-right: 40px;` as base
-2. Use `padding-left: 20px;` and `padding-right: 20px;` @ small screen
-3. Use `padding-left: 80px;` and `padding-right: 80px;` @ large screen
-
-see this feels easy to us to remember ...
+NuvoUI is a modern, human-friendly SCSS framework designed for developers who value simplicity, flexibility, and performance. Whether you're a seasoned CSS wizard or just getting started, NuvoUI makes building responsive, performant, and visually stunning web designs a breeze.
 
 
+## Why Choose NuvoUI?
+
+✨ **Natural Language-Like Syntax**  
+Write CSS that feels intuitive and effortless. Use classes like `px-20` for padding or `px-20@lg` for responsive styles—all without breaking a sweat.
+
+🔥 **Fully Mixin-Based**  
+Seamlessly integrate NuvoUI into your SCSS pipeline. Write reusable, modular, and clean SCSS code with our powerful mixins.
+
+🚀 **Optimized Animations**  
+Define animations on the fly. NuvoUI caches animations intelligently, ensuring your code stays DRY (Don't Repeat Yourself).
+
+
+
+## Key Features
+
+- **Dynamic Responsive Design**: Use `@lg`, `@sm`, etc., to generate responsive styles with ease.
+- **Flexible Animations**: Create complex animations with simple mixins like `@include NuvoUI.animate-bounce((horizontal: 3%, duration: 25s))`.
+- **Developer-First Approach**: NuvoUI is built by developers for developers, offering the flexibility to build custom solutions effortlessly.
+- **Simple Installation**: Get started with a single command via npm.
 
 ---
 
-## How to Use It
+## Installation
 
-1. **Install via npm**  
-   ```bash
-   npm install @nuvoui/core
-   - or
-   pnpm install @nuvoui/core
-   ```
+To start using NuvoUI, install it via npm or pnpm:
 
-2. **Import SASS**
-
-    ```scss
-    @use '@nuvoui/core/src/styles/index.scss' as NuvoUI with (
-        $column-count: 25,
-        $color-dark: #1A1A1A,
-        $color-warning: #F8AF08,
-        $color-success: #34C759,
-        ...
-    );
-    ```
+```bash
+npm instal @nuvoui/core 
+ // or
+pnpm install @nuvoui/core
+```
 
 
-Another example
+
+## Usage Examples
+
+### Example 1: Intuitive HTML Classes
+
+```html
+<div class=" 
+    px-40
+    px-20@sm
+    px-80@lg
+">
+  Responsive Padding Example
+</div>
+```
+
+### Example 2: Elegant SCSS Mixins
 
 ```scss
 img:nth-child(1) {
@@ -78,7 +71,8 @@ img:nth-child(1) {
 }
 ```
 
-will result in (*psst: dont worry, we are using caching...*)
+Generated CSS:
+
 ```css
 img:nth-child(1) {
   margin-left: auto;
@@ -87,6 +81,7 @@ img:nth-child(1) {
   margin-bottom: 40px !important;
   animation: anim-bounce-0per-3per 25s ease-in-out infinite;
 }
+
 @keyframes anim-bounce-0per-3per {
   0% {
     transform: translateX(-0%) translateY(-3%);
@@ -102,6 +97,20 @@ img:nth-child(1) {
 
 
 
-## There are so many things to do, and we do need to make a documentation. Stay tuned...
+## Join the NuvoUI Community 🌟
+
+We welcome developers of all levels to contribute, suggest features, or just give us a star ⭐️ on GitHub. Let’s build something amazing together!
+
+- GitHub: [NuvoUI Core](https://github.com/NuvoUI/core)
+- NPM: [NuvoUI Core Package](https://www.npmjs.com/package/@nuvoui/core)
+- DISOCRD: [NuvoUI Discord](https://discord.gg/nWGsbQKE)
+
+
+## License
+
+
+NuvoUI is open-source and licensed under the [MIT License](https://github.com/NuvoUI/core/blob/main/LICENSE).
+
+Feel free to use NuvoUI in your projects—commercial or personal. Just don't forget to give us a shoutout when possible!
 
 ![working](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjV3ZDhyeWp0bno2aTBjMzd5bTltazg0Y29mM2czeDl1aHNxam8xbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yYSSBtDgbbRzq/giphy.webp)
