@@ -1,8 +1,8 @@
 {
   "name": "@nuvoui/core",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "NuvoUI Core SCSS Library",
-  "main": "dist/index.css",
+  "main": "dist/nuvoui.css",
   "module": "src/styles/index.scss",
   "files": [
     "dist",
@@ -13,7 +13,7 @@
     "docs:dev": "vite --config vite.config.docs.mjs",
     "docs:build": "vite build --config vite.config.docs.mjs",
     "docs:preview": "vite preview --config vite.config.docs.mjs",
-    "prepare": "npm run build",
+    "prepare": "node build.js && npm run build",
     "lint": "stylelint \"src/**/*.scss\"",
     "format": "prettier --write \"src/**/*.{scss,js,json}\"",
     "clean": "rimraf dist"

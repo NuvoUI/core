@@ -6,7 +6,7 @@ export default defineConfig({
     devSourcemap: true,
     preprocessorOptions: {
       scss: {
-        api: 'modern' // or "modern"
+        api: 'modern'
       }
     },
   },
@@ -18,10 +18,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        // main: path.resolve(__dirname, 'index.html'),
-        main: path.resolve(__dirname, 'src/styles/index.scss'),
-        light: path.resolve(__dirname, 'src/styles/themes/_light.scss'),
-        dark: path.resolve(__dirname, 'src/styles/themes/_dark.scss')
+        nuvoui: path.resolve(__dirname, 'src/styles/index.scss'),
       },
       output: {
         assetFileNames: '[name].[ext]'

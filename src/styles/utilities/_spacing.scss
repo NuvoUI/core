@@ -1,24 +1,43 @@
 @use 'sass:math';
+@use 'sass:string';
+@use 'sass:meta';
 @use './variables' as *; 
 
+@function format-unit-value($value) {
+  // Zero check
+  @if $value == 0 {
+    @return 0;
+  }
+
+  // If pure number, add px
+  @if meta.type-of($value) == 'number' {
+    @return $value + px;
+  }
+
+   // Convert value to string for unit checking
+  $value-str: if(meta.type-of($value) == 'string', string.unquote($value), #{$value});
+  @debug string.unquote( $value-str); // .widget:hover
+  
+  @return $value-str;
+}
 
 // Padding mixins
-@mixin p($val) { $val: if($val == 0, $val, $val + px); padding: $val !important; }
-@mixin px($val) { $val: if($val == 0, $val, $val + px); padding-left: $val !important; padding-right: $val !important; }
-@mixin py($val) { $val: if($val == 0, $val, $val + px); padding-top: $val !important; padding-bottom: $val !important; }
-@mixin pt($val) { $val: if($val == 0, $val, $val + px); padding-top: $val !important; }
-@mixin pr($val) { $val: if($val == 0, $val, $val + px); padding-right: $val !important; }
-@mixin pb($val) { $val: if($val == 0, $val, $val + px); padding-bottom: $val !important; }
-@mixin pl($val) { $val: if($val == 0, $val, $val + px); padding-left: $val !important; }
+@mixin p($val) { padding: format-unit-value($val) !important; }
+@mixin px($val) { $val: format-unit-value($val); padding-left: $val !important; padding-right: $val !important; }
+@mixin py($val) { $val: format-unit-value($val); padding-top: $val !important; padding-bottom: $val !important; }
+@mixin pt($val) { $val: format-unit-value($val); padding-top: $val !important; }
+@mixin pr($val) { $val: format-unit-value($val); padding-right: $val !important; }
+@mixin pb($val) { $val: format-unit-value($val); padding-bottom: $val !important; }
+@mixin pl($val) { $val: format-unit-value($val); padding-left: $val !important; }
 
 // Margin mixins
-@mixin m($val) { $val: if($val == 0, $val, $val + px); margin: $val !important; }
-@mixin mx($val) { $val: if($val == 0, $val, $val + px); margin-left: $val !important; margin-right: $val !important; }
-@mixin my($val) { $val: if($val == 0, $val, $val + px); margin-top: $val !important; margin-bottom: $val !important; }
-@mixin mt($val) { $val: if($val == 0, $val, $val + px); margin-top: $val !important; }
-@mixin mr($val) { $val: if($val == 0, $val, $val + px); margin-right: $val !important; }
-@mixin mb($val) { $val: if($val == 0, $val, $val + px); margin-bottom: $val !important; }
-@mixin ml($val) { $val: if($val == 0, $val, $val + px); margin-left: $val !important; }
+@mixin m($val) { $val: format-unit-value($val); margin: $val !important; }
+@mixin mx($val) { $val: format-unit-value($val); margin-left: $val !important; margin-right: $val !important; }
+@mixin my($val) { $val: format-unit-value($val); margin-top: $val !important; margin-bottom: $val !important; }
+@mixin mt($val) { $val: format-unit-value($val); margin-top: $val !important; }
+@mixin mr($val) { $val: format-unit-value($val); margin-right: $val !important; }
+@mixin mb($val) { $val: format-unit-value($val); margin-bottom: $val !important; }
+@mixin ml($val) { $val: format-unit-value($val); margin-left: $val !important; }
 
 // Auto margin utilities
 @mixin ml-auto { margin-left: auto; }

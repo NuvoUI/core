@@ -1,5 +1,6 @@
 
 @use './variables' as *;
+@use './functions' as *;
 
 // Display Mixins
 @mixin d-none { display: none; }

@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use '../utilities/variables' as *;
+@use '../utilities/functions' as *;
 
 // Flex Container Mixins
 @mixin flex {display: flex;}
