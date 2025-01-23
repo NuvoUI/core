@@ -1,135 +1,84 @@
 // _theme.scss
 @use 'sass:color';
 @use 'sass:map';
+@use '../utilities/colors' as *;
 @use '../utilities/variables' as *;
 
 
-// Color variations percentage
-$color-variations: (
-  'lighter': 15%,
-  'light': 10%,
-  'dark': -10%,
-  'darker': -15%
-);
+ 
 
-$opacity-levels: (
-  '10': 0.1,
-  '25': 0.25,
-  '50': 0.5,
-  '75': 0.75
-);
+// Generate scales for primitives
+$colors-primitives: ();
 
-
-@function theme-color($color-name, $variant: 'base') {
-  @return var(--#{$color-name}#{if($variant == 'base', '', '-' + $variant)});
+@each $name, $color in $color-primitives {
+    $colors-primitives: map.set($colors-primitives, $name, create-color-scale($color));
 }
 
-@mixin generate-theme-colors($theme) {
-  @each $name, $color in $colors {
-    // Base color
-    --#{$name}: #{$color};
-    
-    // Variations
-    @each $variant, $percentage in $color-variations {
-      --#{$name}-#{$variant}: #{if($theme == 'light',
-        color.scale($color, $lightness: $percentage),
-        color.scale($color, $lightness: $percentage * -1)
-      )};
+:root {
+  @each $color-name, $scale in $colors {
+    --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
+    @each $shade, $value in $scale {
+      --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
     }
-    
-    // Opacity variations
-    @each $level, $opacity in $opacity-levels {
-      --#{$name}-#{$level}: #{rgba($color, $opacity)};
+  }
+
+  @each $color-name, $scale in $colors-primitives {
+    --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
+    @each $shade, $value in $scale {
+      --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
     }
-    
-    // State variations
-    --#{$name}-hover: var(--#{$name}-#{if($theme == 'light', 'dark', 'light')});
-    --#{$name}-active: var(--#{$name}-#{if($theme == 'light', 'darker', 'lighter')});
-    --#{$name}-disabled: var(--#{$name}-50);
   }
 
-   // Background & Border
-   @if $theme == 'light' {
-    --bg-primary: var(--light);
-    --bg-secondary: #{color.scale(map.get($colors, 'light'), $lightness: -5%)};
-    --bg-tertiary: #{color.scale(map.get($colors, 'light'), $lightness: -10%)};
-    --border-color: #{rgba(map.get($colors, 'dark'), 0.1)};
-    --border-color-dark: #{rgba(map.get($colors, 'dark'), 0.2)};
-  } @else {
-    --bg-primary: var(--dark);
-    --bg-secondary: #{color.scale(map.get($colors, 'dark'), $lightness: 5%)};
-    --bg-tertiary: #{color.scale(map.get($colors, 'dark'), $lightness: 10%)};
-    --border-color: #{rgba(map.get($colors, 'light'), 0.07)};
-    --border-color-dark: #{rgba(map.get($colors, 'light'), 0.15)};
-  }
-
-    
-  // Text Colors
-  @if $theme == 'light' {
-    --text-primary: var(--dark);
-    --text-secondary: #{rgba(map.get($colors, 'dark'), 0.7)};
-    --text-tertiary: #{rgba(map.get($colors, 'dark'), 0.5)};
-    --text-disabled: #{rgba(map.get($colors, 'dark'), 0.3)};
-    --text-inverse: var(--light);
-  } @else {
-    --text-primary: var(--light);
-    --text-secondary: #{rgba(map.get($colors, 'light'), 0.7)};
-    --text-tertiary: #{rgba(map.get($colors, 'light'), 0.5)};
-    --text-disabled: #{rgba(map.get($colors, 'light'), 0.3)};
-    --text-inverse: var(--dark);
-  }
-
-
-  // Link Colors
+  --background: #{map.get($light-theme, 'background')};
+  --foreground: #{map.get($light-theme, 'foreground')};
+  --surface: #{map.get($light-theme, 'surface')};
+  --border: var(--primary-600);
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-600);
+  --button-bg-color: var(--primary);
+  --button-bg-color-hover: var(--primary-600);
+  --button-text-color: var(--gray-100);
   --link-color: var(--primary);
-  --link-hover-color: #{color.scale(map.get($colors, 'primary'), $lightness: if($theme == 'light', -10%, 10%))};
-  --link-active-color: #{color.scale(map.get($colors, 'primary'), $lightness: if($theme == 'light', -20%, 20%))};
-  --link-visited-color: #{color.scale(map.get($colors, 'primary'), $saturation: -20%)};
-
-  // Navigation
-  --nav-bg: var(--bg-primary);
-  --nav-hover: var(--bg-secondary);
-  --nav-active: var(--bg-tertiary);
-  --nav-text: var(--text-primary);
-  --nav-text-hover: var(--primary);
-  --nav-border: var(--border-color);
-
-  // Tooltip
-  --tooltip-bg: var(--dark);
-  --tooltip-text: var(--light);
-  --tooltip-shadow-color: rgb(0 0 0 / 40%);
-  --microtip-transition-duration: 0.518s;
-  --microtip-transition-delay: .2s;
-  --microtip-transition-easing: cubic-bezier(0.16, 1, 0.9, 1);
-  --microtip-font-size: 0.875rem;
-  --microtip-font-weight: 300;
-  --microtip-text-transform: none;
-
-  // Shadow
-  // --shadow-color: #{if($theme == 'light', '0,0,0', '255,255,255')};
-  // --shadow-opacity: #{if($theme == 'light', 0.1, 0.5)};
+  --link-hover-color: var(--primary-600);
 }
 
-/**
-.btn-primary {
-  background-color: theme-color('primary');
-  
-  &:hover {
-    background-color: theme-color('primary', 'hover');
-  }
-  
-  &:disabled {
-    background-color: theme-color('primary', 'disabled');
-  }
+[data-theme="dark"] {
+  --background: #{map.get($dark-theme, 'background')};
+  --foreground: #{map.get($dark-theme, 'foreground')};
+  --surface: #{map.get($dark-theme, 'surface')};
+  --border: var(--primary-400);
+  --text-primary: var(--gray-100);
+  --text-secondary: var(--gray-400);
+  --button-bg-color: var(--primary);
+  --button-bg-color-hover: var(--primary-400);
+  --button-text-color: var(--gray-200);
+  --link-color: var(--primary);
+  --link-hover-color: var(--primary-400);
 }
 
-.form-input {
-  border-color: var(--border-color);
-  color: var(--text-primary);
-  
-  &:focus {
-    border-color: theme-color('primary');
-    box-shadow: 0 0 0 4px theme-color('primary', '25');
-  }
-}
- */
+// --font-family-heading: var(--font-family-base);
+// --text-primary: #{map.get($colors, 'dark')};
+// --link-color: #{map.get($colors, 'primary')};
+// --link-hover-color: #{color.scale(map.get($colors, 'primary'), $lightness: -10%)};
+
+// --nav-bg: #{map.get($colors, 'light')};
+// // --nav-hover: #{color.scale(map.get($colors, 'light'), $lightness: -10%)};
+// --nav-hover: white;
+// --nav-text: #{map.get($colors, 'dark')};
+
+//   // Link Colors
+//   --link-color: var(--primary);
+//   --link-hover-color: #{color.scale(map.get($colors, 'primary'), $lightness: if($theme == 'light', -10%, 10%))};
+//   --link-active-color: #{color.scale(map.get($colors, 'primary'), $lightness: if($theme == 'light', -20%, 20%))};
+//   --link-visited-color: #{color.scale(map.get($colors, 'primary'), $saturation: -20%)};
+
+//   // Tooltip
+//   --tooltip-bg: var(--dark);
+//   --tooltip-text: var(--light);
+//   --tooltip-shadow-color: rgb(0 0 0 / 40%);
+//   --microtip-transition-duration: 0.518s;
+//   --microtip-transition-delay: .2s;
+//   --microtip-transition-easing: cubic-bezier(0.16, 1, 0.9, 1);
+//   --microtip-font-size: 0.875rem;
+//   --microtip-font-weight: 300;
+//   --microtip-text-transform: none;

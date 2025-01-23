@@ -16,28 +16,27 @@
 
    // Convert value to string for unit checking
   $value-str: if(meta.type-of($value) == 'string', string.unquote($value), #{$value});
-  @debug string.unquote( $value-str); // .widget:hover
   
   @return $value-str;
 }
 
 // Padding mixins
-@mixin p($val) { padding: format-unit-value($val) !important; }
-@mixin px($val) { $val: format-unit-value($val); padding-left: $val !important; padding-right: $val !important; }
-@mixin py($val) { $val: format-unit-value($val); padding-top: $val !important; padding-bottom: $val !important; }
-@mixin pt($val) { $val: format-unit-value($val); padding-top: $val !important; }
-@mixin pr($val) { $val: format-unit-value($val); padding-right: $val !important; }
-@mixin pb($val) { $val: format-unit-value($val); padding-bottom: $val !important; }
-@mixin pl($val) { $val: format-unit-value($val); padding-left: $val !important; }
+@mixin p($val) { padding: format-unit-value($val); }
+@mixin px($val) { $val: format-unit-value($val); padding-left: $val; padding-right: $val; }
+@mixin py($val) { $val: format-unit-value($val); padding-top: $val; padding-bottom: $val; }
+@mixin pt($val) { $val: format-unit-value($val); padding-top: $val; }
+@mixin pr($val) { $val: format-unit-value($val); padding-right: $val; }
+@mixin pb($val) { $val: format-unit-value($val); padding-bottom: $val; }
+@mixin pl($val) { $val: format-unit-value($val); padding-left: $val; }
 
 // Margin mixins
-@mixin m($val) { $val: format-unit-value($val); margin: $val !important; }
-@mixin mx($val) { $val: format-unit-value($val); margin-left: $val !important; margin-right: $val !important; }
-@mixin my($val) { $val: format-unit-value($val); margin-top: $val !important; margin-bottom: $val !important; }
-@mixin mt($val) { $val: format-unit-value($val); margin-top: $val !important; }
-@mixin mr($val) { $val: format-unit-value($val); margin-right: $val !important; }
-@mixin mb($val) { $val: format-unit-value($val); margin-bottom: $val !important; }
-@mixin ml($val) { $val: format-unit-value($val); margin-left: $val !important; }
+@mixin m($val) { $val: format-unit-value($val); margin: $val; }
+@mixin mx($val) { $val: format-unit-value($val); margin-left: $val; margin-right: $val; }
+@mixin my($val) { $val: format-unit-value($val); margin-top: $val; margin-bottom: $val; }
+@mixin mt($val) { $val: format-unit-value($val); margin-top: $val; }
+@mixin mr($val) { $val: format-unit-value($val); margin-right: $val; }
+@mixin mb($val) { $val: format-unit-value($val); margin-bottom: $val; }
+@mixin ml($val) { $val: format-unit-value($val); margin-left: $val; }
 
 // Auto margin utilities
 @mixin ml-auto { margin-left: auto; }

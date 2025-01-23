@@ -24,9 +24,7 @@
 @forward 'layouts/flex';
 @forward 'layouts/grid';
 
-// Themes
-@forward 'themes/light';
-@forward 'themes/dark';
+// Theme
 @forward 'themes/theme';
 
 @forward './mixins-map';

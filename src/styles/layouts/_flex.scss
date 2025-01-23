@@ -50,7 +50,7 @@
 @mixin no-grow { flex: none; }
 
 @mixin w-col($size) {
-  flex: 0 0 math.percentage(math.div($size, $column-count)) !important;
+  flex: 0 0 math.percentage(math.div($size, $column-count));
 }
 
 // Base flex container

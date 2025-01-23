@@ -6,82 +6,40 @@
 
 @use './variables' as *;
 
-
-// todo: only functions and may be not needed
-
-@each $color-name, $color-value in $colors {
-    .text-#{$color-name} { color: $color-value; }
-    .bg-#{$color-name} { background-color: $color-value; }
-}
-
-// Modern Color System 
 // Color Validation
 @function is-valid-color($color) {
     @return meta.type-of($color) == 'color';
 }
 
-// Modern Color Spaces
-@function to-lch($color) {
-    @if not is-valid-color($color) {
-        @error "Invalid color provided to to-lch";
-    }
-    @return color.adjust($color, $space: lch);
-}
-
-@function adaptive-color($color, $lightness-shift) {
-    @return color.adjust($color, $space: lch, $lightness: $lightness-shift);
-}
-
-// Semantic Color System
-@function get-surface-color($color, $elevation) {
-    $lch-color: to-lch($color);
-    @return color.adjust($lch-color, 
-        $lightness: if($elevation > 0, 5 * $elevation, 0)
-    );
-}
-
-// Color Harmony Generation
-@function complementary($color) {
-    @return color.adjust($color, 180);
-}
-
-@function triadic($color) {
-    @return (
-        $color,
-        color.adjust($color, 120),
-        color.adjust($color, 240)
-    );
-}
-
-@function split-complementary($color) {
-    @return (
-        $color,
-        color.adjust($color, 150),
-        color.adjust($color, 210)
-    );
-}
-
-@function get-accent-palette($primary, $accent-angle: 45deg) {
-    $lch: to-lch($primary);
-    @return (
-        subtle: color.adjust($lch, $lightness: 15%, $hue: $accent-angle),
-        vibrant: color.adjust($lch, $saturation: 20%, $hue: $accent-angle * 2)
-    );
-}
-
-// Color Scale Generation
-@function create-scale($color, $steps: 9) {
+@function create-color-scale($color) {
     $scale: ();
-    $lch-color: to-lch($color);
-    
-    @for $i from 0 through $steps {
-        $lightness: 95 - ($i * (90 / $steps));
-        $new-color: color.adjust($lch-color, $lightness: $lightness);
-        $scale: list.append($scale, $new-color);
+    $stops: (
+      50: 95%,
+      100: 85%,
+      200: 75%,
+      300: 65%,
+      400: 55%,
+      500: 50%, // Base color
+      600: 45%,
+      700: 35%,
+      800: 25%,
+      900: 15%
+    );
+  
+    @each $stop, $mix in $stops {
+      $value: if($stop == 500,
+        $color,
+        if($stop < 500,
+          color.mix(white, $color, $mix),
+          color.mix(black, $color, (100% - $mix))
+        )
+      );
+      $scale: map.set($scale, $stop, $value);
     }
     
     @return $scale;
-}
+  }
+
 
 // Color Relationship Functions
 @function find-text-color($background) {
@@ -100,19 +58,6 @@
     $b: if($b <= 0.0393, $b / 12.92, pow(($b + 0.055) / 1.055, 2.4));
     
     @return $r * 0.2126 + $g * 0.7152 + $b * 0.0722;
-}
-
-// Contrast Calculations
-@function get-contrast-ratio($foreground, $background) {
-    $l1: luminance($foreground) + 0.05;
-    $l2: luminance($background) + 0.05;
-    @return if($l1 > $l2, $l1 / $l2, $l2 / $l1);
-}
-
-// Color Validation
-@function has-sufficient-contrast($text, $background) {
-    $contrast: get-contrast-ratio($text, $background);
-    @return $contrast >= 4.5;
 }
 
 // Context-Aware Colors
@@ -135,6 +80,15 @@
 @mixin filter($value) {
     filter: $value;
 }
+
+$colors: (
+  'primary': create-color-scale($primary),
+  'secondary': create-color-scale($secondary),
+  'success': create-color-scale($success),
+  'danger': create-color-scale($danger),
+  'warning': create-color-scale($warning),
+  'info': create-color-scale($info)
+); 
 
 // Glass Effect Utilities
 .glass-effect {

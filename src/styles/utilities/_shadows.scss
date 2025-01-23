@@ -81,7 +81,7 @@ $shadow-sizes: (
 
 // Utility Classes
 .shadow-none {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 @each $size, $values in $shadow-sizes {

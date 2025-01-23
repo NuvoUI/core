@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // Global variables that might be used across different modules
 $enable-dark-mode: true !default;
 $enable-rtl: true !default;;
@@ -5,25 +7,52 @@ $enable-reduced-motion: true !default;;
 
 $column-count: 12 !default;
 
-$color-primary: #007bff !default;
-$color-secondary: #6c757d !default;
-$color-success: #28a745 !default;
-$color-danger: #dc3545 !default;
-$color-warning: #ffc107 !default;
-$color-info: #17a2b8 !default;
-$color-light: #f8f9fa !default;
-$color-dark: #1c1f22 !default;
+$primary: #007bff !default;
+$secondary: #6c757d !default;
+$success: #28a745 !default;
+$danger: #dc3545 !default;
+$warning: #ffc107 !default;
+$info: #17a2b8 !default;
 
-$colors: (
-  'primary': $color-primary,
-  'secondary': $color-secondary,
-  'success': $color-success,
-  'danger': $color-danger,
-  'warning': $color-warning,
-  'info': $color-info,
-  'light': $color-light,
-  'dark': $color-dark
-);
+$color-primitives: (
+  'gray': #6b7280,
+  'red': #ef4444,
+  'blue': #3b82f6,
+  'green': #22c55e,
+  'yellow': #eab308,
+  'purple': #a855f7,
+  'pink': #ec4899
+) !default;
+
+
+$theme-tokens: (
+  'background',
+  'foreground',
+  'surface',
+  'border',
+  'text-primary',
+  'text-secondary'
+) !default;
+
+// Default theme config (can be overridden)
+$light-theme: (
+  'background': #ffffff,
+  'foreground': #000000,
+  'surface': #ffffff,
+  'border': #e5e7eb,
+  'text-primary': #000000,
+  'text-secondary': #4b5563
+) !default;
+
+$dark-theme: (
+  'background': #000000,
+  'foreground': #ffffff,
+  'surface': #1a1a1a,
+  'border': #2e2e2e,
+  'text-primary': #ffffff,
+  'text-secondary': #a3a3a3
+) !default;
+
 
 // Breakpoints
 $breakpoints: (
@@ -32,7 +61,7 @@ $breakpoints: (
   'md': 768px,
   'lg': 1024px,
   'xl': 1280px,
-  'xxl': 1536px, 
+  '2xl': 1536px, 
 ) !default;
 
 // Container max-widths
@@ -42,7 +71,7 @@ $container-max-widths: (
   'md': 720px,
   'lg': 960px,
   'xl': 1140px,
-  'xxl': 1320px,
+  '2xl': 1320px,
 ) !default;
 
 // _variables.scss
@@ -69,9 +98,9 @@ $padding-map: (
 ) !default;
 
 $spacings: (
-  0,1,2,3,4,5,10,15,20,25,30,35,40,45,50,60,70,80,90,100,125,150,175,200,250,300,350,400,450,500
+  0,1,2,3,4,5,10,15,20,25,30,35,40,45,50,60,70,80,90,100,150,200,250,300,350,400,450,500
 ) !default;
 
 $percentages: (
-  0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 95, 100
+  0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100
 ) !default;

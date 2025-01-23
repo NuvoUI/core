@@ -14,14 +14,10 @@
     .border-#{$i} { @include border($i); }
 }
 
-@each $color-name, $color-value in $colors {
-    .border-#{$color-name} { border-color: $color-value; }
-}
-
 .rounded { @include rounded(0.25rem); }
 .square { @include rounded(0) }
 .pill { @include rounded(9999px); }
-
+  
 // Responsive Position Classes
 @each $breakpoint, $width in $breakpoints {
     @media (min-width: $width) {

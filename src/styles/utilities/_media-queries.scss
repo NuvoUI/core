@@ -94,7 +94,7 @@
 // Mixin: Dark Mode
 // Applies styles when the user prefers a dark color scheme.
 @mixin dark-mode {
-  @media (prefers-color-scheme: dark) {
+  [data-theme='dark'] & {
     @content;
   }
 }

@@ -4,8 +4,6 @@
 @use 'layouts/container' as *;
 @use 'layouts/flex' as *;
 @use 'layouts/grid' as *;
-@use 'themes/dark' as *;
-@use 'themes/light' as *;
 @use 'themes/theme' as *;
 @use 'utilities/animations' as *;
 @use 'utilities/borders' as *;
@@ -336,11 +334,6 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include row-end(str.unquote($value));
-        } @else if str.index($mixin-str, 'generate-theme-colors(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include generate-theme-colors(str.unquote($value));
         } @else if str.index($mixin-str, 'generate-bounce-keyframes(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -897,11 +890,6 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include row-end(str.unquote($value));
-        } @else if str.index($mixin-str, 'generate-theme-colors(') == 1 {
-          $start: str.index($mixin-str, '(') + 1;
-          $end: str.length($mixin-str) - 1;
-          $value: str.slice($mixin-str, $start, $end);
-          @include generate-theme-colors(str.unquote($value));
         } @else if str.index($mixin-str, 'generate-bounce-keyframes(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;

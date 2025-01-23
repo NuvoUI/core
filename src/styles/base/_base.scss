@@ -18,6 +18,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: var(--text-primary);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 // Headings
@@ -62,6 +63,102 @@ small {
   font-size: map.get($font-sizes, 'sm');
 }
 
+// Buttons
+button {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 0.25rem;
+  background-color: var(--button-bg-color, #007bff); // Default button color
+  color: var(--button-text-color, #ffffff);
+  font-family: var(--font-family-base);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--button-bg-color-hover, #0056b3); // Hover button color
+  }
+  
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #e0e0e0; // Disabled button color
+    color: #a0a0a0; // Disabled text color
+    cursor: not-allowed;
+  }
+}
+
+// Inputs
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+textarea {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  width: 100%; // Full width
+  font-family: var(--font-family-base);
+  transition: border 0.2s ease-in-out;
+  &:focus {
+    border-color: var(--link-color);
+    outline: none;
+  }
+}
+
+// Checkboxes and Radio Buttons
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 0.5rem; // Space between input and label
+}
+
+// Selects
+select {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  width: 100%; // Full width
+  font-family: var(--font-family-base);
+  transition: border 0.2s ease-in-out;
+  &:focus {
+    border-color: var(--link-color);
+    outline: none;
+  }
+}
+
+// Blockquotes
+blockquote {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid var(--border);
+  font-style: italic;
+}
+
+// Horizontal Rule
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1rem 0;
+}
+
+// Images
+img {
+  max-width: 100%; // Responsive images
+  height: auto;
+}
+
+// Figures and Captions
+figure {
+  margin: 1rem 0;
+}
+
+figcaption {
+  font-size: 0.875rem; // Smaller font for captions
+  color: var(--text-secondary, #666); // Optional secondary text color
+}
+
 // Links
 a {
   color: var(--link-color);
@@ -84,10 +181,3 @@ a {
   border: 0 !important;
 }
 
-.focus\:outline-none:focus {
-  outline: none;
-}
-
-.focus\:ring:focus {
-  box-shadow: 0 0 0 3px rgb(66 153 225 / 50%);
-}
