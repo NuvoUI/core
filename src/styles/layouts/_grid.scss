@@ -1,74 +1,47 @@
+@use 'sass:math';
 @use '../utilities/variables' as *;
 
 // Grid Container Mixins
-@mixin grid {
-  display: grid;
-}
-
-@mixin grid-inline {
-  display: inline-grid;
-}
+@mixin grid {display: grid;}
+@mixin grid-inline {display: inline-grid;}
 
 // Grid Template Mixins
-@mixin grid-cols($count) {
-  grid-template-columns: repeat($count, minmax(0, 1fr));
-}
-
-@mixin grid-rows($count) {
-  grid-template-rows: repeat($count, minmax(0, 1fr));
-}
+@mixin cols($count) {grid-template-columns: repeat($count, minmax(0, 1fr));}
+@mixin rows($count) {grid-template-rows: repeat($count, minmax(0, 1fr));}
 
 // Auto-fit/fill Mixins
-@mixin grid-auto-fit($min-width) {
-  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
-}
-
-@mixin grid-auto-fill($min-width) {
-  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
-}
+@mixin auto-fit($min-width) {grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));}
+@mixin auto-fill($min-width) {grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));}
 
 // Grid Flow Mixins
-@mixin grid-flow-row { grid-auto-flow: row; }
-@mixin grid-flow-col { grid-auto-flow: column; }
-@mixin grid-flow-dense { grid-auto-flow: dense; }
+@mixin flow-in-row { grid-auto-flow: row; }
+@mixin flow-in-col { grid-auto-flow: column; }
+@mixin flow-dense-items { grid-auto-flow: dense; }
 
 // Grid Alignment Mixins
-@mixin justify-items($value) {
-  justify-items: $value;
-}
-
-@mixin align-items($value) {
-  align-items: $value;
-}
-
-@mixin place-items($value) {
-  place-items: $value;
-}
+@mixin justify-items($value) {justify-items: $value;}
+@mixin align-items($value) {align-items: $value;}
+@mixin place-items($value) {place-items: $value;}
 
 // Grid Item Placement Mixins
-@mixin col-span($span) {
-  grid-column: span $span / span $span;
+@mixin span-col($span) {grid-column: span $span / span $span;}
+@mixin span-row($span) {grid-row: span $span / span $span;}
+@mixin col-start($start) {grid-column-start: $start;}
+@mixin col-end($end) {grid-column-end: $end;}
+@mixin row-start($start) {grid-row-start: $start;}
+@mixin row-end($end) {grid-row-end: $end;}
+
+@mixin grid-position($col, $row) {
+  grid-column: $col;
+  grid-row: $row;
+}
+@mixin position-col($col) {
+  grid-column: $start;
+}
+@mixin position-row($row) {
+  grid-row: $row;
 }
 
-@mixin row-span($span) {
-  grid-row: span $span / span $span;
-}
-
-@mixin col-start($start) {
-  grid-column-start: $start;
-}
-
-@mixin col-end($end) {
-  grid-column-end: $end;
-}
-
-@mixin row-start($start) {
-  grid-row-start: $start;
-}
-
-@mixin row-end($end) {
-  grid-row-end: $end;
-}
 
 // Classes
 .grid { @include grid; }
@@ -76,14 +49,14 @@
 
 // Grid Template Classes
 @for $i from 1 through $column-count {
-  .grid.cols-#{$i} { @include grid-cols($i); }
-  .grid.rows-#{$i} { @include grid-rows($i); }
+  .grid.cols-#{$i} { @include cols($i); }
+  .grid.rows-#{$i} { @include rows($i); }
 
   // Responsive grid columns
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: $width) {
-      .grid.cols-#{$i}#{$breakpoint} {
-        @include grid-cols($i);
+      .grid.cols-#{$i}\@#{$breakpoint} {
+        @include cols($i);
       }
     }
   }
@@ -91,14 +64,22 @@
 
 // Generate Column Span Classes with Responsive Variants
 @for $i from 1 through $column-count {
-  .col-span-#{$i} {
-    @include col-span($i);
+  .span-col-#{$i} {
+    @include span-col($i);
+  }
+
+  .span-row-#{$i} {
+    @include span-row($i);
   }
 
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: $width) {
-      .col-span-#{$i}\@#{$breakpoint} {
-        @include col-span($i);
+      .span-col-#{$i}\@#{$breakpoint} {
+        @include span-col($i);
+      }
+
+      .span-row-#{$i}\@#{$breakpoint} {
+        @include span-row($i);
       }
     }
   }
@@ -107,14 +88,14 @@
 
 // Auto-fit/fill Classes
 @each $breakpoint, $width in $breakpoints {
-  .grid.auto-fit-#{$breakpoint} { @include grid-auto-fit($width); }
-  .grid.auto-fill-#{$breakpoint} { @include grid-auto-fill($width); }
+  .grid.auto-fit-#{$breakpoint} { @include auto-fit($width); }
+  .grid.auto-fill-#{$breakpoint} { @include auto-fill($width); }
 }
 
 // Flow Classes
-.grid.flow-row { @include grid-flow-row; }
-.grid.flow-col { @include grid-flow-col; }
-.grid.flow-dense { @include grid-flow-dense; }
+.grid.flow-row { @include flow-in-row; }
+.grid.flow-col { @include flow-in-col; }
+.grid.flow-dense { @include flow-dense-items; }
 
 // Alignment Classes
 $alignments: (

@@ -2,6 +2,7 @@
 
 /* Import variables */
 @use '../utilities/variables' as *;
+@use '../utilities/media-queries' as media;
 
 :root {
   --font-family-base: system-ui, -apple-system, "BlinkMacSystemFont", 'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
@@ -181,3 +182,19 @@ a {
   border: 0 !important;
 }
 
+
+
+code {
+  font-family: 'Courier New', Courier, monospace; 
+  background-color: #f8f8f8; 
+  color: #d63384; 
+  padding: 2px 6px;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  white-space: nowrap;
+
+  @include media.dark-mode {
+    background-color: #333; 
+    color: #f8f8f2; 
+  }
+}

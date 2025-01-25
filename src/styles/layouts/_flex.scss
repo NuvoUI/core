@@ -26,11 +26,20 @@
 @mixin evenly {justify-content: space-evenly;}
 
 // Cross Axis Alignment Mixins
-@mixin align-start {align-items: flex-start;}
-@mixin align-end {align-items: flex-end;}
-@mixin align-center {align-items: center;}
-@mixin align-stretch {align-items: stretch;}
-@mixin align-baseline {align-items: baseline;}
+@mixin x-start {align-items: flex-start;}
+@mixin x-end {align-items: flex-end;}
+@mixin x-center {align-items: center;}
+@mixin x-stretch {align-items: stretch;}
+@mixin x-baseline {align-items: baseline;}
+
+// Cross Axis Content Mixins
+@mixin x-content-start { align-content: flex-start; }
+@mixin x-content-end { align-content: flex-end; }
+@mixin x-content-center { align-content: center; }
+@mixin x-content-between { align-content: space-between; }
+@mixin x-content-around { align-content: space-around; }
+@mixin x-content-evenly { align-content: space-evenly; }
+@mixin x-content-stretch { align-content: stretch; }
 
 // Self Alignment Mixins
 @mixin self-auto {align-self: auto;}
@@ -77,12 +86,20 @@
   &.evenly { justify-content: space-evenly; }
   
   // Align modifiers
-  &.items-start { align-items: flex-start; }
-  &.items-end { align-items: flex-end; }
-  &.items-center { align-items: center; }
-  &.items-baseline { align-items: baseline; }
-  &.items-stretch { align-items: stretch; }
+  &.x-start { align-items: flex-start; }
+  &.x-end { align-items: flex-end; }
+  &.x-center { align-items: center; }
+  &.x-baseline { align-items: baseline; }
+  &.x-stretch { align-items: stretch; }
   
+  &.x-content-start { align-content: flex-start; }
+  &.x-content-end { align-content: flex-end; }
+  &.x-content-center { align-content: center; }
+  &.x-content-between { align-content: space-between; }
+  &.x-content-around { align-content: space-around; }
+  &.x-content-evenly { align-content: space-evenly; }
+  &.x-content-stretch { align-content: stretch; }
+
   // Child flex items (using column count)
   > .w-auto { @include f-w-auto }
   > .w-full { @include f-w-full }
@@ -127,12 +144,20 @@
       &.evenly\@#{$breakpoint} { justify-content: space-evenly; }
 
       // Align
-      &.items-start\@#{$breakpoint} { align-items: flex-start; }
-      &.items-end\@#{$breakpoint} { align-items: flex-end; }
-      &.items-center\@#{$breakpoint} { align-items: center; }
-      &.items-baseline\@#{$breakpoint} { align-items: baseline; }
-      &.items-stretch\@#{$breakpoint} { align-items: stretch; }
+      &.x-start\@#{$breakpoint} { align-items: flex-start; }
+      &.x-end\@#{$breakpoint} { align-items: flex-end; }
+      &.x-center\@#{$breakpoint} { align-items: center; }
+      &.x-baseline\@#{$breakpoint} { align-items: baseline; }
+      &.x-stretch\@#{$breakpoint} { align-items: stretch; }
 
+      &.x-content-start\@#{$breakpoint} { align-content: flex-start; }
+      &.x-content-end\@#{$breakpoint} { align-content: flex-end; }
+      &.x-content-center\@#{$breakpoint} { align-content: center; }
+      &.x-content-between\@#{$breakpoint} { align-content: space-between; }
+      &.x-content-around\@#{$breakpoint} { align-content: space-around; }
+      &.x-content-evenly\@#{$breakpoint} { align-content: space-evenly; }
+      &.x-content-stretch\@#{$breakpoint} { align-content: stretch; }
+      
       // Width (using column count)
       & > .w-auto\@#{$breakpoint} { @include f-w-auto; }
       & > .w-full\@#{$breakpoint} { @include f-w-full; }
