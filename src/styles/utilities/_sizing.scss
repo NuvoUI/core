@@ -41,10 +41,10 @@
 @each $i in $percentages {
     .w-#{$i}per { @include width-percent($i); }
     .h-#{$i}per { @include height-percent($i); }
-    .min-w-#{$i} { @include min-width-percent($i); }
-    .min-h-#{$i} { @include min-height-percent($i); }
-    .max-w-#{$i} { @include max-width-percent($i); }
-    .max-h-#{$i} { @include max-height-percent($i); }
+    .min-w-#{$i}per { @include min-width-percent($i); }
+    .min-h-#{$i}per { @include min-height-percent($i); }
+    .max-w-#{$i}per { @include max-width-percent($i); }
+    .max-h-#{$i}per { @include max-height-percent($i); }
 }
 
 // Generate utilities from spacing map
@@ -62,6 +62,12 @@
     @media (min-width: $width) {
         // Generate utilities from spacing map
         @each $i in $spacings {
+            .w-#{$i}per\@#{$breakpoint} { @include width-percent($i); }
+            .h-#{$i}per\@#{$breakpoint} { @include height-percent($i); }
+            .min-w-#{$i}per\@#{$breakpoint} { @include min-width-percent($i); }
+            .min-h-#{$i}per\@#{$breakpoint} { @include min-height-percent($i); }
+            .max-w-#{$i}per\@#{$breakpoint} { @include max-width-percent($i); }
+            .max-h-#{$i}per\@#{$breakpoint} { @include max-height-percent($i); }
             .w-#{$i}\@#{$breakpoint} { @include width($i); }
             .h-#{$i}\@#{$breakpoint} { @include height($i); }
             .min-w-#{$i}\@#{$breakpoint} { @include min-width($i) }
