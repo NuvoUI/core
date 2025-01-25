@@ -1,6 +1,7 @@
 @use 'sass:map';
 
 // Global variables that might be used across different modules
+$enable-debuger: false !default;
 $enable-dark-mode: true !default;
 $enable-rtl: true !default;;
 $enable-reduced-motion: true !default;;
@@ -36,20 +37,20 @@ $theme-tokens: (
 
 // Default theme config (can be overridden)
 $light-theme: (
-  'background': #ffffff,
-  'foreground': #000000,
-  'surface': #ffffff,
+  'background': #fff,
+  'foreground': #000,
+  'surface': #fff,
   'border': #e5e7eb,
-  'text-primary': #000000,
+  'text-primary': #000,
   'text-secondary': #4b5563
 ) !default;
 
 $dark-theme: (
-  'background': #000000,
-  'foreground': #ffffff,
+  'background': #000,
+  'foreground': #fff,
   'surface': #1a1a1a,
   'border': #2e2e2e,
-  'text-primary': #ffffff,
+  'text-primary': #fff,
   'text-secondary': #a3a3a3
 ) !default;
 
