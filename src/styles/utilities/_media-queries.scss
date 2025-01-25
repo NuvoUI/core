@@ -28,8 +28,28 @@
 }
 
 @mixin media-between($lower, $upper) {
-  @if map.has-key($breakpoints, $lower) and map.has-key($breakpoints, $upper) {
-    @media screen and (min-width: map.get($breakpoints, $lower)) and (max-width: (map.get($breakpoints, $upper) - 0.02px)) {
+
+  $-lower: null;
+  $-upper: null;
+
+  @if map.has-key($breakpoints, $lower) {
+    $-lower: map.get($breakpoints, $lower);
+  } @else if meta.type-of($lower) == number {
+    $-lower: $lower - 0.02px;
+  } @else {
+    @warn 'Unknown lower breakpoint: #{$lower}';
+  }
+
+  @if map.has-key($breakpoints, $upper) {
+    $-upper: map.get($breakpoints, $upper);
+  } @else if meta.type-of($upper) == number {
+    $-upper: $upper - 0.02px;
+  } @else {
+    @warn 'Unknown uppper breakpoint: #{$upper}';
+  }
+  
+  @if $-lower and $-upper {
+    @media screen and (min-width: $-lower) and (max-width: $-upper) {
       @content;
     }
   }
@@ -80,16 +100,12 @@
   }
 }
 
-// Modern feature detection
 // Example: @include supports(display: grid) { }
 @mixin supports($property) {
-  @supports #{$property} {
+  @supports (#{$property}) {
     @content;
   }
 }
-
-
-
 
 // Mixin: Dark Mode
 // Applies styles when the user prefers a dark color scheme.
