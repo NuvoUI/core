@@ -4,14 +4,9 @@
 @use '../utilities/variables' as *;
 
 // Utilities for text sizes
-@mixin text-xs { font-size: map.get($font-sizes, 'xs'); }
-@mixin text-sm { font-size: map.get($font-sizes, 'sm'); }
-@mixin text-md { font-size: map.get($font-sizes, 'md'); }
-@mixin text-lg { font-size: map.get($font-sizes, 'lg'); }
-@mixin text-xl { font-size: map.get($font-sizes, 'xl'); }
-@mixin text-2xl { font-size: map.get($font-sizes, '2xl'); }
-@mixin text-3xl { font-size: map.get($font-sizes, '3xl'); }
-@mixin text-4xl { font-size: map.get($font-sizes, '4xl'); }
+@mixin text-size($size) {
+  font-size: map.get($font-sizes, $size);
+}
 
 // Font weights
 @mixin font-thin { font-weight: 100; }
@@ -58,15 +53,9 @@
 @mixin truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 
-// Generate text size utilities
-.text-xs { @include text-xs; }
-.text-sm { @include text-sm; }
-.text-md { @include text-md; }
-.text-lg { @include text-lg; }
-.text-xl { @include text-xl; }
-.text-2xl { @include text-2xl; }
-.text-3xl { @include text-3xl; }
-.text-4xl { @include text-4xl; }
+@each $size, $val in $font-sizes {
+  .text-#{$size} { @include text-size($size); }
+}
 
 // Generate font weight utilities
 .font-thin { @include font-thin; }
@@ -107,3 +96,54 @@
 .no-underline { @include no-underline; }
 
 .truncate { @include truncate; }
+
+
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: $width) {
+        @each $size, $val in $font-sizes {
+            // .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
+            .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
+        }
+        
+        // Generate font weight utilities
+        .font-thin\@#{$breakpoint} { @include font-thin; }
+        .font-extralight\@#{$breakpoint} { @include font-extralight; }
+        .font-light\@#{$breakpoint} { @include font-light; }
+        .font-normal\@#{$breakpoint} { @include font-normal; }
+        .font-medium\@#{$breakpoint} { @include font-medium; }
+        .font-semibold\@#{$breakpoint} { @include font-semibold; }
+        .font-bold\@#{$breakpoint} { @include font-bold; }
+        .font-extrabold\@#{$breakpoint} { @include font-extrabold; }
+        .font-black\@#{$breakpoint} { @include font-black; }
+        
+        // Generate line height utilities
+        .leading-none\@#{$breakpoint} { @include leading-none; }
+        .leading-tight\@#{$breakpoint} { @include leading-tight; }
+        .leading-snug\@#{$breakpoint} { @include leading-snug; }
+        .leading-normal\@#{$breakpoint} { @include leading-normal; }
+        .leading-relaxed\@#{$breakpoint} { @include leading-relaxed; }
+        .leading-loose\@#{$breakpoint} { @include leading-loose; }
+        
+        // Generate text alignment utilities
+        .text-left\@#{$breakpoint} { @include text-left; }
+        .text-center\@#{$breakpoint} { @include text-center; }
+        .text-right\@#{$breakpoint} { @include text-right; }
+        .text-justify\@#{$breakpoint} { @include text-justify; }
+        
+        // Classes using mixins
+        .uppercase\@#{$breakpoint} { @include uppercase; }
+        .lowercase\@#{$breakpoint} { @include lowercase; }
+        .capitalize\@#{$breakpoint} { @include capitalize; }
+        .normal-case\@#{$breakpoint} { @include normal-case; }
+        
+        .italic\@#{$breakpoint} { @include italic; }
+        .not-italic\@#{$breakpoint} { @include not-italic; }
+        
+        .underline\@#{$breakpoint} { @include underline; }
+        .line-through\@#{$breakpoint} { @include line-through; }
+        .no-underline\@#{$breakpoint} { @include no-underline; }
+        
+        .truncate\@#{$breakpoint} { @include truncate; }
+    }
+}
+
