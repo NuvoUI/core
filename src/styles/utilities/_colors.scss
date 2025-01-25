@@ -42,8 +42,8 @@
 
 
 // Color Relationship Functions
-@function find-text-color($background) {
-    $luminance: luminance($background);
+@function find-text-color($color) {
+    $luminance: luminance($color);
     @return if($luminance > 0.55, #000, #fff);
 }
 
@@ -61,12 +61,12 @@
 }
 
 // Context-Aware Colors
-@mixin adaptive-contrast($background) {
-    background: $background;
-    color: find-text-color($background);
+@mixin adaptive-contrast($color) {
+    background: $color;
+    color: find-text-color($color);
     
     @media (prefers-contrast: more) {
-        $high-contrast: adjust-contrast($background, 20%);
+        $high-contrast: adjust-contrast($color, 20%);
         
         background: $high-contrast;
     }

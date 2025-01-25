@@ -21,7 +21,7 @@ export default defineConfig({
         nuvoui: path.resolve(__dirname, 'src/styles/index.scss'),
       },
       output: {
-        assetFileNames: '[name].[ext]'
+        assetFileNames: '[name].min.[ext]'
       }
     }
   },

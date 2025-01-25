@@ -48,12 +48,6 @@
       @include media-up($breakpoint) {
         @if $mixin-str == 'container-base' {
           @include container-base;
-        } @else if $mixin-str == 'container' {
-          @include container;
-        } @else if $mixin-str == 'container-flex' {
-          @include container-flex;
-        } @else if $mixin-str == 'container-grid' {
-          @include container-grid;
         } @else if $mixin-str == 'flex' {
           @include flex;
         } @else if $mixin-str == 'flex-inline' {
@@ -84,16 +78,30 @@
           @include around;
         } @else if $mixin-str == 'evenly' {
           @include evenly;
-        } @else if $mixin-str == 'align-start' {
-          @include align-start;
-        } @else if $mixin-str == 'align-end' {
-          @include align-end;
-        } @else if $mixin-str == 'align-center' {
-          @include align-center;
-        } @else if $mixin-str == 'align-stretch' {
-          @include align-stretch;
-        } @else if $mixin-str == 'align-baseline' {
-          @include align-baseline;
+        } @else if $mixin-str == 'x-start' {
+          @include x-start;
+        } @else if $mixin-str == 'x-end' {
+          @include x-end;
+        } @else if $mixin-str == 'x-center' {
+          @include x-center;
+        } @else if $mixin-str == 'x-stretch' {
+          @include x-stretch;
+        } @else if $mixin-str == 'x-baseline' {
+          @include x-baseline;
+        } @else if $mixin-str == 'x-content-start' {
+          @include x-content-start;
+        } @else if $mixin-str == 'x-content-end' {
+          @include x-content-end;
+        } @else if $mixin-str == 'x-content-center' {
+          @include x-content-center;
+        } @else if $mixin-str == 'x-content-between' {
+          @include x-content-between;
+        } @else if $mixin-str == 'x-content-around' {
+          @include x-content-around;
+        } @else if $mixin-str == 'x-content-evenly' {
+          @include x-content-evenly;
+        } @else if $mixin-str == 'x-content-stretch' {
+          @include x-content-stretch;
         } @else if $mixin-str == 'self-auto' {
           @include self-auto;
         } @else if $mixin-str == 'self-start' {
@@ -122,12 +130,12 @@
           @include grid;
         } @else if $mixin-str == 'grid-inline' {
           @include grid-inline;
-        } @else if $mixin-str == 'grid-flow-row' {
-          @include grid-flow-row;
-        } @else if $mixin-str == 'grid-flow-col' {
-          @include grid-flow-col;
-        } @else if $mixin-str == 'grid-flow-dense' {
-          @include grid-flow-dense;
+        } @else if $mixin-str == 'flow-in-row' {
+          @include flow-in-row;
+        } @else if $mixin-str == 'flow-in-col' {
+          @include flow-in-col;
+        } @else if $mixin-str == 'flow-dense-items' {
+          @include flow-dense-items;
         } @else if $mixin-str == 'd-none' {
           @include d-none;
         } @else if $mixin-str == 'd-block' {
@@ -264,31 +272,36 @@
           @include no-underline;
         } @else if $mixin-str == 'truncate' {
           @include truncate;
+        } @else if str.index($mixin-str, 'container(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container(str.unquote($value));
         } @else if str.index($mixin-str, 'w-col(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include w-col(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-cols(') == 1 {
+        } @else if str.index($mixin-str, 'cols(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-cols(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-rows(') == 1 {
+          @include cols(str.unquote($value));
+        } @else if str.index($mixin-str, 'rows(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-rows(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-auto-fit(') == 1 {
+          @include rows(str.unquote($value));
+        } @else if str.index($mixin-str, 'auto-fit(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-auto-fit(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-auto-fill(') == 1 {
+          @include auto-fit(str.unquote($value));
+        } @else if str.index($mixin-str, 'auto-fill(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-auto-fill(str.unquote($value));
+          @include auto-fill(str.unquote($value));
         } @else if str.index($mixin-str, 'justify-items(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -304,16 +317,16 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include place-items(str.unquote($value));
-        } @else if str.index($mixin-str, 'col-span(') == 1 {
+        } @else if str.index($mixin-str, 'span-col(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include col-span(str.unquote($value));
-        } @else if str.index($mixin-str, 'row-span(') == 1 {
+          @include span-col(str.unquote($value));
+        } @else if str.index($mixin-str, 'span-row(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include row-span(str.unquote($value));
+          @include span-row(str.unquote($value));
         } @else if str.index($mixin-str, 'col-start(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -334,6 +347,21 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include row-end(str.unquote($value));
+        } @else if str.index($mixin-str, 'grid-position(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include grid-position(str.unquote($value));
+        } @else if str.index($mixin-str, 'position-col(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include position-col(str.unquote($value));
+        } @else if str.index($mixin-str, 'position-row(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include position-row(str.unquote($value));
         } @else if str.index($mixin-str, 'generate-bounce-keyframes(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -604,12 +632,6 @@
     } @else {
         @if $mixin-str == 'container-base' {
           @include container-base;
-        } @else if $mixin-str == 'container' {
-          @include container;
-        } @else if $mixin-str == 'container-flex' {
-          @include container-flex;
-        } @else if $mixin-str == 'container-grid' {
-          @include container-grid;
         } @else if $mixin-str == 'flex' {
           @include flex;
         } @else if $mixin-str == 'flex-inline' {
@@ -640,16 +662,30 @@
           @include around;
         } @else if $mixin-str == 'evenly' {
           @include evenly;
-        } @else if $mixin-str == 'align-start' {
-          @include align-start;
-        } @else if $mixin-str == 'align-end' {
-          @include align-end;
-        } @else if $mixin-str == 'align-center' {
-          @include align-center;
-        } @else if $mixin-str == 'align-stretch' {
-          @include align-stretch;
-        } @else if $mixin-str == 'align-baseline' {
-          @include align-baseline;
+        } @else if $mixin-str == 'x-start' {
+          @include x-start;
+        } @else if $mixin-str == 'x-end' {
+          @include x-end;
+        } @else if $mixin-str == 'x-center' {
+          @include x-center;
+        } @else if $mixin-str == 'x-stretch' {
+          @include x-stretch;
+        } @else if $mixin-str == 'x-baseline' {
+          @include x-baseline;
+        } @else if $mixin-str == 'x-content-start' {
+          @include x-content-start;
+        } @else if $mixin-str == 'x-content-end' {
+          @include x-content-end;
+        } @else if $mixin-str == 'x-content-center' {
+          @include x-content-center;
+        } @else if $mixin-str == 'x-content-between' {
+          @include x-content-between;
+        } @else if $mixin-str == 'x-content-around' {
+          @include x-content-around;
+        } @else if $mixin-str == 'x-content-evenly' {
+          @include x-content-evenly;
+        } @else if $mixin-str == 'x-content-stretch' {
+          @include x-content-stretch;
         } @else if $mixin-str == 'self-auto' {
           @include self-auto;
         } @else if $mixin-str == 'self-start' {
@@ -678,12 +714,12 @@
           @include grid;
         } @else if $mixin-str == 'grid-inline' {
           @include grid-inline;
-        } @else if $mixin-str == 'grid-flow-row' {
-          @include grid-flow-row;
-        } @else if $mixin-str == 'grid-flow-col' {
-          @include grid-flow-col;
-        } @else if $mixin-str == 'grid-flow-dense' {
-          @include grid-flow-dense;
+        } @else if $mixin-str == 'flow-in-row' {
+          @include flow-in-row;
+        } @else if $mixin-str == 'flow-in-col' {
+          @include flow-in-col;
+        } @else if $mixin-str == 'flow-dense-items' {
+          @include flow-dense-items;
         } @else if $mixin-str == 'd-none' {
           @include d-none;
         } @else if $mixin-str == 'd-block' {
@@ -820,31 +856,36 @@
           @include no-underline;
         } @else if $mixin-str == 'truncate' {
           @include truncate;
+        } @else if str.index($mixin-str, 'container(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container(str.unquote($value));
         } @else if str.index($mixin-str, 'w-col(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include w-col(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-cols(') == 1 {
+        } @else if str.index($mixin-str, 'cols(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-cols(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-rows(') == 1 {
+          @include cols(str.unquote($value));
+        } @else if str.index($mixin-str, 'rows(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-rows(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-auto-fit(') == 1 {
+          @include rows(str.unquote($value));
+        } @else if str.index($mixin-str, 'auto-fit(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-auto-fit(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-auto-fill(') == 1 {
+          @include auto-fit(str.unquote($value));
+        } @else if str.index($mixin-str, 'auto-fill(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-auto-fill(str.unquote($value));
+          @include auto-fill(str.unquote($value));
         } @else if str.index($mixin-str, 'justify-items(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -860,16 +901,16 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include place-items(str.unquote($value));
-        } @else if str.index($mixin-str, 'col-span(') == 1 {
+        } @else if str.index($mixin-str, 'span-col(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include col-span(str.unquote($value));
-        } @else if str.index($mixin-str, 'row-span(') == 1 {
+          @include span-col(str.unquote($value));
+        } @else if str.index($mixin-str, 'span-row(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include row-span(str.unquote($value));
+          @include span-row(str.unquote($value));
         } @else if str.index($mixin-str, 'col-start(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -890,6 +931,21 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include row-end(str.unquote($value));
+        } @else if str.index($mixin-str, 'grid-position(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include grid-position(str.unquote($value));
+        } @else if str.index($mixin-str, 'position-col(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include position-col(str.unquote($value));
+        } @else if str.index($mixin-str, 'position-row(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include position-row(str.unquote($value));
         } @else if str.index($mixin-str, 'generate-bounce-keyframes(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
