@@ -1,13 +1,29 @@
+// Section: Layout
+// Module: Grid | Grid Inline
+
 @use 'sass:math';
+@use '../utilities/functions' as FN;
 @use '../utilities/variables' as *;
 
-// Grid Container Mixins
+/**
+ * @description Establishes a grid container.
+ */
 @mixin grid {display: grid;}
+
+/**
+ * @description Establishes a inline-grid container.
+ */
 @mixin grid-inline {display: inline-grid;}
 
 // Grid Template Mixins
 @mixin cols($count) {grid-template-columns: repeat($count, minmax(0, 1fr));}
 @mixin rows($count) {grid-template-rows: repeat($count, minmax(0, 1fr));}
+
+@mixin grid-cols-custom($template) {
+  // Convert underscores to spaces so "1fr_auto" becomes "1fr auto"
+  $converted: FN.str-replace($template, "_", " ");
+  grid-template-columns: $converted;
+}
 
 // Auto-fit/fill Mixins
 @mixin auto-fit($min-width) {grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));}
@@ -19,8 +35,23 @@
 @mixin flow-dense-items { grid-auto-flow: dense; }
 
 // Grid Alignment Mixins
+
+/**
+ * @description justify-items container.
+ * @param {string} $value - The value for the justify-items property.
+ */
 @mixin justify-items($value) {justify-items: $value;}
+
+/**
+ * @description Establishes a align-items container.
+ * @param {string} $value - The value for the align-items property.
+ */
 @mixin align-items($value) {align-items: $value;}
+
+/**
+ * @description Establishes a place-items container.
+ * @param {string} $value - The value for the place-items property.
+ */
 @mixin place-items($value) {place-items: $value;}
 
 // Grid Item Placement Mixins
@@ -43,18 +74,26 @@
 }
 
 
+/// EXAMPLE USAGE
+.custom-grid {
+  display: grid;
+  @include grid-cols-custom("1fr_auto_1fr");
+}
+
 // Classes
 .grid { @include grid; }
 .grid.inline { @include grid-inline; }
 
 // Grid Template Classes
-@for $i from 1 through $column-count {
-  .grid.cols-#{$i} { @include cols($i); }
-  .grid.rows-#{$i} { @include rows($i); }
+@each $breakpoint, $width in $breakpoints {
+    // Responsive grid columns
+    @media (min-width: #{$width}) {
+      .grid { @include grid; }
 
-  // Responsive grid columns
-  @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
+      @for $i from 1 through $column-count {
+        .grid.cols-#{$i} { @include cols($i); }
+        .grid.rows-#{$i} { @include rows($i); }
+    
       .grid.cols-#{$i}\@#{$breakpoint} {
         @include cols($i);
       }
@@ -73,7 +112,7 @@
   }
 
   @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
+    @media (min-width: #{$width}) {
       .span-col-#{$i}\@#{$breakpoint} {
         @include span-col($i);
       }
@@ -111,14 +150,14 @@ $alignments: (
   .place-items-#{$name} { place-items: $value; }
 
   @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
+    @media (min-width: #{$width}) {
       .justify-items-#{$name}\@#{$breakpoint} {
         justify-items: $value;
       }
       .align-items-#{$name}\@#{$breakpoint} {
         align-items: $value;
       }
-      .place-items-#{$name}\@#{$breakpoint} {
+      .place-items-#{$name}\@#{$breakpoint} {  
         place-items: $value;
       }
     }

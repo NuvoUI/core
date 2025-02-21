@@ -1,88 +1,56 @@
+// Section: Utilities
+// Module: Media Queries
+
 @use 'sass:map';
 @use 'sass:meta';
 @use './variables' as *;
+@use './functions' as FN;
 
-// Breakpoint mixins
+
+/**
+ * @description Media query mixins.
+ * @param {string|number} $breakpoint - The breakpoint value.
+ * @param {string} $type - The media query type (e.g. 'lg', 'md').
+ */
 @mixin media-up($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  } @else if meta.type-of($breakpoint) == number {
-    @media screen and (min-width: $breakpoint) {
-      @content;
-    }
+  @media screen and (min-width: #{FN.get-breakpoint-value($breakpoint)}) {
+    @content;
   }
 }
 
 @mixin media-down($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    @media screen and (max-width: (map.get($breakpoints, $breakpoint) - 0.02px)) {
-      @content;
-    }
-  } @else if meta.type-of($breakpoint) == number {
-    @media screen and (max-width: ($breakpoint - 0.02px)) {
-      @content;
-    }
+  @media screen and (max-width: (#{FN.get-breakpoint-value($breakpoint)} - 0.02px)) {
+    @content;
   }
 }
 
 @mixin media-between($lower, $upper) {
-
-  $-lower: null;
-  $-upper: null;
-
-  @if map.has-key($breakpoints, $lower) {
-    $-lower: map.get($breakpoints, $lower);
-  } @else if meta.type-of($lower) == number {
-    $-lower: $lower - 0.02px;
-  } @else {
-    @warn 'Unknown lower breakpoint: #{$lower}';
-  }
-
-  @if map.has-key($breakpoints, $upper) {
-    $-upper: map.get($breakpoints, $upper);
-  } @else if meta.type-of($upper) == number {
-    $-upper: $upper - 0.02px;
-  } @else {
-    @warn 'Unknown uppper breakpoint: #{$upper}';
-  }
-  
-  @if $-lower and $-upper {
-    @media screen and (min-width: $-lower) and (max-width: $-upper) {
-      @content;
-    }
+  $lower-val: FN.get-breakpoint-value($lower);
+  $upper-val: FN.get-breakpoint-value($upper);
+  @media screen and (min-width: #{$lower-val}) and (max-width: (#{ $upper-val } - 0.02px)) {
+    @content;
   }
 }
 
 // Only at specific breakpoint
 @mixin media-only($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    $min: map.get($breakpoints, $breakpoint);
-    $next-breakpoint: null;
-    
-    @each $name, $width in $breakpoints {
-      @if $width > $min and (meta.type-of($next-breakpoint) == 'null' or $width < $next-breakpoint) {
-        $next-breakpoint: $width;
-      }
-    }
-    
-    @if $next-breakpoint {
-      @media (min-width: $min) and (max-width: ($next-breakpoint - 1)) {
-        @content;
-      }
-    } @else {
-      @media (min-width: $min) {
-        @content;
-      }
+  $min: FN.get-breakpoint-value($breakpoint);
+  $next-breakpoint: null;
+  
+  @each $name, $width in $breakpoints {
+    @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
+      $next-breakpoint: #{$width};
     }
   }
-}
-
-// Example: @include container(45em) { }
-@mixin container-query($size) {
-  @container (min-width: $size) {
-    @content;
+  
+  @if $next-breakpoint {
+    @media (min-width: #{$min}) and (max-width: (#{ $next-breakpoint } - 1)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$min}) {
+      @content;
+    }
   }
 }
 

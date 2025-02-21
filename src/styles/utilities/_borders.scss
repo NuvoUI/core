@@ -20,13 +20,10 @@
   
 // Responsive Position Classes
 @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
- 
-        @each $i in 0 1 2 4 8 {
-            .border-#{$i}\@#{$breakpoint} { @include border($i); }
-        }
+    @media (min-width: #{$width}) {
         @each $i in 0 2 3 4 5 10 15 20 25 {
             .rounded-#{$i}\@#{$breakpoint} { @include border($i); }
         }
+        .rounded\@#{$breakpoint} { @include border(0.25rem); }
     }
 }

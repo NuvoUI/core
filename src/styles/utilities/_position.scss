@@ -46,7 +46,7 @@
 
 // Responsive Position Classes
 @each $breakpoint, $width in $breakpoints {
-  @media (min-width: $width) {
+  @media (min-width: #{$width}) {
     .static\@#{$breakpoint} {
       @include static;
     }
@@ -94,7 +94,7 @@
 
 // Pixel widths based on spacing scale
 @each $breakpoint, $width in $breakpoints {
-  @media (min-width: $width) {
+  @media (min-width: #{$width}) {
       // Generate utilities from spacing map
       @each $i in $spacings {
           .top-#{$i}\@#{$breakpoint} {height: if($i == 0, $i, $i + px);}

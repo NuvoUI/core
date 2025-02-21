@@ -5,8 +5,6 @@
 @use '../utilities/variables' as *;
 
 
- 
-
 // Generate scales for primitives
 $colors-primitives: ();
 
@@ -40,6 +38,24 @@ $colors-primitives: ();
   --button-text-color: var(--gray-100);
   --link-color: var(--primary);
   --link-hover-color: var(--primary-600);
+
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--background); // Light background
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888; // Dark gray thumb
+    border-radius: 6px;
+    border: 3px solid var(--background); // Light background
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #888 var(--background); // Dark gray thumb, light background
 }
 
 [data-theme="dark"] {
@@ -54,6 +70,17 @@ $colors-primitives: ();
   --button-text-color: var(--gray-200);
   --link-color: var(--primary);
   --link-hover-color: var(--primary-400);
+
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border: 3px solid var(--background);
+  }
+
+  scrollbar-color: #555 var(--background); 
 }
 
 // --font-family-heading: var(--font-family-base);

@@ -1,9 +1,17 @@
+// Section: Text
+// Module: Text
+
 @use 'sass:map';
 
 // Import variables
 @use '../utilities/variables' as *;
 
 // Utilities for text sizes
+
+/**
+* Text size utility
+* @param {string} $size - The size of the text.
+*/
 @mixin text-size($size) {
   font-size: map.get($font-sizes, $size);
 }
@@ -99,7 +107,7 @@
 
 
 @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
+    @media (min-width: #{$width}) {
         @each $size, $val in $font-sizes {
             // .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
             .text-#{$size}\@#{$breakpoint} { @include text-size($size); }

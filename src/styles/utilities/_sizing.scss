@@ -2,6 +2,7 @@
 
 @use 'sass:math';
 @use './variables' as *;
+@use './container-queries' as Q;
 
 @mixin width($value) { width: if($value == 0, $value, $value + px); }
 @mixin height($value) { height: if($value == 0, $value, $value + px); }
@@ -59,8 +60,19 @@
 
 // Pixel widths based on spacing scale
 @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
+
+    .w-#{$breakpoint} { @include width($width); }
+    .min-w-#{$breakpoint} { @include min-width($width) }
+    .max-w-#{$breakpoint} { @include max-width($width) }
+
+    @each $b, $w in $breakpoints {
+        .min-w-#{$breakpoint}\@#{$b} { @include min-width($width) }
+        .max-w-#{$breakpoint}\@#{$b} { @include max-width($width) }
+    }
+
+    @include Q.container-up ($breakpoint) {
         // Generate utilities from spacing map
+
         @each $i in $spacings {
             .w-#{$i}per\@#{$breakpoint} { @include width-percent($i); }
             .h-#{$i}per\@#{$breakpoint} { @include height-percent($i); }

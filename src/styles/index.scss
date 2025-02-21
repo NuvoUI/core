@@ -5,11 +5,15 @@
 @forward 'base/reset';
 @forward 'base/base';
 
+// Layouts
+@forward 'layouts/container';
+@forward 'layouts/flex';
+@forward 'layouts/grid';
+
 // Utilities
 @forward 'utilities/animations';
 @forward 'utilities/borders';
 @forward 'utilities/colors';
-@forward 'utilities/display';
 @forward 'utilities/opacity';
 @forward 'utilities/position';
 @forward 'utilities/media-queries';
@@ -18,11 +22,10 @@
 @forward 'utilities/spacing';
 @forward 'utilities/typography';
 @forward 'utilities/tooltips';
+@forward 'utilities/display';
 
-// Layouts
-@forward 'layouts/container';
-@forward 'layouts/flex';
-@forward 'layouts/grid';
+@forward 'utilities/helpers';
+
 
 // Theme
 @forward 'themes/theme';

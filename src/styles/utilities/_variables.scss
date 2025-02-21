@@ -4,9 +4,11 @@
 $enable-debuger: false !default;
 $enable-dark-mode: true !default;
 $enable-rtl: true !default;;
-$enable-reduced-motion: true !default;;
-
+$enable-reduced-motion: true !default;
 $column-count: 12 !default;
+
+$default-container-name: nuvoui-container !default;
+$nuvoui-container-queries: false !default;
 
 $primary: #007bff !default;
 $secondary: #6c757d !default;

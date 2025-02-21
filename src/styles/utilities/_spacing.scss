@@ -93,7 +93,7 @@
 
 // Responsive Position Classes
 @each $breakpoint, $width in $breakpoints {
-    @media (min-width: $width) {
+    @media (min-width: #{$width}) {
         .mx-auto\@#{$breakpoint} { @include mx-auto; }
         .ml-auto\@#{$breakpoint} { @include ml-auto; }
         .mr-auto\@#{$breakpoint} { @include mr-auto; }

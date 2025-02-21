@@ -1,6 +1,6 @@
 {
   "name": "@nuvoui/core",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "NuvoUI is a human-friendly SCSS framework designed for simplicity, and modern responsive designs.",
   "main": "dist/nuvoui.css",
   "module": "src/styles/index.scss",
@@ -51,6 +51,7 @@
     "access": "public"
   },
   "devDependencies": {
+    "chokidar": "^4.0.3",
     "cssnano": "^7.0.6",
     "glob": "^11.0.0",
     "postcss": "^8.4.49",
