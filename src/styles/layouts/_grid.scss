@@ -19,9 +19,10 @@
 @mixin cols($count) {grid-template-columns: repeat($count, minmax(0, 1fr));}
 @mixin rows($count) {grid-template-rows: repeat($count, minmax(0, 1fr));}
 
-@mixin grid-cols-custom($template) {
+@mixin cols-custom($template) {
   // Convert underscores to spaces so "1fr_auto" becomes "1fr auto"
   $converted: FN.str-replace($template, "_", " ");
+
   grid-template-columns: $converted;
 }
 
@@ -77,7 +78,7 @@
 /// EXAMPLE USAGE
 .custom-grid {
   display: grid;
-  @include grid-cols-custom("1fr_auto_1fr");
+  @include cols-custom("1fr_auto_1fr");
 }
 
 // Classes

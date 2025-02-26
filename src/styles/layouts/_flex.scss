@@ -319,7 +319,7 @@
   $bp-val: FN.get-breakpoint-value($breakpoint);
   
   @media (min-width: #{$bp-val}) {
-    .flex\@#{$breakpoint} {
+    .flex {
       display: flex;
 
       // Direction

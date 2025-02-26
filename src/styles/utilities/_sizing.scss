@@ -1,15 +1,15 @@
 // _spacing.scss
-
+  
 @use 'sass:math';
 @use './variables' as *;
 @use './container-queries' as Q;
 
-@mixin width($value) { width: if($value == 0, $value, $value + px); }
-@mixin height($value) { height: if($value == 0, $value, $value + px); }
-@mixin min-width($value) { min-width: if($value == 0, $value, $value + px); }
-@mixin min-height($value) { min-height: if($value == 0, $value, $value + px); }
-@mixin max-width($value) { max-width: if($value == 0, $value, $value + px); }
-@mixin max-height($value) { max-height: if($value == 0, $value, $value + px); }
+@mixin width($value) { width: $value; }
+@mixin height($value) { height: $value; }
+@mixin min-width($value) { min-width: $value; }
+@mixin min-height($value) { min-height: $value; }
+@mixin max-width($value) { max-width: $value; }
+@mixin max-height($value) { max-height: $value; }
 
 @mixin width-percent($i) { width: #{$i + '%'}; }
 @mixin height-percent($i) { height: #{$i + '%'};  }
