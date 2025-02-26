@@ -4,7 +4,25 @@
 @use 'sass:map';
 
 // Import variables
-@use '../utilities/variables' as *;
+@use '../utilities/variables' as VAR;
+
+
+/**
+ * Typography Utilities
+ * 
+ * Classes:
+ * - Font Size: .text-xs, .text-sm, .text-base, etc.
+ * - Font Weight: .font-thin, .font-normal, .font-bold, etc.
+ * - Line Height: .leading-none, .leading-tight, .leading-normal, etc.
+ * - Text Align: .text-left, .text-center, .text-right, .text-justify
+ * - Text Transform: .uppercase, .lowercase, .capitalize, .normal-case
+ * - Text Style: .italic, .not-italic
+ * - Text Decoration: .underline, .line-through, .no-underline
+ * - Text Overflow: .truncate
+ * 
+ * All utilities support responsive variants with @breakpoint suffix:
+ * - .text-lg@md, .font-bold@lg, etc.
+ */
 
 // Utilities for text sizes
 
@@ -13,7 +31,12 @@
 * @param {string} $size - The size of the text.
 */
 @mixin text-size($size) {
-  font-size: map.get($font-sizes, $size);
+  @if map.has-key(VAR.$font-sizes, $size) {
+    font-size: map.get(VAR.$font-sizes, $size);
+  } @else {
+    @warn "Font size '#{$size}' not found in $font-sizes map.";
+  }
+  
 }
 
 // Font weights
@@ -60,98 +83,99 @@
 // Text overflow mixin
 @mixin truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-
-@each $size, $val in $font-sizes {
-  .text-#{$size} { @include text-size($size); }
+@mixin truncate-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-// Generate font weight utilities
-.font-thin { @include font-thin; }
-.font-extralight { @include font-extralight; }
-.font-light { @include font-light; }
-.font-normal { @include font-normal; }
-.font-medium { @include font-medium; }
-.font-semibold { @include font-semibold; }
-.font-bold { @include font-bold; }
-.font-extrabold { @include font-extrabold; }
-.font-black { @include font-black; }
 
-// Generate line height utilities
-.leading-none { @include leading-none; }
-.leading-tight { @include leading-tight; }
-.leading-snug { @include leading-snug; }
-.leading-normal { @include leading-normal; }
-.leading-relaxed { @include leading-relaxed; }
-.leading-loose { @include leading-loose; }
-
-// Generate text alignment utilities
-.text-left { @include text-left; }
-.text-center { @include text-center; }
-.text-right { @include text-right; }
-.text-justify { @include text-justify; }
-
-// Classes using mixins
-.uppercase { @include uppercase; }
-.lowercase { @include lowercase; }
-.capitalize { @include capitalize; }
-.normal-case { @include normal-case; }
-
-.italic { @include italic; }
-.not-italic { @include not-italic; }
-
-.underline { @include underline; }
-.line-through { @include line-through; }
-.no-underline { @include no-underline; }
-
-.truncate { @include truncate; }
+@mixin break-normal { overflow-wrap: normal; word-break: normal; }
+@mixin break-words { overflow-wrap: break-word; }
+@mixin break-all { word-break: break-all; }
+@mixin whitespace-normal { white-space: normal; }
+@mixin whitespace-nowrap { white-space: nowrap; }
+@mixin whitespace-pre { white-space: pre; }
+@mixin whitespace-pre-line { white-space: pre-line; }
+@mixin whitespace-pre-wrap { white-space: pre-wrap; }
 
 
-@each $breakpoint, $width in $breakpoints {
+
+
+
+
+@mixin responsive-typography($breakpoint: null) {
+  $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
+
+  @each $size, $val in VAR.$font-sizes {
+    .text-#{$size}#{$suffix} { @include text-size($size); }
+  }
+
+  // Generate font weight utilities
+  .font-thin#{$suffix} { @include font-thin; }
+  .font-extralight#{$suffix} { @include font-extralight; }
+  .font-light#{$suffix} { @include font-light; }
+  .font-normal#{$suffix} { @include font-normal; }
+  .font-medium#{$suffix} { @include font-medium; }
+  .font-semibold#{$suffix} { @include font-semibold; }
+  .font-bold#{$suffix} { @include font-bold; }
+  .font-extrabold#{$suffix} { @include font-extrabold; }
+  .font-black#{$suffix} { @include font-black; }
+
+  // Generate line height utilities
+  .leading-none#{$suffix} { @include leading-none; }
+  .leading-tight#{$suffix} { @include leading-tight; }
+  .leading-snug#{$suffix} { @include leading-snug; }
+  .leading-normal#{$suffix} { @include leading-normal; }
+  .leading-relaxed#{$suffix} { @include leading-relaxed; }
+  .leading-loose#{$suffix} { @include leading-loose; }
+
+  // Generate text alignment utilities
+  .text-left#{$suffix} { @include text-left; }
+  .text-center#{$suffix} { @include text-center; }
+  .text-right#{$suffix} { @include text-right; }
+  .text-justify#{$suffix} { @include text-justify; }
+
+  // Classes using mixins
+  .uppercase#{$suffix} { @include uppercase; }
+  .lowercase#{$suffix} { @include lowercase; }
+  .capitalize#{$suffix} { @include capitalize; }
+  .normal-case#{$suffix} { @include normal-case; }
+
+  .italic#{$suffix} { @include italic; }
+  .not-italic#{$suffix} { @include not-italic; }
+
+  .underline#{$suffix} { @include underline; }
+  .line-through#{$suffix} { @include line-through; }
+  .no-underline#{$suffix} { @include no-underline; }
+
+  .truncate#{$suffix} { @include truncate; }
+
+  .truncate-2#{$suffix} { @include truncate-lines(2); }
+  .truncate-3#{$suffix} { @include truncate-lines(3); }
+  .truncate-4#{$suffix} { @include truncate-lines(4); }
+  .truncate-5#{$suffix} { @include truncate-lines(5); }
+
+}
+
+@include responsive-typography();
+.break-normal { @include break-normal; }
+.break-words { @include break-words; }
+.break-all { @include break-all; }
+.whitespace-normal { @include whitespace-normal; }
+.whitespace-nowrap { @include whitespace-nowrap; }
+.whitespace-pre { @include whitespace-pre; }
+.whitespace-pre-line { @include whitespace-pre-line; }
+.whitespace-pre-wrap { @include whitespace-pre-wrap; }
+
+@each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
-        @each $size, $val in $font-sizes {
-            // .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
+        @each $size, $val in VAR.$font-sizes {
             .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
         }
-        
-        // Generate font weight utilities
-        .font-thin\@#{$breakpoint} { @include font-thin; }
-        .font-extralight\@#{$breakpoint} { @include font-extralight; }
-        .font-light\@#{$breakpoint} { @include font-light; }
-        .font-normal\@#{$breakpoint} { @include font-normal; }
-        .font-medium\@#{$breakpoint} { @include font-medium; }
-        .font-semibold\@#{$breakpoint} { @include font-semibold; }
-        .font-bold\@#{$breakpoint} { @include font-bold; }
-        .font-extrabold\@#{$breakpoint} { @include font-extrabold; }
-        .font-black\@#{$breakpoint} { @include font-black; }
-        
-        // Generate line height utilities
-        .leading-none\@#{$breakpoint} { @include leading-none; }
-        .leading-tight\@#{$breakpoint} { @include leading-tight; }
-        .leading-snug\@#{$breakpoint} { @include leading-snug; }
-        .leading-normal\@#{$breakpoint} { @include leading-normal; }
-        .leading-relaxed\@#{$breakpoint} { @include leading-relaxed; }
-        .leading-loose\@#{$breakpoint} { @include leading-loose; }
-        
-        // Generate text alignment utilities
-        .text-left\@#{$breakpoint} { @include text-left; }
-        .text-center\@#{$breakpoint} { @include text-center; }
-        .text-right\@#{$breakpoint} { @include text-right; }
-        .text-justify\@#{$breakpoint} { @include text-justify; }
-        
-        // Classes using mixins
-        .uppercase\@#{$breakpoint} { @include uppercase; }
-        .lowercase\@#{$breakpoint} { @include lowercase; }
-        .capitalize\@#{$breakpoint} { @include capitalize; }
-        .normal-case\@#{$breakpoint} { @include normal-case; }
-        
-        .italic\@#{$breakpoint} { @include italic; }
-        .not-italic\@#{$breakpoint} { @include not-italic; }
-        
-        .underline\@#{$breakpoint} { @include underline; }
-        .line-through\@#{$breakpoint} { @include line-through; }
-        .no-underline\@#{$breakpoint} { @include no-underline; }
-        
-        .truncate\@#{$breakpoint} { @include truncate; }
+        @include responsive-typography($breakpoint);
     }
 }
 

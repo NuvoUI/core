@@ -5,6 +5,7 @@
 @use 'layouts/flex' as *;
 @use 'layouts/grid' as *;
 @use 'themes/theme' as *;
+@use 'utilities/alignment' as *;
 @use 'utilities/animations' as *;
 @use 'utilities/borders' as *;
 @use 'utilities/colors' as *;
@@ -19,6 +20,7 @@
 @use 'utilities/sizing' as *;
 @use 'utilities/spacing' as *;
 @use 'utilities/tooltips' as *;
+@use 'utilities/transitions' as *;
 @use 'utilities/typography' as *;
 @use 'utilities/variables' as *;
 
@@ -140,6 +142,14 @@
           @include flow-in-col;
         } @else if $mixin-str == 'flow-dense-items' {
           @include flow-dense-items;
+        } @else if $mixin-str == 'align-baseline' {
+          @include align-baseline;
+        } @else if $mixin-str == 'align-top' {
+          @include align-top;
+        } @else if $mixin-str == 'align-middle' {
+          @include align-middle;
+        } @else if $mixin-str == 'align-bottom' {
+          @include align-bottom;
         } @else if $mixin-str == 'hide' {
           @include hide;
         } @else if $mixin-str == 'block' {
@@ -156,8 +166,34 @@
           @include d-tbl-row;
         } @else if $mixin-str == 'd-tbl-cell' {
           @include d-tbl-cell;
+        } @else if $mixin-str == 'visible' {
+          @include visible;
+        } @else if $mixin-str == 'invisible' {
+          @include invisible;
+        } @else if $mixin-str == 'collapse' {
+          @include collapse;
+        } @else if $mixin-str == 'contents' {
+          @include contents;
         } @else if $mixin-str == 'overflow-hidden' {
           @include overflow-hidden;
+        } @else if $mixin-str == 'overflow-visible' {
+          @include overflow-visible;
+        } @else if $mixin-str == 'overflow-scroll' {
+          @include overflow-scroll;
+        } @else if $mixin-str == 'overflow-auto' {
+          @include overflow-auto;
+        } @else if $mixin-str == 'overflow-x-hidden' {
+          @include overflow-x-hidden;
+        } @else if $mixin-str == 'overflow-y-hidden' {
+          @include overflow-y-hidden;
+        } @else if $mixin-str == 'overflow-x-scroll' {
+          @include overflow-x-scroll;
+        } @else if $mixin-str == 'overflow-y-scroll' {
+          @include overflow-y-scroll;
+        } @else if $mixin-str == 'overflow-x-auto' {
+          @include overflow-x-auto;
+        } @else if $mixin-str == 'overflow-y-auto' {
+          @include overflow-y-auto;
         } @else if $mixin-str == 'touch' {
           @include touch;
         } @else if $mixin-str == 'print' {
@@ -200,12 +236,38 @@
           @include min-h-full;
         } @else if $mixin-str == 'max-h-full' {
           @include max-h-full;
+        } @else if $mixin-str == 'w-screen' {
+          @include w-screen;
+        } @else if $mixin-str == 'h-screen' {
+          @include h-screen;
         } @else if $mixin-str == 'ml-auto' {
           @include ml-auto;
         } @else if $mixin-str == 'mr-auto' {
           @include mr-auto;
         } @else if $mixin-str == 'mx-auto' {
           @include mx-auto;
+        } @else if $mixin-str == 'transition' {
+          @include transition;
+        } @else if $mixin-str == 'transition-none' {
+          @include transition-none;
+        } @else if $mixin-str == 'transition-all' {
+          @include transition-all;
+        } @else if $mixin-str == 'transition-colors' {
+          @include transition-colors;
+        } @else if $mixin-str == 'transition-opacity' {
+          @include transition-opacity;
+        } @else if $mixin-str == 'transition-shadow' {
+          @include transition-shadow;
+        } @else if $mixin-str == 'transition-transform' {
+          @include transition-transform;
+        } @else if $mixin-str == 'ease-linear' {
+          @include ease-linear;
+        } @else if $mixin-str == 'ease-in' {
+          @include ease-in;
+        } @else if $mixin-str == 'ease-out' {
+          @include ease-out;
+        } @else if $mixin-str == 'ease-in-out' {
+          @include ease-in-out;
         } @else if $mixin-str == 'font-thin' {
           @include font-thin;
         } @else if $mixin-str == 'font-extralight' {
@@ -264,6 +326,27 @@
           @include no-underline;
         } @else if $mixin-str == 'truncate' {
           @include truncate;
+        } @else if $mixin-str == 'break-normal' {
+          @include break-normal;
+        } @else if $mixin-str == 'break-words' {
+          @include break-words;
+        } @else if $mixin-str == 'break-all' {
+          @include break-all;
+        } @else if $mixin-str == 'whitespace-normal' {
+          @include whitespace-normal;
+        } @else if $mixin-str == 'whitespace-nowrap' {
+          @include whitespace-nowrap;
+        } @else if $mixin-str == 'whitespace-pre' {
+          @include whitespace-pre;
+        } @else if $mixin-str == 'whitespace-pre-line' {
+          @include whitespace-pre-line;
+        } @else if $mixin-str == 'whitespace-pre-wrap' {
+          @include whitespace-pre-wrap;
+        } @else if str.index($mixin-str, 'container-padding(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container-padding(str.unquote($value));
         } @else if str.index($mixin-str, 'container(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -284,11 +367,11 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include rows(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-cols-custom(') == 1 {
+        } @else if str.index($mixin-str, 'cols-custom(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-cols-custom(str.unquote($value));
+          @include cols-custom(str.unquote($value));
         } @else if str.index($mixin-str, 'auto-fit(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -359,6 +442,21 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include position-row(str.unquote($value));
+        } @else if str.index($mixin-str, 'grid-gap(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include grid-gap(str.unquote($value));
+        } @else if str.index($mixin-str, 'col-gap(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include col-gap(str.unquote($value));
+        } @else if str.index($mixin-str, 'row-gap(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include row-gap(str.unquote($value));
         } @else if str.index($mixin-str, 'generate-bounce-keyframes(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -419,6 +517,16 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include container-query(str.unquote($value));
+        } @else if str.index($mixin-str, 'container-type(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container-type(str.unquote($value));
+        } @else if str.index($mixin-str, 'container-name(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container-name(str.unquote($value));
         } @else if str.index($mixin-str, 'media-up(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -644,11 +752,31 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include gap-y(str.unquote($value));
+        } @else if str.index($mixin-str, 'duration(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include duration(str.unquote($value));
+        } @else if str.index($mixin-str, 'delay(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include delay(str.unquote($value));
         } @else if str.index($mixin-str, 'text-size(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include text-size(str.unquote($value));
+        } @else if str.index($mixin-str, 'truncate-lines(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include truncate-lines(str.unquote($value));
+        } @else if str.index($mixin-str, 'responsive-typography(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include responsive-typography(str.unquote($value));
         }
       }
     } @else {
@@ -744,6 +872,14 @@
           @include flow-in-col;
         } @else if $mixin-str == 'flow-dense-items' {
           @include flow-dense-items;
+        } @else if $mixin-str == 'align-baseline' {
+          @include align-baseline;
+        } @else if $mixin-str == 'align-top' {
+          @include align-top;
+        } @else if $mixin-str == 'align-middle' {
+          @include align-middle;
+        } @else if $mixin-str == 'align-bottom' {
+          @include align-bottom;
         } @else if $mixin-str == 'hide' {
           @include hide;
         } @else if $mixin-str == 'block' {
@@ -760,8 +896,34 @@
           @include d-tbl-row;
         } @else if $mixin-str == 'd-tbl-cell' {
           @include d-tbl-cell;
+        } @else if $mixin-str == 'visible' {
+          @include visible;
+        } @else if $mixin-str == 'invisible' {
+          @include invisible;
+        } @else if $mixin-str == 'collapse' {
+          @include collapse;
+        } @else if $mixin-str == 'contents' {
+          @include contents;
         } @else if $mixin-str == 'overflow-hidden' {
           @include overflow-hidden;
+        } @else if $mixin-str == 'overflow-visible' {
+          @include overflow-visible;
+        } @else if $mixin-str == 'overflow-scroll' {
+          @include overflow-scroll;
+        } @else if $mixin-str == 'overflow-auto' {
+          @include overflow-auto;
+        } @else if $mixin-str == 'overflow-x-hidden' {
+          @include overflow-x-hidden;
+        } @else if $mixin-str == 'overflow-y-hidden' {
+          @include overflow-y-hidden;
+        } @else if $mixin-str == 'overflow-x-scroll' {
+          @include overflow-x-scroll;
+        } @else if $mixin-str == 'overflow-y-scroll' {
+          @include overflow-y-scroll;
+        } @else if $mixin-str == 'overflow-x-auto' {
+          @include overflow-x-auto;
+        } @else if $mixin-str == 'overflow-y-auto' {
+          @include overflow-y-auto;
         } @else if $mixin-str == 'touch' {
           @include touch;
         } @else if $mixin-str == 'print' {
@@ -804,12 +966,38 @@
           @include min-h-full;
         } @else if $mixin-str == 'max-h-full' {
           @include max-h-full;
+        } @else if $mixin-str == 'w-screen' {
+          @include w-screen;
+        } @else if $mixin-str == 'h-screen' {
+          @include h-screen;
         } @else if $mixin-str == 'ml-auto' {
           @include ml-auto;
         } @else if $mixin-str == 'mr-auto' {
           @include mr-auto;
         } @else if $mixin-str == 'mx-auto' {
           @include mx-auto;
+        } @else if $mixin-str == 'transition' {
+          @include transition;
+        } @else if $mixin-str == 'transition-none' {
+          @include transition-none;
+        } @else if $mixin-str == 'transition-all' {
+          @include transition-all;
+        } @else if $mixin-str == 'transition-colors' {
+          @include transition-colors;
+        } @else if $mixin-str == 'transition-opacity' {
+          @include transition-opacity;
+        } @else if $mixin-str == 'transition-shadow' {
+          @include transition-shadow;
+        } @else if $mixin-str == 'transition-transform' {
+          @include transition-transform;
+        } @else if $mixin-str == 'ease-linear' {
+          @include ease-linear;
+        } @else if $mixin-str == 'ease-in' {
+          @include ease-in;
+        } @else if $mixin-str == 'ease-out' {
+          @include ease-out;
+        } @else if $mixin-str == 'ease-in-out' {
+          @include ease-in-out;
         } @else if $mixin-str == 'font-thin' {
           @include font-thin;
         } @else if $mixin-str == 'font-extralight' {
@@ -868,6 +1056,27 @@
           @include no-underline;
         } @else if $mixin-str == 'truncate' {
           @include truncate;
+        } @else if $mixin-str == 'break-normal' {
+          @include break-normal;
+        } @else if $mixin-str == 'break-words' {
+          @include break-words;
+        } @else if $mixin-str == 'break-all' {
+          @include break-all;
+        } @else if $mixin-str == 'whitespace-normal' {
+          @include whitespace-normal;
+        } @else if $mixin-str == 'whitespace-nowrap' {
+          @include whitespace-nowrap;
+        } @else if $mixin-str == 'whitespace-pre' {
+          @include whitespace-pre;
+        } @else if $mixin-str == 'whitespace-pre-line' {
+          @include whitespace-pre-line;
+        } @else if $mixin-str == 'whitespace-pre-wrap' {
+          @include whitespace-pre-wrap;
+        } @else if str.index($mixin-str, 'container-padding(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container-padding(str.unquote($value));
         } @else if str.index($mixin-str, 'container(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -888,11 +1097,11 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include rows(str.unquote($value));
-        } @else if str.index($mixin-str, 'grid-cols-custom(') == 1 {
+        } @else if str.index($mixin-str, 'cols-custom(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
-          @include grid-cols-custom(str.unquote($value));
+          @include cols-custom(str.unquote($value));
         } @else if str.index($mixin-str, 'auto-fit(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -963,6 +1172,21 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include position-row(str.unquote($value));
+        } @else if str.index($mixin-str, 'grid-gap(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include grid-gap(str.unquote($value));
+        } @else if str.index($mixin-str, 'col-gap(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include col-gap(str.unquote($value));
+        } @else if str.index($mixin-str, 'row-gap(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include row-gap(str.unquote($value));
         } @else if str.index($mixin-str, 'generate-bounce-keyframes(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -1023,6 +1247,16 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include container-query(str.unquote($value));
+        } @else if str.index($mixin-str, 'container-type(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container-type(str.unquote($value));
+        } @else if str.index($mixin-str, 'container-name(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include container-name(str.unquote($value));
         } @else if str.index($mixin-str, 'media-up(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
@@ -1248,11 +1482,31 @@
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include gap-y(str.unquote($value));
+        } @else if str.index($mixin-str, 'duration(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include duration(str.unquote($value));
+        } @else if str.index($mixin-str, 'delay(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include delay(str.unquote($value));
         } @else if str.index($mixin-str, 'text-size(') == 1 {
           $start: str.index($mixin-str, '(') + 1;
           $end: str.length($mixin-str) - 1;
           $value: str.slice($mixin-str, $start, $end);
           @include text-size(str.unquote($value));
+        } @else if str.index($mixin-str, 'truncate-lines(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include truncate-lines(str.unquote($value));
+        } @else if str.index($mixin-str, 'responsive-typography(') == 1 {
+          $start: str.index($mixin-str, '(') + 1;
+          $end: str.length($mixin-str) - 1;
+          $value: str.slice($mixin-str, $start, $end);
+          @include responsive-typography(str.unquote($value));
         } @else {
             @warn "Mixin '#{$mixin}' is not defined.";
         }

@@ -1,12 +1,85 @@
-// _spacing.scss
+// Section: Presentation
+// Module: Opacity
 
 @use 'sass:math';
 @use './variables' as *;
+
+
+
+/**
+ * @component Opacity
+ * @description Controls element transparency with customizable opacity values and interactive states
+ *
+ * @example
+ * <!-- Basic opacity -->
+ * <div class="opacity-50">This element has 50% opacity</div>
+ * 
+ * <!-- Responsive opacity -->
+ * <div class="opacity-100 opacity-50@md">
+ *   100% opacity by default, 50% on medium screens and up
+ * </div>
+ * 
+ * <!-- Interactive states -->
+ * <div class="opacity-50 hover:opacity-100">
+ *   50% opacity, becomes fully visible on hover
+ * </div>
+ * 
+ * <button class="opacity-70 focus:opacity-100">
+ *   70% opacity, fully visible when focused
+ * </button>
+ * 
+ * <div class="opacity-75 active:opacity-100">
+ *   75% opacity, fully visible when clicked/active
+ * </div>
+ * 
+ * <!-- Group hover effect -->
+ * <div class="group">
+ *   <h3>Parent element with "group" class</h3>
+ *   <div class="opacity-0 group-hover:opacity-100">
+ *     Hidden by default, visible when parent is hovered
+ *   </div>
+ * </div>
+ * 
+ * <!-- With transition -->
+ * <div class="opacity-50 hover:opacity-100 transition-opacity">
+ *   Smooth opacity transition on hover
+ * </div>
+ *
+ * @classes
+ * Base:
+ * - opacity-{value}: Sets element opacity (0-100%)
+ *   Values: 0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100
+ * 
+ * Interactive States:
+ * - hover:opacity-{value}: Changes opacity on mouse hover
+ * - focus:opacity-{value}: Changes opacity when element receives focus
+ * - active:opacity-{value}: Changes opacity when element is active/pressed
+ * - group-hover:opacity-{value}: Changes opacity when parent with .group class is hovered
+ * 
+ * Animation:
+ * - transition-opacity: Adds smooth transition when opacity changes
+ *
+ * @responsive
+ * All opacity classes support responsive variants using @breakpoint suffix:
+ * - opacity-50@sm: 50% opacity on small screens and up
+ * - hover:opacity-100@md: Full opacity on hover for medium screens and up
+ * 
+ * Available breakpoints: xs, sm, md, lg, xl, xxl
+ *
+ * @customization
+ * Opacity values are defined in the $percentages variable
+ * Transition timing can be customized via CSS variables
+ *
+ * @see transitions
+ */
 
 // Opacity Utilities
 @each $i in $percentages {
   .opacity-#{$i} { opacity: math.div($i, 100); }
   .hover\:opacity-#{$i}:hover { opacity: math.div($i, 100); }
+  .focus\:opacity-#{$i}:focus { opacity: math.div($i, 100); }
+  .active\:opacity-#{$i}:active { opacity: math.div($i, 100); }
+  .group:hover .group-hover\:opacity-#{$i} { opacity: math.div($i, 100); }
 }
 
 // Responsive Variants for Opacity
@@ -15,6 +88,17 @@
     @each $i in $percentages {
       .opacity-#{$i}\@#{$breakpoint} { opacity: math.div($i, 100); }
       .hover\:opacity-#{$i}\@#{$breakpoint}:hover { opacity: math.div($i, 100); }
+      .focus\:opacity-#{$i}\@#{$breakpoint}:focus { opacity: math.div($i, 100); }
+      .active\:opacity-#{$i}\@#{$breakpoint}:active { opacity: math.div($i, 100); }
+      .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} { opacity: math.div($i, 100); }
     }
   }
+}
+
+// Transition Opacity
+// TODO move to transitons may be?
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

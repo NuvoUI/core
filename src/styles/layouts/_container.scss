@@ -1,26 +1,31 @@
 @use 'sass:map';
-@use '../utilities/variables' as *;
+@use '../utilities/variables' as VAR;
 
 // Base container styles
 @mixin container-base {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
+
+@mixin container-padding($padding) {
+  & {
+    padding-top: $padding;
+    padding-bottom: $padding;
+  }
+}
+
 
 // Responsive container mixin
 @mixin container($display: block) {
-  @include container-base;
-  
   display: $display;
-
-  @each $breakpoint, $width in $container-max-widths {
-    @media (min-width: map.get($breakpoints, $breakpoint)) {
-      max-width: $width;
+  @include container-base;
+  @each $breakpoint, $width in VAR.$breakpoints {
+    @media (min-width: $width) {
+      max-width: $width - 100px;
     }
   }
+  @include container-padding(1rem);
 }
 
 // Container classes
@@ -38,4 +43,10 @@
 
 .container-fluid {
   @include container-base;
+  @include container-padding(1rem);
+}
+
+.container-no-padding {
+  @include container;
+  @include container-padding(0);
 }

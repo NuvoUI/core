@@ -3,15 +3,102 @@
 @use 'sass:meta';
 @use './variables' as *; 
 
+ 
+/**
+ * @component Spacing
+ * @description Controls element margins, padding, gaps, and spacing between children
+ *
+ * @example
+ * <!-- Padding -->
+ * <div class="p-4">All sides padding</div>
+ * <div class="px-4 py-2">Horizontal and vertical padding</div>
+ * <div class="pt-2 pb-4">Top and bottom padding</div>
+ * 
+ * <!-- Margins -->
+ * <div class="m-4">All sides margin</div>
+ * <div class="mt-4">Top margin only</div>
+ * <div class="mx-auto">Horizontally centered</div>
+ * 
+ * <!-- Gap (for flex/grid containers) -->
+ * <div class="flex gap-4">
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </div>
+ * 
+ * <!-- Responsive spacing -->
+ * <div class="p-2 p-4@md p-6@lg">
+ *   Padding increases at each breakpoint
+ * </div>
+ * 
+ * <!-- Child spacing -->
+ * <div class="space-y-4">
+ *   <div>First child</div>
+ *   <div>Second child (margin-top: 1rem)</div>
+ *   <div>Third child (margin-top: 1rem)</div>
+ * </div>
+ *
+ * @classes
+ * Padding:
+ * - p-{size}: Padding on all sides
+ * - px-{size}: Horizontal padding (left and right)
+ * - py-{size}: Vertical padding (top and bottom)
+ * - pt-{size}, pr-{size}, pb-{size}, pl-{size}: Individual side padding
+ * 
+ * Margin:
+ * - m-{size}: Margin on all sides
+ * - mx-{size}: Horizontal margin (left and right)
+ * - my-{size}: Vertical margin (top and bottom)
+ * - mt-{size}, mr-{size}, mb-{size}, ml-{size}: Individual side margin
+ * - mx-auto, ml-auto, mr-auto: Auto margin for alignment
+ * 
+ * Gap:
+ * - gap-{size}: Gap between flex/grid children (all directions)
+ * - gap-x-{size}: Horizontal gap between children (column-gap)
+ * - gap-y-{size}: Vertical gap between children (row-gap)
+ * 
+ * Child Spacing:
+ * - space-x-{size}: Horizontal space between children
+ * - space-y-{size}: Vertical space between children
+ *
+ * @responsive
+ * All spacing classes support responsive variants using @breakpoint suffix:
+ * - p-4@md: 1rem padding on medium screens and up
+ * - mt-8@lg: 2rem top margin on large screens
+ * - gap-2@xl: 0.5rem gap on extra large screens
+ *
+ * @customization
+ * Spacing values are defined in the $spacings map in variables.scss
+ * Typically follows a scale where higher numbers mean more spacing
+ *
+ * @see flex, grid, display
+ */
+
+//-----------------------------------------------
+// HELPER FUNCTIONS
+//-----------------------------------------------
+
+/**
+ * @function format-unit-value
+ * @description Ensures values have appropriate units
+ * @param {Number|String} $value - The value to format
+ * @returns {Number|String} Value with appropriate units
+ * @internal
+ */
+
 @function format-unit-value($value) {
   // Zero check
   @if $value == 0 {
     @return 0;
   }
 
-  // If pure number, add px
-  @if meta.type-of($value) == 'number' {
-    @return $value + px;
+  // If pure number (no units), add px
+  @if meta.type-of($value) == 'number' and math.unit($value) == "" {
+    @return $value * 1px; // Multiply by 1px instead of adding px
+  }
+
+  // If number with units (like rem), return as is
+  @if meta.type-of($value) == 'number' and math.unit($value) != "" {
+    @return $value; // Already has units, return as is
   }
 
    // Convert value to string for unit checking
@@ -20,78 +107,243 @@
   @return $value-str;
 }
 
-// Padding mixins
+
+//-----------------------------------------------
+// PADDING MIXINS
+//-----------------------------------------------
+
+/**
+ * @mixin p
+ * @description Sets padding on all sides
+ * @param {Number|String} $val - Padding value
+ */
 @mixin p($val) { padding: format-unit-value($val); }
-@mixin px($val) { $val: format-unit-value($val); padding-left: $val; padding-right: $val; }
-@mixin py($val) { $val: format-unit-value($val); padding-top: $val; padding-bottom: $val; }
+
+/**
+* @mixin px
+* @description Sets horizontal padding (left and right)
+* @param {Number|String} $val - Padding value
+*/
+@mixin px($val) { 
+  $val: format-unit-value($val); 
+  padding-left: $val; 
+  padding-right: $val; 
+}
+
+/**
+* @mixin py
+* @description Sets vertical padding (top and bottom)
+* @param {Number|String} $val - Padding value
+*/
+@mixin py($val) { 
+  $val: format-unit-value($val); 
+  padding-top: $val; 
+  padding-bottom: $val; 
+}
+
+/**
+* @mixin pt
+* @description Sets padding-top
+* @param {Number|String} $val - Padding value
+*/
 @mixin pt($val) { $val: format-unit-value($val); padding-top: $val; }
+
+/**
+* @mixin pr
+* @description Sets padding-right
+* @param {Number|String} $val - Padding value
+*/
 @mixin pr($val) { $val: format-unit-value($val); padding-right: $val; }
+
+/**
+* @mixin pb
+* @description Sets padding-bottom
+* @param {Number|String} $val - Padding value
+*/
 @mixin pb($val) { $val: format-unit-value($val); padding-bottom: $val; }
+
+/**
+* @mixin pl
+* @description Sets padding-left
+* @param {Number|String} $val - Padding value
+*/
 @mixin pl($val) { $val: format-unit-value($val); padding-left: $val; }
 
-// Margin mixins
+//-----------------------------------------------
+// MARGIN MIXINS
+//-----------------------------------------------
+
+/**
+* @mixin m
+* @description Sets margin on all sides
+* @param {Number|String} $val - Margin value
+*/
 @mixin m($val) { $val: format-unit-value($val); margin: $val; }
-@mixin mx($val) { $val: format-unit-value($val); margin-left: $val; margin-right: $val; }
-@mixin my($val) { $val: format-unit-value($val); margin-top: $val; margin-bottom: $val; }
+
+/**
+* @mixin mx
+* @description Sets horizontal margin (left and right)
+* @param {Number|String} $val - Margin value
+*/
+@mixin mx($val) { 
+  $val: format-unit-value($val); 
+  margin-left: $val; 
+  margin-right: $val; 
+}
+
+/**
+* @mixin my
+* @description Sets vertical margin (top and bottom)
+* @param {Number|String} $val - Margin value
+*/
+@mixin my($val) { 
+  $val: format-unit-value($val); 
+  margin-top: $val; 
+  margin-bottom: $val; 
+}
+
+/**
+* @mixin mt
+* @description Sets margin-top
+* @param {Number|String} $val - Margin value
+*/
 @mixin mt($val) { $val: format-unit-value($val); margin-top: $val; }
+
+/**
+* @mixin mr
+* @description Sets margin-right
+* @param {Number|String} $val - Margin value
+*/
 @mixin mr($val) { $val: format-unit-value($val); margin-right: $val; }
+
+/**
+* @mixin mb
+* @description Sets margin-bottom
+* @param {Number|String} $val - Margin value
+*/
 @mixin mb($val) { $val: format-unit-value($val); margin-bottom: $val; }
+
+/**
+* @mixin ml
+* @description Sets margin-left
+* @param {Number|String} $val - Margin value
+*/
 @mixin ml($val) { $val: format-unit-value($val); margin-left: $val; }
 
-// Auto margin utilities
+/**
+* @mixin ml-auto
+* @description Sets margin-left to auto
+*/
 @mixin ml-auto { margin-left: auto; }
+
+/**
+* @mixin mr-auto
+* @description Sets margin-right to auto
+*/
 @mixin mr-auto { margin-right: auto; }
+
+/**
+* @mixin mx-auto
+* @description Centers element horizontally using auto margins
+*/
 @mixin mx-auto { @include ml-auto; @include mr-auto; }
 
-// Spacing map
-@mixin space-y($i) { & > * + * { margin-top: if($i == 0, 0, $i + px); } }
-@mixin space-x($i) { & > * + * { margin-left: if($i == 0, 0, $i + px); } }
 
+//-----------------------------------------------
+// SPACING MIXINS
+//-----------------------------------------------
 
-// Gap Mixins
-@mixin gap($value) { gap: if($value == 0, $value, $value + px); }
-@mixin gap-x($value) { column-gap: if($value == 0, $value, $value + px); }
-@mixin gap-y($value) { row-gap: if($value == 0, $value, $value + px); }
+/**
+ * @mixin space-y
+ * @description Adds vertical spacing between direct children
+ * @param {Number|String} $i - Space amount
+ */
+ @mixin space-y($i) { & > * + * { $i: format-unit-value($i); margin-top: $i; } } 
+
+ /**
+  * @mixin space-x
+  * @description Adds horizontal spacing between direct children
+  * @param {Number|String} $i - Space amount
+  */
+ @mixin space-x($i) { & > * + * { $i: format-unit-value($i); margin-left: $i; } } 
+
+//-----------------------------------------------
+// GAP MIXINS
+//-----------------------------------------------
+
+/**
+ * @mixin gap
+ * @description Sets gap between grid/flex children
+ * @param {Number|String} $val - Gap value
+ */
+ @mixin gap($val) { $val: format-unit-value($val); gap: $val; }
+
+ /**
+  * @mixin gap-x
+  * @description Sets horizontal gap between grid/flex children
+  * @param {Number|String} $val - Gap value
+  */
+ @mixin gap-x($val) { $val: format-unit-value($val); column-gap: $val; }
+ 
+ /**
+  * @mixin gap-y
+  * @description Sets vertical gap between grid/flex children
+  * @param {Number|String} $val - Gap value
+  */
+ @mixin gap-y($val) { $val: format-unit-value($val); row-gap: $val; }
+
+//-----------------------------------------------
+// AUTO MARGIN UTILITY CLASSES
+//-----------------------------------------------
 
 .mx-auto { @include mx-auto; }
 .ml-auto { @include ml-auto; }
 .mr-auto { @include mr-auto; }
 
-// Gap Classes
+//-----------------------------------------------
+// GAP AUTO CLASS
+//-----------------------------------------------
+
 .gap-auto { gap: auto; }
 
-// Generate utilities from spacing map
-@each $i in $spacings {
+//-----------------------------------------------
+// SPACING CLASSES
+//-----------------------------------------------
+
+@each $key, $value in $spacings {
     // Padding classes
-    .p-#{$i} { @include p($i); }
-    .px-#{$i} { @include px($i); }
-    .py-#{$i} { @include py($i); }
-    .pt-#{$i} { @include pt($i); }
-    .pr-#{$i} { @include pr($i); }
-    .pb-#{$i} { @include pb($i); }
-    .pl-#{$i} { @include pl($i); }
+    .p-#{$key} { @include p($value); }
+    .px-#{$key} { @include px($value); }
+    .py-#{$key} { @include py($value); }
+    .pt-#{$key} { @include pt($value); }
+    .pr-#{$key} { @include pr($value); }
+    .pb-#{$key} { @include pb($value); }
+    .pl-#{$key} { @include pl($value); }
 
     // Margin classes
-    .m-#{$i} { @include m($i); }
-    .mx-#{$i} { @include mx($i); }
-    .my-#{$i} { @include my($i); }
-    .mt-#{$i} { @include mt($i); }
-    .mr-#{$i} { @include mr($i); }
-    .mb-#{$i} { @include mb($i); }
-    .ml-#{$i} { @include ml($i); }
+    .m-#{$key} { @include m($value); }
+    .mx-#{$key} { @include mx($value); }
+    .my-#{$key} { @include my($value); }
+    .mt-#{$key} { @include mt($value); }
+    .mr-#{$key} { @include mr($value); }
+    .mb-#{$key} { @include mb($value); }
+    .ml-#{$key} { @include ml($value); }
     
     // Gap classes
-    .gap-#{$i} { @include gap($i); }
-    .gap-x-#{$i} { @include gap-x($i); }
-    .gap-y-#{$i} { @include gap-y($i); }
+    .gap-#{$key} { @include gap($value); }
+    .gap-x-#{$key} { @include gap-x($value); }
+    .gap-y-#{$key} { @include gap-y($value); }
 
     // Space classes
-    .space-x-#{$i} { @include space-x($i); }
-    .space-y-#{$i} { @include space-y($i); }
+    .space-x-#{$key} { @include space-x($value); }
+    .space-y-#{$key} { @include space-y($value); }
 }
 
 
-// Responsive Position Classes
+//-----------------------------------------------
+// RESPONSIVE SPACING CLASSES
+//-----------------------------------------------
+
 @each $breakpoint, $width in $breakpoints {
     @media (min-width: #{$width}) {
         .mx-auto\@#{$breakpoint} { @include mx-auto; }
@@ -99,33 +351,32 @@
         .mr-auto\@#{$breakpoint} { @include mr-auto; }
 
         // Generate utilities from spacing map
-        @each $i in $spacings {
+        @each $key, $value in $spacings {
             // Padding classes
-            .p-#{$i}\@#{$breakpoint} { @include p($i); }
-            .px-#{$i}\@#{$breakpoint} { @include px($i); }
-            .py-#{$i}\@#{$breakpoint} { @include py($i); }
-            .pt-#{$i}\@#{$breakpoint} { @include pt($i); }
-            .pr-#{$i}\@#{$breakpoint} { @include pr($i); }
-            .pb-#{$i}\@#{$breakpoint} { @include pb($i); }
-            .pl-#{$i}\@#{$breakpoint} { @include pl($i); }
+            .p-#{$key}\@#{$breakpoint} { @include p($value); }
+            .px-#{$key}\@#{$breakpoint} { @include px($value); }
+            .py-#{$key}\@#{$breakpoint} { @include py($value); }
+            .pt-#{$key}\@#{$breakpoint} { @include pt($value); }
+            .pr-#{$key}\@#{$breakpoint} { @include pr($value); }
+            .pb-#{$key}\@#{$breakpoint} { @include pb($value); }
+            .pl-#{$key}\@#{$breakpoint} { @include pl($value); }
 
             // Margin classes
-            .m-#{$i}\@#{$breakpoint} { @include m($i); }
-            .mx-#{$i}\@#{$breakpoint} { @include mx($i); }
-            .my-#{$i}\@#{$breakpoint} { @include my($i); }
-            .mt-#{$i}\@#{$breakpoint} { @include mt($i); }
-            .mr-#{$i}\@#{$breakpoint} { @include mr($i); }
-            .mb-#{$i}\@#{$breakpoint} { @include mb($i); }
-            .ml-#{$i}\@#{$breakpoint} { @include ml($i); }
+            .m-#{$key}\@#{$breakpoint} { @include m($value); }
+            .mx-#{$key}\@#{$breakpoint} { @include mx($value); }
+            .my-#{$key}\@#{$breakpoint} { @include my($value); }
+            .mt-#{$key}\@#{$breakpoint} { @include mt($value); }
+            .mr-#{$key}\@#{$breakpoint} { @include mr($value); }
+            .mb-#{$key}\@#{$breakpoint} { @include mb($value); }
+            .ml-#{$key}\@#{$breakpoint} { @include ml($value); }
 
-            .gap-#{$i}\@#{$breakpoint} { gap: $i; }
-            .gap-x-#{$i}\@#{$breakpoint} { column-gap: $i; }
-            .gap-y-#{$i}\@#{$breakpoint} { row-gap: $i; }
+            .gap-#{$key}\@#{$breakpoint} { gap: $value; }
+            .gap-x-#{$key}\@#{$breakpoint} { column-gap: $value; }
+            .gap-y-#{$key}\@#{$breakpoint} { row-gap: $value; }
       
-            
             // Space classes
-            .space-x-#{$i}\@#{$breakpoint} { @include space-x($i); }
-            .space-y-#{$i}\@#{$breakpoint} { @include space-y($i); }
+            .space-x-#{$key}\@#{$breakpoint} { @include space-x($value); }
+            .space-y-#{$key}\@#{$breakpoint} { @include space-y($value); }
         }
     }
 }

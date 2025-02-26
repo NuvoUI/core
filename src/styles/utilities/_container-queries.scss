@@ -3,6 +3,22 @@
 @use './variables' as *;
 @use './functions' as FN;
 
+/**
+ * Container Query Mixins
+ *
+ * Usage:
+ * .container {
+ *   container-type: inline-size;
+ *   container-name: sidebar;
+ * }
+ * 
+ * .item {
+ *   @include container-up('md', 'sidebar') {
+ *     // Styles for 'md' and up within 'sidebar' container
+ *   }
+ * }
+ */
+
 /// Container Query: Up
 @mixin container-up($breakpoint, $containerName: null) {
   $bp-val: FN.get-breakpoint-value($breakpoint);
@@ -54,5 +70,29 @@
 @mixin container-query($size, $containerName: null) {
   @container #{$containerName} (min-width: $size) {
     @content;
+  }
+}
+
+@mixin container-type($type: inline-size) {
+  container-type: $type;
+}
+
+@mixin container-name($name) {
+  container-name: $name;
+}
+
+
+// Utility classes
+.container-inline-size {
+  container-type: inline-size;
+}
+
+.container-size {
+  container-type: size;
+}
+
+@each $name in ('main', 'sidebar', 'card', 'section') {
+  .container-#{$name} {
+    container-name: $name;
   }
 }

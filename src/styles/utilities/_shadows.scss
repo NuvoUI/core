@@ -2,8 +2,7 @@
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:string';
-@use './variables' as *;
-
+@use './variables' as VAR;
 
 // Shadow Variables
 $shadow-colors: (
@@ -59,6 +58,15 @@ $shadow-sizes: (
 }
 
 @mixin shadow($size: 'md', $color: 'default') {
+  @if not map.has-key($shadow-sizes, $size) {
+    @warn "Shadow size '#{$size}' not found in $shadow-sizes map";
+    $size: 'md'; // Fallback to default
+  }
+  @if not map.has-key($shadow-colors, $color) {
+    @warn "Shadow color '#{$color}' not found in $shadow-colors map";
+    $color: 'default'; // Fallback to default
+  }
+
   $shadow: map.get($shadow-sizes, $size);
   $shadow-color: map.get($shadow-colors, $color);
   @include shadow-base(
@@ -96,11 +104,78 @@ $shadow-sizes: (
   .shadow-inset-#{$size} {
     @include shadow-inset($size);
   }
+
+
+  // hover shadows
+  .hover\:shadow-#{$size}:hover {
+    @include shadow($size);
+  }
+  
+  .hover\:shadow-#{$size}-dark:hover {
+    @include shadow($size, 'dark');
+  }
+  
+  .hover\:shadow-inset-#{$size}:hover {
+    @include shadow-inset($size);
+  }
+  
+
+  // focus shadows
+  .focus\:shadow-#{$size}:hover {
+    @include shadow($size);
+  }
+  
+  .focus\:shadow-#{$size}-dark:hover {
+    @include shadow($size, 'dark');
+  }
+  
+  .focus\:shadow-inset-#{$size}:hover {
+    @include shadow-inset($size);
+  }
 }
 
-// Hover variants
-.shadow-hover {
-  &:hover {
-    @include shadow('lg');
+// Active variants
+@each $size, $values in $shadow-sizes {
+  .active\:shadow-#{$size}:active {
+    @include shadow($size);
+  }
+}
+
+// Responsive variants
+@each $breakpoint, $width in VAR.$breakpoints {
+  @media (min-width: #{$width}) {
+    // Regular shadows with breakpoints
+    @each $size, $values in $shadow-sizes {
+      .shadow-#{$size}\@#{$breakpoint} {
+        @include shadow($size);
+      }
+      
+      // Hover shadows with breakpoints
+      .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
+        @include shadow($size);
+      }
+      
+      // Focus shadows with breakpoints
+      .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
+        @include shadow($size);
+      }
+    }
+  }
+}
+
+@for $i from 1 through 5 {
+  .elevation-#{$i} {
+    @if $i == 1 {
+      @include shadow('sm');
+    } @else if $i == 2 {
+      @include shadow('md');
+    } @else if $i == 3 {
+      @include shadow('lg');
+    } @else if $i == 4 {
+      @include shadow('xl');
+    } @else if $i == 5 {
+      @include shadow('monster');
+    }
+    z-index: $i;
   }
 }

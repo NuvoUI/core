@@ -13,38 +13,39 @@
  * @param {string} $type - The media query type (e.g. 'lg', 'md').
  */
 @mixin media-up($breakpoint) {
-  @media screen and (min-width: #{FN.get-breakpoint-value($breakpoint)}) {
+  @media screen and (min-width: FN.get-breakpoint-value($breakpoint)) {
     @content;
   }
 }
 
 @mixin media-down($breakpoint) {
-  @media screen and (max-width: (#{FN.get-breakpoint-value($breakpoint)} - 0.02px)) {
+  $val: FN.get-breakpoint-value($breakpoint) - 0.02px;
+  @media screen and (max-width: #{$val}) {
     @content;
   }
 }
 
 @mixin media-between($lower, $upper) {
   $lower-val: FN.get-breakpoint-value($lower);
-  $upper-val: FN.get-breakpoint-value($upper);
-  @media screen and (min-width: #{$lower-val}) and (max-width: (#{ $upper-val } - 0.02px)) {
+  $upper-val: FN.get-breakpoint-value($upper) - 0.02px;
+  @media screen and (min-width: #{$lower-val}) and (max-width: #{$upper-val}) {
     @content;
   }
 }
 
 // Only at specific breakpoint
-@mixin media-only($breakpoint) { // BUG BUG BUG BUG BUG
+@mixin media-only($breakpoint) {
   $min: FN.get-breakpoint-value($breakpoint);
   $next-breakpoint: null;
   
   @each $name, $width in $breakpoints {
-    @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
-      $next-breakpoint: #{$width};
+    @if $width > $min and (meta.type-of($next-breakpoint) == 'null' or $width < $next-breakpoint) {
+      $next-breakpoint: $width;
     }
   }
   
   @if $next-breakpoint {
-    @media (min-width: #{$min}) and (max-width: (#{ $next-breakpoint } - 1)) {
+    @media (min-width: #{$min}) and (max-width: #{$next-breakpoint - 0.02px}) {
       @content;
     }
   } @else {
@@ -106,7 +107,7 @@
   @supports (height: 100dvh) {
     height: 100dvh;
   }
-  
+
   @supports not (height: 100dvh) {
     height: 100vh;
   }

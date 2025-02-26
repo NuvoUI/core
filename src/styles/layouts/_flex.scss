@@ -1,9 +1,50 @@
 // Section: Layout
 // Module: Flex | Flex Inline
 
+/**
+ * @component Flex
+ * @description Flexbox layout system for creating flexible page layouts
+ *
+ * @example
+ * <div class="flex row between x-center">
+ *   <div class="w-6">Left column (6 units)</div>
+ *   <div class="w-6">Right column (6 units)</div>
+ * </div>
+ * 
+ * <div class="flex col@md row@lg">
+ *   <!-- Changes direction based on breakpoint -->
+ * </div>
+ *
+ * @classes
+ * Base:
+ * - flex: Creates a flex container
+ * 
+ * Direction:
+ * - row: Sets flex-direction to row
+ * - col: Sets flex-direction to column
+ * - row-reverse: Reverses row direction
+ * - col-reverse: Reverses column direction
+ * 
+ * Alignment:
+ * - start/end/center: Controls justify-content
+ * - x-start/x-end/x-center: Controls align-items
+ * 
+ * Child elements:
+ * - w-{1-12}: Sets width based on column count
+ * - grow: Allows item to grow
+ * - shrink/shrink-0: Controls shrink behavior
+ *
+ * @responsive
+ * All classes support responsive variants using @breakpoint suffix:
+ * - row@md: Row direction on medium screens and up
+ * - between@lg: Space-between on large screens
+ *
+ * @see grid
+ */
+ 
 @use 'sass:math';
 @use '../utilities/media-queries' as MC;
-@use '../utilities/variables' as *;
+@use '../utilities/variables' as VAR;
 @use '../utilities/functions' as FN;
 
 /**
@@ -250,11 +291,11 @@
 @mixin no-grow { flex: none; }
 
 /**
- * @description Sets how many columns this would take using percentage of $column-count.
+ * @description Sets how many columns this would take using percentage of VAR.$column-count.
  * @param {Number} $size - The number of columns to span.
  */
 @mixin w-col($size) {
-  flex: 0 0 math.percentage(math.div($size, $column-count));
+  flex: 0 0 math.percentage(math.div($size, VAR.$column-count));
 }
 
 // Base flex container
@@ -296,8 +337,8 @@
   &.x-content-stretch { align-content: stretch; }
 
   // Child flex items (using column count)
-  > .w-auto { @include f-w-auto }
-  > .w-full { @include f-w-full }
+  > .w-auto { @include f-w-auto; }
+  > .w-full { @include f-w-full; }
   > .grow { @include grow; }
   > .no-grow { @include no-grow; }
 
@@ -308,20 +349,18 @@
   > .shrink { @include shrink; }
   > .shrink-0 { @include shrink-0; }
   > .shrink-2 { @include shrink-2; }
-  @for $i from 1 through $column-count {
-    > .w-#{$i} { @include w-col($i) }
+  @for $i from 1 through VAR.$column-count {
+    > .w-#{$i} { @include w-col($i); }
     > .order-#{$i} { order: $i; }
   }
 }
 
-@each $breakpoint, $width in $breakpoints {
+@each $breakpoint, $width in VAR.$breakpoints {
   // Get breakpoint value using FN function
   $bp-val: FN.get-breakpoint-value($breakpoint);
   
   @media (min-width: #{$bp-val}) {
     .flex {
-      display: flex;
-
       // Direction
       &.row\@#{$breakpoint} { flex-direction: row; }
       &.row-reverse\@#{$breakpoint} { flex-direction: row-reverse; }
@@ -364,12 +403,14 @@
       & > .order-first\@#{$breakpoint} { order: -1; }
       & > .order-last\@#{$breakpoint} { order: 9999; }
       & > .order-none\@#{$breakpoint} { order: 0; }
-      @for $i from 1 through $column-count {
-        & > .w-#{$i}\@#{$breakpoint} { @include w-col($i) }
+      & > .shrink\@#{$breakpoint} { @include shrink; }
+      & > .shrink-0\@#{$breakpoint} { @include shrink-0; }
+      & > .shrink-2\@#{$breakpoint} { @include shrink-2; }
+
+      @for $i from 1 through VAR.$column-count {
+        & > .w-#{$i}\@#{$breakpoint} { @include w-col($i); }
+        & > .col-#{$i}\@#{$breakpoint} { @include w-col($i); }
         & > .order-#{$i}\@#{$breakpoint} { order: $i; }
-        & > .shrink\@#{$breakpoint} { @include shrink; }
-        & > .shrink-0\@#{$breakpoint} { @include shrink-0; }
-        & > .shrink-2\@#{$breakpoint} { @include shrink-2; }
       }
     }
   }

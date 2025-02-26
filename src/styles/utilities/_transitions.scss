@@ -1,0 +1,152 @@
+// _transitions.scss
+@use './variables' as *;
+
+/**
+ * Transition Utilities
+ * 
+ * - .transition: Default transition for common properties
+ * - .transition-{property}: Transition specific properties
+ * - .duration-{time}: Set transition duration
+ * - .ease-{type}: Set transition timing function
+ * - .delay-{time}: Set transition delay
+ */
+
+// Base transition mixins
+@mixin transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+// Property-specific transition mixins
+@mixin transition-none { transition-property: none; }
+@mixin transition-all { transition-property: all; }
+@mixin transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; }
+@mixin transition-opacity { transition-property: opacity; }
+@mixin transition-shadow { transition-property: box-shadow; }
+@mixin transition-transform { transition-property: transform; }
+
+// Duration mixins
+@mixin duration($time) {
+  transition-duration: $time;
+}
+
+// Timing function mixins
+@mixin ease-linear { transition-timing-function: linear; }
+@mixin ease-in { transition-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+@mixin ease-out { transition-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+@mixin ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+
+// Delay mixins
+@mixin delay($time) {
+  transition-delay: $time;
+}
+
+// Base transition
+.transition {
+  @include transition;
+}
+
+// Property-specific transitions
+.transition-none { @include transition-none; }
+.transition-all { @include transition-all; }
+.transition-colors { @include transition-colors; }
+.transition-opacity { @include transition-opacity; }
+.transition-shadow { @include transition-shadow; }
+.transition-transform { @include transition-transform; }
+
+// Durations
+$durations: (
+  '0': 0ms,
+  '75': 75ms,
+  '100': 100ms,
+  '150': 150ms,
+  '200': 200ms,
+  '300': 300ms,
+  '500': 500ms,
+  '700': 700ms,
+  '1000': 1000ms,
+);
+
+@each $name, $value in $durations {
+  .duration-#{$name} {
+    @include duration($value);
+  }
+}
+
+// Timing functions
+$timing-functions: (
+  'linear': linear,
+  'in': cubic-bezier(0.4, 0, 1, 1),
+  'out': cubic-bezier(0, 0, 0.2, 1),
+  'in-out': cubic-bezier(0.4, 0, 0.2, 1),
+);
+
+@each $name, $value in $timing-functions {
+  .ease-#{$name} {
+    transition-timing-function: $value;
+  }
+}
+
+// Specific timing function classes
+.ease-linear { @include ease-linear; }
+.ease-in { @include ease-in; }
+.ease-out { @include ease-out; }
+.ease-in-out { @include ease-in-out; }
+
+// Delays
+$delays: (
+  '0': 0ms,
+  '75': 75ms,
+  '100': 100ms,
+  '150': 150ms,
+  '200': 200ms,
+  '300': 300ms,
+  '500': 500ms,
+  '700': 700ms,
+  '1000': 1000ms,
+);
+
+@each $name, $value in $delays {
+  .delay-#{$name} {
+    @include delay($value);
+  }
+}
+
+// Responsive variants
+@each $breakpoint, $width in $breakpoints {
+  @media (min-width: #{$width}) {
+    // Base transition
+    .transition\@#{$breakpoint} {
+      @include transition;
+    }
+    
+    // Property-specific transitions
+    .transition-none\@#{$breakpoint} { @include transition-none; }
+    .transition-all\@#{$breakpoint} { @include transition-all; }
+    .transition-colors\@#{$breakpoint} { @include transition-colors; }
+    .transition-opacity\@#{$breakpoint} { @include transition-opacity; }
+    .transition-shadow\@#{$breakpoint} { @include transition-shadow; }
+    .transition-transform\@#{$breakpoint} { @include transition-transform; }
+    
+    // Duration responsive variants
+    @each $name, $value in $durations {
+      .duration-#{$name}\@#{$breakpoint} {
+        @include duration($value);
+      }
+    }
+    
+    // Timing function responsive variants
+    .ease-linear\@#{$breakpoint} { @include ease-linear; }
+    .ease-in\@#{$breakpoint} { @include ease-in; }
+    .ease-out\@#{$breakpoint} { @include ease-out; }
+    .ease-in-out\@#{$breakpoint} { @include ease-in-out; }
+    
+    // Delay responsive variants
+    @each $name, $value in $delays {
+      .delay-#{$name}\@#{$breakpoint} {
+        @include delay($value);
+      }
+    }
+  }
+}

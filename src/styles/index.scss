@@ -11,6 +11,7 @@
 @forward 'layouts/grid';
 
 // Utilities
+@forward 'utilities/alignment';
 @forward 'utilities/animations';
 @forward 'utilities/borders';
 @forward 'utilities/colors';
@@ -20,6 +21,7 @@
 @forward 'utilities/shadows';
 @forward 'utilities/sizing';
 @forward 'utilities/spacing';
+@forward 'utilities/transitions';
 @forward 'utilities/typography';
 @forward 'utilities/tooltips';
 @forward 'utilities/display';
