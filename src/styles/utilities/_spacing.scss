@@ -117,7 +117,7 @@
  * @description Sets padding on all sides
  * @param {Number|String} $val - Padding value
  */
-@mixin p($val) { padding: format-unit-value($val); }
+@mixin p($val) { & { padding: format-unit-value($val); }}
 
 /**
 * @mixin px
