@@ -5522,216 +5522,6 @@ textarea:not([rows]) {
     grid-template-rows: repeat(12, minmax(0, 1fr));
   }
 }
-.gap-1 {
-  gap: 0.25rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-4 {
-  gap: 1rem;
-}
-
-.col-gap-1 {
-  column-gap: 0.25rem;
-}
-
-.col-gap-2 {
-  column-gap: 0.5rem;
-}
-
-.col-gap-4 {
-  column-gap: 1rem;
-}
-
-.row-gap-1 {
-  row-gap: 0.25rem;
-}
-
-.row-gap-2 {
-  row-gap: 0.5rem;
-}
-
-.row-gap-4 {
-  row-gap: 1rem;
-}
-
-@media (min-width: 480px) {
-  .gap-1\@xs {
-    gap: 0.25rem;
-  }
-  .gap-2\@xs {
-    gap: 0.5rem;
-  }
-  .gap-4\@xs {
-    gap: 1rem;
-  }
-  .col-gap-1\@xs {
-    column-gap: 0.25rem;
-  }
-  .col-gap-2\@xs {
-    column-gap: 0.5rem;
-  }
-  .col-gap-4\@xs {
-    column-gap: 1rem;
-  }
-  .row-gap-1\@xs {
-    row-gap: 0.25rem;
-  }
-  .row-gap-2\@xs {
-    row-gap: 0.5rem;
-  }
-  .row-gap-4\@xs {
-    row-gap: 1rem;
-  }
-}
-@media (min-width: 640px) {
-  .gap-1\@sm {
-    gap: 0.25rem;
-  }
-  .gap-2\@sm {
-    gap: 0.5rem;
-  }
-  .gap-4\@sm {
-    gap: 1rem;
-  }
-  .col-gap-1\@sm {
-    column-gap: 0.25rem;
-  }
-  .col-gap-2\@sm {
-    column-gap: 0.5rem;
-  }
-  .col-gap-4\@sm {
-    column-gap: 1rem;
-  }
-  .row-gap-1\@sm {
-    row-gap: 0.25rem;
-  }
-  .row-gap-2\@sm {
-    row-gap: 0.5rem;
-  }
-  .row-gap-4\@sm {
-    row-gap: 1rem;
-  }
-}
-@media (min-width: 768px) {
-  .gap-1\@md {
-    gap: 0.25rem;
-  }
-  .gap-2\@md {
-    gap: 0.5rem;
-  }
-  .gap-4\@md {
-    gap: 1rem;
-  }
-  .col-gap-1\@md {
-    column-gap: 0.25rem;
-  }
-  .col-gap-2\@md {
-    column-gap: 0.5rem;
-  }
-  .col-gap-4\@md {
-    column-gap: 1rem;
-  }
-  .row-gap-1\@md {
-    row-gap: 0.25rem;
-  }
-  .row-gap-2\@md {
-    row-gap: 0.5rem;
-  }
-  .row-gap-4\@md {
-    row-gap: 1rem;
-  }
-}
-@media (min-width: 1024px) {
-  .gap-1\@lg {
-    gap: 0.25rem;
-  }
-  .gap-2\@lg {
-    gap: 0.5rem;
-  }
-  .gap-4\@lg {
-    gap: 1rem;
-  }
-  .col-gap-1\@lg {
-    column-gap: 0.25rem;
-  }
-  .col-gap-2\@lg {
-    column-gap: 0.5rem;
-  }
-  .col-gap-4\@lg {
-    column-gap: 1rem;
-  }
-  .row-gap-1\@lg {
-    row-gap: 0.25rem;
-  }
-  .row-gap-2\@lg {
-    row-gap: 0.5rem;
-  }
-  .row-gap-4\@lg {
-    row-gap: 1rem;
-  }
-}
-@media (min-width: 1280px) {
-  .gap-1\@xl {
-    gap: 0.25rem;
-  }
-  .gap-2\@xl {
-    gap: 0.5rem;
-  }
-  .gap-4\@xl {
-    gap: 1rem;
-  }
-  .col-gap-1\@xl {
-    column-gap: 0.25rem;
-  }
-  .col-gap-2\@xl {
-    column-gap: 0.5rem;
-  }
-  .col-gap-4\@xl {
-    column-gap: 1rem;
-  }
-  .row-gap-1\@xl {
-    row-gap: 0.25rem;
-  }
-  .row-gap-2\@xl {
-    row-gap: 0.5rem;
-  }
-  .row-gap-4\@xl {
-    row-gap: 1rem;
-  }
-}
-@media (min-width: 1536px) {
-  .gap-1\@2xl {
-    gap: 0.25rem;
-  }
-  .gap-2\@2xl {
-    gap: 0.5rem;
-  }
-  .gap-4\@2xl {
-    gap: 1rem;
-  }
-  .col-gap-1\@2xl {
-    column-gap: 0.25rem;
-  }
-  .col-gap-2\@2xl {
-    column-gap: 0.5rem;
-  }
-  .col-gap-4\@2xl {
-    column-gap: 1rem;
-  }
-  .row-gap-1\@2xl {
-    row-gap: 0.25rem;
-  }
-  .row-gap-2\@2xl {
-    row-gap: 0.5rem;
-  }
-  .row-gap-4\@2xl {
-    row-gap: 1rem;
-  }
-}
 .span-col-1 {
   grid-column: span 1/span 1;
 }
@@ -7059,7 +6849,7 @@ textarea:not([rows]) {
 }
 
 .rounded {
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
 }
 
 .square {
@@ -7067,27 +6857,27 @@ textarea:not([rows]) {
 }
 
 .rounded-xs {
-  border-radius: 0.125rem;
-}
-
-.rounded-sm {
   border-radius: 0.25rem;
 }
 
-.rounded-md {
+.rounded-sm {
   border-radius: 0.375rem;
 }
 
-.rounded-lg {
+.rounded-md {
   border-radius: 0.5rem;
 }
 
-.rounded-xl {
+.rounded-lg {
   border-radius: 0.75rem;
 }
 
-.rounded-2xl {
+.rounded-xl {
   border-radius: 1rem;
+}
+
+.rounded-2xl {
+  border-radius: 1.25rem;
 }
 
 .rounded-full {
@@ -7099,219 +6889,219 @@ textarea:not([rows]) {
 }
 
 .rounded-t-xs {
-  border-top-left-radius: 0.125rem;
-  border-top-right-radius: 0.125rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .rounded-r-xs {
-  border-top-right-radius: 0.125rem;
-  border-bottom-right-radius: 0.125rem;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 .rounded-b-xs {
-  border-bottom-left-radius: 0.125rem;
-  border-bottom-right-radius: 0.125rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 .rounded-l-xs {
-  border-top-left-radius: 0.125rem;
-  border-bottom-left-radius: 0.125rem;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .rounded-tl-xs {
-  border-top-left-radius: 0.125rem;
+  border-top-left-radius: 0.25rem;
 }
 
 .rounded-tr-xs {
-  border-top-right-radius: 0.125rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .rounded-br-xs {
-  border-bottom-right-radius: 0.125rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 .rounded-bl-xs {
-  border-bottom-left-radius: 0.125rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .rounded-t-sm {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
 }
 
 .rounded-r-sm {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
 }
 
 .rounded-b-sm {
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
 }
 
 .rounded-l-sm {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
 }
 
 .rounded-tl-sm {
-  border-top-left-radius: 0.25rem;
+  border-top-left-radius: 0.375rem;
 }
 
 .rounded-tr-sm {
-  border-top-right-radius: 0.25rem;
+  border-top-right-radius: 0.375rem;
 }
 
 .rounded-br-sm {
-  border-bottom-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.375rem;
 }
 
 .rounded-bl-sm {
-  border-bottom-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.375rem;
 }
 
 .rounded-t-md {
-  border-top-left-radius: 0.375rem;
-  border-top-right-radius: 0.375rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
 .rounded-r-md {
-  border-top-right-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .rounded-b-md {
-  border-bottom-left-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .rounded-l-md {
-  border-top-left-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .rounded-tl-md {
-  border-top-left-radius: 0.375rem;
+  border-top-left-radius: 0.5rem;
 }
 
 .rounded-tr-md {
-  border-top-right-radius: 0.375rem;
+  border-top-right-radius: 0.5rem;
 }
 
 .rounded-br-md {
-  border-bottom-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .rounded-bl-md {
-  border-bottom-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .rounded-t-lg {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .rounded-r-lg {
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .rounded-b-lg {
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .rounded-l-lg {
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
 }
 
 .rounded-tl-lg {
-  border-top-left-radius: 0.5rem;
+  border-top-left-radius: 0.75rem;
 }
 
 .rounded-tr-lg {
-  border-top-right-radius: 0.5rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .rounded-br-lg {
-  border-bottom-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .rounded-bl-lg {
-  border-bottom-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.75rem;
 }
 
 .rounded-t-xl {
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
 .rounded-r-xl {
-  border-top-right-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .rounded-b-xl {
-  border-bottom-left-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .rounded-l-xl {
-  border-top-left-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .rounded-tl-xl {
-  border-top-left-radius: 0.75rem;
+  border-top-left-radius: 1rem;
 }
 
 .rounded-tr-xl {
-  border-top-right-radius: 0.75rem;
+  border-top-right-radius: 1rem;
 }
 
 .rounded-br-xl {
-  border-bottom-right-radius: 0.75rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .rounded-bl-xl {
-  border-bottom-left-radius: 0.75rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .rounded-t-2xl {
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
 }
 
 .rounded-r-2xl {
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  border-top-right-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
 }
 
 .rounded-b-2xl {
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
 }
 
 .rounded-l-2xl {
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
+  border-top-left-radius: 1.25rem;
+  border-bottom-left-radius: 1.25rem;
 }
 
 .rounded-tl-2xl {
-  border-top-left-radius: 1rem;
+  border-top-left-radius: 1.25rem;
 }
 
 .rounded-tr-2xl {
-  border-top-right-radius: 1rem;
+  border-top-right-radius: 1.25rem;
 }
 
 .rounded-br-2xl {
-  border-bottom-right-radius: 1rem;
+  border-bottom-right-radius: 1.25rem;
 }
 
 .rounded-bl-2xl {
-  border-bottom-left-radius: 1rem;
+  border-bottom-left-radius: 1.25rem;
 }
 
 .rounded-t-full {
@@ -7391,23 +7181,23 @@ textarea:not([rows]) {
 }
 
 .border-solid {
-  border-style: "solid";
+  border-style: solid;
 }
 
 .border-dashed {
-  border-style: "dashed";
+  border-style: dashed;
 }
 
 .border-dotted {
-  border-style: "dotted";
+  border-style: dotted;
 }
 
 .border-double {
-  border-style: "double";
+  border-style: double;
 }
 
 .border-none {
-  border-style: "none";
+  border-style: none;
 }
 
 .border-default {
@@ -7423,37 +7213,37 @@ textarea:not([rows]) {
 }
 
 .border-primary {
-  border-color: var(--primary-color);
+  border-color: var(--primary);
 }
 
 .border-secondary {
-  border-color: var(--secondary-color);
+  border-color: var(--secondary);
 }
 
 .border-success {
-  border-color: var(--success-color);
+  border-color: var(--success);
 }
 
 .border-danger {
-  border-color: var(--danger-color);
+  border-color: var(--danger);
 }
 
 .border-warning {
-  border-color: var(--warning-color);
+  border-color: var(--warning);
 }
 
 .border-info {
-  border-color: var(--info-color);
+  border-color: var(--info);
 }
 
 .border-primary-solid {
   border-style: solid;
-  border-color: var(--primary-color);
+  border-color: var(--primary);
 }
 
 .border-danger-dashed {
   border-style: dashed;
-  border-color: var(--danger-color);
+  border-color: var(--danger);
 }
 
 .hover\:border-0:hover {
@@ -7485,23 +7275,23 @@ textarea:not([rows]) {
 }
 
 .hover\:border-solid:hover {
-  border-style: "solid";
+  border-style: solid;
 }
 
 .hover\:border-dashed:hover {
-  border-style: "dashed";
+  border-style: dashed;
 }
 
 .hover\:border-dotted:hover {
-  border-style: "dotted";
+  border-style: dotted;
 }
 
 .hover\:border-double:hover {
-  border-style: "double";
+  border-style: double;
 }
 
 .hover\:border-none:hover {
-  border-style: "none";
+  border-style: none;
 }
 
 .hover\:border-default:hover {
@@ -7517,27 +7307,27 @@ textarea:not([rows]) {
 }
 
 .hover\:border-primary:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary);
 }
 
 .hover\:border-secondary:hover {
-  border-color: var(--secondary-color);
+  border-color: var(--secondary);
 }
 
 .hover\:border-success:hover {
-  border-color: var(--success-color);
+  border-color: var(--success);
 }
 
 .hover\:border-danger:hover {
-  border-color: var(--danger-color);
+  border-color: var(--danger);
 }
 
 .hover\:border-warning:hover {
-  border-color: var(--warning-color);
+  border-color: var(--warning);
 }
 
 .hover\:border-info:hover {
-  border-color: var(--info-color);
+  border-color: var(--info);
 }
 
 .active\:border-0:active {
@@ -7569,23 +7359,23 @@ textarea:not([rows]) {
 }
 
 .active\:border-solid:active {
-  border-style: "solid";
+  border-style: solid;
 }
 
 .active\:border-dashed:active {
-  border-style: "dashed";
+  border-style: dashed;
 }
 
 .active\:border-dotted:active {
-  border-style: "dotted";
+  border-style: dotted;
 }
 
 .active\:border-double:active {
-  border-style: "double";
+  border-style: double;
 }
 
 .active\:border-none:active {
-  border-style: "none";
+  border-style: none;
 }
 
 .active\:border-default:active {
@@ -7601,27 +7391,27 @@ textarea:not([rows]) {
 }
 
 .active\:border-primary:active {
-  border-color: var(--primary-color);
+  border-color: var(--primary);
 }
 
 .active\:border-secondary:active {
-  border-color: var(--secondary-color);
+  border-color: var(--secondary);
 }
 
 .active\:border-success:active {
-  border-color: var(--success-color);
+  border-color: var(--success);
 }
 
 .active\:border-danger:active {
-  border-color: var(--danger-color);
+  border-color: var(--danger);
 }
 
 .active\:border-warning:active {
-  border-color: var(--warning-color);
+  border-color: var(--warning);
 }
 
 .active\:border-info:active {
-  border-color: var(--info-color);
+  border-color: var(--info);
 }
 
 .focus\:border-0:focus {
@@ -7653,23 +7443,23 @@ textarea:not([rows]) {
 }
 
 .focus\:border-solid:focus {
-  border-style: "solid";
+  border-style: solid;
 }
 
 .focus\:border-dashed:focus {
-  border-style: "dashed";
+  border-style: dashed;
 }
 
 .focus\:border-dotted:focus {
-  border-style: "dotted";
+  border-style: dotted;
 }
 
 .focus\:border-double:focus {
-  border-style: "double";
+  border-style: double;
 }
 
 .focus\:border-none:focus {
-  border-style: "none";
+  border-style: none;
 }
 
 .focus\:border-default:focus {
@@ -7685,27 +7475,27 @@ textarea:not([rows]) {
 }
 
 .focus\:border-primary:focus {
-  border-color: var(--primary-color);
+  border-color: var(--primary);
 }
 
 .focus\:border-secondary:focus {
-  border-color: var(--secondary-color);
+  border-color: var(--secondary);
 }
 
 .focus\:border-success:focus {
-  border-color: var(--success-color);
+  border-color: var(--success);
 }
 
 .focus\:border-danger:focus {
-  border-color: var(--danger-color);
+  border-color: var(--danger);
 }
 
 .focus\:border-warning:focus {
-  border-color: var(--warning-color);
+  border-color: var(--warning);
 }
 
 .focus\:border-info:focus {
-  border-color: var(--info-color);
+  border-color: var(--info);
 }
 
 @media (min-width: 480px) {
@@ -7741,22 +7531,22 @@ textarea:not([rows]) {
     border-width: 0;
   }
   .rounded-xs\@xs {
-    border-radius: 0.125rem;
-  }
-  .rounded-sm\@xs {
     border-radius: 0.25rem;
   }
-  .rounded-md\@xs {
+  .rounded-sm\@xs {
     border-radius: 0.375rem;
   }
-  .rounded-lg\@xs {
+  .rounded-md\@xs {
     border-radius: 0.5rem;
   }
-  .rounded-xl\@xs {
+  .rounded-lg\@xs {
     border-radius: 0.75rem;
   }
-  .rounded-2xl\@xs {
+  .rounded-xl\@xs {
     border-radius: 1rem;
+  }
+  .rounded-2xl\@xs {
+    border-radius: 1.25rem;
   }
   .rounded-full\@xs {
     border-radius: 9999px;
@@ -7765,7 +7555,7 @@ textarea:not([rows]) {
     border-radius: 0;
   }
   .rounded\@xs {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   .square\@xs {
     border-radius: 0;
@@ -7807,22 +7597,22 @@ textarea:not([rows]) {
     border-width: 0;
   }
   .rounded-xs\@sm {
-    border-radius: 0.125rem;
-  }
-  .rounded-sm\@sm {
     border-radius: 0.25rem;
   }
-  .rounded-md\@sm {
+  .rounded-sm\@sm {
     border-radius: 0.375rem;
   }
-  .rounded-lg\@sm {
+  .rounded-md\@sm {
     border-radius: 0.5rem;
   }
-  .rounded-xl\@sm {
+  .rounded-lg\@sm {
     border-radius: 0.75rem;
   }
-  .rounded-2xl\@sm {
+  .rounded-xl\@sm {
     border-radius: 1rem;
+  }
+  .rounded-2xl\@sm {
+    border-radius: 1.25rem;
   }
   .rounded-full\@sm {
     border-radius: 9999px;
@@ -7831,7 +7621,7 @@ textarea:not([rows]) {
     border-radius: 0;
   }
   .rounded\@sm {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   .square\@sm {
     border-radius: 0;
@@ -7873,22 +7663,22 @@ textarea:not([rows]) {
     border-width: 0;
   }
   .rounded-xs\@md {
-    border-radius: 0.125rem;
-  }
-  .rounded-sm\@md {
     border-radius: 0.25rem;
   }
-  .rounded-md\@md {
+  .rounded-sm\@md {
     border-radius: 0.375rem;
   }
-  .rounded-lg\@md {
+  .rounded-md\@md {
     border-radius: 0.5rem;
   }
-  .rounded-xl\@md {
+  .rounded-lg\@md {
     border-radius: 0.75rem;
   }
-  .rounded-2xl\@md {
+  .rounded-xl\@md {
     border-radius: 1rem;
+  }
+  .rounded-2xl\@md {
+    border-radius: 1.25rem;
   }
   .rounded-full\@md {
     border-radius: 9999px;
@@ -7897,7 +7687,7 @@ textarea:not([rows]) {
     border-radius: 0;
   }
   .rounded\@md {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   .square\@md {
     border-radius: 0;
@@ -7939,22 +7729,22 @@ textarea:not([rows]) {
     border-width: 0;
   }
   .rounded-xs\@lg {
-    border-radius: 0.125rem;
-  }
-  .rounded-sm\@lg {
     border-radius: 0.25rem;
   }
-  .rounded-md\@lg {
+  .rounded-sm\@lg {
     border-radius: 0.375rem;
   }
-  .rounded-lg\@lg {
+  .rounded-md\@lg {
     border-radius: 0.5rem;
   }
-  .rounded-xl\@lg {
+  .rounded-lg\@lg {
     border-radius: 0.75rem;
   }
-  .rounded-2xl\@lg {
+  .rounded-xl\@lg {
     border-radius: 1rem;
+  }
+  .rounded-2xl\@lg {
+    border-radius: 1.25rem;
   }
   .rounded-full\@lg {
     border-radius: 9999px;
@@ -7963,7 +7753,7 @@ textarea:not([rows]) {
     border-radius: 0;
   }
   .rounded\@lg {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   .square\@lg {
     border-radius: 0;
@@ -8005,22 +7795,22 @@ textarea:not([rows]) {
     border-width: 0;
   }
   .rounded-xs\@xl {
-    border-radius: 0.125rem;
-  }
-  .rounded-sm\@xl {
     border-radius: 0.25rem;
   }
-  .rounded-md\@xl {
+  .rounded-sm\@xl {
     border-radius: 0.375rem;
   }
-  .rounded-lg\@xl {
+  .rounded-md\@xl {
     border-radius: 0.5rem;
   }
-  .rounded-xl\@xl {
+  .rounded-lg\@xl {
     border-radius: 0.75rem;
   }
-  .rounded-2xl\@xl {
+  .rounded-xl\@xl {
     border-radius: 1rem;
+  }
+  .rounded-2xl\@xl {
+    border-radius: 1.25rem;
   }
   .rounded-full\@xl {
     border-radius: 9999px;
@@ -8029,7 +7819,7 @@ textarea:not([rows]) {
     border-radius: 0;
   }
   .rounded\@xl {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   .square\@xl {
     border-radius: 0;
@@ -8071,22 +7861,22 @@ textarea:not([rows]) {
     border-width: 0;
   }
   .rounded-xs\@2xl {
-    border-radius: 0.125rem;
-  }
-  .rounded-sm\@2xl {
     border-radius: 0.25rem;
   }
-  .rounded-md\@2xl {
+  .rounded-sm\@2xl {
     border-radius: 0.375rem;
   }
-  .rounded-lg\@2xl {
+  .rounded-md\@2xl {
     border-radius: 0.5rem;
   }
-  .rounded-xl\@2xl {
+  .rounded-lg\@2xl {
     border-radius: 0.75rem;
   }
-  .rounded-2xl\@2xl {
+  .rounded-xl\@2xl {
     border-radius: 1rem;
+  }
+  .rounded-2xl\@2xl {
+    border-radius: 1.25rem;
   }
   .rounded-full\@2xl {
     border-radius: 9999px;
@@ -8095,7 +7885,7 @@ textarea:not([rows]) {
     border-radius: 0;
   }
   .rounded\@2xl {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   .square\@2xl {
     border-radius: 0;
@@ -12166,22 +11956,18 @@ textarea:not([rows]) {
 }
 
 .shadow-sm {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .shadow-sm-dark {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .shadow-sm-darker {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
 .shadow-sm-darkest {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -12202,82 +11988,66 @@ textarea:not([rows]) {
 }
 
 .hover\:shadow-sm:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .hover\:shadow-sm-dark:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .hover\:shadow-sm-darker:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
 .hover\:shadow-sm-darkest:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 .focus\:shadow-sm:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .focus\:shadow-sm-dark:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .focus\:shadow-sm-darker:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
 .focus\:shadow-sm-darkest:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 .active\:shadow-sm:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .active\:shadow-sm-dark:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .active\:shadow-sm-darker:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
 .active\:shadow-sm-darkest:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 .shadow-md {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .shadow-md-dark {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .shadow-md-darker {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
 }
 
 .shadow-md-darkest {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
@@ -12298,82 +12068,66 @@ textarea:not([rows]) {
 }
 
 .hover\:shadow-md:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .hover\:shadow-md-dark:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .hover\:shadow-md-darker:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
 }
 
 .hover\:shadow-md-darkest:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 .focus\:shadow-md:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .focus\:shadow-md-dark:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .focus\:shadow-md-darker:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
 }
 
 .focus\:shadow-md-darkest:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 .active\:shadow-md:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .active\:shadow-md-dark:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .active\:shadow-md-darker:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
 }
 
 .active\:shadow-md-darkest:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 .shadow-lg {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .shadow-lg-dark {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
 .shadow-lg-darker {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
 }
 
 .shadow-lg-darkest {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
@@ -12394,82 +12148,66 @@ textarea:not([rows]) {
 }
 
 .hover\:shadow-lg:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .hover\:shadow-lg-dark:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
 .hover\:shadow-lg-darker:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
 }
 
 .hover\:shadow-lg-darkest:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
 .focus\:shadow-lg:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .focus\:shadow-lg-dark:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
 .focus\:shadow-lg-darker:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
 }
 
 .focus\:shadow-lg-darkest:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
 .active\:shadow-lg:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .active\:shadow-lg-dark:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 }
 
 .active\:shadow-lg-darker:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
 }
 
 .active\:shadow-lg-darkest:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
 .shadow-xl {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .shadow-xl-dark {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
 .shadow-xl-darker {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
 }
 
 .shadow-xl-darkest {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
@@ -12490,82 +12228,66 @@ textarea:not([rows]) {
 }
 
 .hover\:shadow-xl:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .hover\:shadow-xl-dark:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
 .hover\:shadow-xl-darker:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
 }
 
 .hover\:shadow-xl-darkest:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 .focus\:shadow-xl:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .focus\:shadow-xl-dark:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
 .focus\:shadow-xl-darker:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
 }
 
 .focus\:shadow-xl-darkest:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 .active\:shadow-xl:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .active\:shadow-xl-dark:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
 .active\:shadow-xl-darker:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
 }
 
 .active\:shadow-xl-darkest:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 .shadow-hero {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
 }
 
 .shadow-hero-dark {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
 }
 
 .shadow-hero-darker {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
 }
 
 .shadow-hero-darkest {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -12586,82 +12308,66 @@ textarea:not([rows]) {
 }
 
 .hover\:shadow-hero:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
 }
 
 .hover\:shadow-hero-dark:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
 }
 
 .hover\:shadow-hero-darker:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
 }
 
 .hover\:shadow-hero-darkest:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
 }
 
 .focus\:shadow-hero:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
 }
 
 .focus\:shadow-hero-dark:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
 }
 
 .focus\:shadow-hero-darker:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
 }
 
 .focus\:shadow-hero-darkest:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
 }
 
 .active\:shadow-hero:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
 }
 
 .active\:shadow-hero-dark:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
 }
 
 .active\:shadow-hero-darker:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
 }
 
 .active\:shadow-hero-darkest:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
 }
 
 .shadow-monster {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
 }
 
 .shadow-monster-dark {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
 }
 
 .shadow-monster-darker {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
 }
 
 .shadow-monster-darkest {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -12682,1831 +12388,1382 @@ textarea:not([rows]) {
 }
 
 .hover\:shadow-monster:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
 }
 
 .hover\:shadow-monster-dark:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
 }
 
 .hover\:shadow-monster-darker:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
 }
 
 .hover\:shadow-monster-darkest:hover {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
 }
 
 .focus\:shadow-monster:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
 }
 
 .focus\:shadow-monster-dark:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
 }
 
 .focus\:shadow-monster-darker:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
 }
 
 .focus\:shadow-monster-darkest:focus {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
 }
 
 .active\:shadow-monster:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
 }
 
 .active\:shadow-monster-dark:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
 }
 
 .active\:shadow-monster-darker:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
 }
 
 .active\:shadow-monster-darkest:active {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 480px) {
   .shadow-sm\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .shadow-sm-dark\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .shadow-sm-darker\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .shadow-sm-darkest\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-sm\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-sm-dark\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-sm-darker\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-sm-darkest\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-sm\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-sm-dark\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-sm-darker\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-sm-darkest\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .shadow-md\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .shadow-md-dark\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .shadow-md-darker\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .shadow-md-darkest\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-md\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-md-dark\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-md-darker\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-md-darkest\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-md\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-md-dark\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-md-darker\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-md-darkest\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .shadow-lg\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .shadow-lg-dark\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .shadow-lg-darker\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .shadow-lg-darkest\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-lg\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-lg-dark\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-lg-darker\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-lg-darkest\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-lg\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-lg-dark\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-lg-darker\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-lg-darkest\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .shadow-xl\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .shadow-xl-dark\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .shadow-xl-darker\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .shadow-xl-darkest\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-xl\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-xl-dark\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-xl-darker\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-xl-darkest\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-xl\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-xl-dark\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-xl-darker\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-xl-darkest\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .shadow-hero\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .shadow-hero-dark\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .shadow-hero-darker\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .shadow-hero-darkest\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-hero\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-hero-dark\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-hero-darker\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-hero-darkest\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-hero\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-hero-dark\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-hero-darker\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-hero-darkest\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .shadow-monster\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .shadow-monster-dark\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .shadow-monster-darker\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .shadow-monster-darkest\@xs {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-monster\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-monster-dark\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-monster-darker\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-monster-darkest\@xs:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-monster\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-monster-dark\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-monster-darker\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-monster-darkest\@xs:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
 }
 @media (min-width: 640px) {
   .shadow-sm\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .shadow-sm-dark\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .shadow-sm-darker\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .shadow-sm-darkest\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-sm\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-sm-dark\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-sm-darker\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-sm-darkest\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-sm\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-sm-dark\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-sm-darker\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-sm-darkest\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .shadow-md\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .shadow-md-dark\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .shadow-md-darker\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .shadow-md-darkest\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-md\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-md-dark\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-md-darker\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-md-darkest\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-md\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-md-dark\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-md-darker\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-md-darkest\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .shadow-lg\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .shadow-lg-dark\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .shadow-lg-darker\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .shadow-lg-darkest\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-lg\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-lg-dark\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-lg-darker\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-lg-darkest\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-lg\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-lg-dark\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-lg-darker\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-lg-darkest\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .shadow-xl\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .shadow-xl-dark\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .shadow-xl-darker\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .shadow-xl-darkest\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-xl\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-xl-dark\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-xl-darker\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-xl-darkest\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-xl\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-xl-dark\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-xl-darker\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-xl-darkest\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .shadow-hero\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .shadow-hero-dark\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .shadow-hero-darker\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .shadow-hero-darkest\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-hero\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-hero-dark\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-hero-darker\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-hero-darkest\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-hero\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-hero-dark\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-hero-darker\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-hero-darkest\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .shadow-monster\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .shadow-monster-dark\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .shadow-monster-darker\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .shadow-monster-darkest\@sm {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-monster\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-monster-dark\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-monster-darker\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-monster-darkest\@sm:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-monster\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-monster-dark\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-monster-darker\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-monster-darkest\@sm:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
 }
 @media (min-width: 768px) {
   .shadow-sm\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .shadow-sm-dark\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .shadow-sm-darker\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .shadow-sm-darkest\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-sm\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-sm-dark\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-sm-darker\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-sm-darkest\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-sm\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-sm-dark\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-sm-darker\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-sm-darkest\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .shadow-md\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .shadow-md-dark\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .shadow-md-darker\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .shadow-md-darkest\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-md\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-md-dark\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-md-darker\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-md-darkest\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-md\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-md-dark\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-md-darker\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-md-darkest\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .shadow-lg\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .shadow-lg-dark\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .shadow-lg-darker\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .shadow-lg-darkest\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-lg\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-lg-dark\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-lg-darker\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-lg-darkest\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-lg\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-lg-dark\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-lg-darker\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-lg-darkest\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .shadow-xl\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .shadow-xl-dark\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .shadow-xl-darker\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .shadow-xl-darkest\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-xl\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-xl-dark\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-xl-darker\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-xl-darkest\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-xl\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-xl-dark\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-xl-darker\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-xl-darkest\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .shadow-hero\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .shadow-hero-dark\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .shadow-hero-darker\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .shadow-hero-darkest\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-hero\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-hero-dark\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-hero-darker\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-hero-darkest\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-hero\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-hero-dark\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-hero-darker\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-hero-darkest\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .shadow-monster\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .shadow-monster-dark\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .shadow-monster-darker\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .shadow-monster-darkest\@md {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-monster\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-monster-dark\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-monster-darker\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-monster-darkest\@md:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-monster\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-monster-dark\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-monster-darker\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-monster-darkest\@md:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
 }
 @media (min-width: 1024px) {
   .shadow-sm\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .shadow-sm-dark\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .shadow-sm-darker\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .shadow-sm-darkest\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-sm\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-sm-dark\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-sm-darker\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-sm-darkest\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-sm\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-sm-dark\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-sm-darker\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-sm-darkest\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .shadow-md\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .shadow-md-dark\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .shadow-md-darker\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .shadow-md-darkest\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-md\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-md-dark\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-md-darker\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-md-darkest\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-md\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-md-dark\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-md-darker\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-md-darkest\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .shadow-lg\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .shadow-lg-dark\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .shadow-lg-darker\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .shadow-lg-darkest\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-lg\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-lg-dark\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-lg-darker\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-lg-darkest\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-lg\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-lg-dark\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-lg-darker\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-lg-darkest\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .shadow-xl\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .shadow-xl-dark\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .shadow-xl-darker\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .shadow-xl-darkest\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-xl\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-xl-dark\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-xl-darker\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-xl-darkest\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-xl\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-xl-dark\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-xl-darker\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-xl-darkest\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .shadow-hero\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .shadow-hero-dark\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .shadow-hero-darker\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .shadow-hero-darkest\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-hero\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-hero-dark\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-hero-darker\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-hero-darkest\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-hero\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-hero-dark\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-hero-darker\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-hero-darkest\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .shadow-monster\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .shadow-monster-dark\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .shadow-monster-darker\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .shadow-monster-darkest\@lg {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-monster\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-monster-dark\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-monster-darker\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-monster-darkest\@lg:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-monster\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-monster-dark\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-monster-darker\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-monster-darkest\@lg:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
 }
 @media (min-width: 1280px) {
   .shadow-sm\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .shadow-sm-dark\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .shadow-sm-darker\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .shadow-sm-darkest\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-sm\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-sm-dark\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-sm-darker\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-sm-darkest\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-sm\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-sm-dark\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-sm-darker\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-sm-darkest\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .shadow-md\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .shadow-md-dark\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .shadow-md-darker\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .shadow-md-darkest\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-md\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-md-dark\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-md-darker\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-md-darkest\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-md\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-md-dark\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-md-darker\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-md-darkest\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .shadow-lg\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .shadow-lg-dark\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .shadow-lg-darker\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .shadow-lg-darkest\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-lg\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-lg-dark\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-lg-darker\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-lg-darkest\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-lg\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-lg-dark\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-lg-darker\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-lg-darkest\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .shadow-xl\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .shadow-xl-dark\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .shadow-xl-darker\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .shadow-xl-darkest\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-xl\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-xl-dark\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-xl-darker\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-xl-darkest\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-xl\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-xl-dark\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-xl-darker\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-xl-darkest\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .shadow-hero\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .shadow-hero-dark\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .shadow-hero-darker\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .shadow-hero-darkest\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-hero\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-hero-dark\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-hero-darker\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-hero-darkest\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-hero\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-hero-dark\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-hero-darker\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-hero-darkest\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .shadow-monster\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .shadow-monster-dark\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .shadow-monster-darker\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .shadow-monster-darkest\@xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-monster\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-monster-dark\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-monster-darker\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-monster-darkest\@xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-monster\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-monster-dark\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-monster-darker\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-monster-darkest\@xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
 }
 @media (min-width: 1536px) {
   .shadow-sm\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .shadow-sm-dark\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .shadow-sm-darker\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .shadow-sm-darkest\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-sm\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-sm-dark\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-sm-darker\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-sm-darkest\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-sm\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-sm-dark\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-sm-darker\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-sm-darkest\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   }
   .shadow-md\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .shadow-md-dark\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .shadow-md-darker\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .shadow-md-darkest\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-md\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-md-dark\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-md-darker\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-md-darkest\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-md\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-md-dark\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-md-darker\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-md-darkest\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   }
   .shadow-lg\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .shadow-lg-dark\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .shadow-lg-darker\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .shadow-lg-darkest\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-lg\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-lg-dark\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-lg-darker\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-lg-darkest\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-lg\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-lg-dark\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-lg-darker\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-lg-darkest\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
   .shadow-xl\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .shadow-xl-dark\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .shadow-xl-darker\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .shadow-xl-darkest\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-xl\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-xl-dark\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-xl-darker\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-xl-darkest\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-xl\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-xl-dark\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-xl-darker\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-xl-darkest\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   }
   .shadow-hero\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .shadow-hero-dark\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .shadow-hero-darker\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .shadow-hero-darkest\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-hero\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-hero-dark\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-hero-darker\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-hero-darkest\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-hero\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-hero-dark\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-hero-darker\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-hero-darkest\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 25px 5px rgba(0, 0, 0, 0.5);
   }
   .shadow-monster\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .shadow-monster-dark\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .shadow-monster-darker\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .shadow-monster-darkest\@2xl {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .hover\:shadow-monster\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .hover\:shadow-monster-dark\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .hover\:shadow-monster-darker\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .hover\:shadow-monster-darkest\@2xl:hover {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
   .focus\:shadow-monster\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   }
   .focus\:shadow-monster-dark\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.2);
   }
   .focus\:shadow-monster-darker\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.35);
   }
   .focus\:shadow-monster-darkest\@2xl:focus {
-    transition: box-shadow 0.2s ease-in-out;
     box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.5);
   }
 }
 .elevation-1 {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
 
 .elevation-2 {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
 
 .elevation-3 {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   z-index: 3;
 }
 
 .elevation-4 {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   z-index: 4;
 }
 
 .elevation-5 {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: 0 20px 55px 20px rgba(0, 0, 0, 0.1);
   z-index: 5;
 }
@@ -14552,339 +13809,339 @@ textarea:not([rows]) {
 }
 
 .w-0p {
-  width: "0%";
+  width: 0%;
 }
 
 .h-0p {
-  height: "0%";
+  height: 0%;
 }
 
 .min-w-0p {
-  min-width: "0%";
+  min-width: 0%;
 }
 
 .min-h-0p {
-  min-height: "0%";
+  min-height: 0%;
 }
 
 .max-w-0p {
-  max-width: "0%";
+  max-width: 0%;
 }
 
 .max-h-0p {
-  max-height: "0%";
+  max-height: 0%;
 }
 
 .w-5p {
-  width: "5%";
+  width: 5%;
 }
 
 .h-5p {
-  height: "5%";
+  height: 5%;
 }
 
 .min-w-5p {
-  min-width: "5%";
+  min-width: 5%;
 }
 
 .min-h-5p {
-  min-height: "5%";
+  min-height: 5%;
 }
 
 .max-w-5p {
-  max-width: "5%";
+  max-width: 5%;
 }
 
 .max-h-5p {
-  max-height: "5%";
+  max-height: 5%;
 }
 
 .w-10p {
-  width: "10%";
+  width: 10%;
 }
 
 .h-10p {
-  height: "10%";
+  height: 10%;
 }
 
 .min-w-10p {
-  min-width: "10%";
+  min-width: 10%;
 }
 
 .min-h-10p {
-  min-height: "10%";
+  min-height: 10%;
 }
 
 .max-w-10p {
-  max-width: "10%";
+  max-width: 10%;
 }
 
 .max-h-10p {
-  max-height: "10%";
+  max-height: 10%;
 }
 
 .w-20p {
-  width: "20%";
+  width: 20%;
 }
 
 .h-20p {
-  height: "20%";
+  height: 20%;
 }
 
 .min-w-20p {
-  min-width: "20%";
+  min-width: 20%;
 }
 
 .min-h-20p {
-  min-height: "20%";
+  min-height: 20%;
 }
 
 .max-w-20p {
-  max-width: "20%";
+  max-width: 20%;
 }
 
 .max-h-20p {
-  max-height: "20%";
+  max-height: 20%;
 }
 
 .w-25p {
-  width: "25%";
+  width: 25%;
 }
 
 .h-25p {
-  height: "25%";
+  height: 25%;
 }
 
 .min-w-25p {
-  min-width: "25%";
+  min-width: 25%;
 }
 
 .min-h-25p {
-  min-height: "25%";
+  min-height: 25%;
 }
 
 .max-w-25p {
-  max-width: "25%";
+  max-width: 25%;
 }
 
 .max-h-25p {
-  max-height: "25%";
+  max-height: 25%;
 }
 
 .w-30p {
-  width: "30%";
+  width: 30%;
 }
 
 .h-30p {
-  height: "30%";
+  height: 30%;
 }
 
 .min-w-30p {
-  min-width: "30%";
+  min-width: 30%;
 }
 
 .min-h-30p {
-  min-height: "30%";
+  min-height: 30%;
 }
 
 .max-w-30p {
-  max-width: "30%";
+  max-width: 30%;
 }
 
 .max-h-30p {
-  max-height: "30%";
+  max-height: 30%;
 }
 
 .w-40p {
-  width: "40%";
+  width: 40%;
 }
 
 .h-40p {
-  height: "40%";
+  height: 40%;
 }
 
 .min-w-40p {
-  min-width: "40%";
+  min-width: 40%;
 }
 
 .min-h-40p {
-  min-height: "40%";
+  min-height: 40%;
 }
 
 .max-w-40p {
-  max-width: "40%";
+  max-width: 40%;
 }
 
 .max-h-40p {
-  max-height: "40%";
+  max-height: 40%;
 }
 
 .w-50p {
-  width: "50%";
+  width: 50%;
 }
 
 .h-50p {
-  height: "50%";
+  height: 50%;
 }
 
 .min-w-50p {
-  min-width: "50%";
+  min-width: 50%;
 }
 
 .min-h-50p {
-  min-height: "50%";
+  min-height: 50%;
 }
 
 .max-w-50p {
-  max-width: "50%";
+  max-width: 50%;
 }
 
 .max-h-50p {
-  max-height: "50%";
+  max-height: 50%;
 }
 
 .w-60p {
-  width: "60%";
+  width: 60%;
 }
 
 .h-60p {
-  height: "60%";
+  height: 60%;
 }
 
 .min-w-60p {
-  min-width: "60%";
+  min-width: 60%;
 }
 
 .min-h-60p {
-  min-height: "60%";
+  min-height: 60%;
 }
 
 .max-w-60p {
-  max-width: "60%";
+  max-width: 60%;
 }
 
 .max-h-60p {
-  max-height: "60%";
+  max-height: 60%;
 }
 
 .w-70p {
-  width: "70%";
+  width: 70%;
 }
 
 .h-70p {
-  height: "70%";
+  height: 70%;
 }
 
 .min-w-70p {
-  min-width: "70%";
+  min-width: 70%;
 }
 
 .min-h-70p {
-  min-height: "70%";
+  min-height: 70%;
 }
 
 .max-w-70p {
-  max-width: "70%";
+  max-width: 70%;
 }
 
 .max-h-70p {
-  max-height: "70%";
+  max-height: 70%;
 }
 
 .w-75p {
-  width: "75%";
+  width: 75%;
 }
 
 .h-75p {
-  height: "75%";
+  height: 75%;
 }
 
 .min-w-75p {
-  min-width: "75%";
+  min-width: 75%;
 }
 
 .min-h-75p {
-  min-height: "75%";
+  min-height: 75%;
 }
 
 .max-w-75p {
-  max-width: "75%";
+  max-width: 75%;
 }
 
 .max-h-75p {
-  max-height: "75%";
+  max-height: 75%;
 }
 
 .w-80p {
-  width: "80%";
+  width: 80%;
 }
 
 .h-80p {
-  height: "80%";
+  height: 80%;
 }
 
 .min-w-80p {
-  min-width: "80%";
+  min-width: 80%;
 }
 
 .min-h-80p {
-  min-height: "80%";
+  min-height: 80%;
 }
 
 .max-w-80p {
-  max-width: "80%";
+  max-width: 80%;
 }
 
 .max-h-80p {
-  max-height: "80%";
+  max-height: 80%;
 }
 
 .w-90p {
-  width: "90%";
+  width: 90%;
 }
 
 .h-90p {
-  height: "90%";
+  height: 90%;
 }
 
 .min-w-90p {
-  min-width: "90%";
+  min-width: 90%;
 }
 
 .min-h-90p {
-  min-height: "90%";
+  min-height: 90%;
 }
 
 .max-w-90p {
-  max-width: "90%";
+  max-width: 90%;
 }
 
 .max-h-90p {
-  max-height: "90%";
+  max-height: 90%;
 }
 
 .w-100p {
-  width: "100%";
+  width: 100%;
 }
 
 .h-100p {
-  height: "100%";
+  height: 100%;
 }
 
 .min-w-100p {
-  min-width: "100%";
+  min-width: 100%;
 }
 
 .min-h-100p {
-  min-height: "100%";
+  min-height: 100%;
 }
 
 .max-w-100p {
-  max-width: "100%";
+  max-width: 100%;
 }
 
 .max-h-100p {
-  max-height: "100%";
+  max-height: 100%;
 }
 
 .w-0 {
@@ -15333,256 +14590,256 @@ textarea:not([rows]) {
 
 @media screen and (min-width: 480px) {
   .w-0p\@xs {
-    width: "0%";
+    width: 0%;
   }
   .h-0p\@xs {
-    height: "0%";
+    height: 0%;
   }
   .min-w-0p\@xs {
-    min-width: "0%";
+    min-width: 0%;
   }
   .min-h-0p\@xs {
-    min-height: "0%";
+    min-height: 0%;
   }
   .max-w-0p\@xs {
-    max-width: "0%";
+    max-width: 0%;
   }
   .max-h-0p\@xs {
-    max-height: "0%";
+    max-height: 0%;
   }
   .w-5p\@xs {
-    width: "5%";
+    width: 5%;
   }
   .h-5p\@xs {
-    height: "5%";
+    height: 5%;
   }
   .min-w-5p\@xs {
-    min-width: "5%";
+    min-width: 5%;
   }
   .min-h-5p\@xs {
-    min-height: "5%";
+    min-height: 5%;
   }
   .max-w-5p\@xs {
-    max-width: "5%";
+    max-width: 5%;
   }
   .max-h-5p\@xs {
-    max-height: "5%";
+    max-height: 5%;
   }
   .w-10p\@xs {
-    width: "10%";
+    width: 10%;
   }
   .h-10p\@xs {
-    height: "10%";
+    height: 10%;
   }
   .min-w-10p\@xs {
-    min-width: "10%";
+    min-width: 10%;
   }
   .min-h-10p\@xs {
-    min-height: "10%";
+    min-height: 10%;
   }
   .max-w-10p\@xs {
-    max-width: "10%";
+    max-width: 10%;
   }
   .max-h-10p\@xs {
-    max-height: "10%";
+    max-height: 10%;
   }
   .w-20p\@xs {
-    width: "20%";
+    width: 20%;
   }
   .h-20p\@xs {
-    height: "20%";
+    height: 20%;
   }
   .min-w-20p\@xs {
-    min-width: "20%";
+    min-width: 20%;
   }
   .min-h-20p\@xs {
-    min-height: "20%";
+    min-height: 20%;
   }
   .max-w-20p\@xs {
-    max-width: "20%";
+    max-width: 20%;
   }
   .max-h-20p\@xs {
-    max-height: "20%";
+    max-height: 20%;
   }
   .w-25p\@xs {
-    width: "25%";
+    width: 25%;
   }
   .h-25p\@xs {
-    height: "25%";
+    height: 25%;
   }
   .min-w-25p\@xs {
-    min-width: "25%";
+    min-width: 25%;
   }
   .min-h-25p\@xs {
-    min-height: "25%";
+    min-height: 25%;
   }
   .max-w-25p\@xs {
-    max-width: "25%";
+    max-width: 25%;
   }
   .max-h-25p\@xs {
-    max-height: "25%";
+    max-height: 25%;
   }
   .w-30p\@xs {
-    width: "30%";
+    width: 30%;
   }
   .h-30p\@xs {
-    height: "30%";
+    height: 30%;
   }
   .min-w-30p\@xs {
-    min-width: "30%";
+    min-width: 30%;
   }
   .min-h-30p\@xs {
-    min-height: "30%";
+    min-height: 30%;
   }
   .max-w-30p\@xs {
-    max-width: "30%";
+    max-width: 30%;
   }
   .max-h-30p\@xs {
-    max-height: "30%";
+    max-height: 30%;
   }
   .w-40p\@xs {
-    width: "40%";
+    width: 40%;
   }
   .h-40p\@xs {
-    height: "40%";
+    height: 40%;
   }
   .min-w-40p\@xs {
-    min-width: "40%";
+    min-width: 40%;
   }
   .min-h-40p\@xs {
-    min-height: "40%";
+    min-height: 40%;
   }
   .max-w-40p\@xs {
-    max-width: "40%";
+    max-width: 40%;
   }
   .max-h-40p\@xs {
-    max-height: "40%";
+    max-height: 40%;
   }
   .w-50p\@xs {
-    width: "50%";
+    width: 50%;
   }
   .h-50p\@xs {
-    height: "50%";
+    height: 50%;
   }
   .min-w-50p\@xs {
-    min-width: "50%";
+    min-width: 50%;
   }
   .min-h-50p\@xs {
-    min-height: "50%";
+    min-height: 50%;
   }
   .max-w-50p\@xs {
-    max-width: "50%";
+    max-width: 50%;
   }
   .max-h-50p\@xs {
-    max-height: "50%";
+    max-height: 50%;
   }
   .w-60p\@xs {
-    width: "60%";
+    width: 60%;
   }
   .h-60p\@xs {
-    height: "60%";
+    height: 60%;
   }
   .min-w-60p\@xs {
-    min-width: "60%";
+    min-width: 60%;
   }
   .min-h-60p\@xs {
-    min-height: "60%";
+    min-height: 60%;
   }
   .max-w-60p\@xs {
-    max-width: "60%";
+    max-width: 60%;
   }
   .max-h-60p\@xs {
-    max-height: "60%";
+    max-height: 60%;
   }
   .w-70p\@xs {
-    width: "70%";
+    width: 70%;
   }
   .h-70p\@xs {
-    height: "70%";
+    height: 70%;
   }
   .min-w-70p\@xs {
-    min-width: "70%";
+    min-width: 70%;
   }
   .min-h-70p\@xs {
-    min-height: "70%";
+    min-height: 70%;
   }
   .max-w-70p\@xs {
-    max-width: "70%";
+    max-width: 70%;
   }
   .max-h-70p\@xs {
-    max-height: "70%";
+    max-height: 70%;
   }
   .w-75p\@xs {
-    width: "75%";
+    width: 75%;
   }
   .h-75p\@xs {
-    height: "75%";
+    height: 75%;
   }
   .min-w-75p\@xs {
-    min-width: "75%";
+    min-width: 75%;
   }
   .min-h-75p\@xs {
-    min-height: "75%";
+    min-height: 75%;
   }
   .max-w-75p\@xs {
-    max-width: "75%";
+    max-width: 75%;
   }
   .max-h-75p\@xs {
-    max-height: "75%";
+    max-height: 75%;
   }
   .w-80p\@xs {
-    width: "80%";
+    width: 80%;
   }
   .h-80p\@xs {
-    height: "80%";
+    height: 80%;
   }
   .min-w-80p\@xs {
-    min-width: "80%";
+    min-width: 80%;
   }
   .min-h-80p\@xs {
-    min-height: "80%";
+    min-height: 80%;
   }
   .max-w-80p\@xs {
-    max-width: "80%";
+    max-width: 80%;
   }
   .max-h-80p\@xs {
-    max-height: "80%";
+    max-height: 80%;
   }
   .w-90p\@xs {
-    width: "90%";
+    width: 90%;
   }
   .h-90p\@xs {
-    height: "90%";
+    height: 90%;
   }
   .min-w-90p\@xs {
-    min-width: "90%";
+    min-width: 90%;
   }
   .min-h-90p\@xs {
-    min-height: "90%";
+    min-height: 90%;
   }
   .max-w-90p\@xs {
-    max-width: "90%";
+    max-width: 90%;
   }
   .max-h-90p\@xs {
-    max-height: "90%";
+    max-height: 90%;
   }
   .w-100p\@xs {
-    width: "100%";
+    width: 100%;
   }
   .h-100p\@xs {
-    height: "100%";
+    height: 100%;
   }
   .min-w-100p\@xs {
-    min-width: "100%";
+    min-width: 100%;
   }
   .min-h-100p\@xs {
-    min-height: "100%";
+    min-height: 100%;
   }
   .max-w-100p\@xs {
-    max-width: "100%";
+    max-width: 100%;
   }
   .max-h-100p\@xs {
-    max-height: "100%";
+    max-height: 100%;
   }
   .w-0\@xs {
     width: 0;
@@ -15923,256 +15180,256 @@ textarea:not([rows]) {
 
 @media screen and (min-width: 640px) {
   .w-0p\@sm {
-    width: "0%";
+    width: 0%;
   }
   .h-0p\@sm {
-    height: "0%";
+    height: 0%;
   }
   .min-w-0p\@sm {
-    min-width: "0%";
+    min-width: 0%;
   }
   .min-h-0p\@sm {
-    min-height: "0%";
+    min-height: 0%;
   }
   .max-w-0p\@sm {
-    max-width: "0%";
+    max-width: 0%;
   }
   .max-h-0p\@sm {
-    max-height: "0%";
+    max-height: 0%;
   }
   .w-5p\@sm {
-    width: "5%";
+    width: 5%;
   }
   .h-5p\@sm {
-    height: "5%";
+    height: 5%;
   }
   .min-w-5p\@sm {
-    min-width: "5%";
+    min-width: 5%;
   }
   .min-h-5p\@sm {
-    min-height: "5%";
+    min-height: 5%;
   }
   .max-w-5p\@sm {
-    max-width: "5%";
+    max-width: 5%;
   }
   .max-h-5p\@sm {
-    max-height: "5%";
+    max-height: 5%;
   }
   .w-10p\@sm {
-    width: "10%";
+    width: 10%;
   }
   .h-10p\@sm {
-    height: "10%";
+    height: 10%;
   }
   .min-w-10p\@sm {
-    min-width: "10%";
+    min-width: 10%;
   }
   .min-h-10p\@sm {
-    min-height: "10%";
+    min-height: 10%;
   }
   .max-w-10p\@sm {
-    max-width: "10%";
+    max-width: 10%;
   }
   .max-h-10p\@sm {
-    max-height: "10%";
+    max-height: 10%;
   }
   .w-20p\@sm {
-    width: "20%";
+    width: 20%;
   }
   .h-20p\@sm {
-    height: "20%";
+    height: 20%;
   }
   .min-w-20p\@sm {
-    min-width: "20%";
+    min-width: 20%;
   }
   .min-h-20p\@sm {
-    min-height: "20%";
+    min-height: 20%;
   }
   .max-w-20p\@sm {
-    max-width: "20%";
+    max-width: 20%;
   }
   .max-h-20p\@sm {
-    max-height: "20%";
+    max-height: 20%;
   }
   .w-25p\@sm {
-    width: "25%";
+    width: 25%;
   }
   .h-25p\@sm {
-    height: "25%";
+    height: 25%;
   }
   .min-w-25p\@sm {
-    min-width: "25%";
+    min-width: 25%;
   }
   .min-h-25p\@sm {
-    min-height: "25%";
+    min-height: 25%;
   }
   .max-w-25p\@sm {
-    max-width: "25%";
+    max-width: 25%;
   }
   .max-h-25p\@sm {
-    max-height: "25%";
+    max-height: 25%;
   }
   .w-30p\@sm {
-    width: "30%";
+    width: 30%;
   }
   .h-30p\@sm {
-    height: "30%";
+    height: 30%;
   }
   .min-w-30p\@sm {
-    min-width: "30%";
+    min-width: 30%;
   }
   .min-h-30p\@sm {
-    min-height: "30%";
+    min-height: 30%;
   }
   .max-w-30p\@sm {
-    max-width: "30%";
+    max-width: 30%;
   }
   .max-h-30p\@sm {
-    max-height: "30%";
+    max-height: 30%;
   }
   .w-40p\@sm {
-    width: "40%";
+    width: 40%;
   }
   .h-40p\@sm {
-    height: "40%";
+    height: 40%;
   }
   .min-w-40p\@sm {
-    min-width: "40%";
+    min-width: 40%;
   }
   .min-h-40p\@sm {
-    min-height: "40%";
+    min-height: 40%;
   }
   .max-w-40p\@sm {
-    max-width: "40%";
+    max-width: 40%;
   }
   .max-h-40p\@sm {
-    max-height: "40%";
+    max-height: 40%;
   }
   .w-50p\@sm {
-    width: "50%";
+    width: 50%;
   }
   .h-50p\@sm {
-    height: "50%";
+    height: 50%;
   }
   .min-w-50p\@sm {
-    min-width: "50%";
+    min-width: 50%;
   }
   .min-h-50p\@sm {
-    min-height: "50%";
+    min-height: 50%;
   }
   .max-w-50p\@sm {
-    max-width: "50%";
+    max-width: 50%;
   }
   .max-h-50p\@sm {
-    max-height: "50%";
+    max-height: 50%;
   }
   .w-60p\@sm {
-    width: "60%";
+    width: 60%;
   }
   .h-60p\@sm {
-    height: "60%";
+    height: 60%;
   }
   .min-w-60p\@sm {
-    min-width: "60%";
+    min-width: 60%;
   }
   .min-h-60p\@sm {
-    min-height: "60%";
+    min-height: 60%;
   }
   .max-w-60p\@sm {
-    max-width: "60%";
+    max-width: 60%;
   }
   .max-h-60p\@sm {
-    max-height: "60%";
+    max-height: 60%;
   }
   .w-70p\@sm {
-    width: "70%";
+    width: 70%;
   }
   .h-70p\@sm {
-    height: "70%";
+    height: 70%;
   }
   .min-w-70p\@sm {
-    min-width: "70%";
+    min-width: 70%;
   }
   .min-h-70p\@sm {
-    min-height: "70%";
+    min-height: 70%;
   }
   .max-w-70p\@sm {
-    max-width: "70%";
+    max-width: 70%;
   }
   .max-h-70p\@sm {
-    max-height: "70%";
+    max-height: 70%;
   }
   .w-75p\@sm {
-    width: "75%";
+    width: 75%;
   }
   .h-75p\@sm {
-    height: "75%";
+    height: 75%;
   }
   .min-w-75p\@sm {
-    min-width: "75%";
+    min-width: 75%;
   }
   .min-h-75p\@sm {
-    min-height: "75%";
+    min-height: 75%;
   }
   .max-w-75p\@sm {
-    max-width: "75%";
+    max-width: 75%;
   }
   .max-h-75p\@sm {
-    max-height: "75%";
+    max-height: 75%;
   }
   .w-80p\@sm {
-    width: "80%";
+    width: 80%;
   }
   .h-80p\@sm {
-    height: "80%";
+    height: 80%;
   }
   .min-w-80p\@sm {
-    min-width: "80%";
+    min-width: 80%;
   }
   .min-h-80p\@sm {
-    min-height: "80%";
+    min-height: 80%;
   }
   .max-w-80p\@sm {
-    max-width: "80%";
+    max-width: 80%;
   }
   .max-h-80p\@sm {
-    max-height: "80%";
+    max-height: 80%;
   }
   .w-90p\@sm {
-    width: "90%";
+    width: 90%;
   }
   .h-90p\@sm {
-    height: "90%";
+    height: 90%;
   }
   .min-w-90p\@sm {
-    min-width: "90%";
+    min-width: 90%;
   }
   .min-h-90p\@sm {
-    min-height: "90%";
+    min-height: 90%;
   }
   .max-w-90p\@sm {
-    max-width: "90%";
+    max-width: 90%;
   }
   .max-h-90p\@sm {
-    max-height: "90%";
+    max-height: 90%;
   }
   .w-100p\@sm {
-    width: "100%";
+    width: 100%;
   }
   .h-100p\@sm {
-    height: "100%";
+    height: 100%;
   }
   .min-w-100p\@sm {
-    min-width: "100%";
+    min-width: 100%;
   }
   .min-h-100p\@sm {
-    min-height: "100%";
+    min-height: 100%;
   }
   .max-w-100p\@sm {
-    max-width: "100%";
+    max-width: 100%;
   }
   .max-h-100p\@sm {
-    max-height: "100%";
+    max-height: 100%;
   }
   .w-0\@sm {
     width: 0;
@@ -16513,256 +15770,256 @@ textarea:not([rows]) {
 
 @media screen and (min-width: 768px) {
   .w-0p\@md {
-    width: "0%";
+    width: 0%;
   }
   .h-0p\@md {
-    height: "0%";
+    height: 0%;
   }
   .min-w-0p\@md {
-    min-width: "0%";
+    min-width: 0%;
   }
   .min-h-0p\@md {
-    min-height: "0%";
+    min-height: 0%;
   }
   .max-w-0p\@md {
-    max-width: "0%";
+    max-width: 0%;
   }
   .max-h-0p\@md {
-    max-height: "0%";
+    max-height: 0%;
   }
   .w-5p\@md {
-    width: "5%";
+    width: 5%;
   }
   .h-5p\@md {
-    height: "5%";
+    height: 5%;
   }
   .min-w-5p\@md {
-    min-width: "5%";
+    min-width: 5%;
   }
   .min-h-5p\@md {
-    min-height: "5%";
+    min-height: 5%;
   }
   .max-w-5p\@md {
-    max-width: "5%";
+    max-width: 5%;
   }
   .max-h-5p\@md {
-    max-height: "5%";
+    max-height: 5%;
   }
   .w-10p\@md {
-    width: "10%";
+    width: 10%;
   }
   .h-10p\@md {
-    height: "10%";
+    height: 10%;
   }
   .min-w-10p\@md {
-    min-width: "10%";
+    min-width: 10%;
   }
   .min-h-10p\@md {
-    min-height: "10%";
+    min-height: 10%;
   }
   .max-w-10p\@md {
-    max-width: "10%";
+    max-width: 10%;
   }
   .max-h-10p\@md {
-    max-height: "10%";
+    max-height: 10%;
   }
   .w-20p\@md {
-    width: "20%";
+    width: 20%;
   }
   .h-20p\@md {
-    height: "20%";
+    height: 20%;
   }
   .min-w-20p\@md {
-    min-width: "20%";
+    min-width: 20%;
   }
   .min-h-20p\@md {
-    min-height: "20%";
+    min-height: 20%;
   }
   .max-w-20p\@md {
-    max-width: "20%";
+    max-width: 20%;
   }
   .max-h-20p\@md {
-    max-height: "20%";
+    max-height: 20%;
   }
   .w-25p\@md {
-    width: "25%";
+    width: 25%;
   }
   .h-25p\@md {
-    height: "25%";
+    height: 25%;
   }
   .min-w-25p\@md {
-    min-width: "25%";
+    min-width: 25%;
   }
   .min-h-25p\@md {
-    min-height: "25%";
+    min-height: 25%;
   }
   .max-w-25p\@md {
-    max-width: "25%";
+    max-width: 25%;
   }
   .max-h-25p\@md {
-    max-height: "25%";
+    max-height: 25%;
   }
   .w-30p\@md {
-    width: "30%";
+    width: 30%;
   }
   .h-30p\@md {
-    height: "30%";
+    height: 30%;
   }
   .min-w-30p\@md {
-    min-width: "30%";
+    min-width: 30%;
   }
   .min-h-30p\@md {
-    min-height: "30%";
+    min-height: 30%;
   }
   .max-w-30p\@md {
-    max-width: "30%";
+    max-width: 30%;
   }
   .max-h-30p\@md {
-    max-height: "30%";
+    max-height: 30%;
   }
   .w-40p\@md {
-    width: "40%";
+    width: 40%;
   }
   .h-40p\@md {
-    height: "40%";
+    height: 40%;
   }
   .min-w-40p\@md {
-    min-width: "40%";
+    min-width: 40%;
   }
   .min-h-40p\@md {
-    min-height: "40%";
+    min-height: 40%;
   }
   .max-w-40p\@md {
-    max-width: "40%";
+    max-width: 40%;
   }
   .max-h-40p\@md {
-    max-height: "40%";
+    max-height: 40%;
   }
   .w-50p\@md {
-    width: "50%";
+    width: 50%;
   }
   .h-50p\@md {
-    height: "50%";
+    height: 50%;
   }
   .min-w-50p\@md {
-    min-width: "50%";
+    min-width: 50%;
   }
   .min-h-50p\@md {
-    min-height: "50%";
+    min-height: 50%;
   }
   .max-w-50p\@md {
-    max-width: "50%";
+    max-width: 50%;
   }
   .max-h-50p\@md {
-    max-height: "50%";
+    max-height: 50%;
   }
   .w-60p\@md {
-    width: "60%";
+    width: 60%;
   }
   .h-60p\@md {
-    height: "60%";
+    height: 60%;
   }
   .min-w-60p\@md {
-    min-width: "60%";
+    min-width: 60%;
   }
   .min-h-60p\@md {
-    min-height: "60%";
+    min-height: 60%;
   }
   .max-w-60p\@md {
-    max-width: "60%";
+    max-width: 60%;
   }
   .max-h-60p\@md {
-    max-height: "60%";
+    max-height: 60%;
   }
   .w-70p\@md {
-    width: "70%";
+    width: 70%;
   }
   .h-70p\@md {
-    height: "70%";
+    height: 70%;
   }
   .min-w-70p\@md {
-    min-width: "70%";
+    min-width: 70%;
   }
   .min-h-70p\@md {
-    min-height: "70%";
+    min-height: 70%;
   }
   .max-w-70p\@md {
-    max-width: "70%";
+    max-width: 70%;
   }
   .max-h-70p\@md {
-    max-height: "70%";
+    max-height: 70%;
   }
   .w-75p\@md {
-    width: "75%";
+    width: 75%;
   }
   .h-75p\@md {
-    height: "75%";
+    height: 75%;
   }
   .min-w-75p\@md {
-    min-width: "75%";
+    min-width: 75%;
   }
   .min-h-75p\@md {
-    min-height: "75%";
+    min-height: 75%;
   }
   .max-w-75p\@md {
-    max-width: "75%";
+    max-width: 75%;
   }
   .max-h-75p\@md {
-    max-height: "75%";
+    max-height: 75%;
   }
   .w-80p\@md {
-    width: "80%";
+    width: 80%;
   }
   .h-80p\@md {
-    height: "80%";
+    height: 80%;
   }
   .min-w-80p\@md {
-    min-width: "80%";
+    min-width: 80%;
   }
   .min-h-80p\@md {
-    min-height: "80%";
+    min-height: 80%;
   }
   .max-w-80p\@md {
-    max-width: "80%";
+    max-width: 80%;
   }
   .max-h-80p\@md {
-    max-height: "80%";
+    max-height: 80%;
   }
   .w-90p\@md {
-    width: "90%";
+    width: 90%;
   }
   .h-90p\@md {
-    height: "90%";
+    height: 90%;
   }
   .min-w-90p\@md {
-    min-width: "90%";
+    min-width: 90%;
   }
   .min-h-90p\@md {
-    min-height: "90%";
+    min-height: 90%;
   }
   .max-w-90p\@md {
-    max-width: "90%";
+    max-width: 90%;
   }
   .max-h-90p\@md {
-    max-height: "90%";
+    max-height: 90%;
   }
   .w-100p\@md {
-    width: "100%";
+    width: 100%;
   }
   .h-100p\@md {
-    height: "100%";
+    height: 100%;
   }
   .min-w-100p\@md {
-    min-width: "100%";
+    min-width: 100%;
   }
   .min-h-100p\@md {
-    min-height: "100%";
+    min-height: 100%;
   }
   .max-w-100p\@md {
-    max-width: "100%";
+    max-width: 100%;
   }
   .max-h-100p\@md {
-    max-height: "100%";
+    max-height: 100%;
   }
   .w-0\@md {
     width: 0;
@@ -17103,256 +16360,256 @@ textarea:not([rows]) {
 
 @media screen and (min-width: 1024px) {
   .w-0p\@lg {
-    width: "0%";
+    width: 0%;
   }
   .h-0p\@lg {
-    height: "0%";
+    height: 0%;
   }
   .min-w-0p\@lg {
-    min-width: "0%";
+    min-width: 0%;
   }
   .min-h-0p\@lg {
-    min-height: "0%";
+    min-height: 0%;
   }
   .max-w-0p\@lg {
-    max-width: "0%";
+    max-width: 0%;
   }
   .max-h-0p\@lg {
-    max-height: "0%";
+    max-height: 0%;
   }
   .w-5p\@lg {
-    width: "5%";
+    width: 5%;
   }
   .h-5p\@lg {
-    height: "5%";
+    height: 5%;
   }
   .min-w-5p\@lg {
-    min-width: "5%";
+    min-width: 5%;
   }
   .min-h-5p\@lg {
-    min-height: "5%";
+    min-height: 5%;
   }
   .max-w-5p\@lg {
-    max-width: "5%";
+    max-width: 5%;
   }
   .max-h-5p\@lg {
-    max-height: "5%";
+    max-height: 5%;
   }
   .w-10p\@lg {
-    width: "10%";
+    width: 10%;
   }
   .h-10p\@lg {
-    height: "10%";
+    height: 10%;
   }
   .min-w-10p\@lg {
-    min-width: "10%";
+    min-width: 10%;
   }
   .min-h-10p\@lg {
-    min-height: "10%";
+    min-height: 10%;
   }
   .max-w-10p\@lg {
-    max-width: "10%";
+    max-width: 10%;
   }
   .max-h-10p\@lg {
-    max-height: "10%";
+    max-height: 10%;
   }
   .w-20p\@lg {
-    width: "20%";
+    width: 20%;
   }
   .h-20p\@lg {
-    height: "20%";
+    height: 20%;
   }
   .min-w-20p\@lg {
-    min-width: "20%";
+    min-width: 20%;
   }
   .min-h-20p\@lg {
-    min-height: "20%";
+    min-height: 20%;
   }
   .max-w-20p\@lg {
-    max-width: "20%";
+    max-width: 20%;
   }
   .max-h-20p\@lg {
-    max-height: "20%";
+    max-height: 20%;
   }
   .w-25p\@lg {
-    width: "25%";
+    width: 25%;
   }
   .h-25p\@lg {
-    height: "25%";
+    height: 25%;
   }
   .min-w-25p\@lg {
-    min-width: "25%";
+    min-width: 25%;
   }
   .min-h-25p\@lg {
-    min-height: "25%";
+    min-height: 25%;
   }
   .max-w-25p\@lg {
-    max-width: "25%";
+    max-width: 25%;
   }
   .max-h-25p\@lg {
-    max-height: "25%";
+    max-height: 25%;
   }
   .w-30p\@lg {
-    width: "30%";
+    width: 30%;
   }
   .h-30p\@lg {
-    height: "30%";
+    height: 30%;
   }
   .min-w-30p\@lg {
-    min-width: "30%";
+    min-width: 30%;
   }
   .min-h-30p\@lg {
-    min-height: "30%";
+    min-height: 30%;
   }
   .max-w-30p\@lg {
-    max-width: "30%";
+    max-width: 30%;
   }
   .max-h-30p\@lg {
-    max-height: "30%";
+    max-height: 30%;
   }
   .w-40p\@lg {
-    width: "40%";
+    width: 40%;
   }
   .h-40p\@lg {
-    height: "40%";
+    height: 40%;
   }
   .min-w-40p\@lg {
-    min-width: "40%";
+    min-width: 40%;
   }
   .min-h-40p\@lg {
-    min-height: "40%";
+    min-height: 40%;
   }
   .max-w-40p\@lg {
-    max-width: "40%";
+    max-width: 40%;
   }
   .max-h-40p\@lg {
-    max-height: "40%";
+    max-height: 40%;
   }
   .w-50p\@lg {
-    width: "50%";
+    width: 50%;
   }
   .h-50p\@lg {
-    height: "50%";
+    height: 50%;
   }
   .min-w-50p\@lg {
-    min-width: "50%";
+    min-width: 50%;
   }
   .min-h-50p\@lg {
-    min-height: "50%";
+    min-height: 50%;
   }
   .max-w-50p\@lg {
-    max-width: "50%";
+    max-width: 50%;
   }
   .max-h-50p\@lg {
-    max-height: "50%";
+    max-height: 50%;
   }
   .w-60p\@lg {
-    width: "60%";
+    width: 60%;
   }
   .h-60p\@lg {
-    height: "60%";
+    height: 60%;
   }
   .min-w-60p\@lg {
-    min-width: "60%";
+    min-width: 60%;
   }
   .min-h-60p\@lg {
-    min-height: "60%";
+    min-height: 60%;
   }
   .max-w-60p\@lg {
-    max-width: "60%";
+    max-width: 60%;
   }
   .max-h-60p\@lg {
-    max-height: "60%";
+    max-height: 60%;
   }
   .w-70p\@lg {
-    width: "70%";
+    width: 70%;
   }
   .h-70p\@lg {
-    height: "70%";
+    height: 70%;
   }
   .min-w-70p\@lg {
-    min-width: "70%";
+    min-width: 70%;
   }
   .min-h-70p\@lg {
-    min-height: "70%";
+    min-height: 70%;
   }
   .max-w-70p\@lg {
-    max-width: "70%";
+    max-width: 70%;
   }
   .max-h-70p\@lg {
-    max-height: "70%";
+    max-height: 70%;
   }
   .w-75p\@lg {
-    width: "75%";
+    width: 75%;
   }
   .h-75p\@lg {
-    height: "75%";
+    height: 75%;
   }
   .min-w-75p\@lg {
-    min-width: "75%";
+    min-width: 75%;
   }
   .min-h-75p\@lg {
-    min-height: "75%";
+    min-height: 75%;
   }
   .max-w-75p\@lg {
-    max-width: "75%";
+    max-width: 75%;
   }
   .max-h-75p\@lg {
-    max-height: "75%";
+    max-height: 75%;
   }
   .w-80p\@lg {
-    width: "80%";
+    width: 80%;
   }
   .h-80p\@lg {
-    height: "80%";
+    height: 80%;
   }
   .min-w-80p\@lg {
-    min-width: "80%";
+    min-width: 80%;
   }
   .min-h-80p\@lg {
-    min-height: "80%";
+    min-height: 80%;
   }
   .max-w-80p\@lg {
-    max-width: "80%";
+    max-width: 80%;
   }
   .max-h-80p\@lg {
-    max-height: "80%";
+    max-height: 80%;
   }
   .w-90p\@lg {
-    width: "90%";
+    width: 90%;
   }
   .h-90p\@lg {
-    height: "90%";
+    height: 90%;
   }
   .min-w-90p\@lg {
-    min-width: "90%";
+    min-width: 90%;
   }
   .min-h-90p\@lg {
-    min-height: "90%";
+    min-height: 90%;
   }
   .max-w-90p\@lg {
-    max-width: "90%";
+    max-width: 90%;
   }
   .max-h-90p\@lg {
-    max-height: "90%";
+    max-height: 90%;
   }
   .w-100p\@lg {
-    width: "100%";
+    width: 100%;
   }
   .h-100p\@lg {
-    height: "100%";
+    height: 100%;
   }
   .min-w-100p\@lg {
-    min-width: "100%";
+    min-width: 100%;
   }
   .min-h-100p\@lg {
-    min-height: "100%";
+    min-height: 100%;
   }
   .max-w-100p\@lg {
-    max-width: "100%";
+    max-width: 100%;
   }
   .max-h-100p\@lg {
-    max-height: "100%";
+    max-height: 100%;
   }
   .w-0\@lg {
     width: 0;
@@ -17693,256 +16950,256 @@ textarea:not([rows]) {
 
 @media screen and (min-width: 1280px) {
   .w-0p\@xl {
-    width: "0%";
+    width: 0%;
   }
   .h-0p\@xl {
-    height: "0%";
+    height: 0%;
   }
   .min-w-0p\@xl {
-    min-width: "0%";
+    min-width: 0%;
   }
   .min-h-0p\@xl {
-    min-height: "0%";
+    min-height: 0%;
   }
   .max-w-0p\@xl {
-    max-width: "0%";
+    max-width: 0%;
   }
   .max-h-0p\@xl {
-    max-height: "0%";
+    max-height: 0%;
   }
   .w-5p\@xl {
-    width: "5%";
+    width: 5%;
   }
   .h-5p\@xl {
-    height: "5%";
+    height: 5%;
   }
   .min-w-5p\@xl {
-    min-width: "5%";
+    min-width: 5%;
   }
   .min-h-5p\@xl {
-    min-height: "5%";
+    min-height: 5%;
   }
   .max-w-5p\@xl {
-    max-width: "5%";
+    max-width: 5%;
   }
   .max-h-5p\@xl {
-    max-height: "5%";
+    max-height: 5%;
   }
   .w-10p\@xl {
-    width: "10%";
+    width: 10%;
   }
   .h-10p\@xl {
-    height: "10%";
+    height: 10%;
   }
   .min-w-10p\@xl {
-    min-width: "10%";
+    min-width: 10%;
   }
   .min-h-10p\@xl {
-    min-height: "10%";
+    min-height: 10%;
   }
   .max-w-10p\@xl {
-    max-width: "10%";
+    max-width: 10%;
   }
   .max-h-10p\@xl {
-    max-height: "10%";
+    max-height: 10%;
   }
   .w-20p\@xl {
-    width: "20%";
+    width: 20%;
   }
   .h-20p\@xl {
-    height: "20%";
+    height: 20%;
   }
   .min-w-20p\@xl {
-    min-width: "20%";
+    min-width: 20%;
   }
   .min-h-20p\@xl {
-    min-height: "20%";
+    min-height: 20%;
   }
   .max-w-20p\@xl {
-    max-width: "20%";
+    max-width: 20%;
   }
   .max-h-20p\@xl {
-    max-height: "20%";
+    max-height: 20%;
   }
   .w-25p\@xl {
-    width: "25%";
+    width: 25%;
   }
   .h-25p\@xl {
-    height: "25%";
+    height: 25%;
   }
   .min-w-25p\@xl {
-    min-width: "25%";
+    min-width: 25%;
   }
   .min-h-25p\@xl {
-    min-height: "25%";
+    min-height: 25%;
   }
   .max-w-25p\@xl {
-    max-width: "25%";
+    max-width: 25%;
   }
   .max-h-25p\@xl {
-    max-height: "25%";
+    max-height: 25%;
   }
   .w-30p\@xl {
-    width: "30%";
+    width: 30%;
   }
   .h-30p\@xl {
-    height: "30%";
+    height: 30%;
   }
   .min-w-30p\@xl {
-    min-width: "30%";
+    min-width: 30%;
   }
   .min-h-30p\@xl {
-    min-height: "30%";
+    min-height: 30%;
   }
   .max-w-30p\@xl {
-    max-width: "30%";
+    max-width: 30%;
   }
   .max-h-30p\@xl {
-    max-height: "30%";
+    max-height: 30%;
   }
   .w-40p\@xl {
-    width: "40%";
+    width: 40%;
   }
   .h-40p\@xl {
-    height: "40%";
+    height: 40%;
   }
   .min-w-40p\@xl {
-    min-width: "40%";
+    min-width: 40%;
   }
   .min-h-40p\@xl {
-    min-height: "40%";
+    min-height: 40%;
   }
   .max-w-40p\@xl {
-    max-width: "40%";
+    max-width: 40%;
   }
   .max-h-40p\@xl {
-    max-height: "40%";
+    max-height: 40%;
   }
   .w-50p\@xl {
-    width: "50%";
+    width: 50%;
   }
   .h-50p\@xl {
-    height: "50%";
+    height: 50%;
   }
   .min-w-50p\@xl {
-    min-width: "50%";
+    min-width: 50%;
   }
   .min-h-50p\@xl {
-    min-height: "50%";
+    min-height: 50%;
   }
   .max-w-50p\@xl {
-    max-width: "50%";
+    max-width: 50%;
   }
   .max-h-50p\@xl {
-    max-height: "50%";
+    max-height: 50%;
   }
   .w-60p\@xl {
-    width: "60%";
+    width: 60%;
   }
   .h-60p\@xl {
-    height: "60%";
+    height: 60%;
   }
   .min-w-60p\@xl {
-    min-width: "60%";
+    min-width: 60%;
   }
   .min-h-60p\@xl {
-    min-height: "60%";
+    min-height: 60%;
   }
   .max-w-60p\@xl {
-    max-width: "60%";
+    max-width: 60%;
   }
   .max-h-60p\@xl {
-    max-height: "60%";
+    max-height: 60%;
   }
   .w-70p\@xl {
-    width: "70%";
+    width: 70%;
   }
   .h-70p\@xl {
-    height: "70%";
+    height: 70%;
   }
   .min-w-70p\@xl {
-    min-width: "70%";
+    min-width: 70%;
   }
   .min-h-70p\@xl {
-    min-height: "70%";
+    min-height: 70%;
   }
   .max-w-70p\@xl {
-    max-width: "70%";
+    max-width: 70%;
   }
   .max-h-70p\@xl {
-    max-height: "70%";
+    max-height: 70%;
   }
   .w-75p\@xl {
-    width: "75%";
+    width: 75%;
   }
   .h-75p\@xl {
-    height: "75%";
+    height: 75%;
   }
   .min-w-75p\@xl {
-    min-width: "75%";
+    min-width: 75%;
   }
   .min-h-75p\@xl {
-    min-height: "75%";
+    min-height: 75%;
   }
   .max-w-75p\@xl {
-    max-width: "75%";
+    max-width: 75%;
   }
   .max-h-75p\@xl {
-    max-height: "75%";
+    max-height: 75%;
   }
   .w-80p\@xl {
-    width: "80%";
+    width: 80%;
   }
   .h-80p\@xl {
-    height: "80%";
+    height: 80%;
   }
   .min-w-80p\@xl {
-    min-width: "80%";
+    min-width: 80%;
   }
   .min-h-80p\@xl {
-    min-height: "80%";
+    min-height: 80%;
   }
   .max-w-80p\@xl {
-    max-width: "80%";
+    max-width: 80%;
   }
   .max-h-80p\@xl {
-    max-height: "80%";
+    max-height: 80%;
   }
   .w-90p\@xl {
-    width: "90%";
+    width: 90%;
   }
   .h-90p\@xl {
-    height: "90%";
+    height: 90%;
   }
   .min-w-90p\@xl {
-    min-width: "90%";
+    min-width: 90%;
   }
   .min-h-90p\@xl {
-    min-height: "90%";
+    min-height: 90%;
   }
   .max-w-90p\@xl {
-    max-width: "90%";
+    max-width: 90%;
   }
   .max-h-90p\@xl {
-    max-height: "90%";
+    max-height: 90%;
   }
   .w-100p\@xl {
-    width: "100%";
+    width: 100%;
   }
   .h-100p\@xl {
-    height: "100%";
+    height: 100%;
   }
   .min-w-100p\@xl {
-    min-width: "100%";
+    min-width: 100%;
   }
   .min-h-100p\@xl {
-    min-height: "100%";
+    min-height: 100%;
   }
   .max-w-100p\@xl {
-    max-width: "100%";
+    max-width: 100%;
   }
   .max-h-100p\@xl {
-    max-height: "100%";
+    max-height: 100%;
   }
   .w-0\@xl {
     width: 0;
@@ -18283,256 +17540,256 @@ textarea:not([rows]) {
 
 @media screen and (min-width: 1536px) {
   .w-0p\@2xl {
-    width: "0%";
+    width: 0%;
   }
   .h-0p\@2xl {
-    height: "0%";
+    height: 0%;
   }
   .min-w-0p\@2xl {
-    min-width: "0%";
+    min-width: 0%;
   }
   .min-h-0p\@2xl {
-    min-height: "0%";
+    min-height: 0%;
   }
   .max-w-0p\@2xl {
-    max-width: "0%";
+    max-width: 0%;
   }
   .max-h-0p\@2xl {
-    max-height: "0%";
+    max-height: 0%;
   }
   .w-5p\@2xl {
-    width: "5%";
+    width: 5%;
   }
   .h-5p\@2xl {
-    height: "5%";
+    height: 5%;
   }
   .min-w-5p\@2xl {
-    min-width: "5%";
+    min-width: 5%;
   }
   .min-h-5p\@2xl {
-    min-height: "5%";
+    min-height: 5%;
   }
   .max-w-5p\@2xl {
-    max-width: "5%";
+    max-width: 5%;
   }
   .max-h-5p\@2xl {
-    max-height: "5%";
+    max-height: 5%;
   }
   .w-10p\@2xl {
-    width: "10%";
+    width: 10%;
   }
   .h-10p\@2xl {
-    height: "10%";
+    height: 10%;
   }
   .min-w-10p\@2xl {
-    min-width: "10%";
+    min-width: 10%;
   }
   .min-h-10p\@2xl {
-    min-height: "10%";
+    min-height: 10%;
   }
   .max-w-10p\@2xl {
-    max-width: "10%";
+    max-width: 10%;
   }
   .max-h-10p\@2xl {
-    max-height: "10%";
+    max-height: 10%;
   }
   .w-20p\@2xl {
-    width: "20%";
+    width: 20%;
   }
   .h-20p\@2xl {
-    height: "20%";
+    height: 20%;
   }
   .min-w-20p\@2xl {
-    min-width: "20%";
+    min-width: 20%;
   }
   .min-h-20p\@2xl {
-    min-height: "20%";
+    min-height: 20%;
   }
   .max-w-20p\@2xl {
-    max-width: "20%";
+    max-width: 20%;
   }
   .max-h-20p\@2xl {
-    max-height: "20%";
+    max-height: 20%;
   }
   .w-25p\@2xl {
-    width: "25%";
+    width: 25%;
   }
   .h-25p\@2xl {
-    height: "25%";
+    height: 25%;
   }
   .min-w-25p\@2xl {
-    min-width: "25%";
+    min-width: 25%;
   }
   .min-h-25p\@2xl {
-    min-height: "25%";
+    min-height: 25%;
   }
   .max-w-25p\@2xl {
-    max-width: "25%";
+    max-width: 25%;
   }
   .max-h-25p\@2xl {
-    max-height: "25%";
+    max-height: 25%;
   }
   .w-30p\@2xl {
-    width: "30%";
+    width: 30%;
   }
   .h-30p\@2xl {
-    height: "30%";
+    height: 30%;
   }
   .min-w-30p\@2xl {
-    min-width: "30%";
+    min-width: 30%;
   }
   .min-h-30p\@2xl {
-    min-height: "30%";
+    min-height: 30%;
   }
   .max-w-30p\@2xl {
-    max-width: "30%";
+    max-width: 30%;
   }
   .max-h-30p\@2xl {
-    max-height: "30%";
+    max-height: 30%;
   }
   .w-40p\@2xl {
-    width: "40%";
+    width: 40%;
   }
   .h-40p\@2xl {
-    height: "40%";
+    height: 40%;
   }
   .min-w-40p\@2xl {
-    min-width: "40%";
+    min-width: 40%;
   }
   .min-h-40p\@2xl {
-    min-height: "40%";
+    min-height: 40%;
   }
   .max-w-40p\@2xl {
-    max-width: "40%";
+    max-width: 40%;
   }
   .max-h-40p\@2xl {
-    max-height: "40%";
+    max-height: 40%;
   }
   .w-50p\@2xl {
-    width: "50%";
+    width: 50%;
   }
   .h-50p\@2xl {
-    height: "50%";
+    height: 50%;
   }
   .min-w-50p\@2xl {
-    min-width: "50%";
+    min-width: 50%;
   }
   .min-h-50p\@2xl {
-    min-height: "50%";
+    min-height: 50%;
   }
   .max-w-50p\@2xl {
-    max-width: "50%";
+    max-width: 50%;
   }
   .max-h-50p\@2xl {
-    max-height: "50%";
+    max-height: 50%;
   }
   .w-60p\@2xl {
-    width: "60%";
+    width: 60%;
   }
   .h-60p\@2xl {
-    height: "60%";
+    height: 60%;
   }
   .min-w-60p\@2xl {
-    min-width: "60%";
+    min-width: 60%;
   }
   .min-h-60p\@2xl {
-    min-height: "60%";
+    min-height: 60%;
   }
   .max-w-60p\@2xl {
-    max-width: "60%";
+    max-width: 60%;
   }
   .max-h-60p\@2xl {
-    max-height: "60%";
+    max-height: 60%;
   }
   .w-70p\@2xl {
-    width: "70%";
+    width: 70%;
   }
   .h-70p\@2xl {
-    height: "70%";
+    height: 70%;
   }
   .min-w-70p\@2xl {
-    min-width: "70%";
+    min-width: 70%;
   }
   .min-h-70p\@2xl {
-    min-height: "70%";
+    min-height: 70%;
   }
   .max-w-70p\@2xl {
-    max-width: "70%";
+    max-width: 70%;
   }
   .max-h-70p\@2xl {
-    max-height: "70%";
+    max-height: 70%;
   }
   .w-75p\@2xl {
-    width: "75%";
+    width: 75%;
   }
   .h-75p\@2xl {
-    height: "75%";
+    height: 75%;
   }
   .min-w-75p\@2xl {
-    min-width: "75%";
+    min-width: 75%;
   }
   .min-h-75p\@2xl {
-    min-height: "75%";
+    min-height: 75%;
   }
   .max-w-75p\@2xl {
-    max-width: "75%";
+    max-width: 75%;
   }
   .max-h-75p\@2xl {
-    max-height: "75%";
+    max-height: 75%;
   }
   .w-80p\@2xl {
-    width: "80%";
+    width: 80%;
   }
   .h-80p\@2xl {
-    height: "80%";
+    height: 80%;
   }
   .min-w-80p\@2xl {
-    min-width: "80%";
+    min-width: 80%;
   }
   .min-h-80p\@2xl {
-    min-height: "80%";
+    min-height: 80%;
   }
   .max-w-80p\@2xl {
-    max-width: "80%";
+    max-width: 80%;
   }
   .max-h-80p\@2xl {
-    max-height: "80%";
+    max-height: 80%;
   }
   .w-90p\@2xl {
-    width: "90%";
+    width: 90%;
   }
   .h-90p\@2xl {
-    height: "90%";
+    height: 90%;
   }
   .min-w-90p\@2xl {
-    min-width: "90%";
+    min-width: 90%;
   }
   .min-h-90p\@2xl {
-    min-height: "90%";
+    min-height: 90%;
   }
   .max-w-90p\@2xl {
-    max-width: "90%";
+    max-width: 90%;
   }
   .max-h-90p\@2xl {
-    max-height: "90%";
+    max-height: 90%;
   }
   .w-100p\@2xl {
-    width: "100%";
+    width: 100%;
   }
   .h-100p\@2xl {
-    height: "100%";
+    height: 100%;
   }
   .min-w-100p\@2xl {
-    min-width: "100%";
+    min-width: 100%;
   }
   .min-h-100p\@2xl {
-    min-height: "100%";
+    min-height: 100%;
   }
   .max-w-100p\@2xl {
-    max-width: "100%";
+    max-width: 100%;
   }
   .max-h-100p\@2xl {
-    max-height: "100%";
+    max-height: 100%;
   }
   .w-0\@2xl {
     width: 0;
@@ -27159,9 +26416,9 @@ textarea:not([rows]) {
   }
 }
 :root {
-  --tooltip-bg: rgba(17, 17, 17, 0.9);
-  --tooltip-shadow-color: rgba(0, 0, 0, 0.2);
-  --tooltip-text-color: #fff;
+  --tooltip-bg: rgba(17 17 17 / 90%);
+  --tooltip-shadow-color: rgb(0 0 0 / 20%);
+  --tooltip-text-color: #FFF;
   --microtip-transition-duration: 0.18s;
   --microtip-transition-easing: ease-in-out;
   --microtip-transition-delay: 0s;
