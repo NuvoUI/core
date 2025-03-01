@@ -1,8 +1,8 @@
 // Section: Utilities
 // Module: Display
 
-@use './variables' as *;
-@use './functions' as FN;
+@use '../abstracts'  as *;
+@use '../abstracts/functions' as FN;
 
 /**
  * Display Utilities

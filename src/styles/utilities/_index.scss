@@ -1,0 +1,19 @@
+@use "../abstracts/config" as cfg;
+
+// Forward all utility files
+@forward "alignment";
+@forward "animations";
+@forward "borders";
+@forward "colors";
+@forward "container-queries";
+@forward "display";
+@forward "helpers";
+@forward "media-queries";
+@forward "opacity";
+@forward "position";
+@forward "shadows";
+@forward "sizing";
+@forward "spacing";
+@forward "tooltips";
+@forward "transitions";
+@forward "typography";

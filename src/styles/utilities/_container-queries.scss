@@ -1,8 +1,8 @@
-@use 'sass:map';
-@use 'sass:meta';
-@use './variables' as *;
-@use './functions' as FN;
-
+@use "sass:map";
+@use "sass:meta";
+@use "../abstracts" as *;
+@use "../abstracts/functions" as FN;
+ 
 /**
  * Container Query Mixins
  *
@@ -48,13 +48,13 @@
 @mixin container-only($breakpoint, $containerName: null) {
   $min: FN.get-breakpoint-value($breakpoint);
   $next-breakpoint: null;
-  
+
   @each $name, $width in $breakpoints {
     @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
       $next-breakpoint: $width;
     }
   }
-  
+
   @if $next-breakpoint {
     @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $next-breakpoint } - 0.02px)) {
       @content;
@@ -81,7 +81,6 @@
   container-name: $name;
 }
 
-
 // Utility classes
 .container-inline-size {
   container-type: inline-size;
@@ -91,7 +90,7 @@
   container-type: size;
 }
 
-@each $name in ('main', 'sidebar', 'card', 'section') {
+@each $name in ("main", "sidebar", "card", "section") {
   .container-#{$name} {
     container-name: $name;
   }

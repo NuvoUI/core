@@ -1,9 +1,10 @@
 // Section: Layout
 // Module: Grid | Grid Inline
+// Note: Gap utilities are defined in _spacing.scss
 
 @use 'sass:math';
-@use '../utilities/functions' as FN;
-@use '../utilities/variables' as VAR;
+@use '../abstracts/functions' as FN;
+@use '../abstracts'  as VAR;
 
 /**
  * @description Establishes a grid container.
@@ -87,10 +88,6 @@
   grid-row: $row;
 }
 
-@mixin grid-gap($value) { gap: $value; }
-@mixin col-gap($value) { column-gap: $value; }
-@mixin row-gap($value) { row-gap: $value; }
-
 // Classes
 .grid { @include grid; }
 .grid.inline { @include grid-inline; }
@@ -109,35 +106,6 @@
       .grid.cols-#{$i}\@#{$breakpoint} { @include cols($i); }
       .grid.rows-#{$i}\@#{$breakpoint} { @include rows($i); }
     }
-  }
-}
-
-
-// Add corresponding classes
-.grid-gap-1 { @include grid-gap(0.25rem); }
-.grid-gap-2 { @include grid-gap(0.5rem); }
-.grid-gap-4 { @include grid-gap(1rem); }
-.col-gap-1 { @include col-gap(0.25rem); }
-.col-gap-2 { @include col-gap(0.5rem); }
-.col-gap-4 { @include col-gap(1rem); }
-.row-gap-1 { @include row-gap(0.25rem); }
-.row-gap-2 { @include row-gap(0.5rem); }
-.row-gap-4 { @include row-gap(1rem); }
-
-// Responsive grid gaps
-@each $breakpoint, $width in VAR.$breakpoints {
-  @media (min-width: #{$width}) {
-    .grid-gap-1\@#{$breakpoint} { @include grid-gap(0.25rem); }
-    .grid-gap-2\@#{$breakpoint} { @include grid-gap(0.5rem); }
-    .grid-gap-4\@#{$breakpoint} { @include grid-gap(1rem); }
-
-    .col-gap-1\@#{$breakpoint} { @include col-gap(0.25rem); }
-    .col-gap-2\@#{$breakpoint} { @include col-gap(0.5rem); }
-    .col-gap-4\@#{$breakpoint} { @include col-gap(1rem); }
-    
-    .row-gap-1\@#{$breakpoint} { @include row-gap(0.25rem); }
-    .row-gap-2\@#{$breakpoint} { @include row-gap(0.5rem); }
-    .row-gap-4\@#{$breakpoint} { @include row-gap(1rem); }
   }
 }
 

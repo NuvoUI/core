@@ -1,128 +1,130 @@
-@use 'sass:string';
-@use 'sass:math';
-@use 'sass:map';
-@use 'sass:list';
-@use 'sass:meta';
-@use 'variables' as *;
+@use "sass:string";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+
+@use "../abstracts/config" as *;
 
 @if $enable-debuger {
-    .NuvoUI-Debugger-Wrapper {
-        color: #fff;
-        font-family: Arial, sans-serif;
-        position: fixed;
-        z-index: 999999;
-        inset: 10px auto auto 10px;
-        pointer-events: none;
+  .NuvoUI-Debugger-Wrapper {
+    color: #fff;
+    font-family: Arial, sans-serif;
+    position: fixed;
+    z-index: 999999;
+    inset: 10px auto auto 10px;
+    pointer-events: none;
 
-        &.top-left {
-            inset: 10px auto auto 10px;
-            text-align: left;
-        }
-
-        &.top-right {
-            inset: 10px 10px auto auto;
-            text-align: right;
-        }
-
-        &.bottom-left {
-            inset: auto auto 10px 10px;
-            text-align: left;
-        }
-
-        &.bottom-right {
-            inset: auto 10px 10px auto;
-            text-align: right;
-        }
-
-        .NuvoUI-Debugger-Main, .NuvoUI-Debugger{
-            padding: 10px;
-            background-color: rgb(0 0 0 / 80%);
-            border-radius: 5px;
-            border: 1px solid green;
-            box-shadow: 0 0 2px 0 #fff;
-            pointer-events: none;
-        }
-
-        .NuvoUI-Debugger-Main {
-            $breakpoint-keys: map.keys($breakpoints);
-            $total: list.length($breakpoint-keys);
-
-            &::before,
-            &::after {
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 0.8em;
-                display: block;
-            }
-
-            &::before {
-                font-weight: bold;
-            }
-
-            @for $i from 1 through $total {
-                $current: list.nth($breakpoint-keys, $i);
-                $current-width: map.get($breakpoints, $current);
-
-                @if $i == 1 {
-                    @media (max-width: #{$current-width}) {
-                        &::before {
-                            content: "Screen: #{$current}";
-                        }
-                    }
-                } @else {
-                    $prev: list.nth($breakpoint-keys, $i - 1);
-                    $prev-width: map.get($breakpoints, $prev);
-
-                    @media (min-width: #{$prev-width}) and (max-width: (#{$current-width} - 1)) {
-                        &::before {
-                            content: "Screen: #{$current}";
-                        }
-                    }
-                }
-            }
-
-            &::after {
-                content: attr(data-size);
-            }
-        }
-
-        .NuvoUI-Debugger {
-            margin-top: 10px;
-
-            &::before,
-            &::after {
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 0.8em;
-                display: block;
-            }
-
-            &::before {
-                font-weight: bold;
-                content: attr(data-element);
-            }
-
-            &::after {
-                content: attr(data-size);
-            }
-        }
-
-        .NuvoUI-Debugger-Close {
-            color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-            pointer-events: auto;
-            position: absolute;
-            right: 0;
-            top: 0;
-            background: #00800199;
-            border-radius: 20px;
-            height: 14px;
-            width: 14px;
-            line-height: 14px;
-            text-align: center;
-
-            &:hover {
-                background: #008001;
-            }
-        }
+    &.top-left {
+      inset: 10px auto auto 10px;
+      text-align: left;
     }
+
+    &.top-right {
+      inset: 10px 10px auto auto;
+      text-align: right;
+    }
+
+    &.bottom-left {
+      inset: auto auto 10px 10px;
+      text-align: left;
+    }
+
+    &.bottom-right {
+      inset: auto 10px 10px auto;
+      text-align: right;
+    }
+
+    .NuvoUI-Debugger-Main,
+    .NuvoUI-Debugger {
+      padding: 10px;
+      background-color: rgb(0 0 0 / 80%);
+      border-radius: 5px;
+      border: 1px solid green;
+      box-shadow: 0 0 2px 0 #fff;
+      pointer-events: none;
+    }
+
+    .NuvoUI-Debugger-Main {
+      $breakpoint-keys: map.keys($breakpoints);
+      $total: list.length($breakpoint-keys);
+
+      &::before,
+      &::after {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.8em;
+        display: block;
+      }
+
+      &::before {
+        font-weight: bold;
+      }
+
+      @for $i from 1 through $total {
+        $current: list.nth($breakpoint-keys, $i);
+        $current-width: map.get($breakpoints, $current);
+
+        @if $i == 1 {
+          @media (max-width: #{$current-width}) {
+            &::before {
+              content: "Screen: #{$current}";
+            }
+          }
+        } @else {
+          $prev: list.nth($breakpoint-keys, $i - 1);
+          $prev-width: map.get($breakpoints, $prev);
+
+          @media (min-width: #{$prev-width}) and (max-width: (#{$current-width} - 1)) {
+            &::before {
+              content: "Screen: #{$current}";
+            }
+          }
+        }
+      }
+
+      &::after {
+        content: attr(data-size);
+      }
+    }
+
+    .NuvoUI-Debugger {
+      margin-top: 10px;
+
+      &::before,
+      &::after {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.8em;
+        display: block;
+      }
+
+      &::before {
+        font-weight: bold;
+        content: attr(data-element);
+      }
+
+      &::after {
+        content: attr(data-size);
+      }
+    }
+
+    .NuvoUI-Debugger-Close {
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      pointer-events: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #00800199;
+      border-radius: 20px;
+      height: 14px;
+      width: 14px;
+      line-height: 14px;
+      text-align: center;
+
+      &:hover {
+        background: #008001;
+      }
+    }
+  }
 }

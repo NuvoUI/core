@@ -2,21 +2,46 @@
   "name": "@nuvoui/core",
   "version": "1.1.8",
   "description": "NuvoUI is a human-friendly SCSS framework designed for simplicity, and modern responsive designs.",
-  "main": "dist/nuvoui.css",
+  "author": {
+    "name": "AALA IT Solutions",
+    "url": "https://aalasolutions.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NuvoUI/core/issues"
+  },
+  "homepage": "https://nuvoui.io/",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/nuvoui.min.css",
+  "style": "dist/nuvoui.min.css",
+  "sass": "src/styles/index.scss",
   "module": "src/styles/index.scss",
   "files": [
     "dist",
     "src"
   ],
+  "exports": {
+    ".": {
+      "sass": "./src/styles/index.scss",
+      "style": "./dist/nuvoui.min.css",
+      "default": "./dist/nuvoui.min.css"
+    },
+    "./scss": "./src/styles/index.scss",
+    "./css": "./dist/nuvoui.css",
+    "./min.css": "./dist/nuvoui.min.css"
+  },
   "scripts": {
-    "build": "vite build",
-    "docs:dev": "vite --config vite.config.docs.mjs",
-    "docs:build": "vite build --config vite.config.docs.mjs",
-    "docs:preview": "vite preview --config vite.config.docs.mjs",
-    "prepare": "node build.js && npm run build",
     "lint": "stylelint \"src/**/*.scss\"",
     "format": "prettier --write \"src/**/*.{scss,js,json}\"",
-    "clean": "rimraf dist"
+    "clean": "node -e \"const fs=require('fs');if(fs.existsSync('dist')) fs.rmSync('dist',{recursive:true})\"",
+    "build:scss": "sass src/styles/index.scss:dist/nuvoui.css --style expanded",
+    "build:minify": "postcss dist/nuvoui.css -o dist/nuvoui.min.css --use cssnano --map",
+    "prebuild": "npm run clean",
+    "build": "npm run build:scss && npm run build:minify",
+    "dev": "sass src/styles/index.scss:dist/nuvoui.css --watch",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
@@ -36,24 +61,23 @@
     "web-development",
     "responsive-design",
     "developer-friendly",
-    "mixins"
+    "mixins",
+    "utility-classes",
+    "themeable",
+    "dark-mode",
+    "lightweight",
+    "modular-css",
+    "tailwind-alternative",
+    "sass-library"
   ],
-  "author": {
-    "name": "AALA IT Solutions",
-    "url": "https://aalasolutions.com"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/NuvoUI/core/issues"
-  },
-  "homepage": "https://nuvoui.io/",
-  "publishConfig": {
-    "access": "public"
-  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+ 
   "devDependencies": {
-    "chokidar": "^4.0.3",
     "cssnano": "^7.0.6",
-    "glob": "^11.0.0",
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
     "postcss-import": "^16.1.0",
@@ -61,10 +85,7 @@
     "prettier": "^3.3.3",
     "sass": "^1.81.0",
     "stylelint": "^16.10.0",
-    "stylelint-config-standard-scss": "^13.1.0",
-    "vite": "^5.4.11",
-    "vite-plugin-html-inject": "^1.1.2",
-    "vite-plugin-static-copy": "^2.1.0"
+    "stylelint-config-standard-scss": "^13.1.0"
   },
   "peerDependencies": {
     "sass": "^1.x"

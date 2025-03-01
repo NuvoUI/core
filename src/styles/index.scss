@@ -1,35 +1,16 @@
-/* Forward all modules for external use */
-@forward 'utilities/variables';
+// Import abstracts first (configuration)
+@forward "abstracts";
 
-// Base styles
-@forward 'base/reset';
-@forward 'base/base';
+// Import base styles
+@forward "base";
 
-// Layouts
-@forward 'layouts/container';
-@forward 'layouts/flex';
-@forward 'layouts/grid';
+// Import themes
+@forward "themes";
 
-// Utilities
-@forward 'utilities/alignment';
-@forward 'utilities/animations';
-@forward 'utilities/borders';
-@forward 'utilities/colors';
-@forward 'utilities/opacity';
-@forward 'utilities/position';
-@forward 'utilities/media-queries';
-@forward 'utilities/shadows';
-@forward 'utilities/sizing';
-@forward 'utilities/spacing';
-@forward 'utilities/transitions';
-@forward 'utilities/typography';
-@forward 'utilities/tooltips';
-@forward 'utilities/display';
+// Import layout components
+@forward "layouts";
 
-@forward 'utilities/helpers';
+// Import utilities based on configuration
+@forward "utilities";
 
-
-// Theme
-@forward 'themes/theme';
-
-@forward './mixins-map';
+@forward "./mixins-map";

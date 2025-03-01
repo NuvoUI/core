@@ -4,7 +4,7 @@
 @use 'sass:map';
 
 // Import variables
-@use '../utilities/variables' as VAR;
+@use '../abstracts'  as VAR;
 
 
 /**
@@ -29,12 +29,12 @@
 /**
 * Text size utility
 * @param {string} $size - The size of the text.
-*/
+*/ 
 @mixin text-size($size) {
   @if map.has-key(VAR.$font-sizes, $size) {
     font-size: map.get(VAR.$font-sizes, $size);
   } @else {
-    @warn "Font size '#{$size}' not found in $font-sizes map.";
+    font-size: $size;
   }
   
 }

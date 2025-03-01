@@ -1,36 +1,31 @@
-// _theme.scss
-@use 'sass:color';
-@use 'sass:map';
-@use '../utilities/colors' as *;
-@use '../utilities/variables' as *;
-
-
-// Generate scales for primitives
-$colors-primitives: ();
-
-@each $name, $color in $color-primitives {
-    $colors-primitives: map.set($colors-primitives, $name, create-color-scale($color));
-}
+// _theme.scss - CSS variables and utility classes
+@use "sass:color";
+@use "sass:map";
+@use "../utilities/colors" as COL;
+@use "../abstracts" as *;
 
 :root {
-  @each $color-name, $scale in $colors {
+  // Theme color CSS variables
+  @each $color-name, $scale in COL.$colors {
     --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
     @each $shade, $value in $scale {
       --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
     }
   }
 
-  @each $color-name, $scale in $colors-primitives {
+  // Primitive color CSS variables
+  @each $color-name, $scale in COL.$colors-primitives {
     --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
     @each $shade, $value in $scale {
       --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
     }
   }
 
-  --background: #{map.get($light-theme, 'background')};
-  --foreground: #{map.get($light-theme, 'foreground')};
-  --surface: #{map.get($light-theme, 'surface')};
-  --border: var(--primary-600);
+  // Light theme variables
+  --background: #{map.get($light-theme, "background")};
+  --foreground: #{map.get($light-theme, "foreground")};
+  --surface: #{map.get($light-theme, "surface")};
+  --border: var(--gray-600);
   --text-primary: var(--gray-900);
   --text-secondary: var(--gray-600);
   --button-bg-color: var(--primary);
@@ -38,31 +33,33 @@ $colors-primitives: ();
   --button-text-color: var(--gray-100);
   --link-color: var(--primary);
   --link-hover-color: var(--primary-600);
+  --inverted-text-color: var(--gray-100);
 
-
+  // Scrollbar styling
   &::-webkit-scrollbar {
     width: 12px;
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--background); // Light background
+    background: var(--background);
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #888; // Dark gray thumb
+    background-color: #888;
     border-radius: 6px;
-    border: 3px solid var(--background); // Light background
+    border: 3px solid var(--background);
   }
 
   scrollbar-width: thin;
-  scrollbar-color: #888 var(--background); // Dark gray thumb, light background
+  scrollbar-color: #888 var(--background);
 }
 
+// Dark theme settings
 [data-theme="dark"] {
-  --background: #{map.get($dark-theme, 'background')};
-  --foreground: #{map.get($dark-theme, 'foreground')};
-  --surface: #{map.get($dark-theme, 'surface')};
-  --border: var(--primary-400);
+  --background: #{map.get($dark-theme, "background")};
+  --foreground: #{map.get($dark-theme, "foreground")};
+  --surface: #{map.get($dark-theme, "surface")};
+  --border: var(--gray-400);
   --text-primary: var(--gray-100);
   --text-secondary: var(--gray-400);
   --button-bg-color: var(--primary);
@@ -70,6 +67,7 @@ $colors-primitives: ();
   --button-text-color: var(--gray-200);
   --link-color: var(--primary);
   --link-hover-color: var(--primary-400);
+  --inverted-text-color: var(--gray-900);
 
   &::-webkit-scrollbar-track {
     background: var(--background);
@@ -80,32 +78,141 @@ $colors-primitives: ();
     border: 3px solid var(--background);
   }
 
-  scrollbar-color: #555 var(--background); 
+  scrollbar-color: #555 var(--background);
 }
 
-// --font-family-heading: var(--font-family-base);
-// --text-primary: #{map.get($colors, 'dark')};
-// --link-color: #{map.get($colors, 'primary')};
-// --link-hover-color: #{color.scale(map.get($colors, 'primary'), $lightness: -10%)};
+//-----------------------------------------------
+// COLOR UTILITY CLASSES
+//-----------------------------------------------
 
-// --nav-bg: #{map.get($colors, 'light')};
-// // --nav-hover: #{color.scale(map.get($colors, 'light'), $lightness: -10%)};
-// --nav-hover: white;
-// --nav-text: #{map.get($colors, 'dark')};
+// Theme color background utilities
+@each $color-name, $scale in COL.$colors {
+  @each $shade, $value in $scale {
+    .bg-#{$color-name}-#{$shade} {
+      background-color: var(--#{$color-name}-#{$shade});
+    }
 
-//   // Link Colors
-//   --link-color: var(--primary);
-//   --link-hover-color: #{color.scale(map.get($colors, 'primary'), $lightness: if($theme == 'light', -10%, 10%))};
-//   --link-active-color: #{color.scale(map.get($colors, 'primary'), $lightness: if($theme == 'light', -20%, 20%))};
-//   --link-visited-color: #{color.scale(map.get($colors, 'primary'), $saturation: -20%)};
+    // Automatic text contrast for backgrounds
+    .text-on-#{$color-name}-#{$shade} {
+      color: COL.find-text-color($value);
+    }
 
-//   // Tooltip
-//   --tooltip-bg: var(--dark);
-//   --tooltip-text: var(--light);
-//   --tooltip-shadow-color: rgb(0 0 0 / 40%);
-//   --microtip-transition-duration: 0.518s;
-//   --microtip-transition-delay: .2s;
-//   --microtip-transition-easing: cubic-bezier(0.16, 1, 0.9, 1);
-//   --microtip-font-size: 0.875rem;
-//   --microtip-font-weight: 300;
-//   --microtip-text-transform: none;
+    .text-#{$color-name}-#{$shade} {
+      color: var(--#{$color-name}-#{$shade});
+    }
+  }
+
+  // Base color classes
+  .bg-#{$color-name} {
+    background-color: var(--#{$color-name});
+  }
+
+  .text-#{$color-name} {
+    color: var(--#{$color-name});
+  }
+}
+
+// Primitive color utilities
+@each $color-name, $scale in COL.$colors-primitives {
+  @each $shade, $value in $scale {
+    .bg-#{$color-name}-#{$shade} {
+      background-color: var(--#{$color-name}-#{$shade});
+    }
+
+    .text-on-#{$color-name}-#{$shade} {
+      color: COL.find-text-color($value);
+    }
+
+    .text-#{$color-name}-#{$shade} {
+      color: var(--#{$color-name}-#{$shade});
+    }
+  }
+
+  // Base color classes
+  .bg-#{$color-name} {
+    background-color: var(--#{$color-name});
+  }
+
+  .text-#{$color-name} {
+    color: var(--#{$color-name});
+  }
+}
+
+// Semantic color utilities
+.bg-page {
+  background-color: var(--background);
+}
+.bg-card {
+  background-color: var(--surface);
+}
+.bg-active {
+  background-color: var(--button-bg-color);
+}
+.bg-hover {
+  background-color: var(--button-bg-color-hover);
+}
+
+.text-default {
+  color: var(--text-primary);
+}
+.text-muted {
+  color: var(--text-secondary);
+}
+.text-subtle {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+.text-inverted {
+  color: var(--inverted-text-color);
+}
+
+.bg-white {
+  background-color: white;
+}
+.bg-black {
+  background-color: black;
+}
+.text-white {
+  color: white;
+}
+.text-black {
+  color: black;
+}
+
+// Hover utilities
+@each $color-name, $scale in COL.$colors {
+  @each $shade, $value in $scale {
+    .hover\:bg-#{$color-name}-#{$shade}:hover {
+      background-color: var(--#{$color-name}-#{$shade});
+    }
+
+    .hover\:text-#{$color-name}-#{$shade}:hover {
+      color: var(--#{$color-name}-#{$shade});
+    }
+  }
+}
+
+@each $color-name, $scale in COL.$colors-primitives {
+  @each $shade, $value in $scale {
+    .hover\:bg-#{$color-name}-#{$shade}:hover {
+      background-color: var(--#{$color-name}-#{$shade});
+    }
+
+    .hover\:text-#{$color-name}-#{$shade}:hover {
+      color: var(--#{$color-name}-#{$shade});
+    }
+  }
+}
+
+// Glass effects
+.glass-effect {
+  @include COL.backdrop-filter(blur(8px));
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.frosted-glass {
+  @include COL.backdrop-filter(blur(15px));
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}

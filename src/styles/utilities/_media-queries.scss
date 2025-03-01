@@ -1,11 +1,10 @@
 // Section: Utilities
 // Module: Media Queries
 
-@use 'sass:map';
-@use 'sass:meta';
-@use './variables' as *;
-@use './functions' as FN;
-
+@use "sass:map";
+@use "sass:meta";
+@use "../abstracts" as *;
+@use "../abstracts/functions" as FN;
 
 /**
  * @description Media query mixins.
@@ -19,7 +18,7 @@
 }
 
 @mixin media-down($breakpoint) {
-  $val: FN.get-breakpoint-value($breakpoint) - 0.02px;
+  $val: FN.get-breakpoint-value($breakpoint) - 0.01rm;
   @media screen and (max-width: #{$val}) {
     @content;
   }
@@ -27,7 +26,7 @@
 
 @mixin media-between($lower, $upper) {
   $lower-val: FN.get-breakpoint-value($lower);
-  $upper-val: FN.get-breakpoint-value($upper) - 0.02px;
+  $upper-val: FN.get-breakpoint-value($upper) - 0.01rm;
   @media screen and (min-width: #{$lower-val}) and (max-width: #{$upper-val}) {
     @content;
   }
@@ -37,13 +36,13 @@
 @mixin media-only($breakpoint) {
   $min: FN.get-breakpoint-value($breakpoint);
   $next-breakpoint: null;
-  
+
   @each $name, $width in $breakpoints {
-    @if $width > $min and (meta.type-of($next-breakpoint) == 'null' or $width < $next-breakpoint) {
+    @if $width > $min and (meta.type-of($next-breakpoint) == "null" or $width < $next-breakpoint) {
       $next-breakpoint: $width;
     }
   }
-  
+
   @if $next-breakpoint {
     @media (min-width: #{$min}) and (max-width: #{$next-breakpoint - 0.02px}) {
       @content;
@@ -76,11 +75,25 @@
   }
 }
 
-// Mixin: Dark Mode
-// Applies styles when the user prefers a dark color scheme.
-@mixin dark-mode {
-  [data-theme='dark'] & {
+// System preference only
+@mixin prefers-dark {
+  @media (prefers-color-scheme: dark) {
     @content;
+  }
+}
+
+// User preference takes precedence
+@mixin dark-mode {
+  // Apply when user explicitly chooses dark
+  [data-theme="dark"] & {
+    @content;
+  }
+
+  // Apply when system is dark AND user hasn't made a choice
+  @media (prefers-color-scheme: dark) {
+    [data-theme="system"] & {
+      @content;
+    }
   }
 }
 
@@ -120,6 +133,27 @@
 
 @mixin reduced-motion {
   @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// Data-saving mode
+@mixin save-data {
+  @media (prefers-reduced-data: reduce) {
+    @content;
+  }
+}
+
+// Mouse precision detection
+@mixin fine-pointer {
+  @media (pointer: fine) {
+    @content;
+  }
+}
+
+// Display mode for PWAs
+@mixin display-mode($mode: "standalone") {
+  @media (display-mode: #{$mode}) {
     @content;
   }
 }

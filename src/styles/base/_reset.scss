@@ -1,7 +1,9 @@
 // Modern CSS Reset
 
 // Box sizing rules
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -32,7 +34,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-family-base);
 }
 
 // Make images easier to work with
@@ -72,10 +74,10 @@ ol {
   list-style: none;
   margin: 0;
   padding: 0;
-  
+
   // Modern properties
-  padding-inline-start: 0;  // Replaces padding-left
-  margin-block: 0;          // Replaces margin-top/bottom
+  padding-inline-start: 0; // Replaces padding-left
+  margin-block: 0; // Replaces margin-top/bottom
 }
 
 li {

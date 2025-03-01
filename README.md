@@ -79,10 +79,10 @@ img:nth-child(1) {
   margin-right: auto;
   margin-top: 40px !important;
   margin-bottom: 40px !important;
-  animation: anim-bounce-0per-3per 25s ease-in-out infinite;
+  animation: anim-bounce-0p-3per 25s ease-in-out infinite;
 }
 
-@keyframes anim-bounce-0per-3per {
+@keyframes anim-bounce-0p-3per {
   0% {
     transform: translateX(-0%) translateY(-3%);
   }

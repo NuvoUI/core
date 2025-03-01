@@ -1,7 +1,7 @@
 @use 'sass:map';
 
 /* Import variables */
-@use '../utilities/variables' as *;
+@use '../abstracts'  as *;
 @use '../utilities/media-queries' as media;
   
 :root {
@@ -10,7 +10,7 @@
 
 // Base typography styles
 html {
-  font-size: 16px;
+  font-size: 16px; 
   font-family: var(--font-family-base);
 }
 

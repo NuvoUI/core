@@ -1,35 +1,36 @@
 // _spacing.scss
   
 @use 'sass:math';
-@use './variables' as VAR;
+@use 'sass:string' as str;
+@use '../abstracts'  as VAR;
 @use './container-queries' as Q;
-@use './media-queries' as MC;
+@use './media-queries' as MQ;
 
-@mixin width($value) { width: $value; }
-@mixin height($value) { height: $value; }
+@mixin width($value) { & { width: $value; } }
+@mixin height($value) { & { height: $value; } }
 @mixin min-width($value) { min-width: $value; }
 @mixin min-height($value) { min-height: $value; }
 @mixin max-width($value) { max-width: $value; }
 @mixin max-height($value) { max-height: $value; }
 
-@mixin width-percent($i) { width: $i + '%'; }
-@mixin height-percent($i) { height: $i + '%';  }
-@mixin min-width-percent($i) { min-width: $i + '%'; }
-@mixin min-height-percent($i) { min-height: $i + '%';  }
-@mixin max-width-percent($i) { max-width: $i + '%'; }
-@mixin max-height-percent($i) { max-height: $i + '%';  }
+@mixin width-percent($i) { & { width: str.unquote($i + '%'); } }
+@mixin height-percent($i) { & { height: str.unquote($i + '%'); } }
+@mixin min-width-percent($i) { & { min-width: str.unquote($i + '%'); } }
+@mixin min-height-percent($i) { & { min-height: str.unquote($i + '%'); } }
+@mixin max-width-percent($i) { & { max-width: str.unquote($i + '%'); } }
+@mixin max-height-percent($i) { & { max-height: str.unquote($i + '%'); } }
 
-@mixin w-auto { width: auto; }
-@mixin w-full { width: 100%; }
-@mixin h-auto { height: auto; }
-@mixin h-full { height: 100%; }
-@mixin min-w-full { min-width: 100%; }
-@mixin max-w-full { max-width: 100%; }
-@mixin min-h-full { min-height: 100%; }
-@mixin max-h-full { max-height: 100%; }
+@mixin w-auto { & { width: auto; } }
+@mixin w-full { & { width: 100%; } }
+@mixin h-auto { & { height: auto; } }
+@mixin h-full { & { height: 100%; } }
+@mixin min-w-full { & { min-width: 100%; } }
+@mixin max-w-full { & { max-width: 100%; } }
+@mixin min-h-full { & { min-height: 100%; } }
+@mixin max-h-full { & { max-height: 100%; } }
 
-@mixin w-screen { width: 100vw; }
-@mixin h-screen { height: 100dvh; }
+@mixin w-screen { & { width: 100vw; } }
+@mixin h-screen { & { height: 100dvh; } }
 
 .w-screen { @include w-screen; }
 .h-screen { @include h-screen; }
@@ -72,7 +73,7 @@
     .min-w-#{$breakpoint} { @include min-width($width); }
     .max-w-#{$breakpoint} { @include max-width($width); }
 
-    @include MC.media-up ($breakpoint) {
+    @include MQ.media-up ($breakpoint) {
         // Generate utilities from spacing map
         @each $i in VAR.$percentages {
             .w-#{$i}p\@#{$breakpoint} { @include width-percent($i); }

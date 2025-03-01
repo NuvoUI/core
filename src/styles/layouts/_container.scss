@@ -1,5 +1,5 @@
-@use 'sass:map';
-@use '../utilities/variables' as VAR;
+@use "sass:map";
+@use "../abstracts/config" as VAR;
 
 // Base container styles
 @mixin container-base {
@@ -14,7 +14,6 @@
     padding-bottom: $padding;
   }
 }
-
 
 // Responsive container mixin
 @mixin container($display: block) {
@@ -31,22 +30,4 @@
 // Container classes
 .container {
   @include container;
-}
-
-.container-flex {
-  @include container(flex);
-}
-
-.container-grid {
-  @include container(grid);
-}
-
-.container-fluid {
-  @include container-base;
-  @include container-padding(1rem);
-}
-
-.container-no-padding {
-  @include container;
-  @include container-padding(0);
 }

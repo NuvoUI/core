@@ -1,4 +1,4 @@
-@use '../utilities/variables' as VAR;
+@use '../abstracts'  as VAR;
 
 @mixin align-baseline { vertical-align: baseline; }
 @mixin align-top { vertical-align: top; }

@@ -1,6 +1,5 @@
+.DS_store
 .idea/
+.tmp/
 .vscode/
 node_modules/
-.tmp/
-.DS_store
-docs-dist/

@@ -12,9 +12,8 @@ module.exports = {
       files: '*.scss',
       options: {
         singleQuote: false,
-        printWidth: 120,
+        printWidth: 1000,
         bracketSpacing: false,
-        singleLineBrackets: true
       }
     }
   ]

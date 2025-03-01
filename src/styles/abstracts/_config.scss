@@ -1,0 +1,157 @@
+@use "sass:map";
+@use "sass:math";
+
+// Framework Configuration Options
+$generate-utility-classes: true !default;
+$enable-dark-mode: true !default;
+$enable-rtl: true !default;
+$enable-reduced-motion: true !default;
+$enable-container-queries: false !default;
+
+$base-size: 16;
+
+@function rem($px) {
+  @if $px == 0 {
+    @return 0;
+  }
+
+  // Strip units if $px has any
+  $value: if(math.unit($px) == "", $px, math.div($px, math.unit($px)));
+
+  @return math.div($value, $base-size) * 1rem;
+}
+
+// Global variables that might be used across different modules
+$enable-debuger: false !default;
+$enable-dark-mode: true !default;
+$enable-rtl: true !default;
+$enable-reduced-motion: true !default;
+$column-count: 12 !default;
+
+$default-container-name: nuvoui-container !default;
+$nuvoui-container-queries: false !default;
+
+$primary: #007bff !default;
+$secondary: #6c757d !default;
+$success: #28a745 !default;
+$danger: #dc3545 !default;
+$warning: #ffc107 !default;
+$info: #17a2b8 !default;
+
+$color-primitives: (
+  "gray": #6b7280,
+  "red": #ef4444,
+  "blue": #3b82f6,
+  "green": #22c55e,
+  "yellow": #eab308,
+  "purple": #a855f7,
+  "pink": #ec4899,
+) !default;
+
+$theme-tokens: ("background", "foreground", "surface", "border", "text-primary", "text-secondary") !default;
+
+// Default theme config (can be overridden)
+$light-theme: (
+  "background": #fafafa,
+  "foreground": #1a1a1a,
+  "surface": #fff,
+  "border": #e5e7eb,
+  "text-primary": #1a1a1a,
+  "text-secondary": #4b5563,
+) !default;
+
+$dark-theme: (
+  "background": #1a1a1a,
+  "foreground": #f1f1f1,
+  "surface": #2e2e2e,
+  "border": #2e2e2e,
+  "text-primary": #f1f1f1,
+  "text-secondary": #a3a3a3,
+) !default;
+
+$shadow-colors: (
+  "default": rgb(0 0 0 / 10%),
+  "dark": rgb(0 0 0 / 20%),
+  "darker": rgb(0 0 0 / 35%),
+  "darkest": rgb(0 0 0 / 50%),
+) !default;
+
+// Breakpoints
+$breakpoints: (
+  "xs": 480px,
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "2xl": 1536px,
+) !default;
+
+$grid-item-sizes: (
+  "xs": 200px,
+  "sm": 250px,
+  "md": 300px,
+  "lg": 350px,
+  "xl": 400px,
+) !default;
+
+// _variables.scss
+$font-sizes: (
+  // 12px
+  "xs": 0.75rem,
+  // 14px
+  "sm": 0.875rem,
+  // 16px
+  "md": 1rem,
+  // 20px
+  "lg": 1.25rem,
+  // 24px
+  "xl": 1.5rem,
+  // 28px
+  "2xl": 1.75rem,
+  // 32px
+  "3xl": 2rem,
+  // 40px
+  "4xl": 2.5rem 
+) !default;
+
+// Updated spacing map
+$spacings: (
+  // 0rem
+  0: 0,
+  // 0.25rem
+  1: rem(4),
+  // 0.5rem
+  2: rem(8),
+  // 0.75rem
+  3: rem(12),
+  // 1rem
+  4: rem(16),
+  // 1.25rem
+  5: rem(20),
+  // 1.5rem
+  6: rem(24),
+  // 2rem
+  8: rem(32),
+  // 2.5rem
+  10: rem(40),
+  // 3rem
+  12: rem(48),
+  // 4rem
+  16: rem(64),
+  // 5rem
+  20: rem(80),
+  // 6rem
+  24: rem(96),
+  // 8rem
+  32: rem(128),
+  // 10rem
+  40: rem(160),
+  // 12rem
+  48: rem(192),
+  // 14rem
+  56: rem(224),
+  // 16rem
+  64: rem(256)
+);
+
+$percentages: (0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100) !default;

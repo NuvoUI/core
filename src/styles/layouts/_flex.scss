@@ -1,5 +1,6 @@
 // Section: Layout
 // Module: Flex | Flex Inline
+// Note: Gap utilities are defined in _spacing.scss
 
 /**
  * @component Flex
@@ -44,8 +45,8 @@
  
 @use 'sass:math';
 @use '../utilities/media-queries' as MC;
-@use '../utilities/variables' as VAR;
-@use '../utilities/functions' as FN;
+@use '../abstracts'  as VAR;
+@use '../abstracts/functions' as FN;
 
 /**
  * @description Establishes a flex container.
@@ -312,7 +313,7 @@
   &.wrap { flex-wrap: wrap; }
   &.nowrap { flex-wrap: nowrap; }
   &.wrap-reverse { flex-wrap: wrap-reverse; }
-  
+
   // Justify modifiers
   &.start { justify-content: flex-start; }
   &.end { justify-content: flex-end; }

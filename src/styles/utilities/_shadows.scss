@@ -1,90 +1,94 @@
 // _shadows.scss
-@use 'sass:map';
-@use 'sass:math';
-@use 'sass:string';
-@use './variables' as VAR;
-
-// Shadow Variables
-$shadow-colors: (
-  'default': rgb(0 0 0 / 10%),
-  'dark': rgb(0 0 0 / 20%),
-  'darker': rgb(0 0 0 / 35%),
-  'darkest': rgb(0 0 0 / 50%),
-);
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+@use "../abstracts" as VAR;
 
 $shadow-sizes: (
-  'sm': (
-    'x': 0,
-    'y': 1px,
-    'blur': 2px,
-    'spread': 0
+  "sm": (
+    "x": 0,
+    "y": 1px,
+    "blur": 2px,
+    "spread": 0,
   ),
-  'md': (
-    'x': 0,
-    'y': 4px,
-    'blur': 6px,
-    'spread': -1px
+  "md": (
+    "x": 0,
+    "y": 4px,
+    "blur": 6px,
+    "spread": -1px,
   ),
-  'lg': (
-    'x': 0,
-    'y': 10px,
-    'blur': 15px,
-    'spread': -3px
+  "lg": (
+    "x": 0,
+    "y": 10px,
+    "blur": 15px,
+    "spread": -3px,
   ),
-  'xl': (
-    'x': 0,
-    'y': 20px,
-    'blur': 25px,
-    'spread': -5px
+  "xl": (
+    "x": 0,
+    "y": 20px,
+    "blur": 25px,
+    "spread": -5px,
   ),
-  'hero': (
-    'x': 0,
-    'y': 20px,
-    'blur': 25px,
-    'spread': 5px
+  "hero": (
+    "x": 0,
+    "y": 20px,
+    "blur": 25px,
+    "spread": 5px,
   ),
-  'monster': (
-    'x': 0,
-    'y': 20px,
-    'blur': 55px,
-    'spread': 20px
-  )
+  "monster": (
+    "x": 0,
+    "y": 20px,
+    "blur": 55px,
+    "spread": 20px,
+  ),
 );
 
-// Shadow Mixins
+/**
+* Generates a CSS shadow string from a given size.
+*
+* @param {String} $size - The shadow size.
+* @param {String} $color - The shadow color.
+* @return {String} - The CSS shadow string.
+*/
+
 @mixin shadow-base($x, $y, $blur, $spread, $color) {
   transition: box-shadow 0.2s ease-in-out;
   box-shadow: $x $y $blur $spread $color;
 }
 
-@mixin shadow($size: 'md', $color: 'default') {
+/**
+* Generates a CSS shadow string from a given size.
+*
+* @param {String} $size - The shadow size.
+* @param {String} $color - The shadow color.
+*/
+@mixin shadow($size: "md", $color: "default") {
   @if not map.has-key($shadow-sizes, $size) {
     @warn "Shadow size '#{$size}' not found in $shadow-sizes map";
-    $size: 'md'; // Fallback to default
+    $size: "md"; // Fallback to default
   }
-  @if not map.has-key($shadow-colors, $color) {
-    @warn "Shadow color '#{$color}' not found in $shadow-colors map";
-    $color: 'default'; // Fallback to default
+  @if not map.has-key(VAR.$shadow-colors, $color) {
+    @warn "Shadow color '#{$color}' not found in VAR.$shadow-colors map";
+    $color: "default"; // Fallback to default
   }
 
   $shadow: map.get($shadow-sizes, $size);
-  $shadow-color: map.get($shadow-colors, $color);
+  $shadow-color: map.get(VAR.$shadow-colors, $color);
   @include shadow-base(
-    map.get($shadow, 'x'),
-    map.get($shadow, 'y'),
-    map.get($shadow, 'blur'),
-    map.get($shadow, 'spread'),
+    map.get($shadow, "x"),
+    map.get($shadow, "y"),
+    map.get($shadow, "blur"),
+    map.get($shadow, "spread"),
     $shadow-color
   );
 }
 
-@mixin shadow-inset($size: 'md', $color: 'default') {
+@mixin shadow-inset($size: "md", $color: "default") {
   $shadow: map.get($shadow-sizes, $size);
-  $shadow-color: map.get($shadow-colors, $color);
-  
-  box-shadow: inset map.get($shadow, 'x') map.get($shadow, 'y') 
-             map.get($shadow, 'blur') map.get($shadow, 'spread') 
-             $shadow-color;
+  $shadow-color: map.get(VAR.$shadow-colors, $color);
+
+  box-shadow: inset map.get($shadow, "x") map.get($shadow, "y") map.get($shadow, "blur") map.get($shadow, "spread")
+    $shadow-color;
 }
 
 // Utility Classes
@@ -96,68 +100,116 @@ $shadow-sizes: (
   .shadow-#{$size} {
     @include shadow($size);
   }
-  
-  .shadow-#{$size}-dark {
-    @include shadow($size, 'dark');
+
+  // Shadow with color variants
+  @each $color-name, $color-value in VAR.$shadow-colors {
+    @if $color-name != "default" {
+      .shadow-#{$size}-#{$color-name} {
+        @include shadow($size, $color-name);
+      }
+    }
   }
-  
+
   .shadow-inset-#{$size} {
     @include shadow-inset($size);
   }
 
+  // Inset shadows with color variants
+  @each $color-name, $color-value in VAR.$shadow-colors {
+    @if $color-name != "default" {
+      .shadow-inset-#{$size}-#{$color-name} {
+        @include shadow-inset($size, $color-name);
+      }
+    }
+  }
 
-  // hover shadows
+  // Hover shadows
   .hover\:shadow-#{$size}:hover {
     @include shadow($size);
   }
-  
-  .hover\:shadow-#{$size}-dark:hover {
-    @include shadow($size, 'dark');
-  }
-  
-  .hover\:shadow-inset-#{$size}:hover {
-    @include shadow-inset($size);
-  }
-  
 
-  // focus shadows
-  .focus\:shadow-#{$size}:hover {
+  // Hover shadows with color variants
+  @each $color-name, $color-value in VAR.$shadow-colors {
+    @if $color-name != "default" {
+      .hover\:shadow-#{$size}-#{$color-name}:hover {
+        @include shadow($size, $color-name);
+      }
+    }
+  }
+
+  // Focus shadows
+  .focus\:shadow-#{$size}:focus {
     @include shadow($size);
   }
-  
-  .focus\:shadow-#{$size}-dark:hover {
-    @include shadow($size, 'dark');
-  }
-  
-  .focus\:shadow-inset-#{$size}:hover {
-    @include shadow-inset($size);
-  }
-}
 
-// Active variants
-@each $size, $values in $shadow-sizes {
+  // Focus shadows with color variants
+  @each $color-name, $color-value in VAR.$shadow-colors {
+    @if $color-name != "default" {
+      .focus\:shadow-#{$size}-#{$color-name}:focus {
+        @include shadow($size, $color-name);
+      }
+    }
+  }
+
+  // Active shadows
   .active\:shadow-#{$size}:active {
     @include shadow($size);
+  }
+
+  // Active shadows with color variants
+  @each $color-name, $color-value in VAR.$shadow-colors {
+    @if $color-name != "default" {
+      .active\:shadow-#{$size}-#{$color-name}:active {
+        @include shadow($size, $color-name);
+      }
+    }
   }
 }
 
 // Responsive variants
 @each $breakpoint, $width in VAR.$breakpoints {
   @media (min-width: #{$width}) {
-    // Regular shadows with breakpoints
     @each $size, $values in $shadow-sizes {
+      // Regular shadows with breakpoints
       .shadow-#{$size}\@#{$breakpoint} {
         @include shadow($size);
       }
-      
+
+      // Shadows with color variants at breakpoints
+      @each $color-name, $color-value in VAR.$shadow-colors {
+        @if $color-name != "default" {
+          .shadow-#{$size}-#{$color-name}\@#{$breakpoint} {
+            @include shadow($size, $color-name);
+          }
+        }
+      }
+
       // Hover shadows with breakpoints
       .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
         @include shadow($size);
       }
-      
+
+      // Hover shadows with color variants at breakpoints
+      @each $color-name, $color-value in VAR.$shadow-colors {
+        @if $color-name != "default" {
+          .hover\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:hover {
+            @include shadow($size, $color-name);
+          }
+        }
+      }
+
       // Focus shadows with breakpoints
       .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
         @include shadow($size);
+      }
+
+      // Focus shadows with color variants at breakpoints
+      @each $color-name, $color-value in VAR.$shadow-colors {
+        @if $color-name != "default" {
+          .focus\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:focus {
+            @include shadow($size, $color-name);
+          }
+        }
       }
     }
   }
@@ -166,15 +218,15 @@ $shadow-sizes: (
 @for $i from 1 through 5 {
   .elevation-#{$i} {
     @if $i == 1 {
-      @include shadow('sm');
+      @include shadow("sm");
     } @else if $i == 2 {
-      @include shadow('md');
+      @include shadow("md");
     } @else if $i == 3 {
-      @include shadow('lg');
+      @include shadow("lg");
     } @else if $i == 4 {
-      @include shadow('xl');
+      @include shadow("xl");
     } @else if $i == 5 {
-      @include shadow('monster');
+      @include shadow("monster");
     }
     z-index: $i;
   }
