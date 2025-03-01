@@ -369,9 +369,6 @@
 } @else if str.index($mixin-str, 'border-left(') == 1 {
     $param1: list.nth($params, 1);
     @include border-left($param1);
-} @else if str.index($mixin-str, 'rounded(') == 1 {
-    $param1: list.nth($params, 1);
-    @include rounded($param1);
 } @else if str.index($mixin-str, 'rounded-t(') == 1 {
     $param1: list.nth($params, 1);
     @include rounded-t($param1);
