@@ -1,8 +1,8 @@
 :root {
   // Tooltip core variables
-  --tooltip-bg: rgba(17, 17, 17, 0.9);
-  --tooltip-shadow-color: rgba(0, 0, 0, 0.2);
-  --tooltip-text-color: #fff;
+  --tooltip-bg: rgba(17 17 17 / 90%);
+  --tooltip-shadow-color: rgb(0 0 0 / 20%);
+  --tooltip-text-color: #FFF;
 
   // Animation variables
   --microtip-transition-duration: 0.18s;

@@ -73,9 +73,9 @@
  * @see flex, grid, display
  */
 
-//-----------------------------------------------
+// -----------------------------------------------
 // HELPER FUNCTIONS
-//-----------------------------------------------
+// -----------------------------------------------
 
 /**
  * @function format-unit-value
@@ -108,9 +108,9 @@
 }
 
 
-//-----------------------------------------------
+// -----------------------------------------------
 // PADDING MIXINS
-//-----------------------------------------------
+// -----------------------------------------------
 
 /**
  * @mixin p
@@ -126,6 +126,7 @@
 */
 @mixin px($val) { 
   $val: format-unit-value($val); 
+  
   padding-left: $val; 
   padding-right: $val; 
 }
@@ -137,6 +138,7 @@
 */
 @mixin py($val) { 
   $val: format-unit-value($val); 
+  
   padding-top: $val; 
   padding-bottom: $val; 
 }
@@ -169,9 +171,9 @@
 */
 @mixin pl($val) { $val: format-unit-value($val); padding-left: $val; }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // MARGIN MIXINS
-//-----------------------------------------------
+// -----------------------------------------------
 
 /**
 * @mixin m
@@ -187,6 +189,7 @@
 */
 @mixin mx($val) { 
   $val: format-unit-value($val); 
+  
   margin-left: $val; 
   margin-right: $val; 
 }
@@ -198,6 +201,7 @@
 */
 @mixin my($val) { 
   $val: format-unit-value($val); 
+
   margin-top: $val; 
   margin-bottom: $val; 
 }
@@ -249,27 +253,39 @@
 @mixin mx-auto { @include ml-auto; @include mr-auto; }
 
 
-//-----------------------------------------------
+// -----------------------------------------------
 // SPACING MIXINS
-//-----------------------------------------------
+// -----------------------------------------------
 
 /**
  * @mixin space-y
  * @description Adds vertical spacing between direct children
  * @param {Number|String} $i - Space amount
  */
- @mixin space-y($i) { & > * + * { $i: format-unit-value($i); margin-top: $i; } } 
+@mixin space-y($i) {
+  & > * + * {
+    $i: format-unit-value($i);
+    
+    margin-top: $i;
+  }
+}
 
  /**
   * @mixin space-x
   * @description Adds horizontal spacing between direct children
   * @param {Number|String} $i - Space amount
   */
- @mixin space-x($i) { & > * + * { $i: format-unit-value($i); margin-left: $i; } } 
+@mixin space-x($i) {
+  & > * + * {
+    $i: format-unit-value($i);
+    
+    margin-left: $i;
+  }
+}
 
-//-----------------------------------------------
+// -----------------------------------------------
 // GAP MIXINS
-//-----------------------------------------------
+// -----------------------------------------------
 
 /**
  * @mixin gap
@@ -292,23 +308,23 @@
   */
  @mixin gap-y($val) { $val: format-unit-value($val); row-gap: $val; }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // AUTO MARGIN UTILITY CLASSES
-//-----------------------------------------------
+// -----------------------------------------------
 
 .mx-auto { @include mx-auto; }
 .ml-auto { @include ml-auto; }
 .mr-auto { @include mr-auto; }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // GAP AUTO CLASS
-//-----------------------------------------------
+// -----------------------------------------------
 
 .gap-auto { gap: auto; }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // SPACING CLASSES
-//-----------------------------------------------
+// -----------------------------------------------
 
 @each $key, $value in $spacings {
     // Padding classes
@@ -340,9 +356,9 @@
 }
 
 
-//-----------------------------------------------
+// -----------------------------------------------
 // RESPONSIVE SPACING CLASSES
-//-----------------------------------------------
+// -----------------------------------------------
 
 @each $breakpoint, $width in $breakpoints {
     @media (min-width: #{$width}) {

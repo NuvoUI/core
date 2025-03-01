@@ -5,13 +5,14 @@
 @use 'sass:map';
 @use '../abstracts'  as *;
 
-//-----------------------------------------------
+// -----------------------------------------------
 // MIXINS
-//-----------------------------------------------
+// -----------------------------------------------
 
 // Core Border Mixins - improved to include style and color by default
 @mixin border($val) { 
   $val: if($val == 0, $val, $val + px); 
+  
   border-width: $val; 
   @if $val != 0 {
     border-style: solid; // Apply solid style by default when width > 0
@@ -21,6 +22,7 @@
 
 @mixin border-top($val) { 
   $val: if($val == 0, $val, $val + px); 
+  
   border-top-width: $val; 
   @if $val != 0 {
     border-top-style: solid;
@@ -30,6 +32,7 @@
 
 @mixin border-right($val) { 
   $val: if($val == 0, $val, $val + px); 
+  
   border-right-width: $val; 
   @if $val != 0 {
     border-right-style: solid;
@@ -39,6 +42,7 @@
 
 @mixin border-bottom($val) { 
   $val: if($val == 0, $val, $val + px); 
+  
   border-bottom-width: $val; 
   @if $val != 0 {
     border-bottom-style: solid;
@@ -48,6 +52,7 @@
 
 @mixin border-left($val) { 
   $val: if($val == 0, $val, $val + px); 
+
   border-left-width: $val; 
   @if $val != 0 {
     border-left-style: solid;
@@ -96,9 +101,9 @@
   border-color: $color;
 }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // VARIABLES
-//-----------------------------------------------
+// -----------------------------------------------
 
 // Common border width values that are most useful
 $border-widths: (0, 1, 2, 4, 8);
@@ -118,9 +123,9 @@ $border-radii: (
 // Common border styles
 $border-styles: (solid, dashed, dotted, double, none);
 
-//-----------------------------------------------
+// -----------------------------------------------
 // UTILITY CLASSES
-//-----------------------------------------------
+// -----------------------------------------------
 
 // Basic border classes (all sides)
 .border { @include border(1); }
@@ -146,7 +151,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 .border-l { @include border-left(1); }
 
 // Border radius classes
-.rounded { @include rounded(); } // Default rounded
+.rounded { @include rounded; } // Default rounded
 .square { @include rounded(0); } // Alias for no radius
 
 @each $name, $value in $border-radii {
@@ -197,9 +202,9 @@ $border-styles: (solid, dashed, dotted, double, none);
   @include border-color(var(--danger));
 }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // HOVER, ACTIVE, AND FOCUS STATES
-//-----------------------------------------------
+// -----------------------------------------------
 
 // Hover state border classes
 @each $width in $border-widths {
@@ -261,9 +266,9 @@ $border-styles: (solid, dashed, dotted, double, none);
 .focus\:border-warning:focus { @include border-color(var(--warning)); }
 .focus\:border-info:focus { @include border-color(var(--info)); }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // RESPONSIVE CLASSES
-//-----------------------------------------------
+// -----------------------------------------------
 
 @each $breakpoint, $width in $breakpoints {
   @media (min-width: #{$width}) {
@@ -281,7 +286,7 @@ $border-styles: (solid, dashed, dotted, double, none);
       .rounded-#{$name}\@#{$breakpoint} { @include rounded($value); }
     }
     
-    .rounded\@#{$breakpoint} { @include rounded(); }
+    .rounded\@#{$breakpoint} { @include rounded; }
     .square\@#{$breakpoint} { @include rounded(0); }
     .pill\@#{$breakpoint} { @include rounded(9999px); }
   }

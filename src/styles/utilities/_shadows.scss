@@ -227,6 +227,7 @@ $shadow-sizes: (
     } @else if $i == 5 {
       @include shadow("monster");
     }
+
     z-index: $i;
   }
 }

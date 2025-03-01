@@ -81,9 +81,9 @@
   scrollbar-color: #555 var(--background);
 }
 
-//-----------------------------------------------
+// -----------------------------------------------
 // COLOR UTILITY CLASSES
-//-----------------------------------------------
+// -----------------------------------------------
 
 // Theme color background utilities
 @each $color-name, $scale in COL.$colors {
@@ -142,12 +142,15 @@
 .bg-page {
   background-color: var(--background);
 }
+
 .bg-card {
   background-color: var(--surface);
 }
+
 .bg-active {
   background-color: var(--button-bg-color);
 }
+
 .bg-hover {
   background-color: var(--button-bg-color-hover);
 }
@@ -155,13 +158,16 @@
 .text-default {
   color: var(--text-primary);
 }
+
 .text-muted {
   color: var(--text-secondary);
 }
+
 .text-subtle {
   color: var(--text-secondary);
   opacity: 0.7;
 }
+
 .text-inverted {
   color: var(--inverted-text-color);
 }
@@ -169,12 +175,15 @@
 .bg-white {
   background-color: white;
 }
+
 .bg-black {
   background-color: black;
 }
+
 .text-white {
   color: white;
 }
+
 .text-black {
   color: black;
 }
@@ -207,12 +216,14 @@
 // Glass effects
 .glass-effect {
   @include COL.backdrop-filter(blur(8px));
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background-color: rgb(255 255 255 10%);
+  border: 1px solid rgb(255 255 255 20%);
 }
 
 .frosted-glass {
   @include COL.backdrop-filter(blur(15px));
-  background-color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  
+  background-color: rgb(255 255 255 70%);
+  border: 1px solid rgb(255 255 255 80%);
 }

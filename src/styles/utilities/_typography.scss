@@ -160,7 +160,7 @@
 
 }
 
-@include responsive-typography();
+@include responsive-typography;
 .break-normal { @include break-normal; }
 .break-words { @include break-words; }
 .break-all { @include break-all; }
