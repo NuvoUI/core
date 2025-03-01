@@ -2,6 +2,7 @@
 // Border utility classes for NuvoUI
 
 @use 'sass:math';
+@use 'sass:map';
 @use '../abstracts'  as *;
 
 //-----------------------------------------------
@@ -55,7 +56,9 @@
 }
 
 // Border Radius Mixins
-@mixin rounded($val) { border-radius: $val; }
+@mixin rounded($val: map.get($border-radii, 'md')) { 
+  border-radius: $val; 
+}
 
 @mixin rounded-t($val) { 
   border-top-left-radius: $val;
@@ -102,18 +105,18 @@ $border-widths: (0, 1, 2, 4, 8);
 
 // Common border radius values that are most useful
 $border-radii: (
-  'xs': 0.125rem,
-  'sm': 0.25rem,
-  'md': 0.375rem,
-  'lg': 0.5rem,
-  'xl': 0.75rem,
-  '2xl': 1rem,
+  'xs': 0.25rem,
+  'sm': 0.375rem,
+  'md': 0.5rem,
+  'lg': 0.75rem,
+  'xl': 1rem,
+  '2xl': 1.25rem,
   'full': 9999px,
   'none': 0
 );
 
 // Common border styles
-$border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
+$border-styles: (solid, dashed, dotted, double, none);
 
 //-----------------------------------------------
 // UTILITY CLASSES
@@ -143,7 +146,7 @@ $border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
 .border-l { @include border-left(1); }
 
 // Border radius classes
-.rounded { @include rounded(0.25rem); } // Default rounded
+.rounded { @include rounded(); } // Default rounded
 .square { @include rounded(0); } // Alias for no radius
 
 @each $name, $value in $border-radii {
@@ -176,22 +179,22 @@ $border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
 .border-default { @include border-color(var(--border)); }
 .border-light { @include border-color(var(--border-light-color)); }
 .border-dark { @include border-color(var(--border-dark-color)); }
-.border-primary { @include border-color(var(--primary-color)); }
-.border-secondary { @include border-color(var(--secondary-color)); }
-.border-success { @include border-color(var(--success-color)); }
-.border-danger { @include border-color(var(--danger-color)); }
-.border-warning { @include border-color(var(--warning-color)); }
-.border-info { @include border-color(var(--info-color)); }
+.border-primary { @include border-color(var(--primary)); }
+.border-secondary { @include border-color(var(--secondary)); }
+.border-success { @include border-color(var(--success)); }
+.border-danger { @include border-color(var(--danger)); }
+.border-warning { @include border-color(var(--warning)); }
+.border-info { @include border-color(var(--info)); }
 
 // Common combined border utilities (style + color)
 .border-primary-solid {
   @include border-style(solid);
-  @include border-color(var(--primary-color));
+  @include border-color(var(--primary));
 }
 
 .border-danger-dashed {
   @include border-style(dashed);
-  @include border-color(var(--danger-color));
+  @include border-color(var(--danger));
 }
 
 //-----------------------------------------------
@@ -211,12 +214,12 @@ $border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
 .hover\:border-default:hover { @include border-color(var(--border)); }
 .hover\:border-light:hover { @include border-color(var(--border-light-color)); }
 .hover\:border-dark:hover { @include border-color(var(--border-dark-color)); }
-.hover\:border-primary:hover { @include border-color(var(--primary-color)); }
-.hover\:border-secondary:hover { @include border-color(var(--secondary-color)); }
-.hover\:border-success:hover { @include border-color(var(--success-color)); }
-.hover\:border-danger:hover { @include border-color(var(--danger-color)); }
-.hover\:border-warning:hover { @include border-color(var(--warning-color)); }
-.hover\:border-info:hover { @include border-color(var(--info-color)); }
+.hover\:border-primary:hover { @include border-color(var(--primary)); }
+.hover\:border-secondary:hover { @include border-color(var(--secondary)); }
+.hover\:border-success:hover { @include border-color(var(--success)); }
+.hover\:border-danger:hover { @include border-color(var(--danger)); }
+.hover\:border-warning:hover { @include border-color(var(--warning)); }
+.hover\:border-info:hover { @include border-color(var(--info)); }
 
 // Active state border classes
 @each $width in $border-widths {
@@ -231,12 +234,12 @@ $border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
 .active\:border-default:active { @include border-color(var(--border)); }
 .active\:border-light:active { @include border-color(var(--border-light-color)); }
 .active\:border-dark:active { @include border-color(var(--border-dark-color)); }
-.active\:border-primary:active { @include border-color(var(--primary-color)); }
-.active\:border-secondary:active { @include border-color(var(--secondary-color)); }
-.active\:border-success:active { @include border-color(var(--success-color)); }
-.active\:border-danger:active { @include border-color(var(--danger-color)); }
-.active\:border-warning:active { @include border-color(var(--warning-color)); }
-.active\:border-info:active { @include border-color(var(--info-color)); }
+.active\:border-primary:active { @include border-color(var(--primary)); }
+.active\:border-secondary:active { @include border-color(var(--secondary)); }
+.active\:border-success:active { @include border-color(var(--success)); }
+.active\:border-danger:active { @include border-color(var(--danger)); }
+.active\:border-warning:active { @include border-color(var(--warning)); }
+.active\:border-info:active { @include border-color(var(--info)); }
 
 // Focus state border classes
 @each $width in $border-widths {
@@ -251,12 +254,12 @@ $border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
 .focus\:border-default:focus { @include border-color(var(--border)); }
 .focus\:border-light:focus { @include border-color(var(--border-light-color)); }
 .focus\:border-dark:focus { @include border-color(var(--border-dark-color)); }
-.focus\:border-primary:focus { @include border-color(var(--primary-color)); }
-.focus\:border-secondary:focus { @include border-color(var(--secondary-color)); }
-.focus\:border-success:focus { @include border-color(var(--success-color)); }
-.focus\:border-danger:focus { @include border-color(var(--danger-color)); }
-.focus\:border-warning:focus { @include border-color(var(--warning-color)); }
-.focus\:border-info:focus { @include border-color(var(--info-color)); }
+.focus\:border-primary:focus { @include border-color(var(--primary)); }
+.focus\:border-secondary:focus { @include border-color(var(--secondary)); }
+.focus\:border-success:focus { @include border-color(var(--success)); }
+.focus\:border-danger:focus { @include border-color(var(--danger)); }
+.focus\:border-warning:focus { @include border-color(var(--warning)); }
+.focus\:border-info:focus { @include border-color(var(--info)); }
 
 //-----------------------------------------------
 // RESPONSIVE CLASSES
@@ -278,7 +281,7 @@ $border-styles: ('solid', 'dashed', 'dotted', 'double', 'none');
       .rounded-#{$name}\@#{$breakpoint} { @include rounded($value); }
     }
     
-    .rounded\@#{$breakpoint} { @include rounded(0.25rem); }
+    .rounded\@#{$breakpoint} { @include rounded(); }
     .square\@#{$breakpoint} { @include rounded(0); }
     .pill\@#{$breakpoint} { @include rounded(9999px); }
   }
