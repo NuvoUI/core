@@ -52,7 +52,6 @@ $shadow-sizes: (
 */
 
 @mixin shadow-base($x, $y, $blur, $spread, $color) {
-  transition: box-shadow 0.2s ease-in-out;
   box-shadow: $x $y $blur $spread $color;
 }
 
