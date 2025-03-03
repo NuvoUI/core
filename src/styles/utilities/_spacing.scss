@@ -308,91 +308,93 @@
   */
  @mixin gap-y($val) { $val: format-unit-value($val); row-gap: $val; }
 
-// -----------------------------------------------
-// AUTO MARGIN UTILITY CLASSES
-// -----------------------------------------------
+@if $generate-utility-classes {
+  // -----------------------------------------------
+  // AUTO MARGIN UTILITY CLASSES
+  // -----------------------------------------------
 
-.mx-auto { @include mx-auto; }
-.ml-auto { @include ml-auto; }
-.mr-auto { @include mr-auto; }
+  .mx-auto { @include mx-auto; }
+  .ml-auto { @include ml-auto; }
+  .mr-auto { @include mr-auto; }
 
-// -----------------------------------------------
-// GAP AUTO CLASS
-// -----------------------------------------------
+  // -----------------------------------------------
+  // GAP AUTO CLASS
+  // -----------------------------------------------
 
-.gap-auto { gap: auto; }
+  .gap-auto { gap: auto; }
 
-// -----------------------------------------------
-// SPACING CLASSES
-// -----------------------------------------------
+  // -----------------------------------------------
+  // SPACING CLASSES
+  // -----------------------------------------------
 
-@each $key, $value in $spacings {
-    // Padding classes
-    .p-#{$key} { @include p($value); }
-    .px-#{$key} { @include px($value); }
-    .py-#{$key} { @include py($value); }
-    .pt-#{$key} { @include pt($value); }
-    .pr-#{$key} { @include pr($value); }
-    .pb-#{$key} { @include pb($value); }
-    .pl-#{$key} { @include pl($value); }
+  @each $key, $value in $spacings {
+      // Padding classes
+      .p-#{$key} { @include p($value); }
+      .px-#{$key} { @include px($value); }
+      .py-#{$key} { @include py($value); }
+      .pt-#{$key} { @include pt($value); }
+      .pr-#{$key} { @include pr($value); }
+      .pb-#{$key} { @include pb($value); }
+      .pl-#{$key} { @include pl($value); }
 
-    // Margin classes
-    .m-#{$key} { @include m($value); }
-    .mx-#{$key} { @include mx($value); }
-    .my-#{$key} { @include my($value); }
-    .mt-#{$key} { @include mt($value); }
-    .mr-#{$key} { @include mr($value); }
-    .mb-#{$key} { @include mb($value); }
-    .ml-#{$key} { @include ml($value); }
-    
-    // Gap classes
-    .gap-#{$key} { @include gap($value); }
-    .gap-x-#{$key} { @include gap-x($value); }
-    .gap-y-#{$key} { @include gap-y($value); }
-
-    // Space classes
-    .space-x-#{$key} { @include space-x($value); }
-    .space-y-#{$key} { @include space-y($value); }
-}
-
-
-// -----------------------------------------------
-// RESPONSIVE SPACING CLASSES
-// -----------------------------------------------
-
-@each $breakpoint, $width in $breakpoints {
-    @media (min-width: #{$width}) {
-        .mx-auto\@#{$breakpoint} { @include mx-auto; }
-        .ml-auto\@#{$breakpoint} { @include ml-auto; }
-        .mr-auto\@#{$breakpoint} { @include mr-auto; }
-
-        // Generate utilities from spacing map
-        @each $key, $value in $spacings {
-            // Padding classes
-            .p-#{$key}\@#{$breakpoint} { @include p($value); }
-            .px-#{$key}\@#{$breakpoint} { @include px($value); }
-            .py-#{$key}\@#{$breakpoint} { @include py($value); }
-            .pt-#{$key}\@#{$breakpoint} { @include pt($value); }
-            .pr-#{$key}\@#{$breakpoint} { @include pr($value); }
-            .pb-#{$key}\@#{$breakpoint} { @include pb($value); }
-            .pl-#{$key}\@#{$breakpoint} { @include pl($value); }
-
-            // Margin classes
-            .m-#{$key}\@#{$breakpoint} { @include m($value); }
-            .mx-#{$key}\@#{$breakpoint} { @include mx($value); }
-            .my-#{$key}\@#{$breakpoint} { @include my($value); }
-            .mt-#{$key}\@#{$breakpoint} { @include mt($value); }
-            .mr-#{$key}\@#{$breakpoint} { @include mr($value); }
-            .mb-#{$key}\@#{$breakpoint} { @include mb($value); }
-            .ml-#{$key}\@#{$breakpoint} { @include ml($value); }
-
-            .gap-#{$key}\@#{$breakpoint} { gap: $value; }
-            .gap-x-#{$key}\@#{$breakpoint} { column-gap: $value; }
-            .gap-y-#{$key}\@#{$breakpoint} { row-gap: $value; }
+      // Margin classes
+      .m-#{$key} { @include m($value); }
+      .mx-#{$key} { @include mx($value); }
+      .my-#{$key} { @include my($value); }
+      .mt-#{$key} { @include mt($value); }
+      .mr-#{$key} { @include mr($value); }
+      .mb-#{$key} { @include mb($value); }
+      .ml-#{$key} { @include ml($value); }
       
-            // Space classes
-            .space-x-#{$key}\@#{$breakpoint} { @include space-x($value); }
-            .space-y-#{$key}\@#{$breakpoint} { @include space-y($value); }
-        }
-    }
+      // Gap classes
+      .gap-#{$key} { @include gap($value); }
+      .gap-x-#{$key} { @include gap-x($value); }
+      .gap-y-#{$key} { @include gap-y($value); }
+
+      // Space classes
+      .space-x-#{$key} { @include space-x($value); }
+      .space-y-#{$key} { @include space-y($value); }
+  }
+
+
+  // -----------------------------------------------
+  // RESPONSIVE SPACING CLASSES
+  // -----------------------------------------------
+
+  @each $breakpoint, $width in $breakpoints {
+      @media (min-width: #{$width}) {
+          .mx-auto\@#{$breakpoint} { @include mx-auto; }
+          .ml-auto\@#{$breakpoint} { @include ml-auto; }
+          .mr-auto\@#{$breakpoint} { @include mr-auto; }
+
+          // Generate utilities from spacing map
+          @each $key, $value in $spacings {
+              // Padding classes
+              .p-#{$key}\@#{$breakpoint} { @include p($value); }
+              .px-#{$key}\@#{$breakpoint} { @include px($value); }
+              .py-#{$key}\@#{$breakpoint} { @include py($value); }
+              .pt-#{$key}\@#{$breakpoint} { @include pt($value); }
+              .pr-#{$key}\@#{$breakpoint} { @include pr($value); }
+              .pb-#{$key}\@#{$breakpoint} { @include pb($value); }
+              .pl-#{$key}\@#{$breakpoint} { @include pl($value); }
+
+              // Margin classes
+              .m-#{$key}\@#{$breakpoint} { @include m($value); }
+              .mx-#{$key}\@#{$breakpoint} { @include mx($value); }
+              .my-#{$key}\@#{$breakpoint} { @include my($value); }
+              .mt-#{$key}\@#{$breakpoint} { @include mt($value); }
+              .mr-#{$key}\@#{$breakpoint} { @include mr($value); }
+              .mb-#{$key}\@#{$breakpoint} { @include mb($value); }
+              .ml-#{$key}\@#{$breakpoint} { @include ml($value); }
+
+              .gap-#{$key}\@#{$breakpoint} { gap: $value; }
+              .gap-x-#{$key}\@#{$breakpoint} { column-gap: $value; }
+              .gap-y-#{$key}\@#{$breakpoint} { row-gap: $value; }
+        
+              // Space classes
+              .space-x-#{$key}\@#{$breakpoint} { @include space-x($value); }
+              .space-y-#{$key}\@#{$breakpoint} { @include space-y($value); }
+          }
+      }
+  }
 }

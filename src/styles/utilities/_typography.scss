@@ -102,10 +102,6 @@
 @mixin whitespace-pre-wrap { white-space: pre-wrap; }
 
 
-
-
-
-
 @mixin responsive-typography($breakpoint: null) {
   $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
 
@@ -157,25 +153,26 @@
   .truncate-3#{$suffix} { @include truncate-lines(3); }
   .truncate-4#{$suffix} { @include truncate-lines(4); }
   .truncate-5#{$suffix} { @include truncate-lines(5); }
-
 }
 
-@include responsive-typography;
-.break-normal { @include break-normal; }
-.break-words { @include break-words; }
-.break-all { @include break-all; }
-.whitespace-normal { @include whitespace-normal; }
-.whitespace-nowrap { @include whitespace-nowrap; }
-.whitespace-pre { @include whitespace-pre; }
-.whitespace-pre-line { @include whitespace-pre-line; }
-.whitespace-pre-wrap { @include whitespace-pre-wrap; }
+@if VAR.$generate-utility-classes {
+  @include responsive-typography;
+  .break-normal { @include break-normal; }
+  .break-words { @include break-words; }
+  .break-all { @include break-all; }
+  .whitespace-normal { @include whitespace-normal; }
+  .whitespace-nowrap { @include whitespace-nowrap; }
+  .whitespace-pre { @include whitespace-pre; }
+  .whitespace-pre-line { @include whitespace-pre-line; }
+  .whitespace-pre-wrap { @include whitespace-pre-wrap; }
 
-@each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-        @each $size, $val in VAR.$font-sizes {
-            .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
-        }
-        @include responsive-typography($breakpoint);
-    }
+  @each $breakpoint, $width in VAR.$breakpoints {
+      @media (min-width: #{$width}) {
+          @each $size, $val in VAR.$font-sizes {
+              .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
+          }
+          @include responsive-typography($breakpoint);
+      }
+  }
+
 }
-

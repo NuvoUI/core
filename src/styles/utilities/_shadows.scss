@@ -90,144 +90,150 @@ $shadow-sizes: (
     $shadow-color;
 }
 
+@mixin elevation($i){
+  @if $i == 1 {
+    @include shadow("sm");
+  } @else if $i == 2 {
+    @include shadow("md");
+  } @else if $i == 3 {
+    @include shadow("lg");
+  } @else if $i == 4 {
+    @include shadow("xl");
+  } @else if $i == 5 {
+    @include shadow("monster");
+  }
+
+  z-index: $i;
+}
+
 // Utility Classes
-.shadow-none {
-  box-shadow: none !important;
-}
-
-@each $size, $values in $shadow-sizes {
-  .shadow-#{$size} {
-    @include shadow($size);
+@if VAR.$generate-utility-classes {
+  .shadow-none {
+    box-shadow: none !important;
   }
 
-  // Shadow with color variants
-  @each $color-name, $color-value in VAR.$shadow-colors {
-    @if $color-name != "default" {
-      .shadow-#{$size}-#{$color-name} {
-        @include shadow($size, $color-name);
-      }
+  @each $size, $values in $shadow-sizes {
+    .shadow-#{$size} {
+      @include shadow($size);
     }
-  }
 
-  .shadow-inset-#{$size} {
-    @include shadow-inset($size);
-  }
-
-  // Inset shadows with color variants
-  @each $color-name, $color-value in VAR.$shadow-colors {
-    @if $color-name != "default" {
-      .shadow-inset-#{$size}-#{$color-name} {
-        @include shadow-inset($size, $color-name);
-      }
-    }
-  }
-
-  // Hover shadows
-  .hover\:shadow-#{$size}:hover {
-    @include shadow($size);
-  }
-
-  // Hover shadows with color variants
-  @each $color-name, $color-value in VAR.$shadow-colors {
-    @if $color-name != "default" {
-      .hover\:shadow-#{$size}-#{$color-name}:hover {
-        @include shadow($size, $color-name);
-      }
-    }
-  }
-
-  // Focus shadows
-  .focus\:shadow-#{$size}:focus {
-    @include shadow($size);
-  }
-
-  // Focus shadows with color variants
-  @each $color-name, $color-value in VAR.$shadow-colors {
-    @if $color-name != "default" {
-      .focus\:shadow-#{$size}-#{$color-name}:focus {
-        @include shadow($size, $color-name);
-      }
-    }
-  }
-
-  // Active shadows
-  .active\:shadow-#{$size}:active {
-    @include shadow($size);
-  }
-
-  // Active shadows with color variants
-  @each $color-name, $color-value in VAR.$shadow-colors {
-    @if $color-name != "default" {
-      .active\:shadow-#{$size}-#{$color-name}:active {
-        @include shadow($size, $color-name);
-      }
-    }
-  }
-}
-
-// Responsive variants
-@each $breakpoint, $width in VAR.$breakpoints {
-  @media (min-width: #{$width}) {
-    @each $size, $values in $shadow-sizes {
-      // Regular shadows with breakpoints
-      .shadow-#{$size}\@#{$breakpoint} {
-        @include shadow($size);
-      }
-
-      // Shadows with color variants at breakpoints
-      @each $color-name, $color-value in VAR.$shadow-colors {
-        @if $color-name != "default" {
-          .shadow-#{$size}-#{$color-name}\@#{$breakpoint} {
-            @include shadow($size, $color-name);
-          }
+    // Shadow with color variants
+    @each $color-name, $color-value in VAR.$shadow-colors {
+      @if $color-name != "default" {
+        .shadow-#{$size}-#{$color-name} {
+          @include shadow($size, $color-name);
         }
       }
+    }
 
-      // Hover shadows with breakpoints
-      .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
-        @include shadow($size);
-      }
+    .shadow-inset-#{$size} {
+      @include shadow-inset($size);
+    }
 
-      // Hover shadows with color variants at breakpoints
-      @each $color-name, $color-value in VAR.$shadow-colors {
-        @if $color-name != "default" {
-          .hover\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:hover {
-            @include shadow($size, $color-name);
-          }
+    // Inset shadows with color variants
+    @each $color-name, $color-value in VAR.$shadow-colors {
+      @if $color-name != "default" {
+        .shadow-inset-#{$size}-#{$color-name} {
+          @include shadow-inset($size, $color-name);
         }
       }
+    }
 
-      // Focus shadows with breakpoints
-      .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
-        @include shadow($size);
+    // Hover shadows
+    .hover\:shadow-#{$size}:hover {
+      @include shadow($size);
+    }
+
+    // Hover shadows with color variants
+    @each $color-name, $color-value in VAR.$shadow-colors {
+      @if $color-name != "default" {
+        .hover\:shadow-#{$size}-#{$color-name}:hover {
+          @include shadow($size, $color-name);
+        }
       }
+    }
 
-      // Focus shadows with color variants at breakpoints
-      @each $color-name, $color-value in VAR.$shadow-colors {
-        @if $color-name != "default" {
-          .focus\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:focus {
-            @include shadow($size, $color-name);
-          }
+    // Focus shadows
+    .focus\:shadow-#{$size}:focus {
+      @include shadow($size);
+    }
+
+    // Focus shadows with color variants
+    @each $color-name, $color-value in VAR.$shadow-colors {
+      @if $color-name != "default" {
+        .focus\:shadow-#{$size}-#{$color-name}:focus {
+          @include shadow($size, $color-name);
+        }
+      }
+    }
+
+    // Active shadows
+    .active\:shadow-#{$size}:active {
+      @include shadow($size);
+    }
+
+    // Active shadows with color variants
+    @each $color-name, $color-value in VAR.$shadow-colors {
+      @if $color-name != "default" {
+        .active\:shadow-#{$size}-#{$color-name}:active {
+          @include shadow($size, $color-name);
         }
       }
     }
   }
-}
 
-@for $i from 1 through 5 {
-  .elevation-#{$i} {
-    @if $i == 1 {
-      @include shadow("sm");
-    } @else if $i == 2 {
-      @include shadow("md");
-    } @else if $i == 3 {
-      @include shadow("lg");
-    } @else if $i == 4 {
-      @include shadow("xl");
-    } @else if $i == 5 {
-      @include shadow("monster");
+  // Responsive variants
+  @each $breakpoint, $width in VAR.$breakpoints {
+    @media (min-width: #{$width}) {
+      @each $size, $values in $shadow-sizes {
+        // Regular shadows with breakpoints
+        .shadow-#{$size}\@#{$breakpoint} {
+          @include shadow($size);
+        }
+
+        // Shadows with color variants at breakpoints
+        @each $color-name, $color-value in VAR.$shadow-colors {
+          @if $color-name != "default" {
+            .shadow-#{$size}-#{$color-name}\@#{$breakpoint} {
+              @include shadow($size, $color-name);
+            }
+          }
+        }
+
+        // Hover shadows with breakpoints
+        .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
+          @include shadow($size);
+        }
+
+        // Hover shadows with color variants at breakpoints
+        @each $color-name, $color-value in VAR.$shadow-colors {
+          @if $color-name != "default" {
+            .hover\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:hover {
+              @include shadow($size, $color-name);
+            }
+          }
+        }
+
+        // Focus shadows with breakpoints
+        .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
+          @include shadow($size);
+        }
+
+        // Focus shadows with color variants at breakpoints
+        @each $color-name, $color-value in VAR.$shadow-colors {
+          @if $color-name != "default" {
+            .focus\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:focus {
+              @include shadow($size, $color-name);
+            }
+          }
+        }
+      }
     }
+  }
 
-    z-index: $i;
+  @for $i from 1 through 5 {
+    .elevation-#{$i} {
+      @include elevation($i);
+    }
   }
 }

@@ -32,65 +32,67 @@
 @mixin w-screen { & { width: 100vw; } }
 @mixin h-screen { & { height: 100dvh; } }
 
-.w-screen { @include w-screen; }
-.h-screen { @include h-screen; }
+@if VAR.$generate-utility-classes {
+    .w-screen { @include w-screen; }
+    .h-screen { @include h-screen; }
 
-// Width utilities need :not(.flex) to avoid conflicts with flex child sizing
-:not(.flex)>.w-auto { @include w-auto; }
-:not(.flex)>.w-full { @include w-full; }
+    // Width utilities need :not(.flex) to avoid conflicts with flex child sizing
+    :not(.flex)>.w-auto { @include w-auto; }
+    :not(.flex)>.w-full { @include w-full; }
 
-.h-auto { @include h-auto; }
-.h-full { @include h-full; }
-.min-w-full { @include min-w-full; }
-.max-w-full { @include max-w-full; }
-.min-h-full { @include min-h-full; }
-.max-h-full { @include max-h-full; }
+    .h-auto { @include h-auto; }
+    .h-full { @include h-full; }
+    .min-w-full { @include min-w-full; }
+    .max-w-full { @include max-w-full; }
+    .min-h-full { @include min-h-full; }
+    .max-h-full { @include max-h-full; }
 
-// Percentage widths
-@each $i in VAR.$percentages {
-    .w-#{$i}p { @include width-percent($i); }
-    .h-#{$i}p { @include height-percent($i); }
-    .min-w-#{$i}p { @include min-width-percent($i); }
-    .min-h-#{$i}p { @include min-height-percent($i); }
-    .max-w-#{$i}p { @include max-width-percent($i); }
-    .max-h-#{$i}p { @include max-height-percent($i); }
-}
+    // Percentage widths
+    @each $i in VAR.$percentages {
+        .w-#{$i}p { @include width-percent($i); }
+        .h-#{$i}p { @include height-percent($i); }
+        .min-w-#{$i}p { @include min-width-percent($i); }
+        .min-h-#{$i}p { @include min-height-percent($i); }
+        .max-w-#{$i}p { @include max-width-percent($i); }
+        .max-h-#{$i}p { @include max-height-percent($i); }
+    }
 
-// Generate utilities from spacing map
-@each $key, $value in VAR.$spacings {
-    .w-#{$key} { @include width($value); }
-    .h-#{$key} { @include height($value); }
-    .min-w-#{$key} { @include min-width($value); }
-    .min-h-#{$key} { @include min-height($value); }
-    .max-w-#{$key} { @include max-width($value); }
-    .max-h-#{$key} { @include max-height($value); }
-}
+    // Generate utilities from spacing map
+    @each $key, $value in VAR.$spacings {
+        .w-#{$key} { @include width($value); }
+        .h-#{$key} { @include height($value); }
+        .min-w-#{$key} { @include min-width($value); }
+        .min-h-#{$key} { @include min-height($value); }
+        .max-w-#{$key} { @include max-width($value); }
+        .max-h-#{$key} { @include max-height($value); }
+    }
 
-// Pixel widths based on spacing scale
-@each $breakpoint, $width in VAR.$breakpoints {
+    // Pixel widths based on spacing scale
+    @each $breakpoint, $width in VAR.$breakpoints {
 
-    .w-#{$breakpoint} { @include width($width); }
-    .min-w-#{$breakpoint} { @include min-width($width); }
-    .max-w-#{$breakpoint} { @include max-width($width); }
+        .w-#{$breakpoint} { @include width($width); }
+        .min-w-#{$breakpoint} { @include min-width($width); }
+        .max-w-#{$breakpoint} { @include max-width($width); }
 
-    @include MQ.media-up ($breakpoint) {
-        // Generate utilities from spacing map
-        @each $i in VAR.$percentages {
-            .w-#{$i}p\@#{$breakpoint} { @include width-percent($i); }
-            .h-#{$i}p\@#{$breakpoint} { @include height-percent($i); }
-            .min-w-#{$i}p\@#{$breakpoint} { @include min-width-percent($i); }
-            .min-h-#{$i}p\@#{$breakpoint} { @include min-height-percent($i); }
-            .max-w-#{$i}p\@#{$breakpoint} { @include max-width-percent($i); }
-            .max-h-#{$i}p\@#{$breakpoint} { @include max-height-percent($i); }
-        }
+        @include MQ.media-up ($breakpoint) {
+            // Generate utilities from spacing map
+            @each $i in VAR.$percentages {
+                .w-#{$i}p\@#{$breakpoint} { @include width-percent($i); }
+                .h-#{$i}p\@#{$breakpoint} { @include height-percent($i); }
+                .min-w-#{$i}p\@#{$breakpoint} { @include min-width-percent($i); }
+                .min-h-#{$i}p\@#{$breakpoint} { @include min-height-percent($i); }
+                .max-w-#{$i}p\@#{$breakpoint} { @include max-width-percent($i); }
+                .max-h-#{$i}p\@#{$breakpoint} { @include max-height-percent($i); }
+            }
 
-        @each $key, $value in VAR.$spacings {
-            .w-#{$key}\@#{$breakpoint} { @include width($value); }
-            .h-#{$key}\@#{$breakpoint} { @include height($value); }
-            .min-w-#{$key}\@#{$breakpoint} { @include min-width($value); }
-            .min-h-#{$key}\@#{$breakpoint} { @include min-height($value); }
-            .max-w-#{$key}\@#{$breakpoint} { @include max-width($value); }
-            .max-h-#{$key}\@#{$breakpoint} { @include max-height($value); }
+            @each $key, $value in VAR.$spacings {
+                .w-#{$key}\@#{$breakpoint} { @include width($value); }
+                .h-#{$key}\@#{$breakpoint} { @include height($value); }
+                .min-w-#{$key}\@#{$breakpoint} { @include min-width($value); }
+                .min-h-#{$key}\@#{$breakpoint} { @include min-height($value); }
+                .max-w-#{$key}\@#{$breakpoint} { @include max-width($value); }
+                .max-h-#{$key}\@#{$breakpoint} { @include max-height($value); }
+            }
         }
     }
 }

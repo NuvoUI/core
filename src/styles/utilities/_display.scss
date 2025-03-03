@@ -77,61 +77,63 @@
 @mixin overflow-y-auto { overflow-y: auto; }
 
 
-// Base Classes 
-.hide { @include hide; }
-.show { @include show; }
-.block { @include block; }
-.inline { @include inline; }
-.inline-block { @include inline-block; }
-.visible { @include visible; }
-.invisible { @include invisible; }
-.collapse { @include collapse; }
-.contents { @include contents; }
-.overflow-hidden { @include overflow-hidden; }
-.overflow-visible { @include overflow-visible; }
-.overflow-scroll { @include overflow-scroll; }
-.overflow-auto { @include overflow-auto; }
-.overflow-x-hidden { @include overflow-x-hidden; }
-.overflow-y-hidden { @include overflow-y-hidden; }
-.overflow-x-scroll { @include overflow-x-scroll; }
-.overflow-y-scroll { @include overflow-y-scroll; }
-.overflow-x-auto { @include overflow-x-auto; }
-.overflow-y-auto { @include overflow-y-auto; }
+@if $generate-utility-classes {
+  // Base Classes 
+  .hide { @include hide; }
+  .show { @include show; }
+  .block { @include block; }
+  .inline { @include inline; }
+  .inline-block { @include inline-block; }
+  .visible { @include visible; }
+  .invisible { @include invisible; }
+  .collapse { @include collapse; }
+  .contents { @include contents; }
+  .overflow-hidden { @include overflow-hidden; }
+  .overflow-visible { @include overflow-visible; }
+  .overflow-scroll { @include overflow-scroll; }
+  .overflow-auto { @include overflow-auto; }
+  .overflow-x-hidden { @include overflow-x-hidden; }
+  .overflow-y-hidden { @include overflow-y-hidden; }
+  .overflow-x-scroll { @include overflow-x-scroll; }
+  .overflow-y-scroll { @include overflow-y-scroll; }
+  .overflow-x-auto { @include overflow-x-auto; }
+  .overflow-y-auto { @include overflow-y-auto; }
 
 
-.d {
-  &-tbl { @include d-tbl; }
-  &-tbl-row { @include d-tbl-row; }
-  &-tbl-cell { @include d-tbl-cell; }
-}
-                 
-// Responsive Variants
-@each $breakpoint, $width in $breakpoints {
-  @media (min-width: #{$width}) {
-    .hide\@#{$breakpoint} { @include hide; }
-    .show\@#{$breakpoint} { @include show; }
-    .block\@#{$breakpoint} { @include block; }
-    .inline\@#{$breakpoint} { @include inline; }
-    .inline-block\@#{$breakpoint} { @include inline-block; }
-    .visible\@#{$breakpoint} { @include visible; }
-    .invisible\@#{$breakpoint} { @include invisible; }
-    .collapse\@#{$breakpoint} { @include collapse; }
-    .contents\@#{$breakpoint} { @include contents; }
-    .overflow-hidden\@#{$breakpoint} { @include overflow-hidden; }
-    .overflow-visible\@#{$breakpoint} { @include overflow-visible; }
-    .overflow-scroll\@#{$breakpoint} { @include overflow-scroll; }
-    .overflow-auto\@#{$breakpoint} { @include overflow-auto; }
-    .overflow-x-hidden\@#{$breakpoint} { @include overflow-x-hidden; }
-    .overflow-y-hidden\@#{$breakpoint} { @include overflow-y-hidden; }
-    .overflow-x-scroll\@#{$breakpoint} { @include overflow-x-scroll; }
-    .overflow-y-scroll\@#{$breakpoint} { @include overflow-y-scroll; }
-    .overflow-x-auto\@#{$breakpoint} { @include overflow-x-auto; }
-    .overflow-y-auto\@#{$breakpoint} { @include overflow-y-auto; }
+  .d {
+    &-tbl { @include d-tbl; }
+    &-tbl-row { @include d-tbl-row; }
+    &-tbl-cell { @include d-tbl-cell; }
+  }
+                  
+  // Responsive Variants
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+      .hide\@#{$breakpoint} { @include hide; }
+      .show\@#{$breakpoint} { @include show; }
+      .block\@#{$breakpoint} { @include block; }
+      .inline\@#{$breakpoint} { @include inline; }
+      .inline-block\@#{$breakpoint} { @include inline-block; }
+      .visible\@#{$breakpoint} { @include visible; }
+      .invisible\@#{$breakpoint} { @include invisible; }
+      .collapse\@#{$breakpoint} { @include collapse; }
+      .contents\@#{$breakpoint} { @include contents; }
+      .overflow-hidden\@#{$breakpoint} { @include overflow-hidden; }
+      .overflow-visible\@#{$breakpoint} { @include overflow-visible; }
+      .overflow-scroll\@#{$breakpoint} { @include overflow-scroll; }
+      .overflow-auto\@#{$breakpoint} { @include overflow-auto; }
+      .overflow-x-hidden\@#{$breakpoint} { @include overflow-x-hidden; }
+      .overflow-y-hidden\@#{$breakpoint} { @include overflow-y-hidden; }
+      .overflow-x-scroll\@#{$breakpoint} { @include overflow-x-scroll; }
+      .overflow-y-scroll\@#{$breakpoint} { @include overflow-y-scroll; }
+      .overflow-x-auto\@#{$breakpoint} { @include overflow-x-auto; }
+      .overflow-y-auto\@#{$breakpoint} { @include overflow-y-auto; }
 
-    .d {
-      &-tbl\@#{$breakpoint} { @include d-tbl; }
-      &-tbl-row\@#{$breakpoint} { @include d-tbl-row; }
-      &-tbl-cell\@#{$breakpoint} { @include d-tbl-cell; }
+      .d {
+        &-tbl\@#{$breakpoint} { @include d-tbl; }
+        &-tbl-row\@#{$breakpoint} { @include d-tbl-row; }
+        &-tbl-cell\@#{$breakpoint} { @include d-tbl-cell; }
+      }
     }
   }
 }

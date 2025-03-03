@@ -299,119 +299,121 @@
   flex: 0 0 math.percentage(math.div($size, VAR.$column-count));
 }
 
-// Base flex container
-.flex {
-  display: flex;
-  
-  // Direction modifiers
-  &.row { flex-direction: row; }
-  &.row-reverse { flex-direction: row-reverse; }
-  &.col { flex-direction: column; }
-  &.col-reverse { flex-direction: column-reverse; }
-  
-  // Wrap modifiers
-  &.wrap { flex-wrap: wrap; }
-  &.nowrap { flex-wrap: nowrap; }
-  &.wrap-reverse { flex-wrap: wrap-reverse; }
+@if VAR.$generate-utility-classes {
+  // Base flex container
+  .flex {
+    display: flex;
+    
+    // Direction modifiers
+    &.row { flex-direction: row; }
+    &.row-reverse { flex-direction: row-reverse; }
+    &.col { flex-direction: column; }
+    &.col-reverse { flex-direction: column-reverse; }
+    
+    // Wrap modifiers
+    &.wrap { flex-wrap: wrap; }
+    &.nowrap { flex-wrap: nowrap; }
+    &.wrap-reverse { flex-wrap: wrap-reverse; }
 
-  // Justify modifiers
-  &.start { justify-content: flex-start; }
-  &.end { justify-content: flex-end; }
-  &.center { justify-content: center; }
-  &.between { justify-content: space-between; }
-  &.around { justify-content: space-around; }
-  &.evenly { justify-content: space-evenly; }
-  
-  // Align modifiers
-  &.x-start { align-items: flex-start; }
-  &.x-end { align-items: flex-end; }
-  &.x-center { align-items: center; }
-  &.x-baseline { align-items: baseline; }
-  &.x-stretch { align-items: stretch; }
-  
-  &.x-content-start { align-content: flex-start; }
-  &.x-content-end { align-content: flex-end; }
-  &.x-content-center { align-content: center; }
-  &.x-content-between { align-content: space-between; }
-  &.x-content-around { align-content: space-around; }
-  &.x-content-evenly { align-content: space-evenly; }
-  &.x-content-stretch { align-content: stretch; }
+    // Justify modifiers
+    &.start { justify-content: flex-start; }
+    &.end { justify-content: flex-end; }
+    &.center { justify-content: center; }
+    &.between { justify-content: space-between; }
+    &.around { justify-content: space-around; }
+    &.evenly { justify-content: space-evenly; }
+    
+    // Align modifiers
+    &.x-start { align-items: flex-start; }
+    &.x-end { align-items: flex-end; }
+    &.x-center { align-items: center; }
+    &.x-baseline { align-items: baseline; }
+    &.x-stretch { align-items: stretch; }
+    
+    &.x-content-start { align-content: flex-start; }
+    &.x-content-end { align-content: flex-end; }
+    &.x-content-center { align-content: center; }
+    &.x-content-between { align-content: space-between; }
+    &.x-content-around { align-content: space-around; }
+    &.x-content-evenly { align-content: space-evenly; }
+    &.x-content-stretch { align-content: stretch; }
 
-  // Child flex items (using column count)
-  > .w-auto { @include f-w-auto; }
-  > .w-full { @include f-w-full; }
-  > .grow { @include grow; }
-  > .no-grow { @include no-grow; }
+    // Child flex items (using column count)
+    > .w-auto { @include f-w-auto; }
+    > .w-full { @include f-w-full; }
+    > .grow { @include grow; }
+    > .no-grow { @include no-grow; }
 
-  > .order-first { order: -1; }
-  > .order-last { order: 9999; }
-  > .order-none { order: 0; }
+    > .order-first { order: -1; }
+    > .order-last { order: 9999; }
+    > .order-none { order: 0; }
 
-  > .shrink { @include shrink; }
-  > .shrink-0 { @include shrink-0; }
-  > .shrink-2 { @include shrink-2; }
-  @for $i from 1 through VAR.$column-count {
-    > .w-#{$i} { @include w-col($i); }
-    > .order-#{$i} { order: $i; }
+    > .shrink { @include shrink; }
+    > .shrink-0 { @include shrink-0; }
+    > .shrink-2 { @include shrink-2; }
+    @for $i from 1 through VAR.$column-count {
+      > .w-#{$i} { @include w-col($i); }
+      > .order-#{$i} { order: $i; }
+    }
   }
-}
 
-@each $breakpoint, $width in VAR.$breakpoints {
-  // Get breakpoint value using FN function
-  $bp-val: FN.get-breakpoint-value($breakpoint);
-  
-  @media (min-width: #{$bp-val}) {
-    .flex {
-      // Direction
-      &.row\@#{$breakpoint} { flex-direction: row; }
-      &.row-reverse\@#{$breakpoint} { flex-direction: row-reverse; }
-      &.col\@#{$breakpoint} { flex-direction: column; }
-      &.col-reverse\@#{$breakpoint} { flex-direction: column-reverse; }
-      
-      // Wrap
-      &.wrap\@#{$breakpoint} { flex-wrap: wrap; }
-      &.nowrap\@#{$breakpoint} { flex-wrap: nowrap; }
-      &.wrap-reverse\@#{$breakpoint} { flex-wrap: wrap-reverse; }
-      
-      // Justify
-      &.start\@#{$breakpoint} { justify-content: flex-start; }
-      &.end\@#{$breakpoint} { justify-content: flex-end; }
-      &.center\@#{$breakpoint} { justify-content: center; }
-      &.between\@#{$breakpoint} { justify-content: space-between; }
-      &.around\@#{$breakpoint} { justify-content: space-around; }
-      &.evenly\@#{$breakpoint} { justify-content: space-evenly; }
+  @each $breakpoint, $width in VAR.$breakpoints {
+    // Get breakpoint value using FN function
+    $bp-val: FN.get-breakpoint-value($breakpoint);
+    
+    @media (min-width: #{$bp-val}) {
+      .flex {
+        // Direction
+        &.row\@#{$breakpoint} { flex-direction: row; }
+        &.row-reverse\@#{$breakpoint} { flex-direction: row-reverse; }
+        &.col\@#{$breakpoint} { flex-direction: column; }
+        &.col-reverse\@#{$breakpoint} { flex-direction: column-reverse; }
+        
+        // Wrap
+        &.wrap\@#{$breakpoint} { flex-wrap: wrap; }
+        &.nowrap\@#{$breakpoint} { flex-wrap: nowrap; }
+        &.wrap-reverse\@#{$breakpoint} { flex-wrap: wrap-reverse; }
+        
+        // Justify
+        &.start\@#{$breakpoint} { justify-content: flex-start; }
+        &.end\@#{$breakpoint} { justify-content: flex-end; }
+        &.center\@#{$breakpoint} { justify-content: center; }
+        &.between\@#{$breakpoint} { justify-content: space-between; }
+        &.around\@#{$breakpoint} { justify-content: space-around; }
+        &.evenly\@#{$breakpoint} { justify-content: space-evenly; }
 
-      // Align
-      &.x-start\@#{$breakpoint} { align-items: flex-start; }
-      &.x-end\@#{$breakpoint} { align-items: flex-end; }
-      &.x-center\@#{$breakpoint} { align-items: center; }
-      &.x-baseline\@#{$breakpoint} { align-items: baseline; }
-      &.x-stretch\@#{$breakpoint} { align-items: stretch; }
+        // Align
+        &.x-start\@#{$breakpoint} { align-items: flex-start; }
+        &.x-end\@#{$breakpoint} { align-items: flex-end; }
+        &.x-center\@#{$breakpoint} { align-items: center; }
+        &.x-baseline\@#{$breakpoint} { align-items: baseline; }
+        &.x-stretch\@#{$breakpoint} { align-items: stretch; }
 
-      &.x-content-start\@#{$breakpoint} { align-content: flex-start; }
-      &.x-content-end\@#{$breakpoint} { align-content: flex-end; }
-      &.x-content-center\@#{$breakpoint} { align-content: center; }
-      &.x-content-between\@#{$breakpoint} { align-content: space-between; }
-      &.x-content-around\@#{$breakpoint} { align-content: space-around; }
-      &.x-content-evenly\@#{$breakpoint} { align-content: space-evenly; }
-      &.x-content-stretch\@#{$breakpoint} { align-content: stretch; }
-      
-      // Width (using column count)
-      & > .w-auto\@#{$breakpoint} { @include f-w-auto; }
-      & > .w-full\@#{$breakpoint} { @include f-w-full; }
-      & > .grow\@#{$breakpoint} { @include grow; }
-      & > .no-grow\@#{$breakpoint} { @include no-grow; }
-      & > .order-first\@#{$breakpoint} { order: -1; }
-      & > .order-last\@#{$breakpoint} { order: 9999; }
-      & > .order-none\@#{$breakpoint} { order: 0; }
-      & > .shrink\@#{$breakpoint} { @include shrink; }
-      & > .shrink-0\@#{$breakpoint} { @include shrink-0; }
-      & > .shrink-2\@#{$breakpoint} { @include shrink-2; }
+        &.x-content-start\@#{$breakpoint} { align-content: flex-start; }
+        &.x-content-end\@#{$breakpoint} { align-content: flex-end; }
+        &.x-content-center\@#{$breakpoint} { align-content: center; }
+        &.x-content-between\@#{$breakpoint} { align-content: space-between; }
+        &.x-content-around\@#{$breakpoint} { align-content: space-around; }
+        &.x-content-evenly\@#{$breakpoint} { align-content: space-evenly; }
+        &.x-content-stretch\@#{$breakpoint} { align-content: stretch; }
+        
+        // Width (using column count)
+        & > .w-auto\@#{$breakpoint} { @include f-w-auto; }
+        & > .w-full\@#{$breakpoint} { @include f-w-full; }
+        & > .grow\@#{$breakpoint} { @include grow; }
+        & > .no-grow\@#{$breakpoint} { @include no-grow; }
+        & > .order-first\@#{$breakpoint} { order: -1; }
+        & > .order-last\@#{$breakpoint} { order: 9999; }
+        & > .order-none\@#{$breakpoint} { order: 0; }
+        & > .shrink\@#{$breakpoint} { @include shrink; }
+        & > .shrink-0\@#{$breakpoint} { @include shrink-0; }
+        & > .shrink-2\@#{$breakpoint} { @include shrink-2; }
 
-      @for $i from 1 through VAR.$column-count {
-        & > .w-#{$i}\@#{$breakpoint} { @include w-col($i); }
-        & > .col-#{$i}\@#{$breakpoint} { @include w-col($i); }
-        & > .order-#{$i}\@#{$breakpoint} { order: $i; }
+        @for $i from 1 through VAR.$column-count {
+          & > .w-#{$i}\@#{$breakpoint} { @include w-col($i); }
+          & > .col-#{$i}\@#{$breakpoint} { @include w-col($i); }
+          & > .order-#{$i}\@#{$breakpoint} { order: $i; }
+        }
       }
     }
   }

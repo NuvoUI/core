@@ -81,17 +81,19 @@
   container-name: $name;
 }
 
-// Utility classes
-.container-inline-size {
-  container-type: inline-size;
-}
+@if $generate-utility-classes {
+  // Utility classes
+  .container-inline-size {
+    container-type: inline-size;
+  }
 
-.container-size {
-  container-type: size;
-}
+  .container-size {
+    container-type: size;
+  }
 
-@each $name in ("main", "sidebar", "card", "section") {
-  .container-#{$name} {
-    container-name: $name;
+  @each $name in ("main", "sidebar", "card", "section") {
+    .container-#{$name} {
+      container-name: $name;
+    }
   }
 }

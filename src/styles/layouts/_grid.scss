@@ -51,6 +51,14 @@
 
 // Grid Alignment Mixins
 
+// Alignment Classes
+$alignments: (
+  'start': start,
+  'end': end,
+  'center': center,
+  'stretch': stretch
+);
+
 /**
  * @description justify-items container.
  * @param {string} $value - The value for the justify-items property.
@@ -88,86 +96,80 @@
   grid-row: $row;
 }
 
-// Classes
-.grid { @include grid; }
-.grid.inline { @include grid-inline; }
+@if VAR.$generate-utility-classes {
+  // Classes
+  .grid { @include grid; }
+  .grid.inline { @include grid-inline; }
 
 
-@for $i from 1 through VAR.$column-count {
-  .grid.cols-#{$i} { @include cols($i); }
-  .grid.rows-#{$i} { @include rows($i); }
-}
-
-// Grid Template Classes
-@each $breakpoint, $width in VAR.$breakpoints {
-  // Responsive grid columns
-  @media (min-width: #{$width}) {
-    @for $i from 1 through VAR.$column-count {
-      .grid.cols-#{$i}\@#{$breakpoint} { @include cols($i); }
-      .grid.rows-#{$i}\@#{$breakpoint} { @include rows($i); }
-    }
-  }
-}
-
-
-// Generate Column Span Classes with Responsive Variants
-@for $i from 1 through VAR.$column-count {
-  .span-col-#{$i} {
-    @include span-col($i);
+  @for $i from 1 through VAR.$column-count {
+    .grid.cols-#{$i} { @include cols($i); }
+    .grid.rows-#{$i} { @include rows($i); }
   }
 
-  .span-row-#{$i} {
-    @include span-row($i);
-  }
-
+  // Grid Template Classes
   @each $breakpoint, $width in VAR.$breakpoints {
+    // Responsive grid columns
     @media (min-width: #{$width}) {
-      .span-col-#{$i}\@#{$breakpoint} {
-        @include span-col($i);
-      }
-
-      .span-row-#{$i}\@#{$breakpoint} {
-        @include span-row($i);
+      @for $i from 1 through VAR.$column-count {
+        .grid.cols-#{$i}\@#{$breakpoint} { @include cols($i); }
+        .grid.rows-#{$i}\@#{$breakpoint} { @include rows($i); }
       }
     }
   }
-}
 
 
-// Auto-fit/fill Classes
-@each $size, $width in VAR.$grid-item-sizes {
-  .grid.auto-fit-#{$size} { @include auto-fit($width); }
-  .grid.auto-fill-#{$size} { @include auto-fill($width); }
-}
+  // Generate Column Span Classes with Responsive Variants
+  @for $i from 1 through VAR.$column-count {
+    .span-col-#{$i} {
+      @include span-col($i);
+    }
 
-// Flow Classes
-.grid.flow-row { @include flow-in-row; }
-.grid.flow-col { @include flow-in-col; }
-.grid.flow-dense { @include flow-dense-items; }
+    .span-row-#{$i} {
+      @include span-row($i);
+    }
 
-// Alignment Classes
-$alignments: (
-  'start': start,
-  'end': end,
-  'center': center,
-  'stretch': stretch
-);
+    @each $breakpoint, $width in VAR.$breakpoints {
+      @media (min-width: #{$width}) {
+        .span-col-#{$i}\@#{$breakpoint} {
+          @include span-col($i);
+        }
 
-@each $name, $value in $alignments {
-  .justify-items-#{$name} { justify-items: $value; }
-  .align-items-#{$name} { align-items: $value; }
-  .place-items-#{$name} { place-items: $value; }
-
-  @each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-      .justify-items-#{$name}\@#{$breakpoint} {
-        justify-items: $value;
+        .span-row-#{$i}\@#{$breakpoint} {
+          @include span-row($i);
+        }
       }
-      .align-items-#{$name}\@#{$breakpoint} {
-        align-items: $value;
-      }
-      .place-items-#{$name}\@#{$breakpoint} {  
-        place-items: $value;
+    }
+  }
+
+
+  // Auto-fit/fill Classes
+  @each $size, $width in VAR.$grid-item-sizes {
+    .grid.auto-fit-#{$size} { @include auto-fit($width); }
+    .grid.auto-fill-#{$size} { @include auto-fill($width); }
+  }
+
+  // Flow Classes
+  .grid.flow-row { @include flow-in-row; }
+  .grid.flow-col { @include flow-in-col; }
+  .grid.flow-dense { @include flow-dense-items; }
+
+  @each $name, $value in $alignments {
+    .justify-items-#{$name} { justify-items: $value; }
+    .align-items-#{$name} { align-items: $value; }
+    .place-items-#{$name} { place-items: $value; }
+
+    @each $breakpoint, $width in VAR.$breakpoints {
+      @media (min-width: #{$width}) {
+        .justify-items-#{$name}\@#{$breakpoint} {
+          justify-items: $value;
+        }
+        .align-items-#{$name}\@#{$breakpoint} {
+          align-items: $value;
+        }
+        .place-items-#{$name}\@#{$breakpoint} {  
+          place-items: $value;
+        }
       }
     }
   }

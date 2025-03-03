@@ -174,39 +174,40 @@
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
+@if $generate-utility-classes {
+  // Position Classes
+  .static { @include static; }
+  .relative { @include relative; }
+  .absolute { @include absolute; }
+  .fixed { @include fixed; }
+  .sticky { @include sticky; }
 
-// Position Classes
-.static { @include static; }
-.relative { @include relative; }
-.absolute { @include absolute; }
-.fixed { @include fixed; }
-.sticky { @include sticky; }
+  // Placement Classes
+  @each $key, $value in $spacings {
+    .top-#{$key} { @include top($value); }
+    .right-#{$key} { @include right($value); }
+    .bottom-#{$key} { @include bottom($value); }
+    .left-#{$key} { @include left($value); }
+  }
 
-// Placement Classes
-@each $key, $value in $spacings {
-  .top-#{$key} { @include top($value); }
-  .right-#{$key} { @include right($value); }
-  .bottom-#{$key} { @include bottom($value); }
-  .left-#{$key} { @include left($value); }
-}
+  // -----------------------------------------------
+  // RESPONSIVE CLASSES
+  // -----------------------------------------------
 
-// -----------------------------------------------
-// RESPONSIVE CLASSES
-// -----------------------------------------------
-
-// Responsive Position Classes
-@each $breakpoint, $width in $breakpoints {
-  @media (min-width: #{$width}) {
-    .static\@#{$breakpoint} {@include static;}
-    .relative\@#{$breakpoint} {@include relative;}
-    .absolute\@#{$breakpoint} {@include absolute;}
-    .fixed\@#{$breakpoint} {@include fixed;}
-    .sticky\@#{$breakpoint} {@include sticky;}
-    @each $key, $value in $spacings {
-        .top-#{$key}\@#{$breakpoint} {@include top($value);}
-        .right-#{$key}\@#{$breakpoint} {@include right($value);}
-        .bottom-#{$key}\@#{$breakpoint} {@include bottom($value);}
-        .left-#{$key}\@#{$breakpoint} {@include left($value);}
+  // Responsive Position Classes
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+      .static\@#{$breakpoint} {@include static;}
+      .relative\@#{$breakpoint} {@include relative;}
+      .absolute\@#{$breakpoint} {@include absolute;}
+      .fixed\@#{$breakpoint} {@include fixed;}
+      .sticky\@#{$breakpoint} {@include sticky;}
+      @each $key, $value in $spacings {
+          .top-#{$key}\@#{$breakpoint} {@include top($value);}
+          .right-#{$key}\@#{$breakpoint} {@include right($value);}
+          .bottom-#{$key}\@#{$breakpoint} {@include bottom($value);}
+          .left-#{$key}\@#{$breakpoint} {@include left($value);}
+      }
     }
   }
 }
