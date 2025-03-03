@@ -1,5 +1,7 @@
 # NuvoUI
 
+_Human-readable SCSS for modern devs. Discover NuvoUI_
+
 [![GitHub stars](https://img.shields.io/github/stars/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
 [![GitHub forks](https://img.shields.io/github/forks/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
 [![npm version](https://img.shields.io/npm/v/@nuvoui/core?style=flat-square&color=FF6F00)](https://www.npmjs.com/package/@nuvoui/core)
