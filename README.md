@@ -180,11 +180,9 @@ For complete documentation, examples, and guides:
 
 ### Community & Support
 
-- [GitHub Discussions](https://github.com/NuvoUI/core/discussions) - Ask questions & share ideas
 - [Discord Community](https://discord.gg/nWGsbQKE) - Chat with the team & other users
 - [X @NuvoUI](https://x.com/NuvoUi) - Latest updates and announcements
 - [GitHub Issues](https://github.com/NuvoUI/core/issues) - Bug reports & feature requests
-
 
 
 ## License
