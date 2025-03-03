@@ -2,6 +2,7 @@
 // Module: Media Queries
 
 @use "sass:map";
+@use "sass:math";
 @use "sass:meta";
 @use "../abstracts" as *;
 @use "../abstracts/functions" as FN;
@@ -12,13 +13,25 @@
  * @param {string} $type - The media query type (e.g. 'lg', 'md').
  */
 @mixin media-up($breakpoint) {
-  @media screen and (min-width: FN.get-breakpoint-value($breakpoint)) {
+  $blueprint-value: FN.get-breakpoint-value($breakpoint);
+  $unit: math.unit($blueprint-value);
+  @if $unit == '' {
+    $blueprint-value: $blueprint-value * 1px; 
+    $unit: 'px';
+  }
+  
+  @media screen and (min-width: FN.get-breakpoint-value($blueprint-value)) {
     @content;
   }
 }
 
 @mixin media-down($breakpoint) {
-  $val: FN.get-breakpoint-value($breakpoint) - 0.01rm;
+  $blueprint-value: FN.get-breakpoint-value($breakpoint);
+  $unit: math.unit($blueprint-value);
+  @if $unit == '' {
+    $blueprint-value: $blueprint-value * 1px; 
+  }
+  $val: $blueprint-value - 0.01;
   @media screen and (max-width: #{$val}) {
     @content;
   }
@@ -26,7 +39,13 @@
 
 @mixin media-between($lower, $upper) {
   $lower-val: FN.get-breakpoint-value($lower);
-  $upper-val: FN.get-breakpoint-value($upper) - 0.01rm;
+  $upper-val: FN.get-breakpoint-value($upper);
+  $unit: math.unit($upper-val);
+  @if $unit == '' {
+    $upper-val: $upper-val * 1px; 
+  }
+  $upper-val: $blueprint-value - 0.01;
+
   @media screen and (min-width: #{$lower-val}) and (max-width: #{$upper-val}) {
     @content;
   }
