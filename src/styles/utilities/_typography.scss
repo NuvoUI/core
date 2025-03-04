@@ -51,13 +51,35 @@
 @mixin font-extrabold { & { font-weight: 800; } }
 @mixin font-black { & { font-weight: 900; } }
 
+
+@mixin leading($value){
+  & {
+    @if type-of($value) == 'number' {
+      line-height: $value;
+    } @else if $value == 'none' {
+      line-height: 1;
+    } @else if $value == 'tight' {
+      line-height: 1.25;
+    } @else if $value == 'snug' {
+      line-height: 1.375;
+    } @else if $value == 'normal' {
+      line-height: 1.5;
+    } @else if $value == 'relaxed' {
+      line-height: 1.625;
+    } @else if $value == 'loose' {
+      line-height: 2;
+    } @else {
+      line-height: $value;
+    }
+  }
+}
 // Line heights
-@mixin leading-none { & { line-height: 1; } }
-@mixin leading-tight { & { line-height: 1.25; } }
-@mixin leading-snug { & { line-height: 1.375; } }
-@mixin leading-normal { & { line-height: 1.5; } }
-@mixin leading-relaxed { & { line-height: 1.625; } }
-@mixin leading-loose { & { line-height: 2; } }
+@mixin leading-none { & { @include leading(none);} }
+@mixin leading-tight { & { @include leading(tight);} }
+@mixin leading-snug { & { @include leading(snug);} }
+@mixin leading-normal { & { @include leading(normal);} }
+@mixin leading-relaxed { & { @include leading(relaxed);} }
+@mixin leading-loose { & { @include leading(loose);} }
 
 // Text alignment
 @mixin text-left { & { text-align: left; } }
@@ -187,6 +209,13 @@
   .truncate-3#{$suffix} { @include truncate-lines(3); }
   .truncate-4#{$suffix} { @include truncate-lines(4); }
   .truncate-5#{$suffix} { @include truncate-lines(5); }
+
+  .tracking-tighter#{$suffix} { @include tracking(tighter) };
+  .tracking-tight#{$suffix} { @include tracking(tight) };
+  .tracking-normal#{$suffix} { @include tracking(normal) };
+  .tracking-wide#{$suffix} { @include tracking(wide) };
+  .tracking-wider#{$suffix} { @include tracking(wider) };
+  .tracking-widest#{$suffix} { @include tracking(widest) };
 }
 
 @if VAR.$generate-utility-classes {
