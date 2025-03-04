@@ -219,13 +219,13 @@
 .glass-effect {
   @include COL.backdrop-filter(blur(8px));
 
-  background-color: rgb(255 255 255 / 10%);
-  border: 1px solid rgb(255 255 255 / 20%);
+  & { background-color: rgb(255 255 255 / 10%); }
+  & { border: 1px solid rgb(255 255 255 / 20%); }
 }
 
 .frosted-glass {
   @include COL.backdrop-filter(blur(15px));
   
-  background-color: rgb(255 255 255 / 70%);
-  border: 1px solid rgb(255 255 255 / 80%);
+  & { background-color: rgb(255 255 255 / 70%); }
+  & { border: 1px solid rgb(255 255 255 / 80%); }
 }
