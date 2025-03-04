@@ -1,9 +1,9 @@
 @use '../abstracts'  as VAR;
 
-@mixin align-baseline { vertical-align: baseline; }
-@mixin align-top { vertical-align: top; }
-@mixin align-middle { vertical-align: middle; }
-@mixin align-bottom { vertical-align: bottom; }
+@mixin align-baseline { & { vertical-align: baseline; } }
+@mixin align-top { & { vertical-align: top; } }
+@mixin align-middle { & { vertical-align: middle; } }
+@mixin align-bottom { & { vertical-align: bottom; } }
 
 @if VAR.$generate-utility-classes {
 .align-baseline { @include align-baseline; }

@@ -110,14 +110,14 @@ $colors-primitives: ();
     }
 }
 @mixin gradient($direction, $colors...) {
-    background-image: linear-gradient($direction, $colors);
+    & { background-image: linear-gradient($direction, $colors); }
 }
 
 // Filter Mixins
 @mixin backdrop-filter($value) {
-    backdrop-filter: $value;
+    & { backdrop-filter: $value; }
 }
 
 @mixin filter($value) {
-    filter: $value;
+    & { filter: $value; }
 } 

@@ -77,7 +77,7 @@ $generated-keyframes: ();
 
 @mixin hover-ready {
   & {
-    transition-property: color, background-color, border-color, box-shadow, opacity, border-radius;
+    transition-property: all;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out; 
   }
