@@ -2,6 +2,7 @@
 // Module: Text
 
 @use 'sass:map';
+@use 'sass:meta';
 
 // Import variables
 @use '../abstracts'  as VAR;
@@ -54,7 +55,7 @@
 
 @mixin leading($value){
   & {
-    @if type-of($value) == 'number' {
+    @if meta.type-of($value) == 'number' {
       line-height: $value;
     } @else if $value == 'none' {
       line-height: 1;
@@ -130,7 +131,7 @@
 // Custom letter spacing mixin with value
 @mixin tracking($value) {
   & {
-    @if type-of($value) == 'number' {
+    @if meta.type-of($value) == 'number' {
       letter-spacing: $value;
     } @else if $value == 'tighter' {
       letter-spacing: -0.05em;
