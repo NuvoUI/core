@@ -171,6 +171,33 @@
 
 
 
+ // todo: Documentation
+ @mixin absolute-center {
+  & {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+   
+    --translate-x: -50%;
+    --translate-y: -50%;
+   
+    transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
+  }
+}
+
+// todo: Documentation
+// Fractional and percentage placements
+$position-fractions: (
+  '25p': 25%,
+  '33p': 33.333%,
+  '50p': 50%,
+  '66p': 66.667%,
+  '75p': 75%,
+  "100p": 100%
+);
+
+
+
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
@@ -181,6 +208,14 @@
   .absolute { @include absolute; }
   .fixed { @include fixed; }
   .sticky { @include sticky; }
+  .absolute-center { @include absolute-center; } 
+
+  @each $key, $value in $position-fractions {
+    .top-#{$key} { @include top($value); }
+    .right-#{$key} { @include right($value); }
+    .bottom-#{$key} { @include bottom($value); }
+    .left-#{$key} { @include left($value); }
+  }
 
   // Placement Classes
   @each $key, $value in $spacings {
@@ -202,6 +237,16 @@
       .absolute\@#{$breakpoint} {@include absolute;}
       .fixed\@#{$breakpoint} {@include fixed;}
       .sticky\@#{$breakpoint} {@include sticky;}
+      .absolute-center\@#{$breakpoint} { @include absolute-center; }
+
+      // Fractional responsive placements
+      @each $key, $value in $position-fractions {
+        .top-#{$key}\@#{$breakpoint} { @include top($value); }
+        .right-#{$key}\@#{$breakpoint} { @include right($value); }
+        .bottom-#{$key}\@#{$breakpoint} { @include bottom($value); }
+        .left-#{$key}\@#{$breakpoint} { @include left($value); }
+      }
+
       @each $key, $value in $spacings {
           .top-#{$key}\@#{$breakpoint} {@include top($value);}
           .right-#{$key}\@#{$breakpoint} {@include right($value);}
