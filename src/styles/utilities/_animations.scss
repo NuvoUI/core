@@ -2,6 +2,7 @@
 
 @use "sass:map";
 @use "../abstracts/functions" as *;
+@use "../abstracts" as VAR;
 
 $generated-keyframes: ();
 
@@ -80,5 +81,61 @@ $generated-keyframes: ();
     transition-property: all;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out; 
+  }
+}
+
+@if VAR.$generate-utility-classes {
+  .anim__bounce {
+    @include animate-bounce((
+      vertical: 50%,
+      horizontal: 50%,
+      duration: 1s,
+      timing: ease-in-out,
+      iteration: infinite,
+    ));
+  }
+
+  .anim__bounce-sm {
+    @include animate-bounce((
+      vertical: 25%,
+      horizontal: 25%,
+      duration: 1s,
+      timing: ease-in-out,
+      iteration: infinite,
+    ));
+  }
+
+  .anim__bounce-md {
+    @include animate-bounce((
+      vertical: 50%,
+      horizontal: 50%,
+      duration: 1s,
+      timing: ease-in-out,
+      iteration: infinite,
+    ));
+  }
+
+  .anim__bounce-lg {
+    @include animate-bounce((
+      vertical: 75%,
+      horizontal: 75%,
+      duration: 1s,
+      timing: ease-in-out,
+      iteration: infinite,
+    ));
+  }
+
+  .anim__bounce-xl {
+    @include animate-bounce((
+      vertical: 100%,
+      horizontal: 100%,
+      duration: 1s,
+      timing: ease-in-out,
+      iteration: infinite,
+    ));
+  }
+
+  .hover-ready{
+    @include hover-ready;
   }
 }
