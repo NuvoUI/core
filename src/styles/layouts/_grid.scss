@@ -78,8 +78,8 @@ $alignments: (
 @mixin place-items($value) {place-items: $value;}
 
 // Grid Item Placement Mixins
-@mixin span-col($span) {grid-column: span $span / span $span;}
-@mixin span-row($span) {grid-row: span $span / span $span;}
+@mixin col-span($span) {grid-column: span $span / span $span;}
+@mixin row-span($span) {grid-row: span $span / span $span;}
 @mixin col-start($start) {grid-column-start: $start;}
 @mixin col-end($end) {grid-column-end: $end;}
 @mixin row-start($start) {grid-row-start: $start;}
@@ -121,22 +121,22 @@ $alignments: (
 
   // Generate Column Span Classes with Responsive Variants
   @for $i from 1 through VAR.$column-count {
-    .span-col-#{$i} {
-      @include span-col($i);
+    .col-span-#{$i} {
+      @include col-span($i);
     }
 
-    .span-row-#{$i} {
-      @include span-row($i);
+    .row-span-#{$i} {
+      @include row-span($i);
     }
 
     @each $breakpoint, $width in VAR.$breakpoints {
       @media (min-width: #{$width}) {
-        .span-col-#{$i}\@#{$breakpoint} {
-          @include span-col($i);
+        .col-span-#{$i}\@#{$breakpoint} {
+          @include col-span($i);
         }
 
-        .span-row-#{$i}\@#{$breakpoint} {
-          @include span-row($i);
+        .row-span-#{$i}\@#{$breakpoint} {
+          @include row-span($i);
         }
       }
     }
