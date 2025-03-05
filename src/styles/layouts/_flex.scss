@@ -74,7 +74,9 @@
  * @description Sets flex-direction to column.
  * @dependencies flex | flex-inline
  */
-@mixin col {& { flex-direction: column;}}
+@mixin col {
+  flex-direction: column;
+}
 
 /**
  * @description Sets flex-direction to column-reverse.
@@ -274,12 +276,12 @@
 /**
  * @description Sets flex to 0 0 100%
  */
-@mixin f-w-full {& { flex: 0 0 100%;}}
+@mixin fill-full {& { flex: 0 0 100%;}}
 
 /**
  * @description Sets flex to 1 1 auto - allows the item to grow and shrink.
  */
-@mixin f-w-auto {& { flex: 1 1 auto;}}
+@mixin fill-auto {& { flex: 1 1 auto;}}
 
 /**
  * @description Sets flex to 1 1 0% - allows the item to grow but not shrink.
@@ -295,7 +297,7 @@
  * @description Sets how many columns this would take using percentage of VAR.$column-count.
  * @param {Number} $size - The number of columns to span.
  */
-@mixin w-col($size) {
+@mixin fill($size) {
   & { flex: 0 0 math.percentage(math.div($size, VAR.$column-count));}
 }
 
@@ -338,9 +340,9 @@
     &.x-content-evenly { align-content: space-evenly; }
     &.x-content-stretch { align-content: stretch; }
 
-    // Child flex items (using column count)
-    > .w-auto { @include f-w-auto; }
-    > .w-full { @include f-w-full; }
+    // Child flex items (using column count) 
+    > .fill-auto { @include fill-auto; }
+    > .fill-full { @include fill-full; }
     > .grow { @include grow; }
     > .no-grow { @include no-grow; }
 
@@ -351,8 +353,16 @@
     > .shrink { @include shrink; }
     > .shrink-0 { @include shrink-0; }
     > .shrink-2 { @include shrink-2; }
+
+    > .self-end { @include self-end; }
+    > .self-start { @include self-start; }
+    > .self-center { @include self-center; }
+    > .self-stretch { @include self-stretch; }
+    > .self-baseline { @include self-baseline; }
+    > .self-auto { @include self-auto; }
+    
     @for $i from 1 through VAR.$column-count {
-      > .w-#{$i} { @include w-col($i); }
+      > .fill-#{$i} { @include fill($i); }
       > .order-#{$i} { order: $i; }
     }
   }
@@ -398,8 +408,8 @@
         &.x-content-stretch\@#{$breakpoint} { align-content: stretch; }
         
         // Width (using column count)
-        & > .w-auto\@#{$breakpoint} { @include f-w-auto; }
-        & > .w-full\@#{$breakpoint} { @include f-w-full; }
+        & > .fill-auto\@#{$breakpoint} { @include fill-auto; }
+        & > .fill-full\@#{$breakpoint} { @include fill-full; }
         & > .grow\@#{$breakpoint} { @include grow; }
         & > .no-grow\@#{$breakpoint} { @include no-grow; }
         & > .order-first\@#{$breakpoint} { order: -1; }
@@ -408,10 +418,14 @@
         & > .shrink\@#{$breakpoint} { @include shrink; }
         & > .shrink-0\@#{$breakpoint} { @include shrink-0; }
         & > .shrink-2\@#{$breakpoint} { @include shrink-2; }
-
+        & > .self-end\@#{$breakpoint} { @include self-end; }
+        & > .self-start\@#{$breakpoint} { @include self-start; }
+        & > .self-center\@#{$breakpoint} { @include self-center; }
+        & > .self-stretch\@#{$breakpoint} { @include self-stretch; }
+        & > .self-baseline\@#{$breakpoint} { @include self-baseline; }
+        & > .self-auto\@#{$breakpoint} { @include self-auto; }
         @for $i from 1 through VAR.$column-count {
-          & > .w-#{$i}\@#{$breakpoint} { @include w-col($i); }
-          & > .col-#{$i}\@#{$breakpoint} { @include w-col($i); }
+          & > .fill-#{$i}\@#{$breakpoint} { @include fill($i); }
           & > .order-#{$i}\@#{$breakpoint} { order: $i; }
         }
       }
