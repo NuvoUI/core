@@ -5,18 +5,25 @@
 @use 'sass:map';
 @use '../abstracts'  as *;
 
+
+
+// Common border styles
+$border-styles: (solid, dashed, dotted, double, none);
+
+
+
 // -----------------------------------------------
 // MIXINS
 // -----------------------------------------------
 
 // Core Border Mixins - improved to include style and color by default
-@mixin border($val) { 
+@mixin border($val, $style: solid, $color: var(--border)) { 
   $val: if($val == 0, $val, $val + px); 
   & {
     border-width: $val; 
     @if $val != 0 {
-        border-style: solid; // Apply solid style by default when width > 0
-        border-color: var(--border, var(--border)); // Apply default color
+        border-style: $style;
+        border-color: $color;
       }
   }
 }
@@ -124,9 +131,6 @@ $border-radii: (
   'full': 9999px,
   'none': 0
 );
-
-// Common border styles
-$border-styles: (solid, dashed, dotted, double, none);
 
 // -----------------------------------------------
 // UTILITY CLASSES
