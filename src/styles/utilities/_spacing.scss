@@ -126,6 +126,7 @@
 */
 @mixin px($val) { 
   $val: format-unit-value($val); 
+
   & {
     padding-left: $val; 
     padding-right: $val; 
@@ -139,6 +140,7 @@
 */
 @mixin py($val) { 
   $val: format-unit-value($val); 
+
   & {
     padding-top: $val; 
     padding-bottom: $val; 
@@ -150,28 +152,52 @@
 * @description Sets padding-top
 * @param {Number|String} $val - Padding value
 */
-@mixin pt($val) { & { $val: format-unit-value($val); padding-top: $val; } }
+@mixin pt($val) { 
+  & {
+     $val: format-unit-value($val); 
+    
+     padding-top: $val; 
+    } 
+}
 
 /**
 * @mixin pr
 * @description Sets padding-right
 * @param {Number|String} $val - Padding value
 */
-@mixin pr($val) { & { $val: format-unit-value($val); padding-right: $val; } }
+@mixin pr($val) { 
+  & {
+     $val: format-unit-value($val); 
+    
+     padding-right: $val; 
+    } 
+}
 
 /**
 * @mixin pb
 * @description Sets padding-bottom
 * @param {Number|String} $val - Padding value
 */
-@mixin pb($val) { & { $val: format-unit-value($val); padding-bottom: $val; } }
+@mixin pb($val) { 
+  & {
+     $val: format-unit-value($val); 
+    
+     padding-bottom: $val; 
+    } 
+}
 
 /**
 * @mixin pl
 * @description Sets padding-left
 * @param {Number|String} $val - Padding value
 */
-@mixin pl($val) { & { $val: format-unit-value($val); padding-left: $val; } }
+@mixin pl($val) { 
+  & {
+     $val: format-unit-value($val); 
+    
+     padding-left: $val; 
+    } 
+}
 
 // -----------------------------------------------
 // MARGIN MIXINS
@@ -182,7 +208,13 @@
 * @description Sets margin on all sides
 * @param {Number|String} $val - Margin value
 */
-@mixin m($val) { & { $val: format-unit-value($val); margin: $val; } }
+@mixin m($val) { 
+  & {
+     $val: format-unit-value($val); 
+    
+     margin: $val; 
+    } 
+}
 
 /**
 * @mixin mx
@@ -191,6 +223,7 @@
 */
 @mixin mx($val) { 
   $val: format-unit-value($val); 
+
   & {
     margin-left: $val; 
     margin-right: $val; 
@@ -204,6 +237,7 @@
 */
 @mixin my($val) { 
   $val: format-unit-value($val); 
+
   &{
     margin-top: $val; 
     margin-bottom: $val; 
@@ -215,28 +249,52 @@
 * @description Sets margin-top
 * @param {Number|String} $val - Margin value
 */
-@mixin mt($val) { & {  $val: format-unit-value($val); margin-top: $val; } }
+@mixin mt($val) { 
+  & {  
+    $val: format-unit-value($val); 
+    
+    margin-top: $val; 
+  } 
+}
 
 /**
 * @mixin mr
 * @description Sets margin-right
 * @param {Number|String} $val - Margin value
 */
-@mixin mr($val) { & { $val: format-unit-value($val); margin-right: $val; } }
+@mixin mr($val) { 
+  & { 
+    $val: format-unit-value($val); 
+    
+    margin-right: $val; 
+  } 
+}
 
 /**
 * @mixin mb
 * @description Sets margin-bottom
 * @param {Number|String} $val - Margin value
 */
-@mixin mb($val) { & { $val: format-unit-value($val); margin-bottom: $val; } }
+@mixin mb($val) { 
+  & { 
+    $val: format-unit-value($val); 
+    
+    margin-bottom: $val; 
+  } 
+}
 
 /**
 * @mixin ml
 * @description Sets margin-left
 * @param {Number|String} $val - Margin value
 */
-@mixin ml($val) { & { $val: format-unit-value($val); margin-left: $val; } }
+@mixin ml($val) { 
+  & { 
+    $val: format-unit-value($val); 
+    
+    margin-left: $val; 
+  } 
+}
 
 /**
 * @mixin ml-auto

@@ -74,6 +74,7 @@
     }
   }
 }
+
 // Line heights
 @mixin leading-none { & { @include leading(none);} }
 @mixin leading-tight { & { @include leading(tight);} }
@@ -105,7 +106,13 @@
 @mixin no-underline { & { text-decoration: none; } }
 
 // Text overflow mixin
-@mixin truncate { & { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
+@mixin truncate { 
+  & { 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+  } 
+}
 
 @mixin truncate-lines($lines: 2) {
   & {
@@ -118,7 +125,13 @@
 }
 
 
-@mixin break-normal { & {overflow-wrap: normal; word-break: normal; }}
+@mixin break-normal {
+  & {
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+}
+
 @mixin break-words { & {overflow-wrap: break-word; }}
 @mixin break-all { & {word-break: break-all; }}
 @mixin whitespace-normal { & {white-space: normal; }}

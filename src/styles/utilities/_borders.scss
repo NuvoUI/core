@@ -10,15 +10,15 @@
 // Common border styles
 $border-styles: (solid, dashed, dotted, double, none);
 
-
-
 // -----------------------------------------------
 // MIXINS
 // -----------------------------------------------
 
 // Core Border Mixins - improved to include style and color by default
+// SKIP Documentation
 @mixin border($val, $style: solid, $color: var(--border)) { 
   $val: if($val == 0, $val, $val + px); 
+ 
   & {
     border-width: $val; 
     @if $val != 0 {
@@ -30,6 +30,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 @mixin border-top($val) { 
   $val: if($val == 0, $val, $val + px); 
+ 
   & {
     border-top-width: $val; 
     @if $val != 0 {
@@ -41,6 +42,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 @mixin border-right($val) { 
   $val: if($val == 0, $val, $val + px); 
+
   & {
     border-right-width: $val; 
     @if $val != 0 {
@@ -52,6 +54,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 @mixin border-bottom($val) { 
   $val: if($val == 0, $val, $val + px); 
+
   & {
     border-bottom-width: $val; 
     @if $val != 0 {
@@ -63,6 +66,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 @mixin border-left($val) { 
   $val: if($val == 0, $val, $val + px); 
+
   & { 
     border-left-width: $val; 
     @if $val != 0 {
@@ -78,23 +82,31 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin rounded-t($val) { 
-  & {border-top-left-radius: $val;}
-  & {border-top-right-radius: $val;}
+  & {
+    border-top-left-radius: $val;
+    border-top-right-radius: $val;
+  }
 }
 
 @mixin rounded-r($val) { 
-  & {border-top-right-radius: $val;}
-  & {border-bottom-right-radius: $val;}
+  & {
+    border-top-right-radius: $val;
+    border-bottom-right-radius: $val;
+  }
 }
 
 @mixin rounded-b($val) { 
-  & {border-bottom-left-radius: $val;}
-  & {border-bottom-right-radius: $val;}
+  & {
+    border-bottom-left-radius: $val;
+    border-bottom-right-radius: $val;
+  }
 }
 
 @mixin rounded-l($val) { 
-  & {border-top-left-radius: $val;}
-  & {border-bottom-left-radius: $val;}
+  & {
+    border-top-left-radius: $val;
+    border-bottom-left-radius: $val;
+  }
 }
 
 @mixin rounded-tl($val) { & {border-top-left-radius: $val; }}
@@ -108,9 +120,13 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 // Combined border properties
 @mixin border-all($width, $style, $color) {
-  & {border-width: $width;}
-  & {border-style: $style;}
-  & {border-color: $color;}
+  @debug "border: #{$width} #{$style} #{$color}";
+
+  & {
+    border-width: $width;
+    border-style: $style;
+    border-color: $color;
+  }
 }
 
 // -----------------------------------------------
