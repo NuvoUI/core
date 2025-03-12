@@ -173,7 +173,6 @@
 
  // todo: Documentation
  @mixin absolute-center {
-  & {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -182,7 +181,6 @@
     --translate-y: -50%;
    
     transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
-  }
 }
 
 // todo: Documentation

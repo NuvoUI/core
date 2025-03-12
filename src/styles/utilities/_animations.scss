@@ -46,15 +46,13 @@ $generated-keyframes: ();
   // Handle units
   $x-unit: if($x, safe-unit-name(get-unit($x)), "-");
   $y-unit: if($y, safe-unit-name(get-unit($y)), "-");
-
+ 
   // Clean values (remove units)
   $clean-x: if($x, strip-unit($x), 0);
   $clean-y: if($y, strip-unit($y), 0);
   $animation-name: anim-bounce-#{$clean-x}#{$x-unit}-#{$clean-y}#{$y-unit};
 
-  & {
-    animation: #{$animation-name} $duration $easing $iteration;
-  }
+  animation: #{$animation-name} $duration $easing $iteration;
   @include generate-bounce-keyframes($animation-name, $x, $y);
 }
 
@@ -77,11 +75,9 @@ $generated-keyframes: ();
 }
 
 @mixin hover-ready {
-  & {
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out; 
-  }
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out; 
 }
 
 @if VAR.$generate-utility-classes {

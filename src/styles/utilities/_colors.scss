@@ -9,42 +9,42 @@
 
 // Color Validation
 @function is-valid-color($color) {
-    @return meta.type-of($color) == 'color';
+  @return meta.type-of($color) == 'color';
 }
 
 // Scale Generation Function
 @function create-color-scale($color) {
-    $scale: ();
-    $stops: (
-      50: 95%,
-      100: 85%,
-      200: 75%,
-      300: 65%,
-      400: 55%,
-      500: 50%, // Base color
-      600: 45%,
-      700: 35%,
-      800: 25%,
-      900: 15%
-    );
+  $scale: ();
+  $stops: (
+          50: 95%,
+          100: 85%,
+          200: 75%,
+          300: 65%,
+          400: 55%,
+          500: 50%, // Base color
+          600: 45%,
+          700: 35%,
+          800: 25%,
+          900: 15%
+  );
 
-    @each $shade, $lightness in $stops {
-        $adjusted-color: $color;
-        
-        @if $shade < 500 {
-            // Lighter shades: mix with white
-            $mix-percentage: math.div($lightness - 50%, 50%) * 100%;
-            $adjusted-color: color.mix(white, $color, $mix-percentage);
-        } @else if $shade > 500 {
-            // Darker shades: mix with black
-            $mix-percentage: math.div(50% - $lightness, 50%) * 100%;
-            $adjusted-color: color.mix(black, $color, $mix-percentage);
-        }
-        
-        $scale: map.set($scale, $shade, $adjusted-color);
+  @each $shade, $lightness in $stops {
+    $adjusted-color: $color;
+
+    @if $shade < 500 {
+      // Lighter shades: mix with white
+      $mix-percentage: math.div($lightness - 50%, 50%) * 100%;
+      $adjusted-color: color.mix(white, $color, $mix-percentage);
+    } @else if $shade > 500 {
+      // Darker shades: mix with black
+      $mix-percentage: math.div(50% - $lightness, 50%) * 100%;
+      $adjusted-color: color.mix(black, $color, $mix-percentage);
     }
-    
-    @return $scale;
+
+    $scale: map.set($scale, $shade, $adjusted-color);
+  }
+
+  @return $scale;
 }
 
 // Luminance calculation for contrast
@@ -52,72 +52,68 @@
   $red: math.div(color.channel($color, "red"), 255);
   $green: math.div(color.channel($color, "green"), 255);
   $blue: math.div(color.channel($color, "blue"), 255);
-    
-    $red: if($red <= 0.0393, math.div($red, 12.92), math.pow((math.div($red + 0.055, 1.055)), 2.4));
-    $green: if($green <= 0.0393, math.div($green, 12.92), math.pow((math.div($green + 0.055, 1.055)), 2.4));
-    $blue: if($blue <= 0.0393, math.div($blue, 12.92), math.pow((math.div($blue + 0.055, 1.055)), 2.4));
-    
-    @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+
+  $red: if($red <= 0.0393, math.div($red, 12.92), math.pow((math.div($red + 0.055, 1.055)), 2.4));
+  $green: if($green <= 0.0393, math.div($green, 12.92), math.pow((math.div($green + 0.055, 1.055)), 2.4));
+  $blue: if($blue <= 0.0393, math.div($blue, 12.92), math.pow((math.div($blue + 0.055, 1.055)), 2.4));
+
+  @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
 }
 
 // Find appropriate text color for a background
 @function find-text-color($background) {
-    $luminance: luminance($background);
-    @return if($luminance > 0.55, #000, #fff);
+  $luminance: luminance($background);
+  @return if($luminance > 0.55, #000, #fff);
 }
 
 // Adaptive contrast mixin
 @mixin adaptive-contrast($color) {
-    background-color: $color;
-    color: find-text-color($color);
-    
-    @media (prefers-contrast: more) {
-        $adjusted: if(color.lightness($color) > 50%, 
-            color.adjust($color, $lightness: -10%), 
+  background-color: $color;
+  color: find-text-color($color);
+
+  @media (prefers-contrast: more) {
+    $adjusted: if(color.lightness($color) > 50%,
+            color.adjust($color, $lightness: -10%),
             color.adjust($color, $lightness: 10%));
 
-        background-color: $adjusted;
-        color: find-text-color($adjusted);
-    }
+    background-color: $adjusted;
+    color: find-text-color($adjusted);
+  }
 }
 
 // Generate color scales
 $colors: (
-  'primary': create-color-scale($primary),
-  'secondary': create-color-scale($secondary),
-  'success': create-color-scale($success),
-  'danger': create-color-scale($danger),
-  'warning': create-color-scale($warning),
-  'info': create-color-scale($info)
+        'primary': create-color-scale($primary),
+        'secondary': create-color-scale($secondary),
+        'success': create-color-scale($success),
+        'danger': create-color-scale($danger),
+        'warning': create-color-scale($warning),
+        'info': create-color-scale($info)
 );
 
 // Generate scales for primitives
 $colors-primitives: ();
 
 @each $name, $color in $color-primitives {
-    $colors-primitives: map.set($colors-primitives, $name, create-color-scale($color));
+  $colors-primitives: map.set($colors-primitives, $name, create-color-scale($color));
 }
 
 // todo: documentation
 @mixin bg($color) {
-    & {
-        background-color: $color;
-    }
+  background-color: $color;
 }
 @mixin color($color) {
-    & {
-        color: $color;
-    }
+  color: $color;
 }
 @mixin gradient($direction, $colors...) {
-    & { background-image: linear-gradient($direction, $colors); }
+  background-image: linear-gradient($direction, $colors);
 }
 
 // Filter Mixins
 @mixin backdrop-filter($value) {
-    & { backdrop-filter: $value; }
+  backdrop-filter: $value;
 }
 
 @mixin filter($value) {
-    & { filter: $value; }
+  filter: $value;
 } 

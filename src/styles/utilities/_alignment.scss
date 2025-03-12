@@ -6,17 +6,17 @@
 @mixin align-bottom { & { vertical-align: bottom; } }
 
 @if VAR.$generate-utility-classes {
-.align-baseline { @include align-baseline; }
-.align-top { @include align-top; }
-.align-middle { @include align-middle; }
-.align-bottom { @include align-bottom; }
+  .align-baseline { @include align-baseline; }
+  .align-top { @include align-top; }
+  .align-middle { @include align-middle; }
+  .align-bottom { @include align-bottom; }
 
-    @each $breakpoint, $width in VAR.$breakpoints {
-        @media (min-width: #{$width}) {
-            .align-baseline\@#{$breakpoint} { @include align-baseline; }
-            .align-top\@#{$breakpoint} { @include align-top; }
-            .align-middle\@#{$breakpoint} { @include align-middle; }
-            .align-bottom\@#{$breakpoint} { @include align-bottom; }
-        }
+  @each $breakpoint, $width in VAR.$breakpoints {
+    @media (min-width: #{$width}) {
+      .align-baseline\@#{$breakpoint} { @include align-baseline; }
+      .align-top\@#{$breakpoint} { @include align-top; }
+      .align-middle\@#{$breakpoint} { @include align-middle; }
+      .align-bottom\@#{$breakpoint} { @include align-bottom; }
     }
+  }
 }

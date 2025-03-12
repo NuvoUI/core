@@ -2,6 +2,7 @@
 // Module: Opacity
 
 @use "sass:math";
+@use "sass:meta";
 @use "../abstracts" as *;
 
 /**
@@ -68,30 +69,30 @@
  * Opacity values are defined in the $percentages variable
  * Transition timing can be customized via CSS variables
  *
- * @see transitions
+ * @see transitions 
  */
 
 @mixin opacity($value) {
-  opacity: math.div($value, 100);
+  opacity: calc(#{$value} / 100);
 }
 
 @if $generate-utility-classes {
   // Opacity Utilities
   @each $i in $percentages {
     .opacity-#{$i} {
-      @include opacity ($i);
+      @include opacity($i);
     }
     .hover\:opacity-#{$i}:hover {
-      @include opacity ($i);
+      @include opacity($i);
     }
     .focus\:opacity-#{$i}:focus {
-      @include opacity ($i);
+      @include opacity($i);
     }
     .active\:opacity-#{$i}:active {
-      @include opacity ($i);
+      @include opacity($i);
     }
     .group:hover .group-hover\:opacity-#{$i} {
-      @include opacity ($i);
+      @include opacity($i);
     }
   }
 
@@ -100,29 +101,21 @@
     @media (min-width: #{$width}) {
       @each $i in $percentages {
         .opacity-#{$i}\@#{$breakpoint} {
-          @include opacity ($i);
+          @include opacity($i);
         }
         .hover\:opacity-#{$i}\@#{$breakpoint}:hover {
-          @include opacity ($i);
+          @include opacity($i);
         }
         .focus\:opacity-#{$i}\@#{$breakpoint}:focus {
-          @include opacity ($i);
+          @include opacity($i);
         }
         .active\:opacity-#{$i}\@#{$breakpoint}:active {
-          @include opacity ($i);
+          @include opacity($i);
         }
         .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
-          @include opacity ($i);
+          @include opacity($i);
         }
       }
     }
-  }
-
-  // Transition Opacity
-  // TODO move to transitons may be?
-  .transition-opacity {
-    transition-property: opacity;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
   }
 }
