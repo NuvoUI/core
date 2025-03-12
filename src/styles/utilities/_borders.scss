@@ -17,117 +17,114 @@ $border-styles: (solid, dashed, dotted, double, none);
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
 @mixin border($val, $style: solid, $color: var(--border)) { 
-  $val: if($val == 0, $val, $val + px); 
- 
-  & {
-    border-width: $val; 
-    @if $val != 0 {
-        border-style: $style;
-        border-color: $color;
-      }
-  }
+  border-width: $val; 
+  @if $val != 0 {
+      border-style: $style;
+      border-color: $color;
+    }
 }
 
 @mixin border-top($val) { 
-  $val: if($val == 0, $val, $val + px); 
- 
-  & {
-    border-top-width: $val; 
-    @if $val != 0 {
-      border-top-style: solid;
-      border-top-color: var(--border, var(--border));
-    }
+  border-top-width: $val; 
+  @if $val != 0 {
+    border-top-style: solid;
+    border-top-color: var(--border, var(--border));
   }
 }
 
 @mixin border-right($val) { 
-  $val: if($val == 0, $val, $val + px); 
-
-  & {
-    border-right-width: $val; 
-    @if $val != 0 {
-      border-right-style: solid;
-      border-right-color: var(--border, var(--border));
-    }
+  border-right-width: $val; 
+  @if $val != 0 {
+    border-right-style: solid;
+    border-right-color: var(--border, var(--border));
   }
 }
 
 @mixin border-bottom($val) { 
-  $val: if($val == 0, $val, $val + px); 
-
-  & {
-    border-bottom-width: $val; 
-    @if $val != 0 {
-      border-bottom-style: solid;
-      border-bottom-color: var(--border, var(--border));
-    }
+  border-bottom-width: $val; 
+  @if $val != 0 {
+    border-bottom-style: solid;
+    border-bottom-color: var(--border, var(--border));
   }
 }
 
 @mixin border-left($val) { 
-  $val: if($val == 0, $val, $val + px); 
-
-  & { 
-    border-left-width: $val; 
-    @if $val != 0 {
-      border-left-style: solid;
-      border-left-color: var(--border, var(--border));
-    }
-  }
-}
- 
-// Border Radius Mixins
-@mixin rounded($val: map.get($border-radii, 'md')) { 
-  & {border-radius: $val; }
-}
-
-@mixin rounded-t($val) { 
-  & {
-    border-top-left-radius: $val;
-    border-top-right-radius: $val;
+  border-left-width: $val; 
+  @if $val != 0 {
+    border-left-style: solid;
+    border-left-color: var(--border, var(--border));
   }
 }
 
-@mixin rounded-r($val) { 
-  & {
-    border-top-right-radius: $val;
-    border-bottom-right-radius: $val;
-  }
+ /**
+ * @description Applies border radius to all corners
+ * @param {String} $val - The border radius value
+ */
+@mixin rounded($val: null) {
+  border-radius: if($val == null, map.get($border-radii, 'md'), $val);
 }
 
-@mixin rounded-b($val) { 
-  & {
-    border-bottom-left-radius: $val;
-    border-bottom-right-radius: $val;
-  }
+@mixin rounded-t($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+
+  border-top-left-radius: $val;
+  border-top-right-radius: $val;
 }
 
-@mixin rounded-l($val) { 
-  & {
-    border-top-left-radius: $val;
-    border-bottom-left-radius: $val;
-  }
+@mixin rounded-r($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+
+  border-top-right-radius: $val;
+  border-bottom-right-radius: $val;
 }
 
-@mixin rounded-tl($val) { & {border-top-left-radius: $val; }}
-@mixin rounded-tr($val) { & {border-top-right-radius: $val; }}
-@mixin rounded-br($val) { & {border-bottom-right-radius: $val; }}
-@mixin rounded-bl($val) { & {border-bottom-left-radius: $val; }}
+@mixin rounded-b($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+
+  border-bottom-left-radius: $val;
+  border-bottom-right-radius: $val;
+}
+
+@mixin rounded-l($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+
+  border-top-left-radius: $val;
+  border-bottom-left-radius: $val;
+}
+
+@mixin rounded-tl($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  
+  border-top-left-radius: $val; 
+}
+@mixin rounded-tr($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  
+  border-top-right-radius: $val; 
+}
+@mixin rounded-br($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  
+  border-bottom-right-radius: $val; 
+}
+@mixin rounded-bl($val: null) { 
+  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  
+  border-bottom-left-radius: $val; 
+}
 
 // Border Style and Color
-@mixin border-style($style) { & {border-style: $style; }}
-@mixin border-color($color) { & {border-color: $color; }}
+@mixin border-style($style) { border-style: $style; }
+@mixin border-color($color) { border-color: $color; }
 
 // Combined border properties
 @mixin border-all($width, $style, $color) {
-  @debug "border: #{$width} #{$style} #{$color}";
-
-  & {
-    border-width: $width;
-    border-style: $style;
-    border-color: $color;
-  }
+  border-width: $width;
+  border-style: $style;
+  border-color: $color;
 }
+
+@mixin pill { @include rounded(9999px); } // todo: doc missing
 
 // -----------------------------------------------
 // VARIABLES
@@ -198,7 +195,7 @@ $border-radii: (
   }
 
   // Pill shape (alias for full radius)
-  .pill { @include rounded(9999px); }
+  .pill { @include pill; }
 
   // Border styles - these override the default solid style if needed
   @each $style in $border-styles {
@@ -313,7 +310,7 @@ $border-radii: (
       
       .rounded\@#{$breakpoint} { @include rounded; }
       .square\@#{$breakpoint} { @include rounded(0); }
-      .pill\@#{$breakpoint} { @include rounded(9999px); }
+      .pill\@#{$breakpoint} { @include pill; }
     }
   }
 }
