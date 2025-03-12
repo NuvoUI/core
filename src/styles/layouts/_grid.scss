@@ -63,19 +63,19 @@ $alignments: (
  * @description justify-items container.
  * @param {string} $value - The value for the justify-items property.
  */
-@mixin justify-items($value) {justify-items: $value;}
+@mixin justify($value) {justify-items: $value;}
 
 /**
  * @description Establishes a align-items container.
  * @param {string} $value - The value for the align-items property.
  */
-@mixin align-items($value) {align-items: $value;}
+@mixin align($value) {align-items: $value;}
 
 /**
  * @description Establishes a place-items container.
  * @param {string} $value - The value for the place-items property.
  */
-@mixin place-items($value) {place-items: $value;}
+@mixin place($value) {place-items: $value;}
 
 // Grid Item Placement Mixins
 @mixin col-span($span) {grid-column: span $span / span $span;}
@@ -155,20 +155,20 @@ $alignments: (
   .grid.flow-dense { @include flow-dense-items; }
 
   @each $name, $value in $alignments {
-    .justify-items-#{$name} { justify-items: $value; }
-    .align-items-#{$name} { align-items: $value; }
-    .place-items-#{$name} { place-items: $value; }
+    .justify-#{$name} { @include  justify($value); }
+    .align-#{$name} { @include  align($value); }
+    .place-#{$name} { @include  place($value); }
 
     @each $breakpoint, $width in VAR.$breakpoints {
       @media (min-width: #{$width}) {
-        .justify-items-#{$name}\@#{$breakpoint} {
-          justify-items: $value;
+        .justify-#{$name}\@#{$breakpoint} {
+          @include justify($value);
         }
-        .align-items-#{$name}\@#{$breakpoint} {
-          align-items: $value;
+        .align-#{$name}\@#{$breakpoint} {
+          @include align($value);
         }
-        .place-items-#{$name}\@#{$breakpoint} {  
-          place-items: $value;
+        .place-#{$name}\@#{$breakpoint} {  
+          @include place($value);
         }
       }
     }
