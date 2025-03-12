@@ -1,0 +1,23 @@
+@use '../abstracts'  as VAR;
+
+@mixin cursor($cursor-value) {
+  cursor: $cursor-value;
+}
+
+@if VAR.$generate-utility-classes {
+  .cursor-auto {@include cursor(auto);}
+  .cursor-pointer { @include cursor(pointer); }
+  .cursor-default { @include cursor(default); }
+  .cursor-move { @include cursor(move); }
+  .cursor-not-allowed { @include cursor(not-allowed); }
+  .cursor-wait { @include cursor(wait); }
+  .cursor-help { @include cursor(help); }
+  .cursor-text { @include cursor(text); }
+  .cursor-cell { @include cursor(cell); }
+  .cursor-crosshair { @include cursor(crosshair); }
+  .cursor-grabbing { @include cursor(grabbing); }
+  .cursor-grab { @include cursor(grab); }
+  .cursor-zoom-in { @include cursor(zoom-in); }
+  .cursor-zoom-out { @include cursor(zoom-out); }
+  .cursor-none { @include cursor(none); }
+}
