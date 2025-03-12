@@ -5,88 +5,89 @@
 @use "../abstracts" as *;
 
 @if $generate-utility-classes {
-:root {
-  // Theme color CSS variables
-  @each $color-name, $scale in COL.$colors {
-    --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
-    @each $shade, $value in $scale {
-      --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
+  :root {
+    // Theme color CSS variables
+    @each $color-name, $scale in COL.$colors {
+      --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
+      @each $shade, $value in $scale {
+        --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
+      }
     }
-  }
 
-  // Primitive color CSS variables
-  @each $color-name, $scale in COL.$colors-primitives {
-    --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
-    @each $shade, $value in $scale {
-      --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
+    // Primitive color CSS variables
+    @each $color-name, $scale in COL.$colors-primitives {
+      --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
+      @each $shade, $value in $scale {
+        --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
+      }
     }
+
+    // Light theme variables
+    --background: #{map.get($light-theme, "background")};
+    --foreground: #{map.get($light-theme, "foreground")};
+    --surface: #{map.get($light-theme, "surface")};
+    --border: var(--gray-600);
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-600);
+    --button-bg-color: var(--primary);
+    --button-bg-color-hover: var(--primary-600);
+    --button-text-color: var(--gray-100);
+    --link-color: var(--primary);
+    --link-hover-color: var(--primary-600);
+    --inverted-text-color: var(--gray-100);
+
+    // Scrollbar styling
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--background);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 6px;
+      border: 3px solid var(--background);
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: #888 var(--background);
   }
 
-  // Light theme variables
-  --background: #{map.get($light-theme, "background")};
-  --foreground: #{map.get($light-theme, "foreground")};
-  --surface: #{map.get($light-theme, "surface")};
-  --border: var(--gray-600);
-  --text-primary: var(--gray-900);
-  --text-secondary: var(--gray-600);
-  --button-bg-color: var(--primary);
-  --button-bg-color-hover: var(--primary-600);
-  --button-text-color: var(--gray-100);
-  --link-color: var(--primary);
-  --link-hover-color: var(--primary-600);
-  --inverted-text-color: var(--gray-100);
+  // Dark theme settings
+  [data-theme="dark"] {
+    --background: #{map.get($dark-theme, "background")};
+    --foreground: #{map.get($dark-theme, "foreground")};
+    --surface: #{map.get($dark-theme, "surface")};
+    --border: var(--gray-400);
+    --text-primary: var(--gray-100);
+    --text-secondary: var(--gray-400);
+    --button-bg-color: var(--primary);
+    --button-bg-color-hover: var(--primary-400);
+    --button-text-color: var(--gray-200);
+    --link-color: var(--primary);
+    --link-hover-color: var(--primary-400);
+    --inverted-text-color: var(--gray-900);
 
-  // Scrollbar styling
-  &::-webkit-scrollbar {
-    width: 12px;
+    &::-webkit-scrollbar-track {
+      background: var(--background);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #555;
+      border: 3px solid var(--background);
+    }
+
+    scrollbar-color: #555 var(--background);
   }
 
-  &::-webkit-scrollbar-track {
-    background: var(--background);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 6px;
-    border: 3px solid var(--background);
-  }
-
-  scrollbar-width: thin;
-  scrollbar-color: #888 var(--background);
-}
-
-// Dark theme settings
-[data-theme="dark"] {
-  --background: #{map.get($dark-theme, "background")};
-  --foreground: #{map.get($dark-theme, "foreground")};
-  --surface: #{map.get($dark-theme, "surface")};
-  --border: var(--gray-400);
-  --text-primary: var(--gray-100);
-  --text-secondary: var(--gray-400);
-  --button-bg-color: var(--primary);
-  --button-bg-color-hover: var(--primary-400);
-  --button-text-color: var(--gray-200);
-  --link-color: var(--primary);
-  --link-hover-color: var(--primary-400);
-  --inverted-text-color: var(--gray-900);
-
-  &::-webkit-scrollbar-track {
-    background: var(--background);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border: 3px solid var(--background);
-  }
-
-  scrollbar-color: #555 var(--background);
-}
-
-// -----------------------------------------------
-// COLOR UTILITY CLASSES
-// -----------------------------------------------
+  // -----------------------------------------------
+  // COLOR UTILITY CLASSES
+  // -----------------------------------------------
 
   // Theme color background utilities
+  // primar, secondry, warning etc.
   @each $color-name, $scale in COL.$colors {
     @each $shade, $value in $scale {
       .bg-#{$color-name}-#{$shade} {
@@ -94,12 +95,16 @@
       }
 
       // Automatic text contrast for backgrounds
+      // todo: documentaton may add karo issay
       .text-on-#{$color-name}-#{$shade} {
         color: COL.find-text-color($value);
       }
 
       .text-#{$color-name}-#{$shade} {
         color: var(--#{$color-name}-#{$shade});
+      }
+      .border-#{$color-name}-#{$shade} {
+        border-color: var(--#{$color-name}-#{$shade});
       }
     }
 
@@ -111,9 +116,14 @@
     .text-#{$color-name} {
       color: var(--#{$color-name});
     }
+    
+    .border-#{$color-name} {
+      border-color: var(--#{$color-name});
+    }
   }
 
   // Primitive color utilities
+  // green, purple, pink etc. 
   @each $color-name, $scale in COL.$colors-primitives {
     @each $shade, $value in $scale {
       .bg-#{$color-name}-#{$shade} {
@@ -127,6 +137,9 @@
       .text-#{$color-name}-#{$shade} {
         color: var(--#{$color-name}-#{$shade});
       }
+      .border-#{$color-name}-#{$shade} {
+        border-color: var(--#{$color-name}-#{$shade});
+      }
     }
 
     // Base color classes
@@ -136,6 +149,10 @@
 
     .text-#{$color-name} {
       color: var(--#{$color-name});
+    }
+    
+    .border-#{$color-name} {
+      border-color: var(--#{$color-name});
     }
   }
 
@@ -217,15 +234,16 @@
 
 // Glass effects
 .glass-effect {
+  background-color: rgb(255 255 255 / 10%);
+  border: 1px solid rgb(255 255 255 / 20%);
+
   @include COL.backdrop-filter(blur(8px));
 
-  background-color: rgb(255 255 255 / 10%); 
-  border: 1px solid rgb(255 255 255 / 20%); 
 }
 
 .frosted-glass {
-  @include COL.backdrop-filter(blur(15px));
+  background-color: rgb(255 255 255 / 70%);
+  border: 1px solid rgb(255 255 255 / 80%);
 
-  background-color: rgb(255 255 255 / 70%); 
-  border: 1px solid rgb(255 255 255 / 80%); 
+  @include COL.backdrop-filter(blur(15px));
 }
