@@ -20,14 +20,20 @@
 @mixin max-width-percent($i) { max-width: str.unquote($i + '%'); }
 @mixin max-height-percent($i) { max-height: str.unquote($i + '%'); }
 
-@mixin w-auto { width: auto; }
-@mixin w-full { width: 100%; }
-@mixin h-auto { height: auto; }
-@mixin h-full { height: 100%; }
-@mixin min-w-full { min-width: 100%; }
-@mixin max-w-full { max-width: 100%; }
-@mixin min-h-full { min-height: 100%; }
-@mixin max-h-full { max-height: 100%; }
+@mixin w-auto { @include width(auto);}
+@mixin w-full { @include width(100%);}
+@mixin h-auto { @include height(auto);}
+@mixin h-full { @include height(100%);}
+@mixin w-max { @include width(max-content);}
+@mixin h-max { @include height(max-content);}
+@mixin w-min { @include width(min-content);}
+@mixin h-min { @include height(min-content);}
+@mixin w-fit { @include width(fit-content);}
+@mixin h-fit { @include height(fit-content);}
+@mixin min-w-full { @include min-width(100%);}
+@mixin max-w-full { @include max-width(100%);}
+@mixin min-h-full { @include min-height(100%);}
+@mixin max-h-full { @include max-height(100%);}
 
 @mixin w-screen { width: 100vw; }
 @mixin h-screen { height: 100dvh; }
@@ -38,9 +44,13 @@
 
   .w-auto { @include w-auto; }
   .w-full { @include w-full; }
-
   .h-auto { @include h-auto; }
   .h-full { @include h-full; }
+  .w-min { @include w-min;}
+  .h-min { @include h-min;}
+  .w-fit { @include w-fit;}
+  .h-fit { @include h-fit;}
+  
   .min-w-full { @include min-w-full; }
   .max-w-full { @include max-w-full; }
   .min-h-full { @include min-h-full; }
@@ -73,6 +83,16 @@
     .min-w-#{$breakpoint} { @include min-width($width); }
     .max-w-#{$breakpoint} { @include max-width($width); }
 
+
+    .w-auto\@#{$breakpoint} { @include w-auto; }
+    .w-full\@#{$breakpoint} { @include w-full; }
+    .h-auto\@#{$breakpoint} { @include h-auto; }
+    .h-full\@#{$breakpoint} { @include h-full; }
+    .w-min\@#{$breakpoint}{ @include w-min;}
+    .h-min\@#{$breakpoint}{ @include h-min;}
+    .w-fit\@#{$breakpoint}{ @include w-fit;}
+    .h-fit\@#{$breakpoint}{ @include h-fit;}
+    
     @include MQ.media-up ($breakpoint) {
       // Generate utilities from spacing map
       @each $i in VAR.$percentages {
