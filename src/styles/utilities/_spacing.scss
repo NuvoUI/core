@@ -127,8 +127,7 @@
 @mixin px($val) { 
   $val: format-unit-value($val); 
   
-  padding-left: $val; 
-  padding-right: $val; 
+  padding-inline: $val;
 }
 
 /**
@@ -138,9 +137,8 @@
 */
 @mixin py($val) { 
   $val: format-unit-value($val); 
-
-  padding-top: $val; 
-  padding-bottom: $val; 
+  
+  padding-block: $val;
 }
   
 /**
@@ -210,8 +208,7 @@
 @mixin mx($val) { 
   $val: format-unit-value($val); 
 
-  margin-left: $val; 
-  margin-right: $val; 
+  margin-inline: $val;
 }
 
 /**
@@ -220,10 +217,9 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin my($val) { 
-  $val: format-unit-value($val); 
+  $val: format-unit-value($val);
 
-  margin-top: $val; 
-  margin-bottom: $val; 
+  margin-block: $val;
 }
 
 /**
