@@ -73,6 +73,7 @@
   }
 }
 
+// todo: doc
 // Touch devices
 @mixin touch {
   @media (hover: none) and (pointer: coarse) {
@@ -80,6 +81,7 @@
   }
 }
 
+// todo: doc
 // Print media
 @mixin print {
   @media print {
@@ -87,6 +89,7 @@
   }
 }
 
+// todo: doc
 // Example: @include supports(display: grid) { }
 @mixin supports($property) {
   @supports (#{$property}) {
@@ -94,6 +97,7 @@
   }
 }
 
+// todo: doc
 // System preference only
 @mixin prefers-dark {
   @media (prefers-color-scheme: dark) {
@@ -101,21 +105,25 @@
   }
 }
 
+// todo: doc
 // User preference takes precedence
 @mixin dark-mode {
-  // Apply when user explicitly chooses dark
-  [data-theme="dark"] & {
-    @content;
-  }
-
-  // Apply when system is dark AND user hasn't made a choice
-  @media (prefers-color-scheme: dark) {
-    [data-theme="system"] & {
+  @if $enable-dark-mode { // todo: documentation as this will fully remove the dark mode by force
+    // Apply when user explicitly chooses dark
+    [data-theme="dark"] & {
       @content;
+    }
+  
+    // Apply when system is dark AND user hasn't made a choice
+    @media (prefers-color-scheme: dark) {
+      [data-theme="system"] & {
+        @content;
+      }
     }
   }
 }
 
+// todo: doc
 // Device orientation
 @mixin landscape {
   @media screen and (orientation: landscape) {
@@ -123,17 +131,20 @@
   }
 }
 
+// todo: doc
 @mixin portrait {
   @media screen and (orientation: portrait) {
     @content;
   }
 }
 
+// todo: doc
 // Modern aspect ratio
 @mixin aspect-ratio($ratio) {
   aspect-ratio: #{$ratio};
 }
 
+// todo: doc
 // Dynamic viewport units (modern browsers)
 @mixin dvh {
   @supports (height: 100dvh) {
@@ -145,24 +156,20 @@
   }
 }
 
+// todo: doc
 // Safe area insets (notches, home indicators)
 @mixin safe-area-inset($property, $position) {
   #{$property}: env(safe-area-inset-#{$position});
 }
 
+// todo: doc
 @mixin reduced-motion {
   @media (prefers-reduced-motion: reduce) {
     @content;
   }
 }
 
-// Data-saving mode
-@mixin save-data {
-  @media (prefers-reduced-data: reduce) {
-    @content;
-  }
-}
-
+// todo: doc
 // Mouse precision detection
 @mixin fine-pointer {
   @media (pointer: fine) {
@@ -170,6 +177,7 @@
   }
 }
 
+// todo: doc
 // Display mode for PWAs
 @mixin display-mode($mode: "standalone") {
   @media (display-mode: #{$mode}) {
@@ -177,6 +185,7 @@
   }
 }
 
+// todo: doc
 // High contrast mode
 @mixin high-contrast {
   @media (forced-colors: active) {
