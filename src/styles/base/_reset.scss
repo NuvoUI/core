@@ -1,4 +1,4 @@
-//Box sizing rules
+// Box sizing rules
 *,
 ::before,
 ::after,
@@ -29,8 +29,8 @@ dd {
 
 // Prevent font size inflation 
 html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none; /* stylelint-disable-line */
+  -webkit-text-size-adjust: none; /* stylelint-disable-line */
   text-size-adjust: none;
 }
 
@@ -84,6 +84,7 @@ textarea,
 select {
   font: inherit;
   cursor: pointer;
+
   &:disabled {
     cursor: not-allowed;
   }
