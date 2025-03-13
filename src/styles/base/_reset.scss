@@ -1,13 +1,14 @@
-// Modern CSS Reset
-
-// Box sizing rules
+//Box sizing rules
 *,
-*::before,
-*::after {
+::before,
+::after,
+::backdrop,
+::file-selector-button {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 
 // Remove default margin and padding
 body,
@@ -26,6 +27,18 @@ dd {
   padding: 0;
 }
 
+// Prevent font size inflation 
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+// Set core root defaults
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
 // Set core body defaults
 body {
   min-height: 100vh;
@@ -34,7 +47,12 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: var(--font-family-base);
+}
+
+// Set shorter line heights on headings and interactive elements
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
 }
 
 // Make images easier to work with
@@ -42,9 +60,21 @@ img,
 picture,
 video,
 canvas,
-svg {
+svg,
+audio,
+iframe,
+embed,
+object {
   display: block;
+  vertical-align: middle;
+}
+
+img,
+picture,
+video,
+svg {
   max-width: 100%;
+  height: auto;
 }
 
 // Inherit fonts for inputs and buttons
@@ -53,24 +83,15 @@ button,
 textarea,
 select {
   font: inherit;
-  transition: all 0.2s ease-in-out;
-}
-
-// Remove all animations and transitions for people that prefer not to see them
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
   }
 }
 
-// Remove list styles
-ul,
-ol {
+// Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed
+ul[role='list'],
+ol[role='list'] {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -78,17 +99,12 @@ ol {
   // Modern properties
   padding-inline-start: 0; // Replaces padding-left
   margin-block: 0; // Replaces margin-top/bottom
-}
-
-li {
-  margin: 0;
-  padding: 0;
-  margin-block: 0;
-}
-
-// Set core root defaults
-html:focus-within {
-  scroll-behavior: smooth;
+  
+  & > li {
+    margin: 0;
+    padding: 0;
+    margin-block: 0;
+  }
 }
 
 // Remove underline from links
@@ -101,4 +117,22 @@ a {
 // Make sure textareas without a rows attribute are not tiny
 textarea:not([rows]) {
   min-height: 10em;
+}
+
+// Anything that has been anchored to should have extra scroll margin
+:target {
+  scroll-margin-block: 5ex;
+}
+
+
+// Remove all animations and transitions for people that prefer not to see them
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

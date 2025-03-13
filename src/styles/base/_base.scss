@@ -5,13 +5,12 @@
 @use '../utilities/media-queries' as media;
   
 :root {
-  --font-family-base: system-ui, -apple-system, "BlinkMacSystemFont", 'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  --font-family-base: #{$font-family};
 }
 
 // Base typography styles
 html {
-  font-size: 16px; 
-  font-family: var(--font-family-base);
+  font-size: $base-size; 
 }
 
 body {
@@ -19,7 +18,6 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: var(--text-primary);
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 // Headings
@@ -172,6 +170,7 @@ a {
   }
 }
 
+// todo: add to doc
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -184,15 +183,12 @@ a {
   border: 0 !important;
 }
 
-
-
 code {
   font-family: 'Courier New', Courier, monospace; 
   background-color: #f8f8f8; 
   color: #d63384; 
   padding: 2px 6px;
   border-radius: 3px;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
   white-space: nowrap;
 
   @include media.dark-mode {
