@@ -101,8 +101,6 @@ $backdrop-filter-presets: (
 // Base backdrop-filter
 @mixin backdrop-filter($value) {
   backdrop-filter: $value;
-  // Add Safari support
-  -webkit-backdrop-filter: $value;
 }
 
 // Specific filter mixins
@@ -194,7 +192,6 @@ $backdrop-filter-presets: (
 // Reset filter
 @mixin backdrop-none {
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
 // Generate utility classes

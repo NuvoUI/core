@@ -58,6 +58,7 @@ $generated-keyframes: ();
       transform: translate(0, 0);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
+    
     50% {
       transform: translate($x, $y);
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -71,7 +72,6 @@ $generated-keyframes: ();
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out; 
 }
-
 
 /**
  * @mixin animate-pulse
@@ -133,6 +133,7 @@ $generated-keyframes: ();
 
   @include ensure-keyframes($animation-name) {
     from { transform: rotate(0deg); }
+
     to { 
       @if $direction == 'normal' {
         transform: rotate(360deg); 
@@ -213,6 +214,7 @@ $generated-keyframes: ();
         opacity: 0; 
         transform: translateY(20px);
       }
+
       to { 
         opacity: 1; 
         transform: translateY(0);
@@ -222,6 +224,7 @@ $generated-keyframes: ();
         opacity: 0; 
         transform: translateY(-20px);
       }
+
       to { 
         opacity: 1; 
         transform: translateY(0);
@@ -268,15 +271,15 @@ $generated-keyframes: ();
    // Add to your existing animation utilities
   
    .animate-pulse {
-    @include animate-pulse();
+    @include animate-pulse;
   }
   
   .animate-spin {
-    @include animate-spin();
+    @include animate-spin;
   }
   
   .animate-ping {
-    @include animate-ping();
+    @include animate-ping;
   }
   
   .animate-fade-in {
@@ -296,7 +299,7 @@ $generated-keyframes: ();
   }
   
   .animate-shake {
-    @include animate-shake();
+    @include animate-shake;
   }
 
   // Add responsive variants if needed
@@ -304,15 +307,15 @@ $generated-keyframes: ();
     @media (min-width: #{$width}) {
       
       .animate-pulse\@#{$breakpoint} {
-          @include animate-pulse();
+          @include animate-pulse;
         }
         
         .animate-spin\@#{$breakpoint} {
-          @include animate-spin();
+          @include animate-spin;
         }
         
         .animate-ping\@#{$breakpoint} {
-          @include animate-ping();
+          @include animate-ping;
         }
         
         .animate-fade-in\@#{$breakpoint} { 
@@ -332,7 +335,7 @@ $generated-keyframes: ();
         }
         
         .animate-shake\@#{$breakpoint} {
-          @include animate-shake();
+          @include animate-shake;
         }
     }
   }

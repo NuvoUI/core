@@ -263,6 +263,7 @@
  */
  @mixin inset($val) {
   $val: FN.fix-units($val);
+  
   inset: $val;
 }
 
@@ -273,6 +274,7 @@
  */
 @mixin inset-x($val) {
   $val: FN.fix-units($val);
+
   left: $val;
   right: $val;
 }
@@ -284,6 +286,7 @@
  */
 @mixin inset-y($val) {
   $val: FN.fix-units($val);
+
   top: $val;
   bottom: $val;
 }

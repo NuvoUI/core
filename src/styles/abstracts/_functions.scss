@@ -101,7 +101,6 @@
 
   $val: strip-quotes($val);
 
-  // Skip adding units to special values like 'auto', 'inherit', etc.
   @if $val == auto or $val == inherit or $val == initial or
     $val == 'min-content' or $val == 'max-content' or $val == 'fit-content' {
       @return string.unquote($val);
@@ -110,7 +109,6 @@
   @if string.index($val, "px") or string.index($val, "em") or string.index($val, "rem") or
       string.index($val, "%") or string.index($val, "vh") or string.index($val, "vw") or
       string.index($val, "vmin") or string.index($val, "vmax") {
-    // String already has a unit, return as is
     @return string.unquote($val);
   }
 
@@ -118,22 +116,15 @@
 }
 
 
-
-
 @function strip-quotes($string) {
   @if meta.type-of($string) == string {
-    // Check if the first and last characters are quotes
     @if string.slice($string, 1, 1) == '"' and string.slice($string, -1) == '"' {
-      // Extract the content between quotes
       @return string.slice($string, 2, -2);
-    }
-    @else if string.slice($string, 1, 1) == "'" and string.slice($string, -1) == "'" {
-      // Extract the content between single quotes
+    } @else if string.slice($string, 1, 1) == "'" and string.slice($string, -1) == "'" {
       @return string.slice($string, 2, -2);
     }
   }
-  
-  // Return unchanged if no quotes or not a string
+
   @return $string;
 }
 
@@ -155,11 +146,9 @@
   @while $index != null {
     $item: string.slice($string, 1, $index - 1);
     $result: list.append($result, str-trim(string.unquote(strip-quotes($item))));
-    // $result: list.append($result, string.unquote(str-trim($item)));
     $string: string.slice($string, $index + string.length($delimiter));
     $index: string.index($string, $delimiter);
   }
 
   @return list.append($result, str-trim($string)); 
 }
-

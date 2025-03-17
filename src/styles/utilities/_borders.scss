@@ -14,7 +14,7 @@ $border-styles: (solid, dashed, dotted, double, none);
  
 
 @function get-rounded-value($val) {
-  @if $val == null { 
+  @if not $val { 
     @return map.get($border-radii, 'md');
   } @else if meta.type-of($val) == string {
     $clean-val: $val;
@@ -132,7 +132,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-top-left-radius: $val; 
 }
 @mixin rounded-tr($val: null) { 
-  $val:get-rounded-value($val);
+  $val: get-rounded-value($val);
   
   border-top-right-radius: $val; 
 }
@@ -159,6 +159,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin pill { @include rounded(9999px); } // todo: doc missing
+
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------

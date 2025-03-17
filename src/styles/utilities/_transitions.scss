@@ -72,11 +72,6 @@ $delays: (
 
 
 @if $generate-utility-classes {
-  // Base transition
-  .transition {
-    @include transition;
-  }
-
   // Property-specific transitions
   .transition-none { @include transition-none; }
   .transition { @include transition; }

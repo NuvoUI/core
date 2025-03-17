@@ -193,8 +193,12 @@
   .bg-black, .hover\:bg-black:hover {background-color: black;}
   .text-default {color: var(--text-primary);}
   .text-muted {color: var(--text-secondary);}
-  .text-subtle {color: var(--text-secondary); opacity: 0.7;}
   .text-inverted {color: var(--inverted-text-color);}
   .text-white, .hover\:text-white:hover {color: white;}
   .text-black, .hover\:text-black:hover {color: black;}
+
+  .text-subtle {
+    color: var(--text-secondary); 
+    opacity: 0.7;
+  }
 }
