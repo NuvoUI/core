@@ -198,18 +198,3 @@
   .text-white, .hover\:text-white:hover {color: white;}
   .text-black, .hover\:text-black:hover {color: black;}
 }
-
-// Glass effects
-.glass-effect {
-  background-color: rgb(255 255 255 / 10%);
-  border: 1px solid rgb(255 255 255 / 20%);
-
-  @include COL.backdrop-filter(blur(8px));
-}
-
-.frosted-glass {
-  background-color: rgb(255 255 255 / 70%);
-  border: 1px solid rgb(255 255 255 / 80%);
-
-  @include COL.backdrop-filter(blur(15px));
-}
