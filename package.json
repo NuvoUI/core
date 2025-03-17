@@ -75,16 +75,15 @@
     "last 2 versions",
     "not dead"
   ],
- 
   "devDependencies": {
     "cssnano": "^7.0.6",
-    "postcss": "^8.4.49",
-    "postcss-cli": "^11.0.0",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.0",
     "postcss-nested": "^7.0.2",
-    "prettier": "^3.3.3",
-    "sass": "^1.81.0",
-    "stylelint": "^16.10.0",
+    "prettier": "^3.5.3",
+    "sass": "^1.85.1",
+    "stylelint": "^16.16.0",
     "stylelint-config-standard-scss": "^13.1.0"
   },
   "peerDependencies": {
