@@ -2,6 +2,7 @@
 @use 'sass:string';
 @use 'sass:meta';
 @use '../abstracts'  as *; 
+@use '../abstracts/functions'  as FN; 
 
  
 /**
@@ -73,40 +74,6 @@
  * @see flex, grid, display
  */
 
-// -----------------------------------------------
-// HELPER FUNCTIONS
-// -----------------------------------------------
-
-/**
- * @function format-unit-value
- * @description Ensures values have appropriate units
- * @param {Number|String} $value - The value to format
- * @returns {Number|String} Value with appropriate units
- * @internal
- */
-
-@function format-unit-value($value) {
-  // Zero check
-  @if $value == 0 {
-    @return 0;
-  }
-
-  // If pure number (no units), add px
-  @if meta.type-of($value) == 'number' and math.unit($value) == "" {
-    @return $value * 1px; // Multiply by 1px instead of adding px
-  }
-
-  // If number with units (like rem), return as is
-  @if meta.type-of($value) == 'number' and math.unit($value) != "" {
-    @return $value; // Already has units, return as is
-  }
-
-   // Convert value to string for unit checking
-  $value-str: if(meta.type-of($value) == 'string', string.unquote($value), #{$value});
-  
-  @return $value-str;
-}
-
 
 // -----------------------------------------------
 // PADDING MIXINS
@@ -117,7 +84,7 @@
  * @description Sets padding on all sides
  * @param {Number|String} $val - Padding value
  */
-@mixin p($val) {  padding: format-unit-value($val); }
+@mixin p($val) {  padding: FN.fix-units($val); }
 
 /**
 * @mixin px
@@ -125,7 +92,7 @@
 * @param {Number|String} $val - Padding value
 */
 @mixin px($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
   
   padding-inline: $val;
 }
@@ -136,7 +103,7 @@
 * @param {Number|String} $val - Padding value
 */
 @mixin py($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
   
   padding-block: $val;
 }
@@ -147,7 +114,7 @@
 * @param {Number|String} $val - Padding value
 */
 @mixin pt($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   padding-top: $val; 
 }
@@ -158,7 +125,7 @@
 * @param {Number|String} $val - Padding value
 */
 @mixin pr($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   padding-right: $val; 
 }
@@ -169,7 +136,7 @@
 * @param {Number|String} $val - Padding value
 */
 @mixin pb($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   padding-bottom: $val; 
 }
@@ -180,7 +147,7 @@
 * @param {Number|String} $val - Padding value
 */
 @mixin pl($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   padding-left: $val; 
 }
@@ -195,7 +162,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin m($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   margin: $val; 
 }
@@ -206,7 +173,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin mx($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   margin-inline: $val;
 }
@@ -217,7 +184,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin my($val) { 
-  $val: format-unit-value($val);
+  $val: FN.fix-units($val);
 
   margin-block: $val;
 }
@@ -228,7 +195,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin mt($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
 
   margin-top: $val; 
 }
@@ -239,7 +206,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin mr($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
   
   margin-right: $val; 
 }
@@ -250,7 +217,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin mb($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
   
   margin-bottom: $val; 
 }
@@ -261,7 +228,7 @@
 * @param {Number|String} $val - Margin value
 */
 @mixin ml($val) { 
-  $val: format-unit-value($val); 
+  $val: FN.fix-units($val); 
   
   margin-left: $val; 
 }
@@ -296,7 +263,7 @@
  */
 @mixin space-y($i) {
   & > * + * {
-    $i: format-unit-value($i);
+    $i: FN.fix-units($i);
     
     margin-top: $i;
   }
@@ -309,7 +276,7 @@
   */
 @mixin space-x($i) {
   & > * + * {
-    $i: format-unit-value($i);
+    $i: FN.fix-units($i);
     
     margin-left: $i;
   }
@@ -324,21 +291,21 @@
  * @description Sets gap between grid/flex children
  * @param {Number|String} $val - Gap value
  */
- @mixin gap($val) { $val: format-unit-value($val); gap: $val; }
+ @mixin gap($val) { $val: FN.fix-units($val); gap: $val; }
 
  /**
   * @mixin gap-x
   * @description Sets horizontal gap between grid/flex children
   * @param {Number|String} $val - Gap value
   */
- @mixin gap-x($val) { $val: format-unit-value($val); column-gap: $val; }
+ @mixin gap-x($val) { $val: FN.fix-units($val); column-gap: $val; }
  
  /**
   * @mixin gap-y
   * @description Sets vertical gap between grid/flex children
   * @param {Number|String} $val - Gap value
   */
- @mixin gap-y($val) { $val: format-unit-value($val); row-gap: $val; }
+ @mixin gap-y($val) { $val: FN.fix-units($val); row-gap: $val; }
 
 @if $generate-utility-classes {
   // -----------------------------------------------

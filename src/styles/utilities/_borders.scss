@@ -3,12 +3,36 @@
 
 @use 'sass:math';
 @use 'sass:map';
-@use '../abstracts'  as *;
-
+@use 'sass:meta';
+@use 'sass:string' as str;
+@use '../abstracts' as *;
+@use '../abstracts/functions' as FN;
 
 
 // Common border styles
 $border-styles: (solid, dashed, dotted, double, none);
+ 
+
+@function get-rounded-value($val) {
+  @if $val == null { 
+    @return map.get($border-radii, 'md');
+  } @else if meta.type-of($val) == string {
+    $clean-val: $val;
+    
+    // Try to find the value in the border-radii map
+    @if map.has-key($border-radii, $clean-val) {
+      @return map.get($border-radii, $clean-val);
+    } @else if map.has-key($border-radii, str.unquote($clean-val)) {
+      @return map.get($border-radii, str.unquote($clean-val));
+    } @else {
+      // Not a predefined value, process it as a custom value
+      @return FN.fix-units($val);
+    }
+  } @else {
+    // Case 3: $val is a custom value, ensure it has units
+    @return FN.fix-units($val);
+  }
+}
 
 // -----------------------------------------------
 // MIXINS
@@ -17,14 +41,18 @@ $border-styles: (solid, dashed, dotted, double, none);
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
 @mixin border($val, $style: solid, $color: var(--border)) { 
+  $val: FN.fix-units($val);
+ 
   border-width: $val; 
   @if $val != 0 {
       border-style: $style;
       border-color: $color;
     }
-}
+} 
 
 @mixin border-top($val) { 
+  $val: FN.fix-units($val);
+
   border-top-width: $val; 
   @if $val != 0 {
     border-top-style: solid;
@@ -33,6 +61,8 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-right($val) { 
+  $val: FN.fix-units($val);
+
   border-right-width: $val; 
   @if $val != 0 {
     border-right-style: solid;
@@ -41,6 +71,8 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-bottom($val) { 
+  $val: FN.fix-units($val);
+
   border-bottom-width: $val; 
   @if $val != 0 {
     border-bottom-style: solid;
@@ -49,6 +81,8 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-left($val) { 
+  $val: FN.fix-units($val);
+
   border-left-width: $val; 
   @if $val != 0 {
     border-left-style: solid;
@@ -61,54 +95,54 @@ $border-styles: (solid, dashed, dotted, double, none);
  * @param {String} $val - The border radius value
  */
 @mixin rounded($val: null) {
-  border-radius: if($val == null, map.get($border-radii, 'md'), $val);
+  border-radius: get-rounded-value($val);
 }
 
 @mixin rounded-t($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
 
   border-top-left-radius: $val;
   border-top-right-radius: $val;
 }
 
 @mixin rounded-r($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
 
   border-top-right-radius: $val;
   border-bottom-right-radius: $val;
 }
 
 @mixin rounded-b($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
 
   border-bottom-left-radius: $val;
   border-bottom-right-radius: $val;
 }
 
 @mixin rounded-l($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
 
   border-top-left-radius: $val;
   border-bottom-left-radius: $val;
 }
 
 @mixin rounded-tl($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
   
   border-top-left-radius: $val; 
 }
 @mixin rounded-tr($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val:get-rounded-value($val);
   
   border-top-right-radius: $val; 
 }
 @mixin rounded-br($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
   
   border-bottom-right-radius: $val; 
 }
 @mixin rounded-bl($val: null) { 
-  $val: if($val == null, map.get($border-radii, 'md'), $val);
+  $val: get-rounded-value($val);
   
   border-bottom-left-radius: $val; 
 }
@@ -125,26 +159,6 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin pill { @include rounded(9999px); } // todo: doc missing
-
-// -----------------------------------------------
-// VARIABLES
-// -----------------------------------------------
-
-// Common border width values that are most useful
-$border-widths: (0, 1, 2, 4, 8);
-
-// Common border radius values that are most useful
-$border-radii: (
-  'xs': 0.25rem,
-  'sm': 0.375rem,
-  'md': 0.5rem,
-  'lg': 0.75rem,
-  'xl': 1rem,
-  '2xl': 1.25rem,
-  'full': 9999px,
-  'none': 0
-);
-
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------

@@ -3,16 +3,17 @@
 @use 'sass:math';
 @use 'sass:string' as str;
 @use '../abstracts'  as VAR;
+@use '../abstracts/functions' as FN;
 @use './container-queries' as Q;
 @use './media-queries' as MQ;
 
-@mixin width($value) { width: $value; }
-@mixin height($value) { height: $value; }
-@mixin min-width($value) { min-width: $value; }
-@mixin min-height($value) { min-height: $value; }
-@mixin max-width($value) { max-width: $value; }
-@mixin max-height($value) { max-height: $value; }
-
+@mixin width($value) { width: FN.fix-units($value); }
+@mixin height($value) { height: FN.fix-units($value); }
+@mixin min-width($value) { min-width: FN.fix-units($value); }
+@mixin min-height($value) { min-height: FN.fix-units($value); }
+@mixin max-width($value) { max-width: FN.fix-units($value); }
+@mixin max-height($value) { max-height: FN.fix-units($value); }
+.widthx { @include width(100%); }
 @mixin width-percent($i) { width: str.unquote($i + '%'); }
 @mixin height-percent($i) { height: str.unquote($i + '%'); }
 @mixin min-width-percent($i) { min-width: str.unquote($i + '%'); }
