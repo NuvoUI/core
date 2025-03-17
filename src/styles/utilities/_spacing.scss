@@ -253,6 +253,68 @@
 
 
 // -----------------------------------------------
+// INSET MIXINS
+// -----------------------------------------------
+
+/**
+ * @mixin inset
+ * @description Sets all inset properties (top, right, bottom, left)
+ * @param {Number|String} $val - Inset value
+ */
+ @mixin inset($val) {
+  $val: FN.fix-units($val);
+  inset: $val;
+}
+
+/**
+ * @mixin inset-x
+ * @description Sets horizontal inset properties (left and right)
+ * @param {Number|String} $val - Inset value
+ */
+@mixin inset-x($val) {
+  $val: FN.fix-units($val);
+  left: $val;
+  right: $val;
+}
+
+/**
+ * @mixin inset-y
+ * @description Sets vertical inset properties (top and bottom)
+ * @param {Number|String} $val - Inset value
+ */
+@mixin inset-y($val) {
+  $val: FN.fix-units($val);
+  top: $val;
+  bottom: $val;
+}
+
+/**
+ * @mixin inset-auto
+ * @description Sets all inset properties to auto
+ */
+@mixin inset-auto {
+  inset: auto;
+}
+
+/**
+ * @mixin inset-x-auto
+ * @description Sets horizontal inset properties to auto
+ */
+@mixin inset-x-auto {
+  left: auto;
+  right: auto;
+}
+
+/**
+ * @mixin inset-y-auto
+ * @description Sets vertical inset properties to auto
+ */
+@mixin inset-y-auto {
+  top: auto;
+  bottom: auto;
+}
+
+// -----------------------------------------------
 // SPACING MIXINS
 // -----------------------------------------------
 
@@ -322,6 +384,12 @@
 
   .gap-auto { gap: auto; }
 
+    // Auto inset utility classes
+    .inset-auto { @include inset-auto; }
+    .inset-x-auto { @include inset-x-auto; }
+    .inset-y-auto { @include inset-y-auto; }
+
+    
   // -----------------------------------------------
   // SPACING CLASSES
   // -----------------------------------------------
@@ -353,6 +421,11 @@
       // Space classes
       .space-x-#{$key} { @include space-x($value); }
       .space-y-#{$key} { @include space-y($value); }
+
+      .inset-#{$key} { @include inset($value); }
+      .inset-x-#{$key} { @include inset-x($value); }
+      .inset-y-#{$key} { @include inset-y($value); }
+    
   }
 
 
@@ -365,6 +438,9 @@
       .mx-auto\@#{$breakpoint} { @include mx-auto; }
       .ml-auto\@#{$breakpoint} { @include ml-auto; }
       .mr-auto\@#{$breakpoint} { @include mr-auto; }
+      .inset-auto\@#{$breakpoint} { @include inset-auto; }
+      .inset-x-auto\@#{$breakpoint} { @include inset-x-auto; }
+      .inset-y-auto\@#{$breakpoint} { @include inset-y-auto; }
 
       // Generate utilities from spacing map
       @each $key, $value in $spacings {
@@ -393,6 +469,10 @@
         // Space classes
         .space-x-#{$key}\@#{$breakpoint} { @include space-x($value); }
         .space-y-#{$key}\@#{$breakpoint} { @include space-y($value); }
+        .inset-#{$key}\@#{$breakpoint} { @include inset($value); }
+        .inset-x-#{$key}\@#{$breakpoint} { @include inset-x($value); }
+        .inset-y-#{$key}\@#{$breakpoint} { @include inset-y($value); }
+     
       }
     }
   }
