@@ -1,0 +1,285 @@
+@use '../abstracts' as *;
+@use 'sass:map';
+
+/**
+ * Transform Utilities
+ * 
+ * - Translate (X, Y, Z)
+ * - Scale
+ * - Rotate
+ * - Skew
+ * - Transform origin
+ */
+
+ // Common transform function to avoid repetition
+@mixin apply-transform {
+  transform: 
+    translateX(var(--translate-x, 0)) 
+    translateY(var(--translate-y, 0)) 
+    translateZ(var(--translate-z, 0)) 
+    rotate(var(--rotate, 0)) 
+    skewX(var(--skew-x, 0)) 
+    skewY(var(--skew-y, 0)) 
+    scaleX(var(--scale-x, 1)) 
+    scaleY(var(--scale-y, 1)) 
+    scaleZ(var(--scale-z, 1));
+}
+
+
+// Translation mixins
+@mixin translate-x($value) {
+  // Store the value in a CSS variable
+  --translate-x: #{$value};
+  @include apply-transform;
+}
+
+@mixin translate-y($value) {
+  // Store the value in a CSS variable
+  --translate-y: #{$value};
+  @include apply-transform;
+}
+
+@mixin translate-z($value) {
+  // Store the value in a CSS variable
+  --translate-z: #{$value};
+  @include apply-transform;
+}
+
+@mixin translate($x, $y: null) {
+  // Always set the x value
+  --translate-x: #{$x};
+  
+  // Only set y if provided
+  @if $y {
+    --translate-y: #{$y};
+  }
+  
+  @include apply-transform;
+}
+// Scale mixins
+@mixin scale-x($value) {
+  --scale-x: #{$value};
+  @include apply-transform;
+}
+
+@mixin scale-y($value) {
+  --scale-y: #{$value};
+  @include apply-transform;
+}
+
+@mixin scale($value) {
+  --scale-x: #{$value};
+  --scale-y: #{$value};
+  @include apply-transform;
+}
+
+// Rotation mixins
+@mixin rotate($value) {
+  --rotate: #{$value};
+  @include apply-transform;
+}
+
+// Skew mixins
+@mixin skew-x($value) {
+  --skew-x: #{$value};
+  @include apply-transform;
+}
+
+@mixin skew-y($value) {
+  --skew-y: #{$value};
+  @include apply-transform;
+}
+// Transform origin
+@mixin origin($value) {
+    transform-origin: $value;
+}
+
+// Common transform values
+$translate-values: (
+  '0': 0,
+  '1': 0.25rem,
+  '2': 0.5rem,
+  '3': 0.75rem,
+  '4': 1rem,
+  '5': 1.25rem,
+  '6': 1.5rem,
+  '8': 2rem,
+  '10': 2.5rem,
+  '12': 3rem,
+  '16': 4rem,
+  '20': 5rem,
+  '25p': 25%,
+  '33p': 33.333%,
+  '50p': 50%,
+  '66p': 66.667%,
+  '75p': 75%,
+  '100p': 100%,
+);
+
+$negative-translate-values: (
+  '1': -0.25rem,
+  '2': -0.5rem,
+  '3': -0.75rem,
+  '4': -1rem,
+  '5': -1.25rem,
+  '6': -1.5rem,
+  '8': -2rem,
+  '10': -2.5rem,
+  '12': -3rem,
+  '16': -4rem,
+  '20': -5rem,
+  '25p': 25%,
+  '33p': 33.333%,
+  '50p': 50%,
+  '66p': 66.667%,
+  '75p': 75%,
+  '100p': -100%,
+);
+
+// Scale hover utilities
+$scale-values: (
+  '0': 0,
+  '50': 0.5,
+  '75': 0.75,
+  '90': 0.9,
+  '95': 0.95, 
+  '100': 1,
+  '105': 1.05,
+  '110': 1.1,
+  '125': 1.25,
+  '150': 1.5
+);
+
+  // Rotation hover utilities
+  $rotation-values: (
+    '0': 0deg,
+    '45': 45deg,
+    '90': 90deg,
+    '180': 180deg,
+    '270': 270deg
+  );
+
+  // Separate map for negative rotations
+  $negative-rotation-values: (
+    '45': -45deg,
+    '90': -90deg,
+    '180': -180deg,
+    '270': -270deg
+  );
+
+   // Origin hover utilities
+   $origin-values: (
+    'center': center,
+    'top': top,
+    'top-right': top right,
+    'right': right,
+    'bottom-right': bottom right,
+    'bottom': bottom,
+    'bottom-left': bottom left,
+    'left': left,
+    'top-left': top left
+  );
+
+// Generate utility classes
+@if $generate-utility-classes {
+  // Translate utilities
+  @each $key, $value in $translate-values {
+    .translate-x-#{$key},
+    .hover\:translate-x-#{$key}:hover,
+    .group:hover .group-hover\:translate-x-#{$key} { @include translate-x($value); }
+    
+    .translate-y-#{$key},
+    .hover\:translate-y-#{$key}:hover,
+    .group:hover .group-hover\:translate-y-#{$key} { @include translate-y($value); }
+  }
+  @each $key, $value in $negative-translate-values {
+    .-translate-x-#{$key},
+    .hover\:-translate-x-#{$key}:hover,
+    .group:hover .group-hover\:-translate-x-#{$key} { @include translate-x($value); }
+    
+    .-translate-y-#{$key},
+    .hover\:-translate-y-#{$key}:hover,
+    .group:hover .group-hover\:-translate-y-#{$key} { @include translate-y($value); }
+  }
+  
+  @each $key, $value in $scale-values {
+    .scale-#{$key},
+    .hover\:scale-#{$key}:hover,
+    .group:hover .group-hover\:scale-#{$key} { @include scale($value); }
+
+    .scale-x-#{$key},
+    .hover\:scale-x-#{$key}:hover,
+    .group:hover .group-hover\:scale-x-#{$key} { @include scale-x($value); }
+
+    .scale-y-#{$key},
+    .hover\:scale-y-#{$key}:hover,
+    .group:hover .group-hover\:scale-y-#{$key} { @include scale-y($value); }
+  }
+  
+  // Rotation utilities
+  @each $key, $value in $rotation-values {
+    .rotate-#{$key},
+    .hover\:rotate-#{$key}:hover,
+    .group:hover .group-hover\:rotate-#{$key} { @include rotate($value); }
+  }
+
+  // Negative rotation utilities
+  @each $key, $value in $negative-rotation-values {
+    .-rotate-#{$key},
+    .hover\:-rotate-#{$key}:hover,
+    .group:hover .group-hover\:-rotate-#{$key} { @include rotate($value); }
+  }
+  
+  // Origin utilities
+  @each $key, $value in $origin-values {
+    .origin-#{$key},
+    .hover\:origin-#{$key}:hover,
+    .group:hover .group-hover\:origin-#{$key} { @include origin($value); }
+  }
+   
+  // Responsive variants
+  @each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+      @each $key, $value in $translate-values {
+        .translate-x-#{$key}\@#{$breakpoint},
+        .hover\:translate-x-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:translate-x-#{$key}\@#{$breakpoint} { @include translate-x($value); }
+
+        .translate-x-#{$key}\@#{$breakpoint},
+        .hover\:translate-y-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:translate-y-#{$key}\@#{$breakpoint} { @include translate-y($value); }
+      }
+      @each $key, $value in $negative-translate-values {
+        .-translate-x-#{$key}\@#{$breakpoint},
+        .hover\:-translate-x-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:-translate-x-#{$key}\@#{$breakpoint} { @include translate-x($value); }
+
+        .-translate-x-#{$key}\@#{$breakpoint},
+        .hover\:-translate-y-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:-translate-y-#{$key}\@#{$breakpoint} { @include translate-y($value); }
+      }
+      
+       // Scale hover responsive
+       @each $key, $value in $scale-values {
+        .scale-#{$key}\@#{$breakpoint},
+        .hover\:scale-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:scale-#{$key}\@#{$breakpoint} { @include scale($value); }
+      }
+      
+      // Rotation hover responsive
+      @each $key, $value in $rotation-values {
+        .rotate-#{$key}\@#{$breakpoint},
+        .hover\:rotate-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:rotate-#{$key}\@#{$breakpoint} { @include rotate($value); }
+      }
+
+      // Negative rotation utilities
+      @each $key, $value in $negative-rotation-values {
+        .-rotate-#{$key}\@#{$breakpoint},
+        .hover\:-rotate-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:-rotate-#{$key}\@#{$breakpoint} { @include rotate($value); }
+      }
+
+    }
+  }
+}
