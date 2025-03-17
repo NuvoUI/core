@@ -69,8 +69,13 @@
 
   // Generate utilities from spacing map
   @each $key, $value in VAR.$spacings {
-    .w-#{$key} { @include width($value); }
-    .h-#{$key} { @include height($value); }
+    .w-#{$key},
+    .hover\:w-#{$key}:hover,
+    .group:hover .group-hover\:w-#{$key} { @include width($value); }
+    .h-#{$key},
+    .hover\:h-#{$key}:hover,
+    .group:hover .group-hover\:h-#{$key} { @include height($value); }
+
     .min-w-#{$key} { @include min-width($value); }
     .min-h-#{$key} { @include min-height($value); }
     .max-w-#{$key} { @include max-width($value); }
@@ -97,8 +102,13 @@
     @include MQ.media-up ($breakpoint) {
       // Generate utilities from spacing map
       @each $i in VAR.$percentages {
-        .w-#{$i}p\@#{$breakpoint} { @include width-percent($i); }
-        .h-#{$i}p\@#{$breakpoint} { @include height-percent($i); }
+        .w-#{$i}\@#{$breakpoint},
+        .hover\:w-#{$i}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:w-#{$i}\@#{$breakpoint} { @include width($i); }
+        .h-#{$i}\@#{$breakpoint},
+        .hover\:h-#{$i}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:h-#{$i}\@#{$breakpoint} { @include height($i); }
+
         .min-w-#{$i}p\@#{$breakpoint} { @include min-width-percent($i); }
         .min-h-#{$i}p\@#{$breakpoint} { @include min-height-percent($i); }
         .max-w-#{$i}p\@#{$breakpoint} { @include max-width-percent($i); }
@@ -106,8 +116,14 @@
       }
 
       @each $key, $value in VAR.$spacings {
-        .w-#{$key}\@#{$breakpoint} { @include width($value); }
-        .h-#{$key}\@#{$breakpoint} { @include height($value); }
+        .w-#{$key}\@#{$breakpoint},
+        .hover\:w-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:w-#{$key}\@#{$breakpoint} { @include width($value); }
+        .h-#{$key}\@#{$breakpoint},
+        .hover\:h-#{$key}\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:h-#{$key}\@#{$breakpoint} { @include height($value); }
+        
+
         .min-w-#{$key}\@#{$breakpoint} { @include min-width($value); }
         .min-h-#{$key}\@#{$breakpoint} { @include min-height($value); }
         .max-w-#{$key}\@#{$breakpoint} { @include max-width($value); }
