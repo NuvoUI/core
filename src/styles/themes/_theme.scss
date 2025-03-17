@@ -99,8 +99,8 @@
       }
 
       .text-#{$color-name}-#{$shade},
-      .hover\:text--#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
-      .group:hover .group-hover\:text--#{$color-name}-#{$shade} {
+      .hover\:text-#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
+      .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
         color: var(--#{$color-name}-#{$shade});
       }
 
@@ -119,8 +119,8 @@
 
     // Base color classes
     .text-#{$color-name},
-    .hover\:text--#{$color-name}:hover, // todo: improve these loops to save time
-    .group:hover .group-hover\:text--#{$color-name} {
+    .hover\:text-#{$color-name}:hover, // todo: improve these loops to save time
+    .group:hover .group-hover\:text-#{$color-name} {
       color: var(--#{$color-name});
     }
 
@@ -146,8 +146,8 @@
       }
 
       .text-#{$color-name}-#{$shade},
-      .hover\:text--#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
-      .group:hover .group-hover\:text--#{$color-name}-#{$shade} {
+      .hover\:text-#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
+      .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
         color: var(--#{$color-name}-#{$shade});
       }
 
@@ -166,8 +166,8 @@
 
     // Base color classes
     .text-#{$color-name},
-    .hover\:text--#{$color-name}:hover, // todo: improve these loops to save time
-    .group:hover .group-hover\:text--#{$color-name} {
+    .hover\:text-#{$color-name}:hover, // todo: improve these loops to save time
+    .group:hover .group-hover\:text-#{$color-name} {
       color: var(--#{$color-name});
     }
 
@@ -185,54 +185,18 @@
   }
 
   // Semantic color utilities
-  .bg-page {
-    background-color: var(--background);
-  }
-
-  .bg-card {
-    background-color: var(--surface);
-  }
-
-  .bg-active {
-    background-color: var(--button-bg-color);
-  }
-
-  .bg-hover {
-    background-color: var(--button-bg-color-hover);
-  }
-
-  .bg-white {
-    background-color: white;
-  }
-
-  .bg-black {
-    background-color: black;
-  }
-
-  .text-default {
-    color: var(--text-primary);
-  }
-
-  .text-muted {
-    color: var(--text-secondary);
-  }
-
-  .text-subtle {
-    color: var(--text-secondary);
-    opacity: 0.7;
-  }
-
-  .text-inverted {
-    color: var(--inverted-text-color);
-  }
-
-  .text-white {
-    color: white;
-  }
-
-  .text-black {
-    color: black;
-  }
+  .bg-page {background-color: var(--background);}
+  .bg-card {background-color: var(--surface);}
+  .bg-active {background-color: var(--button-bg-color);}
+  .bg-hover {background-color: var(--button-bg-color-hover);}
+  .bg-white, .hover\:bg-white:hover {background-color: white;}
+  .bg-black, .hover\:bg-black:hover {background-color: black;}
+  .text-default {color: var(--text-primary);}
+  .text-muted {color: var(--text-secondary);}
+  .text-subtle {color: var(--text-secondary); opacity: 0.7;}
+  .text-inverted {color: var(--inverted-text-color);}
+  .text-white, .hover\:text-white:hover {color: white;}
+  .text-black, .hover\:text-black:hover {color: black;}
 }
 
 // Glass effects

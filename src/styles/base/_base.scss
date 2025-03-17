@@ -162,12 +162,20 @@ figcaption {
 
 // Links
 a {
-  color: var(--link-color);
   transition: color 0.2s ease-in-out;
 
-  &:hover {
-    color: var(--link-hover-color);
+  &:not([class*="text-"]){ // document: if no hover or normal text provided it will use the default link color
+    color: var(--link-color);
+
+    &:hover {
+      color: var(--link-hover-color);
+    }
   }
+}
+
+// Labels
+label[for] {
+  cursor: pointer;
 }
 
 // todo: add to doc
