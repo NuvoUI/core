@@ -1,0 +1,114 @@
+// Section: Layout
+// Module: Z-Index
+
+@use 'sass:map';
+@use 'sass:meta';
+
+// Import variables
+@use '../abstracts' as VAR;
+
+/**
+ * Z-Index Utilities
+ * 
+ * Classes:
+ * - z-index values: .z-0, .z-10, .z-20, etc.
+ * - Named z-index levels: .z-auto, .z-base, .z-dropdown, etc.
+ * 
+ * All utilities support responsive variants with @breakpoint suffix:
+ * - .z-10@md, .z-dropdown@lg, etc.
+ */
+
+// Z-index values map (can be moved to variables)
+$z-indexes: (
+  'auto': auto,
+  '0': 0,
+  '10': 10,
+  '20': 20,
+  '30': 30,
+  '40': 40,
+  '50': 50,
+  '60': 60,
+  '70': 70,
+  '80': 80,
+  '90': 90,
+  '100': 100,
+  '200': 200,
+  '500': 500,
+  '1000': 1000,
+);
+
+// Named z-index levels (can be moved to variables)
+$z-index-levels: (
+  'base': 0,
+  'hover': 10,
+  'dropdown': 100, 
+  'sticky': 200,
+  'fixed': 300,
+  'drawer': 400,
+  'modal': 500,
+  'popover': 600,
+  'tooltip': 700,
+  'overlay': 800,
+  'toast': 900,
+  'max': 9999
+);
+
+/**
+ * Apply a z-index value
+ * @param {Number|String} $value - Z-index value or key
+ */
+@mixin z-index($value) {
+  @if map.has-key($z-indexes, $value) {
+    z-index: map.get($z-indexes, $value);
+  } @else if map.has-key($z-index-levels, $value) {
+    z-index: map.get($z-index-levels, $value);
+  } @else {
+    z-index: $value;
+  }
+}
+
+/**
+ * Generate z-index utility classes
+ * @param {String} $breakpoint - Optional breakpoint name for responsive variants
+ */
+@mixin z-index-utilities($breakpoint: null) {
+  $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
+  
+  // Standard numbered z-index utilities
+  @each $key, $value in $z-indexes {
+    .z-#{$key}#{$suffix} { @include z-index($key); }
+  }
+  
+  // Named semantic z-index utilities
+  @each $key, $value in $z-index-levels {
+    .z-#{$key}#{$suffix} { @include z-index($value); }
+  }
+}
+
+// Create specific named utilities as mixins for use in other files
+@mixin z-base { @include z-index('base'); }
+@mixin z-hover { @include z-index('hover'); }
+@mixin z-dropdown { @include z-index('dropdown'); }
+@mixin z-sticky { @include z-index('sticky'); }
+@mixin z-fixed { @include z-index('fixed'); }
+@mixin z-drawer { @include z-index('drawer'); }
+@mixin z-modal { @include z-index('modal'); }
+@mixin z-popover { @include z-index('popover'); }
+@mixin z-tooltip { @include z-index('tooltip'); }
+@mixin z-overlay { @include z-index('overlay'); }
+@mixin z-toast { @include z-index('toast'); }
+@mixin z-max { @include z-index('max'); }
+@mixin z-auto { @include z-index('auto'); }
+
+// Generate utility classes
+@if VAR.$generate-utility-classes {
+  // Generate base utilities
+  @include z-index-utilities;
+  
+  // Generate responsive variants
+  @each $breakpoint, $width in VAR.$breakpoints {
+    @media (min-width: #{$width}) {
+      @include z-index-utilities($breakpoint);
+    }
+  }
+} 

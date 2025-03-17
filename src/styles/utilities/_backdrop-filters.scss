@@ -89,18 +89,6 @@ $backdrop-invert-values: (
   '100': 100%,
 );
 
-
-
-// Filter Mixins
-@mixin backdrop-filter($value) {
-  backdrop-filter: $value;
-}
-
-@mixin filter($value) {
-  filter: $value;
-} 
-
-
 // Common backdrop-filter presets
 $backdrop-filter-presets: (
   'frosted': blur(8px) saturate(90%) brightness(120%),
