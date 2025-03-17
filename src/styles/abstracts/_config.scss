@@ -11,7 +11,7 @@ $enable-container-queries: false !default; // todo: pending
 
 // Text
 $base-size: 16 !default; 
-$font-family: system-ui, -apple-system, "BlinkMacSystemFont", 'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+$font-family: system-ui, -apple-system, "BlinkMacSystemFont", 'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif !default;
 
 // Global variables that might be used across different modules
 $column-count: 12 !default; // todo: pending
