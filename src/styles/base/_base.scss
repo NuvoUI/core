@@ -67,14 +67,19 @@ button {
   padding: 0.5rem 1rem;
   border: 0;
   border-radius: 0.25rem;
-  background-color: var(--button-bg-color, #007BFF); // Default button color
-  color: var(--button-text-color, #FFF);
+  
   font-family: var(--font-family-base);
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
-  &:hover {
-    background-color: var(--button-bg-color-hover, #0056B3); // Hover button color
+  // Default styling when no bg-* class is present
+  &:not([class*="bg-"]) {
+    background-color: var(--button-bg-color, #007BFF); // Default button color
+    color: var(--button-text-color, #FFF);
+    
+    &:hover {
+      background-color: var(--button-bg-color-hover, #0056B3);
+    }
   }
   
   &:focus {
