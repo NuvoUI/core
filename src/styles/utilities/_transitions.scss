@@ -9,18 +9,11 @@
  * - .duration-{time}: Set transition duration
  * - .ease-{type}: Set transition timing function
  * - .delay-{time}: Set transition delay
- */
-
-// Base transition mixins
-@mixin transition {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
+ */ 
 
 // Property-specific transition mixins
 @mixin transition-none { transition-property: none; }
-@mixin transition-all { transition-property: all; }
+@mixin transition { transition-property: all; }
 @mixin transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; }
 @mixin transition-opacity { transition-property: opacity; }
 @mixin transition-shadow { transition-property: box-shadow; }
@@ -86,7 +79,7 @@ $delays: (
 
   // Property-specific transitions
   .transition-none { @include transition-none; }
-  .transition-all { @include transition-all; }
+  .transition { @include transition; }
   .transition-colors { @include transition-colors; }
   .transition-opacity { @include transition-opacity; }
   .transition-shadow { @include transition-shadow; }
@@ -126,7 +119,7 @@ $delays: (
       
       // Property-specific transitions
       .transition-none\@#{$breakpoint} { @include transition-none; }
-      .transition-all\@#{$breakpoint} { @include transition-all; }
+      .transition\@#{$breakpoint} { @include transition; }
       .transition-colors\@#{$breakpoint} { @include transition-colors; }
       .transition-opacity\@#{$breakpoint} { @include transition-opacity; }
       .transition-shadow\@#{$breakpoint} { @include transition-shadow; }
