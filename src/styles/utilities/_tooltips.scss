@@ -180,6 +180,9 @@
   &::before,
   &::after {
     inset: auto auto auto 100%;
+    left: auto;    // Remove any left positioning
+    right: 100%;   // Position to the left of the element
+    top: 50%;
     transform: translate3d(10px, -50%, 0);
   }
 
