@@ -6,31 +6,26 @@
 
 $generated-keyframes: ();
 
-@mixin generate-bounce-keyframes($keyframeName, $x, $y) {
-  @if not list.index($generated-keyframes, $keyframeName) {
-    $generated-keyframes: list.append($generated-keyframes, $keyframeName) !global;
-
-    @keyframes #{$keyframeName} {
-      0% {
-        transform: translateX(-#{$x}) translateY(-#{$y});
-      }
-
-      50% {
-        transform: translateX(#{$x}) translateY(#{$y});
-      }
-
-      100% {
-        transform: translateX(-#{$x}) translateY(-#{$y});
-      }
+@mixin ensure-keyframes($name) {
+  @if not list.index($generated-keyframes, $name) {
+    $generated-keyframes: list.append($generated-keyframes, $name) !global;
+    
+    @keyframes #{$name} {
+      @content;
     }
   }
 }
 
-@mixin animate-bounce($props) {
+/**
+ * @mixin animate-bounce
+ * @description Creates a bouncing animation
+ * @param {Map} $props - Animation properties
+ */
+ @mixin animate-bounce($props: ()) {
   $defaults: (
-    vertical: 0%,
-    horizontal: 0%,
-    duration: 5s,
+    vertical: 0.5rem,
+    horizontal: 0,
+    duration: 1s,
     timing: ease-in-out,
     iteration: infinite,
   );
@@ -50,28 +45,25 @@ $generated-keyframes: ();
   // Clean values (remove units)
   $clean-x: if($x, strip-unit($x), 0);
   $clean-y: if($y, strip-unit($y), 0);
+  
   $animation-name: anim-bounce-#{$clean-x}#{$x-unit}-#{$clean-y}#{$y-unit};
 
+
+  // Apply the animation
   animation: #{$animation-name} $duration $easing $iteration;
-  @include generate-bounce-keyframes($animation-name, $x, $y);
-}
 
-@keyframes fade-in-reveal {
-  to {
-    scale: 1;
-    opacity: 1;
+  // Generate keyframes with ensure-keyframes pattern
+  @include ensure-keyframes($animation-name) {
+    0%, 100% {
+      transform: translate(0, 0);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translate($x, $y);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .anim__fade-in-reveal {
-    scale: 0.2;
-    opacity: 0.7;
-    animation: fade-in-reveal linear forwards;
-    animation-timeline: view();
-    animation-range-start: cover;
-    animation-range-end: 550px;
-  }
+  
 }
 
 @mixin hover-ready {
@@ -80,55 +72,269 @@ $generated-keyframes: ();
   transition-timing-function: ease-in-out; 
 }
 
+
+/**
+ * @mixin animate-pulse
+ * @description Creates a pulsing opacity animation
+ * @param {Map} $props - Animation properties
+ */
+ @mixin animate-pulse($props: ()) {
+  $defaults: (
+    min-opacity: 0.5,
+    max-opacity: 1,
+    duration: 1s,
+    timing: ease-in-out,
+    iteration: infinite,
+  );
+
+  // Merge with defaults
+  $props: map.merge($defaults, $props);
+  $min-opacity: map.get($props, "min-opacity");
+  $max-opacity: map.get($props, "max-opacity");
+  $duration: map.get($props, "duration");
+  $timing: map.get($props, "timing");
+  $iteration: map.get($props, "iteration");
+
+  $animation-name: anim-pulse-#{$min-opacity * 100}-#{$max-opacity * 100};
+
+  animation: #{$animation-name} $duration $timing $iteration;
+
+  @include ensure-keyframes($animation-name) {
+    0%, 100% { opacity: $max-opacity; }
+    50% { opacity: $min-opacity; }
+  }
+
+}
+
+
+/**
+ * @mixin animate-spin
+ * @description Creates a spinning animation
+ * @param {Map} $props - Animation properties
+ */
+ @mixin animate-spin($props: ()) {
+  $defaults: (
+    direction: normal,
+    duration: 1s,
+    timing: linear,
+    iteration: infinite,
+  );
+
+  // Merge with defaults
+  $props: map.merge($defaults, $props);
+  $direction: map.get($props, "direction");
+  $duration: map.get($props, "duration");
+  $timing: map.get($props, "timing");
+  $iteration: map.get($props, "iteration");
+
+  $animation-name: anim-spin-#{$direction};
+
+  animation: #{$animation-name} $duration $timing $iteration;
+
+  @include ensure-keyframes($animation-name) {
+    from { transform: rotate(0deg); }
+    to { 
+      @if $direction == 'normal' {
+        transform: rotate(360deg); 
+      } @else {
+        transform: rotate(-360deg); 
+      }
+    }
+  }
+
+}
+
+/**
+ * @mixin animate-ping
+ * @description Creates a ping animation (scale + fade)
+ * @param {Map} $props - Animation properties
+ */
+ @mixin animate-ping($props: ()) {
+  $defaults: (
+    scale: 2,
+    duration: 1s,
+    timing: cubic-bezier(0, 0, 0.2, 1),
+    iteration: infinite,
+  );
+
+  // Merge with defaults
+  $props: map.merge($defaults, $props);
+  $scale: map.get($props, "scale");
+  $duration: map.get($props, "duration");
+  $timing: map.get($props, "timing");
+  $iteration: map.get($props, "iteration");
+
+  $animation-name: anim-ping-#{$scale * 10};
+
+  animation: #{$animation-name} $duration $timing $iteration;
+
+  @include ensure-keyframes($animation-name) {
+    75%, 100% { 
+      transform: scale($scale);
+      opacity: 0;
+    }
+  }
+
+}
+
+/**
+ * @mixin animate-fade
+ * @description Creates fade in/out animation
+ * @param {Map} $props - Animation properties
+ */
+ @mixin animate-fade($props: ()) {
+  $defaults: (
+    type: in,
+    duration: 0.5s,
+    timing: ease-in-out,
+    iteration: 1 forwards,
+  );
+
+  // Merge with defaults
+  $props: map.merge($defaults, $props);
+  $type: map.get($props, "type");
+  $duration: map.get($props, "duration");
+  $timing: map.get($props, "timing");
+  $iteration: map.get($props, "iteration");
+
+  $animation-name: anim-fade-#{$type};
+
+  animation: #{$animation-name} $duration $timing $iteration;
+
+  @include ensure-keyframes($animation-name) {
+    @if $type == 'in' {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    } @else if $type == 'out' {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    } @else if $type == 'in-up' {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0);
+      }
+    } @else if $type == 'in-down' {
+      from { 
+        opacity: 0; 
+        transform: translateY(-20px);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0);
+      }
+    }
+  }
+
+}
+
+/**
+ * @mixin animate-shake
+ * @description Creates a shake animation
+ * @param {Map} $props - Animation properties
+ */
+ @mixin animate-shake($props: ()) {
+  $defaults: (
+    intensity: 5px,
+    duration: 0.5s,
+    timing: ease-in-out,
+    iteration: 1,
+  );
+
+  // Merge with defaults
+  $props: map.merge($defaults, $props);
+  $intensity: map.get($props, "intensity");
+  $duration: map.get($props, "duration");
+  $timing: map.get($props, "timing");
+  $iteration: map.get($props, "iteration");
+
+  $intensity-val: strip-unit($intensity);
+  $animation-name: anim-shake-#{$intensity-val};
+
+  animation: #{$animation-name} $duration $timing $iteration;
+
+  @include ensure-keyframes($animation-name) {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-$intensity); }
+    20%, 40%, 60%, 80% { transform: translateX($intensity); }
+  }
+
+}
+
 @if VAR.$generate-utility-classes {
-  .anim__bounce {
-    @include animate-bounce((
-      vertical: 50%,
-      horizontal: 50%,
-      duration: 1s,
-      timing: ease-in-out,
-      iteration: infinite,
-    ));
+   // Add to your existing animation utilities
+  
+   .animate-pulse {
+    @include animate-pulse();
+  }
+  
+  .animate-spin {
+    @include animate-spin();
+  }
+  
+  .animate-ping {
+    @include animate-ping();
+  }
+  
+  .animate-fade-in {
+    @include animate-fade((type: in));
+  }
+  
+  .animate-fade-out {
+    @include animate-fade((type: out));
+  }
+  
+  .animate-fade-in-up {
+    @include animate-fade((type: in-up));
+  }
+  
+  .animate-fade-in-down {
+    @include animate-fade((type: in-down));
+  }
+  
+  .animate-shake {
+    @include animate-shake();
   }
 
-  .anim__bounce-sm {
-    @include animate-bounce((
-      vertical: 25%,
-      horizontal: 25%,
-      duration: 1s,
-      timing: ease-in-out,
-      iteration: infinite,
-    ));
-  }
-
-  .anim__bounce-md {
-    @include animate-bounce((
-      vertical: 50%,
-      horizontal: 50%,
-      duration: 1s,
-      timing: ease-in-out,
-      iteration: infinite,
-    ));
-  }
-
-  .anim__bounce-lg {
-    @include animate-bounce((
-      vertical: 75%,
-      horizontal: 75%,
-      duration: 1s,
-      timing: ease-in-out,
-      iteration: infinite,
-    ));
-  }
-
-  .anim__bounce-xl {
-    @include animate-bounce((
-      vertical: 100%,
-      horizontal: 100%,
-      duration: 1s,
-      timing: ease-in-out,
-      iteration: infinite,
-    ));
+  // Add responsive variants if needed
+  @each $breakpoint, $width in VAR.$breakpoints {
+    @media (min-width: #{$width}) {
+      
+      .animate-pulse\@#{$breakpoint} {
+          @include animate-pulse();
+        }
+        
+        .animate-spin\@#{$breakpoint} {
+          @include animate-spin();
+        }
+        
+        .animate-ping\@#{$breakpoint} {
+          @include animate-ping();
+        }
+        
+        .animate-fade-in\@#{$breakpoint} { 
+          @include animate-fade((type: in));
+        }
+        
+        .animate-fade-out\@#{$breakpoint} {
+          @include animate-fade((type: out));
+        }
+        
+        .animate-fade-in-up\@#{$breakpoint} {
+          @include animate-fade((type: in-up));
+        }
+        
+        .animate-fade-in-down\@#{$breakpoint} {
+          @include animate-fade((type: in-down));
+        }
+        
+        .animate-shake\@#{$breakpoint} {
+          @include animate-shake();
+        }
+    }
   }
 
   .hover-ready{
