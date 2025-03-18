@@ -102,12 +102,12 @@
     @include MQ.media-up ($breakpoint) {
       // Generate utilities from spacing map
       @each $i in VAR.$percentages {
-        .w-#{$i}\@#{$breakpoint},
-        .hover\:w-#{$i}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:w-#{$i}\@#{$breakpoint} { @include width($i); }
-        .h-#{$i}\@#{$breakpoint},
-        .hover\:h-#{$i}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:h-#{$i}\@#{$breakpoint} { @include height($i); }
+        .w-#{$i}p\@#{$breakpoint},
+        .hover\:w-#{$i}p\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:w-#{$i}p\@#{$breakpoint} { @include width-percent($i); }
+        .h-#{$i}p\@#{$breakpoint},
+        .hover\:h-#{$i}p\@#{$breakpoint}:hover,
+        .group:hover .group-hover\:h-#{$i}p\@#{$breakpoint} { @include height-percent($i); }
 
         .min-w-#{$i}p\@#{$breakpoint} { @include min-width-percent($i); }
         .min-h-#{$i}p\@#{$breakpoint} { @include min-height-percent($i); }
