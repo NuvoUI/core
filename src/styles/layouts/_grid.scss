@@ -2,24 +2,31 @@
 // Module: Grid | Grid Inline
 // Note: Gap utilities are defined in _spacing.scss
 
-@use 'sass:math';
-@use '../abstracts/functions' as FN;
-@use '../abstracts'  as VAR;
+@use "sass:math";
+@use "../abstracts/functions" as FN;
+@use "../abstracts/config" as VAR;
 
 /**
  * @description Establishes a grid container.
  */
-@mixin grid {display: grid;}
+@mixin grid {
+  display: grid;
+}
 
 /**
  * @description Establishes a inline-grid container.
  */
-@mixin grid-inline {display: inline-grid;}
+@mixin grid-inline {
+  display: inline-grid;
+}
 
 // Grid Template Mixins
-@mixin cols($count) {grid-template-columns: repeat($count, minmax(0, 1fr));}
-@mixin rows($count) {grid-template-rows: repeat($count, minmax(0, 1fr));}
-
+@mixin cols($count) {
+  grid-template-columns: repeat($count, minmax(0, 1fr));
+}
+@mixin rows($count) {
+  grid-template-rows: repeat($count, minmax(0, 1fr));
+}
 
 /**
 * @description Establishes a grid container with a specified number of columns.
@@ -41,49 +48,77 @@
 }
 
 // Auto-fit/fill Mixins
-@mixin auto-fit($min-width) {grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));}
-@mixin auto-fill($min-width) {grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));}
+@mixin auto-fit($min-width) {
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+}
+@mixin auto-fill($min-width) {
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+}
 
 // Grid Flow Mixins
-@mixin flow-in-row { grid-auto-flow: row; }
-@mixin flow-in-col { grid-auto-flow: column; }
-@mixin flow-dense-items { grid-auto-flow: dense; }
+@mixin flow-in-row {
+  grid-auto-flow: row;
+}
+@mixin flow-in-col {
+  grid-auto-flow: column;
+}
+@mixin flow-dense-items {
+  grid-auto-flow: dense;
+}
 
 // Grid Alignment Mixins
 
 // Alignment Classes
 $alignments: (
-  'start': start,
-  'end': end,
-  'center': center,
-  'stretch': stretch
+  "start": start,
+  "end": end,
+  "center": center,
+  "stretch": stretch,
 );
 
 /**
  * @description justify-items container.
  * @param {string} $value - The value for the justify-items property.
  */
-@mixin justify($value) {justify-items: $value;}
+@mixin justify($value) {
+  justify-items: $value;
+}
 
 /**
  * @description Establishes a align-items container.
  * @param {string} $value - The value for the align-items property.
  */
-@mixin align($value) {align-items: $value;}
+@mixin align($value) {
+  align-items: $value;
+}
 
 /**
  * @description Establishes a place-items container.
  * @param {string} $value - The value for the place-items property.
  */
-@mixin place($value) {place-items: $value;}
+@mixin place($value) {
+  place-items: $value;
+}
 
 // Grid Item Placement Mixins
-@mixin col-span($span) {grid-column: span $span / span $span;}
-@mixin row-span($span) {grid-row: span $span / span $span;}
-@mixin col-start($start) {grid-column-start: $start;}
-@mixin col-end($end) {grid-column-end: $end;}
-@mixin row-start($start) {grid-row-start: $start;}
-@mixin row-end($end) {grid-row-end: $end;}
+@mixin col-span($span) {
+  grid-column: span $span / span $span;
+}
+@mixin row-span($span) {
+  grid-row: span $span / span $span;
+}
+@mixin col-start($start) {
+  grid-column-start: $start;
+}
+@mixin col-end($end) {
+  grid-column-end: $end;
+}
+@mixin row-start($start) {
+  grid-row-start: $start;
+}
+@mixin row-end($end) {
+  grid-row-end: $end;
+}
 
 @mixin grid-position($col, $row) {
   grid-column: $col;
@@ -98,13 +133,22 @@ $alignments: (
 
 @if VAR.$generate-utility-classes {
   // Classes
-  .grid { @include grid; }
-  .grid.inline { @include grid-inline; }
+  .grid {
+    @include grid;
+  }
 
+  .grid.inline {
+    @include grid-inline;
+  }
 
   @for $i from 1 through VAR.$column-count {
-    .grid.cols-#{$i} { @include cols($i); }
-    .grid.rows-#{$i} { @include rows($i); }
+    .grid.cols-#{$i} {
+      @include cols($i);
+    }
+
+    .grid.rows-#{$i} {
+      @include rows($i);
+    }
   }
 
   // Grid Template Classes
@@ -112,12 +156,16 @@ $alignments: (
     // Responsive grid columns
     @media (min-width: #{$width}) {
       @for $i from 1 through VAR.$column-count {
-        .grid.cols-#{$i}\@#{$breakpoint} { @include cols($i); }
-        .grid.rows-#{$i}\@#{$breakpoint} { @include rows($i); }
+        .grid.cols-#{$i}\@#{$breakpoint} {
+          @include cols($i);
+        }
+
+        .grid.rows-#{$i}\@#{$breakpoint} {
+          @include rows($i);
+        }
       }
     }
   }
-
 
   // Generate Column Span Classes with Responsive Variants
   @for $i from 1 through VAR.$column-count {
@@ -142,22 +190,42 @@ $alignments: (
     }
   }
 
-
   // Auto-fit/fill Classes
   @each $size, $width in VAR.$grid-item-sizes {
-    .grid.auto-fit-#{$size} { @include auto-fit($width); }
-    .grid.auto-fill-#{$size} { @include auto-fill($width); }
+    .grid.auto-fit-#{$size} {
+      @include auto-fit($width);
+    }
+
+    .grid.auto-fill-#{$size} {
+      @include auto-fill($width);
+    }
   }
 
   // Flow Classes
-  .grid.flow-row { @include flow-in-row; }
-  .grid.flow-col { @include flow-in-col; }
-  .grid.flow-dense { @include flow-dense-items; }
+  .grid.flow-row {
+    @include flow-in-row;
+  }
+
+  .grid.flow-col {
+    @include flow-in-col;
+  }
+
+  .grid.flow-dense {
+    @include flow-dense-items;
+  }
 
   @each $name, $value in $alignments {
-    .justify-#{$name} { @include  justify($value); }
-    .align-#{$name} { @include  align($value); }
-    .place-#{$name} { @include  place($value); }
+    .justify-#{$name} {
+      @include justify($value);
+    }
+
+    .align-#{$name} {
+      @include align($value);
+    }
+
+    .place-#{$name} {
+      @include place($value);
+    }
 
     @each $breakpoint, $width in VAR.$breakpoints {
       @media (min-width: #{$width}) {
@@ -167,7 +235,7 @@ $alignments: (
         .align-#{$name}\@#{$breakpoint} {
           @include align($value);
         }
-        .place-#{$name}\@#{$breakpoint} {  
+        .place-#{$name}\@#{$breakpoint} {
           @include place($value);
         }
       }

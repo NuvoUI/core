@@ -1,8 +1,8 @@
 @use "sass:map";
 @use "sass:meta";
-@use "../abstracts" as *;
+@use "../abstracts/config" as *;
 @use "../abstracts/functions" as FN;
- 
+
 /**
  * Container Query Mixins
  *

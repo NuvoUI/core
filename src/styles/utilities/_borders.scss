@@ -1,24 +1,22 @@
 // _borders.scss
 // Border utility classes for NuvoUI
 
-@use 'sass:math';
-@use 'sass:map';
-@use 'sass:meta';
-@use 'sass:string' as str;
-@use '../abstracts' as *;
-@use '../abstracts/functions' as FN;
-
+@use "sass:math";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string" as str;
+@use "../abstracts/config" as *;
+@use "../abstracts/functions" as FN;
 
 // Common border styles
 $border-styles: (solid, dashed, dotted, double, none);
- 
 
 @function get-rounded-value($val) {
-  @if not $val { 
-    @return map.get($border-radii, 'md');
+  @if not $val {
+    @return map.get($border-radii, "md");
   } @else if meta.type-of($val) == string {
     $clean-val: $val;
-    
+
     // Try to find the value in the border-radii map
     @if map.has-key($border-radii, $clean-val) {
       @return map.get($border-radii, $clean-val);
@@ -40,57 +38,57 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
-@mixin border($val, $style: solid, $color: var(--border)) { 
+@mixin border($val, $style: solid, $color: var(--border)) {
   $val: FN.fix-units($val);
- 
-  border-width: $val; 
+
+  border-width: $val;
   @if $val != 0 {
-      border-style: $style;
-      border-color: $color;
-    }
-} 
+    border-style: $style;
+    border-color: $color;
+  }
+}
 
-@mixin border-top($val) { 
+@mixin border-top($val) {
   $val: FN.fix-units($val);
 
-  border-top-width: $val; 
+  border-top-width: $val;
   @if $val != 0 {
     border-top-style: solid;
-    border-top-color: var(--border, var(--border));
+    border-top-color: var(--border);
   }
 }
 
-@mixin border-right($val) { 
+@mixin border-right($val) {
   $val: FN.fix-units($val);
 
-  border-right-width: $val; 
+  border-right-width: $val;
   @if $val != 0 {
     border-right-style: solid;
-    border-right-color: var(--border, var(--border));
+    border-right-color: var(--border);
   }
 }
 
-@mixin border-bottom($val) { 
+@mixin border-bottom($val) {
   $val: FN.fix-units($val);
 
-  border-bottom-width: $val; 
+  border-bottom-width: $val;
   @if $val != 0 {
     border-bottom-style: solid;
-    border-bottom-color: var(--border, var(--border));
+    border-bottom-color: var(--border);
   }
 }
 
-@mixin border-left($val) { 
+@mixin border-left($val) {
   $val: FN.fix-units($val);
 
-  border-left-width: $val; 
+  border-left-width: $val;
   @if $val != 0 {
     border-left-style: solid;
-    border-left-color: var(--border, var(--border));
+    border-left-color: var(--border);
   }
 }
 
- /**
+/**
  * @description Applies border radius to all corners
  * @param {String} $val - The border radius value
  */
@@ -98,58 +96,62 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-radius: get-rounded-value($val);
 }
 
-@mixin rounded-t($val: null) { 
+@mixin rounded-t($val: null) {
   $val: get-rounded-value($val);
 
   border-top-left-radius: $val;
   border-top-right-radius: $val;
 }
 
-@mixin rounded-r($val: null) { 
+@mixin rounded-r($val: null) {
   $val: get-rounded-value($val);
 
   border-top-right-radius: $val;
   border-bottom-right-radius: $val;
 }
 
-@mixin rounded-b($val: null) { 
+@mixin rounded-b($val: null) {
   $val: get-rounded-value($val);
 
   border-bottom-left-radius: $val;
   border-bottom-right-radius: $val;
 }
 
-@mixin rounded-l($val: null) { 
+@mixin rounded-l($val: null) {
   $val: get-rounded-value($val);
 
   border-top-left-radius: $val;
   border-bottom-left-radius: $val;
 }
 
-@mixin rounded-tl($val: null) { 
+@mixin rounded-tl($val: null) {
   $val: get-rounded-value($val);
-  
-  border-top-left-radius: $val; 
+
+  border-top-left-radius: $val;
 }
-@mixin rounded-tr($val: null) { 
+@mixin rounded-tr($val: null) {
   $val: get-rounded-value($val);
-  
-  border-top-right-radius: $val; 
+
+  border-top-right-radius: $val;
 }
-@mixin rounded-br($val: null) { 
+@mixin rounded-br($val: null) {
   $val: get-rounded-value($val);
-  
-  border-bottom-right-radius: $val; 
+
+  border-bottom-right-radius: $val;
 }
-@mixin rounded-bl($val: null) { 
+@mixin rounded-bl($val: null) {
   $val: get-rounded-value($val);
-  
-  border-bottom-left-radius: $val; 
+
+  border-bottom-left-radius: $val;
 }
 
 // Border Style and Color
-@mixin border-style($style) { border-style: $style; }
-@mixin border-color($color) { border-color: $color; }
+@mixin border-style($style) {
+  border-style: $style;
+}
+@mixin border-color($color) {
+  border-color: $color;
+}
 
 // Combined border properties
 @mixin border-all($width, $style, $color) {
@@ -158,75 +160,155 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-color: $color;
 }
 
-@mixin pill { @include rounded(9999px); } // todo: doc missing
+@mixin pill {
+  @include rounded(9999px);
+} // todo: doc missing
 
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
 @if $generate-utility-classes {
   // Basic border classes (all sides)
-  .border { @include border(1); }
-  .border-0 { @include border(0); }
+  .border {
+    @include border(1);
+  }
+
+  .border-0 {
+    @include border(0);
+  }
 
   // All sides border width
   @each $width in $border-widths {
-    .border-#{$width} { @include border($width); }
+    .border-#{$width} {
+      @include border($width);
+    }
   }
 
   // Directional border width
   @each $width in $border-widths {
-    .border-t-#{$width} { @include border-top($width); }
-    .border-r-#{$width} { @include border-right($width); }
-    .border-b-#{$width} { @include border-bottom($width); }
-    .border-l-#{$width} { @include border-left($width); }
+    .border-t-#{$width} {
+      @include border-top($width);
+    }
+    .border-r-#{$width} {
+      @include border-right($width);
+    }
+    .border-b-#{$width} {
+      @include border-bottom($width);
+    }
+    .border-l-#{$width} {
+      @include border-left($width);
+    }
   }
 
   // Common shortcuts for single-side borders
-  .border-t { @include border-top(1); }
-  .border-r { @include border-right(1); }
-  .border-b { @include border-bottom(1); }
-  .border-l { @include border-left(1); }
+  .border-t {
+    @include border-top(1);
+  }
+
+  .border-r {
+    @include border-right(1);
+  }
+
+  .border-b {
+    @include border-bottom(1);
+  }
+
+  .border-l {
+    @include border-left(1);
+  }
 
   // Border radius classes
-  .rounded { @include rounded; } // Default rounded
-  .square { @include rounded(0); } // Alias for no radius
+  .rounded {
+    @include rounded;
+  } // Default rounded
+  .square {
+    @include rounded(0);
+  } // Alias for no radius
 
   @each $name, $value in $border-radii {
-    .rounded-#{$name} { @include rounded($value); }
+    .rounded-#{$name} {
+      @include rounded($value);
+    }
   }
 
   // Directional border radius
   @each $name, $value in $border-radii {
-    .rounded-t-#{$name} { @include rounded-t($value); }
-    .rounded-r-#{$name} { @include rounded-r($value); }
-    .rounded-b-#{$name} { @include rounded-b($value); }
-    .rounded-l-#{$name} { @include rounded-l($value); }
-    
+    .rounded-t-#{$name} {
+      @include rounded-t($value);
+    }
+    .rounded-r-#{$name} {
+      @include rounded-r($value);
+    }
+    .rounded-b-#{$name} {
+      @include rounded-b($value);
+    }
+    .rounded-l-#{$name} {
+      @include rounded-l($value);
+    }
+
     // Individual corners
-    .rounded-tl-#{$name} { @include rounded-tl($value); }
-    .rounded-tr-#{$name} { @include rounded-tr($value); }
-    .rounded-br-#{$name} { @include rounded-br($value); }
-    .rounded-bl-#{$name} { @include rounded-bl($value); }
+    .rounded-tl-#{$name} {
+      @include rounded-tl($value);
+    }
+    .rounded-tr-#{$name} {
+      @include rounded-tr($value);
+    }
+    .rounded-br-#{$name} {
+      @include rounded-br($value);
+    }
+    .rounded-bl-#{$name} {
+      @include rounded-bl($value);
+    }
   }
 
   // Pill shape (alias for full radius)
-  .pill { @include pill; }
+  .pill {
+    @include pill;
+  }
 
   // Border styles - these override the default solid style if needed
   @each $style in $border-styles {
-    .border-#{$style} { @include border-style($style); }
+    .border-#{$style} {
+      @include border-style($style);
+    }
   }
 
   // Border colors - these override the default color if needed
-  .border-default { @include border-color(var(--border)); }
-  .border-light { @include border-color(var(--border-light-color)); }
-  .border-dark { @include border-color(var(--border-dark-color)); }
-  .border-primary { @include border-color(var(--primary)); }
-  .border-secondary { @include border-color(var(--secondary)); }
-  .border-success { @include border-color(var(--success)); }
-  .border-danger { @include border-color(var(--danger)); }
-  .border-warning { @include border-color(var(--warning)); }
-  .border-info { @include border-color(var(--info)); }
+  .border-default {
+    @include border-color(var(--border));
+  }
+
+  .border-light {
+    @include border-color(var(--border-light-color));
+  }
+
+  .border-dark {
+    @include border-color(var(--border-dark-color));
+  }
+
+  .border-primary {
+    @include border-color(var(--primary));
+  }
+
+  .border-secondary {
+    @include border-color(var(--secondary));
+  }
+
+  .border-success {
+    @include border-color(var(--success));
+  }
+
+  .border-danger {
+    @include border-color(var(--danger));
+  }
+
+  .border-warning {
+    @include border-color(var(--warning));
+  }
+
+  .border-info {
+    @include border-color(var(--info));
+  }
 
   // Common combined border utilities (style + color)
   .border-primary-solid {
@@ -245,63 +327,153 @@ $border-styles: (solid, dashed, dotted, double, none);
 
   // Hover state border classes
   @each $width in $border-widths {
-    .hover\:border-#{$width}:hover { @include border($width); }
+    .hover\:border-#{$width}:hover {
+      @include border($width);
+    }
   }
 
   @each $style in $border-styles {
-    .hover\:border-#{$style}:hover { @include border-style($style); }
+    .hover\:border-#{$style}:hover {
+      @include border-style($style);
+    }
   }
 
   // Border colors on hover
-  .hover\:border-default:hover { @include border-color(var(--border)); }
-  .hover\:border-light:hover { @include border-color(var(--border-light-color)); }
-  .hover\:border-dark:hover { @include border-color(var(--border-dark-color)); }
-  .hover\:border-primary:hover { @include border-color(var(--primary)); }
-  .hover\:border-secondary:hover { @include border-color(var(--secondary)); }
-  .hover\:border-success:hover { @include border-color(var(--success)); }
-  .hover\:border-danger:hover { @include border-color(var(--danger)); }
-  .hover\:border-warning:hover { @include border-color(var(--warning)); }
-  .hover\:border-info:hover { @include border-color(var(--info)); }
+  .hover\:border-default:hover {
+    @include border-color(var(--border));
+  }
+
+  .hover\:border-light:hover {
+    @include border-color(var(--border-light-color));
+  }
+
+  .hover\:border-dark:hover {
+    @include border-color(var(--border-dark-color));
+  }
+
+  .hover\:border-primary:hover {
+    @include border-color(var(--primary));
+  }
+
+  .hover\:border-secondary:hover {
+    @include border-color(var(--secondary));
+  }
+
+  .hover\:border-success:hover {
+    @include border-color(var(--success));
+  }
+
+  .hover\:border-danger:hover {
+    @include border-color(var(--danger));
+  }
+
+  .hover\:border-warning:hover {
+    @include border-color(var(--warning));
+  }
+
+  .hover\:border-info:hover {
+    @include border-color(var(--info));
+  }
 
   // Active state border classes
   @each $width in $border-widths {
-    .active\:border-#{$width}:active { @include border($width); }
+    .active\:border-#{$width}:active {
+      @include border($width);
+    }
   }
 
   @each $style in $border-styles {
-    .active\:border-#{$style}:active { @include border-style($style); }
+    .active\:border-#{$style}:active {
+      @include border-style($style);
+    }
   }
 
   // Border colors on active state
-  .active\:border-default:active { @include border-color(var(--border)); }
-  .active\:border-light:active { @include border-color(var(--border-light-color)); }
-  .active\:border-dark:active { @include border-color(var(--border-dark-color)); }
-  .active\:border-primary:active { @include border-color(var(--primary)); }
-  .active\:border-secondary:active { @include border-color(var(--secondary)); }
-  .active\:border-success:active { @include border-color(var(--success)); }
-  .active\:border-danger:active { @include border-color(var(--danger)); }
-  .active\:border-warning:active { @include border-color(var(--warning)); }
-  .active\:border-info:active { @include border-color(var(--info)); }
+  .active\:border-default:active {
+    @include border-color(var(--border));
+  }
+
+  .active\:border-light:active {
+    @include border-color(var(--border-light-color));
+  }
+
+  .active\:border-dark:active {
+    @include border-color(var(--border-dark-color));
+  }
+
+  .active\:border-primary:active {
+    @include border-color(var(--primary));
+  }
+
+  .active\:border-secondary:active {
+    @include border-color(var(--secondary));
+  }
+
+  .active\:border-success:active {
+    @include border-color(var(--success));
+  }
+
+  .active\:border-danger:active {
+    @include border-color(var(--danger));
+  }
+
+  .active\:border-warning:active {
+    @include border-color(var(--warning));
+  }
+
+  .active\:border-info:active {
+    @include border-color(var(--info));
+  }
 
   // Focus state border classes
   @each $width in $border-widths {
-    .focus\:border-#{$width}:focus { @include border($width); }
+    .focus\:border-#{$width}:focus {
+      @include border($width);
+    }
   }
 
   @each $style in $border-styles {
-    .focus\:border-#{$style}:focus { @include border-style($style); }
+    .focus\:border-#{$style}:focus {
+      @include border-style($style);
+    }
   }
 
   // Border colors on focus
-  .focus\:border-default:focus { @include border-color(var(--border)); }
-  .focus\:border-light:focus { @include border-color(var(--border-light-color)); }
-  .focus\:border-dark:focus { @include border-color(var(--border-dark-color)); }
-  .focus\:border-primary:focus { @include border-color(var(--primary)); }
-  .focus\:border-secondary:focus { @include border-color(var(--secondary)); }
-  .focus\:border-success:focus { @include border-color(var(--success)); }
-  .focus\:border-danger:focus { @include border-color(var(--danger)); }
-  .focus\:border-warning:focus { @include border-color(var(--warning)); }
-  .focus\:border-info:focus { @include border-color(var(--info)); }
+  .focus\:border-default:focus {
+    @include border-color(var(--border));
+  }
+
+  .focus\:border-light:focus {
+    @include border-color(var(--border-light-color));
+  }
+
+  .focus\:border-dark:focus {
+    @include border-color(var(--border-dark-color));
+  }
+
+  .focus\:border-primary:focus {
+    @include border-color(var(--primary));
+  }
+
+  .focus\:border-secondary:focus {
+    @include border-color(var(--secondary));
+  }
+
+  .focus\:border-success:focus {
+    @include border-color(var(--success));
+  }
+
+  .focus\:border-danger:focus {
+    @include border-color(var(--danger));
+  }
+
+  .focus\:border-warning:focus {
+    @include border-color(var(--warning));
+  }
+
+  .focus\:border-info:focus {
+    @include border-color(var(--info));
+  }
 
   // -----------------------------------------------
   // RESPONSIVE CLASSES
@@ -311,21 +483,35 @@ $border-styles: (solid, dashed, dotted, double, none);
     @media (min-width: #{$width}) {
       // Border width responsive
       @each $val in $border-widths {
-        .border-#{$val}\@#{$breakpoint} { @include border($val); }
+        .border-#{$val}\@#{$breakpoint} {
+          @include border($val);
+        }
       }
-      
+
       // Common shortcuts for responsive
-      .border\@#{$breakpoint} { @include border(1); }
-      .border-0\@#{$breakpoint} { @include border(0); }
-      
+      .border\@#{$breakpoint} {
+        @include border(1);
+      }
+      .border-0\@#{$breakpoint} {
+        @include border(0);
+      }
+
       // Border radius responsive
       @each $name, $value in $border-radii {
-        .rounded-#{$name}\@#{$breakpoint} { @include rounded($value); }
+        .rounded-#{$name}\@#{$breakpoint} {
+          @include rounded($value);
+        }
       }
-      
-      .rounded\@#{$breakpoint} { @include rounded; }
-      .square\@#{$breakpoint} { @include rounded(0); }
-      .pill\@#{$breakpoint} { @include pill; }
+
+      .rounded\@#{$breakpoint} {
+        @include rounded;
+      }
+      .square\@#{$breakpoint} {
+        @include rounded(0);
+      }
+      .pill\@#{$breakpoint} {
+        @include pill;
+      }
     }
   }
 }

@@ -27,7 +27,6 @@
   @include container-padding(1rem);
 }
 
-
 @if VAR.$generate-utility-classes {
   // Container classes
   .container {

@@ -1,10 +1,9 @@
-@use 'sass:math';
-@use 'sass:string';
-@use 'sass:meta';
-@use '../abstracts'  as *; 
-@use '../abstracts/functions'  as FN; 
+@use "sass:math";
+@use "sass:string";
+@use "sass:meta";
+@use "../abstracts/config" as *;
+@use "../abstracts/functions" as FN;
 
- 
 /**
  * @component Spacing
  * @description Controls element margins, padding, gaps, and spacing between children
@@ -74,7 +73,6 @@
  * @see flex, grid, display
  */
 
-
 // -----------------------------------------------
 // PADDING MIXINS
 // -----------------------------------------------
@@ -84,17 +82,17 @@
  * @description Sets padding on all sides
  * @param {Number|String} $val - Padding value
  */
-@mixin p($val) {  padding: FN.fix-units($val); }
+@mixin p($val) {
+  padding: FN.fix-units($val);
+}
 
 /**
 * @mixin px
 * @description Sets horizontal padding (left and right)
 * @param {Number|String} $val - Padding value
 */
-@mixin px($val) { 
-  $val: FN.fix-units($val); 
-  
-  padding-inline: $val;
+@mixin px($val) {
+  padding-inline: FN.fix-units($val);
 }
 
 /**
@@ -102,21 +100,17 @@
 * @description Sets vertical padding (top and bottom)
 * @param {Number|String} $val - Padding value
 */
-@mixin py($val) { 
-  $val: FN.fix-units($val); 
-  
-  padding-block: $val;
+@mixin py($val) {
+  padding-block: FN.fix-units($val);
 }
-  
+
 /**
 * @mixin pt
 * @description Sets padding-top
 * @param {Number|String} $val - Padding value
 */
-@mixin pt($val) { 
-  $val: FN.fix-units($val); 
-
-  padding-top: $val; 
+@mixin pt($val) {
+  padding-top: FN.fix-units($val);
 }
 
 /**
@@ -124,10 +118,8 @@
 * @description Sets padding-right
 * @param {Number|String} $val - Padding value
 */
-@mixin pr($val) { 
-  $val: FN.fix-units($val); 
-
-  padding-right: $val; 
+@mixin pr($val) {
+  padding-right: FN.fix-units($val);
 }
 
 /**
@@ -135,10 +127,8 @@
 * @description Sets padding-bottom
 * @param {Number|String} $val - Padding value
 */
-@mixin pb($val) { 
-  $val: FN.fix-units($val); 
-
-  padding-bottom: $val; 
+@mixin pb($val) {
+  padding-bottom: FN.fix-units($val);
 }
 
 /**
@@ -146,10 +136,8 @@
 * @description Sets padding-left
 * @param {Number|String} $val - Padding value
 */
-@mixin pl($val) { 
-  $val: FN.fix-units($val); 
-
-  padding-left: $val; 
+@mixin pl($val) {
+  padding-left: FN.fix-units($val);
 }
 
 // -----------------------------------------------
@@ -161,10 +149,8 @@
 * @description Sets margin on all sides
 * @param {Number|String} $val - Margin value
 */
-@mixin m($val) { 
-  $val: FN.fix-units($val); 
-
-  margin: $val; 
+@mixin m($val) {
+  margin: FN.fix-units($val);
 }
 
 /**
@@ -172,10 +158,8 @@
 * @description Sets horizontal margin (left and right)
 * @param {Number|String} $val - Margin value
 */
-@mixin mx($val) { 
-  $val: FN.fix-units($val); 
-
-  margin-inline: $val;
+@mixin mx($val) {
+  margin-inline: FN.fix-units($val);
 }
 
 /**
@@ -183,10 +167,10 @@
 * @description Sets vertical margin (top and bottom)
 * @param {Number|String} $val - Margin value
 */
-@mixin my($val) { 
+@mixin my($val) {
   $val: FN.fix-units($val);
 
-  margin-block: $val;
+  margin-block: FN.fix-units($val);
 }
 
 /**
@@ -194,10 +178,8 @@
 * @description Sets margin-top
 * @param {Number|String} $val - Margin value
 */
-@mixin mt($val) { 
-  $val: FN.fix-units($val); 
-
-  margin-top: $val; 
+@mixin mt($val, $debug: null) {
+  margin-top: FN.fix-units($val, $default-unit, $debug);
 }
 
 /**
@@ -205,10 +187,8 @@
 * @description Sets margin-right
 * @param {Number|String} $val - Margin value
 */
-@mixin mr($val) { 
-  $val: FN.fix-units($val); 
-  
-  margin-right: $val; 
+@mixin mr($val) {
+  margin-right: FN.fix-units($val);
 }
 
 /**
@@ -216,10 +196,8 @@
 * @description Sets margin-bottom
 * @param {Number|String} $val - Margin value
 */
-@mixin mb($val) { 
-  $val: FN.fix-units($val); 
-  
-  margin-bottom: $val; 
+@mixin mb($val) {
+  margin-bottom: FN.fix-units($val);
 }
 
 /**
@@ -227,30 +205,34 @@
 * @description Sets margin-left
 * @param {Number|String} $val - Margin value
 */
-@mixin ml($val) { 
-  $val: FN.fix-units($val); 
-  
-  margin-left: $val; 
+@mixin ml($val) {
+  margin-left: FN.fix-units($val);
 }
 
 /**
 * @mixin ml-auto
 * @description Sets margin-left to auto
 */
-@mixin ml-auto {   margin-left: auto; } 
+@mixin ml-auto {
+  margin-left: auto;
+}
 
 /**
 * @mixin mr-auto
 * @description Sets margin-right to auto
 */
-@mixin mr-auto {   margin-right: auto; } 
+@mixin mr-auto {
+  margin-right: auto;
+}
 
 /**
 * @mixin mx-auto
 * @description Centers element horizontally using auto margins
 */
-@mixin mx-auto { @include ml-auto; @include mr-auto; }
-
+@mixin mx-auto {
+  @include ml-auto;
+  @include mr-auto;
+}
 
 // -----------------------------------------------
 // INSET MIXINS
@@ -261,10 +243,10 @@
  * @description Sets all inset properties (top, right, bottom, left)
  * @param {Number|String} $val - Inset value
  */
- @mixin inset($val) {
+@mixin inset($val) {
   $val: FN.fix-units($val);
-  
-  inset: $val;
+
+  inset: FN.fix-units($val);
 }
 
 /**
@@ -328,22 +310,18 @@
  */
 @mixin space-y($i) {
   & > * + * {
-    $i: FN.fix-units($i);
-    
-    margin-top: $i;
+    margin-top: FN.fix-units($i);
   }
 }
 
- /**
+/**
   * @mixin space-x
   * @description Adds horizontal spacing between direct children
   * @param {Number|String} $i - Space amount
   */
 @mixin space-x($i) {
   & > * + * {
-    $i: FN.fix-units($i);
-    
-    margin-left: $i;
+    margin-left: FN.fix-units($i);
   }
 }
 
@@ -356,81 +334,146 @@
  * @description Sets gap between grid/flex children
  * @param {Number|String} $val - Gap value
  */
- @mixin gap($val) { $val: FN.fix-units($val); gap: $val; }
+@mixin gap($val) {
+  gap: FN.fix-units($val);
+}
 
- /**
+/**
   * @mixin gap-x
   * @description Sets horizontal gap between grid/flex children
   * @param {Number|String} $val - Gap value
   */
- @mixin gap-x($val) { $val: FN.fix-units($val); column-gap: $val; }
- 
- /**
+@mixin gap-x($val) {
+  column-gap: FN.fix-units($val);
+}
+
+/**
   * @mixin gap-y
   * @description Sets vertical gap between grid/flex children
   * @param {Number|String} $val - Gap value
   */
- @mixin gap-y($val) { $val: FN.fix-units($val); row-gap: $val; }
+@mixin gap-y($val) {
+  row-gap: FN.fix-units($val);
+}
 
 @if $generate-utility-classes {
   // -----------------------------------------------
   // AUTO MARGIN UTILITY CLASSES
   // -----------------------------------------------
 
-  .mx-auto { @include mx-auto; }
-  .ml-auto { @include ml-auto; }
-  .mr-auto { @include mr-auto; }
+  .mx-auto {
+    @include mx-auto;
+  }
+
+  .ml-auto {
+    @include ml-auto;
+  }
+
+  .mr-auto {
+    @include mr-auto;
+  }
 
   // -----------------------------------------------
   // GAP AUTO CLASS
   // -----------------------------------------------
 
-  .gap-auto { gap: auto; }
+  .gap-auto {
+    gap: auto;
+  }
 
-    // Auto inset utility classes
-    .inset-auto { @include inset-auto; }
-    .inset-x-auto { @include inset-x-auto; }
-    .inset-y-auto { @include inset-y-auto; }
+  // Auto inset utility classes
+  .inset-auto {
+    @include inset-auto;
+  }
 
-    
+  .inset-x-auto {
+    @include inset-x-auto;
+  }
+
+  .inset-y-auto {
+    @include inset-y-auto;
+  }
+
   // -----------------------------------------------
   // SPACING CLASSES
   // -----------------------------------------------
 
   @each $key, $value in $spacings {
-      // Padding classes
-      .p-#{$key} { @include p($value); }
-      .px-#{$key} { @include px($value); }
-      .py-#{$key} { @include py($value); }
-      .pt-#{$key} { @include pt($value); }
-      .pr-#{$key} { @include pr($value); }
-      .pb-#{$key} { @include pb($value); }
-      .pl-#{$key} { @include pl($value); }
+    // Padding classes
+    .p-#{$key} {
+      @include p($value);
+    }
+    .px-#{$key} {
+      @include px($value);
+    }
+    .py-#{$key} {
+      @include py($value);
+    }
+    .pt-#{$key} {
+      @include pt($value);
+    }
+    .pr-#{$key} {
+      @include pr($value);
+    }
+    .pb-#{$key} {
+      @include pb($value);
+    }
+    .pl-#{$key} {
+      @include pl($value);
+    }
 
-      // Margin classes
-      .m-#{$key} { @include m($value); }
-      .mx-#{$key} { @include mx($value); }
-      .my-#{$key} { @include my($value); }
-      .mt-#{$key} { @include mt($value); }
-      .mr-#{$key} { @include mr($value); }
-      .mb-#{$key} { @include mb($value); }
-      .ml-#{$key} { @include ml($value); }
-      
-      // Gap classes
-      .gap-#{$key} { @include gap($value); }
-      .gap-x-#{$key} { @include gap-x($value); }
-      .gap-y-#{$key} { @include gap-y($value); }
+    // Margin classes
+    .m-#{$key} {
+      @include m($value);
+    }
+    .mx-#{$key} {
+      @include mx($value);
+    }
+    .my-#{$key} {
+      @include my($value);
+    }
+    .mt-#{$key} {
+      @include mt($value);
+    }
+    .mr-#{$key} {
+      @include mr($value);
+    }
+    .mb-#{$key} {
+      @include mb($value);
+    }
+    .ml-#{$key} {
+      @include ml($value);
+    }
 
-      // Space classes
-      .space-x-#{$key} { @include space-x($value); }
-      .space-y-#{$key} { @include space-y($value); }
+    // Gap classes
+    .gap-#{$key} {
+      @include gap($value);
+    }
+    .gap-x-#{$key} {
+      @include gap-x($value);
+    }
+    .gap-y-#{$key} {
+      @include gap-y($value);
+    }
 
-      .inset-#{$key} { @include inset($value); }
-      .inset-x-#{$key} { @include inset-x($value); }
-      .inset-y-#{$key} { @include inset-y($value); }
-    
+    // Space classes
+    .space-x-#{$key} {
+      @include space-x($value);
+    }
+    .space-y-#{$key} {
+      @include space-y($value);
+    }
+
+    .inset-#{$key} {
+      @include inset($value);
+    }
+    .inset-x-#{$key} {
+      @include inset-x($value);
+    }
+    .inset-y-#{$key} {
+      @include inset-y($value);
+    }
   }
-
 
   // -----------------------------------------------
   // RESPONSIVE SPACING CLASSES
@@ -438,44 +481,99 @@
 
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: #{$width}) {
-      .mx-auto\@#{$breakpoint} { @include mx-auto; }
-      .ml-auto\@#{$breakpoint} { @include ml-auto; }
-      .mr-auto\@#{$breakpoint} { @include mr-auto; }
-      .inset-auto\@#{$breakpoint} { @include inset-auto; }
-      .inset-x-auto\@#{$breakpoint} { @include inset-x-auto; }
-      .inset-y-auto\@#{$breakpoint} { @include inset-y-auto; }
+      .mx-auto\@#{$breakpoint} {
+        @include mx-auto;
+      }
+      .ml-auto\@#{$breakpoint} {
+        @include ml-auto;
+      }
+      .mr-auto\@#{$breakpoint} {
+        @include mr-auto;
+      }
+      .inset-auto\@#{$breakpoint} {
+        @include inset-auto;
+      }
+      .inset-x-auto\@#{$breakpoint} {
+        @include inset-x-auto;
+      }
+      .inset-y-auto\@#{$breakpoint} {
+        @include inset-y-auto;
+      }
 
       // Generate utilities from spacing map
       @each $key, $value in $spacings {
         // Padding classes
-        .p-#{$key}\@#{$breakpoint} { @include p($value); }
-        .px-#{$key}\@#{$breakpoint} { @include px($value); }
-        .py-#{$key}\@#{$breakpoint} { @include py($value); }
-        .pt-#{$key}\@#{$breakpoint} { @include pt($value); }
-        .pr-#{$key}\@#{$breakpoint} { @include pr($value); }
-        .pb-#{$key}\@#{$breakpoint} { @include pb($value); }
-        .pl-#{$key}\@#{$breakpoint} { @include pl($value); }
+        .p-#{$key}\@#{$breakpoint} {
+          @include p($value);
+        }
+        .px-#{$key}\@#{$breakpoint} {
+          @include px($value);
+        }
+        .py-#{$key}\@#{$breakpoint} {
+          @include py($value);
+        }
+        .pt-#{$key}\@#{$breakpoint} {
+          @include pt($value);
+        }
+        .pr-#{$key}\@#{$breakpoint} {
+          @include pr($value);
+        }
+        .pb-#{$key}\@#{$breakpoint} {
+          @include pb($value);
+        }
+        .pl-#{$key}\@#{$breakpoint} {
+          @include pl($value);
+        }
 
         // Margin classes
-        .m-#{$key}\@#{$breakpoint} { @include m($value); }
-        .mx-#{$key}\@#{$breakpoint} { @include mx($value); }
-        .my-#{$key}\@#{$breakpoint} { @include my($value); }
-        .mt-#{$key}\@#{$breakpoint} { @include mt($value); }
-        .mr-#{$key}\@#{$breakpoint} { @include mr($value); }
-        .mb-#{$key}\@#{$breakpoint} { @include mb($value); }
-        .ml-#{$key}\@#{$breakpoint} { @include ml($value); }
+        .m-#{$key}\@#{$breakpoint} {
+          @include m($value);
+        }
+        .mx-#{$key}\@#{$breakpoint} {
+          @include mx($value);
+        }
+        .my-#{$key}\@#{$breakpoint} {
+          @include my($value);
+        }
+        .mt-#{$key}\@#{$breakpoint} {
+          @include mt($value);
+        }
+        .mr-#{$key}\@#{$breakpoint} {
+          @include mr($value);
+        }
+        .mb-#{$key}\@#{$breakpoint} {
+          @include mb($value);
+        }
+        .ml-#{$key}\@#{$breakpoint} {
+          @include ml($value);
+        }
 
-        .gap-#{$key}\@#{$breakpoint} { gap: $value; }
-        .gap-x-#{$key}\@#{$breakpoint} { column-gap: $value; }
-        .gap-y-#{$key}\@#{$breakpoint} { row-gap: $value; }
-  
+        .gap-#{$key}\@#{$breakpoint} {
+          gap: $value;
+        }
+        .gap-x-#{$key}\@#{$breakpoint} {
+          column-gap: $value;
+        }
+        .gap-y-#{$key}\@#{$breakpoint} {
+          row-gap: $value;
+        }
+
         // Space classes
-        .space-x-#{$key}\@#{$breakpoint} { @include space-x($value); }
-        .space-y-#{$key}\@#{$breakpoint} { @include space-y($value); }
-        .inset-#{$key}\@#{$breakpoint} { @include inset($value); }
-        .inset-x-#{$key}\@#{$breakpoint} { @include inset-x($value); }
-        .inset-y-#{$key}\@#{$breakpoint} { @include inset-y($value); }
-     
+        .space-x-#{$key}\@#{$breakpoint} {
+          @include space-x($value);
+        }
+        .space-y-#{$key}\@#{$breakpoint} {
+          @include space-y($value);
+        }
+        .inset-#{$key}\@#{$breakpoint} {
+          @include inset($value);
+        }
+        .inset-x-#{$key}\@#{$breakpoint} {
+          @include inset-x($value);
+        }
+        .inset-y-#{$key}\@#{$breakpoint} {
+          @include inset-y($value);
+        }
       }
     }
   }

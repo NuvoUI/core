@@ -15,7 +15,7 @@ NuvoUI is designed for developers who want a better way to build responsive, bea
 ## ✨ Why Choose NuvoUI?
 
 - **💬 Human-Readable** - Intuitive, readable class names and mixins
-- **📱 Responsive First** - Use `@lg` or `@sm` directly in class names - being natual like `font-bold@lg`
+- **📱 Responsive First** - Use `@lg` or `@sm` directly in class names - being natural like `font-bold@lg`
 - **🧩 Component-Focused** - Container queries for truly modular design
 - **🌙 Dark Mode Built In** - Theme switching with zero effort
 - **🚀 Performance Focused** - Smaller CSS footprint than most frameworks

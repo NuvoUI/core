@@ -5,13 +5,25 @@
 $generate-utility-classes: true !default;
 $enable-dark-mode: true !default;
 $enable-rtl: true !default;
-$enable-debugger: false !default; // todo: spell mistake
+$enable-debugger: false !default;
 $enable-reduced-motion: true !default; // todo: pending
 $enable-container-queries: false !default; // todo: pending
 
+// if just a number passed, it will be assumed as px
+$default-unit: px !default;
+
 // Text
-$base-size: 16 !default; 
-$font-family: system-ui, -apple-system, "BlinkMacSystemFont", 'Segoe UI', "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif !default;
+$base-size: 16 !default;
+$font-family:
+  system-ui,
+  -apple-system,
+  "BlinkMacSystemFont",
+  "Segoe UI",
+  "Roboto",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  sans-serif !default;
 
 // Global variables that might be used across different modules
 $column-count: 12 !default; // todo: pending
@@ -37,7 +49,8 @@ $color-primitives: (
   "pink": #ec4899,
 ) !default;
 
-$theme-tokens: ("background", "foreground", "surface", "border", "text-primary", "text-secondary") !default;
+// Add item here to include in the theme
+$theme-tokens: ("background", "foreground", "surface", "border", "text-default", "text-muted") !default;
 
 // Default theme config (can be overridden)
 $light-theme: (
@@ -45,8 +58,8 @@ $light-theme: (
   "foreground": #1a1a1a,
   "surface": #fff,
   "border": #e5e7eb,
-  "text-primary": #1a1a1a,
-  "text-secondary": #4b5563,
+  "text-default": #1a1a1a,
+  "text-muted": #4b5563,
 ) !default;
 
 $dark-theme: (
@@ -54,8 +67,8 @@ $dark-theme: (
   "foreground": #f1f1f1,
   "surface": #2e2e2e,
   "border": #2e2e2e,
-  "text-primary": #f1f1f1,
-  "text-secondary": #a3a3a3,
+  "text-default": #f1f1f1,
+  "text-muted": #a3a3a3,
 ) !default;
 
 $shadow-colors: (
@@ -85,55 +98,74 @@ $grid-item-sizes: (
 
 // _variables.scss
 $font-sizes: (
-  "xs": 0.75rem,  // 12px
-  "sm": 0.875rem, // 14px
-  "md": 1rem,     // 16px
-  "lg": 1.25rem,  // 20px
-  "xl": 1.5rem,   // 24px
-  "2xl": 1.75rem, // 28px
-  "3xl": 2rem,    // 32px
-  "4xl": 2.5rem   // 40px
+  "xs": 0.75rem,
+  // 12px
+  "sm": 0.875rem,
+  // 14px
+  "md": 1rem,
+  // 16px
+  "lg": 1.25rem,
+  // 20px
+  "xl": 1.5rem,
+  // 24px
+  "2xl": 1.75rem,
+  // 28px
+  "3xl": 2rem,
+  // 32px
+  "4xl": 2.5rem, // 40px
 ) !default;
 
 // Updated spacing map
 $spacings: (
   0: 0,
-  1: 0.25rem,   // 4px
-  2: 0.5rem,    // 8px
-  3: 0.75rem,   // 12px
-  4: 1rem,      // 16px
-  5: 1.25rem,   // 20px
-  6: 1.5rem,    // 24px
-  8: 2rem,      // 32px
-  10: 2.5rem,   // 40px
-  12: 3rem,     // 48px
-  16: 4rem,     // 64px
-  20: 5rem,     // 80px
-  24: 6rem,     // 96px
-  32: 8rem,     // 128px
-  40: 10rem,    // 160px
-  48: 12rem,    // 192px 
-  56: 14rem,    // 224px   
-  64: 16rem,    // 256px
-)  !default;
+  1: 0.25rem,
+  // 4px
+  2: 0.5rem,
+  // 8px
+  3: 0.75rem,
+  // 12px
+  4: 1rem,
+  // 16px
+  5: 1.25rem,
+  // 20px
+  6: 1.5rem,
+  // 24px
+  8: 2rem,
+  // 32px
+  10: 2.5rem,
+  // 40px
+  12: 3rem,
+  // 48px
+  16: 4rem,
+  // 64px
+  20: 5rem,
+  // 80px
+  24: 6rem,
+  // 96px
+  32: 8rem,
+  // 128px
+  40: 10rem,
+  // 160px
+  48: 12rem,
+  // 192px
+  56: 14rem,
+  // 224px
+  64: 16rem, // 256px
+) !default;
 
 $percentages: (0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100) !default;
-
-
-// if just a number passed, it will be assumed as px
-$default-unit: px !default;
 
 // Common border width values that are most useful
 $border-widths: (0, 1, 2, 4, 8) !default;
 
 // Common border radius values that are most useful
 $border-radii: (
-  'xs': 0.25rem,
-  'sm': 0.375rem,
-  'md': 0.5rem,
-  'lg': 0.75rem,
-  'xl': 1rem,
-  '2xl': 1.25rem,
-  'full': 9999px,
-  'none': 0
+  "xs": 0.25rem,
+  "sm": 0.375rem,
+  "md": 0.5rem,
+  "lg": 0.75rem,
+  "xl": 1rem,
+  "2xl": 1.25rem,
+  "full": 9999px,
+  "none": 0,
 ) !default;

@@ -42,33 +42,41 @@
  *
  * @see grid
  */
- 
-@use 'sass:math';
-@use '../utilities/media-queries' as MC;
-@use '../abstracts'  as VAR;
-@use '../abstracts/functions' as FN;
+
+@use "sass:math";
+@use "../utilities/media-queries" as MC;
+@use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
 /**
  * @description Establishes a flex container.
  */
-@mixin flex { display: flex;}
+@mixin flex {
+  display: flex;
+}
 
 /**
  * @description Establishes a flex-inline container.
  */
-@mixin flex-inline { display: inline-flex;}
+@mixin flex-inline {
+  display: inline-flex;
+}
 
 /**
  * @description Sets flex-direction to row.
  * @dependencies flex | flex-inline
  */
-@mixin row { flex-direction: row;}
+@mixin row {
+  flex-direction: row;
+}
 
 /**
  * @description Sets flex-direction to row-reverse.
  * @dependencies flex | flex-inline
  */
-@mixin row-reverse {flex-direction: row-reverse;}
+@mixin row-reverse {
+  flex-direction: row-reverse;
+}
 
 /**
  * @description Sets flex-direction to column.
@@ -82,68 +90,89 @@
  * @description Sets flex-direction to column-reverse.
  * @dependencies flex | flex-inline
  */
-@mixin col-reverse { flex-direction: column-reverse;}
+@mixin col-reverse {
+  flex-direction: column-reverse;
+}
 
 /**
  * @description Sets flex-wrap to wrap.
  * @dependencies flex | flex-inline
  */
-@mixin wrap {flex-wrap: wrap;}
+@mixin wrap {
+  flex-wrap: wrap;
+}
 
 /**
  * @description Sets flex-wrap to nowrap.
  * @dependencies flex | flex-inline
  */
-@mixin nowrap {flex-wrap: nowrap;}
+@mixin nowrap {
+  flex-wrap: nowrap;
+}
 
 /**
  * @description Sets flex-wrap to wrap-reverse
  * @dependencies flex | flex-inline
  */
-@mixin wrap-reverse { flex-wrap: wrap-reverse;}
+@mixin wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
 
 /**
  * @description Sets justify-content to flex-start
  * @dependencies flex | flex-inline
  */
-@mixin start {justify-content: flex-start;}
+@mixin start {
+  justify-content: flex-start;
+}
 
 /**
  * @description Sets justify-content to flex-end
  * @dependencies flex | flex-inline
  */
-@mixin end {justify-content: flex-end;}
+@mixin end {
+  justify-content: flex-end;
+}
 
 /**
  * @description Sets justify-content to center
  * @dependencies flex | flex-inline
  */
-@mixin center {justify-content: center;}
-
+@mixin center {
+  justify-content: center;
+}
 
 /**
  * @description Sets justify-content to stretch
  * @dependencies flex | flex-inline
  */
-@mixin stretch {justify-content: stretch;}
+@mixin stretch {
+  justify-content: stretch;
+}
 
 /**
  * @description Sets justify-content to space-between
  * @dependencies flex | flex-inline
  */
-@mixin between {justify-content: space-between;}
+@mixin between {
+  justify-content: space-between;
+}
 
 /**
  * @description Sets justify-content to space-around
  * @dependencies flex | flex-inline
  */
-@mixin around {justify-content: space-around;}
+@mixin around {
+  justify-content: space-around;
+}
 
 /**
  * @description Sets justify-content to space-evenly
  * @dependencies flex | flex-inline
  */
-@mixin evenly {justify-content: space-evenly;}
+@mixin evenly {
+  justify-content: space-evenly;
+}
 
 // Cross Axis Alignment Mixins
 
@@ -151,31 +180,41 @@
  * @description Sets align-items to flex-start - aligns items to the start of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-start {align-items: flex-start;}
+@mixin x-start {
+  align-items: flex-start;
+}
 
 /**
  * @description Sets align-items to flex-end - aligns items to the end of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-end {align-items: flex-end;}
+@mixin x-end {
+  align-items: flex-end;
+}
 
 /**
  * @description Sets align-items to center - aligns items to the center of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-center {align-items: center;}
+@mixin x-center {
+  align-items: center;
+}
 
 /**
  * @description Sets align-items to stretch - aligns items to the stretch of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-stretch {align-items: stretch;}
+@mixin x-stretch {
+  align-items: stretch;
+}
 
 /**
  * @description Sets align-items to baseline - aligns items to the baseline of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-baseline {align-items: baseline;}
+@mixin x-baseline {
+  align-items: baseline;
+}
 
 // Cross Axis Content Mixins
 
@@ -183,43 +222,57 @@
  * @description Sets align-content to flex-start - aligns content to the start of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-start {align-content: flex-start; }
+@mixin x-content-start {
+  align-content: flex-start;
+}
 
 /**
  * @description Sets align-content to flex-end - aligns content to the end of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-end {align-content: flex-end; }
+@mixin x-content-end {
+  align-content: flex-end;
+}
 
 /**
  * @description Sets align-content to center - aligns content to the center of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-center {align-content: center; }
+@mixin x-content-center {
+  align-content: center;
+}
 
 /**
  * @description Sets align-content to space-between - aligns content to the space between the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-between { align-content: space-between; }
+@mixin x-content-between {
+  align-content: space-between;
+}
 
 /**
  * @description Sets align-content to space-around - aligns content to the space around the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-around {align-content: space-around; }
+@mixin x-content-around {
+  align-content: space-around;
+}
 
 /**
  * @description Sets align-content to space-evenly - aligns content to the space evenly between the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-evenly { align-content: space-evenly; }
+@mixin x-content-evenly {
+  align-content: space-evenly;
+}
 
 /**
  * @description Sets align-content to stretch - aligns content to the stretch of the cross axis.
  * @dependencies flex | flex-inline
  */
-@mixin x-content-stretch { align-content: stretch; }
+@mixin x-content-stretch {
+  align-content: stretch;
+}
 
 // Self Alignment Mixins
 
@@ -227,84 +280,110 @@
  * @description Sets align-self to auto
  * @dependencies flex | flex-inline
  */
-@mixin self-auto {align-self: auto;}
+@mixin self-auto {
+  align-self: auto;
+}
 
 /**
  * @description Sets align-self to flex-start
  * @dependencies flex | flex-inline
  */
-@mixin self-start {align-self: flex-start;}
+@mixin self-start {
+  align-self: flex-start;
+}
 
 /**
  * @description Sets align-self to flex-end
  * @dependencies flex | flex-inline
  */
-@mixin self-end {align-self: flex-end;}
+@mixin self-end {
+  align-self: flex-end;
+}
 
 /**
  * @description Sets align-self to center
  * @dependencies flex | flex-inline
  */
-@mixin self-center {align-self: center;}
+@mixin self-center {
+  align-self: center;
+}
 
 /**
  * @description Sets align-self to stretch
  * @dependencies flex | flex-inline
  */
-@mixin self-stretch {align-self: stretch;}
+@mixin self-stretch {
+  align-self: stretch;
+}
 
 /**
  * @description Sets align-self to baseline
  * @dependencies flex | flex-inline
  */
-@mixin self-baseline {align-self: baseline;}
+@mixin self-baseline {
+  align-self: baseline;
+}
 
 /**
  * @description Sets flex-shrink to 1 - allows the item to shrink.
  * @dependencies flex | flex-inline
  */
-@mixin shrink {flex-shrink: 1;}
+@mixin shrink {
+  flex-shrink: 1;
+}
 
 /**
  * @description Sets flex-shrink to 0 - prevents the item from shrinking.
  * @dependencies flex | flex-inline
  */
-@mixin no-shrink {flex-shrink: 0;}
+@mixin no-shrink {
+  flex-shrink: 0;
+}
 
 /**
  * @description Sets flex-shrink to 2 - allows the item to shrink twice as much as the other items.
  * @dependencies flex | flex-inline
  */
-@mixin shrink-twice {flex-shrink: 2;}
-
+@mixin shrink-twice {
+  flex-shrink: 2;
+}
 
 // Flex Child Mixins
 
 /**
  * @description Sets flex to 0 0 100%
  */
-@mixin fill-full {flex: 0 0 100%;}
+@mixin fill-full {
+  flex: 0 0 100%;
+}
 
 /**
  * @description Sets flex to 1 1 auto - allows the item to grow and shrink.
  */
-@mixin fill-auto {flex: 1 1 auto;}
+@mixin fill-auto {
+  flex: 1 1 auto;
+}
 
 /**
  * @description Sets flex to 1 1 0% - allows the item to grow but not shrink.
  */
-@mixin grow { flex: 1 1 0%; }
+@mixin grow {
+  flex: 1 1 0%;
+}
 
 /**
  * @description Sets flex to none - prevents the item from growing.
  */
-@mixin no-grow { flex: none; }
+@mixin no-grow {
+  flex: none;
+}
 
 /**
  * @description Sets flex to 1 0 auto - allows the item to grow but not shrink.
  */
-@mixin grow-only { flex: 1 0 auto; }
-
+@mixin grow-only {
+  flex: 1 0 auto;
+}
 
 /**
  * @description Sets how many columns this would take using percentage of VAR.$column-count.
@@ -318,130 +397,339 @@
   // Base flex container
   .flex {
     display: flex;
-    
+
     // Direction modifiers
-    &.row { flex-direction: row; }
-    &.row-reverse { flex-direction: row-reverse; }
-    &.col { flex-direction: column; }
-    &.col-reverse { flex-direction: column-reverse; }
-    
+    &.row {
+      flex-direction: row;
+    }
+
+    &.row-reverse {
+      flex-direction: row-reverse;
+    }
+
+    &.col {
+      flex-direction: column;
+    }
+
+    &.col-reverse {
+      flex-direction: column-reverse;
+    }
+
     // Wrap modifiers
-    &.wrap { flex-wrap: wrap; }
-    &.nowrap { flex-wrap: nowrap; }
-    &.wrap-reverse { flex-wrap: wrap-reverse; }
+    &.wrap {
+      flex-wrap: wrap;
+    }
+
+    &.nowrap {
+      flex-wrap: nowrap;
+    }
+
+    &.wrap-reverse {
+      flex-wrap: wrap-reverse;
+    }
 
     // Justify modifiers
-    &.start { justify-content: flex-start; }
-    &.end { justify-content: flex-end; }
-    &.center { justify-content: center; }
-    &.stretch { justify-content: stretch; } // todo: document
-    &.between { justify-content: space-between; }
-    &.around { justify-content: space-around; }
-    &.evenly { justify-content: space-evenly; }
-    
+    &.start {
+      justify-content: flex-start;
+    }
+
+    &.end {
+      justify-content: flex-end;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+
+    &.stretch {
+      justify-content: stretch;
+    } // todo: document
+    &.between {
+      justify-content: space-between;
+    }
+
+    &.around {
+      justify-content: space-around;
+    }
+
+    &.evenly {
+      justify-content: space-evenly;
+    }
+
     // Align modifiers
-    &.x-start { align-items: flex-start; }
-    &.x-end { align-items: flex-end; }
-    &.x-center { align-items: center; }
-    &.x-baseline { align-items: baseline; }
-    &.x-stretch { align-items: stretch; }
-    
-    &.x-content-start { align-content: flex-start; }
-    &.x-content-end { align-content: flex-end; }
-    &.x-content-center { align-content: center; }
-    &.x-content-between { align-content: space-between; }
-    &.x-content-around { align-content: space-around; }
-    &.x-content-evenly { align-content: space-evenly; }
-    &.x-content-stretch { align-content: stretch; }
+    &.x-start {
+      align-items: flex-start;
+    }
 
-    // Child flex items (using column count) 
-    > .fill-auto { @include fill-auto; }
-    > .fill-full { @include fill-full; }
-    > .grow { @include grow; }
-    > .no-grow { @include no-grow; }
+    &.x-end {
+      align-items: flex-end;
+    }
 
-    > .order-first { order: -1; }
-    > .order-last { order: 9999; }
-    > .order-none { order: 0; }
+    &.x-center {
+      align-items: center;
+    }
 
-    > .shrink { @include shrink; }
-    > .no-shrink { @include no-shrink; }
-    > .shrink-twice { @include shrink-twice; }
+    &.x-baseline {
+      align-items: baseline;
+    }
 
-    > .self-end { @include self-end; }
-    > .self-start { @include self-start; }
-    > .self-center { @include self-center; }
-    > .self-stretch { @include self-stretch; }
-    > .self-baseline { @include self-baseline; }
-    > .self-auto { @include self-auto; }
-    
+    &.x-stretch {
+      align-items: stretch;
+    }
+
+    &.x-content-start {
+      align-content: flex-start;
+    }
+
+    &.x-content-end {
+      align-content: flex-end;
+    }
+
+    &.x-content-center {
+      align-content: center;
+    }
+
+    &.x-content-between {
+      align-content: space-between;
+    }
+
+    &.x-content-around {
+      align-content: space-around;
+    }
+
+    &.x-content-evenly {
+      align-content: space-evenly;
+    }
+
+    &.x-content-stretch {
+      align-content: stretch;
+    }
+
+    // Child flex items (using column count)
+    > .fill-auto {
+      @include fill-auto;
+    }
+
+    > .fill-full {
+      @include fill-full;
+    }
+
+    > .grow {
+      @include grow;
+    }
+
+    > .no-grow {
+      @include no-grow;
+    }
+
+    > .order-first {
+      order: -1;
+    }
+
+    > .order-last {
+      order: 9999;
+    }
+
+    > .order-none {
+      order: 0;
+    }
+
+    > .shrink {
+      @include shrink;
+    }
+
+    > .no-shrink {
+      @include no-shrink;
+    }
+
+    > .shrink-twice {
+      @include shrink-twice;
+    }
+
+    > .self-end {
+      @include self-end;
+    }
+
+    > .self-start {
+      @include self-start;
+    }
+
+    > .self-center {
+      @include self-center;
+    }
+
+    > .self-stretch {
+      @include self-stretch;
+    }
+
+    > .self-baseline {
+      @include self-baseline;
+    }
+
+    > .self-auto {
+      @include self-auto;
+    }
+
     @for $i from 1 through VAR.$column-count {
-      > .fill-#{$i} { @include fill($i); }
-      > .order-#{$i} { order: $i; }
+      > .fill-#{$i} {
+        @include fill($i);
+      }
+
+      > .order-#{$i} {
+        order: $i;
+      }
     }
   }
 
   @each $breakpoint, $width in VAR.$breakpoints {
     // Get breakpoint value using FN function
     $bp-val: FN.get-breakpoint-value($breakpoint);
-    
+
     @media (min-width: #{$bp-val}) {
       .flex {
         // Direction
-        &.row\@#{$breakpoint} { flex-direction: row; }
-        &.row-reverse\@#{$breakpoint} { flex-direction: row-reverse; }
-        &.col\@#{$breakpoint} { flex-direction: column; }
-        &.col-reverse\@#{$breakpoint} { flex-direction: column-reverse; }
-        
+        &.row\@#{$breakpoint} {
+          flex-direction: row;
+        }
+        &.row-reverse\@#{$breakpoint} {
+          flex-direction: row-reverse;
+        }
+        &.col\@#{$breakpoint} {
+          flex-direction: column;
+        }
+        &.col-reverse\@#{$breakpoint} {
+          flex-direction: column-reverse;
+        }
+
         // Wrap
-        &.wrap\@#{$breakpoint} { flex-wrap: wrap; }
-        &.nowrap\@#{$breakpoint} { flex-wrap: nowrap; }
-        &.wrap-reverse\@#{$breakpoint} { flex-wrap: wrap-reverse; }
-        
+        &.wrap\@#{$breakpoint} {
+          flex-wrap: wrap;
+        }
+        &.nowrap\@#{$breakpoint} {
+          flex-wrap: nowrap;
+        }
+        &.wrap-reverse\@#{$breakpoint} {
+          flex-wrap: wrap-reverse;
+        }
+
         // Justify
-        &.start\@#{$breakpoint} { justify-content: flex-start; }
-        &.end\@#{$breakpoint} { justify-content: flex-end; }
-        &.center\@#{$breakpoint} { justify-content: center; }
-        &.between\@#{$breakpoint} { justify-content: space-between; }
-        &.stretch\@#{$breakpoint} { justify-content: stretch; } // todo: document
-        &.around\@#{$breakpoint} { justify-content: space-around; }
-        &.evenly\@#{$breakpoint} { justify-content: space-evenly; }
+        &.start\@#{$breakpoint} {
+          justify-content: flex-start;
+        }
+        &.end\@#{$breakpoint} {
+          justify-content: flex-end;
+        }
+        &.center\@#{$breakpoint} {
+          justify-content: center;
+        }
+        &.between\@#{$breakpoint} {
+          justify-content: space-between;
+        }
+        &.stretch\@#{$breakpoint} {
+          justify-content: stretch;
+        } // todo: document
+        &.around\@#{$breakpoint} {
+          justify-content: space-around;
+        }
+        &.evenly\@#{$breakpoint} {
+          justify-content: space-evenly;
+        }
 
         // Align
-        &.x-start\@#{$breakpoint} { align-items: flex-start; }
-        &.x-end\@#{$breakpoint} { align-items: flex-end; }
-        &.x-center\@#{$breakpoint} { align-items: center; }
-        &.x-baseline\@#{$breakpoint} { align-items: baseline; }
-        &.x-stretch\@#{$breakpoint} { align-items: stretch; }
+        &.x-start\@#{$breakpoint} {
+          align-items: flex-start;
+        }
+        &.x-end\@#{$breakpoint} {
+          align-items: flex-end;
+        }
+        &.x-center\@#{$breakpoint} {
+          align-items: center;
+        }
+        &.x-baseline\@#{$breakpoint} {
+          align-items: baseline;
+        }
+        &.x-stretch\@#{$breakpoint} {
+          align-items: stretch;
+        }
 
-        &.x-content-start\@#{$breakpoint} { align-content: flex-start; }
-        &.x-content-end\@#{$breakpoint} { align-content: flex-end; }
-        &.x-content-center\@#{$breakpoint} { align-content: center; }
-        &.x-content-between\@#{$breakpoint} { align-content: space-between; }
-        &.x-content-around\@#{$breakpoint} { align-content: space-around; }
-        &.x-content-evenly\@#{$breakpoint} { align-content: space-evenly; }
-        &.x-content-stretch\@#{$breakpoint} { align-content: stretch; }
-        
+        &.x-content-start\@#{$breakpoint} {
+          align-content: flex-start;
+        }
+        &.x-content-end\@#{$breakpoint} {
+          align-content: flex-end;
+        }
+        &.x-content-center\@#{$breakpoint} {
+          align-content: center;
+        }
+        &.x-content-between\@#{$breakpoint} {
+          align-content: space-between;
+        }
+        &.x-content-around\@#{$breakpoint} {
+          align-content: space-around;
+        }
+        &.x-content-evenly\@#{$breakpoint} {
+          align-content: space-evenly;
+        }
+        &.x-content-stretch\@#{$breakpoint} {
+          align-content: stretch;
+        }
+
         // Width (using column count)
-        & > .fill-auto\@#{$breakpoint} { @include fill-auto; }
-        & > .fill-full\@#{$breakpoint} { @include fill-full; }
-        & > .grow\@#{$breakpoint} { @include grow; }
-        & > .no-grow\@#{$breakpoint} { @include no-grow; }
-        & > .order-first\@#{$breakpoint} { order: -1; }
-        & > .order-last\@#{$breakpoint} { order: 9999; }
-        & > .order-none\@#{$breakpoint} { order: 0; }
-        & > .shrink\@#{$breakpoint} { @include shrink; }
-        & > .no-shrink\@#{$breakpoint} { @include no-shrink; }
-        & > .shrink-twice\@#{$breakpoint} { @include shrink-twice; }
-        & > .self-end\@#{$breakpoint} { @include self-end; }
-        & > .self-start\@#{$breakpoint} { @include self-start; }
-        & > .self-center\@#{$breakpoint} { @include self-center; }
-        & > .self-stretch\@#{$breakpoint} { @include self-stretch; }
-        & > .self-baseline\@#{$breakpoint} { @include self-baseline; }
-        & > .self-auto\@#{$breakpoint} { @include self-auto; }
+        & > .fill-auto\@#{$breakpoint} {
+          @include fill-auto;
+        }
+        & > .fill-full\@#{$breakpoint} {
+          @include fill-full;
+        }
+        & > .grow\@#{$breakpoint} {
+          @include grow;
+        }
+        & > .no-grow\@#{$breakpoint} {
+          @include no-grow;
+        }
+        & > .order-first\@#{$breakpoint} {
+          order: -1;
+        }
+        & > .order-last\@#{$breakpoint} {
+          order: 9999;
+        }
+        & > .order-none\@#{$breakpoint} {
+          order: 0;
+        }
+        & > .shrink\@#{$breakpoint} {
+          @include shrink;
+        }
+        & > .no-shrink\@#{$breakpoint} {
+          @include no-shrink;
+        }
+        & > .shrink-twice\@#{$breakpoint} {
+          @include shrink-twice;
+        }
+        & > .self-end\@#{$breakpoint} {
+          @include self-end;
+        }
+        & > .self-start\@#{$breakpoint} {
+          @include self-start;
+        }
+        & > .self-center\@#{$breakpoint} {
+          @include self-center;
+        }
+        & > .self-stretch\@#{$breakpoint} {
+          @include self-stretch;
+        }
+        & > .self-baseline\@#{$breakpoint} {
+          @include self-baseline;
+        }
+        & > .self-auto\@#{$breakpoint} {
+          @include self-auto;
+        }
         @for $i from 1 through VAR.$column-count {
-          & > .fill-#{$i}\@#{$breakpoint} { @include fill($i); }
-          & > .order-#{$i}\@#{$breakpoint} { order: $i; }
+          & > .fill-#{$i}\@#{$breakpoint} {
+            @include fill($i);
+          }
+          & > .order-#{$i}\@#{$breakpoint} {
+            order: $i;
+          }
         }
       }
     }

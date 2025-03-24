@@ -1,4 +1,5 @@
-@use '../abstracts'  as *;
+@use "../abstracts/config" as *;
+@use "../abstracts/functions" as FN;
 
 /**
  * @component Position
@@ -48,12 +49,10 @@
  * @see z-index, transform
  */
 
-
 // -----------------------------------------------
 // MIXINS
 // -----------------------------------------------
 
- 
 /**
  * @mixin static
  * @description Sets position to static (default document flow)
@@ -104,8 +103,8 @@
  */
 @mixin fixed {
   position: fixed;
-} 
- 
+}
+
 /**
  * @mixin sticky
  * @description Creates a sticky element that remains in view during scrolling
@@ -118,8 +117,7 @@
   position: sticky;
   z-index: 999;
   top: 0;
-} 
-
+}
 
 /**
  * @mixin top
@@ -131,9 +129,11 @@
  *   @include top(1rem);
  * }
  */
- @mixin top($value) {top: $value; }
+@mixin top($value) {
+  top: FN.fix-units($value);
+}
 
- /**
+/**
   * @mixin right
   * @description Sets the right position of an element
   * @param {Number|Length} $value - Position value (in px, rem, etc.)
@@ -143,9 +143,11 @@
   *   @include right(0);
   * }
   */
- @mixin right($value) {right: $value; }
- 
- /**
+@mixin right($value) {
+  right: FN.fix-units($value);
+}
+
+/**
   * @mixin bottom
   * @description Sets the bottom position of an element
   * @param {Number|Length} $value - Position value (in px, rem, etc.)
@@ -155,9 +157,11 @@
   *   @include bottom(0);
   * }
   */
- @mixin bottom($value) {bottom: $value; }
- 
- /**
+@mixin bottom($value) {
+  bottom: FN.fix-units($value);
+}
+
+/**
   * @mixin left
   * @description Sets the left position of an element
   * @param {Number|Length} $value - Position value (in px, rem, etc.)
@@ -167,60 +171,91 @@
   *   @include left(0);
   * }
   */
- @mixin left($value) {left: $value; }
+@mixin left($value) {
+  left: $value;
+}
 
+// todo: Documentation
+@mixin absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 
+  --translate-x: -50%;
+  --translate-y: -50%;
 
- // todo: Documentation
- @mixin absolute-center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-   
-    --translate-x: -50%;
-    --translate-y: -50%;
-   
-    transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
+  transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
 }
 
 // todo: Documentation
 // Fractional and percentage placements
 $position-fractions: (
-  '25p': 25%,
-  '33p': 33.333%,
-  '50p': 50%,
-  '66p': 66.667%,
-  '75p': 75%,
-  "100p": 100%
+  "25p": 25%,
+  "33p": 33.333%,
+  "50p": 50%,
+  "66p": 66.667%,
+  "75p": 75%,
+  "100p": 100%,
 );
-
-
 
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
 @if $generate-utility-classes {
   // Position Classes
-  .static { @include static; }
-  .relative { @include relative; }
-  .absolute { @include absolute; }
-  .fixed { @include fixed; }
-  .sticky { @include sticky; }
-  .absolute-center { @include absolute-center; } 
+  .static {
+    @include static;
+  }
+
+  .relative {
+    @include relative;
+  }
+
+  .absolute {
+    @include absolute;
+  }
+
+  .fixed {
+    @include fixed;
+  }
+
+  .sticky {
+    @include sticky;
+  }
+
+  .absolute-center {
+    @include absolute-center;
+  }
 
   @each $key, $value in $position-fractions {
-    .top-#{$key} { @include top($value); }
-    .right-#{$key} { @include right($value); }
-    .bottom-#{$key} { @include bottom($value); }
-    .left-#{$key} { @include left($value); }
+    .top-#{$key} {
+      @include top($value);
+    }
+    .right-#{$key} {
+      @include right($value);
+    }
+    .bottom-#{$key} {
+      @include bottom($value);
+    }
+    .left-#{$key} {
+      @include left($value);
+    }
   }
 
   // Placement Classes
   @each $key, $value in $spacings {
-    .top-#{$key} { @include top($value); }
-    .right-#{$key} { @include right($value); }
-    .bottom-#{$key} { @include bottom($value); }
-    .left-#{$key} { @include left($value); }
+    .top-#{$key} {
+      @include top($value);
+    }
+    .right-#{$key} {
+      @include right($value);
+    }
+    .bottom-#{$key} {
+      @include bottom($value);
+    }
+    .left-#{$key} {
+      @include left($value);
+    }
   }
 
   // -----------------------------------------------
@@ -230,26 +265,54 @@ $position-fractions: (
   // Responsive Position Classes
   @each $breakpoint, $width in $breakpoints {
     @media (min-width: #{$width}) {
-      .static\@#{$breakpoint} {@include static;}
-      .relative\@#{$breakpoint} {@include relative;}
-      .absolute\@#{$breakpoint} {@include absolute;}
-      .fixed\@#{$breakpoint} {@include fixed;}
-      .sticky\@#{$breakpoint} {@include sticky;}
-      .absolute-center\@#{$breakpoint} { @include absolute-center; }
+      .static\@#{$breakpoint} {
+        @include static;
+      }
+      .relative\@#{$breakpoint} {
+        @include relative;
+      }
+      .absolute\@#{$breakpoint} {
+        @include absolute;
+      }
+      .fixed\@#{$breakpoint} {
+        @include fixed;
+      }
+      .sticky\@#{$breakpoint} {
+        @include sticky;
+      }
+      .absolute-center\@#{$breakpoint} {
+        @include absolute-center;
+      }
 
       // Fractional responsive placements
       @each $key, $value in $position-fractions {
-        .top-#{$key}\@#{$breakpoint} { @include top($value); }
-        .right-#{$key}\@#{$breakpoint} { @include right($value); }
-        .bottom-#{$key}\@#{$breakpoint} { @include bottom($value); }
-        .left-#{$key}\@#{$breakpoint} { @include left($value); }
+        .top-#{$key}\@#{$breakpoint} {
+          @include top($value);
+        }
+        .right-#{$key}\@#{$breakpoint} {
+          @include right($value);
+        }
+        .bottom-#{$key}\@#{$breakpoint} {
+          @include bottom($value);
+        }
+        .left-#{$key}\@#{$breakpoint} {
+          @include left($value);
+        }
       }
 
       @each $key, $value in $spacings {
-          .top-#{$key}\@#{$breakpoint} {@include top($value);}
-          .right-#{$key}\@#{$breakpoint} {@include right($value);}
-          .bottom-#{$key}\@#{$breakpoint} {@include bottom($value);}
-          .left-#{$key}\@#{$breakpoint} {@include left($value);}
+        .top-#{$key}\@#{$breakpoint} {
+          @include top($value);
+        }
+        .right-#{$key}\@#{$breakpoint} {
+          @include right($value);
+        }
+        .bottom-#{$key}\@#{$breakpoint} {
+          @include bottom($value);
+        }
+        .left-#{$key}\@#{$breakpoint} {
+          @include left($value);
+        }
       }
     }
   }

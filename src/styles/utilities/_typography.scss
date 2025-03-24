@@ -1,12 +1,11 @@
 // Section: Text
 // Module: Text
 
-@use 'sass:map';
-@use 'sass:meta';
+@use "sass:map";
+@use "sass:meta";
 
 // Import variables
-@use '../abstracts'  as VAR;
-
+@use "../abstracts/config" as VAR;
 
 /**
  * Typography Utilities
@@ -30,41 +29,58 @@
 /**
 * Text size utility
 * @param {string} $size - The size of the text.
-*/ 
+*/
 @mixin text-size($size) {
-    @if map.has-key(VAR.$font-sizes, $size) {
-      font-size: map.get(VAR.$font-sizes, $size);
-    } @else {
-      font-size: $size;
-    }
+  @if map.has-key(VAR.$font-sizes, $size) {
+    font-size: map.get(VAR.$font-sizes, $size);
+  } @else {
+    font-size: $size;
+  }
 }
 
 // Font weights
-@mixin font-thin { font-weight: 100; }
-@mixin font-extralight { font-weight: 200; }
-@mixin font-light { font-weight: 300; }
-@mixin font-normal { font-weight: 400; }
-@mixin font-medium { font-weight: 500; }
-@mixin font-semibold { font-weight: 600; }
-@mixin font-bold { font-weight: 700; }
-@mixin font-extrabold { font-weight: 800; }
-@mixin font-black { font-weight: 900; }
+@mixin font-thin {
+  font-weight: 100;
+}
+@mixin font-extralight {
+  font-weight: 200;
+}
+@mixin font-light {
+  font-weight: 300;
+}
+@mixin font-normal {
+  font-weight: 400;
+}
+@mixin font-medium {
+  font-weight: 500;
+}
+@mixin font-semibold {
+  font-weight: 600;
+}
+@mixin font-bold {
+  font-weight: 700;
+}
+@mixin font-extrabold {
+  font-weight: 800;
+}
+@mixin font-black {
+  font-weight: 900;
+}
 
-
-@mixin leading($value){
-  @if meta.type-of($value) == 'number' {
+@mixin leading($value) {
+  @if meta.type-of($value) == "number" {
     line-height: $value;
-  } @else if $value == 'none' {
+  } @else if $value == "none" {
     line-height: 1;
-  } @else if $value == 'tight' {
+  } @else if $value == "tight" {
     line-height: 1.25;
-  } @else if $value == 'snug' {
+  } @else if $value == "snug" {
     line-height: 1.375;
-  } @else if $value == 'normal' {
+  } @else if $value == "normal" {
     line-height: 1.5;
-  } @else if $value == 'relaxed' {
+  } @else if $value == "relaxed" {
     line-height: 1.625;
-  } @else if $value == 'loose' {
+  } @else if $value == "loose" {
     line-height: 2;
   } @else {
     line-height: $value;
@@ -72,40 +88,77 @@
 }
 
 // Line heights
-@mixin leading-none { @include leading(none);} 
-@mixin leading-tight { @include leading(tight);} 
-@mixin leading-snug { @include leading(snug);} 
-@mixin leading-normal { @include leading(normal);} 
-@mixin leading-relaxed { @include leading(relaxed);} 
-@mixin leading-loose { @include leading(loose);} 
+@mixin leading-none {
+  @include leading(none);
+}
+@mixin leading-tight {
+  @include leading(tight);
+}
+@mixin leading-snug {
+  @include leading(snug);
+}
+@mixin leading-normal {
+  @include leading(normal);
+}
+@mixin leading-relaxed {
+  @include leading(relaxed);
+}
+@mixin leading-loose {
+  @include leading(loose);
+}
 
 // Text alignment
-@mixin text-left { text-align: left; }
-@mixin text-center { text-align: center; }
-@mixin text-right { text-align: right; }
-@mixin text-justify { text-align: justify; }
-
+@mixin text-left {
+  text-align: left;
+}
+@mixin text-center {
+  text-align: center;
+}
+@mixin text-right {
+  text-align: right;
+}
+@mixin text-justify {
+  text-align: justify;
+}
 
 // Text transform mixins
-@mixin uppercase { text-transform: uppercase; }
-@mixin lowercase { text-transform: lowercase; }
-@mixin capitalize { text-transform: capitalize; }
-@mixin normal-case { text-transform: none; }
+@mixin uppercase {
+  text-transform: uppercase;
+}
+@mixin lowercase {
+  text-transform: lowercase;
+}
+@mixin capitalize {
+  text-transform: capitalize;
+}
+@mixin normal-case {
+  text-transform: none;
+}
 
 // Font style mixins
-@mixin italic { font-style: italic; } 
-@mixin not-italic { font-style: normal; } 
+@mixin italic {
+  font-style: italic;
+}
+@mixin not-italic {
+  font-style: normal;
+}
 
 // Text decoration mixins
-@mixin underline { text-decoration: underline; } 
-@mixin line-through { text-decoration: line-through; } 
-@mixin no-underline { text-decoration: none; } 
+@mixin underline {
+  text-decoration: underline;
+}
+@mixin line-through {
+  text-decoration: line-through;
+}
+@mixin no-underline {
+  text-decoration: none;
+}
 
 // Text overflow mixin
-@mixin truncate { 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  white-space: nowrap; 
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin overflow-label {
@@ -124,127 +177,288 @@
   text-overflow: ellipsis;
 }
 
-
 @mixin break-normal {
   overflow-wrap: normal;
   word-break: normal;
 }
 
-@mixin break-words { overflow-wrap: break-word; }
-@mixin break-all { word-break: break-all; }
-@mixin whitespace-normal { white-space: normal; }
-@mixin whitespace-nowrap { white-space: nowrap; }
-@mixin whitespace-pre { white-space: pre; }
-@mixin whitespace-pre-line { white-space: pre-line; }
-@mixin whitespace-pre-wrap { white-space: pre-wrap; }
-
+@mixin break-words {
+  overflow-wrap: break-word;
+}
+@mixin break-all {
+  word-break: break-all;
+}
+@mixin whitespace-normal {
+  white-space: normal;
+}
+@mixin whitespace-nowrap {
+  white-space: nowrap;
+}
+@mixin whitespace-pre {
+  white-space: pre;
+}
+@mixin whitespace-pre-line {
+  white-space: pre-line;
+}
+@mixin whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
 
 // Custom letter spacing mixin with value
 @mixin tracking($value) {
-  @if meta.type-of($value) == 'number' {
+  @if meta.type-of($value) == "number" {
     letter-spacing: $value;
-  } @else if $value == 'tighter' {
+  } @else if $value == "tighter" {
     letter-spacing: -0.05em;
-  } @else if $value == 'tight' {
+  } @else if $value == "tight" {
     letter-spacing: -0.025em;
-  } @else if $value == 'normal' {
+  } @else if $value == "normal" {
     letter-spacing: 0;
-  } @else if $value == 'wide' {
+  } @else if $value == "wide" {
     letter-spacing: 0.025em;
-  } @else if $value == 'wider' {
+  } @else if $value == "wider" {
     letter-spacing: 0.05em;
-  } @else if $value == 'widest' {
+  } @else if $value == "widest" {
     letter-spacing: 0.1em;
   } @else {
     letter-spacing: $value;
   }
 }
 
-@mixin tracking-tighter { @include tracking(tighter) };
-@mixin tracking-tight { @include tracking(tight) };
-@mixin tracking-normal { @include tracking(normal) };
-@mixin tracking-wide { @include tracking(wide) };
-@mixin tracking-wider { @include tracking(wider) };
-@mixin tracking-widest { @include tracking(widest) };
-
+@mixin tracking-tighter {
+  @include tracking(tighter);
+}
+@mixin tracking-tight {
+  @include tracking(tight);
+}
+@mixin tracking-normal {
+  @include tracking(normal);
+}
+@mixin tracking-wide {
+  @include tracking(wide);
+}
+@mixin tracking-wider {
+  @include tracking(wider);
+}
+@mixin tracking-widest {
+  @include tracking(widest);
+}
 
 @mixin responsive-typography($breakpoint: null) {
   $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
 
   @each $size, $val in VAR.$font-sizes {
-    .text-#{$size}#{$suffix} { @include text-size($size); }
+    .text-#{$size}#{$suffix} {
+      @include text-size($size);
+    }
   }
 
   // Generate font weight utilities
-  .font-thin#{$suffix} { @include font-thin; }
-  .font-extralight#{$suffix} { @include font-extralight; }
-  .font-light#{$suffix} { @include font-light; }
-  .font-normal#{$suffix} { @include font-normal; }
-  .font-medium#{$suffix} { @include font-medium; }
-  .font-semibold#{$suffix} { @include font-semibold; }
-  .font-bold#{$suffix} { @include font-bold; }
-  .font-extrabold#{$suffix} { @include font-extrabold; }
-  .font-black#{$suffix} { @include font-black; }
+  .font-thin#{$suffix} {
+    @include font-thin;
+  }
+
+  .font-extralight#{$suffix} {
+    @include font-extralight;
+  }
+
+  .font-light#{$suffix} {
+    @include font-light;
+  }
+
+  .font-normal#{$suffix} {
+    @include font-normal;
+  }
+
+  .font-medium#{$suffix} {
+    @include font-medium;
+  }
+
+  .font-semibold#{$suffix} {
+    @include font-semibold;
+  }
+
+  .font-bold#{$suffix} {
+    @include font-bold;
+  }
+
+  .font-extrabold#{$suffix} {
+    @include font-extrabold;
+  }
+
+  .font-black#{$suffix} {
+    @include font-black;
+  }
 
   // Generate line height utilities
-  .leading-none#{$suffix} { @include leading-none; }
-  .leading-tight#{$suffix} { @include leading-tight; }
-  .leading-snug#{$suffix} { @include leading-snug; }
-  .leading-normal#{$suffix} { @include leading-normal; }
-  .leading-relaxed#{$suffix} { @include leading-relaxed; }
-  .leading-loose#{$suffix} { @include leading-loose; }
+  .leading-none#{$suffix} {
+    @include leading-none;
+  }
+
+  .leading-tight#{$suffix} {
+    @include leading-tight;
+  }
+
+  .leading-snug#{$suffix} {
+    @include leading-snug;
+  }
+
+  .leading-normal#{$suffix} {
+    @include leading-normal;
+  }
+
+  .leading-relaxed#{$suffix} {
+    @include leading-relaxed;
+  }
+
+  .leading-loose#{$suffix} {
+    @include leading-loose;
+  }
 
   // Generate text alignment utilities
-  .text-left#{$suffix} { @include text-left; }
-  .text-center#{$suffix} { @include text-center; }
-  .text-right#{$suffix} { @include text-right; }
-  .text-justify#{$suffix} { @include text-justify; }
+  .text-left#{$suffix} {
+    @include text-left;
+  }
+
+  .text-center#{$suffix} {
+    @include text-center;
+  }
+
+  .text-right#{$suffix} {
+    @include text-right;
+  }
+
+  .text-justify#{$suffix} {
+    @include text-justify;
+  }
 
   // Classes using mixins
-  .uppercase#{$suffix} { @include uppercase; }
-  .lowercase#{$suffix} { @include lowercase; }
-  .capitalize#{$suffix} { @include capitalize; }
-  .normal-case#{$suffix} { @include normal-case; }
+  .uppercase#{$suffix} {
+    @include uppercase;
+  }
 
-  .italic#{$suffix} { @include italic; }
-  .not-italic#{$suffix} { @include not-italic; }
+  .lowercase#{$suffix} {
+    @include lowercase;
+  }
 
-  .underline#{$suffix} { @include underline; }
-  .line-through#{$suffix} { @include line-through; }
-  .no-underline#{$suffix} { @include no-underline; }
+  .capitalize#{$suffix} {
+    @include capitalize;
+  }
 
-  .truncate#{$suffix} { @include truncate; }
+  .normal-case#{$suffix} {
+    @include normal-case;
+  }
 
-  .truncate-2#{$suffix} { @include truncate-lines(2); }
-  .truncate-3#{$suffix} { @include truncate-lines(3); }
-  .truncate-4#{$suffix} { @include truncate-lines(4); }
-  .truncate-5#{$suffix} { @include truncate-lines(5); }
+  .italic#{$suffix} {
+    @include italic;
+  }
 
-  .tracking-tighter#{$suffix} { @include tracking(tighter) };
-  .tracking-tight#{$suffix} { @include tracking(tight) };
-  .tracking-normal#{$suffix} { @include tracking(normal) };
-  .tracking-wide#{$suffix} { @include tracking(wide) };
-  .tracking-wider#{$suffix} { @include tracking(wider) };
-  .tracking-widest#{$suffix} { @include tracking(widest) };
-  
-  .overflow-label#{$suffix}{@include overflow-label};
+  .not-italic#{$suffix} {
+    @include not-italic;
+  }
+
+  .underline#{$suffix} {
+    @include underline;
+  }
+
+  .line-through#{$suffix} {
+    @include line-through;
+  }
+
+  .no-underline#{$suffix} {
+    @include no-underline;
+  }
+
+  .truncate#{$suffix} {
+    @include truncate;
+  }
+
+  .truncate-2#{$suffix} {
+    @include truncate-lines(2);
+  }
+
+  .truncate-3#{$suffix} {
+    @include truncate-lines(3);
+  }
+
+  .truncate-4#{$suffix} {
+    @include truncate-lines(4);
+  }
+
+  .truncate-5#{$suffix} {
+    @include truncate-lines(5);
+  }
+
+  .tracking-tighter#{$suffix} {
+    @include tracking(tighter);
+  }
+
+  .tracking-tight#{$suffix} {
+    @include tracking(tight);
+  }
+
+  .tracking-normal#{$suffix} {
+    @include tracking(normal);
+  }
+
+  .tracking-wide#{$suffix} {
+    @include tracking(wide);
+  }
+
+  .tracking-wider#{$suffix} {
+    @include tracking(wider);
+  }
+
+  .tracking-widest#{$suffix} {
+    @include tracking(widest);
+  }
+
+  .overflow-label#{$suffix} {
+    @include overflow-label;
+  }
 }
 
 @if VAR.$generate-utility-classes {
   @include responsive-typography;
-  .break-normal { @include break-normal; }
-  .break-words { @include break-words; }
-  .break-all { @include break-all; }
-  .whitespace-normal { @include whitespace-normal; }
-  .whitespace-nowrap { @include whitespace-nowrap; }
-  .whitespace-pre { @include whitespace-pre; }
-  .whitespace-pre-line { @include whitespace-pre-line; }
-  .whitespace-pre-wrap { @include whitespace-pre-wrap; }
+
+  .break-normal {
+    @include break-normal;
+  }
+
+  .break-words {
+    @include break-words;
+  }
+
+  .break-all {
+    @include break-all;
+  }
+
+  .whitespace-normal {
+    @include whitespace-normal;
+  }
+
+  .whitespace-nowrap {
+    @include whitespace-nowrap;
+  }
+
+  .whitespace-pre {
+    @include whitespace-pre;
+  }
+
+  .whitespace-pre-line {
+    @include whitespace-pre-line;
+  }
+
+  .whitespace-pre-wrap {
+    @include whitespace-pre-wrap;
+  }
 
   @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
       @each $size, $val in VAR.$font-sizes {
-        .text-#{$size}\@#{$breakpoint} { @include text-size($size); }
+        .text-#{$size}\@#{$breakpoint} {
+          @include text-size($size);
+        }
       }
       @include responsive-typography($breakpoint);
     }

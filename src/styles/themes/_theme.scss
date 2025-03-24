@@ -2,10 +2,11 @@
 @use "sass:color";
 @use "sass:map";
 @use "../utilities/colors" as COL;
-@use "../abstracts" as *;
+@use "../abstracts/config" as *;
 
 @if $generate-utility-classes {
-  :root {
+  :root,
+  [data-theme="light"] {
     // Theme color CSS variables
     @each $color-name, $scale in COL.$colors {
       --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
@@ -22,19 +23,18 @@
       }
     }
 
+    @each $token in $theme-tokens {
+      --#{$token}: #{map.get($light-theme, $token)};
+    }
+
+    --button-text-color: #{map.get($dark-theme, "text-default")};
+    --inverted-text-color: #{map.get($dark-theme, "text-default")};
+
     // Light theme variables
-    --background: #{map.get($light-theme, "background")};
-    --foreground: #{map.get($light-theme, "foreground")};
-    --surface: #{map.get($light-theme, "surface")};
-    --border: var(--gray-600);
-    --text-primary: var(--gray-900);
-    --text-secondary: var(--gray-600);
     --button-bg-color: var(--primary);
     --button-bg-color-hover: var(--primary-600);
-    --button-text-color: var(--gray-100);
     --link-color: var(--primary);
     --link-hover-color: var(--primary-600);
-    --inverted-text-color: var(--gray-100);
 
     // Scrollbar styling
     &::-webkit-scrollbar {
@@ -54,22 +54,20 @@
     scrollbar-width: thin;
     scrollbar-color: #888 var(--background);
   }
-  
+
   @if $enable-dark-mode {
     // Dark theme settings
     [data-theme="dark"] {
-      --background: #{map.get($dark-theme, "background")};
-      --foreground: #{map.get($dark-theme, "foreground")};
-      --surface: #{map.get($dark-theme, "surface")};
-      --border: var(--gray-400);
-      --text-primary: var(--gray-100);
-      --text-secondary: var(--gray-400);
+      @each $token in $theme-tokens {
+        --#{$token}: #{map.get($dark-theme, $token)};
+      }
+
+      --button-text-color: #{map.get($light-theme, "text-default")};
+      --inverted-text-color: #{map.get($light-theme, "text-default")};
       --button-bg-color: var(--primary);
       --button-bg-color-hover: var(--primary-400);
-      --button-text-color: var(--gray-200);
       --link-color: var(--primary);
       --link-hover-color: var(--primary-400);
-      --inverted-text-color: var(--gray-900);
 
       &::-webkit-scrollbar-track {
         background: var(--background);
@@ -138,7 +136,7 @@
   }
 
   // Primitive color utilities
-  // green, purple, pink etc. 
+  // green, purple, pink etc.
   @each $color-name, $scale in COL.$colors-primitives {
     @each $shade, $value in $scale {
       .text-on-#{$color-name}-#{$shade} {
@@ -185,20 +183,56 @@
   }
 
   // Semantic color utilities
-  .bg-page {background-color: var(--background);}
-  .bg-card {background-color: var(--surface);}
-  .bg-active {background-color: var(--button-bg-color);}
-  .bg-hover {background-color: var(--button-bg-color-hover);}
-  .bg-white, .hover\:bg-white:hover {background-color: white;}
-  .bg-black, .hover\:bg-black:hover {background-color: black;}
-  .text-default {color: var(--text-primary);}
-  .text-muted {color: var(--text-secondary);}
-  .text-inverted {color: var(--inverted-text-color);}
-  .text-white, .hover\:text-white:hover {color: white;}
-  .text-black, .hover\:text-black:hover {color: black;}
+  .bg-page {
+    background-color: var(--background);
+  }
+
+  .bg-surface {
+    background-color: var(--surface);
+  }
+
+  .bg-active {
+    background-color: var(--button-bg-color);
+  }
+
+  .bg-hover {
+    background-color: var(--button-bg-color-hover);
+  }
+
+  .bg-white,
+  .hover\:bg-white:hover {
+    background-color: white;
+  }
+
+  .bg-black,
+  .hover\:bg-black:hover {
+    background-color: black;
+  }
+
+  .text-default {
+    color: var(--text-default);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  .text-inverted {
+    color: var(--inverted-text-color);
+  }
+
+  .text-white,
+  .hover\:text-white:hover {
+    color: white;
+  }
+
+  .text-black,
+  .hover\:text-black:hover {
+    color: black;
+  }
 
   .text-subtle {
-    color: var(--text-secondary); 
+    color: var(--text-muted);
     opacity: 0.7;
   }
 }

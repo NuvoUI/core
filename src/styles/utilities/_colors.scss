@@ -1,31 +1,32 @@
 // _colors.scss - Color functions and scale generation
 @use "sass:math";
-@use 'sass:color';
-@use 'sass:map';
-@use 'sass:meta';
-@use 'sass:list';
+@use "sass:color";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
 
-@use '../abstracts'  as *;
+@use "../abstracts/config" as *;
 
 // Color Validation
 @function is-valid-color($color) {
-  @return meta.type-of($color) == 'color';
+  @return meta.type-of($color) == "color";
 }
 
 // Scale Generation Function
 @function create-color-scale($color) {
   $scale: ();
   $stops: (
-          50: 95%,
-          100: 85%,
-          200: 75%,
-          300: 65%,
-          400: 55%,
-          500: 50%, // Base color
-          600: 45%,
-          700: 35%,
-          800: 25%,
-          900: 15%
+    50: 95%,
+    100: 85%,
+    200: 75%,
+    300: 65%,
+    400: 55%,
+    500: 50%,
+    // Base color
+    600: 45%,
+    700: 35%,
+    800: 25%,
+    900: 15%,
   );
 
   @each $shade, $lightness in $stops {
@@ -72,9 +73,7 @@
   color: find-text-color($color);
 
   @media (prefers-contrast: more) {
-    $adjusted: if(color.lightness($color) > 50%,
-            color.adjust($color, $lightness: -10%),
-            color.adjust($color, $lightness: 10%));
+    $adjusted: if(color.lightness($color) > 50%, color.adjust($color, $lightness: -10%), color.adjust($color, $lightness: 10%));
 
     background-color: $adjusted;
     color: find-text-color($adjusted);
@@ -83,12 +82,12 @@
 
 // Generate color scales
 $colors: (
-        'primary': create-color-scale($primary),
-        'secondary': create-color-scale($secondary),
-        'success': create-color-scale($success),
-        'danger': create-color-scale($danger),
-        'warning': create-color-scale($warning),
-        'info': create-color-scale($info)
+  "primary": create-color-scale($primary),
+  "secondary": create-color-scale($secondary),
+  "success": create-color-scale($success),
+  "danger": create-color-scale($danger),
+  "warning": create-color-scale($warning),
+  "info": create-color-scale($info),
 );
 
 // Generate scales for primitives

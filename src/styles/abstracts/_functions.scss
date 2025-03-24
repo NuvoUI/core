@@ -13,18 +13,21 @@
   @return $string;
 }
 
-@function get-breakpoint-value($bp) {
-  @if map.has-key($breakpoints, $bp) {
-    @return map.get($breakpoints, $bp);
+@function get-breakpoint-value($bp, $debug: false) {
+  @if map.has-key($breakpoints, #{$bp}) {
+    @return map.get($breakpoints, #{$bp});
   } @else if meta.type-of($bp) == number {
     @return $bp;
   } @else {
-    @warn 'Invalid breakpoint: #{$bp}';
+    @error 'Invalid breakpoint: #{$bp}';
     @return null;
   }
 }
 
 @function strip-unit($value) {
+  @if meta.type-of($value) != number {
+    @error "strip-unit() requires a number";
+  }
   @return math.div($value, ($value * 0 + 1));
 }
 
@@ -38,83 +41,40 @@
   }
 }
 
-@function get-unit($value) {
-  $value-str: #{$value};
-
-  // Relative length units
-  @if string.index($value-str, "em") {
-    @return "em";
-  } @else if string.index($value-str, "rem") {
-    @return "rem";
-  } @else if string.index($value-str, "%") {
-    @return "%";
-  }
-
-  // Viewport units
-  @else if string.index($value-str, "vw") {
-    @return "vw";
-  } @else if string.index($value-str, "vh") {
-    @return "vh";
-  } @else if string.index($value-str, "vmin") {
-    @return "vmin";
-  } @else if string.index($value-str, "vmax") {
-    @return "vmax";
-  }
-
-  // Absolute length units
-  @else if string.index($value-str, "px") {
-    @return "px";
-  } @else if string.index($value-str, "cm") {
-    @return "cm";
-  } @else if string.index($value-str, "mm") {
-    @return "mm";
-  } @else if string.index($value-str, "in") {
-    @return "in";
-  } @else if string.index($value-str, "pt") {
-    @return "pt";
-  } @else if string.index($value-str, "pc") {
-    @return "pc";
-  }
-
-  // Return empty string if no unit found
-  @return "";
-}
-
 /**
  * Ensures a value has a unit, adding $default-unit if none exists
  * @param {Number|String} $val - The value to check
  * @return {String} - The value with units
  */
-@function fix-units($val, $unit: $default-unit) {
-  
-  @if meta.type-of($val) != number and meta.type-of($val) != string{
+@function fix-units($val, $unit: $default-unit, $debug: null) {
+  @if meta.type-of($val) != number and meta.type-of($val) != string {
     @error "fix-units() requires a number or string value";
     @return null;
   }
 
   @if meta.type-of($val) == number {
-    @if string.length(math.unit($val)) == 0 {
-      @return string.unquote($val + $unit);
+    @if math.is-unitless($val) {
+      @return $val + $unit;
     }
     @return $val;
   }
 
   $val: strip-quotes($val);
 
-  @if $val == auto or $val == inherit or $val == initial or
-    $val == 'min-content' or $val == 'max-content' or $val == 'fit-content' {
-      @return string.unquote($val);
+  @if $val == auto or $val == inherit or $val == initial or $val == "min-content" or $val == "max-content" or $val == "fit-content" {
+    @return #{$val};
   }
 
-  @if string.index($val, "px") or string.index($val, "em") or string.index($val, "rem") or
-      string.index($val, "%") or string.index($val, "vh") or string.index($val, "vw") or
-      string.index($val, "vmin") or string.index($val, "vmax") {
-    @return string.unquote($val);
+  @if string.index($val, "px") or string.index($val, "em") or string.index($val, "rem") or string.index($val, "%") or string.index($val, "vh") or string.index($val, "vw") or string.index($val, "vmin") or string.index($val, "vmax") {
+    @return #{$val};
   }
 
-  @return string.unquote($val) + $unit;
+  @if $debug {
+    @debug "fix-units() value: " + $val;
+  }
+
+  @return string.unquote($val + $unit);
 }
-
 
 @function strip-quotes($string) {
   @if meta.type-of($string) == string {
@@ -150,5 +110,5 @@
     $index: string.index($string, $delimiter);
   }
 
-  @return list.append($result, str-trim($string)); 
+  @return list.append($result, str-trim($string));
 }

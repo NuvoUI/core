@@ -1,16 +1,34 @@
-// Import abstracts first (configuration)
-@forward "abstracts";
+@forward "abstracts/config";
+@forward "abstracts/functions";
 
-// Import base styles
-@forward "base";
+@forward "base/reset";
+@forward "base/base";
 
-// Import themes near bottom for overrides
-@forward "themes";
+@forward "layouts/container";
+@forward "layouts/flex";
+@forward "layouts/grid";
 
-// Import layout components
-@forward "layouts";
+@forward "themes/theme";
 
-// Import utilities based on configuration
-@forward "utilities";
+@forward "utilities/opacity";
+@forward "utilities/helpers";
+@forward "utilities/alignment";
+@forward "utilities/backdrop-filters";
+@forward "utilities/borders";
+@forward "utilities/colors";
+@forward "utilities/container-queries";
+@forward "utilities/cursor";
+@forward "utilities/display";
+@forward "utilities/shadows";
+@forward "utilities/sizing";
+@forward "utilities/tooltips";
+@forward "utilities/transforms";
+@forward "utilities/transitions";
+@forward "utilities/typography";
+@forward "utilities/z-index";
+@forward "utilities/spacing";
+@forward "utilities/media-queries";
+@forward "utilities/animations";
+@forward "utilities/position";
 
 @forward "./mixins-map";

@@ -9,7 +9,6 @@
   padding: 0;
 }
 
-
 // Remove default margin and padding
 body,
 h1,
@@ -27,7 +26,7 @@ dd {
   padding: 0;
 }
 
-// Prevent font size inflation 
+// Prevent font size inflation
 html {
   -moz-text-size-adjust: none; /* stylelint-disable-line */
   -webkit-text-size-adjust: none; /* stylelint-disable-line */
@@ -50,8 +49,13 @@ body {
 }
 
 // Set shorter line heights on headings and interactive elements
-h1, h2, h3, h4,
-button, input, label {
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
   line-height: 1.1;
 }
 
@@ -91,8 +95,8 @@ select {
 }
 
 // Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -100,7 +104,7 @@ ol[role='list'] {
   // Modern properties
   padding-inline-start: 0; // Replaces padding-left
   margin-block: 0; // Replaces margin-top/bottom
-  
+
   & > li {
     margin: 0;
     padding: 0;
@@ -124,7 +128,6 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
-
 
 // Remove all animations and transitions for people that prefer not to see them
 @media (prefers-reduced-motion: reduce) {

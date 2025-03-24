@@ -41,7 +41,7 @@
     "prebuild": "npm run clean",
     "build": "npm run build:scss && npm run build:minify",
     "dev": "sass src/styles/index.scss:dist/nuvoui.css --watch",
-    "prepublishOnly": "npm run lint && npm run build"
+    "prepublishOnly": "npm run lint && npm run format && npm run build"
   },
   "repository": {
     "type": "git",

@@ -2,7 +2,7 @@
 @use "sass:map";
 @use "sass:math";
 @use "sass:string";
-@use "../abstracts" as VAR;
+@use "../abstracts/config" as VAR;
 
 $shadow-sizes: (
   "sm": (
@@ -73,24 +73,17 @@ $shadow-sizes: (
 
   $shadow: map.get($shadow-sizes, $size);
   $shadow-color: map.get(VAR.$shadow-colors, $color);
-  @include shadow-base(
-    map.get($shadow, "x"),
-    map.get($shadow, "y"),
-    map.get($shadow, "blur"),
-    map.get($shadow, "spread"),
-    $shadow-color
-  );
+  @include shadow-base(map.get($shadow, "x"), map.get($shadow, "y"), map.get($shadow, "blur"), map.get($shadow, "spread"), $shadow-color);
 }
 
 @mixin shadow-inset($size: "md", $color: "default") {
   $shadow: map.get($shadow-sizes, $size);
   $shadow-color: map.get(VAR.$shadow-colors, $color);
 
-  box-shadow: inset map.get($shadow, "x") map.get($shadow, "y") map.get($shadow, "blur") map.get($shadow, "spread")
-    $shadow-color;
+  box-shadow: inset map.get($shadow, "x") map.get($shadow, "y") map.get($shadow, "blur") map.get($shadow, "spread") $shadow-color;
 }
 
-@mixin elevation($i){
+@mixin elevation($i) {
   @if $i == 1 {
     @include shadow("sm");
   } @else if $i == 2 {
