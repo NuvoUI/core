@@ -64,11 +64,11 @@ $shadow-sizes: (
 */
 @mixin shadow($size: "md", $color: "default") {
   @if not map.has-key($shadow-sizes, $size) {
-    @warn "Shadow size '#{$size}' not found in $shadow-sizes map";
+    @error "Shadow size '#{$size}' not found in $shadow-sizes map";
     $size: "md"; // Fallback to default
   }
   @if not map.has-key(VAR.$shadow-colors, $color) {
-    @warn "Shadow color '#{$color}' not found in VAR.$shadow-colors map";
+    @error "Shadow color '#{$color}' not found in VAR.$shadow-colors map";
     $color: "default"; // Fallback to default
   }
 

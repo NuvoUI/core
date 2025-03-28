@@ -30,8 +30,6 @@
       --inverted-#{$token}: #{map.get(VAR.$dark-theme, $token)};
     }
     @each $color-name, $color-val in VAR.$basic-colors {
-
-      @warn "Color: #{$color-name} - #{$color-val}";
       --#{$color-name}: #{$color-val};
     }
 
