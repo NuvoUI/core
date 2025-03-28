@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "sass:math";
+@use "sass:list";
 
 // Framework Configuration Options
 $generate-utility-classes: true !default;
@@ -13,7 +14,7 @@ $enable-container-queries: false !default; // todo: pending
 $default-unit: px !default;
 
 // Text
-$base-size: 16 !default;
+$base-size: 16px !default;
 $font-family:
   system-ui,
   -apple-system,
@@ -49,27 +50,54 @@ $color-primitives: (
   "pink": #ec4899,
 ) !default;
 
-// Add item here to include in the theme
-$theme-tokens: ("background", "foreground", "surface", "border", "text-default", "text-muted") !default;
-
 // Default theme config (can be overridden)
 $light-theme: (
-  "background": #fafafa,
-  "foreground": #1a1a1a,
-  "surface": #fff,
-  "border": #e5e7eb,
-  "text-default": #1a1a1a,
+  "bg-base": #fbfafc,
+  "bg-alternate": #1a1a1a,
+  "bg-surface": #fff,
+  "border-base": #e5e7eb,
+  "text-color": #1a1a1a,
   "text-muted": #4b5563,
 ) !default;
 
+// Extract theme tokens from light theme keys
+// Users can still override this if they want to use only a subset
+$theme-tokens: map.keys($light-theme) !default;
+
 $dark-theme: (
-  "background": #1a1a1a,
-  "foreground": #f1f1f1,
-  "surface": #2e2e2e,
-  "border": #2e2e2e,
-  "text-default": #f1f1f1,
+  "bg-base": #1a1a1a,
+  "bg-alternate": #f1f1f1,
+  "bg-surface": #2e2e2e,
+  "border-base": #2e2e2e,
+  "text-color": #f1f1f1,
   "text-muted": #a3a3a3,
 ) !default;
+
+$basic-colors: (
+  "black": #000,
+  "white": #fff,
+  "transparent": transparent,
+) !default;
+
+@function validate-theme-tokens($theme-map, $required-tokens) {
+  $missing-tokens: ();
+  
+  @each $token in $required-tokens {
+    @if not map.has-key($theme-map, $token) {
+      $missing-tokens: list.append($missing-tokens, $token, comma);
+    }
+  }
+  
+  @if list.length($missing-tokens) > 0 {
+    @error "Theme is missing required tokens: #{$missing-tokens}";
+  }
+  
+  @return list.length($missing-tokens) == 0;
+}
+
+// Validate both themes
+@debug validate-theme-tokens($light-theme, $theme-tokens);
+@debug validate-theme-tokens($dark-theme, $theme-tokens);
 
 $shadow-colors: (
   "default": rgb(0 0 0 / 10%),
@@ -103,6 +131,7 @@ $font-sizes: (
   "sm": 0.875rem,
   // 14px
   "md": 1rem,
+  "base": 1rem,
   // 16px
   "lg": 1.25rem,
   // 20px

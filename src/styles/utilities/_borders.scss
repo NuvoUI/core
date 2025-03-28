@@ -38,7 +38,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
-@mixin border($val, $style: solid, $color: var(--border)) {
+@mixin border($val, $style: solid, $color: var(--border-base)) {
   $val: FN.fix-units($val);
 
   border-width: $val;
