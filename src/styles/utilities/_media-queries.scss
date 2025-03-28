@@ -5,7 +5,7 @@
 @use "sass:string";
 @use "sass:math";
 @use "sass:meta";
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
 /**
@@ -44,7 +44,7 @@
     @error "media-only() needs a breakpoint value";
   }
 
-  @if map.has-key($breakpoints, $breakpoint) {
+  @if map.has-key(VAR.$breakpoints, $breakpoint) {
     $min: FN.get-breakpoint-value($breakpoint);
   } @else {
     @error "media-only() needs a valid breakpoint value #{$breakpoint} is not in your $breakpoints map";
@@ -52,7 +52,7 @@
 
   $next-breakpoint: null;
 
-  @each $name, $width in $breakpoints {
+  @each $name, $width in VAR.$breakpoints {
     @if $width > $min and (meta.type-of($next-breakpoint) == "null" or $width < $next-breakpoint) {
       $next-breakpoint: $width;
     }
@@ -104,7 +104,7 @@
 // todo: doc
 // User preference takes precedence
 @mixin dark-mode {
-  @if $enable-dark-mode {
+  @if VAR.$enable-dark-mode {
     // todo: documentation as this will fully remove the dark mode by force
     // Apply when user explicitly chooses dark
     [data-theme="dark"] & {

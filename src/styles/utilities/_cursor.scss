@@ -1,67 +1,16 @@
 @use "../abstracts/config" as VAR;
 
 @mixin cursor($cursor-value) {
-  cursor: $cursor-value;
+  cursor: #{$cursor-value};
 }
 
 @if VAR.$generate-utility-classes {
-  .cursor-auto {
-    @include cursor(auto);
-  }
+  $cursor-values: ("auto", "pointer", "default", "move", "not-allowed", "wait", "help", "text", "cell", "crosshair", "grabbing", "grab", "zoom-in", "zoom-out", "none", "progress", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "context-menu", "all-scroll");
 
-  .cursor-pointer {
-    @include cursor(pointer);
-  }
-
-  .cursor-default {
-    @include cursor(default);
-  }
-
-  .cursor-move {
-    @include cursor(move);
-  }
-
-  .cursor-not-allowed {
-    @include cursor(not-allowed);
-  }
-
-  .cursor-wait {
-    @include cursor(wait);
-  }
-
-  .cursor-help {
-    @include cursor(help);
-  }
-
-  .cursor-text {
-    @include cursor(text);
-  }
-
-  .cursor-cell {
-    @include cursor(cell);
-  }
-
-  .cursor-crosshair {
-    @include cursor(crosshair);
-  }
-
-  .cursor-grabbing {
-    @include cursor(grabbing);
-  }
-
-  .cursor-grab {
-    @include cursor(grab);
-  }
-
-  .cursor-zoom-in {
-    @include cursor(zoom-in);
-  }
-
-  .cursor-zoom-out {
-    @include cursor(zoom-out);
-  }
-
-  .cursor-none {
-    @include cursor(none);
+  // Generate classes for each cursor value
+  @each $value in $cursor-values {
+    #{VAR.$parent-selector} .cursor-#{$value} {
+      @include cursor($value);
+    }
   }
 }

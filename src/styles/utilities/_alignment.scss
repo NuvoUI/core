@@ -14,34 +14,34 @@
 }
 
 @if VAR.$generate-utility-classes {
-  .align-baseline {
+  #{VAR.$parent-selector} .align-baseline {
     @include align-baseline;
   }
 
-  .align-top {
+  #{VAR.$parent-selector} .align-top {
     @include align-top;
   }
 
-  .align-middle {
+  #{VAR.$parent-selector} .align-middle {
     @include align-middle;
   }
 
-  .align-bottom {
+  #{VAR.$parent-selector} .align-bottom {
     @include align-bottom;
   }
 
   @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
-      .align-baseline\@#{$breakpoint} {
+      #{VAR.$parent-selector} .align-baseline\@#{$breakpoint} {
         @include align-baseline;
       }
-      .align-top\@#{$breakpoint} {
+      #{VAR.$parent-selector} .align-top\@#{$breakpoint} {
         @include align-top;
       }
-      .align-middle\@#{$breakpoint} {
+      #{VAR.$parent-selector} .align-middle\@#{$breakpoint} {
         @include align-middle;
       }
-      .align-bottom\@#{$breakpoint} {
+      #{VAR.$parent-selector} .align-bottom\@#{$breakpoint} {
         @include align-bottom;
       }
     }

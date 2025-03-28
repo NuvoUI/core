@@ -29,7 +29,7 @@
 
 @if VAR.$generate-utility-classes {
   // Container classes
-  .container {
+  #{VAR.$parent-selector} .container {
     @include container;
   }
 }

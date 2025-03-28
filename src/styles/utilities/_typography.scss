@@ -248,172 +248,172 @@
   $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
 
   @each $size, $val in VAR.$font-sizes {
-    .text-#{$size}#{$suffix} {
+    #{VAR.$parent-selector} .text-#{$size}#{$suffix} {
       @include text-size($size);
     }
   }
 
   // Generate font weight utilities
-  .font-thin#{$suffix} {
+  #{VAR.$parent-selector} .font-thin#{$suffix} {
     @include font-thin;
   }
 
-  .font-extralight#{$suffix} {
+  #{VAR.$parent-selector} .font-extralight#{$suffix} {
     @include font-extralight;
   }
 
-  .font-light#{$suffix} {
+  #{VAR.$parent-selector} .font-light#{$suffix} {
     @include font-light;
   }
 
-  .font-normal#{$suffix} {
+  #{VAR.$parent-selector} .font-normal#{$suffix} {
     @include font-normal;
   }
 
-  .font-medium#{$suffix} {
+  #{VAR.$parent-selector} .font-medium#{$suffix} {
     @include font-medium;
   }
 
-  .font-semibold#{$suffix} {
+  #{VAR.$parent-selector} .font-semibold#{$suffix} {
     @include font-semibold;
   }
 
-  .font-bold#{$suffix} {
+  #{VAR.$parent-selector} .font-bold#{$suffix} {
     @include font-bold;
   }
 
-  .font-extrabold#{$suffix} {
+  #{VAR.$parent-selector} .font-extrabold#{$suffix} {
     @include font-extrabold;
   }
 
-  .font-black#{$suffix} {
+  #{VAR.$parent-selector} .font-black#{$suffix} {
     @include font-black;
   }
 
   // Generate line height utilities
-  .leading-none#{$suffix} {
+  #{VAR.$parent-selector} .leading-none#{$suffix} {
     @include leading-none;
   }
 
-  .leading-tight#{$suffix} {
+  #{VAR.$parent-selector} .leading-tight#{$suffix} {
     @include leading-tight;
   }
 
-  .leading-snug#{$suffix} {
+  #{VAR.$parent-selector} .leading-snug#{$suffix} {
     @include leading-snug;
   }
 
-  .leading-normal#{$suffix} {
+  #{VAR.$parent-selector} .leading-normal#{$suffix} {
     @include leading-normal;
   }
 
-  .leading-relaxed#{$suffix} {
+  #{VAR.$parent-selector} .leading-relaxed#{$suffix} {
     @include leading-relaxed;
   }
 
-  .leading-loose#{$suffix} {
+  #{VAR.$parent-selector} .leading-loose#{$suffix} {
     @include leading-loose;
   }
 
   // Generate text alignment utilities
-  .text-left#{$suffix} {
+  #{VAR.$parent-selector} .text-left#{$suffix} {
     @include text-left;
   }
 
-  .text-center#{$suffix} {
+  #{VAR.$parent-selector} .text-center#{$suffix} {
     @include text-center;
   }
 
-  .text-right#{$suffix} {
+  #{VAR.$parent-selector} .text-right#{$suffix} {
     @include text-right;
   }
 
-  .text-justify#{$suffix} {
+  #{VAR.$parent-selector} .text-justify#{$suffix} {
     @include text-justify;
   }
 
   // Classes using mixins
-  .uppercase#{$suffix} {
+  #{VAR.$parent-selector} .uppercase#{$suffix} {
     @include uppercase;
   }
 
-  .lowercase#{$suffix} {
+  #{VAR.$parent-selector} .lowercase#{$suffix} {
     @include lowercase;
   }
 
-  .capitalize#{$suffix} {
+  #{VAR.$parent-selector} .capitalize#{$suffix} {
     @include capitalize;
   }
 
-  .normal-case#{$suffix} {
+  #{VAR.$parent-selector} .normal-case#{$suffix} {
     @include normal-case;
   }
 
-  .italic#{$suffix} {
+  #{VAR.$parent-selector} .italic#{$suffix} {
     @include italic;
   }
 
-  .not-italic#{$suffix} {
+  #{VAR.$parent-selector} .not-italic#{$suffix} {
     @include not-italic;
   }
 
-  .underline#{$suffix} {
+  #{VAR.$parent-selector} .underline#{$suffix} {
     @include underline;
   }
 
-  .line-through#{$suffix} {
+  #{VAR.$parent-selector} .line-through#{$suffix} {
     @include line-through;
   }
 
-  .no-underline#{$suffix} {
+  #{VAR.$parent-selector} .no-underline#{$suffix} {
     @include no-underline;
   }
 
-  .truncate#{$suffix} {
+  #{VAR.$parent-selector} .truncate#{$suffix} {
     @include truncate;
   }
 
-  .truncate-2#{$suffix} {
+  #{VAR.$parent-selector} .truncate-2#{$suffix} {
     @include truncate-lines(2);
   }
 
-  .truncate-3#{$suffix} {
+  #{VAR.$parent-selector} .truncate-3#{$suffix} {
     @include truncate-lines(3);
   }
 
-  .truncate-4#{$suffix} {
+  #{VAR.$parent-selector} .truncate-4#{$suffix} {
     @include truncate-lines(4);
   }
 
-  .truncate-5#{$suffix} {
+  #{VAR.$parent-selector} .truncate-5#{$suffix} {
     @include truncate-lines(5);
   }
 
-  .tracking-tighter#{$suffix} {
+  #{VAR.$parent-selector} .tracking-tighter#{$suffix} {
     @include tracking(tighter);
   }
 
-  .tracking-tight#{$suffix} {
+  #{VAR.$parent-selector} .tracking-tight#{$suffix} {
     @include tracking(tight);
   }
 
-  .tracking-normal#{$suffix} {
+  #{VAR.$parent-selector} .tracking-normal#{$suffix} {
     @include tracking(normal);
   }
 
-  .tracking-wide#{$suffix} {
+  #{VAR.$parent-selector} .tracking-wide#{$suffix} {
     @include tracking(wide);
   }
 
-  .tracking-wider#{$suffix} {
+  #{VAR.$parent-selector} .tracking-wider#{$suffix} {
     @include tracking(wider);
   }
 
-  .tracking-widest#{$suffix} {
+  #{VAR.$parent-selector} .tracking-widest#{$suffix} {
     @include tracking(widest);
   }
 
-  .overflow-label#{$suffix} {
+  #{VAR.$parent-selector} .overflow-label#{$suffix} {
     @include overflow-label;
   }
 }
@@ -421,42 +421,42 @@
 @if VAR.$generate-utility-classes {
   @include responsive-typography;
 
-  .break-normal {
+  #{VAR.$parent-selector} .break-normal {
     @include break-normal;
   }
 
-  .break-words {
+  #{VAR.$parent-selector} .break-words {
     @include break-words;
   }
 
-  .break-all {
+  #{VAR.$parent-selector} .break-all {
     @include break-all;
   }
 
-  .whitespace-normal {
+  #{VAR.$parent-selector} .whitespace-normal {
     @include whitespace-normal;
   }
 
-  .whitespace-nowrap {
+  #{VAR.$parent-selector} .whitespace-nowrap {
     @include whitespace-nowrap;
   }
 
-  .whitespace-pre {
+  #{VAR.$parent-selector} .whitespace-pre {
     @include whitespace-pre;
   }
 
-  .whitespace-pre-line {
+  #{VAR.$parent-selector} .whitespace-pre-line {
     @include whitespace-pre-line;
   }
 
-  .whitespace-pre-wrap {
+  #{VAR.$parent-selector} .whitespace-pre-wrap {
     @include whitespace-pre-wrap;
   }
 
   @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
       @each $size, $val in VAR.$font-sizes {
-        .text-#{$size}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .text-#{$size}\@#{$breakpoint} {
           @include text-size($size);
         }
       }

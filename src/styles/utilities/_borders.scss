@@ -5,7 +5,7 @@
 @use "sass:map";
 @use "sass:meta";
 @use "sass:string" as str;
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
 // Common border styles
@@ -13,15 +13,15 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 @function get-rounded-value($val) {
   @if not $val {
-    @return map.get($border-radii, "md");
+    @return map.get(VAR.$border-radii, "md");
   } @else if meta.type-of($val) == string {
     $clean-val: $val;
 
     // Try to find the value in the border-radii map
-    @if map.has-key($border-radii, $clean-val) {
-      @return map.get($border-radii, $clean-val);
-    } @else if map.has-key($border-radii, str.unquote($clean-val)) {
-      @return map.get($border-radii, str.unquote($clean-val));
+    @if map.has-key(VAR.$border-radii, $clean-val) {
+      @return map.get(VAR.$border-radii, $clean-val);
+    } @else if map.has-key(VAR.$border-radii, str.unquote($clean-val)) {
+      @return map.get(VAR.$border-radii, str.unquote($clean-val));
     } @else {
       // Not a predefined value, process it as a custom value
       @return FN.fix-units($val);
@@ -167,7 +167,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Basic border classes (all sides)
   .border {
     @include border(1);
@@ -178,14 +178,14 @@ $border-styles: (solid, dashed, dotted, double, none);
   }
 
   // All sides border width
-  @each $width in $border-widths {
+  @each $width in VAR.$border-widths {
     .border-#{$width} {
       @include border($width);
     }
   }
 
   // Directional border width
-  @each $width in $border-widths {
+  @each $width in VAR.$border-widths {
     .border-t-#{$width} {
       @include border-top($width);
     }
@@ -225,14 +225,14 @@ $border-styles: (solid, dashed, dotted, double, none);
     @include rounded(0);
   } // Alias for no radius
 
-  @each $name, $value in $border-radii {
+  @each $name, $value in VAR.$border-radii {
     .rounded-#{$name} {
       @include rounded($value);
     }
   }
 
   // Directional border radius
-  @each $name, $value in $border-radii {
+  @each $name, $value in VAR.$border-radii {
     .rounded-t-#{$name} {
       @include rounded-t($value);
     }
@@ -326,7 +326,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   // -----------------------------------------------
 
   // Hover state border classes
-  @each $width in $border-widths {
+  @each $width in VAR.$border-widths {
     .hover\:border-#{$width}:hover {
       @include border($width);
     }
@@ -376,7 +376,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   }
 
   // Active state border classes
-  @each $width in $border-widths {
+  @each $width in VAR.$border-widths {
     .active\:border-#{$width}:active {
       @include border($width);
     }
@@ -426,7 +426,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   }
 
   // Focus state border classes
-  @each $width in $border-widths {
+  @each $width in VAR.$border-widths {
     .focus\:border-#{$width}:focus {
       @include border($width);
     }
@@ -479,10 +479,10 @@ $border-styles: (solid, dashed, dotted, double, none);
   // RESPONSIVE CLASSES
   // -----------------------------------------------
 
-  @each $breakpoint, $width in $breakpoints {
+  @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
       // Border width responsive
-      @each $val in $border-widths {
+      @each $val in VAR.$border-widths {
         .border-#{$val}\@#{$breakpoint} {
           @include border($val);
         }
@@ -497,7 +497,7 @@ $border-styles: (solid, dashed, dotted, double, none);
       }
 
       // Border radius responsive
-      @each $name, $value in $border-radii {
+      @each $name, $value in VAR.$border-radii {
         .rounded-#{$name}\@#{$breakpoint} {
           @include rounded($value);
         }

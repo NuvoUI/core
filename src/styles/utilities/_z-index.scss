@@ -76,14 +76,14 @@ $z-index-levels: (
 
   // Standard numbered z-index utilities
   @each $key, $value in $z-indexes {
-    .z-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .z-#{$key}#{$suffix} {
       @include z-index($key);
     }
   }
 
   // Named semantic z-index utilities
   @each $key, $value in $z-index-levels {
-    .z-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .z-#{$key}#{$suffix} {
       @include z-index($value);
     }
   }

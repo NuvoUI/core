@@ -1,5 +1,5 @@
 // _transitions.scss
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 
 /**
  * Transition Utilities
@@ -89,119 +89,119 @@ $delays: (
   "1000": 1000ms,
 );
 
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Property-specific transitions
-  .transition-none {
+  #{VAR.$parent-selector} .transition-none {
     @include transition-none;
   }
 
-  .transition {
+  #{VAR.$parent-selector} .transition {
     @include transition;
   }
 
-  .transition-colors {
+  #{VAR.$parent-selector} .transition-colors {
     @include transition-colors;
   }
 
-  .transition-opacity {
+  #{VAR.$parent-selector} .transition-opacity {
     @include transition-opacity;
   }
 
-  .transition-shadow {
+  #{VAR.$parent-selector} .transition-shadow {
     @include transition-shadow;
   }
 
-  .transition-transform {
+  #{VAR.$parent-selector} .transition-transform {
     @include transition-transform;
   }
 
   @each $name, $value in $durations {
-    .duration-#{$name} {
+    #{VAR.$parent-selector} .duration-#{$name} {
       @include duration($value);
     }
   }
 
   @each $name, $value in $timing-functions {
-    .ease-#{$name} {
+    #{VAR.$parent-selector} .ease-#{$name} {
       transition-timing-function: $value;
     }
   }
 
   // Specific timing function classes
-  .ease-linear {
+  #{VAR.$parent-selector} .ease-linear {
     @include ease-linear;
   }
 
-  .ease-in {
+  #{VAR.$parent-selector} .ease-in {
     @include ease-in;
   }
 
-  .ease-out {
+  #{VAR.$parent-selector} .ease-out {
     @include ease-out;
   }
 
-  .ease-in-out {
+  #{VAR.$parent-selector} .ease-in-out {
     @include ease-in-out;
   }
 
   @each $name, $value in $delays {
-    .delay-#{$name} {
+    #{VAR.$parent-selector} .delay-#{$name} {
       @include delay($value);
     }
   }
 
   // Responsive variants
-  @each $breakpoint, $width in $breakpoints {
+  @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
       // Base transition
-      .transition\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition\@#{$breakpoint} {
         @include transition;
       }
 
       // Property-specific transitions
-      .transition-none\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition-none\@#{$breakpoint} {
         @include transition-none;
       }
-      .transition\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition\@#{$breakpoint} {
         @include transition;
       }
-      .transition-colors\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition-colors\@#{$breakpoint} {
         @include transition-colors;
       }
-      .transition-opacity\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition-opacity\@#{$breakpoint} {
         @include transition-opacity;
       }
-      .transition-shadow\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition-shadow\@#{$breakpoint} {
         @include transition-shadow;
       }
-      .transition-transform\@#{$breakpoint} {
+      #{VAR.$parent-selector} .transition-transform\@#{$breakpoint} {
         @include transition-transform;
       }
 
       // Duration responsive variants
       @each $name, $value in $durations {
-        .duration-#{$name}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .duration-#{$name}\@#{$breakpoint} {
           @include duration($value);
         }
       }
 
       // Timing function responsive variants
-      .ease-linear\@#{$breakpoint} {
+      #{VAR.$parent-selector} .ease-linear\@#{$breakpoint} {
         @include ease-linear;
       }
-      .ease-in\@#{$breakpoint} {
+      #{VAR.$parent-selector} .ease-in\@#{$breakpoint} {
         @include ease-in;
       }
-      .ease-out\@#{$breakpoint} {
+      #{VAR.$parent-selector} .ease-out\@#{$breakpoint} {
         @include ease-out;
       }
-      .ease-in-out\@#{$breakpoint} {
+      #{VAR.$parent-selector} .ease-in-out\@#{$breakpoint} {
         @include ease-in-out;
       }
 
       // Delay responsive variants
       @each $name, $value in $delays {
-        .delay-#{$name}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .delay-#{$name}\@#{$breakpoint} {
           @include delay($value);
         }
       }

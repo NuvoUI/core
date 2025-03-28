@@ -4,6 +4,7 @@
 @use "sass:string";
 @use "../abstracts/config" as VAR;
 
+// TODO: SHADOWS WITH COLOR VARIANTS WITH RESPONSIVE
 $shadow-sizes: (
   "sm": (
     "x": 0,
@@ -101,74 +102,74 @@ $shadow-sizes: (
 
 // Utility Classes
 @if VAR.$generate-utility-classes {
-  .shadow-none {
+  #{VAR.$parent-selector} .shadow-none {
     box-shadow: none !important;
   }
 
   @each $size, $values in $shadow-sizes {
-    .shadow-#{$size} {
+    #{VAR.$parent-selector} .shadow-#{$size} {
       @include shadow($size);
     }
 
     // Shadow with color variants
     @each $color-name, $color-value in VAR.$shadow-colors {
       @if $color-name != "default" {
-        .shadow-#{$size}-#{$color-name} {
+        #{VAR.$parent-selector} .shadow-#{$size}-#{$color-name} {
           @include shadow($size, $color-name);
         }
       }
     }
 
-    .shadow-inset-#{$size} {
+    #{VAR.$parent-selector} .shadow-inset-#{$size} {
       @include shadow-inset($size);
     }
 
     // Inset shadows with color variants
     @each $color-name, $color-value in VAR.$shadow-colors {
       @if $color-name != "default" {
-        .shadow-inset-#{$size}-#{$color-name} {
+        #{VAR.$parent-selector} .shadow-inset-#{$size}-#{$color-name} {
           @include shadow-inset($size, $color-name);
         }
       }
     }
 
     // Hover shadows
-    .hover\:shadow-#{$size}:hover {
+    #{VAR.$parent-selector} .hover\:shadow-#{$size}:hover {
       @include shadow($size);
     }
 
     // Hover shadows with color variants
     @each $color-name, $color-value in VAR.$shadow-colors {
       @if $color-name != "default" {
-        .hover\:shadow-#{$size}-#{$color-name}:hover {
+        #{VAR.$parent-selector} .hover\:shadow-#{$size}-#{$color-name}:hover {
           @include shadow($size, $color-name);
         }
       }
     }
 
     // Focus shadows
-    .focus\:shadow-#{$size}:focus {
+    #{VAR.$parent-selector} .focus\:shadow-#{$size}:focus {
       @include shadow($size);
     }
 
     // Focus shadows with color variants
     @each $color-name, $color-value in VAR.$shadow-colors {
       @if $color-name != "default" {
-        .focus\:shadow-#{$size}-#{$color-name}:focus {
+        #{VAR.$parent-selector} .focus\:shadow-#{$size}-#{$color-name}:focus {
           @include shadow($size, $color-name);
         }
       }
     }
 
     // Active shadows
-    .active\:shadow-#{$size}:active {
+    #{VAR.$parent-selector} .active\:shadow-#{$size}:active {
       @include shadow($size);
     }
 
     // Active shadows with color variants
     @each $color-name, $color-value in VAR.$shadow-colors {
       @if $color-name != "default" {
-        .active\:shadow-#{$size}-#{$color-name}:active {
+        #{VAR.$parent-selector} .active\:shadow-#{$size}-#{$color-name}:active {
           @include shadow($size, $color-name);
         }
       }
@@ -180,42 +181,42 @@ $shadow-sizes: (
     @media (min-width: #{$width}) {
       @each $size, $values in $shadow-sizes {
         // Regular shadows with breakpoints
-        .shadow-#{$size}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .shadow-#{$size}\@#{$breakpoint} {
           @include shadow($size);
         }
 
         // Shadows with color variants at breakpoints
         @each $color-name, $color-value in VAR.$shadow-colors {
           @if $color-name != "default" {
-            .shadow-#{$size}-#{$color-name}\@#{$breakpoint} {
+            #{VAR.$parent-selector} .shadow-#{$size}-#{$color-name}\@#{$breakpoint} {
               @include shadow($size, $color-name);
             }
           }
         }
 
         // Hover shadows with breakpoints
-        .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
+        #{VAR.$parent-selector} .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
           @include shadow($size);
         }
 
         // Hover shadows with color variants at breakpoints
         @each $color-name, $color-value in VAR.$shadow-colors {
           @if $color-name != "default" {
-            .hover\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:hover {
+            #{VAR.$parent-selector} .hover\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:hover {
               @include shadow($size, $color-name);
             }
           }
         }
 
         // Focus shadows with breakpoints
-        .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
+        #{VAR.$parent-selector} .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
           @include shadow($size);
         }
 
         // Focus shadows with color variants at breakpoints
         @each $color-name, $color-value in VAR.$shadow-colors {
           @if $color-name != "default" {
-            .focus\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:focus {
+            #{VAR.$parent-selector} .focus\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:focus {
               @include shadow($size, $color-name);
             }
           }
@@ -225,7 +226,7 @@ $shadow-sizes: (
   }
 
   @for $i from 1 through 5 {
-    .elevation-#{$i} {
+    #{VAR.$parent-selector} .elevation-#{$i} {
       @include elevation($i);
     }
   }

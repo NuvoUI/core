@@ -13,7 +13,7 @@ html {
   font-size: $base-size;
 }
 
-body {
+body#{$parent-selector} {
   font-family: var(--font-family-base);
   font-weight: 400;
   line-height: 1.5;
@@ -21,54 +21,54 @@ body {
 }
 
 // Headings
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+#{$parent-selector} h1,
+#{$parent-selector} h2,
+#{$parent-selector} h3,
+#{$parent-selector} h4,
+#{$parent-selector} h5,
+#{$parent-selector} h6 {
   margin-bottom: 0.5em;
   font-family: var(--font-family-heading);
   font-weight: 700;
   line-height: 1.2;
 }
 
-h1 {
+#{$parent-selector} h1 {
   font-size: map.get($font-sizes, "4xl");
 }
 
-h2 {
+#{$parent-selector} h2 {
   font-size: map.get($font-sizes, "3xl");
 }
 
-h3 {
+#{$parent-selector} h3 {
   font-size: map.get($font-sizes, "2xl");
 }
 
-h4 {
+#{$parent-selector} h4 {
   font-size: map.get($font-sizes, "xl");
 }
 
-h5 {
+#{$parent-selector} h5 {
   font-size: map.get($font-sizes, "lg");
 }
 
-h6 {
+#{$parent-selector} h6 {
   font-size: map.get($font-sizes, "base");
 }
 
 // Paragraphs
-p {
+#{$parent-selector} p {
   margin-bottom: 1rem;
 }
 
 // Small text
-small {
+#{$parent-selector} small {
   font-size: map.get($font-sizes, "sm");
 }
 
 // Buttons
-button {
+#{$parent-selector} button {
   padding: 0.5rem 1rem;
   border: 0;
   border-radius: 0.25rem;
@@ -100,12 +100,12 @@ button {
 }
 
 // Inputs
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="search"],
-textarea {
+#{$parent-selector} input[type="text"],
+#{$parent-selector} input[type="email"],
+#{$parent-selector} input[type="password"],
+#{$parent-selector} input[type="number"],
+#{$parent-selector} input[type="search"],
+#{$parent-selector} textarea {
   padding: 0.5rem;
   border: 1px solid var(--border);
   border-radius: 0.25rem;
@@ -120,13 +120,13 @@ textarea {
 }
 
 // Checkboxes and Radio Buttons
-input[type="checkbox"],
-input[type="radio"] {
+#{$parent-selector} input[type="checkbox"],
+#{$parent-selector} input[type="radio"] {
   margin-right: 0.5rem; // Space between input and label
 }
 
 // Selects
-select {
+#{$parent-selector} select {
   padding: 0.5rem;
   border: 1px solid var(--border);
   border-radius: 0.25rem;
@@ -141,7 +141,7 @@ select {
 }
 
 // Blockquotes
-blockquote {
+#{$parent-selector} blockquote {
   margin: 1rem 0;
   padding: 0.5rem 1rem;
   border-left: 4px solid var(--border);
@@ -149,30 +149,30 @@ blockquote {
 }
 
 // Horizontal Rule
-hr {
+#{$parent-selector} hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 1rem 0;
 }
 
 // Images
-img {
+#{$parent-selector} img {
   max-width: 100%; // Responsive images
   height: auto;
 }
 
 // Figures and Captions
-figure {
+#{$parent-selector} figure {
   margin: 1rem 0;
 }
 
-figcaption {
+#{$parent-selector} figcaption {
   font-size: 0.875rem; // Smaller font for captions
   color: var(--text-muted, #666); // Optional secondary text color
 }
 
 // Links
-a {
+#{$parent-selector} a {
   transition: color 0.2s ease-in-out;
 
   &:not([class*="text-"]) {
@@ -186,12 +186,12 @@ a {
 }
 
 // Labels
-label[for] {
+#{$parent-selector} label[for] {
   cursor: pointer;
 }
 
 // todo: add to doc
-.sr-only {
+#{$parent-selector} .sr-only {
   position: absolute !important;
   width: 1px !important;
   height: 1px !important;
@@ -203,7 +203,7 @@ label[for] {
   border: 0 !important;
 }
 
-code {
+#{$parent-selector} code {
   font-family: "Courier New", Courier, monospace;
   background-color: #f8f8f8;
   color: #d63384;

@@ -3,7 +3,7 @@
 
 @use "sass:math";
 @use "sass:meta";
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 
 /**
  * @component Opacity
@@ -76,43 +76,27 @@
   opacity: calc(#{$value} / 100);
 }
 
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Opacity Utilities
-  @each $i in $percentages {
-    .opacity-#{$i} {
-      @include opacity($i);
-    }
-    .hover\:opacity-#{$i}:hover {
-      @include opacity($i);
-    }
-    .focus\:opacity-#{$i}:focus {
-      @include opacity($i);
-    }
-    .active\:opacity-#{$i}:active {
-      @include opacity($i);
-    }
-    .group:hover .group-hover\:opacity-#{$i} {
+  @each $i in VAR.$percentages {
+    #{VAR.$parent-selector} .opacity-#{$i},
+    #{VAR.$parent-selector} .hover\:opacity-#{$i}:hover,
+    #{VAR.$parent-selector} .focus\:opacity-#{$i}:focus,
+    #{VAR.$parent-selector} .active\:opacity-#{$i}:active,
+    #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i} {
       @include opacity($i);
     }
   }
 
   // Responsive Variants for Opacity
-  @each $breakpoint, $width in $breakpoints {
+  @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
-      @each $i in $percentages {
-        .opacity-#{$i}\@#{$breakpoint} {
-          @include opacity($i);
-        }
-        .hover\:opacity-#{$i}\@#{$breakpoint}:hover {
-          @include opacity($i);
-        }
-        .focus\:opacity-#{$i}\@#{$breakpoint}:focus {
-          @include opacity($i);
-        }
-        .active\:opacity-#{$i}\@#{$breakpoint}:active {
-          @include opacity($i);
-        }
-        .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
+      @each $i in VAR.$percentages {
+        #{VAR.$parent-selector} .opacity-#{$i}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:opacity-#{$i}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .focus\:opacity-#{$i}\@#{$breakpoint}:focus,
+        #{VAR.$parent-selector} .active\:opacity-#{$i}\@#{$breakpoint}:active,
+        #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
           @include opacity($i);
         }
       }

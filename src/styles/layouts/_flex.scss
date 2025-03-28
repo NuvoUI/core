@@ -395,7 +395,7 @@
 
 @if VAR.$generate-utility-classes {
   // Base flex container
-  .flex {
+  #{VAR.$parent-selector} .flex {
     display: flex;
 
     // Direction modifiers
@@ -586,7 +586,7 @@
     $bp-val: FN.get-breakpoint-value($breakpoint);
 
     @media (min-width: #{$bp-val}) {
-      .flex {
+      #{VAR.$parent-selector} .flex {
         // Direction
         &.row\@#{$breakpoint} {
           flex-direction: row;

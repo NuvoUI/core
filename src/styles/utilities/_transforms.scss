@@ -1,4 +1,4 @@
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 @use "sass:map";
 
 /**
@@ -173,135 +173,135 @@ $origin-values: (
 );
 
 // Generate utility classes
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Translate utilities
   @each $key, $value in $translate-values {
-    .translate-x-#{$key},
-    .hover\:translate-x-#{$key}:hover,
-    .group:hover .group-hover\:translate-x-#{$key} {
+    #{VAR.$parent-selector} .translate-x-#{$key},
+    #{VAR.$parent-selector} .hover\:translate-x-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:translate-x-#{$key} {
       @include translate-x($value);
     }
 
-    .translate-y-#{$key},
-    .hover\:translate-y-#{$key}:hover,
-    .group:hover .group-hover\:translate-y-#{$key} {
+    #{VAR.$parent-selector} .translate-y-#{$key},
+    #{VAR.$parent-selector} .hover\:translate-y-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:translate-y-#{$key} {
       @include translate-y($value);
     }
   }
   @each $key, $value in $negative-translate-values {
-    .-translate-x-#{$key},
-    .hover\:-translate-x-#{$key}:hover,
-    .group:hover .group-hover\:-translate-x-#{$key} {
+    #{VAR.$parent-selector} .-translate-x-#{$key},
+    #{VAR.$parent-selector} .hover\:-translate-x-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:-translate-x-#{$key} {
       @include translate-x($value);
     }
 
-    .-translate-y-#{$key},
-    .hover\:-translate-y-#{$key}:hover,
-    .group:hover .group-hover\:-translate-y-#{$key} {
+    #{VAR.$parent-selector} .-translate-y-#{$key},
+    #{VAR.$parent-selector} .hover\:-translate-y-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:-translate-y-#{$key} {
       @include translate-y($value);
     }
   }
 
   @each $key, $value in $scale-values {
-    .scale-#{$key},
-    .hover\:scale-#{$key}:hover,
-    .group:hover .group-hover\:scale-#{$key} {
+    #{VAR.$parent-selector} .scale-#{$key},
+    #{VAR.$parent-selector} .hover\:scale-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:scale-#{$key} {
       @include scale($value);
     }
 
-    .scale-x-#{$key},
-    .hover\:scale-x-#{$key}:hover,
-    .group:hover .group-hover\:scale-x-#{$key} {
+    #{VAR.$parent-selector} .scale-x-#{$key},
+    #{VAR.$parent-selector} .hover\:scale-x-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:scale-x-#{$key} {
       @include scale-x($value);
     }
 
-    .scale-y-#{$key},
-    .hover\:scale-y-#{$key}:hover,
-    .group:hover .group-hover\:scale-y-#{$key} {
+    #{VAR.$parent-selector} .scale-y-#{$key},
+    #{VAR.$parent-selector} .hover\:scale-y-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:scale-y-#{$key} {
       @include scale-y($value);
     }
   }
 
   // Rotation utilities
   @each $key, $value in $rotation-values {
-    .rotate-#{$key},
-    .hover\:rotate-#{$key}:hover,
-    .group:hover .group-hover\:rotate-#{$key} {
+    #{VAR.$parent-selector} .rotate-#{$key},
+    #{VAR.$parent-selector} .hover\:rotate-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:rotate-#{$key} {
       @include rotate($value);
     }
   }
 
   // Negative rotation utilities
   @each $key, $value in $negative-rotation-values {
-    .-rotate-#{$key},
-    .hover\:-rotate-#{$key}:hover,
-    .group:hover .group-hover\:-rotate-#{$key} {
+    #{VAR.$parent-selector} .-rotate-#{$key},
+    #{VAR.$parent-selector} .hover\:-rotate-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:-rotate-#{$key} {
       @include rotate($value);
     }
   }
 
   // Origin utilities
   @each $key, $value in $origin-values {
-    .origin-#{$key},
-    .hover\:origin-#{$key}:hover,
-    .group:hover .group-hover\:origin-#{$key} {
+    #{VAR.$parent-selector} .origin-#{$key},
+    #{VAR.$parent-selector} .hover\:origin-#{$key}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:origin-#{$key} {
       @include origin($value);
     }
   }
 
   // Responsive variants
-  @each $breakpoint, $width in $breakpoints {
+  @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
       @each $key, $value in $translate-values {
-        .translate-x-#{$key}\@#{$breakpoint},
-        .hover\:translate-x-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:translate-x-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .translate-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:translate-x-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:translate-x-#{$key}\@#{$breakpoint} {
           @include translate-x($value);
         }
 
-        .translate-x-#{$key}\@#{$breakpoint},
-        .hover\:translate-y-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:translate-y-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .translate-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:translate-y-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:translate-y-#{$key}\@#{$breakpoint} {
           @include translate-y($value);
         }
       }
       @each $key, $value in $negative-translate-values {
-        .-translate-x-#{$key}\@#{$breakpoint},
-        .hover\:-translate-x-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:-translate-x-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .-translate-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:-translate-x-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:-translate-x-#{$key}\@#{$breakpoint} {
           @include translate-x($value);
         }
 
-        .-translate-x-#{$key}\@#{$breakpoint},
-        .hover\:-translate-y-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:-translate-y-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .-translate-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:-translate-y-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:-translate-y-#{$key}\@#{$breakpoint} {
           @include translate-y($value);
         }
       }
 
       // Scale hover responsive
       @each $key, $value in $scale-values {
-        .scale-#{$key}\@#{$breakpoint},
-        .hover\:scale-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:scale-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .scale-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:scale-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:scale-#{$key}\@#{$breakpoint} {
           @include scale($value);
         }
       }
 
       // Rotation hover responsive
       @each $key, $value in $rotation-values {
-        .rotate-#{$key}\@#{$breakpoint},
-        .hover\:rotate-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:rotate-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .rotate-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:rotate-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:rotate-#{$key}\@#{$breakpoint} {
           @include rotate($value);
         }
       }
 
       // Negative rotation utilities
       @each $key, $value in $negative-rotation-values {
-        .-rotate-#{$key}\@#{$breakpoint},
-        .hover\:-rotate-#{$key}\@#{$breakpoint}:hover,
-        .group:hover .group-hover\:-rotate-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .-rotate-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:-rotate-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:-rotate-#{$key}\@#{$breakpoint} {
           @include rotate($value);
         }
       }

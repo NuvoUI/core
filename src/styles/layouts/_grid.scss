@@ -133,110 +133,112 @@ $alignments: (
 
 @if VAR.$generate-utility-classes {
   // Classes
-  .grid {
+  #{VAR.$parent-selector} .grid {
     @include grid;
   }
 
-  .grid.inline {
+  #{VAR.$parent-selector} .grid.inline {
     @include grid-inline;
   }
 
-  @for $i from 1 through VAR.$column-count {
-    .grid.cols-#{$i} {
-      @include cols($i);
+  #{VAR.$parent-selector} .grid {
+    // Auto-fit/fill Classes
+    @each $size, $width in VAR.$grid-item-sizes {
+      &.auto-fit-#{$size} {
+        @include auto-fit($width);
+      }
+
+      &.auto-fill-#{$size} {
+        @include auto-fill($width);
+      }
     }
 
-    .grid.rows-#{$i} {
-      @include rows($i);
+    // Flow Classes
+    &.flow-row {
+      @include flow-in-row;
     }
-  }
 
-  // Grid Template Classes
-  @each $breakpoint, $width in VAR.$breakpoints {
-    // Responsive grid columns
-    @media (min-width: #{$width}) {
-      @for $i from 1 through VAR.$column-count {
-        .grid.cols-#{$i}\@#{$breakpoint} {
-          @include cols($i);
-        }
+    &.flow-col {
+      @include flow-in-col;
+    }
 
-        .grid.rows-#{$i}\@#{$breakpoint} {
-          @include rows($i);
+    &.flow-dense {
+      @include flow-dense-items;
+    }
+
+    @for $i from 1 through VAR.$column-count {
+      &.cols-#{$i} {
+        @include cols($i);
+      }
+
+      &.rows-#{$i} {
+        @include rows($i);
+      }
+    }
+
+    // Grid Template Classes
+    @each $breakpoint, $width in VAR.$breakpoints {
+      // Responsive grid columns
+      @media (min-width: #{$width}) {
+        @for $i from 1 through VAR.$column-count {
+          &.cols-#{$i}\@#{$breakpoint} {
+            @include cols($i);
+          }
+
+          &.rows-#{$i}\@#{$breakpoint} {
+            @include rows($i);
+          }
         }
       }
     }
-  }
 
-  // Generate Column Span Classes with Responsive Variants
-  @for $i from 1 through VAR.$column-count {
-    .col-span-#{$i} {
-      @include col-span($i);
-    }
+    // Generate Column Span Classes with Responsive Variants
+    @for $i from 1 through VAR.$column-count {
+      & .col-span-#{$i} {
+        @include col-span($i);
+      }
 
-    .row-span-#{$i} {
-      @include row-span($i);
-    }
+      & .row-span-#{$i} {
+        @include row-span($i);
+      }
 
-    @each $breakpoint, $width in VAR.$breakpoints {
-      @media (min-width: #{$width}) {
-        .col-span-#{$i}\@#{$breakpoint} {
-          @include col-span($i);
-        }
+      @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+          & .col-span-#{$i}\@#{$breakpoint} {
+            @include col-span($i);
+          }
 
-        .row-span-#{$i}\@#{$breakpoint} {
-          @include row-span($i);
+          & .row-span-#{$i}\@#{$breakpoint} {
+            @include row-span($i);
+          }
         }
       }
     }
-  }
 
-  // Auto-fit/fill Classes
-  @each $size, $width in VAR.$grid-item-sizes {
-    .grid.auto-fit-#{$size} {
-      @include auto-fit($width);
-    }
+    @each $name, $value in $alignments {
+      & .justify-#{$name} {
+        @include justify($value);
+      }
 
-    .grid.auto-fill-#{$size} {
-      @include auto-fill($width);
-    }
-  }
+      & .align-#{$name} {
+        @include align($value);
+      }
 
-  // Flow Classes
-  .grid.flow-row {
-    @include flow-in-row;
-  }
+      & .place-#{$name} {
+        @include place($value);
+      }
 
-  .grid.flow-col {
-    @include flow-in-col;
-  }
-
-  .grid.flow-dense {
-    @include flow-dense-items;
-  }
-
-  @each $name, $value in $alignments {
-    .justify-#{$name} {
-      @include justify($value);
-    }
-
-    .align-#{$name} {
-      @include align($value);
-    }
-
-    .place-#{$name} {
-      @include place($value);
-    }
-
-    @each $breakpoint, $width in VAR.$breakpoints {
-      @media (min-width: #{$width}) {
-        .justify-#{$name}\@#{$breakpoint} {
-          @include justify($value);
-        }
-        .align-#{$name}\@#{$breakpoint} {
-          @include align($value);
-        }
-        .place-#{$name}\@#{$breakpoint} {
-          @include place($value);
+      @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+          & .justify-#{$name}\@#{$breakpoint} {
+            @include justify($value);
+          }
+          & .align-#{$name}\@#{$breakpoint} {
+            @include align($value);
+          }
+          & .place-#{$name}\@#{$breakpoint} {
+            @include place($value);
+          }
         }
       }
     }

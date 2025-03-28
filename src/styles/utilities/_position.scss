@@ -1,4 +1,4 @@
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
 /**
@@ -201,59 +201,59 @@ $position-fractions: (
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Position Classes
-  .static {
+  #{VAR.$parent-selector} .static {
     @include static;
   }
 
-  .relative {
+  #{VAR.$parent-selector} .relative {
     @include relative;
   }
 
-  .absolute {
+  #{VAR.$parent-selector} .absolute {
     @include absolute;
   }
 
-  .fixed {
+  #{VAR.$parent-selector} .fixed {
     @include fixed;
   }
 
-  .sticky {
+  #{VAR.$parent-selector} .sticky {
     @include sticky;
   }
 
-  .absolute-center {
+  #{VAR.$parent-selector} .absolute-center {
     @include absolute-center;
   }
 
   @each $key, $value in $position-fractions {
-    .top-#{$key} {
+    #{VAR.$parent-selector} .top-#{$key} {
       @include top($value);
     }
-    .right-#{$key} {
+    #{VAR.$parent-selector} .right-#{$key} {
       @include right($value);
     }
-    .bottom-#{$key} {
+    #{VAR.$parent-selector} .bottom-#{$key} {
       @include bottom($value);
     }
-    .left-#{$key} {
+    #{VAR.$parent-selector} .left-#{$key} {
       @include left($value);
     }
   }
 
   // Placement Classes
-  @each $key, $value in $spacings {
-    .top-#{$key} {
+  @each $key, $value in VAR.$spacings {
+    #{VAR.$parent-selector} .top-#{$key} {
       @include top($value);
     }
-    .right-#{$key} {
+    #{VAR.$parent-selector} .right-#{$key} {
       @include right($value);
     }
-    .bottom-#{$key} {
+    #{VAR.$parent-selector} .bottom-#{$key} {
       @include bottom($value);
     }
-    .left-#{$key} {
+    #{VAR.$parent-selector} .left-#{$key} {
       @include left($value);
     }
   }
@@ -263,54 +263,54 @@ $position-fractions: (
   // -----------------------------------------------
 
   // Responsive Position Classes
-  @each $breakpoint, $width in $breakpoints {
+  @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
-      .static\@#{$breakpoint} {
+      #{VAR.$parent-selector} .static\@#{$breakpoint} {
         @include static;
       }
-      .relative\@#{$breakpoint} {
+      #{VAR.$parent-selector} .relative\@#{$breakpoint} {
         @include relative;
       }
-      .absolute\@#{$breakpoint} {
+      #{VAR.$parent-selector} .absolute\@#{$breakpoint} {
         @include absolute;
       }
-      .fixed\@#{$breakpoint} {
+      #{VAR.$parent-selector} .fixed\@#{$breakpoint} {
         @include fixed;
       }
-      .sticky\@#{$breakpoint} {
+      #{VAR.$parent-selector} .sticky\@#{$breakpoint} {
         @include sticky;
       }
-      .absolute-center\@#{$breakpoint} {
+      #{VAR.$parent-selector} .absolute-center\@#{$breakpoint} {
         @include absolute-center;
       }
 
       // Fractional responsive placements
       @each $key, $value in $position-fractions {
-        .top-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
           @include top($value);
         }
-        .right-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
           @include right($value);
         }
-        .bottom-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
           @include bottom($value);
         }
-        .left-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
           @include left($value);
         }
       }
 
-      @each $key, $value in $spacings {
-        .top-#{$key}\@#{$breakpoint} {
+      @each $key, $value in VAR.$spacings {
+        #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
           @include top($value);
         }
-        .right-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
           @include right($value);
         }
-        .bottom-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
           @include bottom($value);
         }
-        .left-#{$key}\@#{$breakpoint} {
+        #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
           @include left($value);
         }
       }

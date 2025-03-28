@@ -8,8 +8,6 @@
 @forward "layouts/flex";
 @forward "layouts/grid";
 
-@forward "themes/theme";
-
 @forward "utilities/opacity";
 @forward "utilities/helpers";
 @forward "utilities/alignment";
@@ -30,5 +28,7 @@
 @forward "utilities/media-queries";
 @forward "utilities/animations";
 @forward "utilities/position";
+
+@forward "themes/theme";
 
 @forward "./mixins-map";

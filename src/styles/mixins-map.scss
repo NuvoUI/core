@@ -827,15 +827,8 @@
   $param1: list.nth($params, 1);
   @include my($param1);
 } @else if str.index($ms, 'mt(') == 1 {
-  @if (list.length($params) == 1) {
-    $param1: list.nth($params, 1);
-    @include mt($param1);
-  }
-  @else if (list.length($params) == 2) {
-    $param1: list.nth($params, 1);
-    $param2: list.nth($params, 2);
-    @include mt($param1, $param2);
-  }
+  $param1: list.nth($params, 1);
+  @include mt($param1);
 } @else if str.index($ms, 'mr(') == 1 {
   $param1: list.nth($params, 1);
   @include mr($param1);
@@ -881,6 +874,8 @@
 } @else if str.index($ms, 'gap-y(') == 1 {
   $param1: list.nth($params, 1);
   @include gap-y($param1);
+} @else if $ms == 'tooltip-variables' {
+  @include tooltip-variables;
 } @else if $ms == 'apply-transform' {
   @include apply-transform;
 } @else if str.index($ms, 'translate-x(') == 1 {

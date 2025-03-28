@@ -1,6 +1,6 @@
 @use "sass:map";
 @use "sass:meta";
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
 /**
@@ -199,90 +199,90 @@ $backdrop-filter-presets: (
   $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
 
   // Basic backdrop utilities
-  .backdrop-none#{$suffix} {
+  #{VAR.$parent-selector} .backdrop-none#{$suffix} {
     @include backdrop-none;
   }
 
   // Blur utilities
   @each $key, $value in $backdrop-blur-values {
-    .backdrop-blur-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-blur-#{$key}#{$suffix} {
       @include backdrop-blur($key);
     }
   }
 
   // Brightness utilities
   @each $key, $value in $backdrop-brightness-values {
-    .backdrop-brightness-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-brightness-#{$key}#{$suffix} {
       @include backdrop-brightness($key);
     }
   }
 
   // Contrast utilities
   @each $key, $value in $backdrop-contrast-values {
-    .backdrop-contrast-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-contrast-#{$key}#{$suffix} {
       @include backdrop-contrast($key);
     }
   }
 
   // Grayscale utilities
   @each $key, $value in $backdrop-grayscale-values {
-    .backdrop-grayscale-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-grayscale-#{$key}#{$suffix} {
       @include backdrop-grayscale($key);
     }
   }
 
   // Saturate utilities
   @each $key, $value in $backdrop-saturate-values {
-    .backdrop-saturate-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-saturate-#{$key}#{$suffix} {
       @include backdrop-saturate($key);
     }
   }
 
   // Sepia utilities
   @each $key, $value in $backdrop-sepia-values {
-    .backdrop-sepia-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-sepia-#{$key}#{$suffix} {
       @include backdrop-sepia($key);
     }
   }
 
   // Hue-rotate utilities
   @each $key, $value in $backdrop-hue-rotate-values {
-    .backdrop-hue-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-hue-#{$key}#{$suffix} {
       @include backdrop-hue-rotate($key);
     }
   }
 
   // Invert utilities
   @each $key, $value in $backdrop-invert-values {
-    .backdrop-invert-#{$key}#{$suffix} {
+    #{VAR.$parent-selector} .backdrop-invert-#{$key}#{$suffix} {
       @include backdrop-invert($key);
     }
   }
 
   // Preset utilities
-  .backdrop-frosted#{$suffix} {
+  #{VAR.$parent-selector} .backdrop-frosted#{$suffix} {
     @include backdrop-frosted;
   }
-  .backdrop-glass#{$suffix} {
+  #{VAR.$parent-selector} .backdrop-glass#{$suffix} {
     @include backdrop-glass;
   }
-  .backdrop-dark-glass#{$suffix} {
+  #{VAR.$parent-selector} .backdrop-dark-glass#{$suffix} {
     @include backdrop-dark-glass;
   }
-  .backdrop-crystal#{$suffix} {
+  #{VAR.$parent-selector} .backdrop-crystal#{$suffix} {
     @include backdrop-crystal;
   }
-  .backdrop-matte#{$suffix} {
+  #{VAR.$parent-selector} .backdrop-matte#{$suffix} {
     @include backdrop-matte;
   }
 }
 
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Generate base utilities
   @include generate-backdrop-filter-utilities;
 
   // Generate responsive variants
-  @each $breakpoint, $width in $breakpoints {
+  @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
       @include generate-backdrop-filter-utilities($breakpoint);
     }

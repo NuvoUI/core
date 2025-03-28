@@ -299,19 +299,19 @@ $generated-keyframes: ();
 @if VAR.$generate-utility-classes {
   // Add to your existing animation utilities
 
-  .animate-pulse {
+  #{VAR.$parent-selector} .animate-pulse {
     @include animate-pulse;
   }
 
-  .animate-spin {
+  #{VAR.$parent-selector} .animate-spin {
     @include animate-spin;
   }
 
-  .animate-ping {
+  #{VAR.$parent-selector} .animate-ping {
     @include animate-ping;
   }
 
-  .animate-fade-in {
+  #{VAR.$parent-selector} .animate-fade-in {
     @include animate-fade(
       (
         type: in,
@@ -319,7 +319,7 @@ $generated-keyframes: ();
     );
   }
 
-  .animate-fade-out {
+  #{VAR.$parent-selector} .animate-fade-out {
     @include animate-fade(
       (
         type: out,
@@ -327,7 +327,7 @@ $generated-keyframes: ();
     );
   }
 
-  .animate-fade-in-up {
+  #{VAR.$parent-selector} .animate-fade-in-up {
     @include animate-fade(
       (
         type: in-up,
@@ -335,7 +335,7 @@ $generated-keyframes: ();
     );
   }
 
-  .animate-fade-in-down {
+  #{VAR.$parent-selector} .animate-fade-in-down {
     @include animate-fade(
       (
         type: in-down,
@@ -343,26 +343,26 @@ $generated-keyframes: ();
     );
   }
 
-  .animate-shake {
+  #{VAR.$parent-selector} .animate-shake {
     @include animate-shake;
   }
 
   // Add responsive variants if needed
   @each $breakpoint, $width in VAR.$breakpoints {
     @media (min-width: #{$width}) {
-      .animate-pulse\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-pulse\@#{$breakpoint} {
         @include animate-pulse;
       }
 
-      .animate-spin\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-spin\@#{$breakpoint} {
         @include animate-spin;
       }
 
-      .animate-ping\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-ping\@#{$breakpoint} {
         @include animate-ping;
       }
 
-      .animate-fade-in\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-fade-in\@#{$breakpoint} {
         @include animate-fade(
           (
             type: in,
@@ -370,7 +370,7 @@ $generated-keyframes: ();
         );
       }
 
-      .animate-fade-out\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-fade-out\@#{$breakpoint} {
         @include animate-fade(
           (
             type: out,
@@ -378,7 +378,7 @@ $generated-keyframes: ();
         );
       }
 
-      .animate-fade-in-up\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-fade-in-up\@#{$breakpoint} {
         @include animate-fade(
           (
             type: in-up,
@@ -386,7 +386,7 @@ $generated-keyframes: ();
         );
       }
 
-      .animate-fade-in-down\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-fade-in-down\@#{$breakpoint} {
         @include animate-fade(
           (
             type: in-down,
@@ -394,13 +394,13 @@ $generated-keyframes: ();
         );
       }
 
-      .animate-shake\@#{$breakpoint} {
+      #{VAR.$parent-selector} .animate-shake\@#{$breakpoint} {
         @include animate-shake;
       }
     }
   }
 
-  .hover-ready {
+  #{VAR.$parent-selector} .hover-ready {
     @include hover-ready;
   }
 }

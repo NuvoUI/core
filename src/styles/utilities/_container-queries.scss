@@ -1,6 +1,6 @@
 @use "sass:map";
 @use "sass:meta";
-@use "../abstracts/config" as *;
+@use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
 /**
@@ -81,18 +81,18 @@
   container-name: $name;
 }
 
-@if $generate-utility-classes {
+@if VAR.$generate-utility-classes {
   // Utility classes
-  .container-inline-size {
+  #{VAR.$parent-selector} .container-inline-size {
     container-type: inline-size;
   }
 
-  .container-size {
+  #{VAR.$parent-selector} .container-size {
     container-type: size;
   }
 
   @each $name in ("main", "sidebar", "card", "section") {
-    .container-#{$name} {
+    #{VAR.$parent-selector} .container-#{$name} {
       container-name: $name;
     }
   }
