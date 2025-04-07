@@ -57,7 +57,9 @@ $light-theme: (
   "bg-surface": #fff,
   "border-base": #e5e7eb,
   "text-color": #1a1a1a,
-  "text-muted": #4b5563,
+  "text-muted": #1a1a1a8a,
+  "text-subtle": #1a1a1a50,
+  "text-inverted": #f1f1f1,
 ) !default;
 
 // Extract theme tokens from light theme keys
@@ -70,7 +72,9 @@ $dark-theme: (
   "bg-surface": #2e2e2e,
   "border-base": #2e2e2e,
   "text-color": #f1f1f1,
-  "text-muted": #a3a3a3,
+  "text-muted": #f1f1f18a,
+  "text-subtle": #f1f1f150,
+  "text-inverted": #1a1a1a,
 ) !default;
 
 $basic-colors: (
