@@ -216,27 +216,27 @@ $alignments: (
     }
 
     @each $name, $value in $alignments {
-      & .justify-#{$name} {
+      &.justify-#{$name} {
         @include justify($value);
       }
 
-      & .align-#{$name} {
+      &.align-#{$name} {
         @include align($value);
       }
 
-      & .place-#{$name} {
+      &.place-#{$name} {
         @include place($value);
       }
 
       @each $breakpoint, $width in VAR.$breakpoints {
         @media (min-width: #{$width}) {
-          & .justify-#{$name}\@#{$breakpoint} {
+          &.justify-#{$name}\@#{$breakpoint} {
             @include justify($value);
           }
-          & .align-#{$name}\@#{$breakpoint} {
+          &.align-#{$name}\@#{$breakpoint} {
             @include align($value);
           }
-          & .place-#{$name}\@#{$breakpoint} {
+          &.place-#{$name}\@#{$breakpoint} {
             @include place($value);
           }
         }
