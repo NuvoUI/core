@@ -15,7 +15,7 @@
       @each $shade, $value in $scale {
         --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
       }
-    } 
+    }
 
     // Primitive color CSS variables
     @each $color-name, $scale in COL.$colors-primitives {
@@ -41,7 +41,6 @@
     --button-bg-color-hover: var(--primary-600);
     --link-color: var(--primary);
     --link-hover-color: var(--primary-600);
-
   }
 
   @if VAR.$enable-dark-mode {
@@ -172,32 +171,32 @@
   }
 
   @each $color-name, $color-val in VAR.$basic-colors {
-     // Base color classes
-     #{VAR.$parent-selector} .text-#{$color-name},
-     #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
-     #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
-       color: var(--#{$color-name});
-     }
- 
-     #{VAR.$parent-selector} .bg-#{$color-name},
-     #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
-     #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
-       background-color: var(--#{$color-name});
-     }
- 
-     #{VAR.$parent-selector} .border-#{$color-name},
-     #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
-     #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
-       border-color: var(--#{$color-name});
-     }
+    // Base color classes
+    #{VAR.$parent-selector} .text-#{$color-name},
+    #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
+      color: var(--#{$color-name});
+    }
+
+    #{VAR.$parent-selector} .bg-#{$color-name},
+    #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
+      background-color: var(--#{$color-name});
+    }
+
+    #{VAR.$parent-selector} .border-#{$color-name},
+    #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
+    #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
+      border-color: var(--#{$color-name});
+    }
   }
 
   @each $token in VAR.$theme-tokens {
     $parts: string.split($token, "-");
     $prefix: list.nth($parts, 1);
-    
+
     #{VAR.$parent-selector} .#{$token},
-    #{VAR.$parent-selector} .hover\:#{$token}:hover, 
+    #{VAR.$parent-selector} .hover\:#{$token}:hover,
     #{VAR.$parent-selector} .group:hover .group-hover\:#{$token} {
       @if $prefix == "bg" {
         background-color: var(--#{$token});
@@ -207,7 +206,7 @@
         border-color: var(--#{$token});
       }
     }
-    
+
     #{VAR.$parent-selector} .inverted-#{$token},
     #{VAR.$parent-selector} .hover\:inverted-#{$token}:hover,
     #{VAR.$parent-selector} .group:hover .group-hover\:inverted-#{$token} {

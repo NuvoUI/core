@@ -85,22 +85,23 @@ $basic-colors: (
 
 @function validate-theme-tokens($theme-map, $required-tokens) {
   $missing-tokens: ();
-  
+
   @each $token in $required-tokens {
     @if not map.has-key($theme-map, $token) {
       $missing-tokens: list.append($missing-tokens, $token, comma);
     }
   }
-  
+
   @if list.length($missing-tokens) > 0 {
     @error "Theme is missing required tokens: #{$missing-tokens}";
   }
-  
+
   @return list.length($missing-tokens) == 0;
 }
 
 // Validate both themes
 @debug validate-theme-tokens($light-theme, $theme-tokens);
+
 @debug validate-theme-tokens($dark-theme, $theme-tokens);
 
 $shadow-colors: (

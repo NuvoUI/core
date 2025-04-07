@@ -143,7 +143,7 @@ textarea:not([rows]) {
 }
 
 html {
-  font-size: 16;
+  font-size: 16px;
 }
 
 body {
@@ -183,6 +183,10 @@ h4 {
 
 h5 {
   font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
 }
 
 p {
@@ -3218,303 +3222,303 @@ code {
     grid-row: span 12/span 12;
   }
 }
-.grid .justify-start {
+.grid.justify-start {
   justify-items: start;
 }
-.grid .align-start {
+.grid.align-start {
   align-items: start;
 }
-.grid .place-start {
+.grid.place-start {
   place-items: start;
 }
 @media (min-width: 480px) {
-  .grid .justify-start\@xs {
+  .grid.justify-start\@xs {
     justify-items: start;
   }
-  .grid .align-start\@xs {
+  .grid.align-start\@xs {
     align-items: start;
   }
-  .grid .place-start\@xs {
+  .grid.place-start\@xs {
     place-items: start;
   }
 }
 @media (min-width: 640px) {
-  .grid .justify-start\@sm {
+  .grid.justify-start\@sm {
     justify-items: start;
   }
-  .grid .align-start\@sm {
+  .grid.align-start\@sm {
     align-items: start;
   }
-  .grid .place-start\@sm {
+  .grid.place-start\@sm {
     place-items: start;
   }
 }
 @media (min-width: 768px) {
-  .grid .justify-start\@md {
+  .grid.justify-start\@md {
     justify-items: start;
   }
-  .grid .align-start\@md {
+  .grid.align-start\@md {
     align-items: start;
   }
-  .grid .place-start\@md {
+  .grid.place-start\@md {
     place-items: start;
   }
 }
 @media (min-width: 1024px) {
-  .grid .justify-start\@lg {
+  .grid.justify-start\@lg {
     justify-items: start;
   }
-  .grid .align-start\@lg {
+  .grid.align-start\@lg {
     align-items: start;
   }
-  .grid .place-start\@lg {
+  .grid.place-start\@lg {
     place-items: start;
   }
 }
 @media (min-width: 1280px) {
-  .grid .justify-start\@xl {
+  .grid.justify-start\@xl {
     justify-items: start;
   }
-  .grid .align-start\@xl {
+  .grid.align-start\@xl {
     align-items: start;
   }
-  .grid .place-start\@xl {
+  .grid.place-start\@xl {
     place-items: start;
   }
 }
 @media (min-width: 1536px) {
-  .grid .justify-start\@2xl {
+  .grid.justify-start\@2xl {
     justify-items: start;
   }
-  .grid .align-start\@2xl {
+  .grid.align-start\@2xl {
     align-items: start;
   }
-  .grid .place-start\@2xl {
+  .grid.place-start\@2xl {
     place-items: start;
   }
 }
-.grid .justify-end {
+.grid.justify-end {
   justify-items: end;
 }
-.grid .align-end {
+.grid.align-end {
   align-items: end;
 }
-.grid .place-end {
+.grid.place-end {
   place-items: end;
 }
 @media (min-width: 480px) {
-  .grid .justify-end\@xs {
+  .grid.justify-end\@xs {
     justify-items: end;
   }
-  .grid .align-end\@xs {
+  .grid.align-end\@xs {
     align-items: end;
   }
-  .grid .place-end\@xs {
+  .grid.place-end\@xs {
     place-items: end;
   }
 }
 @media (min-width: 640px) {
-  .grid .justify-end\@sm {
+  .grid.justify-end\@sm {
     justify-items: end;
   }
-  .grid .align-end\@sm {
+  .grid.align-end\@sm {
     align-items: end;
   }
-  .grid .place-end\@sm {
+  .grid.place-end\@sm {
     place-items: end;
   }
 }
 @media (min-width: 768px) {
-  .grid .justify-end\@md {
+  .grid.justify-end\@md {
     justify-items: end;
   }
-  .grid .align-end\@md {
+  .grid.align-end\@md {
     align-items: end;
   }
-  .grid .place-end\@md {
+  .grid.place-end\@md {
     place-items: end;
   }
 }
 @media (min-width: 1024px) {
-  .grid .justify-end\@lg {
+  .grid.justify-end\@lg {
     justify-items: end;
   }
-  .grid .align-end\@lg {
+  .grid.align-end\@lg {
     align-items: end;
   }
-  .grid .place-end\@lg {
+  .grid.place-end\@lg {
     place-items: end;
   }
 }
 @media (min-width: 1280px) {
-  .grid .justify-end\@xl {
+  .grid.justify-end\@xl {
     justify-items: end;
   }
-  .grid .align-end\@xl {
+  .grid.align-end\@xl {
     align-items: end;
   }
-  .grid .place-end\@xl {
+  .grid.place-end\@xl {
     place-items: end;
   }
 }
 @media (min-width: 1536px) {
-  .grid .justify-end\@2xl {
+  .grid.justify-end\@2xl {
     justify-items: end;
   }
-  .grid .align-end\@2xl {
+  .grid.align-end\@2xl {
     align-items: end;
   }
-  .grid .place-end\@2xl {
+  .grid.place-end\@2xl {
     place-items: end;
   }
 }
-.grid .justify-center {
+.grid.justify-center {
   justify-items: center;
 }
-.grid .align-center {
+.grid.align-center {
   align-items: center;
 }
-.grid .place-center {
+.grid.place-center {
   place-items: center;
 }
 @media (min-width: 480px) {
-  .grid .justify-center\@xs {
+  .grid.justify-center\@xs {
     justify-items: center;
   }
-  .grid .align-center\@xs {
+  .grid.align-center\@xs {
     align-items: center;
   }
-  .grid .place-center\@xs {
+  .grid.place-center\@xs {
     place-items: center;
   }
 }
 @media (min-width: 640px) {
-  .grid .justify-center\@sm {
+  .grid.justify-center\@sm {
     justify-items: center;
   }
-  .grid .align-center\@sm {
+  .grid.align-center\@sm {
     align-items: center;
   }
-  .grid .place-center\@sm {
+  .grid.place-center\@sm {
     place-items: center;
   }
 }
 @media (min-width: 768px) {
-  .grid .justify-center\@md {
+  .grid.justify-center\@md {
     justify-items: center;
   }
-  .grid .align-center\@md {
+  .grid.align-center\@md {
     align-items: center;
   }
-  .grid .place-center\@md {
+  .grid.place-center\@md {
     place-items: center;
   }
 }
 @media (min-width: 1024px) {
-  .grid .justify-center\@lg {
+  .grid.justify-center\@lg {
     justify-items: center;
   }
-  .grid .align-center\@lg {
+  .grid.align-center\@lg {
     align-items: center;
   }
-  .grid .place-center\@lg {
+  .grid.place-center\@lg {
     place-items: center;
   }
 }
 @media (min-width: 1280px) {
-  .grid .justify-center\@xl {
+  .grid.justify-center\@xl {
     justify-items: center;
   }
-  .grid .align-center\@xl {
+  .grid.align-center\@xl {
     align-items: center;
   }
-  .grid .place-center\@xl {
+  .grid.place-center\@xl {
     place-items: center;
   }
 }
 @media (min-width: 1536px) {
-  .grid .justify-center\@2xl {
+  .grid.justify-center\@2xl {
     justify-items: center;
   }
-  .grid .align-center\@2xl {
+  .grid.align-center\@2xl {
     align-items: center;
   }
-  .grid .place-center\@2xl {
+  .grid.place-center\@2xl {
     place-items: center;
   }
 }
-.grid .justify-stretch {
+.grid.justify-stretch {
   justify-items: stretch;
 }
-.grid .align-stretch {
+.grid.align-stretch {
   align-items: stretch;
 }
-.grid .place-stretch {
+.grid.place-stretch {
   place-items: stretch;
 }
 @media (min-width: 480px) {
-  .grid .justify-stretch\@xs {
+  .grid.justify-stretch\@xs {
     justify-items: stretch;
   }
-  .grid .align-stretch\@xs {
+  .grid.align-stretch\@xs {
     align-items: stretch;
   }
-  .grid .place-stretch\@xs {
+  .grid.place-stretch\@xs {
     place-items: stretch;
   }
 }
 @media (min-width: 640px) {
-  .grid .justify-stretch\@sm {
+  .grid.justify-stretch\@sm {
     justify-items: stretch;
   }
-  .grid .align-stretch\@sm {
+  .grid.align-stretch\@sm {
     align-items: stretch;
   }
-  .grid .place-stretch\@sm {
+  .grid.place-stretch\@sm {
     place-items: stretch;
   }
 }
 @media (min-width: 768px) {
-  .grid .justify-stretch\@md {
+  .grid.justify-stretch\@md {
     justify-items: stretch;
   }
-  .grid .align-stretch\@md {
+  .grid.align-stretch\@md {
     align-items: stretch;
   }
-  .grid .place-stretch\@md {
+  .grid.place-stretch\@md {
     place-items: stretch;
   }
 }
 @media (min-width: 1024px) {
-  .grid .justify-stretch\@lg {
+  .grid.justify-stretch\@lg {
     justify-items: stretch;
   }
-  .grid .align-stretch\@lg {
+  .grid.align-stretch\@lg {
     align-items: stretch;
   }
-  .grid .place-stretch\@lg {
+  .grid.place-stretch\@lg {
     place-items: stretch;
   }
 }
 @media (min-width: 1280px) {
-  .grid .justify-stretch\@xl {
+  .grid.justify-stretch\@xl {
     justify-items: stretch;
   }
-  .grid .align-stretch\@xl {
+  .grid.align-stretch\@xl {
     align-items: stretch;
   }
-  .grid .place-stretch\@xl {
+  .grid.place-stretch\@xl {
     place-items: stretch;
   }
 }
 @media (min-width: 1536px) {
-  .grid .justify-stretch\@2xl {
+  .grid.justify-stretch\@2xl {
     justify-items: stretch;
   }
-  .grid .align-stretch\@2xl {
+  .grid.align-stretch\@2xl {
     align-items: stretch;
   }
-  .grid .place-stretch\@2xl {
+  .grid.place-stretch\@2xl {
     place-items: stretch;
   }
 }
@@ -4407,180 +4411,200 @@ code {
  * <div class="backdrop-blur-md">Blurred backdrop</div>
  * <div class="backdrop-blur-lg@md">Blurred backdrop on medium screens and up</div>
  */
+.backdrop-layer {
+  --backdrop-blur: blur(0);
+  --backdrop-brightness: brightness(100%);
+  --backdrop-contrast: contrast(100%);
+  --backdrop-grayscale: grayscale(0);
+  --backdrop-hue-rotate: hue-rotate(0deg);
+  --backdrop-invert: invert(0);
+  --backdrop-saturate: saturate(100%);
+  --backdrop-sepia: sepia(0);
+  backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+}
+
 .backdrop-none {
   backdrop-filter: none;
+  --backdrop-blur: none;
+  --backdrop-brightness: none;
+  --backdrop-contrast: none;
+  --backdrop-grayscale: none;
+  --backdrop-hue-rotate: none;
+  --backdrop-invert: none;
+  --backdrop-saturate: none;
+  --backdrop-sepia: none;
 }
 
 .backdrop-blur-none {
-  backdrop-filter: blur(0);
+  --backdrop-blur: blur(0);
 }
 
 .backdrop-blur-sm {
-  backdrop-filter: blur(4px);
+  --backdrop-blur: blur(4px);
 }
 
 .backdrop-blur-md {
-  backdrop-filter: blur(8px);
+  --backdrop-blur: blur(8px);
 }
 
 .backdrop-blur-lg {
-  backdrop-filter: blur(12px);
+  --backdrop-blur: blur(12px);
 }
 
 .backdrop-blur-xl {
-  backdrop-filter: blur(24px);
+  --backdrop-blur: blur(24px);
 }
 
 .backdrop-blur-2xl {
-  backdrop-filter: blur(40px);
+  --backdrop-blur: blur(40px);
 }
 
 .backdrop-brightness-none {
-  backdrop-filter: brightness(100%);
+  --backdrop-brightness: brightness(100%);
 }
 
 .backdrop-brightness-75 {
-  backdrop-filter: brightness(75%);
+  --backdrop-brightness: brightness(75%);
 }
 
 .backdrop-brightness-90 {
-  backdrop-filter: brightness(90%);
+  --backdrop-brightness: brightness(90%);
 }
 
 .backdrop-brightness-110 {
-  backdrop-filter: brightness(110%);
+  --backdrop-brightness: brightness(110%);
 }
 
 .backdrop-brightness-125 {
-  backdrop-filter: brightness(125%);
+  --backdrop-brightness: brightness(125%);
 }
 
 .backdrop-brightness-150 {
-  backdrop-filter: brightness(150%);
+  --backdrop-brightness: brightness(150%);
 }
 
 .backdrop-contrast-none {
-  backdrop-filter: contrast(100%);
+  --backdrop-contrast: contrast(100%);
 }
 
 .backdrop-contrast-75 {
-  backdrop-filter: contrast(75%);
+  --backdrop-contrast: contrast(75%);
 }
 
 .backdrop-contrast-90 {
-  backdrop-filter: contrast(90%);
+  --backdrop-contrast: contrast(90%);
 }
 
 .backdrop-contrast-110 {
-  backdrop-filter: contrast(110%);
+  --backdrop-contrast: contrast(110%);
 }
 
 .backdrop-contrast-125 {
-  backdrop-filter: contrast(125%);
+  --backdrop-contrast: contrast(125%);
 }
 
 .backdrop-contrast-150 {
-  backdrop-filter: contrast(150%);
+  --backdrop-contrast: contrast(150%);
 }
 
 .backdrop-grayscale-none {
-  backdrop-filter: grayscale(0);
+  --backdrop-grayscale: grayscale(0);
 }
 
 .backdrop-grayscale-25 {
-  backdrop-filter: grayscale(25%);
+  --backdrop-grayscale: grayscale(25%);
 }
 
 .backdrop-grayscale-50 {
-  backdrop-filter: grayscale(50%);
+  --backdrop-grayscale: grayscale(50%);
 }
 
 .backdrop-grayscale-75 {
-  backdrop-filter: grayscale(75%);
+  --backdrop-grayscale: grayscale(75%);
 }
 
 .backdrop-grayscale-100 {
-  backdrop-filter: grayscale(100%);
+  --backdrop-grayscale: grayscale(100%);
 }
 
 .backdrop-saturate-none {
-  backdrop-filter: saturate(100%);
+  --backdrop-saturate: saturate(100%);
 }
 
 .backdrop-saturate-50 {
-  backdrop-filter: saturate(50%);
+  --backdrop-saturate: saturate(50%);
 }
 
 .backdrop-saturate-75 {
-  backdrop-filter: saturate(75%);
+  --backdrop-saturate: saturate(75%);
 }
 
 .backdrop-saturate-125 {
-  backdrop-filter: saturate(125%);
+  --backdrop-saturate: saturate(125%);
 }
 
 .backdrop-saturate-150 {
-  backdrop-filter: saturate(150%);
+  --backdrop-saturate: saturate(150%);
 }
 
 .backdrop-saturate-200 {
-  backdrop-filter: saturate(200%);
+  --backdrop-saturate: saturate(200%);
 }
 
 .backdrop-sepia-none {
-  backdrop-filter: sepia(0);
+  --backdrop-sepia: sepia(0);
 }
 
 .backdrop-sepia-25 {
-  backdrop-filter: sepia(25%);
+  --backdrop-sepia: sepia(25%);
 }
 
 .backdrop-sepia-50 {
-  backdrop-filter: sepia(50%);
+  --backdrop-sepia: sepia(50%);
 }
 
 .backdrop-sepia-75 {
-  backdrop-filter: sepia(75%);
+  --backdrop-sepia: sepia(75%);
 }
 
 .backdrop-sepia-100 {
-  backdrop-filter: sepia(100%);
+  --backdrop-sepia: sepia(100%);
 }
 
 .backdrop-hue-0 {
-  backdrop-filter: hue-rotate(0deg);
+  --backdrop-hue-rotate: hue-rotate(0deg);
 }
 
 .backdrop-hue-90 {
-  backdrop-filter: hue-rotate(90deg);
+  --backdrop-hue-rotate: hue-rotate(90deg);
 }
 
 .backdrop-hue-180 {
-  backdrop-filter: hue-rotate(180deg);
+  --backdrop-hue-rotate: hue-rotate(180deg);
 }
 
 .backdrop-hue-270 {
-  backdrop-filter: hue-rotate(270deg);
+  --backdrop-hue-rotate: hue-rotate(270deg);
 }
 
 .backdrop-invert-none {
-  backdrop-filter: invert(0);
+  --backdrop-invert: invert(0);
 }
 
 .backdrop-invert-25 {
-  backdrop-filter: invert(25%);
+  --backdrop-invert: invert(25%);
 }
 
 .backdrop-invert-50 {
-  backdrop-filter: invert(50%);
+  --backdrop-invert: invert(50%);
 }
 
 .backdrop-invert-75 {
-  backdrop-filter: invert(75%);
+  --backdrop-invert: invert(75%);
 }
 
 .backdrop-invert-100 {
-  backdrop-filter: invert(100%);
+  --backdrop-invert: invert(100%);
 }
 
 .backdrop-frosted {
@@ -4604,137 +4628,156 @@ code {
 }
 
 @media (min-width: 480px) {
+  .backdrop-layer\@xs {
+    --backdrop-blur: blur(0);
+    --backdrop-brightness: brightness(100%);
+    --backdrop-contrast: contrast(100%);
+    --backdrop-grayscale: grayscale(0);
+    --backdrop-hue-rotate: hue-rotate(0deg);
+    --backdrop-invert: invert(0);
+    --backdrop-saturate: saturate(100%);
+    --backdrop-sepia: sepia(0);
+    backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+  }
   .backdrop-none\@xs {
     backdrop-filter: none;
+    --backdrop-blur: none;
+    --backdrop-brightness: none;
+    --backdrop-contrast: none;
+    --backdrop-grayscale: none;
+    --backdrop-hue-rotate: none;
+    --backdrop-invert: none;
+    --backdrop-saturate: none;
+    --backdrop-sepia: none;
   }
   .backdrop-blur-none\@xs {
-    backdrop-filter: blur(0);
+    --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@xs {
-    backdrop-filter: blur(4px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-md\@xs {
-    backdrop-filter: blur(8px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-lg\@xs {
-    backdrop-filter: blur(12px);
+    --backdrop-blur: blur(12px);
   }
   .backdrop-blur-xl\@xs {
-    backdrop-filter: blur(24px);
+    --backdrop-blur: blur(24px);
   }
   .backdrop-blur-2xl\@xs {
-    backdrop-filter: blur(40px);
+    --backdrop-blur: blur(40px);
   }
   .backdrop-brightness-none\@xs {
-    backdrop-filter: brightness(100%);
+    --backdrop-brightness: brightness(100%);
   }
   .backdrop-brightness-75\@xs {
-    backdrop-filter: brightness(75%);
+    --backdrop-brightness: brightness(75%);
   }
   .backdrop-brightness-90\@xs {
-    backdrop-filter: brightness(90%);
+    --backdrop-brightness: brightness(90%);
   }
   .backdrop-brightness-110\@xs {
-    backdrop-filter: brightness(110%);
+    --backdrop-brightness: brightness(110%);
   }
   .backdrop-brightness-125\@xs {
-    backdrop-filter: brightness(125%);
+    --backdrop-brightness: brightness(125%);
   }
   .backdrop-brightness-150\@xs {
-    backdrop-filter: brightness(150%);
+    --backdrop-brightness: brightness(150%);
   }
   .backdrop-contrast-none\@xs {
-    backdrop-filter: contrast(100%);
+    --backdrop-contrast: contrast(100%);
   }
   .backdrop-contrast-75\@xs {
-    backdrop-filter: contrast(75%);
+    --backdrop-contrast: contrast(75%);
   }
   .backdrop-contrast-90\@xs {
-    backdrop-filter: contrast(90%);
+    --backdrop-contrast: contrast(90%);
   }
   .backdrop-contrast-110\@xs {
-    backdrop-filter: contrast(110%);
+    --backdrop-contrast: contrast(110%);
   }
   .backdrop-contrast-125\@xs {
-    backdrop-filter: contrast(125%);
+    --backdrop-contrast: contrast(125%);
   }
   .backdrop-contrast-150\@xs {
-    backdrop-filter: contrast(150%);
+    --backdrop-contrast: contrast(150%);
   }
   .backdrop-grayscale-none\@xs {
-    backdrop-filter: grayscale(0);
+    --backdrop-grayscale: grayscale(0);
   }
   .backdrop-grayscale-25\@xs {
-    backdrop-filter: grayscale(25%);
+    --backdrop-grayscale: grayscale(25%);
   }
   .backdrop-grayscale-50\@xs {
-    backdrop-filter: grayscale(50%);
+    --backdrop-grayscale: grayscale(50%);
   }
   .backdrop-grayscale-75\@xs {
-    backdrop-filter: grayscale(75%);
+    --backdrop-grayscale: grayscale(75%);
   }
   .backdrop-grayscale-100\@xs {
-    backdrop-filter: grayscale(100%);
+    --backdrop-grayscale: grayscale(100%);
   }
   .backdrop-saturate-none\@xs {
-    backdrop-filter: saturate(100%);
+    --backdrop-saturate: saturate(100%);
   }
   .backdrop-saturate-50\@xs {
-    backdrop-filter: saturate(50%);
+    --backdrop-saturate: saturate(50%);
   }
   .backdrop-saturate-75\@xs {
-    backdrop-filter: saturate(75%);
+    --backdrop-saturate: saturate(75%);
   }
   .backdrop-saturate-125\@xs {
-    backdrop-filter: saturate(125%);
+    --backdrop-saturate: saturate(125%);
   }
   .backdrop-saturate-150\@xs {
-    backdrop-filter: saturate(150%);
+    --backdrop-saturate: saturate(150%);
   }
   .backdrop-saturate-200\@xs {
-    backdrop-filter: saturate(200%);
+    --backdrop-saturate: saturate(200%);
   }
   .backdrop-sepia-none\@xs {
-    backdrop-filter: sepia(0);
+    --backdrop-sepia: sepia(0);
   }
   .backdrop-sepia-25\@xs {
-    backdrop-filter: sepia(25%);
+    --backdrop-sepia: sepia(25%);
   }
   .backdrop-sepia-50\@xs {
-    backdrop-filter: sepia(50%);
+    --backdrop-sepia: sepia(50%);
   }
   .backdrop-sepia-75\@xs {
-    backdrop-filter: sepia(75%);
+    --backdrop-sepia: sepia(75%);
   }
   .backdrop-sepia-100\@xs {
-    backdrop-filter: sepia(100%);
+    --backdrop-sepia: sepia(100%);
   }
   .backdrop-hue-0\@xs {
-    backdrop-filter: hue-rotate(0deg);
+    --backdrop-hue-rotate: hue-rotate(0deg);
   }
   .backdrop-hue-90\@xs {
-    backdrop-filter: hue-rotate(90deg);
+    --backdrop-hue-rotate: hue-rotate(90deg);
   }
   .backdrop-hue-180\@xs {
-    backdrop-filter: hue-rotate(180deg);
+    --backdrop-hue-rotate: hue-rotate(180deg);
   }
   .backdrop-hue-270\@xs {
-    backdrop-filter: hue-rotate(270deg);
+    --backdrop-hue-rotate: hue-rotate(270deg);
   }
   .backdrop-invert-none\@xs {
-    backdrop-filter: invert(0);
+    --backdrop-invert: invert(0);
   }
   .backdrop-invert-25\@xs {
-    backdrop-filter: invert(25%);
+    --backdrop-invert: invert(25%);
   }
   .backdrop-invert-50\@xs {
-    backdrop-filter: invert(50%);
+    --backdrop-invert: invert(50%);
   }
   .backdrop-invert-75\@xs {
-    backdrop-filter: invert(75%);
+    --backdrop-invert: invert(75%);
   }
   .backdrop-invert-100\@xs {
-    backdrop-filter: invert(100%);
+    --backdrop-invert: invert(100%);
   }
   .backdrop-frosted\@xs {
     backdrop-filter: blur(8px) saturate(90%) brightness(120%);
@@ -4753,137 +4796,156 @@ code {
   }
 }
 @media (min-width: 640px) {
+  .backdrop-layer\@sm {
+    --backdrop-blur: blur(0);
+    --backdrop-brightness: brightness(100%);
+    --backdrop-contrast: contrast(100%);
+    --backdrop-grayscale: grayscale(0);
+    --backdrop-hue-rotate: hue-rotate(0deg);
+    --backdrop-invert: invert(0);
+    --backdrop-saturate: saturate(100%);
+    --backdrop-sepia: sepia(0);
+    backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+  }
   .backdrop-none\@sm {
     backdrop-filter: none;
+    --backdrop-blur: none;
+    --backdrop-brightness: none;
+    --backdrop-contrast: none;
+    --backdrop-grayscale: none;
+    --backdrop-hue-rotate: none;
+    --backdrop-invert: none;
+    --backdrop-saturate: none;
+    --backdrop-sepia: none;
   }
   .backdrop-blur-none\@sm {
-    backdrop-filter: blur(0);
+    --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@sm {
-    backdrop-filter: blur(4px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-md\@sm {
-    backdrop-filter: blur(8px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-lg\@sm {
-    backdrop-filter: blur(12px);
+    --backdrop-blur: blur(12px);
   }
   .backdrop-blur-xl\@sm {
-    backdrop-filter: blur(24px);
+    --backdrop-blur: blur(24px);
   }
   .backdrop-blur-2xl\@sm {
-    backdrop-filter: blur(40px);
+    --backdrop-blur: blur(40px);
   }
   .backdrop-brightness-none\@sm {
-    backdrop-filter: brightness(100%);
+    --backdrop-brightness: brightness(100%);
   }
   .backdrop-brightness-75\@sm {
-    backdrop-filter: brightness(75%);
+    --backdrop-brightness: brightness(75%);
   }
   .backdrop-brightness-90\@sm {
-    backdrop-filter: brightness(90%);
+    --backdrop-brightness: brightness(90%);
   }
   .backdrop-brightness-110\@sm {
-    backdrop-filter: brightness(110%);
+    --backdrop-brightness: brightness(110%);
   }
   .backdrop-brightness-125\@sm {
-    backdrop-filter: brightness(125%);
+    --backdrop-brightness: brightness(125%);
   }
   .backdrop-brightness-150\@sm {
-    backdrop-filter: brightness(150%);
+    --backdrop-brightness: brightness(150%);
   }
   .backdrop-contrast-none\@sm {
-    backdrop-filter: contrast(100%);
+    --backdrop-contrast: contrast(100%);
   }
   .backdrop-contrast-75\@sm {
-    backdrop-filter: contrast(75%);
+    --backdrop-contrast: contrast(75%);
   }
   .backdrop-contrast-90\@sm {
-    backdrop-filter: contrast(90%);
+    --backdrop-contrast: contrast(90%);
   }
   .backdrop-contrast-110\@sm {
-    backdrop-filter: contrast(110%);
+    --backdrop-contrast: contrast(110%);
   }
   .backdrop-contrast-125\@sm {
-    backdrop-filter: contrast(125%);
+    --backdrop-contrast: contrast(125%);
   }
   .backdrop-contrast-150\@sm {
-    backdrop-filter: contrast(150%);
+    --backdrop-contrast: contrast(150%);
   }
   .backdrop-grayscale-none\@sm {
-    backdrop-filter: grayscale(0);
+    --backdrop-grayscale: grayscale(0);
   }
   .backdrop-grayscale-25\@sm {
-    backdrop-filter: grayscale(25%);
+    --backdrop-grayscale: grayscale(25%);
   }
   .backdrop-grayscale-50\@sm {
-    backdrop-filter: grayscale(50%);
+    --backdrop-grayscale: grayscale(50%);
   }
   .backdrop-grayscale-75\@sm {
-    backdrop-filter: grayscale(75%);
+    --backdrop-grayscale: grayscale(75%);
   }
   .backdrop-grayscale-100\@sm {
-    backdrop-filter: grayscale(100%);
+    --backdrop-grayscale: grayscale(100%);
   }
   .backdrop-saturate-none\@sm {
-    backdrop-filter: saturate(100%);
+    --backdrop-saturate: saturate(100%);
   }
   .backdrop-saturate-50\@sm {
-    backdrop-filter: saturate(50%);
+    --backdrop-saturate: saturate(50%);
   }
   .backdrop-saturate-75\@sm {
-    backdrop-filter: saturate(75%);
+    --backdrop-saturate: saturate(75%);
   }
   .backdrop-saturate-125\@sm {
-    backdrop-filter: saturate(125%);
+    --backdrop-saturate: saturate(125%);
   }
   .backdrop-saturate-150\@sm {
-    backdrop-filter: saturate(150%);
+    --backdrop-saturate: saturate(150%);
   }
   .backdrop-saturate-200\@sm {
-    backdrop-filter: saturate(200%);
+    --backdrop-saturate: saturate(200%);
   }
   .backdrop-sepia-none\@sm {
-    backdrop-filter: sepia(0);
+    --backdrop-sepia: sepia(0);
   }
   .backdrop-sepia-25\@sm {
-    backdrop-filter: sepia(25%);
+    --backdrop-sepia: sepia(25%);
   }
   .backdrop-sepia-50\@sm {
-    backdrop-filter: sepia(50%);
+    --backdrop-sepia: sepia(50%);
   }
   .backdrop-sepia-75\@sm {
-    backdrop-filter: sepia(75%);
+    --backdrop-sepia: sepia(75%);
   }
   .backdrop-sepia-100\@sm {
-    backdrop-filter: sepia(100%);
+    --backdrop-sepia: sepia(100%);
   }
   .backdrop-hue-0\@sm {
-    backdrop-filter: hue-rotate(0deg);
+    --backdrop-hue-rotate: hue-rotate(0deg);
   }
   .backdrop-hue-90\@sm {
-    backdrop-filter: hue-rotate(90deg);
+    --backdrop-hue-rotate: hue-rotate(90deg);
   }
   .backdrop-hue-180\@sm {
-    backdrop-filter: hue-rotate(180deg);
+    --backdrop-hue-rotate: hue-rotate(180deg);
   }
   .backdrop-hue-270\@sm {
-    backdrop-filter: hue-rotate(270deg);
+    --backdrop-hue-rotate: hue-rotate(270deg);
   }
   .backdrop-invert-none\@sm {
-    backdrop-filter: invert(0);
+    --backdrop-invert: invert(0);
   }
   .backdrop-invert-25\@sm {
-    backdrop-filter: invert(25%);
+    --backdrop-invert: invert(25%);
   }
   .backdrop-invert-50\@sm {
-    backdrop-filter: invert(50%);
+    --backdrop-invert: invert(50%);
   }
   .backdrop-invert-75\@sm {
-    backdrop-filter: invert(75%);
+    --backdrop-invert: invert(75%);
   }
   .backdrop-invert-100\@sm {
-    backdrop-filter: invert(100%);
+    --backdrop-invert: invert(100%);
   }
   .backdrop-frosted\@sm {
     backdrop-filter: blur(8px) saturate(90%) brightness(120%);
@@ -4902,137 +4964,156 @@ code {
   }
 }
 @media (min-width: 768px) {
+  .backdrop-layer\@md {
+    --backdrop-blur: blur(0);
+    --backdrop-brightness: brightness(100%);
+    --backdrop-contrast: contrast(100%);
+    --backdrop-grayscale: grayscale(0);
+    --backdrop-hue-rotate: hue-rotate(0deg);
+    --backdrop-invert: invert(0);
+    --backdrop-saturate: saturate(100%);
+    --backdrop-sepia: sepia(0);
+    backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+  }
   .backdrop-none\@md {
     backdrop-filter: none;
+    --backdrop-blur: none;
+    --backdrop-brightness: none;
+    --backdrop-contrast: none;
+    --backdrop-grayscale: none;
+    --backdrop-hue-rotate: none;
+    --backdrop-invert: none;
+    --backdrop-saturate: none;
+    --backdrop-sepia: none;
   }
   .backdrop-blur-none\@md {
-    backdrop-filter: blur(0);
+    --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@md {
-    backdrop-filter: blur(4px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-md\@md {
-    backdrop-filter: blur(8px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-lg\@md {
-    backdrop-filter: blur(12px);
+    --backdrop-blur: blur(12px);
   }
   .backdrop-blur-xl\@md {
-    backdrop-filter: blur(24px);
+    --backdrop-blur: blur(24px);
   }
   .backdrop-blur-2xl\@md {
-    backdrop-filter: blur(40px);
+    --backdrop-blur: blur(40px);
   }
   .backdrop-brightness-none\@md {
-    backdrop-filter: brightness(100%);
+    --backdrop-brightness: brightness(100%);
   }
   .backdrop-brightness-75\@md {
-    backdrop-filter: brightness(75%);
+    --backdrop-brightness: brightness(75%);
   }
   .backdrop-brightness-90\@md {
-    backdrop-filter: brightness(90%);
+    --backdrop-brightness: brightness(90%);
   }
   .backdrop-brightness-110\@md {
-    backdrop-filter: brightness(110%);
+    --backdrop-brightness: brightness(110%);
   }
   .backdrop-brightness-125\@md {
-    backdrop-filter: brightness(125%);
+    --backdrop-brightness: brightness(125%);
   }
   .backdrop-brightness-150\@md {
-    backdrop-filter: brightness(150%);
+    --backdrop-brightness: brightness(150%);
   }
   .backdrop-contrast-none\@md {
-    backdrop-filter: contrast(100%);
+    --backdrop-contrast: contrast(100%);
   }
   .backdrop-contrast-75\@md {
-    backdrop-filter: contrast(75%);
+    --backdrop-contrast: contrast(75%);
   }
   .backdrop-contrast-90\@md {
-    backdrop-filter: contrast(90%);
+    --backdrop-contrast: contrast(90%);
   }
   .backdrop-contrast-110\@md {
-    backdrop-filter: contrast(110%);
+    --backdrop-contrast: contrast(110%);
   }
   .backdrop-contrast-125\@md {
-    backdrop-filter: contrast(125%);
+    --backdrop-contrast: contrast(125%);
   }
   .backdrop-contrast-150\@md {
-    backdrop-filter: contrast(150%);
+    --backdrop-contrast: contrast(150%);
   }
   .backdrop-grayscale-none\@md {
-    backdrop-filter: grayscale(0);
+    --backdrop-grayscale: grayscale(0);
   }
   .backdrop-grayscale-25\@md {
-    backdrop-filter: grayscale(25%);
+    --backdrop-grayscale: grayscale(25%);
   }
   .backdrop-grayscale-50\@md {
-    backdrop-filter: grayscale(50%);
+    --backdrop-grayscale: grayscale(50%);
   }
   .backdrop-grayscale-75\@md {
-    backdrop-filter: grayscale(75%);
+    --backdrop-grayscale: grayscale(75%);
   }
   .backdrop-grayscale-100\@md {
-    backdrop-filter: grayscale(100%);
+    --backdrop-grayscale: grayscale(100%);
   }
   .backdrop-saturate-none\@md {
-    backdrop-filter: saturate(100%);
+    --backdrop-saturate: saturate(100%);
   }
   .backdrop-saturate-50\@md {
-    backdrop-filter: saturate(50%);
+    --backdrop-saturate: saturate(50%);
   }
   .backdrop-saturate-75\@md {
-    backdrop-filter: saturate(75%);
+    --backdrop-saturate: saturate(75%);
   }
   .backdrop-saturate-125\@md {
-    backdrop-filter: saturate(125%);
+    --backdrop-saturate: saturate(125%);
   }
   .backdrop-saturate-150\@md {
-    backdrop-filter: saturate(150%);
+    --backdrop-saturate: saturate(150%);
   }
   .backdrop-saturate-200\@md {
-    backdrop-filter: saturate(200%);
+    --backdrop-saturate: saturate(200%);
   }
   .backdrop-sepia-none\@md {
-    backdrop-filter: sepia(0);
+    --backdrop-sepia: sepia(0);
   }
   .backdrop-sepia-25\@md {
-    backdrop-filter: sepia(25%);
+    --backdrop-sepia: sepia(25%);
   }
   .backdrop-sepia-50\@md {
-    backdrop-filter: sepia(50%);
+    --backdrop-sepia: sepia(50%);
   }
   .backdrop-sepia-75\@md {
-    backdrop-filter: sepia(75%);
+    --backdrop-sepia: sepia(75%);
   }
   .backdrop-sepia-100\@md {
-    backdrop-filter: sepia(100%);
+    --backdrop-sepia: sepia(100%);
   }
   .backdrop-hue-0\@md {
-    backdrop-filter: hue-rotate(0deg);
+    --backdrop-hue-rotate: hue-rotate(0deg);
   }
   .backdrop-hue-90\@md {
-    backdrop-filter: hue-rotate(90deg);
+    --backdrop-hue-rotate: hue-rotate(90deg);
   }
   .backdrop-hue-180\@md {
-    backdrop-filter: hue-rotate(180deg);
+    --backdrop-hue-rotate: hue-rotate(180deg);
   }
   .backdrop-hue-270\@md {
-    backdrop-filter: hue-rotate(270deg);
+    --backdrop-hue-rotate: hue-rotate(270deg);
   }
   .backdrop-invert-none\@md {
-    backdrop-filter: invert(0);
+    --backdrop-invert: invert(0);
   }
   .backdrop-invert-25\@md {
-    backdrop-filter: invert(25%);
+    --backdrop-invert: invert(25%);
   }
   .backdrop-invert-50\@md {
-    backdrop-filter: invert(50%);
+    --backdrop-invert: invert(50%);
   }
   .backdrop-invert-75\@md {
-    backdrop-filter: invert(75%);
+    --backdrop-invert: invert(75%);
   }
   .backdrop-invert-100\@md {
-    backdrop-filter: invert(100%);
+    --backdrop-invert: invert(100%);
   }
   .backdrop-frosted\@md {
     backdrop-filter: blur(8px) saturate(90%) brightness(120%);
@@ -5051,137 +5132,156 @@ code {
   }
 }
 @media (min-width: 1024px) {
+  .backdrop-layer\@lg {
+    --backdrop-blur: blur(0);
+    --backdrop-brightness: brightness(100%);
+    --backdrop-contrast: contrast(100%);
+    --backdrop-grayscale: grayscale(0);
+    --backdrop-hue-rotate: hue-rotate(0deg);
+    --backdrop-invert: invert(0);
+    --backdrop-saturate: saturate(100%);
+    --backdrop-sepia: sepia(0);
+    backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+  }
   .backdrop-none\@lg {
     backdrop-filter: none;
+    --backdrop-blur: none;
+    --backdrop-brightness: none;
+    --backdrop-contrast: none;
+    --backdrop-grayscale: none;
+    --backdrop-hue-rotate: none;
+    --backdrop-invert: none;
+    --backdrop-saturate: none;
+    --backdrop-sepia: none;
   }
   .backdrop-blur-none\@lg {
-    backdrop-filter: blur(0);
+    --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@lg {
-    backdrop-filter: blur(4px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-md\@lg {
-    backdrop-filter: blur(8px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-lg\@lg {
-    backdrop-filter: blur(12px);
+    --backdrop-blur: blur(12px);
   }
   .backdrop-blur-xl\@lg {
-    backdrop-filter: blur(24px);
+    --backdrop-blur: blur(24px);
   }
   .backdrop-blur-2xl\@lg {
-    backdrop-filter: blur(40px);
+    --backdrop-blur: blur(40px);
   }
   .backdrop-brightness-none\@lg {
-    backdrop-filter: brightness(100%);
+    --backdrop-brightness: brightness(100%);
   }
   .backdrop-brightness-75\@lg {
-    backdrop-filter: brightness(75%);
+    --backdrop-brightness: brightness(75%);
   }
   .backdrop-brightness-90\@lg {
-    backdrop-filter: brightness(90%);
+    --backdrop-brightness: brightness(90%);
   }
   .backdrop-brightness-110\@lg {
-    backdrop-filter: brightness(110%);
+    --backdrop-brightness: brightness(110%);
   }
   .backdrop-brightness-125\@lg {
-    backdrop-filter: brightness(125%);
+    --backdrop-brightness: brightness(125%);
   }
   .backdrop-brightness-150\@lg {
-    backdrop-filter: brightness(150%);
+    --backdrop-brightness: brightness(150%);
   }
   .backdrop-contrast-none\@lg {
-    backdrop-filter: contrast(100%);
+    --backdrop-contrast: contrast(100%);
   }
   .backdrop-contrast-75\@lg {
-    backdrop-filter: contrast(75%);
+    --backdrop-contrast: contrast(75%);
   }
   .backdrop-contrast-90\@lg {
-    backdrop-filter: contrast(90%);
+    --backdrop-contrast: contrast(90%);
   }
   .backdrop-contrast-110\@lg {
-    backdrop-filter: contrast(110%);
+    --backdrop-contrast: contrast(110%);
   }
   .backdrop-contrast-125\@lg {
-    backdrop-filter: contrast(125%);
+    --backdrop-contrast: contrast(125%);
   }
   .backdrop-contrast-150\@lg {
-    backdrop-filter: contrast(150%);
+    --backdrop-contrast: contrast(150%);
   }
   .backdrop-grayscale-none\@lg {
-    backdrop-filter: grayscale(0);
+    --backdrop-grayscale: grayscale(0);
   }
   .backdrop-grayscale-25\@lg {
-    backdrop-filter: grayscale(25%);
+    --backdrop-grayscale: grayscale(25%);
   }
   .backdrop-grayscale-50\@lg {
-    backdrop-filter: grayscale(50%);
+    --backdrop-grayscale: grayscale(50%);
   }
   .backdrop-grayscale-75\@lg {
-    backdrop-filter: grayscale(75%);
+    --backdrop-grayscale: grayscale(75%);
   }
   .backdrop-grayscale-100\@lg {
-    backdrop-filter: grayscale(100%);
+    --backdrop-grayscale: grayscale(100%);
   }
   .backdrop-saturate-none\@lg {
-    backdrop-filter: saturate(100%);
+    --backdrop-saturate: saturate(100%);
   }
   .backdrop-saturate-50\@lg {
-    backdrop-filter: saturate(50%);
+    --backdrop-saturate: saturate(50%);
   }
   .backdrop-saturate-75\@lg {
-    backdrop-filter: saturate(75%);
+    --backdrop-saturate: saturate(75%);
   }
   .backdrop-saturate-125\@lg {
-    backdrop-filter: saturate(125%);
+    --backdrop-saturate: saturate(125%);
   }
   .backdrop-saturate-150\@lg {
-    backdrop-filter: saturate(150%);
+    --backdrop-saturate: saturate(150%);
   }
   .backdrop-saturate-200\@lg {
-    backdrop-filter: saturate(200%);
+    --backdrop-saturate: saturate(200%);
   }
   .backdrop-sepia-none\@lg {
-    backdrop-filter: sepia(0);
+    --backdrop-sepia: sepia(0);
   }
   .backdrop-sepia-25\@lg {
-    backdrop-filter: sepia(25%);
+    --backdrop-sepia: sepia(25%);
   }
   .backdrop-sepia-50\@lg {
-    backdrop-filter: sepia(50%);
+    --backdrop-sepia: sepia(50%);
   }
   .backdrop-sepia-75\@lg {
-    backdrop-filter: sepia(75%);
+    --backdrop-sepia: sepia(75%);
   }
   .backdrop-sepia-100\@lg {
-    backdrop-filter: sepia(100%);
+    --backdrop-sepia: sepia(100%);
   }
   .backdrop-hue-0\@lg {
-    backdrop-filter: hue-rotate(0deg);
+    --backdrop-hue-rotate: hue-rotate(0deg);
   }
   .backdrop-hue-90\@lg {
-    backdrop-filter: hue-rotate(90deg);
+    --backdrop-hue-rotate: hue-rotate(90deg);
   }
   .backdrop-hue-180\@lg {
-    backdrop-filter: hue-rotate(180deg);
+    --backdrop-hue-rotate: hue-rotate(180deg);
   }
   .backdrop-hue-270\@lg {
-    backdrop-filter: hue-rotate(270deg);
+    --backdrop-hue-rotate: hue-rotate(270deg);
   }
   .backdrop-invert-none\@lg {
-    backdrop-filter: invert(0);
+    --backdrop-invert: invert(0);
   }
   .backdrop-invert-25\@lg {
-    backdrop-filter: invert(25%);
+    --backdrop-invert: invert(25%);
   }
   .backdrop-invert-50\@lg {
-    backdrop-filter: invert(50%);
+    --backdrop-invert: invert(50%);
   }
   .backdrop-invert-75\@lg {
-    backdrop-filter: invert(75%);
+    --backdrop-invert: invert(75%);
   }
   .backdrop-invert-100\@lg {
-    backdrop-filter: invert(100%);
+    --backdrop-invert: invert(100%);
   }
   .backdrop-frosted\@lg {
     backdrop-filter: blur(8px) saturate(90%) brightness(120%);
@@ -5200,137 +5300,156 @@ code {
   }
 }
 @media (min-width: 1280px) {
+  .backdrop-layer\@xl {
+    --backdrop-blur: blur(0);
+    --backdrop-brightness: brightness(100%);
+    --backdrop-contrast: contrast(100%);
+    --backdrop-grayscale: grayscale(0);
+    --backdrop-hue-rotate: hue-rotate(0deg);
+    --backdrop-invert: invert(0);
+    --backdrop-saturate: saturate(100%);
+    --backdrop-sepia: sepia(0);
+    backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+  }
   .backdrop-none\@xl {
     backdrop-filter: none;
+    --backdrop-blur: none;
+    --backdrop-brightness: none;
+    --backdrop-contrast: none;
+    --backdrop-grayscale: none;
+    --backdrop-hue-rotate: none;
+    --backdrop-invert: none;
+    --backdrop-saturate: none;
+    --backdrop-sepia: none;
   }
   .backdrop-blur-none\@xl {
-    backdrop-filter: blur(0);
+    --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@xl {
-    backdrop-filter: blur(4px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-md\@xl {
-    backdrop-filter: blur(8px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-lg\@xl {
-    backdrop-filter: blur(12px);
+    --backdrop-blur: blur(12px);
   }
   .backdrop-blur-xl\@xl {
-    backdrop-filter: blur(24px);
+    --backdrop-blur: blur(24px);
   }
   .backdrop-blur-2xl\@xl {
-    backdrop-filter: blur(40px);
+    --backdrop-blur: blur(40px);
   }
   .backdrop-brightness-none\@xl {
-    backdrop-filter: brightness(100%);
+    --backdrop-brightness: brightness(100%);
   }
   .backdrop-brightness-75\@xl {
-    backdrop-filter: brightness(75%);
+    --backdrop-brightness: brightness(75%);
   }
   .backdrop-brightness-90\@xl {
-    backdrop-filter: brightness(90%);
+    --backdrop-brightness: brightness(90%);
   }
   .backdrop-brightness-110\@xl {
-    backdrop-filter: brightness(110%);
+    --backdrop-brightness: brightness(110%);
   }
   .backdrop-brightness-125\@xl {
-    backdrop-filter: brightness(125%);
+    --backdrop-brightness: brightness(125%);
   }
   .backdrop-brightness-150\@xl {
-    backdrop-filter: brightness(150%);
+    --backdrop-brightness: brightness(150%);
   }
   .backdrop-contrast-none\@xl {
-    backdrop-filter: contrast(100%);
+    --backdrop-contrast: contrast(100%);
   }
   .backdrop-contrast-75\@xl {
-    backdrop-filter: contrast(75%);
+    --backdrop-contrast: contrast(75%);
   }
   .backdrop-contrast-90\@xl {
-    backdrop-filter: contrast(90%);
+    --backdrop-contrast: contrast(90%);
   }
   .backdrop-contrast-110\@xl {
-    backdrop-filter: contrast(110%);
+    --backdrop-contrast: contrast(110%);
   }
   .backdrop-contrast-125\@xl {
-    backdrop-filter: contrast(125%);
+    --backdrop-contrast: contrast(125%);
   }
   .backdrop-contrast-150\@xl {
-    backdrop-filter: contrast(150%);
+    --backdrop-contrast: contrast(150%);
   }
   .backdrop-grayscale-none\@xl {
-    backdrop-filter: grayscale(0);
+    --backdrop-grayscale: grayscale(0);
   }
   .backdrop-grayscale-25\@xl {
-    backdrop-filter: grayscale(25%);
+    --backdrop-grayscale: grayscale(25%);
   }
   .backdrop-grayscale-50\@xl {
-    backdrop-filter: grayscale(50%);
+    --backdrop-grayscale: grayscale(50%);
   }
   .backdrop-grayscale-75\@xl {
-    backdrop-filter: grayscale(75%);
+    --backdrop-grayscale: grayscale(75%);
   }
   .backdrop-grayscale-100\@xl {
-    backdrop-filter: grayscale(100%);
+    --backdrop-grayscale: grayscale(100%);
   }
   .backdrop-saturate-none\@xl {
-    backdrop-filter: saturate(100%);
+    --backdrop-saturate: saturate(100%);
   }
   .backdrop-saturate-50\@xl {
-    backdrop-filter: saturate(50%);
+    --backdrop-saturate: saturate(50%);
   }
   .backdrop-saturate-75\@xl {
-    backdrop-filter: saturate(75%);
+    --backdrop-saturate: saturate(75%);
   }
   .backdrop-saturate-125\@xl {
-    backdrop-filter: saturate(125%);
+    --backdrop-saturate: saturate(125%);
   }
   .backdrop-saturate-150\@xl {
-    backdrop-filter: saturate(150%);
+    --backdrop-saturate: saturate(150%);
   }
   .backdrop-saturate-200\@xl {
-    backdrop-filter: saturate(200%);
+    --backdrop-saturate: saturate(200%);
   }
   .backdrop-sepia-none\@xl {
-    backdrop-filter: sepia(0);
+    --backdrop-sepia: sepia(0);
   }
   .backdrop-sepia-25\@xl {
-    backdrop-filter: sepia(25%);
+    --backdrop-sepia: sepia(25%);
   }
   .backdrop-sepia-50\@xl {
-    backdrop-filter: sepia(50%);
+    --backdrop-sepia: sepia(50%);
   }
   .backdrop-sepia-75\@xl {
-    backdrop-filter: sepia(75%);
+    --backdrop-sepia: sepia(75%);
   }
   .backdrop-sepia-100\@xl {
-    backdrop-filter: sepia(100%);
+    --backdrop-sepia: sepia(100%);
   }
   .backdrop-hue-0\@xl {
-    backdrop-filter: hue-rotate(0deg);
+    --backdrop-hue-rotate: hue-rotate(0deg);
   }
   .backdrop-hue-90\@xl {
-    backdrop-filter: hue-rotate(90deg);
+    --backdrop-hue-rotate: hue-rotate(90deg);
   }
   .backdrop-hue-180\@xl {
-    backdrop-filter: hue-rotate(180deg);
+    --backdrop-hue-rotate: hue-rotate(180deg);
   }
   .backdrop-hue-270\@xl {
-    backdrop-filter: hue-rotate(270deg);
+    --backdrop-hue-rotate: hue-rotate(270deg);
   }
   .backdrop-invert-none\@xl {
-    backdrop-filter: invert(0);
+    --backdrop-invert: invert(0);
   }
   .backdrop-invert-25\@xl {
-    backdrop-filter: invert(25%);
+    --backdrop-invert: invert(25%);
   }
   .backdrop-invert-50\@xl {
-    backdrop-filter: invert(50%);
+    --backdrop-invert: invert(50%);
   }
   .backdrop-invert-75\@xl {
-    backdrop-filter: invert(75%);
+    --backdrop-invert: invert(75%);
   }
   .backdrop-invert-100\@xl {
-    backdrop-filter: invert(100%);
+    --backdrop-invert: invert(100%);
   }
   .backdrop-frosted\@xl {
     backdrop-filter: blur(8px) saturate(90%) brightness(120%);
@@ -5349,137 +5468,156 @@ code {
   }
 }
 @media (min-width: 1536px) {
+  .backdrop-layer\@2xl {
+    --backdrop-blur: blur(0);
+    --backdrop-brightness: brightness(100%);
+    --backdrop-contrast: contrast(100%);
+    --backdrop-grayscale: grayscale(0);
+    --backdrop-hue-rotate: hue-rotate(0deg);
+    --backdrop-invert: invert(0);
+    --backdrop-saturate: saturate(100%);
+    --backdrop-sepia: sepia(0);
+    backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+  }
   .backdrop-none\@2xl {
     backdrop-filter: none;
+    --backdrop-blur: none;
+    --backdrop-brightness: none;
+    --backdrop-contrast: none;
+    --backdrop-grayscale: none;
+    --backdrop-hue-rotate: none;
+    --backdrop-invert: none;
+    --backdrop-saturate: none;
+    --backdrop-sepia: none;
   }
   .backdrop-blur-none\@2xl {
-    backdrop-filter: blur(0);
+    --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@2xl {
-    backdrop-filter: blur(4px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-md\@2xl {
-    backdrop-filter: blur(8px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-lg\@2xl {
-    backdrop-filter: blur(12px);
+    --backdrop-blur: blur(12px);
   }
   .backdrop-blur-xl\@2xl {
-    backdrop-filter: blur(24px);
+    --backdrop-blur: blur(24px);
   }
   .backdrop-blur-2xl\@2xl {
-    backdrop-filter: blur(40px);
+    --backdrop-blur: blur(40px);
   }
   .backdrop-brightness-none\@2xl {
-    backdrop-filter: brightness(100%);
+    --backdrop-brightness: brightness(100%);
   }
   .backdrop-brightness-75\@2xl {
-    backdrop-filter: brightness(75%);
+    --backdrop-brightness: brightness(75%);
   }
   .backdrop-brightness-90\@2xl {
-    backdrop-filter: brightness(90%);
+    --backdrop-brightness: brightness(90%);
   }
   .backdrop-brightness-110\@2xl {
-    backdrop-filter: brightness(110%);
+    --backdrop-brightness: brightness(110%);
   }
   .backdrop-brightness-125\@2xl {
-    backdrop-filter: brightness(125%);
+    --backdrop-brightness: brightness(125%);
   }
   .backdrop-brightness-150\@2xl {
-    backdrop-filter: brightness(150%);
+    --backdrop-brightness: brightness(150%);
   }
   .backdrop-contrast-none\@2xl {
-    backdrop-filter: contrast(100%);
+    --backdrop-contrast: contrast(100%);
   }
   .backdrop-contrast-75\@2xl {
-    backdrop-filter: contrast(75%);
+    --backdrop-contrast: contrast(75%);
   }
   .backdrop-contrast-90\@2xl {
-    backdrop-filter: contrast(90%);
+    --backdrop-contrast: contrast(90%);
   }
   .backdrop-contrast-110\@2xl {
-    backdrop-filter: contrast(110%);
+    --backdrop-contrast: contrast(110%);
   }
   .backdrop-contrast-125\@2xl {
-    backdrop-filter: contrast(125%);
+    --backdrop-contrast: contrast(125%);
   }
   .backdrop-contrast-150\@2xl {
-    backdrop-filter: contrast(150%);
+    --backdrop-contrast: contrast(150%);
   }
   .backdrop-grayscale-none\@2xl {
-    backdrop-filter: grayscale(0);
+    --backdrop-grayscale: grayscale(0);
   }
   .backdrop-grayscale-25\@2xl {
-    backdrop-filter: grayscale(25%);
+    --backdrop-grayscale: grayscale(25%);
   }
   .backdrop-grayscale-50\@2xl {
-    backdrop-filter: grayscale(50%);
+    --backdrop-grayscale: grayscale(50%);
   }
   .backdrop-grayscale-75\@2xl {
-    backdrop-filter: grayscale(75%);
+    --backdrop-grayscale: grayscale(75%);
   }
   .backdrop-grayscale-100\@2xl {
-    backdrop-filter: grayscale(100%);
+    --backdrop-grayscale: grayscale(100%);
   }
   .backdrop-saturate-none\@2xl {
-    backdrop-filter: saturate(100%);
+    --backdrop-saturate: saturate(100%);
   }
   .backdrop-saturate-50\@2xl {
-    backdrop-filter: saturate(50%);
+    --backdrop-saturate: saturate(50%);
   }
   .backdrop-saturate-75\@2xl {
-    backdrop-filter: saturate(75%);
+    --backdrop-saturate: saturate(75%);
   }
   .backdrop-saturate-125\@2xl {
-    backdrop-filter: saturate(125%);
+    --backdrop-saturate: saturate(125%);
   }
   .backdrop-saturate-150\@2xl {
-    backdrop-filter: saturate(150%);
+    --backdrop-saturate: saturate(150%);
   }
   .backdrop-saturate-200\@2xl {
-    backdrop-filter: saturate(200%);
+    --backdrop-saturate: saturate(200%);
   }
   .backdrop-sepia-none\@2xl {
-    backdrop-filter: sepia(0);
+    --backdrop-sepia: sepia(0);
   }
   .backdrop-sepia-25\@2xl {
-    backdrop-filter: sepia(25%);
+    --backdrop-sepia: sepia(25%);
   }
   .backdrop-sepia-50\@2xl {
-    backdrop-filter: sepia(50%);
+    --backdrop-sepia: sepia(50%);
   }
   .backdrop-sepia-75\@2xl {
-    backdrop-filter: sepia(75%);
+    --backdrop-sepia: sepia(75%);
   }
   .backdrop-sepia-100\@2xl {
-    backdrop-filter: sepia(100%);
+    --backdrop-sepia: sepia(100%);
   }
   .backdrop-hue-0\@2xl {
-    backdrop-filter: hue-rotate(0deg);
+    --backdrop-hue-rotate: hue-rotate(0deg);
   }
   .backdrop-hue-90\@2xl {
-    backdrop-filter: hue-rotate(90deg);
+    --backdrop-hue-rotate: hue-rotate(90deg);
   }
   .backdrop-hue-180\@2xl {
-    backdrop-filter: hue-rotate(180deg);
+    --backdrop-hue-rotate: hue-rotate(180deg);
   }
   .backdrop-hue-270\@2xl {
-    backdrop-filter: hue-rotate(270deg);
+    --backdrop-hue-rotate: hue-rotate(270deg);
   }
   .backdrop-invert-none\@2xl {
-    backdrop-filter: invert(0);
+    --backdrop-invert: invert(0);
   }
   .backdrop-invert-25\@2xl {
-    backdrop-filter: invert(25%);
+    --backdrop-invert: invert(25%);
   }
   .backdrop-invert-50\@2xl {
-    backdrop-filter: invert(50%);
+    --backdrop-invert: invert(50%);
   }
   .backdrop-invert-75\@2xl {
-    backdrop-filter: invert(75%);
+    --backdrop-invert: invert(75%);
   }
   .backdrop-invert-100\@2xl {
-    backdrop-filter: invert(100%);
+    --backdrop-invert: invert(100%);
   }
   .backdrop-frosted\@2xl {
     backdrop-filter: blur(8px) saturate(90%) brightness(120%);
@@ -5504,43 +5642,43 @@ code {
 .border {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-0 {
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-0 {
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-1 {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-2 {
   border-width: 2px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-4 {
   border-width: 4px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-8 {
   border-width: 8px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .border-t-0 {
@@ -6088,31 +6226,31 @@ code {
 .hover\:border-0:hover {
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .hover\:border-1:hover {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .hover\:border-2:hover {
   border-width: 2px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .hover\:border-4:hover {
   border-width: 4px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .hover\:border-8:hover {
   border-width: 8px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .hover\:border-solid:hover {
@@ -6174,31 +6312,31 @@ code {
 .active\:border-0:active {
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .active\:border-1:active {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .active\:border-2:active {
   border-width: 2px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .active\:border-4:active {
   border-width: 4px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .active\:border-8:active {
   border-width: 8px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .active\:border-solid:active {
@@ -6260,31 +6398,31 @@ code {
 .focus\:border-0:focus {
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .focus\:border-1:focus {
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .focus\:border-2:focus {
   border-width: 2px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .focus\:border-4:focus {
   border-width: 4px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .focus\:border-8:focus {
   border-width: 8px;
   border-style: solid;
-  border-color: var(--border);
+  border-color: var(--border-base);
 }
 
 .focus\:border-solid:focus {
@@ -6347,37 +6485,37 @@ code {
   .border-0\@xs {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-1\@xs {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-2\@xs {
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-4\@xs {
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-8\@xs {
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border\@xs {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-0\@xs {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .rounded-xs\@xs {
     border-radius: 0.25rem;
@@ -6417,37 +6555,37 @@ code {
   .border-0\@sm {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-1\@sm {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-2\@sm {
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-4\@sm {
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-8\@sm {
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border\@sm {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-0\@sm {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .rounded-xs\@sm {
     border-radius: 0.25rem;
@@ -6487,37 +6625,37 @@ code {
   .border-0\@md {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-1\@md {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-2\@md {
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-4\@md {
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-8\@md {
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border\@md {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-0\@md {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .rounded-xs\@md {
     border-radius: 0.25rem;
@@ -6557,37 +6695,37 @@ code {
   .border-0\@lg {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-1\@lg {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-2\@lg {
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-4\@lg {
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-8\@lg {
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border\@lg {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-0\@lg {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .rounded-xs\@lg {
     border-radius: 0.25rem;
@@ -6627,37 +6765,37 @@ code {
   .border-0\@xl {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-1\@xl {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-2\@xl {
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-4\@xl {
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-8\@xl {
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border\@xl {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-0\@xl {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .rounded-xs\@xl {
     border-radius: 0.25rem;
@@ -6697,37 +6835,37 @@ code {
   .border-0\@2xl {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-1\@2xl {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-2\@2xl {
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-4\@2xl {
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-8\@2xl {
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border\@2xl {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .border-0\@2xl {
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border);
+    border-color: var(--border-base);
   }
   .rounded-xs\@2xl {
     border-radius: 0.25rem;
@@ -19688,6 +19826,10 @@ code {
   font-size: 1rem;
 }
 
+.text-base {
+  font-size: 1rem;
+}
+
 .text-lg {
   font-size: 1.25rem;
 }
@@ -19933,6 +20075,9 @@ code {
   .text-md\@xs {
     font-size: 1rem;
   }
+  .text-base\@xs {
+    font-size: 1rem;
+  }
   .text-lg\@xs {
     font-size: 1.25rem;
   }
@@ -19955,6 +20100,9 @@ code {
     font-size: 0.875rem;
   }
   .text-md\@xs {
+    font-size: 1rem;
+  }
+  .text-base\@xs {
     font-size: 1rem;
   }
   .text-lg\@xs {
@@ -20125,6 +20273,9 @@ code {
   .text-md\@sm {
     font-size: 1rem;
   }
+  .text-base\@sm {
+    font-size: 1rem;
+  }
   .text-lg\@sm {
     font-size: 1.25rem;
   }
@@ -20147,6 +20298,9 @@ code {
     font-size: 0.875rem;
   }
   .text-md\@sm {
+    font-size: 1rem;
+  }
+  .text-base\@sm {
     font-size: 1rem;
   }
   .text-lg\@sm {
@@ -20317,6 +20471,9 @@ code {
   .text-md\@md {
     font-size: 1rem;
   }
+  .text-base\@md {
+    font-size: 1rem;
+  }
   .text-lg\@md {
     font-size: 1.25rem;
   }
@@ -20339,6 +20496,9 @@ code {
     font-size: 0.875rem;
   }
   .text-md\@md {
+    font-size: 1rem;
+  }
+  .text-base\@md {
     font-size: 1rem;
   }
   .text-lg\@md {
@@ -20509,6 +20669,9 @@ code {
   .text-md\@lg {
     font-size: 1rem;
   }
+  .text-base\@lg {
+    font-size: 1rem;
+  }
   .text-lg\@lg {
     font-size: 1.25rem;
   }
@@ -20531,6 +20694,9 @@ code {
     font-size: 0.875rem;
   }
   .text-md\@lg {
+    font-size: 1rem;
+  }
+  .text-base\@lg {
     font-size: 1rem;
   }
   .text-lg\@lg {
@@ -20701,6 +20867,9 @@ code {
   .text-md\@xl {
     font-size: 1rem;
   }
+  .text-base\@xl {
+    font-size: 1rem;
+  }
   .text-lg\@xl {
     font-size: 1.25rem;
   }
@@ -20723,6 +20892,9 @@ code {
     font-size: 0.875rem;
   }
   .text-md\@xl {
+    font-size: 1rem;
+  }
+  .text-base\@xl {
     font-size: 1rem;
   }
   .text-lg\@xl {
@@ -20893,6 +21065,9 @@ code {
   .text-md\@2xl {
     font-size: 1rem;
   }
+  .text-base\@2xl {
+    font-size: 1rem;
+  }
   .text-lg\@2xl {
     font-size: 1.25rem;
   }
@@ -20915,6 +21090,9 @@ code {
     font-size: 0.875rem;
   }
   .text-md\@2xl {
+    font-size: 1rem;
+  }
+  .text-base\@2xl {
     font-size: 1rem;
   }
   .text-lg\@2xl {
@@ -21173,23 +21351,23 @@ code {
   z-index: 300;
 }
 
-.z-drawer {
+.z-overlay {
   z-index: 400;
 }
 
-.z-modal {
+.z-drawer {
   z-index: 500;
 }
 
-.z-popover {
+.z-modal {
   z-index: 600;
 }
 
-.z-tooltip {
+.z-popover {
   z-index: 700;
 }
 
-.z-overlay {
+.z-tooltip {
   z-index: 800;
 }
 
@@ -21262,19 +21440,19 @@ code {
   .z-fixed\@xs {
     z-index: 300;
   }
-  .z-drawer\@xs {
+  .z-overlay\@xs {
     z-index: 400;
   }
-  .z-modal\@xs {
+  .z-drawer\@xs {
     z-index: 500;
   }
-  .z-popover\@xs {
+  .z-modal\@xs {
     z-index: 600;
   }
-  .z-tooltip\@xs {
+  .z-popover\@xs {
     z-index: 700;
   }
-  .z-overlay\@xs {
+  .z-tooltip\@xs {
     z-index: 800;
   }
   .z-toast\@xs {
@@ -21345,19 +21523,19 @@ code {
   .z-fixed\@sm {
     z-index: 300;
   }
-  .z-drawer\@sm {
+  .z-overlay\@sm {
     z-index: 400;
   }
-  .z-modal\@sm {
+  .z-drawer\@sm {
     z-index: 500;
   }
-  .z-popover\@sm {
+  .z-modal\@sm {
     z-index: 600;
   }
-  .z-tooltip\@sm {
+  .z-popover\@sm {
     z-index: 700;
   }
-  .z-overlay\@sm {
+  .z-tooltip\@sm {
     z-index: 800;
   }
   .z-toast\@sm {
@@ -21428,19 +21606,19 @@ code {
   .z-fixed\@md {
     z-index: 300;
   }
-  .z-drawer\@md {
+  .z-overlay\@md {
     z-index: 400;
   }
-  .z-modal\@md {
+  .z-drawer\@md {
     z-index: 500;
   }
-  .z-popover\@md {
+  .z-modal\@md {
     z-index: 600;
   }
-  .z-tooltip\@md {
+  .z-popover\@md {
     z-index: 700;
   }
-  .z-overlay\@md {
+  .z-tooltip\@md {
     z-index: 800;
   }
   .z-toast\@md {
@@ -21511,19 +21689,19 @@ code {
   .z-fixed\@lg {
     z-index: 300;
   }
-  .z-drawer\@lg {
+  .z-overlay\@lg {
     z-index: 400;
   }
-  .z-modal\@lg {
+  .z-drawer\@lg {
     z-index: 500;
   }
-  .z-popover\@lg {
+  .z-modal\@lg {
     z-index: 600;
   }
-  .z-tooltip\@lg {
+  .z-popover\@lg {
     z-index: 700;
   }
-  .z-overlay\@lg {
+  .z-tooltip\@lg {
     z-index: 800;
   }
   .z-toast\@lg {
@@ -21594,19 +21772,19 @@ code {
   .z-fixed\@xl {
     z-index: 300;
   }
-  .z-drawer\@xl {
+  .z-overlay\@xl {
     z-index: 400;
   }
-  .z-modal\@xl {
+  .z-drawer\@xl {
     z-index: 500;
   }
-  .z-popover\@xl {
+  .z-modal\@xl {
     z-index: 600;
   }
-  .z-tooltip\@xl {
+  .z-popover\@xl {
     z-index: 700;
   }
-  .z-overlay\@xl {
+  .z-tooltip\@xl {
     z-index: 800;
   }
   .z-toast\@xl {
@@ -21677,19 +21855,19 @@ code {
   .z-fixed\@2xl {
     z-index: 300;
   }
-  .z-drawer\@2xl {
+  .z-overlay\@2xl {
     z-index: 400;
   }
-  .z-modal\@2xl {
+  .z-drawer\@2xl {
     z-index: 500;
   }
-  .z-popover\@2xl {
+  .z-modal\@2xl {
     z-index: 600;
   }
-  .z-tooltip\@2xl {
+  .z-popover\@2xl {
     z-index: 700;
   }
-  .z-overlay\@2xl {
+  .z-tooltip\@2xl {
     z-index: 800;
   }
   .z-toast\@2xl {
@@ -33908,14 +34086,25 @@ code {
   --pink-700: rgb(165.2, 50.4, 107.1);
   --pink-800: rgb(118, 36, 76.5);
   --pink-900: rgb(70.8, 21.6, 45.9);
-  --background: #fafafa;
-  --foreground: #1a1a1a;
-  --surface: #fff;
-  --border: #e5e7eb;
-  --text-default: #1a1a1a;
-  --text-muted: #4b5563;
-  --button-text-color: #f1f1f1;
+  --bg-base: #fbfafc;
+  --inverted-bg-base: #1a1a1a;
+  --bg-alternate: #1a1a1a;
+  --inverted-bg-alternate: #f1f1f1;
+  --bg-surface: #fff;
+  --inverted-bg-surface: #2e2e2e;
+  --border-base: #e5e7eb;
+  --inverted-border-base: #2e2e2e;
+  --text-color: #1a1a1a;
   --inverted-text-color: #f1f1f1;
+  --text-muted: rgba(26, 26, 26, 0.5411764706);
+  --inverted-text-muted: rgba(241, 241, 241, 0.5411764706);
+  --text-subtle: rgba(26, 26, 26, 0.3137254902);
+  --inverted-text-subtle: rgba(241, 241, 241, 0.3137254902);
+  --text-inverted: #f1f1f1;
+  --inverted-text-inverted: #1a1a1a;
+  --black: #000;
+  --white: #fff;
+  --transparent: transparent;
   --button-bg-color: var(--primary);
   --button-bg-color-hover: var(--primary-600);
   --link-color: var(--primary);
@@ -33923,14 +34112,23 @@ code {
 }
 
 [data-theme=dark] {
-  --background: #1a1a1a;
-  --foreground: #f1f1f1;
-  --surface: #2e2e2e;
-  --border: #2e2e2e;
-  --text-default: #f1f1f1;
-  --text-muted: #a3a3a3;
-  --button-text-color: #1a1a1a;
+  --bg-base: #1a1a1a;
+  --inverted-bg-base: #fbfafc;
+  --bg-alternate: #f1f1f1;
+  --inverted-bg-alternate: #1a1a1a;
+  --bg-surface: #2e2e2e;
+  --inverted-bg-surface: #fff;
+  --border-base: #2e2e2e;
+  --inverted-border-base: #e5e7eb;
+  --text-color: #f1f1f1;
   --inverted-text-color: #1a1a1a;
+  --text-muted: rgba(241, 241, 241, 0.5411764706);
+  --inverted-text-muted: rgba(26, 26, 26, 0.5411764706);
+  --text-subtle: rgba(241, 241, 241, 0.3137254902);
+  --inverted-text-subtle: rgba(26, 26, 26, 0.3137254902);
+  --text-inverted: #1a1a1a;
+  --inverted-text-inverted: #f1f1f1;
+  --button-text-color: ;
   --button-bg-color: var(--primary);
   --button-bg-color-hover: var(--primary-400);
   --link-color: var(--primary);
@@ -37039,57 +37237,154 @@ code {
   border-color: var(--pink);
 }
 
-.bg-page {
-  background-color: var(--background);
-}
-
-.bg-surface {
-  background-color: var(--surface);
-}
-
-.bg-active {
-  background-color: var(--button-bg-color);
-}
-
-.bg-hover {
-  background-color: var(--button-bg-color-hover);
-}
-
-.bg-white,
-.hover\:bg-white:hover {
-  background-color: white;
+.text-black,
+.hover\:text-black:hover,
+.group:hover .group-hover\:text-black {
+  color: var(--black);
 }
 
 .bg-black,
-.hover\:bg-black:hover {
-  background-color: black;
+.hover\:bg-black:hover,
+.group:hover .group-hover\:bg-black {
+  background-color: var(--black);
 }
 
-.text-default {
-  color: var(--text-default);
-}
-
-.text-muted {
-  color: var(--text-muted);
-}
-
-.text-inverted {
-  color: var(--inverted-text-color);
+.border-black,
+.hover\:border-black:hover,
+.group:hover .group-hover\:border-black {
+  border-color: var(--black);
 }
 
 .text-white,
-.hover\:text-white:hover {
-  color: white;
+.hover\:text-white:hover,
+.group:hover .group-hover\:text-white {
+  color: var(--white);
 }
 
-.text-black,
-.hover\:text-black:hover {
-  color: black;
+.bg-white,
+.hover\:bg-white:hover,
+.group:hover .group-hover\:bg-white {
+  background-color: var(--white);
 }
 
-.text-subtle {
+.border-white,
+.hover\:border-white:hover,
+.group:hover .group-hover\:border-white {
+  border-color: var(--white);
+}
+
+.text-transparent,
+.hover\:text-transparent:hover,
+.group:hover .group-hover\:text-transparent {
+  color: var(--transparent);
+}
+
+.bg-transparent,
+.hover\:bg-transparent:hover,
+.group:hover .group-hover\:bg-transparent {
+  background-color: var(--transparent);
+}
+
+.border-transparent,
+.hover\:border-transparent:hover,
+.group:hover .group-hover\:border-transparent {
+  border-color: var(--transparent);
+}
+
+.bg-base,
+.hover\:bg-base:hover,
+.group:hover .group-hover\:bg-base {
+  background-color: var(--bg-base);
+}
+
+.inverted-bg-base,
+.hover\:inverted-bg-base:hover,
+.group:hover .group-hover\:inverted-bg-base {
+  background-color: var(--inverted-bg-base);
+}
+
+.bg-alternate,
+.hover\:bg-alternate:hover,
+.group:hover .group-hover\:bg-alternate {
+  background-color: var(--bg-alternate);
+}
+
+.inverted-bg-alternate,
+.hover\:inverted-bg-alternate:hover,
+.group:hover .group-hover\:inverted-bg-alternate {
+  background-color: var(--inverted-bg-alternate);
+}
+
+.bg-surface,
+.hover\:bg-surface:hover,
+.group:hover .group-hover\:bg-surface {
+  background-color: var(--bg-surface);
+}
+
+.inverted-bg-surface,
+.hover\:inverted-bg-surface:hover,
+.group:hover .group-hover\:inverted-bg-surface {
+  background-color: var(--inverted-bg-surface);
+}
+
+.border-base,
+.hover\:border-base:hover,
+.group:hover .group-hover\:border-base {
+  border-color: var(--border-base);
+}
+
+.inverted-border-base,
+.hover\:inverted-border-base:hover,
+.group:hover .group-hover\:inverted-border-base {
+  border-color: var(--inverted-border-base);
+}
+
+.text-color,
+.hover\:text-color:hover,
+.group:hover .group-hover\:text-color {
+  color: var(--text-color);
+}
+
+.inverted-text-color,
+.hover\:inverted-text-color:hover,
+.group:hover .group-hover\:inverted-text-color {
+  color: var(--inverted-text-color);
+}
+
+.text-muted,
+.hover\:text-muted:hover,
+.group:hover .group-hover\:text-muted {
   color: var(--text-muted);
-  opacity: 0.7;
+}
+
+.inverted-text-muted,
+.hover\:inverted-text-muted:hover,
+.group:hover .group-hover\:inverted-text-muted {
+  color: var(--inverted-text-muted);
+}
+
+.text-subtle,
+.hover\:text-subtle:hover,
+.group:hover .group-hover\:text-subtle {
+  color: var(--text-subtle);
+}
+
+.inverted-text-subtle,
+.hover\:inverted-text-subtle:hover,
+.group:hover .group-hover\:inverted-text-subtle {
+  color: var(--inverted-text-subtle);
+}
+
+.text-inverted,
+.hover\:text-inverted:hover,
+.group:hover .group-hover\:text-inverted {
+  color: var(--text-inverted);
+}
+
+.inverted-text-inverted,
+.hover\:inverted-text-inverted:hover,
+.group:hover .group-hover\:inverted-text-inverted {
+  color: var(--inverted-text-inverted);
 }
 
 /*# sourceMappingURL=nuvoui.css.map */
