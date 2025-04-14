@@ -416,12 +416,6 @@ code {
  * @see grid
  */
 /**
- * @description Establishes a flex container.
- */
-/**
- * @description Establishes a flex-inline container.
- */
-/**
  * @description Sets flex-direction to row.
  * @dependencies flex | flex-inline
  */
@@ -580,9 +574,6 @@ code {
  * @description Sets how many columns this would take using percentage of VAR.$column-count.
  * @param {Number} $size - The number of columns to span.
  */
-.flex {
-  display: flex;
-}
 .flex.row {
   flex-direction: row;
 }
@@ -1983,12 +1974,6 @@ code {
   }
 }
 /**
- * @description Establishes a grid container.
- */
-/**
- * @description Establishes a inline-grid container.
- */
-/**
 * @description Establishes a grid container with a specified number of columns.
 * @param {number} $count - The number of columns.
 
@@ -2011,14 +1996,6 @@ code {
  * @description Establishes a place-items container.
  * @param {string} $value - The value for the place-items property.
  */
-.grid {
-  display: grid;
-}
-
-.grid.inline {
-  display: inline-grid;
-}
-
 .grid.auto-fit-xs {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
@@ -3637,6 +3614,14 @@ code {
   opacity: calc(30 / 100);
 }
 
+.opacity-33,
+.hover\:opacity-33:hover,
+.focus\:opacity-33:focus,
+.active\:opacity-33:active,
+.group:hover .group-hover\:opacity-33 {
+  opacity: calc(33 / 100);
+}
+
 .opacity-40,
 .hover\:opacity-40:hover,
 .focus\:opacity-40:focus,
@@ -3659,6 +3644,14 @@ code {
 .active\:opacity-60:active,
 .group:hover .group-hover\:opacity-60 {
   opacity: calc(60 / 100);
+}
+
+.opacity-66,
+.hover\:opacity-66:hover,
+.focus\:opacity-66:focus,
+.active\:opacity-66:active,
+.group:hover .group-hover\:opacity-66 {
+  opacity: calc(66 / 100);
 }
 
 .opacity-70,
@@ -3744,6 +3737,13 @@ code {
   .group:hover .group-hover\:opacity-30\@xs {
     opacity: calc(30 / 100);
   }
+  .opacity-33\@xs,
+  .hover\:opacity-33\@xs:hover,
+  .focus\:opacity-33\@xs:focus,
+  .active\:opacity-33\@xs:active,
+  .group:hover .group-hover\:opacity-33\@xs {
+    opacity: calc(33 / 100);
+  }
   .opacity-40\@xs,
   .hover\:opacity-40\@xs:hover,
   .focus\:opacity-40\@xs:focus,
@@ -3764,6 +3764,13 @@ code {
   .active\:opacity-60\@xs:active,
   .group:hover .group-hover\:opacity-60\@xs {
     opacity: calc(60 / 100);
+  }
+  .opacity-66\@xs,
+  .hover\:opacity-66\@xs:hover,
+  .focus\:opacity-66\@xs:focus,
+  .active\:opacity-66\@xs:active,
+  .group:hover .group-hover\:opacity-66\@xs {
+    opacity: calc(66 / 100);
   }
   .opacity-70\@xs,
   .hover\:opacity-70\@xs:hover,
@@ -3844,6 +3851,13 @@ code {
   .group:hover .group-hover\:opacity-30\@sm {
     opacity: calc(30 / 100);
   }
+  .opacity-33\@sm,
+  .hover\:opacity-33\@sm:hover,
+  .focus\:opacity-33\@sm:focus,
+  .active\:opacity-33\@sm:active,
+  .group:hover .group-hover\:opacity-33\@sm {
+    opacity: calc(33 / 100);
+  }
   .opacity-40\@sm,
   .hover\:opacity-40\@sm:hover,
   .focus\:opacity-40\@sm:focus,
@@ -3864,6 +3878,13 @@ code {
   .active\:opacity-60\@sm:active,
   .group:hover .group-hover\:opacity-60\@sm {
     opacity: calc(60 / 100);
+  }
+  .opacity-66\@sm,
+  .hover\:opacity-66\@sm:hover,
+  .focus\:opacity-66\@sm:focus,
+  .active\:opacity-66\@sm:active,
+  .group:hover .group-hover\:opacity-66\@sm {
+    opacity: calc(66 / 100);
   }
   .opacity-70\@sm,
   .hover\:opacity-70\@sm:hover,
@@ -3944,6 +3965,13 @@ code {
   .group:hover .group-hover\:opacity-30\@md {
     opacity: calc(30 / 100);
   }
+  .opacity-33\@md,
+  .hover\:opacity-33\@md:hover,
+  .focus\:opacity-33\@md:focus,
+  .active\:opacity-33\@md:active,
+  .group:hover .group-hover\:opacity-33\@md {
+    opacity: calc(33 / 100);
+  }
   .opacity-40\@md,
   .hover\:opacity-40\@md:hover,
   .focus\:opacity-40\@md:focus,
@@ -3964,6 +3992,13 @@ code {
   .active\:opacity-60\@md:active,
   .group:hover .group-hover\:opacity-60\@md {
     opacity: calc(60 / 100);
+  }
+  .opacity-66\@md,
+  .hover\:opacity-66\@md:hover,
+  .focus\:opacity-66\@md:focus,
+  .active\:opacity-66\@md:active,
+  .group:hover .group-hover\:opacity-66\@md {
+    opacity: calc(66 / 100);
   }
   .opacity-70\@md,
   .hover\:opacity-70\@md:hover,
@@ -4044,6 +4079,13 @@ code {
   .group:hover .group-hover\:opacity-30\@lg {
     opacity: calc(30 / 100);
   }
+  .opacity-33\@lg,
+  .hover\:opacity-33\@lg:hover,
+  .focus\:opacity-33\@lg:focus,
+  .active\:opacity-33\@lg:active,
+  .group:hover .group-hover\:opacity-33\@lg {
+    opacity: calc(33 / 100);
+  }
   .opacity-40\@lg,
   .hover\:opacity-40\@lg:hover,
   .focus\:opacity-40\@lg:focus,
@@ -4064,6 +4106,13 @@ code {
   .active\:opacity-60\@lg:active,
   .group:hover .group-hover\:opacity-60\@lg {
     opacity: calc(60 / 100);
+  }
+  .opacity-66\@lg,
+  .hover\:opacity-66\@lg:hover,
+  .focus\:opacity-66\@lg:focus,
+  .active\:opacity-66\@lg:active,
+  .group:hover .group-hover\:opacity-66\@lg {
+    opacity: calc(66 / 100);
   }
   .opacity-70\@lg,
   .hover\:opacity-70\@lg:hover,
@@ -4144,6 +4193,13 @@ code {
   .group:hover .group-hover\:opacity-30\@xl {
     opacity: calc(30 / 100);
   }
+  .opacity-33\@xl,
+  .hover\:opacity-33\@xl:hover,
+  .focus\:opacity-33\@xl:focus,
+  .active\:opacity-33\@xl:active,
+  .group:hover .group-hover\:opacity-33\@xl {
+    opacity: calc(33 / 100);
+  }
   .opacity-40\@xl,
   .hover\:opacity-40\@xl:hover,
   .focus\:opacity-40\@xl:focus,
@@ -4164,6 +4220,13 @@ code {
   .active\:opacity-60\@xl:active,
   .group:hover .group-hover\:opacity-60\@xl {
     opacity: calc(60 / 100);
+  }
+  .opacity-66\@xl,
+  .hover\:opacity-66\@xl:hover,
+  .focus\:opacity-66\@xl:focus,
+  .active\:opacity-66\@xl:active,
+  .group:hover .group-hover\:opacity-66\@xl {
+    opacity: calc(66 / 100);
   }
   .opacity-70\@xl,
   .hover\:opacity-70\@xl:hover,
@@ -4244,6 +4307,13 @@ code {
   .group:hover .group-hover\:opacity-30\@2xl {
     opacity: calc(30 / 100);
   }
+  .opacity-33\@2xl,
+  .hover\:opacity-33\@2xl:hover,
+  .focus\:opacity-33\@2xl:focus,
+  .active\:opacity-33\@2xl:active,
+  .group:hover .group-hover\:opacity-33\@2xl {
+    opacity: calc(33 / 100);
+  }
   .opacity-40\@2xl,
   .hover\:opacity-40\@2xl:hover,
   .focus\:opacity-40\@2xl:focus,
@@ -4264,6 +4334,13 @@ code {
   .active\:opacity-60\@2xl:active,
   .group:hover .group-hover\:opacity-60\@2xl {
     opacity: calc(60 / 100);
+  }
+  .opacity-66\@2xl,
+  .hover\:opacity-66\@2xl:hover,
+  .focus\:opacity-66\@2xl:focus,
+  .active\:opacity-66\@2xl:active,
+  .group:hover .group-hover\:opacity-66\@2xl {
+    opacity: calc(66 / 100);
   }
   .opacity-70\@2xl,
   .hover\:opacity-70\@2xl:hover,
@@ -4440,23 +4517,23 @@ code {
 }
 
 .backdrop-blur-sm {
-  --backdrop-blur: blur(4px);
+  --backdrop-blur: blur(2px);
 }
 
 .backdrop-blur-md {
-  --backdrop-blur: blur(8px);
+  --backdrop-blur: blur(4px);
 }
 
 .backdrop-blur-lg {
-  --backdrop-blur: blur(12px);
+  --backdrop-blur: blur(8px);
 }
 
 .backdrop-blur-xl {
-  --backdrop-blur: blur(24px);
+  --backdrop-blur: blur(16px);
 }
 
 .backdrop-blur-2xl {
-  --backdrop-blur: blur(40px);
+  --backdrop-blur: blur(32px);
 }
 
 .backdrop-brightness-none {
@@ -4654,19 +4731,19 @@ code {
     --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@xs {
-    --backdrop-blur: blur(4px);
+    --backdrop-blur: blur(2px);
   }
   .backdrop-blur-md\@xs {
-    --backdrop-blur: blur(8px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-lg\@xs {
-    --backdrop-blur: blur(12px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-xl\@xs {
-    --backdrop-blur: blur(24px);
+    --backdrop-blur: blur(16px);
   }
   .backdrop-blur-2xl\@xs {
-    --backdrop-blur: blur(40px);
+    --backdrop-blur: blur(32px);
   }
   .backdrop-brightness-none\@xs {
     --backdrop-brightness: brightness(100%);
@@ -4822,19 +4899,19 @@ code {
     --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@sm {
-    --backdrop-blur: blur(4px);
+    --backdrop-blur: blur(2px);
   }
   .backdrop-blur-md\@sm {
-    --backdrop-blur: blur(8px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-lg\@sm {
-    --backdrop-blur: blur(12px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-xl\@sm {
-    --backdrop-blur: blur(24px);
+    --backdrop-blur: blur(16px);
   }
   .backdrop-blur-2xl\@sm {
-    --backdrop-blur: blur(40px);
+    --backdrop-blur: blur(32px);
   }
   .backdrop-brightness-none\@sm {
     --backdrop-brightness: brightness(100%);
@@ -4990,19 +5067,19 @@ code {
     --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@md {
-    --backdrop-blur: blur(4px);
+    --backdrop-blur: blur(2px);
   }
   .backdrop-blur-md\@md {
-    --backdrop-blur: blur(8px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-lg\@md {
-    --backdrop-blur: blur(12px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-xl\@md {
-    --backdrop-blur: blur(24px);
+    --backdrop-blur: blur(16px);
   }
   .backdrop-blur-2xl\@md {
-    --backdrop-blur: blur(40px);
+    --backdrop-blur: blur(32px);
   }
   .backdrop-brightness-none\@md {
     --backdrop-brightness: brightness(100%);
@@ -5158,19 +5235,19 @@ code {
     --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@lg {
-    --backdrop-blur: blur(4px);
+    --backdrop-blur: blur(2px);
   }
   .backdrop-blur-md\@lg {
-    --backdrop-blur: blur(8px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-lg\@lg {
-    --backdrop-blur: blur(12px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-xl\@lg {
-    --backdrop-blur: blur(24px);
+    --backdrop-blur: blur(16px);
   }
   .backdrop-blur-2xl\@lg {
-    --backdrop-blur: blur(40px);
+    --backdrop-blur: blur(32px);
   }
   .backdrop-brightness-none\@lg {
     --backdrop-brightness: brightness(100%);
@@ -5326,19 +5403,19 @@ code {
     --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@xl {
-    --backdrop-blur: blur(4px);
+    --backdrop-blur: blur(2px);
   }
   .backdrop-blur-md\@xl {
-    --backdrop-blur: blur(8px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-lg\@xl {
-    --backdrop-blur: blur(12px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-xl\@xl {
-    --backdrop-blur: blur(24px);
+    --backdrop-blur: blur(16px);
   }
   .backdrop-blur-2xl\@xl {
-    --backdrop-blur: blur(40px);
+    --backdrop-blur: blur(32px);
   }
   .backdrop-brightness-none\@xl {
     --backdrop-brightness: brightness(100%);
@@ -5494,19 +5571,19 @@ code {
     --backdrop-blur: blur(0);
   }
   .backdrop-blur-sm\@2xl {
-    --backdrop-blur: blur(4px);
+    --backdrop-blur: blur(2px);
   }
   .backdrop-blur-md\@2xl {
-    --backdrop-blur: blur(8px);
+    --backdrop-blur: blur(4px);
   }
   .backdrop-blur-lg\@2xl {
-    --backdrop-blur: blur(12px);
+    --backdrop-blur: blur(8px);
   }
   .backdrop-blur-xl\@2xl {
-    --backdrop-blur: blur(24px);
+    --backdrop-blur: blur(16px);
   }
   .backdrop-blur-2xl\@2xl {
-    --backdrop-blur: blur(40px);
+    --backdrop-blur: blur(32px);
   }
   .backdrop-brightness-none\@2xl {
     --backdrop-brightness: brightness(100%);
@@ -5857,8 +5934,8 @@ code {
   border-radius: 1.25rem;
 }
 
-.rounded-full {
-  border-radius: 9999px;
+.rounded-circle {
+  border-radius: 50%;
 }
 
 .rounded-none {
@@ -6081,40 +6158,40 @@ code {
   border-bottom-left-radius: 1.25rem;
 }
 
-.rounded-t-full {
-  border-top-left-radius: 9999px;
-  border-top-right-radius: 9999px;
+.rounded-t-circle {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
 }
 
-.rounded-r-full {
-  border-top-right-radius: 9999px;
-  border-bottom-right-radius: 9999px;
+.rounded-r-circle {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
-.rounded-b-full {
-  border-bottom-left-radius: 9999px;
-  border-bottom-right-radius: 9999px;
+.rounded-b-circle {
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
-.rounded-l-full {
-  border-top-left-radius: 9999px;
-  border-bottom-left-radius: 9999px;
+.rounded-l-circle {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
 }
 
-.rounded-tl-full {
-  border-top-left-radius: 9999px;
+.rounded-tl-circle {
+  border-top-left-radius: 50%;
 }
 
-.rounded-tr-full {
-  border-top-right-radius: 9999px;
+.rounded-tr-circle {
+  border-top-right-radius: 50%;
 }
 
-.rounded-br-full {
-  border-bottom-right-radius: 9999px;
+.rounded-br-circle {
+  border-bottom-right-radius: 50%;
 }
 
-.rounded-bl-full {
-  border-bottom-left-radius: 9999px;
+.rounded-bl-circle {
+  border-bottom-left-radius: 50%;
 }
 
 .rounded-t-none {
@@ -6535,8 +6612,8 @@ code {
   .rounded-2xl\@xs {
     border-radius: 1.25rem;
   }
-  .rounded-full\@xs {
-    border-radius: 9999px;
+  .rounded-circle\@xs {
+    border-radius: 50%;
   }
   .rounded-none\@xs {
     border-radius: 0px;
@@ -6605,8 +6682,8 @@ code {
   .rounded-2xl\@sm {
     border-radius: 1.25rem;
   }
-  .rounded-full\@sm {
-    border-radius: 9999px;
+  .rounded-circle\@sm {
+    border-radius: 50%;
   }
   .rounded-none\@sm {
     border-radius: 0px;
@@ -6675,8 +6752,8 @@ code {
   .rounded-2xl\@md {
     border-radius: 1.25rem;
   }
-  .rounded-full\@md {
-    border-radius: 9999px;
+  .rounded-circle\@md {
+    border-radius: 50%;
   }
   .rounded-none\@md {
     border-radius: 0px;
@@ -6745,8 +6822,8 @@ code {
   .rounded-2xl\@lg {
     border-radius: 1.25rem;
   }
-  .rounded-full\@lg {
-    border-radius: 9999px;
+  .rounded-circle\@lg {
+    border-radius: 50%;
   }
   .rounded-none\@lg {
     border-radius: 0px;
@@ -6815,8 +6892,8 @@ code {
   .rounded-2xl\@xl {
     border-radius: 1.25rem;
   }
-  .rounded-full\@xl {
-    border-radius: 9999px;
+  .rounded-circle\@xl {
+    border-radius: 50%;
   }
   .rounded-none\@xl {
     border-radius: 0px;
@@ -6885,8 +6962,8 @@ code {
   .rounded-2xl\@2xl {
     border-radius: 1.25rem;
   }
-  .rounded-full\@2xl {
-    border-radius: 9999px;
+  .rounded-circle\@2xl {
+    border-radius: 50%;
   }
   .rounded-none\@2xl {
     border-radius: 0px;
@@ -7081,6 +7158,18 @@ code {
  * - .hide@md, .block@lg, etc.
  */
 /**
+ * @description Establishes a flex container.
+ */
+/**
+ * @description Establishes a flex-inline container.
+ */
+/**
+ * @description Establishes a grid container.
+ */
+/**
+ * @description Establishes a inline-grid container.
+ */
+/**
  * @description Set display to none.
  */
 /**
@@ -7104,12 +7193,28 @@ code {
 /**
  * @description Set display to table-cell.
  */
+.grid {
+  display: grid;
+}
+
+.grid.inline {
+  display: inline-grid;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.inline {
+  display: inline-flex;
+}
+
 .hide {
   display: none;
 }
 
 .show {
-  display: revert;
+  display: initial;
 }
 
 .block {
@@ -7191,11 +7296,23 @@ code {
 }
 
 @media (min-width: 480px) {
+  .grid\@xs {
+    display: grid;
+  }
+  .grid.inline\@xs {
+    display: inline-grid;
+  }
+  .flex\@xs {
+    display: flex;
+  }
+  .flex.inline\@xs {
+    display: inline-flex;
+  }
   .hide\@xs {
     display: none;
   }
   .show\@xs {
-    display: revert;
+    display: initial;
   }
   .block\@xs {
     display: block;
@@ -7259,11 +7376,23 @@ code {
   }
 }
 @media (min-width: 640px) {
+  .grid\@sm {
+    display: grid;
+  }
+  .grid.inline\@sm {
+    display: inline-grid;
+  }
+  .flex\@sm {
+    display: flex;
+  }
+  .flex.inline\@sm {
+    display: inline-flex;
+  }
   .hide\@sm {
     display: none;
   }
   .show\@sm {
-    display: revert;
+    display: initial;
   }
   .block\@sm {
     display: block;
@@ -7327,11 +7456,23 @@ code {
   }
 }
 @media (min-width: 768px) {
+  .grid\@md {
+    display: grid;
+  }
+  .grid.inline\@md {
+    display: inline-grid;
+  }
+  .flex\@md {
+    display: flex;
+  }
+  .flex.inline\@md {
+    display: inline-flex;
+  }
   .hide\@md {
     display: none;
   }
   .show\@md {
-    display: revert;
+    display: initial;
   }
   .block\@md {
     display: block;
@@ -7395,11 +7536,23 @@ code {
   }
 }
 @media (min-width: 1024px) {
+  .grid\@lg {
+    display: grid;
+  }
+  .grid.inline\@lg {
+    display: inline-grid;
+  }
+  .flex\@lg {
+    display: flex;
+  }
+  .flex.inline\@lg {
+    display: inline-flex;
+  }
   .hide\@lg {
     display: none;
   }
   .show\@lg {
-    display: revert;
+    display: initial;
   }
   .block\@lg {
     display: block;
@@ -7463,11 +7616,23 @@ code {
   }
 }
 @media (min-width: 1280px) {
+  .grid\@xl {
+    display: grid;
+  }
+  .grid.inline\@xl {
+    display: inline-grid;
+  }
+  .flex\@xl {
+    display: flex;
+  }
+  .flex.inline\@xl {
+    display: inline-flex;
+  }
   .hide\@xl {
     display: none;
   }
   .show\@xl {
-    display: revert;
+    display: initial;
   }
   .block\@xl {
     display: block;
@@ -7531,11 +7696,23 @@ code {
   }
 }
 @media (min-width: 1536px) {
+  .grid\@2xl {
+    display: grid;
+  }
+  .grid.inline\@2xl {
+    display: inline-grid;
+  }
+  .flex\@2xl {
+    display: flex;
+  }
+  .flex.inline\@2xl {
+    display: inline-flex;
+  }
   .hide\@2xl {
     display: none;
   }
   .show\@2xl {
-    display: revert;
+    display: initial;
   }
   .block\@2xl {
     display: block;
@@ -9628,6 +9805,30 @@ code {
   max-height: 30%;
 }
 
+.w-33p {
+  width: 33%;
+}
+
+.h-33p {
+  height: 33%;
+}
+
+.min-w-33p {
+  min-width: 33%;
+}
+
+.min-h-33p {
+  min-height: 33%;
+}
+
+.max-w-33p {
+  max-width: 33%;
+}
+
+.max-h-33p {
+  max-height: 33%;
+}
+
 .w-40p {
   width: 40%;
 }
@@ -9698,6 +9899,30 @@ code {
 
 .max-h-60p {
   max-height: 60%;
+}
+
+.w-66p {
+  width: 66%;
+}
+
+.h-66p {
+  height: 66%;
+}
+
+.min-w-66p {
+  min-width: 66%;
+}
+
+.min-h-66p {
+  min-height: 66%;
+}
+
+.max-w-66p {
+  max-width: 66%;
+}
+
+.max-h-66p {
+  max-height: 66%;
 }
 
 .w-70p {
@@ -10501,6 +10726,28 @@ code {
   .max-h-30p\@xs {
     max-height: 30%;
   }
+  .w-33p\@xs,
+  .hover\:w-33p\@xs:hover,
+  .group:hover .group-hover\:w-33p\@xs {
+    width: 33%;
+  }
+  .h-33p\@xs,
+  .hover\:h-33p\@xs:hover,
+  .group:hover .group-hover\:h-33p\@xs {
+    height: 33%;
+  }
+  .min-w-33p\@xs {
+    min-width: 33%;
+  }
+  .min-h-33p\@xs {
+    min-height: 33%;
+  }
+  .max-w-33p\@xs {
+    max-width: 33%;
+  }
+  .max-h-33p\@xs {
+    max-height: 33%;
+  }
   .w-40p\@xs,
   .hover\:w-40p\@xs:hover,
   .group:hover .group-hover\:w-40p\@xs {
@@ -10566,6 +10813,28 @@ code {
   }
   .max-h-60p\@xs {
     max-height: 60%;
+  }
+  .w-66p\@xs,
+  .hover\:w-66p\@xs:hover,
+  .group:hover .group-hover\:w-66p\@xs {
+    width: 66%;
+  }
+  .h-66p\@xs,
+  .hover\:h-66p\@xs:hover,
+  .group:hover .group-hover\:h-66p\@xs {
+    height: 66%;
+  }
+  .min-w-66p\@xs {
+    min-width: 66%;
+  }
+  .min-h-66p\@xs {
+    min-height: 66%;
+  }
+  .max-w-66p\@xs {
+    max-width: 66%;
+  }
+  .max-h-66p\@xs {
+    max-height: 66%;
   }
   .w-70p\@xs,
   .hover\:w-70p\@xs:hover,
@@ -11251,6 +11520,28 @@ code {
   .max-h-30p\@sm {
     max-height: 30%;
   }
+  .w-33p\@sm,
+  .hover\:w-33p\@sm:hover,
+  .group:hover .group-hover\:w-33p\@sm {
+    width: 33%;
+  }
+  .h-33p\@sm,
+  .hover\:h-33p\@sm:hover,
+  .group:hover .group-hover\:h-33p\@sm {
+    height: 33%;
+  }
+  .min-w-33p\@sm {
+    min-width: 33%;
+  }
+  .min-h-33p\@sm {
+    min-height: 33%;
+  }
+  .max-w-33p\@sm {
+    max-width: 33%;
+  }
+  .max-h-33p\@sm {
+    max-height: 33%;
+  }
   .w-40p\@sm,
   .hover\:w-40p\@sm:hover,
   .group:hover .group-hover\:w-40p\@sm {
@@ -11316,6 +11607,28 @@ code {
   }
   .max-h-60p\@sm {
     max-height: 60%;
+  }
+  .w-66p\@sm,
+  .hover\:w-66p\@sm:hover,
+  .group:hover .group-hover\:w-66p\@sm {
+    width: 66%;
+  }
+  .h-66p\@sm,
+  .hover\:h-66p\@sm:hover,
+  .group:hover .group-hover\:h-66p\@sm {
+    height: 66%;
+  }
+  .min-w-66p\@sm {
+    min-width: 66%;
+  }
+  .min-h-66p\@sm {
+    min-height: 66%;
+  }
+  .max-w-66p\@sm {
+    max-width: 66%;
+  }
+  .max-h-66p\@sm {
+    max-height: 66%;
   }
   .w-70p\@sm,
   .hover\:w-70p\@sm:hover,
@@ -12001,6 +12314,28 @@ code {
   .max-h-30p\@md {
     max-height: 30%;
   }
+  .w-33p\@md,
+  .hover\:w-33p\@md:hover,
+  .group:hover .group-hover\:w-33p\@md {
+    width: 33%;
+  }
+  .h-33p\@md,
+  .hover\:h-33p\@md:hover,
+  .group:hover .group-hover\:h-33p\@md {
+    height: 33%;
+  }
+  .min-w-33p\@md {
+    min-width: 33%;
+  }
+  .min-h-33p\@md {
+    min-height: 33%;
+  }
+  .max-w-33p\@md {
+    max-width: 33%;
+  }
+  .max-h-33p\@md {
+    max-height: 33%;
+  }
   .w-40p\@md,
   .hover\:w-40p\@md:hover,
   .group:hover .group-hover\:w-40p\@md {
@@ -12066,6 +12401,28 @@ code {
   }
   .max-h-60p\@md {
     max-height: 60%;
+  }
+  .w-66p\@md,
+  .hover\:w-66p\@md:hover,
+  .group:hover .group-hover\:w-66p\@md {
+    width: 66%;
+  }
+  .h-66p\@md,
+  .hover\:h-66p\@md:hover,
+  .group:hover .group-hover\:h-66p\@md {
+    height: 66%;
+  }
+  .min-w-66p\@md {
+    min-width: 66%;
+  }
+  .min-h-66p\@md {
+    min-height: 66%;
+  }
+  .max-w-66p\@md {
+    max-width: 66%;
+  }
+  .max-h-66p\@md {
+    max-height: 66%;
   }
   .w-70p\@md,
   .hover\:w-70p\@md:hover,
@@ -12751,6 +13108,28 @@ code {
   .max-h-30p\@lg {
     max-height: 30%;
   }
+  .w-33p\@lg,
+  .hover\:w-33p\@lg:hover,
+  .group:hover .group-hover\:w-33p\@lg {
+    width: 33%;
+  }
+  .h-33p\@lg,
+  .hover\:h-33p\@lg:hover,
+  .group:hover .group-hover\:h-33p\@lg {
+    height: 33%;
+  }
+  .min-w-33p\@lg {
+    min-width: 33%;
+  }
+  .min-h-33p\@lg {
+    min-height: 33%;
+  }
+  .max-w-33p\@lg {
+    max-width: 33%;
+  }
+  .max-h-33p\@lg {
+    max-height: 33%;
+  }
   .w-40p\@lg,
   .hover\:w-40p\@lg:hover,
   .group:hover .group-hover\:w-40p\@lg {
@@ -12816,6 +13195,28 @@ code {
   }
   .max-h-60p\@lg {
     max-height: 60%;
+  }
+  .w-66p\@lg,
+  .hover\:w-66p\@lg:hover,
+  .group:hover .group-hover\:w-66p\@lg {
+    width: 66%;
+  }
+  .h-66p\@lg,
+  .hover\:h-66p\@lg:hover,
+  .group:hover .group-hover\:h-66p\@lg {
+    height: 66%;
+  }
+  .min-w-66p\@lg {
+    min-width: 66%;
+  }
+  .min-h-66p\@lg {
+    min-height: 66%;
+  }
+  .max-w-66p\@lg {
+    max-width: 66%;
+  }
+  .max-h-66p\@lg {
+    max-height: 66%;
   }
   .w-70p\@lg,
   .hover\:w-70p\@lg:hover,
@@ -13501,6 +13902,28 @@ code {
   .max-h-30p\@xl {
     max-height: 30%;
   }
+  .w-33p\@xl,
+  .hover\:w-33p\@xl:hover,
+  .group:hover .group-hover\:w-33p\@xl {
+    width: 33%;
+  }
+  .h-33p\@xl,
+  .hover\:h-33p\@xl:hover,
+  .group:hover .group-hover\:h-33p\@xl {
+    height: 33%;
+  }
+  .min-w-33p\@xl {
+    min-width: 33%;
+  }
+  .min-h-33p\@xl {
+    min-height: 33%;
+  }
+  .max-w-33p\@xl {
+    max-width: 33%;
+  }
+  .max-h-33p\@xl {
+    max-height: 33%;
+  }
   .w-40p\@xl,
   .hover\:w-40p\@xl:hover,
   .group:hover .group-hover\:w-40p\@xl {
@@ -13566,6 +13989,28 @@ code {
   }
   .max-h-60p\@xl {
     max-height: 60%;
+  }
+  .w-66p\@xl,
+  .hover\:w-66p\@xl:hover,
+  .group:hover .group-hover\:w-66p\@xl {
+    width: 66%;
+  }
+  .h-66p\@xl,
+  .hover\:h-66p\@xl:hover,
+  .group:hover .group-hover\:h-66p\@xl {
+    height: 66%;
+  }
+  .min-w-66p\@xl {
+    min-width: 66%;
+  }
+  .min-h-66p\@xl {
+    min-height: 66%;
+  }
+  .max-w-66p\@xl {
+    max-width: 66%;
+  }
+  .max-h-66p\@xl {
+    max-height: 66%;
   }
   .w-70p\@xl,
   .hover\:w-70p\@xl:hover,
@@ -14251,6 +14696,28 @@ code {
   .max-h-30p\@2xl {
     max-height: 30%;
   }
+  .w-33p\@2xl,
+  .hover\:w-33p\@2xl:hover,
+  .group:hover .group-hover\:w-33p\@2xl {
+    width: 33%;
+  }
+  .h-33p\@2xl,
+  .hover\:h-33p\@2xl:hover,
+  .group:hover .group-hover\:h-33p\@2xl {
+    height: 33%;
+  }
+  .min-w-33p\@2xl {
+    min-width: 33%;
+  }
+  .min-h-33p\@2xl {
+    min-height: 33%;
+  }
+  .max-w-33p\@2xl {
+    max-width: 33%;
+  }
+  .max-h-33p\@2xl {
+    max-height: 33%;
+  }
   .w-40p\@2xl,
   .hover\:w-40p\@2xl:hover,
   .group:hover .group-hover\:w-40p\@2xl {
@@ -14316,6 +14783,28 @@ code {
   }
   .max-h-60p\@2xl {
     max-height: 60%;
+  }
+  .w-66p\@2xl,
+  .hover\:w-66p\@2xl:hover,
+  .group:hover .group-hover\:w-66p\@2xl {
+    width: 66%;
+  }
+  .h-66p\@2xl,
+  .hover\:h-66p\@2xl:hover,
+  .group:hover .group-hover\:h-66p\@2xl {
+    height: 66%;
+  }
+  .min-w-66p\@2xl {
+    min-width: 66%;
+  }
+  .min-h-66p\@2xl {
+    min-height: 66%;
+  }
+  .max-w-66p\@2xl {
+    max-width: 66%;
+  }
+  .max-h-66p\@2xl {
+    max-height: 66%;
   }
   .w-70p\@2xl,
   .hover\:w-70p\@2xl:hover,
