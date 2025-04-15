@@ -100,9 +100,17 @@ $basic-colors: (
 }
 
 // Validate both themes
-@debug validate-theme-tokens($light-theme, $theme-tokens);
+@mixin validate-tokens {
+  @if not validate-theme-tokens($light-theme, $theme-tokens) {
+    @error "Light theme is missing required tokens.";
+  }
+  @if not validate-theme-tokens($dark-theme, $theme-tokens) {
+    @error "Dark theme is missing required tokens.";
+  }
+}
 
-@debug validate-theme-tokens($dark-theme, $theme-tokens);
+
+@include validate-tokens;
 
 $shadow-colors: (
   "default": rgb(0 0 0 / 10%),
@@ -187,7 +195,7 @@ $spacings: (
   64: 16rem, // 256px
 ) !default;
 
-$percentages: (0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100) !default;
+$percentages: (0, 5, 10, 20, 25, 30, 33, 40, 50, 60, 66, 70, 75, 80, 90, 100) !default;
 
 // Common border width values that are most useful
 $border-widths: (0, 1, 2, 4, 8) !default;
@@ -200,7 +208,7 @@ $border-radii: (
   "lg": 0.75rem,
   "xl": 1rem,
   "2xl": 1.25rem,
-  "full": 9999px,
+  "circle": 50%,
   "none": 0,
 ) !default;
 
