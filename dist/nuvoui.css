@@ -147,7 +147,7 @@ h4,
 h5,
 h6 {
   margin-bottom: 0.5em;
-  font-family: var(--font-family-heading);
+  font-family: var(--font-family-base);
   font-weight: 700;
   line-height: 1.2;
 }
