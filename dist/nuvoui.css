@@ -1,8 +1,3 @@
-/**
- * Ensures a value has a unit, adding $default-unit if none exists
- * @param {Number|String} $val - The value to check
- * @return {String} - The value with units
- */
 *,
 ::before,
 ::after,
@@ -30,8 +25,6 @@ dd {
 }
 
 html {
-  -moz-text-size-adjust: none; /* stylelint-disable-line */
-  -webkit-text-size-adjust: none; /* stylelint-disable-line */
   text-size-adjust: none;
 }
 
@@ -132,12 +125,6 @@ textarea:not([rows]) {
     scroll-behavior: auto !important;
   }
 }
-/* Import variables */
-/**
- * @description Media query mixins.
- * @param {string|number} $breakpoint - The breakpoint value.
- * @param {string} $type - The media query type (e.g. 'lg', 'md').
- */
 :root {
   --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
@@ -375,211 +362,88 @@ code {
   padding-bottom: 1rem;
 }
 
-/**
- * @component Flex
- * @description Flexbox layout system for creating flexible page layouts
- *
- * @example
- * <div class="flex row between x-center">
- *   <div class="w-6">Left column (6 units)</div>
- *   <div class="w-6">Right column (6 units)</div>
- * </div>
- * 
- * <div class="flex col@md row@lg">
- *   <!-- Changes direction based on breakpoint -->
- * </div>
- *
- * @classes
- * Base:
- * - flex: Creates a flex container
- * 
- * Direction:
- * - row: Sets flex-direction to row
- * - col: Sets flex-direction to column
- * - row-reverse: Reverses row direction
- * - col-reverse: Reverses column direction
- * 
- * Alignment:
- * - start/end/center: Controls justify-content
- * - x-start/x-end/x-center: Controls align-items
- * 
- * Child elements:
- * - w-{1-12}: Sets width based on column count
- * - grow: Allows item to grow
- * - shrink/no-shrink: Controls shrink behavior
- *
- * @responsive
- * All classes support responsive variants using @breakpoint suffix:
- * - row@md: Row direction on medium screens and up
- * - between@lg: Space-between on large screens
- *
- * @see grid
- */
-/**
- * @description Establishes a flex container.
- */
-/**
- * @description Establishes a flex-inline container.
- */
-/**
- * @description Sets flex-direction to row.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-direction to row-reverse.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-direction to column.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-direction to column-reverse.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-wrap to wrap.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-wrap to nowrap.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-wrap to wrap-reverse
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to flex-start
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to flex-end
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to center
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to stretch
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to space-between
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to space-around
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets justify-content to space-evenly
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-items to flex-start - aligns items to the start of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-items to flex-end - aligns items to the end of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-items to center - aligns items to the center of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-items to stretch - aligns items to the stretch of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-items to baseline - aligns items to the baseline of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to flex-start - aligns content to the start of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to flex-end - aligns content to the end of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to center - aligns content to the center of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to space-between - aligns content to the space between the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to space-around - aligns content to the space around the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to space-evenly - aligns content to the space evenly between the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-content to stretch - aligns content to the stretch of the cross axis.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-self to auto
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-self to flex-start
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-self to flex-end
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-self to center
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-self to stretch
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets align-self to baseline
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-shrink to 1 - allows the item to shrink.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-shrink to 0 - prevents the item from shrinking.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex-shrink to 2 - allows the item to shrink twice as much as the other items.
- * @dependencies flex | flex-inline
- */
-/**
- * @description Sets flex to 0 0 100%
- */
-/**
- * @description Sets flex to 1 1 auto - allows the item to grow and shrink.
- */
-/**
- * @description Sets flex to 1 1 0% - allows the item to grow but not shrink.
- */
-/**
- * @description Sets flex to none - prevents the item from growing.
- */
-/**
- * @description Sets flex to 1 0 auto - allows the item to grow but not shrink.
- */
-/**
- * @description Sets how many columns this would take using percentage of VAR.$column-count.
- * @param {Number} $size - The number of columns to span.
- */
+.container.flex {
+  display: flex;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 480px) {
+  .container.flex {
+    max-width: 380px;
+  }
+}
+@media (min-width: 640px) {
+  .container.flex {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container.flex {
+    max-width: 668px;
+  }
+}
+@media (min-width: 1024px) {
+  .container.flex {
+    max-width: 924px;
+  }
+}
+@media (min-width: 1280px) {
+  .container.flex {
+    max-width: 1180px;
+  }
+}
+@media (min-width: 1536px) {
+  .container.flex {
+    max-width: 1436px;
+  }
+}
+.container.flex {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.container.grid {
+  display: grid;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 480px) {
+  .container.grid {
+    max-width: 380px;
+  }
+}
+@media (min-width: 640px) {
+  .container.grid {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container.grid {
+    max-width: 668px;
+  }
+}
+@media (min-width: 1024px) {
+  .container.grid {
+    max-width: 924px;
+  }
+}
+@media (min-width: 1280px) {
+  .container.grid {
+    max-width: 1180px;
+  }
+}
+@media (min-width: 1536px) {
+  .container.grid {
+    max-width: 1436px;
+  }
+}
+.container.grid {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .flex, .flex\@xs, .flex\@sm, .flex\@md, .flex\@lg, .flex\@xl, .flex\@2xl {
   display: flex;
 }
@@ -713,73 +577,73 @@ code {
   align-self: auto;
 }
 .flex > .fill-1, .flex\@xs > .fill-1, .flex\@sm > .fill-1, .flex\@md > .fill-1, .flex\@lg > .fill-1, .flex\@xl > .fill-1, .flex\@2xl > .fill-1 {
-  flex: 0 0 8.3333333333%;
+  flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
 }
 .flex > .order-1, .flex\@xs > .order-1, .flex\@sm > .order-1, .flex\@md > .order-1, .flex\@lg > .order-1, .flex\@xl > .order-1, .flex\@2xl > .order-1 {
   order: 1;
 }
 .flex > .fill-2, .flex\@xs > .fill-2, .flex\@sm > .fill-2, .flex\@md > .fill-2, .flex\@lg > .fill-2, .flex\@xl > .fill-2, .flex\@2xl > .fill-2 {
-  flex: 0 0 16.6666666667%;
+  flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
 }
 .flex > .order-2, .flex\@xs > .order-2, .flex\@sm > .order-2, .flex\@md > .order-2, .flex\@lg > .order-2, .flex\@xl > .order-2, .flex\@2xl > .order-2 {
   order: 2;
 }
 .flex > .fill-3, .flex\@xs > .fill-3, .flex\@sm > .fill-3, .flex\@md > .fill-3, .flex\@lg > .fill-3, .flex\@xl > .fill-3, .flex\@2xl > .fill-3 {
-  flex: 0 0 25%;
+  flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
 }
 .flex > .order-3, .flex\@xs > .order-3, .flex\@sm > .order-3, .flex\@md > .order-3, .flex\@lg > .order-3, .flex\@xl > .order-3, .flex\@2xl > .order-3 {
   order: 3;
 }
 .flex > .fill-4, .flex\@xs > .fill-4, .flex\@sm > .fill-4, .flex\@md > .fill-4, .flex\@lg > .fill-4, .flex\@xl > .fill-4, .flex\@2xl > .fill-4 {
-  flex: 0 0 33.3333333333%;
+  flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
 }
 .flex > .order-4, .flex\@xs > .order-4, .flex\@sm > .order-4, .flex\@md > .order-4, .flex\@lg > .order-4, .flex\@xl > .order-4, .flex\@2xl > .order-4 {
   order: 4;
 }
 .flex > .fill-5, .flex\@xs > .fill-5, .flex\@sm > .fill-5, .flex\@md > .fill-5, .flex\@lg > .fill-5, .flex\@xl > .fill-5, .flex\@2xl > .fill-5 {
-  flex: 0 0 41.6666666667%;
+  flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
 }
 .flex > .order-5, .flex\@xs > .order-5, .flex\@sm > .order-5, .flex\@md > .order-5, .flex\@lg > .order-5, .flex\@xl > .order-5, .flex\@2xl > .order-5 {
   order: 5;
 }
 .flex > .fill-6, .flex\@xs > .fill-6, .flex\@sm > .fill-6, .flex\@md > .fill-6, .flex\@lg > .fill-6, .flex\@xl > .fill-6, .flex\@2xl > .fill-6 {
-  flex: 0 0 50%;
+  flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
 }
 .flex > .order-6, .flex\@xs > .order-6, .flex\@sm > .order-6, .flex\@md > .order-6, .flex\@lg > .order-6, .flex\@xl > .order-6, .flex\@2xl > .order-6 {
   order: 6;
 }
 .flex > .fill-7, .flex\@xs > .fill-7, .flex\@sm > .fill-7, .flex\@md > .fill-7, .flex\@lg > .fill-7, .flex\@xl > .fill-7, .flex\@2xl > .fill-7 {
-  flex: 0 0 58.3333333333%;
+  flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
 }
 .flex > .order-7, .flex\@xs > .order-7, .flex\@sm > .order-7, .flex\@md > .order-7, .flex\@lg > .order-7, .flex\@xl > .order-7, .flex\@2xl > .order-7 {
   order: 7;
 }
 .flex > .fill-8, .flex\@xs > .fill-8, .flex\@sm > .fill-8, .flex\@md > .fill-8, .flex\@lg > .fill-8, .flex\@xl > .fill-8, .flex\@2xl > .fill-8 {
-  flex: 0 0 66.6666666667%;
+  flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
 }
 .flex > .order-8, .flex\@xs > .order-8, .flex\@sm > .order-8, .flex\@md > .order-8, .flex\@lg > .order-8, .flex\@xl > .order-8, .flex\@2xl > .order-8 {
   order: 8;
 }
 .flex > .fill-9, .flex\@xs > .fill-9, .flex\@sm > .fill-9, .flex\@md > .fill-9, .flex\@lg > .fill-9, .flex\@xl > .fill-9, .flex\@2xl > .fill-9 {
-  flex: 0 0 75%;
+  flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
 }
 .flex > .order-9, .flex\@xs > .order-9, .flex\@sm > .order-9, .flex\@md > .order-9, .flex\@lg > .order-9, .flex\@xl > .order-9, .flex\@2xl > .order-9 {
   order: 9;
 }
 .flex > .fill-10, .flex\@xs > .fill-10, .flex\@sm > .fill-10, .flex\@md > .fill-10, .flex\@lg > .fill-10, .flex\@xl > .fill-10, .flex\@2xl > .fill-10 {
-  flex: 0 0 83.3333333333%;
+  flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
 }
 .flex > .order-10, .flex\@xs > .order-10, .flex\@sm > .order-10, .flex\@md > .order-10, .flex\@lg > .order-10, .flex\@xl > .order-10, .flex\@2xl > .order-10 {
   order: 10;
 }
 .flex > .fill-11, .flex\@xs > .fill-11, .flex\@sm > .fill-11, .flex\@md > .fill-11, .flex\@lg > .fill-11, .flex\@xl > .fill-11, .flex\@2xl > .fill-11 {
-  flex: 0 0 91.6666666667%;
+  flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
 }
 .flex > .order-11, .flex\@xs > .order-11, .flex\@sm > .order-11, .flex\@md > .order-11, .flex\@lg > .order-11, .flex\@xl > .order-11, .flex\@2xl > .order-11 {
   order: 11;
 }
 .flex > .fill-12, .flex\@xs > .fill-12, .flex\@sm > .fill-12, .flex\@md > .fill-12, .flex\@lg > .fill-12, .flex\@xl > .fill-12, .flex\@2xl > .fill-12 {
-  flex: 0 0 100%;
+  flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
 }
 .flex > .order-12, .flex\@xs > .order-12, .flex\@sm > .order-12, .flex\@md > .order-12, .flex\@lg > .order-12, .flex\@xl > .order-12, .flex\@2xl > .order-12 {
   order: 12;
@@ -913,73 +777,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@xs, .flex\@xs > .fill-1\@xs, .flex\@sm > .fill-1\@xs, .flex\@md > .fill-1\@xs, .flex\@lg > .fill-1\@xs, .flex\@xl > .fill-1\@xs, .flex\@2xl > .fill-1\@xs {
-    flex: 0 0 8.3333333333%;
+    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
   }
   .flex > .order-1\@xs, .flex\@xs > .order-1\@xs, .flex\@sm > .order-1\@xs, .flex\@md > .order-1\@xs, .flex\@lg > .order-1\@xs, .flex\@xl > .order-1\@xs, .flex\@2xl > .order-1\@xs {
     order: 1;
   }
   .flex > .fill-2\@xs, .flex\@xs > .fill-2\@xs, .flex\@sm > .fill-2\@xs, .flex\@md > .fill-2\@xs, .flex\@lg > .fill-2\@xs, .flex\@xl > .fill-2\@xs, .flex\@2xl > .fill-2\@xs {
-    flex: 0 0 16.6666666667%;
+    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
   }
   .flex > .order-2\@xs, .flex\@xs > .order-2\@xs, .flex\@sm > .order-2\@xs, .flex\@md > .order-2\@xs, .flex\@lg > .order-2\@xs, .flex\@xl > .order-2\@xs, .flex\@2xl > .order-2\@xs {
     order: 2;
   }
   .flex > .fill-3\@xs, .flex\@xs > .fill-3\@xs, .flex\@sm > .fill-3\@xs, .flex\@md > .fill-3\@xs, .flex\@lg > .fill-3\@xs, .flex\@xl > .fill-3\@xs, .flex\@2xl > .fill-3\@xs {
-    flex: 0 0 25%;
+    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
   }
   .flex > .order-3\@xs, .flex\@xs > .order-3\@xs, .flex\@sm > .order-3\@xs, .flex\@md > .order-3\@xs, .flex\@lg > .order-3\@xs, .flex\@xl > .order-3\@xs, .flex\@2xl > .order-3\@xs {
     order: 3;
   }
   .flex > .fill-4\@xs, .flex\@xs > .fill-4\@xs, .flex\@sm > .fill-4\@xs, .flex\@md > .fill-4\@xs, .flex\@lg > .fill-4\@xs, .flex\@xl > .fill-4\@xs, .flex\@2xl > .fill-4\@xs {
-    flex: 0 0 33.3333333333%;
+    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
   }
   .flex > .order-4\@xs, .flex\@xs > .order-4\@xs, .flex\@sm > .order-4\@xs, .flex\@md > .order-4\@xs, .flex\@lg > .order-4\@xs, .flex\@xl > .order-4\@xs, .flex\@2xl > .order-4\@xs {
     order: 4;
   }
   .flex > .fill-5\@xs, .flex\@xs > .fill-5\@xs, .flex\@sm > .fill-5\@xs, .flex\@md > .fill-5\@xs, .flex\@lg > .fill-5\@xs, .flex\@xl > .fill-5\@xs, .flex\@2xl > .fill-5\@xs {
-    flex: 0 0 41.6666666667%;
+    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
   }
   .flex > .order-5\@xs, .flex\@xs > .order-5\@xs, .flex\@sm > .order-5\@xs, .flex\@md > .order-5\@xs, .flex\@lg > .order-5\@xs, .flex\@xl > .order-5\@xs, .flex\@2xl > .order-5\@xs {
     order: 5;
   }
   .flex > .fill-6\@xs, .flex\@xs > .fill-6\@xs, .flex\@sm > .fill-6\@xs, .flex\@md > .fill-6\@xs, .flex\@lg > .fill-6\@xs, .flex\@xl > .fill-6\@xs, .flex\@2xl > .fill-6\@xs {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
   }
   .flex > .order-6\@xs, .flex\@xs > .order-6\@xs, .flex\@sm > .order-6\@xs, .flex\@md > .order-6\@xs, .flex\@lg > .order-6\@xs, .flex\@xl > .order-6\@xs, .flex\@2xl > .order-6\@xs {
     order: 6;
   }
   .flex > .fill-7\@xs, .flex\@xs > .fill-7\@xs, .flex\@sm > .fill-7\@xs, .flex\@md > .fill-7\@xs, .flex\@lg > .fill-7\@xs, .flex\@xl > .fill-7\@xs, .flex\@2xl > .fill-7\@xs {
-    flex: 0 0 58.3333333333%;
+    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
   }
   .flex > .order-7\@xs, .flex\@xs > .order-7\@xs, .flex\@sm > .order-7\@xs, .flex\@md > .order-7\@xs, .flex\@lg > .order-7\@xs, .flex\@xl > .order-7\@xs, .flex\@2xl > .order-7\@xs {
     order: 7;
   }
   .flex > .fill-8\@xs, .flex\@xs > .fill-8\@xs, .flex\@sm > .fill-8\@xs, .flex\@md > .fill-8\@xs, .flex\@lg > .fill-8\@xs, .flex\@xl > .fill-8\@xs, .flex\@2xl > .fill-8\@xs {
-    flex: 0 0 66.6666666667%;
+    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
   }
   .flex > .order-8\@xs, .flex\@xs > .order-8\@xs, .flex\@sm > .order-8\@xs, .flex\@md > .order-8\@xs, .flex\@lg > .order-8\@xs, .flex\@xl > .order-8\@xs, .flex\@2xl > .order-8\@xs {
     order: 8;
   }
   .flex > .fill-9\@xs, .flex\@xs > .fill-9\@xs, .flex\@sm > .fill-9\@xs, .flex\@md > .fill-9\@xs, .flex\@lg > .fill-9\@xs, .flex\@xl > .fill-9\@xs, .flex\@2xl > .fill-9\@xs {
-    flex: 0 0 75%;
+    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
   }
   .flex > .order-9\@xs, .flex\@xs > .order-9\@xs, .flex\@sm > .order-9\@xs, .flex\@md > .order-9\@xs, .flex\@lg > .order-9\@xs, .flex\@xl > .order-9\@xs, .flex\@2xl > .order-9\@xs {
     order: 9;
   }
   .flex > .fill-10\@xs, .flex\@xs > .fill-10\@xs, .flex\@sm > .fill-10\@xs, .flex\@md > .fill-10\@xs, .flex\@lg > .fill-10\@xs, .flex\@xl > .fill-10\@xs, .flex\@2xl > .fill-10\@xs {
-    flex: 0 0 83.3333333333%;
+    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
   }
   .flex > .order-10\@xs, .flex\@xs > .order-10\@xs, .flex\@sm > .order-10\@xs, .flex\@md > .order-10\@xs, .flex\@lg > .order-10\@xs, .flex\@xl > .order-10\@xs, .flex\@2xl > .order-10\@xs {
     order: 10;
   }
   .flex > .fill-11\@xs, .flex\@xs > .fill-11\@xs, .flex\@sm > .fill-11\@xs, .flex\@md > .fill-11\@xs, .flex\@lg > .fill-11\@xs, .flex\@xl > .fill-11\@xs, .flex\@2xl > .fill-11\@xs {
-    flex: 0 0 91.6666666667%;
+    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
   }
   .flex > .order-11\@xs, .flex\@xs > .order-11\@xs, .flex\@sm > .order-11\@xs, .flex\@md > .order-11\@xs, .flex\@lg > .order-11\@xs, .flex\@xl > .order-11\@xs, .flex\@2xl > .order-11\@xs {
     order: 11;
   }
   .flex > .fill-12\@xs, .flex\@xs > .fill-12\@xs, .flex\@sm > .fill-12\@xs, .flex\@md > .fill-12\@xs, .flex\@lg > .fill-12\@xs, .flex\@xl > .fill-12\@xs, .flex\@2xl > .fill-12\@xs {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
   }
   .flex > .order-12\@xs, .flex\@xs > .order-12\@xs, .flex\@sm > .order-12\@xs, .flex\@md > .order-12\@xs, .flex\@lg > .order-12\@xs, .flex\@xl > .order-12\@xs, .flex\@2xl > .order-12\@xs {
     order: 12;
@@ -1117,73 +981,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@sm, .flex\@xs > .fill-1\@sm, .flex\@sm > .fill-1\@sm, .flex\@md > .fill-1\@sm, .flex\@lg > .fill-1\@sm, .flex\@xl > .fill-1\@sm, .flex\@2xl > .fill-1\@sm {
-    flex: 0 0 8.3333333333%;
+    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
   }
   .flex > .order-1\@sm, .flex\@xs > .order-1\@sm, .flex\@sm > .order-1\@sm, .flex\@md > .order-1\@sm, .flex\@lg > .order-1\@sm, .flex\@xl > .order-1\@sm, .flex\@2xl > .order-1\@sm {
     order: 1;
   }
   .flex > .fill-2\@sm, .flex\@xs > .fill-2\@sm, .flex\@sm > .fill-2\@sm, .flex\@md > .fill-2\@sm, .flex\@lg > .fill-2\@sm, .flex\@xl > .fill-2\@sm, .flex\@2xl > .fill-2\@sm {
-    flex: 0 0 16.6666666667%;
+    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
   }
   .flex > .order-2\@sm, .flex\@xs > .order-2\@sm, .flex\@sm > .order-2\@sm, .flex\@md > .order-2\@sm, .flex\@lg > .order-2\@sm, .flex\@xl > .order-2\@sm, .flex\@2xl > .order-2\@sm {
     order: 2;
   }
   .flex > .fill-3\@sm, .flex\@xs > .fill-3\@sm, .flex\@sm > .fill-3\@sm, .flex\@md > .fill-3\@sm, .flex\@lg > .fill-3\@sm, .flex\@xl > .fill-3\@sm, .flex\@2xl > .fill-3\@sm {
-    flex: 0 0 25%;
+    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
   }
   .flex > .order-3\@sm, .flex\@xs > .order-3\@sm, .flex\@sm > .order-3\@sm, .flex\@md > .order-3\@sm, .flex\@lg > .order-3\@sm, .flex\@xl > .order-3\@sm, .flex\@2xl > .order-3\@sm {
     order: 3;
   }
   .flex > .fill-4\@sm, .flex\@xs > .fill-4\@sm, .flex\@sm > .fill-4\@sm, .flex\@md > .fill-4\@sm, .flex\@lg > .fill-4\@sm, .flex\@xl > .fill-4\@sm, .flex\@2xl > .fill-4\@sm {
-    flex: 0 0 33.3333333333%;
+    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
   }
   .flex > .order-4\@sm, .flex\@xs > .order-4\@sm, .flex\@sm > .order-4\@sm, .flex\@md > .order-4\@sm, .flex\@lg > .order-4\@sm, .flex\@xl > .order-4\@sm, .flex\@2xl > .order-4\@sm {
     order: 4;
   }
   .flex > .fill-5\@sm, .flex\@xs > .fill-5\@sm, .flex\@sm > .fill-5\@sm, .flex\@md > .fill-5\@sm, .flex\@lg > .fill-5\@sm, .flex\@xl > .fill-5\@sm, .flex\@2xl > .fill-5\@sm {
-    flex: 0 0 41.6666666667%;
+    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
   }
   .flex > .order-5\@sm, .flex\@xs > .order-5\@sm, .flex\@sm > .order-5\@sm, .flex\@md > .order-5\@sm, .flex\@lg > .order-5\@sm, .flex\@xl > .order-5\@sm, .flex\@2xl > .order-5\@sm {
     order: 5;
   }
   .flex > .fill-6\@sm, .flex\@xs > .fill-6\@sm, .flex\@sm > .fill-6\@sm, .flex\@md > .fill-6\@sm, .flex\@lg > .fill-6\@sm, .flex\@xl > .fill-6\@sm, .flex\@2xl > .fill-6\@sm {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
   }
   .flex > .order-6\@sm, .flex\@xs > .order-6\@sm, .flex\@sm > .order-6\@sm, .flex\@md > .order-6\@sm, .flex\@lg > .order-6\@sm, .flex\@xl > .order-6\@sm, .flex\@2xl > .order-6\@sm {
     order: 6;
   }
   .flex > .fill-7\@sm, .flex\@xs > .fill-7\@sm, .flex\@sm > .fill-7\@sm, .flex\@md > .fill-7\@sm, .flex\@lg > .fill-7\@sm, .flex\@xl > .fill-7\@sm, .flex\@2xl > .fill-7\@sm {
-    flex: 0 0 58.3333333333%;
+    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
   }
   .flex > .order-7\@sm, .flex\@xs > .order-7\@sm, .flex\@sm > .order-7\@sm, .flex\@md > .order-7\@sm, .flex\@lg > .order-7\@sm, .flex\@xl > .order-7\@sm, .flex\@2xl > .order-7\@sm {
     order: 7;
   }
   .flex > .fill-8\@sm, .flex\@xs > .fill-8\@sm, .flex\@sm > .fill-8\@sm, .flex\@md > .fill-8\@sm, .flex\@lg > .fill-8\@sm, .flex\@xl > .fill-8\@sm, .flex\@2xl > .fill-8\@sm {
-    flex: 0 0 66.6666666667%;
+    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
   }
   .flex > .order-8\@sm, .flex\@xs > .order-8\@sm, .flex\@sm > .order-8\@sm, .flex\@md > .order-8\@sm, .flex\@lg > .order-8\@sm, .flex\@xl > .order-8\@sm, .flex\@2xl > .order-8\@sm {
     order: 8;
   }
   .flex > .fill-9\@sm, .flex\@xs > .fill-9\@sm, .flex\@sm > .fill-9\@sm, .flex\@md > .fill-9\@sm, .flex\@lg > .fill-9\@sm, .flex\@xl > .fill-9\@sm, .flex\@2xl > .fill-9\@sm {
-    flex: 0 0 75%;
+    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
   }
   .flex > .order-9\@sm, .flex\@xs > .order-9\@sm, .flex\@sm > .order-9\@sm, .flex\@md > .order-9\@sm, .flex\@lg > .order-9\@sm, .flex\@xl > .order-9\@sm, .flex\@2xl > .order-9\@sm {
     order: 9;
   }
   .flex > .fill-10\@sm, .flex\@xs > .fill-10\@sm, .flex\@sm > .fill-10\@sm, .flex\@md > .fill-10\@sm, .flex\@lg > .fill-10\@sm, .flex\@xl > .fill-10\@sm, .flex\@2xl > .fill-10\@sm {
-    flex: 0 0 83.3333333333%;
+    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
   }
   .flex > .order-10\@sm, .flex\@xs > .order-10\@sm, .flex\@sm > .order-10\@sm, .flex\@md > .order-10\@sm, .flex\@lg > .order-10\@sm, .flex\@xl > .order-10\@sm, .flex\@2xl > .order-10\@sm {
     order: 10;
   }
   .flex > .fill-11\@sm, .flex\@xs > .fill-11\@sm, .flex\@sm > .fill-11\@sm, .flex\@md > .fill-11\@sm, .flex\@lg > .fill-11\@sm, .flex\@xl > .fill-11\@sm, .flex\@2xl > .fill-11\@sm {
-    flex: 0 0 91.6666666667%;
+    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
   }
   .flex > .order-11\@sm, .flex\@xs > .order-11\@sm, .flex\@sm > .order-11\@sm, .flex\@md > .order-11\@sm, .flex\@lg > .order-11\@sm, .flex\@xl > .order-11\@sm, .flex\@2xl > .order-11\@sm {
     order: 11;
   }
   .flex > .fill-12\@sm, .flex\@xs > .fill-12\@sm, .flex\@sm > .fill-12\@sm, .flex\@md > .fill-12\@sm, .flex\@lg > .fill-12\@sm, .flex\@xl > .fill-12\@sm, .flex\@2xl > .fill-12\@sm {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
   }
   .flex > .order-12\@sm, .flex\@xs > .order-12\@sm, .flex\@sm > .order-12\@sm, .flex\@md > .order-12\@sm, .flex\@lg > .order-12\@sm, .flex\@xl > .order-12\@sm, .flex\@2xl > .order-12\@sm {
     order: 12;
@@ -1321,73 +1185,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@md, .flex\@xs > .fill-1\@md, .flex\@sm > .fill-1\@md, .flex\@md > .fill-1\@md, .flex\@lg > .fill-1\@md, .flex\@xl > .fill-1\@md, .flex\@2xl > .fill-1\@md {
-    flex: 0 0 8.3333333333%;
+    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
   }
   .flex > .order-1\@md, .flex\@xs > .order-1\@md, .flex\@sm > .order-1\@md, .flex\@md > .order-1\@md, .flex\@lg > .order-1\@md, .flex\@xl > .order-1\@md, .flex\@2xl > .order-1\@md {
     order: 1;
   }
   .flex > .fill-2\@md, .flex\@xs > .fill-2\@md, .flex\@sm > .fill-2\@md, .flex\@md > .fill-2\@md, .flex\@lg > .fill-2\@md, .flex\@xl > .fill-2\@md, .flex\@2xl > .fill-2\@md {
-    flex: 0 0 16.6666666667%;
+    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
   }
   .flex > .order-2\@md, .flex\@xs > .order-2\@md, .flex\@sm > .order-2\@md, .flex\@md > .order-2\@md, .flex\@lg > .order-2\@md, .flex\@xl > .order-2\@md, .flex\@2xl > .order-2\@md {
     order: 2;
   }
   .flex > .fill-3\@md, .flex\@xs > .fill-3\@md, .flex\@sm > .fill-3\@md, .flex\@md > .fill-3\@md, .flex\@lg > .fill-3\@md, .flex\@xl > .fill-3\@md, .flex\@2xl > .fill-3\@md {
-    flex: 0 0 25%;
+    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
   }
   .flex > .order-3\@md, .flex\@xs > .order-3\@md, .flex\@sm > .order-3\@md, .flex\@md > .order-3\@md, .flex\@lg > .order-3\@md, .flex\@xl > .order-3\@md, .flex\@2xl > .order-3\@md {
     order: 3;
   }
   .flex > .fill-4\@md, .flex\@xs > .fill-4\@md, .flex\@sm > .fill-4\@md, .flex\@md > .fill-4\@md, .flex\@lg > .fill-4\@md, .flex\@xl > .fill-4\@md, .flex\@2xl > .fill-4\@md {
-    flex: 0 0 33.3333333333%;
+    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
   }
   .flex > .order-4\@md, .flex\@xs > .order-4\@md, .flex\@sm > .order-4\@md, .flex\@md > .order-4\@md, .flex\@lg > .order-4\@md, .flex\@xl > .order-4\@md, .flex\@2xl > .order-4\@md {
     order: 4;
   }
   .flex > .fill-5\@md, .flex\@xs > .fill-5\@md, .flex\@sm > .fill-5\@md, .flex\@md > .fill-5\@md, .flex\@lg > .fill-5\@md, .flex\@xl > .fill-5\@md, .flex\@2xl > .fill-5\@md {
-    flex: 0 0 41.6666666667%;
+    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
   }
   .flex > .order-5\@md, .flex\@xs > .order-5\@md, .flex\@sm > .order-5\@md, .flex\@md > .order-5\@md, .flex\@lg > .order-5\@md, .flex\@xl > .order-5\@md, .flex\@2xl > .order-5\@md {
     order: 5;
   }
   .flex > .fill-6\@md, .flex\@xs > .fill-6\@md, .flex\@sm > .fill-6\@md, .flex\@md > .fill-6\@md, .flex\@lg > .fill-6\@md, .flex\@xl > .fill-6\@md, .flex\@2xl > .fill-6\@md {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
   }
   .flex > .order-6\@md, .flex\@xs > .order-6\@md, .flex\@sm > .order-6\@md, .flex\@md > .order-6\@md, .flex\@lg > .order-6\@md, .flex\@xl > .order-6\@md, .flex\@2xl > .order-6\@md {
     order: 6;
   }
   .flex > .fill-7\@md, .flex\@xs > .fill-7\@md, .flex\@sm > .fill-7\@md, .flex\@md > .fill-7\@md, .flex\@lg > .fill-7\@md, .flex\@xl > .fill-7\@md, .flex\@2xl > .fill-7\@md {
-    flex: 0 0 58.3333333333%;
+    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
   }
   .flex > .order-7\@md, .flex\@xs > .order-7\@md, .flex\@sm > .order-7\@md, .flex\@md > .order-7\@md, .flex\@lg > .order-7\@md, .flex\@xl > .order-7\@md, .flex\@2xl > .order-7\@md {
     order: 7;
   }
   .flex > .fill-8\@md, .flex\@xs > .fill-8\@md, .flex\@sm > .fill-8\@md, .flex\@md > .fill-8\@md, .flex\@lg > .fill-8\@md, .flex\@xl > .fill-8\@md, .flex\@2xl > .fill-8\@md {
-    flex: 0 0 66.6666666667%;
+    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
   }
   .flex > .order-8\@md, .flex\@xs > .order-8\@md, .flex\@sm > .order-8\@md, .flex\@md > .order-8\@md, .flex\@lg > .order-8\@md, .flex\@xl > .order-8\@md, .flex\@2xl > .order-8\@md {
     order: 8;
   }
   .flex > .fill-9\@md, .flex\@xs > .fill-9\@md, .flex\@sm > .fill-9\@md, .flex\@md > .fill-9\@md, .flex\@lg > .fill-9\@md, .flex\@xl > .fill-9\@md, .flex\@2xl > .fill-9\@md {
-    flex: 0 0 75%;
+    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
   }
   .flex > .order-9\@md, .flex\@xs > .order-9\@md, .flex\@sm > .order-9\@md, .flex\@md > .order-9\@md, .flex\@lg > .order-9\@md, .flex\@xl > .order-9\@md, .flex\@2xl > .order-9\@md {
     order: 9;
   }
   .flex > .fill-10\@md, .flex\@xs > .fill-10\@md, .flex\@sm > .fill-10\@md, .flex\@md > .fill-10\@md, .flex\@lg > .fill-10\@md, .flex\@xl > .fill-10\@md, .flex\@2xl > .fill-10\@md {
-    flex: 0 0 83.3333333333%;
+    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
   }
   .flex > .order-10\@md, .flex\@xs > .order-10\@md, .flex\@sm > .order-10\@md, .flex\@md > .order-10\@md, .flex\@lg > .order-10\@md, .flex\@xl > .order-10\@md, .flex\@2xl > .order-10\@md {
     order: 10;
   }
   .flex > .fill-11\@md, .flex\@xs > .fill-11\@md, .flex\@sm > .fill-11\@md, .flex\@md > .fill-11\@md, .flex\@lg > .fill-11\@md, .flex\@xl > .fill-11\@md, .flex\@2xl > .fill-11\@md {
-    flex: 0 0 91.6666666667%;
+    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
   }
   .flex > .order-11\@md, .flex\@xs > .order-11\@md, .flex\@sm > .order-11\@md, .flex\@md > .order-11\@md, .flex\@lg > .order-11\@md, .flex\@xl > .order-11\@md, .flex\@2xl > .order-11\@md {
     order: 11;
   }
   .flex > .fill-12\@md, .flex\@xs > .fill-12\@md, .flex\@sm > .fill-12\@md, .flex\@md > .fill-12\@md, .flex\@lg > .fill-12\@md, .flex\@xl > .fill-12\@md, .flex\@2xl > .fill-12\@md {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
   }
   .flex > .order-12\@md, .flex\@xs > .order-12\@md, .flex\@sm > .order-12\@md, .flex\@md > .order-12\@md, .flex\@lg > .order-12\@md, .flex\@xl > .order-12\@md, .flex\@2xl > .order-12\@md {
     order: 12;
@@ -1525,73 +1389,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@lg, .flex\@xs > .fill-1\@lg, .flex\@sm > .fill-1\@lg, .flex\@md > .fill-1\@lg, .flex\@lg > .fill-1\@lg, .flex\@xl > .fill-1\@lg, .flex\@2xl > .fill-1\@lg {
-    flex: 0 0 8.3333333333%;
+    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
   }
   .flex > .order-1\@lg, .flex\@xs > .order-1\@lg, .flex\@sm > .order-1\@lg, .flex\@md > .order-1\@lg, .flex\@lg > .order-1\@lg, .flex\@xl > .order-1\@lg, .flex\@2xl > .order-1\@lg {
     order: 1;
   }
   .flex > .fill-2\@lg, .flex\@xs > .fill-2\@lg, .flex\@sm > .fill-2\@lg, .flex\@md > .fill-2\@lg, .flex\@lg > .fill-2\@lg, .flex\@xl > .fill-2\@lg, .flex\@2xl > .fill-2\@lg {
-    flex: 0 0 16.6666666667%;
+    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
   }
   .flex > .order-2\@lg, .flex\@xs > .order-2\@lg, .flex\@sm > .order-2\@lg, .flex\@md > .order-2\@lg, .flex\@lg > .order-2\@lg, .flex\@xl > .order-2\@lg, .flex\@2xl > .order-2\@lg {
     order: 2;
   }
   .flex > .fill-3\@lg, .flex\@xs > .fill-3\@lg, .flex\@sm > .fill-3\@lg, .flex\@md > .fill-3\@lg, .flex\@lg > .fill-3\@lg, .flex\@xl > .fill-3\@lg, .flex\@2xl > .fill-3\@lg {
-    flex: 0 0 25%;
+    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
   }
   .flex > .order-3\@lg, .flex\@xs > .order-3\@lg, .flex\@sm > .order-3\@lg, .flex\@md > .order-3\@lg, .flex\@lg > .order-3\@lg, .flex\@xl > .order-3\@lg, .flex\@2xl > .order-3\@lg {
     order: 3;
   }
   .flex > .fill-4\@lg, .flex\@xs > .fill-4\@lg, .flex\@sm > .fill-4\@lg, .flex\@md > .fill-4\@lg, .flex\@lg > .fill-4\@lg, .flex\@xl > .fill-4\@lg, .flex\@2xl > .fill-4\@lg {
-    flex: 0 0 33.3333333333%;
+    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
   }
   .flex > .order-4\@lg, .flex\@xs > .order-4\@lg, .flex\@sm > .order-4\@lg, .flex\@md > .order-4\@lg, .flex\@lg > .order-4\@lg, .flex\@xl > .order-4\@lg, .flex\@2xl > .order-4\@lg {
     order: 4;
   }
   .flex > .fill-5\@lg, .flex\@xs > .fill-5\@lg, .flex\@sm > .fill-5\@lg, .flex\@md > .fill-5\@lg, .flex\@lg > .fill-5\@lg, .flex\@xl > .fill-5\@lg, .flex\@2xl > .fill-5\@lg {
-    flex: 0 0 41.6666666667%;
+    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
   }
   .flex > .order-5\@lg, .flex\@xs > .order-5\@lg, .flex\@sm > .order-5\@lg, .flex\@md > .order-5\@lg, .flex\@lg > .order-5\@lg, .flex\@xl > .order-5\@lg, .flex\@2xl > .order-5\@lg {
     order: 5;
   }
   .flex > .fill-6\@lg, .flex\@xs > .fill-6\@lg, .flex\@sm > .fill-6\@lg, .flex\@md > .fill-6\@lg, .flex\@lg > .fill-6\@lg, .flex\@xl > .fill-6\@lg, .flex\@2xl > .fill-6\@lg {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
   }
   .flex > .order-6\@lg, .flex\@xs > .order-6\@lg, .flex\@sm > .order-6\@lg, .flex\@md > .order-6\@lg, .flex\@lg > .order-6\@lg, .flex\@xl > .order-6\@lg, .flex\@2xl > .order-6\@lg {
     order: 6;
   }
   .flex > .fill-7\@lg, .flex\@xs > .fill-7\@lg, .flex\@sm > .fill-7\@lg, .flex\@md > .fill-7\@lg, .flex\@lg > .fill-7\@lg, .flex\@xl > .fill-7\@lg, .flex\@2xl > .fill-7\@lg {
-    flex: 0 0 58.3333333333%;
+    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
   }
   .flex > .order-7\@lg, .flex\@xs > .order-7\@lg, .flex\@sm > .order-7\@lg, .flex\@md > .order-7\@lg, .flex\@lg > .order-7\@lg, .flex\@xl > .order-7\@lg, .flex\@2xl > .order-7\@lg {
     order: 7;
   }
   .flex > .fill-8\@lg, .flex\@xs > .fill-8\@lg, .flex\@sm > .fill-8\@lg, .flex\@md > .fill-8\@lg, .flex\@lg > .fill-8\@lg, .flex\@xl > .fill-8\@lg, .flex\@2xl > .fill-8\@lg {
-    flex: 0 0 66.6666666667%;
+    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
   }
   .flex > .order-8\@lg, .flex\@xs > .order-8\@lg, .flex\@sm > .order-8\@lg, .flex\@md > .order-8\@lg, .flex\@lg > .order-8\@lg, .flex\@xl > .order-8\@lg, .flex\@2xl > .order-8\@lg {
     order: 8;
   }
   .flex > .fill-9\@lg, .flex\@xs > .fill-9\@lg, .flex\@sm > .fill-9\@lg, .flex\@md > .fill-9\@lg, .flex\@lg > .fill-9\@lg, .flex\@xl > .fill-9\@lg, .flex\@2xl > .fill-9\@lg {
-    flex: 0 0 75%;
+    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
   }
   .flex > .order-9\@lg, .flex\@xs > .order-9\@lg, .flex\@sm > .order-9\@lg, .flex\@md > .order-9\@lg, .flex\@lg > .order-9\@lg, .flex\@xl > .order-9\@lg, .flex\@2xl > .order-9\@lg {
     order: 9;
   }
   .flex > .fill-10\@lg, .flex\@xs > .fill-10\@lg, .flex\@sm > .fill-10\@lg, .flex\@md > .fill-10\@lg, .flex\@lg > .fill-10\@lg, .flex\@xl > .fill-10\@lg, .flex\@2xl > .fill-10\@lg {
-    flex: 0 0 83.3333333333%;
+    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
   }
   .flex > .order-10\@lg, .flex\@xs > .order-10\@lg, .flex\@sm > .order-10\@lg, .flex\@md > .order-10\@lg, .flex\@lg > .order-10\@lg, .flex\@xl > .order-10\@lg, .flex\@2xl > .order-10\@lg {
     order: 10;
   }
   .flex > .fill-11\@lg, .flex\@xs > .fill-11\@lg, .flex\@sm > .fill-11\@lg, .flex\@md > .fill-11\@lg, .flex\@lg > .fill-11\@lg, .flex\@xl > .fill-11\@lg, .flex\@2xl > .fill-11\@lg {
-    flex: 0 0 91.6666666667%;
+    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
   }
   .flex > .order-11\@lg, .flex\@xs > .order-11\@lg, .flex\@sm > .order-11\@lg, .flex\@md > .order-11\@lg, .flex\@lg > .order-11\@lg, .flex\@xl > .order-11\@lg, .flex\@2xl > .order-11\@lg {
     order: 11;
   }
   .flex > .fill-12\@lg, .flex\@xs > .fill-12\@lg, .flex\@sm > .fill-12\@lg, .flex\@md > .fill-12\@lg, .flex\@lg > .fill-12\@lg, .flex\@xl > .fill-12\@lg, .flex\@2xl > .fill-12\@lg {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
   }
   .flex > .order-12\@lg, .flex\@xs > .order-12\@lg, .flex\@sm > .order-12\@lg, .flex\@md > .order-12\@lg, .flex\@lg > .order-12\@lg, .flex\@xl > .order-12\@lg, .flex\@2xl > .order-12\@lg {
     order: 12;
@@ -1729,73 +1593,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@xl, .flex\@xs > .fill-1\@xl, .flex\@sm > .fill-1\@xl, .flex\@md > .fill-1\@xl, .flex\@lg > .fill-1\@xl, .flex\@xl > .fill-1\@xl, .flex\@2xl > .fill-1\@xl {
-    flex: 0 0 8.3333333333%;
+    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
   }
   .flex > .order-1\@xl, .flex\@xs > .order-1\@xl, .flex\@sm > .order-1\@xl, .flex\@md > .order-1\@xl, .flex\@lg > .order-1\@xl, .flex\@xl > .order-1\@xl, .flex\@2xl > .order-1\@xl {
     order: 1;
   }
   .flex > .fill-2\@xl, .flex\@xs > .fill-2\@xl, .flex\@sm > .fill-2\@xl, .flex\@md > .fill-2\@xl, .flex\@lg > .fill-2\@xl, .flex\@xl > .fill-2\@xl, .flex\@2xl > .fill-2\@xl {
-    flex: 0 0 16.6666666667%;
+    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
   }
   .flex > .order-2\@xl, .flex\@xs > .order-2\@xl, .flex\@sm > .order-2\@xl, .flex\@md > .order-2\@xl, .flex\@lg > .order-2\@xl, .flex\@xl > .order-2\@xl, .flex\@2xl > .order-2\@xl {
     order: 2;
   }
   .flex > .fill-3\@xl, .flex\@xs > .fill-3\@xl, .flex\@sm > .fill-3\@xl, .flex\@md > .fill-3\@xl, .flex\@lg > .fill-3\@xl, .flex\@xl > .fill-3\@xl, .flex\@2xl > .fill-3\@xl {
-    flex: 0 0 25%;
+    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
   }
   .flex > .order-3\@xl, .flex\@xs > .order-3\@xl, .flex\@sm > .order-3\@xl, .flex\@md > .order-3\@xl, .flex\@lg > .order-3\@xl, .flex\@xl > .order-3\@xl, .flex\@2xl > .order-3\@xl {
     order: 3;
   }
   .flex > .fill-4\@xl, .flex\@xs > .fill-4\@xl, .flex\@sm > .fill-4\@xl, .flex\@md > .fill-4\@xl, .flex\@lg > .fill-4\@xl, .flex\@xl > .fill-4\@xl, .flex\@2xl > .fill-4\@xl {
-    flex: 0 0 33.3333333333%;
+    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
   }
   .flex > .order-4\@xl, .flex\@xs > .order-4\@xl, .flex\@sm > .order-4\@xl, .flex\@md > .order-4\@xl, .flex\@lg > .order-4\@xl, .flex\@xl > .order-4\@xl, .flex\@2xl > .order-4\@xl {
     order: 4;
   }
   .flex > .fill-5\@xl, .flex\@xs > .fill-5\@xl, .flex\@sm > .fill-5\@xl, .flex\@md > .fill-5\@xl, .flex\@lg > .fill-5\@xl, .flex\@xl > .fill-5\@xl, .flex\@2xl > .fill-5\@xl {
-    flex: 0 0 41.6666666667%;
+    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
   }
   .flex > .order-5\@xl, .flex\@xs > .order-5\@xl, .flex\@sm > .order-5\@xl, .flex\@md > .order-5\@xl, .flex\@lg > .order-5\@xl, .flex\@xl > .order-5\@xl, .flex\@2xl > .order-5\@xl {
     order: 5;
   }
   .flex > .fill-6\@xl, .flex\@xs > .fill-6\@xl, .flex\@sm > .fill-6\@xl, .flex\@md > .fill-6\@xl, .flex\@lg > .fill-6\@xl, .flex\@xl > .fill-6\@xl, .flex\@2xl > .fill-6\@xl {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
   }
   .flex > .order-6\@xl, .flex\@xs > .order-6\@xl, .flex\@sm > .order-6\@xl, .flex\@md > .order-6\@xl, .flex\@lg > .order-6\@xl, .flex\@xl > .order-6\@xl, .flex\@2xl > .order-6\@xl {
     order: 6;
   }
   .flex > .fill-7\@xl, .flex\@xs > .fill-7\@xl, .flex\@sm > .fill-7\@xl, .flex\@md > .fill-7\@xl, .flex\@lg > .fill-7\@xl, .flex\@xl > .fill-7\@xl, .flex\@2xl > .fill-7\@xl {
-    flex: 0 0 58.3333333333%;
+    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
   }
   .flex > .order-7\@xl, .flex\@xs > .order-7\@xl, .flex\@sm > .order-7\@xl, .flex\@md > .order-7\@xl, .flex\@lg > .order-7\@xl, .flex\@xl > .order-7\@xl, .flex\@2xl > .order-7\@xl {
     order: 7;
   }
   .flex > .fill-8\@xl, .flex\@xs > .fill-8\@xl, .flex\@sm > .fill-8\@xl, .flex\@md > .fill-8\@xl, .flex\@lg > .fill-8\@xl, .flex\@xl > .fill-8\@xl, .flex\@2xl > .fill-8\@xl {
-    flex: 0 0 66.6666666667%;
+    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
   }
   .flex > .order-8\@xl, .flex\@xs > .order-8\@xl, .flex\@sm > .order-8\@xl, .flex\@md > .order-8\@xl, .flex\@lg > .order-8\@xl, .flex\@xl > .order-8\@xl, .flex\@2xl > .order-8\@xl {
     order: 8;
   }
   .flex > .fill-9\@xl, .flex\@xs > .fill-9\@xl, .flex\@sm > .fill-9\@xl, .flex\@md > .fill-9\@xl, .flex\@lg > .fill-9\@xl, .flex\@xl > .fill-9\@xl, .flex\@2xl > .fill-9\@xl {
-    flex: 0 0 75%;
+    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
   }
   .flex > .order-9\@xl, .flex\@xs > .order-9\@xl, .flex\@sm > .order-9\@xl, .flex\@md > .order-9\@xl, .flex\@lg > .order-9\@xl, .flex\@xl > .order-9\@xl, .flex\@2xl > .order-9\@xl {
     order: 9;
   }
   .flex > .fill-10\@xl, .flex\@xs > .fill-10\@xl, .flex\@sm > .fill-10\@xl, .flex\@md > .fill-10\@xl, .flex\@lg > .fill-10\@xl, .flex\@xl > .fill-10\@xl, .flex\@2xl > .fill-10\@xl {
-    flex: 0 0 83.3333333333%;
+    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
   }
   .flex > .order-10\@xl, .flex\@xs > .order-10\@xl, .flex\@sm > .order-10\@xl, .flex\@md > .order-10\@xl, .flex\@lg > .order-10\@xl, .flex\@xl > .order-10\@xl, .flex\@2xl > .order-10\@xl {
     order: 10;
   }
   .flex > .fill-11\@xl, .flex\@xs > .fill-11\@xl, .flex\@sm > .fill-11\@xl, .flex\@md > .fill-11\@xl, .flex\@lg > .fill-11\@xl, .flex\@xl > .fill-11\@xl, .flex\@2xl > .fill-11\@xl {
-    flex: 0 0 91.6666666667%;
+    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
   }
   .flex > .order-11\@xl, .flex\@xs > .order-11\@xl, .flex\@sm > .order-11\@xl, .flex\@md > .order-11\@xl, .flex\@lg > .order-11\@xl, .flex\@xl > .order-11\@xl, .flex\@2xl > .order-11\@xl {
     order: 11;
   }
   .flex > .fill-12\@xl, .flex\@xs > .fill-12\@xl, .flex\@sm > .fill-12\@xl, .flex\@md > .fill-12\@xl, .flex\@lg > .fill-12\@xl, .flex\@xl > .fill-12\@xl, .flex\@2xl > .fill-12\@xl {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
   }
   .flex > .order-12\@xl, .flex\@xs > .order-12\@xl, .flex\@sm > .order-12\@xl, .flex\@md > .order-12\@xl, .flex\@lg > .order-12\@xl, .flex\@xl > .order-12\@xl, .flex\@2xl > .order-12\@xl {
     order: 12;
@@ -1933,73 +1797,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@2xl, .flex\@xs > .fill-1\@2xl, .flex\@sm > .fill-1\@2xl, .flex\@md > .fill-1\@2xl, .flex\@lg > .fill-1\@2xl, .flex\@xl > .fill-1\@2xl, .flex\@2xl > .fill-1\@2xl {
-    flex: 0 0 8.3333333333%;
+    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
   }
   .flex > .order-1\@2xl, .flex\@xs > .order-1\@2xl, .flex\@sm > .order-1\@2xl, .flex\@md > .order-1\@2xl, .flex\@lg > .order-1\@2xl, .flex\@xl > .order-1\@2xl, .flex\@2xl > .order-1\@2xl {
     order: 1;
   }
   .flex > .fill-2\@2xl, .flex\@xs > .fill-2\@2xl, .flex\@sm > .fill-2\@2xl, .flex\@md > .fill-2\@2xl, .flex\@lg > .fill-2\@2xl, .flex\@xl > .fill-2\@2xl, .flex\@2xl > .fill-2\@2xl {
-    flex: 0 0 16.6666666667%;
+    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
   }
   .flex > .order-2\@2xl, .flex\@xs > .order-2\@2xl, .flex\@sm > .order-2\@2xl, .flex\@md > .order-2\@2xl, .flex\@lg > .order-2\@2xl, .flex\@xl > .order-2\@2xl, .flex\@2xl > .order-2\@2xl {
     order: 2;
   }
   .flex > .fill-3\@2xl, .flex\@xs > .fill-3\@2xl, .flex\@sm > .fill-3\@2xl, .flex\@md > .fill-3\@2xl, .flex\@lg > .fill-3\@2xl, .flex\@xl > .fill-3\@2xl, .flex\@2xl > .fill-3\@2xl {
-    flex: 0 0 25%;
+    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
   }
   .flex > .order-3\@2xl, .flex\@xs > .order-3\@2xl, .flex\@sm > .order-3\@2xl, .flex\@md > .order-3\@2xl, .flex\@lg > .order-3\@2xl, .flex\@xl > .order-3\@2xl, .flex\@2xl > .order-3\@2xl {
     order: 3;
   }
   .flex > .fill-4\@2xl, .flex\@xs > .fill-4\@2xl, .flex\@sm > .fill-4\@2xl, .flex\@md > .fill-4\@2xl, .flex\@lg > .fill-4\@2xl, .flex\@xl > .fill-4\@2xl, .flex\@2xl > .fill-4\@2xl {
-    flex: 0 0 33.3333333333%;
+    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
   }
   .flex > .order-4\@2xl, .flex\@xs > .order-4\@2xl, .flex\@sm > .order-4\@2xl, .flex\@md > .order-4\@2xl, .flex\@lg > .order-4\@2xl, .flex\@xl > .order-4\@2xl, .flex\@2xl > .order-4\@2xl {
     order: 4;
   }
   .flex > .fill-5\@2xl, .flex\@xs > .fill-5\@2xl, .flex\@sm > .fill-5\@2xl, .flex\@md > .fill-5\@2xl, .flex\@lg > .fill-5\@2xl, .flex\@xl > .fill-5\@2xl, .flex\@2xl > .fill-5\@2xl {
-    flex: 0 0 41.6666666667%;
+    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
   }
   .flex > .order-5\@2xl, .flex\@xs > .order-5\@2xl, .flex\@sm > .order-5\@2xl, .flex\@md > .order-5\@2xl, .flex\@lg > .order-5\@2xl, .flex\@xl > .order-5\@2xl, .flex\@2xl > .order-5\@2xl {
     order: 5;
   }
   .flex > .fill-6\@2xl, .flex\@xs > .fill-6\@2xl, .flex\@sm > .fill-6\@2xl, .flex\@md > .fill-6\@2xl, .flex\@lg > .fill-6\@2xl, .flex\@xl > .fill-6\@2xl, .flex\@2xl > .fill-6\@2xl {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
   }
   .flex > .order-6\@2xl, .flex\@xs > .order-6\@2xl, .flex\@sm > .order-6\@2xl, .flex\@md > .order-6\@2xl, .flex\@lg > .order-6\@2xl, .flex\@xl > .order-6\@2xl, .flex\@2xl > .order-6\@2xl {
     order: 6;
   }
   .flex > .fill-7\@2xl, .flex\@xs > .fill-7\@2xl, .flex\@sm > .fill-7\@2xl, .flex\@md > .fill-7\@2xl, .flex\@lg > .fill-7\@2xl, .flex\@xl > .fill-7\@2xl, .flex\@2xl > .fill-7\@2xl {
-    flex: 0 0 58.3333333333%;
+    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
   }
   .flex > .order-7\@2xl, .flex\@xs > .order-7\@2xl, .flex\@sm > .order-7\@2xl, .flex\@md > .order-7\@2xl, .flex\@lg > .order-7\@2xl, .flex\@xl > .order-7\@2xl, .flex\@2xl > .order-7\@2xl {
     order: 7;
   }
   .flex > .fill-8\@2xl, .flex\@xs > .fill-8\@2xl, .flex\@sm > .fill-8\@2xl, .flex\@md > .fill-8\@2xl, .flex\@lg > .fill-8\@2xl, .flex\@xl > .fill-8\@2xl, .flex\@2xl > .fill-8\@2xl {
-    flex: 0 0 66.6666666667%;
+    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
   }
   .flex > .order-8\@2xl, .flex\@xs > .order-8\@2xl, .flex\@sm > .order-8\@2xl, .flex\@md > .order-8\@2xl, .flex\@lg > .order-8\@2xl, .flex\@xl > .order-8\@2xl, .flex\@2xl > .order-8\@2xl {
     order: 8;
   }
   .flex > .fill-9\@2xl, .flex\@xs > .fill-9\@2xl, .flex\@sm > .fill-9\@2xl, .flex\@md > .fill-9\@2xl, .flex\@lg > .fill-9\@2xl, .flex\@xl > .fill-9\@2xl, .flex\@2xl > .fill-9\@2xl {
-    flex: 0 0 75%;
+    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
   }
   .flex > .order-9\@2xl, .flex\@xs > .order-9\@2xl, .flex\@sm > .order-9\@2xl, .flex\@md > .order-9\@2xl, .flex\@lg > .order-9\@2xl, .flex\@xl > .order-9\@2xl, .flex\@2xl > .order-9\@2xl {
     order: 9;
   }
   .flex > .fill-10\@2xl, .flex\@xs > .fill-10\@2xl, .flex\@sm > .fill-10\@2xl, .flex\@md > .fill-10\@2xl, .flex\@lg > .fill-10\@2xl, .flex\@xl > .fill-10\@2xl, .flex\@2xl > .fill-10\@2xl {
-    flex: 0 0 83.3333333333%;
+    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
   }
   .flex > .order-10\@2xl, .flex\@xs > .order-10\@2xl, .flex\@sm > .order-10\@2xl, .flex\@md > .order-10\@2xl, .flex\@lg > .order-10\@2xl, .flex\@xl > .order-10\@2xl, .flex\@2xl > .order-10\@2xl {
     order: 10;
   }
   .flex > .fill-11\@2xl, .flex\@xs > .fill-11\@2xl, .flex\@sm > .fill-11\@2xl, .flex\@md > .fill-11\@2xl, .flex\@lg > .fill-11\@2xl, .flex\@xl > .fill-11\@2xl, .flex\@2xl > .fill-11\@2xl {
-    flex: 0 0 91.6666666667%;
+    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
   }
   .flex > .order-11\@2xl, .flex\@xs > .order-11\@2xl, .flex\@sm > .order-11\@2xl, .flex\@md > .order-11\@2xl, .flex\@lg > .order-11\@2xl, .flex\@xl > .order-11\@2xl, .flex\@2xl > .order-11\@2xl {
     order: 11;
   }
   .flex > .fill-12\@2xl, .flex\@xs > .fill-12\@2xl, .flex\@sm > .fill-12\@2xl, .flex\@md > .fill-12\@2xl, .flex\@lg > .fill-12\@2xl, .flex\@xl > .fill-12\@2xl, .flex\@2xl > .fill-12\@2xl {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
   }
   .flex > .order-12\@2xl, .flex\@xs > .order-12\@2xl, .flex\@sm > .order-12\@2xl, .flex\@md > .order-12\@2xl, .flex\@lg > .order-12\@2xl, .flex\@xl > .order-12\@2xl, .flex\@2xl > .order-12\@2xl {
     order: 12;
@@ -2009,35 +1873,6 @@ code {
     display: inline-flex;
   }
 }
-/**
- * @description Establishes a grid container.
- */
-/**
- * @description Establishes a inline-grid container.
- */
-/**
-* @description Establishes a grid container with a specified number of columns.
-* @param {number} $count - The number of columns.
-
-/// EXAMPLE USAGE
-.custom-grid {
-  display: grid;
-  @include cols-custom("1fr_auto_1fr");
-}
-
-*/
-/**
- * @description justify-items container.
- * @param {string} $value - The value for the justify-items property.
- */
-/**
- * @description Establishes a align-items container.
- * @param {string} $value - The value for the align-items property.
- */
-/**
- * @description Establishes a place-items container.
- * @param {string} $value - The value for the place-items property.
- */
 .grid, .grid\@xs, .grid\@sm, .grid\@md, .grid\@lg, .grid\@xl, .grid\@2xl {
   display: grid;
 }
@@ -3356,72 +3191,6 @@ code {
     place-items: stretch;
   }
 }
-/**
- * @component Opacity
- * @description Controls element transparency with customizable opacity values and interactive states
- *
- * @example
- * <!-- Basic opacity -->
- * <div class="opacity-50">This element has 50% opacity</div>
- * 
- * <!-- Responsive opacity -->
- * <div class="opacity-100 opacity-50@md">
- *   100% opacity by default, 50% on medium screens and up
- * </div>
- * 
- * <!-- Interactive states -->
- * <div class="opacity-50 hover:opacity-100">
- *   50% opacity, becomes fully visible on hover
- * </div>
- * 
- * <button class="opacity-70 focus:opacity-100">
- *   70% opacity, fully visible when focused
- * </button>
- * 
- * <div class="opacity-75 active:opacity-100">
- *   75% opacity, fully visible when clicked/active
- * </div>
- * 
- * <!-- Group hover effect -->
- * <div class="group">
- *   <h3>Parent element with "group" class</h3>
- *   <div class="opacity-0 group-hover:opacity-100">
- *     Hidden by default, visible when parent is hovered
- *   </div>
- * </div>
- * 
- * <!-- With transition -->
- * <div class="opacity-50 hover:opacity-100 transition-opacity">
- *   Smooth opacity transition on hover
- * </div>
- *
- * @classes
- * Base:
- * - opacity-{value}: Sets element opacity (0-100%)
- *   Values: 0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100
- * 
- * Interactive States:
- * - hover:opacity-{value}: Changes opacity on mouse hover
- * - focus:opacity-{value}: Changes opacity when element receives focus
- * - active:opacity-{value}: Changes opacity when element is active/pressed
- * - group-hover:opacity-{value}: Changes opacity when parent with .group class is hovered
- * 
- * Animation:
- * - transition-opacity: Adds smooth transition when opacity changes
- *
- * @responsive
- * All opacity classes support responsive variants using @breakpoint suffix:
- * - opacity-50@sm: 50% opacity on small screens and up
- * - hover:opacity-100@md: Full opacity on hover for medium screens and up
- * 
- * Available breakpoints: xs, sm, md, lg, xl, xxl
- *
- * @customization
- * Opacity values are defined in the $percentages variable
- * Transition timing can be customized via CSS variables
- *
- * @see transitions 
- */
 .opacity-0,
 .hover\:opacity-0:hover,
 .focus\:opacity-0:focus,
@@ -4334,16 +4103,6 @@ code {
     vertical-align: bottom;
   }
 }
-/**
- * Backdrop Filter Utilities
- *
- * Provides utility classes and mixins for backdrop-filter effects.
- * All utilities come with responsive variants.
- *
- * Usage:
- * <div class="backdrop-blur-md">Blurred backdrop</div>
- * <div class="backdrop-blur-lg@md">Blurred backdrop on medium screens and up</div>
- */
 .backdrop-layer {
   --backdrop-blur: blur(0);
   --backdrop-brightness: brightness(100%);
@@ -5568,10 +5327,6 @@ code {
     backdrop-filter: blur(20px) saturate(90%) brightness(90%);
   }
 }
-/**
- * @description Applies border radius to all corners
- * @param {String} $val - The border radius value
- */
 .border {
   border-width: 1px;
   border-style: solid;
@@ -5790,7 +5545,7 @@ code {
   border-radius: 1.25rem;
 }
 
-.rounded-circle {
+.rounded-full {
   border-radius: 50%;
 }
 
@@ -6014,39 +5769,39 @@ code {
   border-bottom-left-radius: 1.25rem;
 }
 
-.rounded-t-circle {
+.rounded-t-full {
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
 }
 
-.rounded-r-circle {
+.rounded-r-full {
   border-top-right-radius: 50%;
   border-bottom-right-radius: 50%;
 }
 
-.rounded-b-circle {
+.rounded-b-full {
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
 }
 
-.rounded-l-circle {
+.rounded-l-full {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
 }
 
-.rounded-tl-circle {
+.rounded-tl-full {
   border-top-left-radius: 50%;
 }
 
-.rounded-tr-circle {
+.rounded-tr-full {
   border-top-right-radius: 50%;
 }
 
-.rounded-br-circle {
+.rounded-br-full {
   border-bottom-right-radius: 50%;
 }
 
-.rounded-bl-circle {
+.rounded-bl-full {
   border-bottom-left-radius: 50%;
 }
 
@@ -6468,7 +6223,7 @@ code {
   .rounded-2xl\@xs {
     border-radius: 1.25rem;
   }
-  .rounded-circle\@xs {
+  .rounded-full\@xs {
     border-radius: 50%;
   }
   .rounded-none\@xs {
@@ -6538,7 +6293,7 @@ code {
   .rounded-2xl\@sm {
     border-radius: 1.25rem;
   }
-  .rounded-circle\@sm {
+  .rounded-full\@sm {
     border-radius: 50%;
   }
   .rounded-none\@sm {
@@ -6608,7 +6363,7 @@ code {
   .rounded-2xl\@md {
     border-radius: 1.25rem;
   }
-  .rounded-circle\@md {
+  .rounded-full\@md {
     border-radius: 50%;
   }
   .rounded-none\@md {
@@ -6678,7 +6433,7 @@ code {
   .rounded-2xl\@lg {
     border-radius: 1.25rem;
   }
-  .rounded-circle\@lg {
+  .rounded-full\@lg {
     border-radius: 50%;
   }
   .rounded-none\@lg {
@@ -6748,7 +6503,7 @@ code {
   .rounded-2xl\@xl {
     border-radius: 1.25rem;
   }
-  .rounded-circle\@xl {
+  .rounded-full\@xl {
     border-radius: 50%;
   }
   .rounded-none\@xl {
@@ -6818,7 +6573,7 @@ code {
   .rounded-2xl\@2xl {
     border-radius: 1.25rem;
   }
-  .rounded-circle\@2xl {
+  .rounded-full\@2xl {
     border-radius: 50%;
   }
   .rounded-none\@2xl {
@@ -6834,21 +6589,6 @@ code {
     border-radius: 9999px;
   }
 }
-/**
- * Container Query Mixins
- *
- * Usage:
- * .container {
- *   container-type: inline-size;
- *   container-name: sidebar;
- * }
- * 
- * .item {
- *   @include container-up('md', 'sidebar') {
- *     // Styles for 'md' and up within 'sidebar' container
- *   }
- * }
- */
 .container-inline-size {
   container-type: inline-size;
 }
@@ -7001,42 +6741,6 @@ code {
   cursor: all-scroll;
 }
 
-/**
- * Display Utilities
- *
- * Classes:
- * - .hide, .show: Control element visibility
- * - .block, .inline, .inline-block: Basic display modes
- * - .d-tbl, .d-tbl-row, .d-tbl-cell: Table display modes
- * - .overflow-hidden: Control overflow behavior
- *
- * All utilities support responsive variants with @breakpoint suffix:
- * - .hide@md, .block@lg, etc.
- */
-/**
- * @description Set display to none.
- */
-/**
- * @description Set display to block.
- */
-/**
- * @description Set display to inline.
- */
-/**
- * @description Set display to inline-block.
- */
-/**
- * @description Set display to initial original state.
- */
-/**
- * @description Set display to table.
- */
-/**
- * @description Set display to table-row.
- */
-/**
- * @description Set display to table-cell.
- */
 .hide {
   display: none;
 }
@@ -7531,19 +7235,6 @@ code {
     display: table-cell;
   }
 }
-/**
-* Generates a CSS shadow string from a given size.
-*
-* @param {String} $size - The shadow size.
-* @param {String} $color - The shadow color.
-* @return {String} - The CSS shadow string.
-*/
-/**
-* Generates a CSS shadow string from a given size.
-*
-* @param {String} $size - The shadow size.
-* @param {String} $color - The shadow color.
-*/
 .shadow-none {
   box-shadow: none !important;
 }
@@ -15123,7 +14814,7 @@ code {
 }
 
 [role~=tooltip][data-microtip-position|=top]::before {
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
   height: 6px;
   width: 18px;
   margin-bottom: 6px;
@@ -15161,7 +14852,7 @@ code {
 }
 
 [role~=tooltip][data-microtip-position|=bottom]::before {
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
   height: 6px;
   width: 18px;
   margin-top: 5px;
@@ -15208,7 +14899,7 @@ code {
   transform: translate3d(10px, -50%, 0);
 }
 [role~=tooltip][data-microtip-position=left]::before {
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
   height: 18px;
   width: 6px;
   margin-right: 5px;
@@ -15228,7 +14919,7 @@ code {
   transform: translate3d(-10px, -50%, 0);
 }
 [role~=tooltip][data-microtip-position=right]::before {
-  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
   height: 18px;
   width: 6px;
   margin-bottom: 0;
@@ -15256,15 +14947,6 @@ code {
   width: var(--tooltip-large-width);
 }
 
-/**
- * Transform Utilities
- * 
- * - Translate (X, Y, Z)
- * - Scale
- * - Rotate
- * - Skew
- * - Transform origin
- */
 .translate-x-0,
 .hover\:translate-x-0:hover,
 .group:hover .group-hover\:translate-x-0 {
@@ -20358,15 +20040,6 @@ code {
     transform-origin: top left;
   }
 }
-/**
- * Transition Utilities
- * 
- * - .transition: Default transition for common properties
- * - .transition-{property}: Transition specific properties
- * - .duration-{time}: Set transition duration
- * - .ease-{type}: Set transition timing function
- * - .delay-{time}: Set transition delay
- */
 .transition-none {
   transition-property: none;
 }
@@ -21029,26 +20702,6 @@ code {
     transition-delay: 1000ms;
   }
 }
-/**
- * Typography Utilities
- * 
- * Classes:
- * - Font Size: .text-xs, .text-sm, .text-base, etc.
- * - Font Weight: .font-thin, .font-normal, .font-bold, etc.
- * - Line Height: .leading-none, .leading-tight, .leading-normal, etc.
- * - Text Align: .text-left, .text-center, .text-right, .text-justify
- * - Text Transform: .uppercase, .lowercase, .capitalize, .normal-case
- * - Text Style: .italic, .not-italic
- * - Text Decoration: .underline, .line-through, .no-underline
- * - Text Overflow: .truncate
- * 
- * All utilities support responsive variants with @breakpoint suffix:
- * - .text-lg@md, .font-bold@lg, etc.
- */
-/**
-* Text size utility
-* @param {string} $size - The size of the text.
-*/
 .text-xs {
   font-size: 0.75rem;
 }
@@ -22488,24 +22141,6 @@ code {
     min-width: 0;
   }
 }
-/**
- * Z-Index Utilities
- * 
- * Classes:
- * - z-index values: .z-0, .z-10, .z-20, etc.
- * - Named z-index levels: .z-auto, .z-base, .z-dropdown, etc.
- * 
- * All utilities support responsive variants with @breakpoint suffix:
- * - .z-10@md, .z-dropdown@lg, etc.
- */
-/**
- * Apply a z-index value
- * @param {Number|String} $value - Z-index value or key
- */
-/**
- * Generate z-index utility classes
- * @param {String} $breakpoint - Optional breakpoint name for responsive variants
- */
 .z-auto {
   z-index: auto;
 }
@@ -23112,208 +22747,6 @@ code {
     z-index: 9999;
   }
 }
-/**
- * @component Spacing
- * @description Controls element margins, padding, gaps, and spacing between children
- *
- * @example
- * <!-- Padding -->
- * <div class="p-4">All sides padding</div>
- * <div class="px-4 py-2">Horizontal and vertical padding</div>
- * <div class="pt-2 pb-4">Top and bottom padding</div>
- * 
- * <!-- Margins -->
- * <div class="m-4">All sides margin</div>
- * <div class="mt-4">Top margin only</div>
- * <div class="mx-auto">Horizontally centered</div>
- * 
- * <!-- Gap (for flex/grid containers) -->
- * <div class="flex gap-4">
- *   <div>Item 1</div>
- *   <div>Item 2</div>
- * </div>
- * 
- * <!-- Responsive spacing -->
- * <div class="p-2 p-4@md p-6@lg">
- *   Padding increases at each breakpoint
- * </div>
- * 
- * <!-- Child spacing -->
- * <div class="space-y-4">
- *   <div>First child</div>
- *   <div>Second child (margin-top: 1rem)</div>
- *   <div>Third child (margin-top: 1rem)</div>
- * </div>
- *
- * @classes
- * Padding:
- * - p-{size}: Padding on all sides
- * - px-{size}: Horizontal padding (left and right)
- * - py-{size}: Vertical padding (top and bottom)
- * - pt-{size}, pr-{size}, pb-{size}, pl-{size}: Individual side padding
- * 
- * Margin:
- * - m-{size}: Margin on all sides
- * - mx-{size}: Horizontal margin (left and right)
- * - my-{size}: Vertical margin (top and bottom)
- * - mt-{size}, mr-{size}, mb-{size}, ml-{size}: Individual side margin
- * - mx-auto, ml-auto, mr-auto: Auto margin for alignment
- * 
- * Gap:
- * - gap-{size}: Gap between flex/grid children (all directions)
- * - gap-x-{size}: Horizontal gap between children (column-gap)
- * - gap-y-{size}: Vertical gap between children (row-gap)
- * 
- * Child Spacing:
- * - space-x-{size}: Horizontal space between children
- * - space-y-{size}: Vertical space between children
- *
- * @responsive
- * All spacing classes support responsive variants using @breakpoint suffix:
- * - p-4@md: 1rem padding on medium screens and up
- * - mt-8@lg: 2rem top margin on large screens
- * - gap-2@xl: 0.5rem gap on extra large screens
- *
- * @customization
- * Spacing values are defined in the $spacings map in variables.scss
- * Typically follows a scale where higher numbers mean more spacing
- *
- * @see flex, grid, display
- */
-/**
- * @mixin p
- * @description Sets padding on all sides
- * @param {Number|String} $val - Padding value
- */
-/**
-* @mixin px
-* @description Sets horizontal padding (left and right)
-* @param {Number|String} $val - Padding value
-*/
-/**
-* @mixin py
-* @description Sets vertical padding (top and bottom)
-* @param {Number|String} $val - Padding value
-*/
-/**
-* @mixin pt
-* @description Sets padding-top
-* @param {Number|String} $val - Padding value
-*/
-/**
-* @mixin pr
-* @description Sets padding-right
-* @param {Number|String} $val - Padding value
-*/
-/**
-* @mixin pb
-* @description Sets padding-bottom
-* @param {Number|String} $val - Padding value
-*/
-/**
-* @mixin pl
-* @description Sets padding-left
-* @param {Number|String} $val - Padding value
-*/
-/**
-* @mixin m
-* @description Sets margin on all sides
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin mx
-* @description Sets horizontal margin (left and right)
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin my
-* @description Sets vertical margin (top and bottom)
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin mt
-* @description Sets margin-top
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin mr
-* @description Sets margin-right 
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin mb
-* @description Sets margin-bottom
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin ml
-* @description Sets margin-left
-* @param {Number|String} $val - Margin value
-*/
-/**
-* @mixin ml-auto
-* @description Sets margin-left to auto
-*/
-/**
-* @mixin mr-auto
-* @description Sets margin-right to auto
-*/
-/**
-* @mixin mx-auto
-* @description Centers element horizontally using auto margins
-*/
-/**
- * @mixin inset
- * @description Sets all inset properties (top, right, bottom, left)
- * @param {Number|String} $val - Inset value
- */
-/**
- * @mixin inset-x
- * @description Sets horizontal inset properties (left and right)
- * @param {Number|String} $val - Inset value
- */
-/**
- * @mixin inset-y
- * @description Sets vertical inset properties (top and bottom)
- * @param {Number|String} $val - Inset value
- */
-/**
- * @mixin inset-auto
- * @description Sets all inset properties to auto
- */
-/**
- * @mixin inset-x-auto
- * @description Sets horizontal inset properties to auto
- */
-/**
- * @mixin inset-y-auto
- * @description Sets vertical inset properties to auto
- */
-/**
- * @mixin space-y
- * @description Adds vertical spacing between direct children
- * @param {Number|String} $i - Space amount
- */
-/**
-  * @mixin space-x
-  * @description Adds horizontal spacing between direct children
-  * @param {Number|String} $i - Space amount
-  */
-/**
- * @mixin gap
- * @description Sets gap between grid/flex children
- * @param {Number|String} $val - Gap value
- */
-/**
-  * @mixin gap-x
-  * @description Sets horizontal gap between grid/flex children
-  * @param {Number|String} $val - Gap value
-  */
-/**
-  * @mixin gap-y
-  * @description Sets vertical gap between grid/flex children
-  * @param {Number|String} $val - Gap value
-  */
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -23403,10 +22836,12 @@ code {
 
 .gap-0 {
   gap: 0px;
+  --flex-gap: 0px;
 }
 
 .gap-x-0 {
   column-gap: 0px;
+  --flex-gap: 0px;
 }
 
 .gap-y-0 {
@@ -23493,10 +22928,12 @@ code {
 
 .gap-1 {
   gap: 0.25rem;
+  --flex-gap: 0.25rem;
 }
 
 .gap-x-1 {
   column-gap: 0.25rem;
+  --flex-gap: 0.25rem;
 }
 
 .gap-y-1 {
@@ -23583,10 +23020,12 @@ code {
 
 .gap-2 {
   gap: 0.5rem;
+  --flex-gap: 0.5rem;
 }
 
 .gap-x-2 {
   column-gap: 0.5rem;
+  --flex-gap: 0.5rem;
 }
 
 .gap-y-2 {
@@ -23673,10 +23112,12 @@ code {
 
 .gap-3 {
   gap: 0.75rem;
+  --flex-gap: 0.75rem;
 }
 
 .gap-x-3 {
   column-gap: 0.75rem;
+  --flex-gap: 0.75rem;
 }
 
 .gap-y-3 {
@@ -23763,10 +23204,12 @@ code {
 
 .gap-4 {
   gap: 1rem;
+  --flex-gap: 1rem;
 }
 
 .gap-x-4 {
   column-gap: 1rem;
+  --flex-gap: 1rem;
 }
 
 .gap-y-4 {
@@ -23853,10 +23296,12 @@ code {
 
 .gap-5 {
   gap: 1.25rem;
+  --flex-gap: 1.25rem;
 }
 
 .gap-x-5 {
   column-gap: 1.25rem;
+  --flex-gap: 1.25rem;
 }
 
 .gap-y-5 {
@@ -23943,10 +23388,12 @@ code {
 
 .gap-6 {
   gap: 1.5rem;
+  --flex-gap: 1.5rem;
 }
 
 .gap-x-6 {
   column-gap: 1.5rem;
+  --flex-gap: 1.5rem;
 }
 
 .gap-y-6 {
@@ -24033,10 +23480,12 @@ code {
 
 .gap-8 {
   gap: 2rem;
+  --flex-gap: 2rem;
 }
 
 .gap-x-8 {
   column-gap: 2rem;
+  --flex-gap: 2rem;
 }
 
 .gap-y-8 {
@@ -24123,10 +23572,12 @@ code {
 
 .gap-10 {
   gap: 2.5rem;
+  --flex-gap: 2.5rem;
 }
 
 .gap-x-10 {
   column-gap: 2.5rem;
+  --flex-gap: 2.5rem;
 }
 
 .gap-y-10 {
@@ -24213,10 +23664,12 @@ code {
 
 .gap-12 {
   gap: 3rem;
+  --flex-gap: 3rem;
 }
 
 .gap-x-12 {
   column-gap: 3rem;
+  --flex-gap: 3rem;
 }
 
 .gap-y-12 {
@@ -24303,10 +23756,12 @@ code {
 
 .gap-16 {
   gap: 4rem;
+  --flex-gap: 4rem;
 }
 
 .gap-x-16 {
   column-gap: 4rem;
+  --flex-gap: 4rem;
 }
 
 .gap-y-16 {
@@ -24393,10 +23848,12 @@ code {
 
 .gap-20 {
   gap: 5rem;
+  --flex-gap: 5rem;
 }
 
 .gap-x-20 {
   column-gap: 5rem;
+  --flex-gap: 5rem;
 }
 
 .gap-y-20 {
@@ -24483,10 +23940,12 @@ code {
 
 .gap-24 {
   gap: 6rem;
+  --flex-gap: 6rem;
 }
 
 .gap-x-24 {
   column-gap: 6rem;
+  --flex-gap: 6rem;
 }
 
 .gap-y-24 {
@@ -24573,10 +24032,12 @@ code {
 
 .gap-32 {
   gap: 8rem;
+  --flex-gap: 8rem;
 }
 
 .gap-x-32 {
   column-gap: 8rem;
+  --flex-gap: 8rem;
 }
 
 .gap-y-32 {
@@ -24663,10 +24124,12 @@ code {
 
 .gap-40 {
   gap: 10rem;
+  --flex-gap: 10rem;
 }
 
 .gap-x-40 {
   column-gap: 10rem;
+  --flex-gap: 10rem;
 }
 
 .gap-y-40 {
@@ -24753,10 +24216,12 @@ code {
 
 .gap-48 {
   gap: 12rem;
+  --flex-gap: 12rem;
 }
 
 .gap-x-48 {
   column-gap: 12rem;
+  --flex-gap: 12rem;
 }
 
 .gap-y-48 {
@@ -24843,10 +24308,12 @@ code {
 
 .gap-56 {
   gap: 14rem;
+  --flex-gap: 14rem;
 }
 
 .gap-x-56 {
   column-gap: 14rem;
+  --flex-gap: 14rem;
 }
 
 .gap-y-56 {
@@ -24933,10 +24400,12 @@ code {
 
 .gap-64 {
   gap: 16rem;
+  --flex-gap: 16rem;
 }
 
 .gap-x-64 {
   column-gap: 16rem;
+  --flex-gap: 16rem;
 }
 
 .gap-y-64 {
@@ -32447,36 +31916,6 @@ code {
     bottom: 16rem;
   }
 }
-/**
- * @mixin animate-bounce
- * @description Creates a bouncing animation
- * @param {Map} $props - Animation properties
- */
-/**
- * @mixin animate-pulse
- * @description Creates a pulsing opacity animation
- * @param {Map} $props - Animation properties
- */
-/**
- * @mixin animate-spin
- * @description Creates a spinning animation
- * @param {Map} $props - Animation properties
- */
-/**
- * @mixin animate-ping
- * @description Creates a ping animation (scale + fade)
- * @param {Map} $props - Animation properties
- */
-/**
- * @mixin animate-fade
- * @description Creates fade in/out animation
- * @param {Map} $props - Animation properties
- */
-/**
- * @mixin animate-shake
- * @description Creates a shake animation
- * @param {Map} $props - Animation properties
- */
 .animate-pulse {
   animation: anim-pulse-50-100 1s ease-in-out infinite;
 }
@@ -32564,9 +32003,9 @@ code {
 }
 
 .animate-shake {
-  animation: anim-shake-5 0.5s ease-in-out 1;
+  animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
 }
-@keyframes anim-shake-5 {
+@keyframes anim-shake-strip-unit(5px) {
   0%, 100% {
     transform: translateX(0);
   }
@@ -32601,7 +32040,7 @@ code {
     animation: anim-fade-in-down 0.5s ease-in-out 1 forwards;
   }
   .animate-shake\@xs {
-    animation: anim-shake-5 0.5s ease-in-out 1;
+    animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
   }
 }
 @media (min-width: 640px) {
@@ -32627,7 +32066,7 @@ code {
     animation: anim-fade-in-down 0.5s ease-in-out 1 forwards;
   }
   .animate-shake\@sm {
-    animation: anim-shake-5 0.5s ease-in-out 1;
+    animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
   }
 }
 @media (min-width: 768px) {
@@ -32653,7 +32092,7 @@ code {
     animation: anim-fade-in-down 0.5s ease-in-out 1 forwards;
   }
   .animate-shake\@md {
-    animation: anim-shake-5 0.5s ease-in-out 1;
+    animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
   }
 }
 @media (min-width: 1024px) {
@@ -32679,7 +32118,7 @@ code {
     animation: anim-fade-in-down 0.5s ease-in-out 1 forwards;
   }
   .animate-shake\@lg {
-    animation: anim-shake-5 0.5s ease-in-out 1;
+    animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
   }
 }
 @media (min-width: 1280px) {
@@ -32705,7 +32144,7 @@ code {
     animation: anim-fade-in-down 0.5s ease-in-out 1 forwards;
   }
   .animate-shake\@xl {
-    animation: anim-shake-5 0.5s ease-in-out 1;
+    animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
   }
 }
 @media (min-width: 1536px) {
@@ -32731,7 +32170,7 @@ code {
     animation: anim-fade-in-down 0.5s ease-in-out 1 forwards;
   }
   .animate-shake\@2xl {
-    animation: anim-shake-5 0.5s ease-in-out 1;
+    animation: anim-shake-strip-unit(5px) 0.5s ease-in-out 1;
   }
 }
 .hover-ready {
@@ -32740,137 +32179,6 @@ code {
   transition-timing-function: ease-in-out;
 }
 
-/**
- * @component Position
- * @description Controls element positioning and placement within the document flow
- *
- * @example
- * <!-- Basic positioning -->
- * <div class="relative">
- *   <div class="absolute top-0 right-0">
- *     Positioned in top-right corner
- *   </div>
- * </div>
- * 
- * <!-- Sticky header -->
- * <header class="sticky top-0">
- *   This header sticks to the top when scrolling
- * </header>
- * 
- * <!-- Responsive positioning -->
- * <div class="relative@md">
- *   <div class="absolute@md top-2 left-2">
- *     Only positioned on medium screens and up
- *   </div>
- * </div>
- *
- * @classes
- * Position Types:
- * - static: Default position, follows document flow
- * - relative: Positioned relative to normal position
- * - absolute: Positioned relative to nearest positioned ancestor
- * - fixed: Positioned relative to viewport
- * - sticky: Positioned based on scroll position
- * 
- * Placement:
- * - top-{value}: Sets top position
- * - right-{value}: Sets right position
- * - bottom-{value}: Sets bottom position
- * - left-{value}: Sets left position
- * 
- * Common values: 0, 1, 2, 3, 4, 5, 10, etc. (based on spacing scale)
- *
- * @responsive
- * All position classes support responsive variants using @breakpoint suffix:
- * - relative@md: Relative positioning on medium screens and up
- * - top-0@lg: Zero top position on large screens
- *
- * @see z-index, transform
- */
-/**
- * @mixin static
- * @description Sets position to static (default document flow)
- * @example
- * .element {
- *   @include static;
- * }
- */
-/**
- * @mixin relative
- * @description Sets position to relative, creating a positioning context
- * @example
- * .container {
- *   @include relative;
- * }
- */
-/**
- * @mixin absolute
- * @description Sets position to absolute, removing from normal document flow
- * @example
- * .popup {
- *   @include absolute;
- *   top: 0;
- *   left: 0;
- * }
- */
-/**
- * @mixin absolute
- * @description Sets position to absolute, removing from normal document flow
- * @example
- * .popup {
- *   @include absolute;
- *   top: 0;
- *   left: 0;
- * }
- */
-/**
- * @mixin sticky
- * @description Creates a sticky element that remains in view during scrolling
- * @example
- * .nav {
- *   @include sticky;
- * }
- */
-/**
- * @mixin top
- * @description Sets the top position of an element
- * @param {Number|Length} $value - Position value (in px, rem, etc.)
- * @example
- * .toast {
- *   @include absolute;
- *   @include top(1rem);
- * }
- */
-/**
-  * @mixin right
-  * @description Sets the right position of an element
-  * @param {Number|Length} $value - Position value (in px, rem, etc.)
-  * @example
-  * .badge {
-  *   @include absolute;
-  *   @include right(0);
-  * }
-  */
-/**
-  * @mixin bottom
-  * @description Sets the bottom position of an element
-  * @param {Number|Length} $value - Position value (in px, rem, etc.)
-  * @example
-  * .footer {
-  *   @include fixed;
-  *   @include bottom(0);
-  * }
-  */
-/**
-  * @mixin left
-  * @description Sets the left position of an element
-  * @param {Number|Length} $value - Position value (in px, rem, etc.)
-  * @example
-  * .sidebar {
-  *   @include fixed;
-  *   @include left(0);
-  * }
-  */
 .static {
   position: static;
 }
