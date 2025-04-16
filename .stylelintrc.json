@@ -5,13 +5,13 @@
   ],
   "rules": {
     "at-rule-empty-line-before": [
-        "always",
-        {
-          "except": ["first-nested"],
-          "ignore": ["after-comment", "inside-block"],
-          "ignoreAtRules": ["mixin", "include", "use", "forward"]
-        }
-      ],
+      "always",
+      {
+        "except": ["first-nested"],
+        "ignore": ["after-comment", "inside-block"],
+        "ignoreAtRules": ["mixin", "include", "use", "forward", "else"]
+      }
+    ],
     "scss/dollar-variable-empty-line-before": null, 
     "no-empty-source": null,
     "selector-class-pattern": [
