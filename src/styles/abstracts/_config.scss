@@ -6,6 +6,8 @@
 $generate-utility-classes: true !default;
 $enable-dark-mode: true !default;
 
+$enable-debugger: false !default;
+
 // if just a number passed, it will be assumed as px
 $default-unit: px !default;
 
