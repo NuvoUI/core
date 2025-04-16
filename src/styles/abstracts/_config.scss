@@ -5,10 +5,6 @@
 // Framework Configuration Options
 $generate-utility-classes: true !default;
 $enable-dark-mode: true !default;
-$enable-rtl: true !default;
-$enable-debugger: false !default;
-$enable-reduced-motion: true !default; // todo: pending
-$enable-container-queries: false !default; // todo: pending
 
 // if just a number passed, it will be assumed as px
 $default-unit: px !default;
@@ -108,7 +104,6 @@ $basic-colors: (
     @error "Dark theme is missing required tokens.";
   }
 }
-
 
 @include validate-tokens;
 
