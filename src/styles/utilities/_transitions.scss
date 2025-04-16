@@ -1,15 +1,13 @@
 // _transitions.scss
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
-/**
- * Transition Utilities
- * 
- * - .transition: Default transition for common properties
- * - .transition-{property}: Transition specific properties
- * - .duration-{time}: Set transition duration
- * - .ease-{type}: Set transition timing function
- * - .delay-{time}: Set transition delay
- */
+// Transition Utilities
+// - .transition: Default transition for common properties
+// - .transition-{property}: Transition specific properties
+// - .duration-{time}: Set transition duration
+// - .ease-{type}: Set transition timing function
+// - .delay-{time}: Set transition delay
 
 // Property-specific transition mixins
 @mixin transition-none {
@@ -89,7 +87,7 @@ $delays: (
   "1000": 1000ms,
 );
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("transitions") {
   // Property-specific transitions
   #{VAR.$parent-selector} .transition-none {
     @include transition-none;

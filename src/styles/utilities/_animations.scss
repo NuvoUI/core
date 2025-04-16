@@ -2,7 +2,7 @@
 @use "sass:math";
 @use "sass:map";
 
-@use "../abstracts/functions" as *;
+@use "../abstracts/functions" as FN;
 @use "../abstracts/config" as VAR;
 
 $generated-keyframes: ();
@@ -17,11 +17,9 @@ $generated-keyframes: ();
   }
 }
 
-/**
- * @mixin animate-bounce
- * @description Creates a bouncing animation
- * @param {Map} $props - Animation properties
- */
+// @mixin animate-bounce
+// @description Creates a bouncing animation
+// @param {Map} $props - Animation properties
 @mixin animate-bounce($props: ()) {
   $defaults: (
     vertical: 0.5rem,
@@ -73,11 +71,9 @@ $generated-keyframes: ();
   transition-timing-function: ease-in-out;
 }
 
-/**
- * @mixin animate-pulse
- * @description Creates a pulsing opacity animation
- * @param {Map} $props - Animation properties
- */
+// @mixin animate-pulse
+// @description Creates a pulsing opacity animation
+// @param {Map} $props - Animation properties
 @mixin animate-pulse($props: ()) {
   $defaults: (
     min-opacity: 0.5,
@@ -111,11 +107,9 @@ $generated-keyframes: ();
   }
 }
 
-/**
- * @mixin animate-spin
- * @description Creates a spinning animation
- * @param {Map} $props - Animation properties
- */
+// @mixin animate-spin
+// @description Creates a spinning animation
+// @param {Map} $props - Animation properties
 @mixin animate-spin($props: ()) {
   $defaults: (
     direction: normal,
@@ -150,11 +144,9 @@ $generated-keyframes: ();
   }
 }
 
-/**
- * @mixin animate-ping
- * @description Creates a ping animation (scale + fade)
- * @param {Map} $props - Animation properties
- */
+// @mixin animate-ping
+// @description Creates a ping animation (scale + fade)
+// @param {Map} $props - Animation properties
 @mixin animate-ping($props: ()) {
   $defaults: (
     scale: 2,
@@ -183,11 +175,9 @@ $generated-keyframes: ();
   }
 }
 
-/**
- * @mixin animate-fade
- * @description Creates fade in/out animation
- * @param {Map} $props - Animation properties
- */
+// @mixin animate-fade
+// @description Creates fade in/out animation
+// @param {Map} $props - Animation properties
 @mixin animate-fade($props: ()) {
   $defaults: (
     type: in,
@@ -248,11 +238,9 @@ $generated-keyframes: ();
   }
 }
 
-/**
- * @mixin animate-shake
- * @description Creates a shake animation
- * @param {Map} $props - Animation properties
- */
+// @mixin animate-shake
+// @description Creates a shake animation
+// @param {Map} $props - Animation properties
 @mixin animate-shake($props: ()) {
   $defaults: (
     intensity: 5px,
@@ -296,7 +284,7 @@ $generated-keyframes: ();
   }
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("animations") {
   // Add to your existing animation utilities
 
   #{VAR.$parent-selector} .animate-pulse {

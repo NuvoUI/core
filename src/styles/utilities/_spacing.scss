@@ -4,138 +4,110 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-/**
- * @component Spacing
- * @description Controls element margins, padding, gaps, and spacing between children
- *
- * @example
- * <!-- Padding -->
- * <div class="p-4">All sides padding</div>
- * <div class="px-4 py-2">Horizontal and vertical padding</div>
- * <div class="pt-2 pb-4">Top and bottom padding</div>
- * 
- * <!-- Margins -->
- * <div class="m-4">All sides margin</div>
- * <div class="mt-4">Top margin only</div>
- * <div class="mx-auto">Horizontally centered</div>
- * 
- * <!-- Gap (for flex/grid containers) -->
- * <div class="flex gap-4">
- *   <div>Item 1</div>
- *   <div>Item 2</div>
- * </div>
- * 
- * <!-- Responsive spacing -->
- * <div class="p-2 p-4@md p-6@lg">
- *   Padding increases at each breakpoint
- * </div>
- * 
- * <!-- Child spacing -->
- * <div class="space-y-4">
- *   <div>First child</div>
- *   <div>Second child (margin-top: 1rem)</div>
- *   <div>Third child (margin-top: 1rem)</div>
- * </div>
- *
- * @classes
- * Padding:
- * - p-{size}: Padding on all sides
- * - px-{size}: Horizontal padding (left and right)
- * - py-{size}: Vertical padding (top and bottom)
- * - pt-{size}, pr-{size}, pb-{size}, pl-{size}: Individual side padding
- * 
- * Margin:
- * - m-{size}: Margin on all sides
- * - mx-{size}: Horizontal margin (left and right)
- * - my-{size}: Vertical margin (top and bottom)
- * - mt-{size}, mr-{size}, mb-{size}, ml-{size}: Individual side margin
- * - mx-auto, ml-auto, mr-auto: Auto margin for alignment
- * 
- * Gap:
- * - gap-{size}: Gap between flex/grid children (all directions)
- * - gap-x-{size}: Horizontal gap between children (column-gap)
- * - gap-y-{size}: Vertical gap between children (row-gap)
- * 
- * Child Spacing:
- * - space-x-{size}: Horizontal space between children
- * - space-y-{size}: Vertical space between children
- *
- * @responsive
- * All spacing classes support responsive variants using @breakpoint suffix:
- * - p-4@md: 1rem padding on medium screens and up
- * - mt-8@lg: 2rem top margin on large screens
- * - gap-2@xl: 0.5rem gap on extra large screens
- *
- * @customization
- * Spacing values are defined in the $spacings map in variables.scss
- * Typically follows a scale where higher numbers mean more spacing
- *
- * @see flex, grid, display
- */
+// @component Spacing
+// @description Controls element margins, padding, gaps, and spacing between children
+// @example
+// <!-- Padding -->
+// <div class="p-4">All sides padding</div>
+// <div class="px-4 py-2">Horizontal and vertical padding</div>
+// <div class="pt-2 pb-4">Top and bottom padding</div>
+// <!-- Margins -->
+// <div class="m-4">All sides margin</div>
+// <div class="mt-4">Top margin only</div>
+// <div class="mx-auto">Horizontally centered</div>
+// <!-- Gap (for flex/grid containers) -->
+// <div class="flex gap-4">
+//  <div>Item 1</div>
+//  <div>Item 2</div>
+// </div>
+// <!-- Responsive spacing -->
+// <div class="p-2 p-4@md p-6@lg">
+//  Padding increases at each breakpoint
+// </div>
+// <!-- Child spacing -->
+// <div class="space-y-4">
+//  <div>First child</div>
+//  <div>Second child (margin-top: 1rem)</div>
+//  <div>Third child (margin-top: 1rem)</div>
+// </div>
+// @classes
+// Padding:
+// - p-{size}: Padding on all sides
+// - px-{size}: Horizontal padding (left and right)
+// - py-{size}: Vertical padding (top and bottom)
+// - pt-{size}, pr-{size}, pb-{size}, pl-{size}: Individual side padding
+// Margin:
+// - m-{size}: Margin on all sides
+// - mx-{size}: Horizontal margin (left and right)
+// - my-{size}: Vertical margin (top and bottom)
+// - mt-{size}, mr-{size}, mb-{size}, ml-{size}: Individual side margin
+// - mx-auto, ml-auto, mr-auto: Auto margin for alignment
+// Gap:
+// - gap-{size}: Gap between flex/grid children (all directions)
+// - gap-x-{size}: Horizontal gap between children (column-gap)
+// - gap-y-{size}: Vertical gap between children (row-gap)
+// Child Spacing:
+// - space-x-{size}: Horizontal space between children
+// - space-y-{size}: Vertical space between children
+// @responsive
+// All spacing classes support responsive variants using @breakpoint suffix:
+// - p-4@md: 1rem padding on medium screens and up
+// - mt-8@lg: 2rem top margin on large screens
+// - gap-2@xl: 0.5rem gap on extra large screens
+// @customization
+// Spacing values are defined in the $spacings map in variables.scss
+// Typically follows a scale where higher numbers mean more spacing
+// @see flex, grid, display
 
 // -----------------------------------------------
 // PADDING MIXINS
 // -----------------------------------------------
 
-/**
- * @mixin p
- * @description Sets padding on all sides
- * @param {Number|String} $val - Padding value
- */
+// @mixin p
+// @description Sets padding on all sides
+// @param {Number|String} $val - Padding value
 @mixin p($val) {
   padding: FN.fix-units($val);
 }
 
-/**
-* @mixin px
-* @description Sets horizontal padding (left and right)
-* @param {Number|String} $val - Padding value
-*/
+// @mixin px
+// @description Sets horizontal padding (left and right)
+// @param {Number|String} $val - Padding value
 @mixin px($val) {
   padding-inline: FN.fix-units($val);
 }
 
-/**
-* @mixin py
-* @description Sets vertical padding (top and bottom)
-* @param {Number|String} $val - Padding value
-*/
+// @mixin py
+// @description Sets vertical padding (top and bottom)
+// @param {Number|String} $val - Padding value
 @mixin py($val) {
   padding-block: FN.fix-units($val);
 }
 
-/**
-* @mixin pt
-* @description Sets padding-top
-* @param {Number|String} $val - Padding value
-*/
+// @mixin pt
+// @description Sets padding-top
+// @param {Number|String} $val - Padding value
 @mixin pt($val) {
   padding-top: FN.fix-units($val);
 }
 
-/**
-* @mixin pr
-* @description Sets padding-right
-* @param {Number|String} $val - Padding value
-*/
+// @mixin pr
+// @description Sets padding-right
+// @param {Number|String} $val - Padding value
 @mixin pr($val) {
   padding-right: FN.fix-units($val);
 }
 
-/**
-* @mixin pb
-* @description Sets padding-bottom
-* @param {Number|String} $val - Padding value
-*/
+// @mixin pb
+// @description Sets padding-bottom
+// @param {Number|String} $val - Padding value
 @mixin pb($val) {
   padding-bottom: FN.fix-units($val);
 }
 
-/**
-* @mixin pl
-* @description Sets padding-left
-* @param {Number|String} $val - Padding value
-*/
+// @mixin pl
+// @description Sets padding-left
+// @param {Number|String} $val - Padding value
 @mixin pl($val) {
   padding-left: FN.fix-units($val);
 }
@@ -144,91 +116,71 @@
 // MARGIN MIXINS
 // -----------------------------------------------
 
-/**
-* @mixin m
-* @description Sets margin on all sides
-* @param {Number|String} $val - Margin value
-*/
+// @mixin m
+// @description Sets margin on all sides
+// @param {Number|String} $val - Margin value
 @mixin m($val) {
   margin: FN.fix-units($val);
 }
 
-/**
-* @mixin mx
-* @description Sets horizontal margin (left and right)
-* @param {Number|String} $val - Margin value
-*/
+// @mixin mx
+// @description Sets horizontal margin (left and right)
+// @param {Number|String} $val - Margin value
 @mixin mx($val) {
   margin-inline: FN.fix-units($val);
 }
 
-/**
-* @mixin my
-* @description Sets vertical margin (top and bottom)
-* @param {Number|String} $val - Margin value
-*/
+// @mixin my
+// @description Sets vertical margin (top and bottom)
+// @param {Number|String} $val - Margin value
 @mixin my($val) {
   $val: FN.fix-units($val);
 
   margin-block: FN.fix-units($val);
 }
 
-/**
-* @mixin mt
-* @description Sets margin-top
-* @param {Number|String} $val - Margin value
-*/
+// @mixin mt
+// @description Sets margin-top
+// @param {Number|String} $val - Margin value
 @mixin mt($val) {
   margin-top: FN.fix-units($val, VAR.$default-unit);
 }
 
-/**
-* @mixin mr
-* @description Sets margin-right 
-* @param {Number|String} $val - Margin value
-*/
+// @mixin mr
+// @description Sets margin-right
+// @param {Number|String} $val - Margin value
 @mixin mr($val) {
   margin-right: FN.fix-units($val);
 }
 
-/**
-* @mixin mb
-* @description Sets margin-bottom
-* @param {Number|String} $val - Margin value
-*/
+// @mixin mb
+// @description Sets margin-bottom
+// @param {Number|String} $val - Margin value
 @mixin mb($val) {
   margin-bottom: FN.fix-units($val);
 }
 
-/**
-* @mixin ml
-* @description Sets margin-left
-* @param {Number|String} $val - Margin value
-*/
+// @mixin ml
+// @description Sets margin-left
+// @param {Number|String} $val - Margin value
 @mixin ml($val) {
   margin-left: FN.fix-units($val);
 }
 
-/**
-* @mixin ml-auto
-* @description Sets margin-left to auto
-*/
+// @mixin ml-auto
+// @description Sets margin-left to auto
 @mixin ml-auto {
   margin-left: auto;
 }
 
-/**
-* @mixin mr-auto
-* @description Sets margin-right to auto
-*/
+// @mixin mr-auto
+// @description Sets margin-right to auto
 @mixin mr-auto {
   margin-right: auto;
 }
 
-/**
-* @mixin mx-auto
-* @description Centers element horizontally using auto margins
-*/
+// @mixin mx-auto
+// @description Centers element horizontally using auto margins
 @mixin mx-auto {
   @include ml-auto;
   @include mr-auto;
@@ -238,22 +190,18 @@
 // INSET MIXINS
 // -----------------------------------------------
 
-/**
- * @mixin inset
- * @description Sets all inset properties (top, right, bottom, left)
- * @param {Number|String} $val - Inset value
- */
+// @mixin inset
+// @description Sets all inset properties (top, right, bottom, left)
+// @param {Number|String} $val - Inset value
 @mixin inset($val) {
   $val: FN.fix-units($val);
 
   inset: FN.fix-units($val);
 }
 
-/**
- * @mixin inset-x
- * @description Sets horizontal inset properties (left and right)
- * @param {Number|String} $val - Inset value
- */
+// @mixin inset-x
+// @description Sets horizontal inset properties (left and right)
+// @param {Number|String} $val - Inset value
 @mixin inset-x($val) {
   $val: FN.fix-units($val);
 
@@ -261,11 +209,9 @@
   right: $val;
 }
 
-/**
- * @mixin inset-y
- * @description Sets vertical inset properties (top and bottom)
- * @param {Number|String} $val - Inset value
- */
+// @mixin inset-y
+// @description Sets vertical inset properties (top and bottom)
+// @param {Number|String} $val - Inset value
 @mixin inset-y($val) {
   $val: FN.fix-units($val);
 
@@ -273,27 +219,21 @@
   bottom: $val;
 }
 
-/**
- * @mixin inset-auto
- * @description Sets all inset properties to auto
- */
+// @mixin inset-auto
+// @description Sets all inset properties to auto
 @mixin inset-auto {
   inset: auto;
 }
 
-/**
- * @mixin inset-x-auto
- * @description Sets horizontal inset properties to auto
- */
+// @mixin inset-x-auto
+// @description Sets horizontal inset properties to auto
 @mixin inset-x-auto {
   left: auto;
   right: auto;
 }
 
-/**
- * @mixin inset-y-auto
- * @description Sets vertical inset properties to auto
- */
+// @mixin inset-y-auto
+// @description Sets vertical inset properties to auto
 @mixin inset-y-auto {
   top: auto;
   bottom: auto;
@@ -303,22 +243,18 @@
 // SPACING MIXINS
 // -----------------------------------------------
 
-/**
- * @mixin space-y
- * @description Adds vertical spacing between direct children
- * @param {Number|String} $i - Space amount
- */
+// @mixin space-y
+// @description Adds vertical spacing between direct children
+// @param {Number|String} $i - Space amount
 @mixin space-y($i) {
   & > * + * {
     margin-top: FN.fix-units($i);
   }
 }
 
-/**
-  * @mixin space-x
-  * @description Adds horizontal spacing between direct children
-  * @param {Number|String} $i - Space amount
-  */
+// @mixin space-x
+// @description Adds horizontal spacing between direct children
+// @param {Number|String} $i - Space amount
 @mixin space-x($i) {
   & > * + * {
     margin-left: FN.fix-units($i);
@@ -329,34 +265,36 @@
 // GAP MIXINS
 // -----------------------------------------------
 
-/**
- * @mixin gap
- * @description Sets gap between grid/flex children
- * @param {Number|String} $val - Gap value
- */
+// @mixin gap
+// @description Sets gap between grid/flex children
+// @param {Number|String} $val - Gap value
 @mixin gap($val) {
-  gap: FN.fix-units($val);
+  $val: FN.fix-units($val);
+
+  gap: $val;
+  
+  --flex-gap: #{$val};
 }
 
-/**
-  * @mixin gap-x
-  * @description Sets horizontal gap between grid/flex children
-  * @param {Number|String} $val - Gap value
-  */
+// @mixin gap-x
+// @description Sets horizontal gap between grid/flex children
+// @param {Number|String} $val - Gap value
 @mixin gap-x($val) {
-  column-gap: FN.fix-units($val);
+  $val: FN.fix-units($val);
+
+  column-gap: $val;
+  
+  --flex-gap: #{$val};
 }
 
-/**
-  * @mixin gap-y
-  * @description Sets vertical gap between grid/flex children
-  * @param {Number|String} $val - Gap value
-  */
+// @mixin gap-y
+// @description Sets vertical gap between grid/flex children
+// @param {Number|String} $val - Gap value
 @mixin gap-y($val) {
   row-gap: FN.fix-units($val);
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("spacing") {
   // -----------------------------------------------
   // AUTO MARGIN UTILITY CLASSES
   // -----------------------------------------------

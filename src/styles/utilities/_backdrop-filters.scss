@@ -3,16 +3,12 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-/**
- * Backdrop Filter Utilities
- *
- * Provides utility classes and mixins for backdrop-filter effects.
- * All utilities come with responsive variants.
- *
- * Usage:
- * <div class="backdrop-blur-md">Blurred backdrop</div>
- * <div class="backdrop-blur-lg@md">Blurred backdrop on medium screens and up</div>
- */
+// Backdrop Filter Utilities
+// Provides utility classes and mixins for backdrop-filter effects.
+// All utilities come with responsive variants.
+// Usage:
+// <div class="backdrop-blur-md">Blurred backdrop</div>
+// <div class="backdrop-blur-lg@md">Blurred backdrop on medium screens and up</div>
 
 // Blur values
 $backdrop-blur-values: (
@@ -305,7 +301,7 @@ $backdrop-filter-presets: (
   }
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("backdrops") {
   // Generate base utilities
   @include generate-backdrop-filter-utilities;
 

@@ -1,2 +1,1 @@
-docs/
-vite.config.docs.mjs
+src/styles/build.scss

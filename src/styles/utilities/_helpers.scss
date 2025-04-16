@@ -5,6 +5,7 @@
 @use "sass:meta";
 
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
 @if VAR.$enable-debugger {
   .NuvoUI-Debugger-Wrapper {

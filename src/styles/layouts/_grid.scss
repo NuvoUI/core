@@ -6,16 +6,12 @@
 @use "../abstracts/functions" as FN;
 @use "../abstracts/config" as VAR;
 
-/**
- * @description Establishes a grid container.
- */
+// @description Establishes a grid container.
 @mixin grid {
   display: grid;
 }
 
-/**
- * @description Establishes a inline-grid container.
- */
+// @description Establishes a inline-grid container.
 @mixin grid-inline {
   display: inline-grid;
 }
@@ -28,17 +24,14 @@
   grid-template-rows: repeat($count, minmax(0, 1fr));
 }
 
-/**
-* @description Establishes a grid container with a specified number of columns.
-* @param {number} $count - The number of columns.
+// @description Establishes a grid container with a specified number of columns.
+// @param {number} $count - The number of columns.
 
-/// EXAMPLE USAGE
-.custom-grid {
-  display: grid;
-  @include cols-custom("1fr_auto_1fr");
-}
-
-*/
+// /EXAMPLE USAGE
+// .custom-grid {
+//  display: grid;
+//  @include cols-custom("1fr_auto_1fr");
+// }
 
 @mixin cols-custom($template) {
   // Convert underscores to spaces so "1fr_auto" becomes "1fr auto"
@@ -76,26 +69,20 @@ $alignments: (
   "stretch": stretch,
 );
 
-/**
- * @description justify-items container.
- * @param {string} $value - The value for the justify-items property.
- */
+// @description justify-items container.
+// @param {string} $value - The value for the justify-items property.
 @mixin justify($value) {
   justify-items: $value;
 }
 
-/**
- * @description Establishes a align-items container.
- * @param {string} $value - The value for the align-items property.
- */
+// @description Establishes a align-items container.
+// @param {string} $value - The value for the align-items property.
 @mixin align($value) {
   align-items: $value;
 }
 
-/**
- * @description Establishes a place-items container.
- * @param {string} $value - The value for the place-items property.
- */
+// @description Establishes a place-items container.
+// @param {string} $value - The value for the place-items property.
 @mixin place($value) {
   place-items: $value;
 }
@@ -131,7 +118,7 @@ $alignments: (
   grid-row: $row;
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("grid") {
   // Build the flat selector list manually with proper escaping
   $base-grid-selector: #{VAR.$parent-selector} + " .grid";
   $all-grid-selectors: $base-grid-selector;

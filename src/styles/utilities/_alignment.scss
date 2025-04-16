@@ -1,4 +1,5 @@
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
 @mixin align-baseline {
   vertical-align: baseline;
@@ -13,7 +14,7 @@
   vertical-align: bottom;
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("alignments") {
   #{VAR.$parent-selector} .align-baseline {
     @include align-baseline;
   }

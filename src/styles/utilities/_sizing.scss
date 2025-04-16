@@ -94,7 +94,7 @@
   height: 100dvh;
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("sizing") {
   #{VAR.$parent-selector} .w-screen {
     @include w-screen;
   }

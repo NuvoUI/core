@@ -6,17 +6,14 @@
 
 // Import variables
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
-/**
- * Z-Index Utilities
- * 
- * Classes:
- * - z-index values: .z-0, .z-10, .z-20, etc.
- * - Named z-index levels: .z-auto, .z-base, .z-dropdown, etc.
- * 
- * All utilities support responsive variants with @breakpoint suffix:
- * - .z-10@md, .z-dropdown@lg, etc.
- */
+// Z-Index Utilities
+// Classes:
+// - z-index values: .z-0, .z-10, .z-20, etc.
+// - Named z-index levels: .z-auto, .z-base, .z-dropdown, etc.
+// All utilities support responsive variants with @breakpoint suffix:
+// - .z-10@md, .z-dropdown@lg, etc.
 
 // Z-index values map (can be moved to variables)
 $z-indexes: (
@@ -53,10 +50,8 @@ $z-index-levels: (
   "max": 9999,
 );
 
-/**
- * Apply a z-index value
- * @param {Number|String} $value - Z-index value or key
- */
+// Apply a z-index value
+// @param {Number|String} $value - Z-index value or key
 @mixin z-index($value) {
   @if map.has-key($z-indexes, $value) {
     z-index: map.get($z-indexes, $value);
@@ -67,10 +62,8 @@ $z-index-levels: (
   }
 }
 
-/**
- * Generate z-index utility classes
- * @param {String} $breakpoint - Optional breakpoint name for responsive variants
- */
+// Generate z-index utility classes
+// @param {String} $breakpoint - Optional breakpoint name for responsive variants
 @mixin z-index-utilities($breakpoint: null) {
   $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
 
@@ -131,7 +124,7 @@ $z-index-levels: (
 }
 
 // Generate utility classes
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("z-index") {
   // Generate base utilities
   @include z-index-utilities;
 

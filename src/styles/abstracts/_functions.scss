@@ -41,11 +41,9 @@
   }
 }
 
-/**
- * Ensures a value has a unit, adding $default-unit if none exists
- * @param {Number|String} $val - The value to check
- * @return {String} - The value with units
- */
+// Ensures a value has a unit, adding $default-unit if none exists
+// @param {Number|String} $val - The value to check
+// @return {String} - The value with units
 @function fix-units($val, $unit: $default-unit, $debug: null) {
   @if meta.type-of($val) != number and meta.type-of($val) != string {
     @error "fix-units() requires a number or string value";
@@ -111,4 +109,17 @@
   }
 
   @return list.append($result, str-trim($string));
+}
+
+// Helper function to check if a feature is enabled
+@function feature-enabled($feature) {
+  @if not $generate-utility-classes {
+    @return false;
+  }
+
+  @if not map.has-key($feature-flags, $feature) {
+    @return true; // Default to enabled if not specified
+  }
+
+  @return map.get($feature-flags, $feature);
 }

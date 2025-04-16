@@ -8,11 +8,9 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-/**
- * @description Media query mixins.
- * @param {string|number} $breakpoint - The breakpoint value.
- * @param {string} $type - The media query type (e.g. 'lg', 'md').
- */
+// @description Media query mixins.
+// @param {string|number} $breakpoint - The breakpoint value.
+// @param {string} $type - The media query type (e.g. 'lg', 'md').
 @mixin media-up($breakpoint, $debug: null) {
   $blueprint-value: FN.fix-units(FN.get-breakpoint-value($breakpoint, $debug));
   $val: $blueprint-value - 0.01;

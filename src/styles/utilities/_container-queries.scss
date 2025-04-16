@@ -3,23 +3,19 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-/**
- * Container Query Mixins
- *
- * Usage:
- * .container {
- *   container-type: inline-size;
- *   container-name: sidebar;
- * }
- * 
- * .item {
- *   @include container-up('md', 'sidebar') {
- *     // Styles for 'md' and up within 'sidebar' container
- *   }
- * }
- */
+// Container Query Mixins
+// Usage:
+// .container {
+//   container-type: inline-size;
+//   container-name: sidebar;
+// }
+// .item {
+//   @include container-up('md', 'sidebar') {
+//     // Styles for 'md' and up within 'sidebar' container
+//   }
+// }
 
-/// Container Query: Up
+// /Container Query: Up
 @mixin container-up($breakpoint, $containerName: null) {
   $bp-val: FN.get-breakpoint-value($breakpoint);
   @container #{$containerName} (min-width: #{$bp-val}) {
@@ -27,7 +23,7 @@
   }
 }
 
-/// Container Query: Down
+// /Container Query: Down
 @mixin container-down($breakpoint, $containerName: null) {
   $bp-val: FN.get-breakpoint-value($breakpoint);
   @container #{$containerName} (max-width: (#{ $bp-val } - 0.02px)) {
@@ -35,7 +31,7 @@
   }
 }
 
-/// Container Query: Between
+// /Container Query: Between
 @mixin container-between($lower, $upper, $containerName: null) {
   $min: FN.get-breakpoint-value($lower);
   $max: FN.get-breakpoint-value($upper);
@@ -44,7 +40,7 @@
   }
 }
 
-/// Container Query: Only
+// /Container Query: Only
 @mixin container-only($breakpoint, $containerName: null) {
   $min: FN.get-breakpoint-value($breakpoint);
   $next-breakpoint: null;
@@ -66,7 +62,7 @@
   }
 }
 
-/// Container Query: Query by Size
+// /Container Query: Query by Size
 @mixin container-query($size, $containerName: null) {
   @container #{$containerName} (min-width: $size) {
     @content;
@@ -81,7 +77,7 @@
   container-name: $name;
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("container-queries") {
   // Utility classes
   #{VAR.$parent-selector} .container-inline-size {
     container-type: inline-size;

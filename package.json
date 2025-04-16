@@ -36,7 +36,7 @@
     "lint": "stylelint \"src/**/*.scss\"",
     "format": "prettier --write \"src/**/*.{scss,js,json}\"",
     "clean": "node -e \"const fs=require('fs');if(fs.existsSync('dist')) fs.rmSync('dist',{recursive:true})\"",
-    "build:scss": "sass src/styles/index.scss:dist/nuvoui.css --style expanded",
+    "build:scss": "sass src/styles/build.scss:dist/nuvoui.css --style expanded",
     "build:minify": "postcss dist/nuvoui.css -o dist/nuvoui.min.css --use cssnano --map",
     "prebuild": "npm run clean",
     "build": "npm run build:scss && npm run build:minify",

@@ -88,10 +88,8 @@ $border-styles: (solid, dashed, dotted, double, none);
   }
 }
 
-/**
- * @description Applies border radius to all corners
- * @param {String} $val - The border radius value
- */
+// @description Applies border radius to all corners
+// @param {String} $val - The border radius value
 @mixin rounded($val: null) {
   border-radius: get-rounded-value($val);
 }
@@ -167,7 +165,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("borders") {
   // Basic border classes (all sides)
   .border {
     @include border(1);

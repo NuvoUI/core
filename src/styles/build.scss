@@ -1,0 +1,3 @@
+@use "./index.scss" as NuvoUI with (
+  $generate-utility-classes: true
+);

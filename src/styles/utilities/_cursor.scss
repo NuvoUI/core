@@ -1,10 +1,11 @@
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
 @mixin cursor($cursor-value) {
   cursor: #{$cursor-value};
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("cursors") {
   $cursor-values: ("auto", "pointer", "default", "move", "not-allowed", "wait", "help", "text", "cell", "crosshair", "grabbing", "grab", "zoom-in", "zoom-out", "none", "progress", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "context-menu", "all-scroll");
 
   // Generate classes for each cursor value

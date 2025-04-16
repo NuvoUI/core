@@ -1,176 +1,148 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-/**
- * @component Position
- * @description Controls element positioning and placement within the document flow
- *
- * @example
- * <!-- Basic positioning -->
- * <div class="relative">
- *   <div class="absolute top-0 right-0">
- *     Positioned in top-right corner
- *   </div>
- * </div>
- * 
- * <!-- Sticky header -->
- * <header class="sticky top-0">
- *   This header sticks to the top when scrolling
- * </header>
- * 
- * <!-- Responsive positioning -->
- * <div class="relative@md">
- *   <div class="absolute@md top-2 left-2">
- *     Only positioned on medium screens and up
- *   </div>
- * </div>
- *
- * @classes
- * Position Types:
- * - static: Default position, follows document flow
- * - relative: Positioned relative to normal position
- * - absolute: Positioned relative to nearest positioned ancestor
- * - fixed: Positioned relative to viewport
- * - sticky: Positioned based on scroll position
- * 
- * Placement:
- * - top-{value}: Sets top position
- * - right-{value}: Sets right position
- * - bottom-{value}: Sets bottom position
- * - left-{value}: Sets left position
- * 
- * Common values: 0, 1, 2, 3, 4, 5, 10, etc. (based on spacing scale)
- *
- * @responsive
- * All position classes support responsive variants using @breakpoint suffix:
- * - relative@md: Relative positioning on medium screens and up
- * - top-0@lg: Zero top position on large screens
- *
- * @see z-index, transform
- */
+// @component Position
+// @description Controls element positioning and placement within the document flow
+// @example
+// <!-- Basic positioning -->
+// <div class="relative">
+//   <div class="absolute top-0 right-0">
+//     Positioned in top-right corner
+//   </div>
+// </div>
+// <!-- Sticky header -->
+// <header class="sticky top-0">
+//   This header sticks to the top when scrolling
+// </header>
+// <!-- Responsive positioning -->
+// <div class="relative@md">
+//   <div class="absolute@md top-2 left-2">
+//     Only positioned on medium screens and up
+//   </div>
+// </div>
+//  @classes
+// Position Types:
+//  - static: Default position, follows document flow
+//  - relative: Positioned relative to normal position
+//  - absolute: Positioned relative to nearest positioned ancestor
+//  - fixed: Positioned relative to viewport
+//  - sticky: Positioned based on scroll position
+// Placement:
+//  - top-{value}: Sets top position
+//  - right-{value}: Sets right position
+//  - bottom-{value}: Sets bottom position
+//  - left-{value}: Sets left position
+// Common values: 0, 1, 2, 3, 4, 5, 10, etc. (based on spacing scale)
+//  @responsive
+// All position classes support responsive variants using @breakpoint suffix:
+//  - relative@md: Relative positioning on medium screens and up
+//  - top-0@lg: Zero top position on large screens
+//  @see z-index, transform
 
 // -----------------------------------------------
 // MIXINS
 // -----------------------------------------------
 
-/**
- * @mixin static
- * @description Sets position to static (default document flow)
- * @example
- * .element {
- *   @include static;
- * }
- */
+// @mixin static
+// @description Sets position to static (default document flow)
+// @example
+// .element {
+//   @include static;
+// }
 @mixin static {
   position: static;
 }
 
-/**
- * @mixin relative
- * @description Sets position to relative, creating a positioning context
- * @example
- * .container {
- *   @include relative;
- * }
- */
+// @mixin relative
+// @description Sets position to relative, creating a positioning context
+// @example
+// .container {
+//   @include relative;
+// }
 @mixin relative {
   position: relative;
 }
 
-/**
- * @mixin absolute
- * @description Sets position to absolute, removing from normal document flow
- * @example
- * .popup {
- *   @include absolute;
- *   top: 0;
- *   left: 0;
- * }
- */
+// @mixin absolute
+// @description Sets position to absolute, removing from normal document flow
+// @example
+// .popup {
+//   @include absolute;
+//   top: 0;
+//   left: 0;
+// }
 @mixin absolute {
   position: absolute;
 }
 
-/**
- * @mixin absolute
- * @description Sets position to absolute, removing from normal document flow
- * @example
- * .popup {
- *   @include absolute;
- *   top: 0;
- *   left: 0;
- * }
- */
+// @mixin absolute
+// @description Sets position to absolute, removing from normal document flow
+// @example
+// .popup {
+//   @include absolute;
+//   top: 0;
+//   left: 0;
+// }
 @mixin fixed {
   position: fixed;
 }
 
-/**
- * @mixin sticky
- * @description Creates a sticky element that remains in view during scrolling
- * @example
- * .nav {
- *   @include sticky;
- * }
- */
+// @mixin sticky
+// @description Creates a sticky element that remains in view during scrolling
+// @example
+// .nav {
+//   @include sticky;
+// }
 @mixin sticky {
   position: sticky;
   z-index: 999;
   top: 0;
 }
 
-/**
- * @mixin top
- * @description Sets the top position of an element
- * @param {Number|Length} $value - Position value (in px, rem, etc.)
- * @example
- * .toast {
- *   @include absolute;
- *   @include top(1rem);
- * }
- */
+// @mixin top
+// @description Sets the top position of an element
+// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @example
+// .toast {
+//   @include absolute;
+//   @include top(1rem);
+// }
 @mixin top($value) {
   top: FN.fix-units($value);
 }
 
-/**
-  * @mixin right
-  * @description Sets the right position of an element
-  * @param {Number|Length} $value - Position value (in px, rem, etc.)
-  * @example
-  * .badge {
-  *   @include absolute;
-  *   @include right(0);
-  * }
-  */
+// @mixin right
+// @description Sets the right position of an element
+// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @example
+// .badge {
+//   @include absolute;
+//   @include right(0);
+// }
 @mixin right($value) {
   right: FN.fix-units($value);
 }
 
-/**
-  * @mixin bottom
-  * @description Sets the bottom position of an element
-  * @param {Number|Length} $value - Position value (in px, rem, etc.)
-  * @example
-  * .footer {
-  *   @include fixed;
-  *   @include bottom(0);
-  * }
-  */
+// @mixin bottom
+// @description Sets the bottom position of an element
+// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @example
+// .footer {
+//  @include fixed;
+//  @include bottom(0);
+// }
 @mixin bottom($value) {
   bottom: FN.fix-units($value);
 }
 
-/**
-  * @mixin left
-  * @description Sets the left position of an element
-  * @param {Number|Length} $value - Position value (in px, rem, etc.)
-  * @example
-  * .sidebar {
-  *   @include fixed;
-  *   @include left(0);
-  * }
-  */
+// @mixin left
+// @description Sets the left position of an element
+// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @example
+// .sidebar {
+//  @include fixed;
+//  @include left(0);
+// }
 @mixin left($value) {
   left: $value;
 }
@@ -201,7 +173,7 @@ $position-fractions: (
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("position") {
   // Position Classes
   #{VAR.$parent-selector} .static {
     @include static;

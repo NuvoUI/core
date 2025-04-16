@@ -5,8 +5,9 @@
 @use "sass:list";
 @use "../utilities/colors" as COL;
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("theme") {
   :root,
   #{VAR.$parent-selector} [data-theme="light"] {
     // Theme color CSS variables
@@ -79,19 +80,18 @@
   @each $color-name, $scale in COL.$colors {
     @each $shade, $value in $scale {
       // Automatic text contrast for backgrounds
-      // todo: documentaton may add karo issay
       #{VAR.$parent-selector} .text-on-#{$color-name}-#{$shade} {
         color: COL.find-text-color($value);
       }
 
       #{VAR.$parent-selector} .text-#{$color-name}-#{$shade},
-      #{VAR.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
+      #{VAR.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
       #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
         color: var(--#{$color-name}-#{$shade});
       }
 
       #{VAR.$parent-selector} .bg-#{$color-name}-#{$shade},
-      #{VAR.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
+      #{VAR.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
       #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
         background-color: var(--#{$color-name}-#{$shade});
       }
@@ -105,13 +105,13 @@
 
     // Base color classes
     #{VAR.$parent-selector} .text-#{$color-name},
-    #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover, // todo: improve these loops to save time
+    #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
     #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
       color: var(--#{$color-name});
     }
 
     #{VAR.$parent-selector} .bg-#{$color-name},
-    #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover, // todo: improve these loops to save time
+    #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
     #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
       background-color: var(--#{$color-name});
     }
@@ -132,13 +132,13 @@
       }
 
       #{VAR.$parent-selector} .text-#{$color-name}-#{$shade},
-      #{VAR.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
+      #{VAR.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
       #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
         color: var(--#{$color-name}-#{$shade});
       }
 
       #{VAR.$parent-selector} .bg-#{$color-name}-#{$shade},
-      #{VAR.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover, // todo: improve these loops to save time
+      #{VAR.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
       #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
         background-color: var(--#{$color-name}-#{$shade});
       }
@@ -152,13 +152,13 @@
 
     // Base color classes
     #{VAR.$parent-selector} .text-#{$color-name},
-    #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover, // todo: improve these loops to save time
+    #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
     #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
       color: var(--#{$color-name});
     }
 
     #{VAR.$parent-selector} .bg-#{$color-name},
-    #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover, // todo: improve these loops to save time
+    #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
     #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
       background-color: var(--#{$color-name});
     }

@@ -1,15 +1,13 @@
-@use "../abstracts/config" as VAR;
 @use "sass:map";
+@use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
-/**
- * Transform Utilities
- * 
- * - Translate (X, Y, Z)
- * - Scale
- * - Rotate
- * - Skew
- * - Transform origin
- */
+// Transform Utilities
+// - Translate (X, Y, Z)
+// - Scale
+// - Rotate
+// - Skew
+// - Transform origin
 
 // Common transform function to avoid repetition
 @mixin apply-transform {
@@ -173,7 +171,7 @@ $origin-values: (
 );
 
 // Generate utility classes
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("transforms") {
   // Translate utilities
   @each $key, $value in $translate-values {
     #{VAR.$parent-selector} .translate-x-#{$key},

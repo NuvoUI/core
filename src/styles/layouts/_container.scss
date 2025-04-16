@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
 // Base container styles
 @mixin container-base {
@@ -27,9 +28,15 @@
   @include container-padding(1rem);
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("container-queries") {
   // Container classes
   #{VAR.$parent-selector} .container {
     @include container;
+  }
+  #{VAR.$parent-selector} .container.flex {
+    @include container(flex);
+  }
+  #{VAR.$parent-selector} .container.grid {
+    @include container(grid);
   }
 }

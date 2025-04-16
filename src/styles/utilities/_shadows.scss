@@ -3,6 +3,7 @@
 @use "sass:math";
 @use "sass:string";
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
 // TODO: SHADOWS WITH COLOR VARIANTS WITH RESPONSIVE
 $shadow-sizes: (
@@ -44,24 +45,18 @@ $shadow-sizes: (
   ),
 );
 
-/**
-* Generates a CSS shadow string from a given size.
-*
-* @param {String} $size - The shadow size.
-* @param {String} $color - The shadow color.
-* @return {String} - The CSS shadow string.
-*/
+// Generates a CSS shadow string from a given size.
+// @param {String} $size - The shadow size.
+// @param {String} $color - The shadow color.
+// @return {String} - The CSS shadow string.
 
 @mixin shadow-base($x, $y, $blur, $spread, $color) {
   box-shadow: $x $y $blur $spread $color;
 }
 
-/**
-* Generates a CSS shadow string from a given size.
-*
-* @param {String} $size - The shadow size.
-* @param {String} $color - The shadow color.
-*/
+// Generates a CSS shadow string from a given size.
+// @param {String} $size - The shadow size.
+// @param {String} $color - The shadow color.
 @mixin shadow($size: "md", $color: "default") {
   @if not map.has-key($shadow-sizes, $size) {
     @error "Shadow size '#{$size}' not found in $shadow-sizes map";
@@ -101,7 +96,7 @@ $shadow-sizes: (
 }
 
 // Utility Classes
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("shadows") {
   #{VAR.$parent-selector} .shadow-none {
     box-shadow: none !important;
   }

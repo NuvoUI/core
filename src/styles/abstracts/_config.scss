@@ -2,8 +2,31 @@
 @use "sass:math";
 @use "sass:list";
 
+$feature-flags: (
+  "alignments": true,
+  "animations": true,
+  "backdrops": true,
+  "borders": true,
+  "container-queries": true,
+  "cursors": true,
+  "displays": true,
+  "flex": true,
+  "grid": true,
+  "opacity": true,
+  "position": true,
+  "shadows": true,
+  "sizing": true,
+  "spacing": true,
+  "tooltips": true,
+  "theme": true,
+  "transforms": true,
+  "transitions": true,
+  "typography": true,
+  "z-index": true,
+) !default;
+
 // Framework Configuration Options
-$generate-utility-classes: true !default;
+$generate-utility-classes: false !default;
 $enable-dark-mode: true !default;
 
 $enable-debugger: false !default;

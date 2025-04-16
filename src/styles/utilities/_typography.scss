@@ -6,30 +6,25 @@
 
 // Import variables
 @use "../abstracts/config" as VAR;
+@use "../abstracts/functions" as FN;
 
-/**
- * Typography Utilities
- * 
- * Classes:
- * - Font Size: .text-xs, .text-sm, .text-base, etc.
- * - Font Weight: .font-thin, .font-normal, .font-bold, etc.
- * - Line Height: .leading-none, .leading-tight, .leading-normal, etc.
- * - Text Align: .text-left, .text-center, .text-right, .text-justify
- * - Text Transform: .uppercase, .lowercase, .capitalize, .normal-case
- * - Text Style: .italic, .not-italic
- * - Text Decoration: .underline, .line-through, .no-underline
- * - Text Overflow: .truncate
- * 
- * All utilities support responsive variants with @breakpoint suffix:
- * - .text-lg@md, .font-bold@lg, etc.
- */
+// Typography Utilities
+// Classes:
+// - Font Size: .text-xs, .text-sm, .text-base, etc.
+// - Font Weight: .font-thin, .font-normal, .font-bold, etc.
+// - Line Height: .leading-none, .leading-tight, .leading-normal, etc.
+// - Text Align: .text-left, .text-center, .text-right, .text-justify
+// - Text Transform: .uppercase, .lowercase, .capitalize, .normal-case
+// - Text Style: .italic, .not-italic
+// - Text Decoration: .underline, .line-through, .no-underline
+// - Text Overflow: .truncate
+// All utilities support responsive variants with @breakpoint suffix:
+// - .text-lg@md, .font-bold@lg, etc.
 
 // Utilities for text sizes
 
-/**
-* Text size utility
-* @param {string} $size - The size of the text.
-*/
+// Text size utility
+// @param {string} $size - The size of the text.
 @mixin text-size($size) {
   @if map.has-key(VAR.$font-sizes, $size) {
     font-size: map.get(VAR.$font-sizes, $size);
@@ -418,7 +413,7 @@
   }
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("typography") {
   @include responsive-typography;
 
   #{VAR.$parent-selector} .break-normal {

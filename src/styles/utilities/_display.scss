@@ -4,73 +4,53 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-/**
- * Display Utilities
- *
- * Classes:
- * - .hide, .show: Control element visibility
- * - .block, .inline, .inline-block: Basic display modes
- * - .d-tbl, .d-tbl-row, .d-tbl-cell: Table display modes
- * - .overflow-hidden: Control overflow behavior
- *
- * All utilities support responsive variants with @breakpoint suffix:
- * - .hide@md, .block@lg, etc.
- */
+// Display Utilities
+// Classes:
+//  - .hide, .show: Control element visibility
+//  - .block, .inline, .inline-block: Basic display modes
+//  - .d-tbl, .d-tbl-row, .d-tbl-cell: Table display modes
+//  - .overflow-hidden: Control overflow behavior
+// All utilities support responsive variants with @breakpoint suffix:
+//  - .hide@md, .block@lg, etc.
 
 // Display Mixins
 
-/**
- * @description Set display to none.
- */
+// @description Set display to none.
 @mixin hide {
   display: none;
 }
 
-/**
- * @description Set display to block.
- */
+// @description Set display to block.
 @mixin block {
   display: block;
 }
 
-/**
- * @description Set display to inline.
- */
+// @description Set display to inline.
 @mixin inline {
   display: inline;
 }
 
-/**
- * @description Set display to inline-block.
- */
+// @description Set display to inline-block.
 @mixin inline-block {
   display: inline-block;
 }
 
-/**
- * @description Set display to initial original state.
- */
+// @description Set display to initial original state.
 @mixin show {
   display: initial;
 }
 
-/**
- * @description Set display to table.
- */
+// @description Set display to table.
 @mixin d-tbl {
   display: table;
 }
 
-/**
- * @description Set display to table-row.
- */
+// @description Set display to table-row.
 @mixin d-tbl-row {
   display: table-row;
 }
 
-/**
- * @description Set display to table-cell.
- */
+// @description Set display to table-cell.
 @mixin d-tbl-cell {
   display: table-cell;
 }
@@ -119,7 +99,7 @@
   overflow-y: auto;
 }
 
-@if VAR.$generate-utility-classes {
+@if FN.feature-enabled("displays") {
   #{VAR.$parent-selector} .hide {
     @include hide;
   }
