@@ -51,7 +51,7 @@
  * @description Set display to initial original state.
  */
 @mixin show {
-  display: revert;
+  display: initial;
 }
 
 /**
@@ -120,7 +120,6 @@
 }
 
 @if VAR.$generate-utility-classes {
-  // Base Classes
   #{VAR.$parent-selector} .hide {
     @include hide;
   }
