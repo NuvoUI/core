@@ -394,118 +394,131 @@
 }
 
 @if VAR.$generate-utility-classes {
-  // Base flex container
-  #{VAR.$parent-selector} .flex {
-    display: flex;
+  // Build flat selector list for all flex containers
+  $flex-selectors: "#{VAR.$parent-selector} .flex";
+
+  @each $breakpoint, $width in VAR.$breakpoints {
+    $flex-selectors: "#{$flex-selectors}, #{VAR.$parent-selector} .flex\\@#{$breakpoint}";
+  }
+
+  // Apply base flex styles to all flex variants at once
+  #{$flex-selectors} {
+    @include flex;
+
+    &.inline {
+      @include flex-inline;
+    }
 
     // Direction modifiers
     &.row {
-      flex-direction: row;
+      @include row;
     }
 
     &.row-reverse {
-      flex-direction: row-reverse;
+      @include row-reverse;
     }
 
     &.col {
-      flex-direction: column;
+      @include col;
     }
 
     &.col-reverse {
-      flex-direction: column-reverse;
+      @include col-reverse;
     }
 
     // Wrap modifiers
     &.wrap {
-      flex-wrap: wrap;
+      @include wrap;
     }
 
     &.nowrap {
-      flex-wrap: nowrap;
+      @include nowrap;
     }
 
     &.wrap-reverse {
-      flex-wrap: wrap-reverse;
+      @include wrap-reverse;
     }
 
     // Justify modifiers
     &.start {
-      justify-content: flex-start;
+      @include start;
     }
 
     &.end {
-      justify-content: flex-end;
+      @include end;
     }
 
     &.center {
-      justify-content: center;
+      @include center;
     }
 
     &.stretch {
-      justify-content: stretch;
-    } // todo: document
+      @include stretch;
+    }
+
     &.between {
-      justify-content: space-between;
+      @include between;
     }
 
     &.around {
-      justify-content: space-around;
+      @include around;
     }
 
     &.evenly {
-      justify-content: space-evenly;
+      @include evenly;
     }
 
     // Align modifiers
     &.x-start {
-      align-items: flex-start;
+      @include x-start;
     }
 
     &.x-end {
-      align-items: flex-end;
+      @include x-end;
     }
 
     &.x-center {
-      align-items: center;
+      @include x-center;
     }
 
     &.x-baseline {
-      align-items: baseline;
+      @include x-baseline;
     }
 
     &.x-stretch {
-      align-items: stretch;
+      @include x-stretch;
     }
 
+    // Content alignment
     &.x-content-start {
-      align-content: flex-start;
+      @include x-content-start;
     }
 
     &.x-content-end {
-      align-content: flex-end;
+      @include x-content-end;
     }
 
     &.x-content-center {
-      align-content: center;
+      @include x-content-center;
     }
 
     &.x-content-between {
-      align-content: space-between;
+      @include x-content-between;
     }
 
     &.x-content-around {
-      align-content: space-around;
+      @include x-content-around;
     }
 
     &.x-content-evenly {
-      align-content: space-evenly;
+      @include x-content-evenly;
     }
 
     &.x-content-stretch {
-      align-content: stretch;
+      @include x-content-stretch;
     }
 
-    // Child flex items (using column count)
+    // Child flex items
     > .fill-auto {
       @include fill-auto;
     }
@@ -574,163 +587,170 @@
       > .fill-#{$i} {
         @include fill($i);
       }
-
       > .order-#{$i} {
         order: $i;
       }
     }
   }
 
+  // Handle responsive variants
   @each $breakpoint, $width in VAR.$breakpoints {
-    // Get breakpoint value using FN function
     $bp-val: FN.get-breakpoint-value($breakpoint);
 
     @media (min-width: #{$bp-val}) {
-      #{VAR.$parent-selector} .flex {
-        // Direction
+      #{$flex-selectors} {
+        // Direction modifiers
         &.row\@#{$breakpoint} {
-          flex-direction: row;
+          @include row;
         }
         &.row-reverse\@#{$breakpoint} {
-          flex-direction: row-reverse;
+          @include row-reverse;
         }
         &.col\@#{$breakpoint} {
-          flex-direction: column;
+          @include col;
         }
         &.col-reverse\@#{$breakpoint} {
-          flex-direction: column-reverse;
+          @include col-reverse;
         }
 
-        // Wrap
+        // Wrap modifiers
         &.wrap\@#{$breakpoint} {
-          flex-wrap: wrap;
+          @include wrap;
         }
         &.nowrap\@#{$breakpoint} {
-          flex-wrap: nowrap;
+          @include nowrap;
         }
         &.wrap-reverse\@#{$breakpoint} {
-          flex-wrap: wrap-reverse;
+          @include wrap-reverse;
         }
 
-        // Justify
+        // Justify modifiers
         &.start\@#{$breakpoint} {
-          justify-content: flex-start;
+          @include start;
         }
         &.end\@#{$breakpoint} {
-          justify-content: flex-end;
+          @include end;
         }
         &.center\@#{$breakpoint} {
-          justify-content: center;
-        }
-        &.between\@#{$breakpoint} {
-          justify-content: space-between;
+          @include center;
         }
         &.stretch\@#{$breakpoint} {
-          justify-content: stretch;
-        } // todo: document
+          @include stretch;
+        }
+        &.between\@#{$breakpoint} {
+          @include between;
+        }
         &.around\@#{$breakpoint} {
-          justify-content: space-around;
+          @include around;
         }
         &.evenly\@#{$breakpoint} {
-          justify-content: space-evenly;
+          @include evenly;
         }
 
-        // Align
+        // Align modifiers
         &.x-start\@#{$breakpoint} {
-          align-items: flex-start;
+          @include x-start;
         }
         &.x-end\@#{$breakpoint} {
-          align-items: flex-end;
+          @include x-end;
         }
         &.x-center\@#{$breakpoint} {
-          align-items: center;
+          @include x-center;
         }
         &.x-baseline\@#{$breakpoint} {
-          align-items: baseline;
+          @include x-baseline;
         }
         &.x-stretch\@#{$breakpoint} {
-          align-items: stretch;
+          @include x-stretch;
         }
 
+        // Content alignment
         &.x-content-start\@#{$breakpoint} {
-          align-content: flex-start;
+          @include x-content-start;
         }
         &.x-content-end\@#{$breakpoint} {
-          align-content: flex-end;
+          @include x-content-end;
         }
         &.x-content-center\@#{$breakpoint} {
-          align-content: center;
+          @include x-content-center;
         }
         &.x-content-between\@#{$breakpoint} {
-          align-content: space-between;
+          @include x-content-between;
         }
         &.x-content-around\@#{$breakpoint} {
-          align-content: space-around;
+          @include x-content-around;
         }
         &.x-content-evenly\@#{$breakpoint} {
-          align-content: space-evenly;
+          @include x-content-evenly;
         }
         &.x-content-stretch\@#{$breakpoint} {
-          align-content: stretch;
+          @include x-content-stretch;
         }
 
-        // Width (using column count)
-        & > .fill-auto\@#{$breakpoint} {
+        // Child elements
+        > .fill-auto\@#{$breakpoint} {
           @include fill-auto;
         }
-        & > .fill-full\@#{$breakpoint} {
+        > .fill-full\@#{$breakpoint} {
           @include fill-full;
         }
-        & > .grow\@#{$breakpoint} {
+        > .grow\@#{$breakpoint} {
           @include grow;
         }
-        & > .no-grow\@#{$breakpoint} {
+        > .no-grow\@#{$breakpoint} {
           @include no-grow;
         }
-        & > .order-first\@#{$breakpoint} {
+        > .order-first\@#{$breakpoint} {
           order: -1;
         }
-        & > .order-last\@#{$breakpoint} {
+        > .order-last\@#{$breakpoint} {
           order: 9999;
         }
-        & > .order-none\@#{$breakpoint} {
+        > .order-none\@#{$breakpoint} {
           order: 0;
         }
-        & > .shrink\@#{$breakpoint} {
+        > .shrink\@#{$breakpoint} {
           @include shrink;
         }
-        & > .no-shrink\@#{$breakpoint} {
+        > .no-shrink\@#{$breakpoint} {
           @include no-shrink;
         }
-        & > .shrink-twice\@#{$breakpoint} {
+        > .shrink-twice\@#{$breakpoint} {
           @include shrink-twice;
         }
-        & > .self-end\@#{$breakpoint} {
+        > .self-end\@#{$breakpoint} {
           @include self-end;
         }
-        & > .self-start\@#{$breakpoint} {
+        > .self-start\@#{$breakpoint} {
           @include self-start;
         }
-        & > .self-center\@#{$breakpoint} {
+        > .self-center\@#{$breakpoint} {
           @include self-center;
         }
-        & > .self-stretch\@#{$breakpoint} {
+        > .self-stretch\@#{$breakpoint} {
           @include self-stretch;
         }
-        & > .self-baseline\@#{$breakpoint} {
+        > .self-baseline\@#{$breakpoint} {
           @include self-baseline;
         }
-        & > .self-auto\@#{$breakpoint} {
+        > .self-auto\@#{$breakpoint} {
           @include self-auto;
         }
+
         @for $i from 1 through VAR.$column-count {
-          & > .fill-#{$i}\@#{$breakpoint} {
+          > .fill-#{$i}\@#{$breakpoint} {
             @include fill($i);
           }
-          & > .order-#{$i}\@#{$breakpoint} {
+          > .order-#{$i}\@#{$breakpoint} {
             order: $i;
           }
         }
+      }
+
+      // Special case for inline@breakpoint
+      #{VAR.$parent-selector} .flex.inline\@#{$breakpoint},
+      #{VAR.$parent-selector} .flex\@#{$breakpoint}.inline\@#{$breakpoint} {
+        @include flex-inline;
       }
     }
   }
