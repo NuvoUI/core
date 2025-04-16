@@ -17,11 +17,11 @@
 // Blur values
 $backdrop-blur-values: (
   "none": 0,
-  "sm": 4px,
-  "md": 8px,
-  "lg": 12px,
-  "xl": 24px,
-  "2xl": 40px,
+  "sm": 2px,
+  "md": 4px,
+  "lg": 8px,
+  "xl": 16px,
+  "2xl": 32px,
 );
 
 // Brightness values
@@ -103,100 +103,128 @@ $backdrop-filter-presets: (
   backdrop-filter: $value;
 }
 
-// Specific filter mixins
+// Base layer mixin that initializes the CSS variables
+@mixin backdrop-layer {
+  --backdrop-blur: blur(0);
+  --backdrop-brightness: brightness(100%);
+  --backdrop-contrast: contrast(100%);
+  --backdrop-grayscale: grayscale(0);
+  --backdrop-hue-rotate: hue-rotate(0deg);
+  --backdrop-invert: invert(0);
+  --backdrop-saturate: saturate(100%);
+  --backdrop-sepia: sepia(0);
+
+  backdrop-filter: var(--backdrop-blur) var(--backdrop-brightness) var(--backdrop-contrast) var(--backdrop-grayscale) var(--backdrop-hue-rotate) var(--backdrop-invert) var(--backdrop-saturate) var(--backdrop-sepia);
+}
+
+// Specific filter mixins - now they set CSS variables instead of the backdrop-filter property
 @mixin backdrop-blur($value) {
   @if map.has-key($backdrop-blur-values, $value) {
-    @include backdrop-filter(blur(map.get($backdrop-blur-values, $value)));
+    --backdrop-blur: blur(#{map.get($backdrop-blur-values, $value)});
   } @else {
-    @include backdrop-filter(blur($value));
+    --backdrop-blur: blur(#{$value});
   }
 }
 
 @mixin backdrop-brightness($value) {
   @if map.has-key($backdrop-brightness-values, $value) {
-    @include backdrop-filter(brightness(map.get($backdrop-brightness-values, $value)));
+    --backdrop-brightness: brightness(#{map.get($backdrop-brightness-values, $value)});
   } @else {
-    @include backdrop-filter(brightness($value));
+    --backdrop-brightness: brightness(#{$value});
   }
 }
 
 @mixin backdrop-contrast($value) {
   @if map.has-key($backdrop-contrast-values, $value) {
-    @include backdrop-filter(contrast(map.get($backdrop-contrast-values, $value)));
+    --backdrop-contrast: contrast(#{map.get($backdrop-contrast-values, $value)});
   } @else {
-    @include backdrop-filter(contrast($value));
+    --backdrop-contrast: contrast(#{$value});
   }
 }
 
 @mixin backdrop-grayscale($value) {
   @if map.has-key($backdrop-grayscale-values, $value) {
-    @include backdrop-filter(grayscale(map.get($backdrop-grayscale-values, $value)));
+    --backdrop-grayscale: grayscale(#{map.get($backdrop-grayscale-values, $value)});
   } @else {
-    @include backdrop-filter(grayscale($value));
+    --backdrop-grayscale: grayscale(#{$value});
   }
 }
 
 @mixin backdrop-hue-rotate($value) {
   @if map.has-key($backdrop-hue-rotate-values, $value) {
-    @include backdrop-filter(hue-rotate(map.get($backdrop-hue-rotate-values, $value)));
+    --backdrop-hue-rotate: hue-rotate(#{map.get($backdrop-hue-rotate-values, $value)});
   } @else {
-    @include backdrop-filter(hue-rotate($value));
+    --backdrop-hue-rotate: hue-rotate(#{$value});
   }
 }
 
 @mixin backdrop-invert($value) {
   @if map.has-key($backdrop-invert-values, $value) {
-    @include backdrop-filter(invert(map.get($backdrop-invert-values, $value)));
+    --backdrop-invert: invert(#{map.get($backdrop-invert-values, $value)});
   } @else {
-    @include backdrop-filter(invert($value));
+    --backdrop-invert: invert(#{$value});
   }
 }
 
 @mixin backdrop-saturate($value) {
   @if map.has-key($backdrop-saturate-values, $value) {
-    @include backdrop-filter(saturate(map.get($backdrop-saturate-values, $value)));
+    --backdrop-saturate: saturate(#{map.get($backdrop-saturate-values, $value)});
   } @else {
-    @include backdrop-filter(saturate($value));
+    --backdrop-saturate: saturate(#{$value});
   }
 }
 
 @mixin backdrop-sepia($value) {
   @if map.has-key($backdrop-sepia-values, $value) {
-    @include backdrop-filter(sepia(map.get($backdrop-sepia-values, $value)));
+    --backdrop-sepia: sepia(#{map.get($backdrop-sepia-values, $value)});
   } @else {
-    @include backdrop-filter(sepia($value));
+    --backdrop-sepia: sepia(#{$value});
   }
 }
 
 // Preset backdrop effects
 @mixin backdrop-frosted {
-  @include backdrop-filter(map.get($backdrop-filter-presets, "frosted"));
+  backdrop-filter: #{map.get($backdrop-filter-presets, "frosted")};
 }
 
 @mixin backdrop-glass {
-  @include backdrop-filter(map.get($backdrop-filter-presets, "glass"));
+  backdrop-filter: #{map.get($backdrop-filter-presets, "glass")};
 }
 
 @mixin backdrop-dark-glass {
-  @include backdrop-filter(map.get($backdrop-filter-presets, "dark-glass"));
+  backdrop-filter: #{map.get($backdrop-filter-presets, "dark-glass")};
 }
 
 @mixin backdrop-crystal {
-  @include backdrop-filter(map.get($backdrop-filter-presets, "crystal"));
+  backdrop-filter: #{map.get($backdrop-filter-presets, "crystal")};
 }
 
 @mixin backdrop-matte {
-  @include backdrop-filter(map.get($backdrop-filter-presets, "matte"));
+  backdrop-filter: #{map.get($backdrop-filter-presets, "matte")};
 }
 
 // Reset filter
 @mixin backdrop-none {
   backdrop-filter: none;
+
+  --backdrop-blur: none;
+  --backdrop-brightness: none;
+  --backdrop-contrast: none;
+  --backdrop-grayscale: none;
+  --backdrop-hue-rotate: none;
+  --backdrop-invert: none;
+  --backdrop-saturate: none;
+  --backdrop-sepia: none;
 }
 
 // Generate utility classes
 @mixin generate-backdrop-filter-utilities($breakpoint: null) {
   $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
+
+  // Base layer class
+  #{VAR.$parent-selector} .backdrop-layer#{$suffix} {
+    @include backdrop-layer;
+  }
 
   // Basic backdrop utilities
   #{VAR.$parent-selector} .backdrop-none#{$suffix} {
@@ -259,7 +287,7 @@ $backdrop-filter-presets: (
     }
   }
 
-  // Preset utilities
+  // Preset utilities (these override the CSS variables approach)
   #{VAR.$parent-selector} .backdrop-frosted#{$suffix} {
     @include backdrop-frosted;
   }
@@ -288,10 +316,3 @@ $backdrop-filter-presets: (
     }
   }
 }
-
-// Update your mixins-map.scss to include these mixins:
-// @else if str.index($ms, 'backdrop-blur(') == 1 {
-//   $param1: list.nth($params, 1);
-//   @include backdrop-blur($param1);
-// }
-// Add similar entries for all other backdrop filter mixins
