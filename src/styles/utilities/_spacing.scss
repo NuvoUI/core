@@ -272,7 +272,7 @@
   $val: FN.fix-units($val);
 
   gap: $val;
-  
+
   --flex-gap: #{$val};
 }
 
@@ -283,7 +283,7 @@
   $val: FN.fix-units($val);
 
   column-gap: $val;
-  
+
   --flex-gap: #{$val};
 }
 
