@@ -259,7 +259,7 @@ $origin-values: (
           @include translate-x($value);
         }
 
-        #{VAR.$parent-selector} .translate-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .translate-y-#{$key}\@#{$breakpoint},
         #{VAR.$parent-selector} .hover\:translate-y-#{$key}\@#{$breakpoint}:hover,
         #{VAR.$parent-selector} .group:hover .group-hover\:translate-y-#{$key}\@#{$breakpoint} {
           @include translate-y($value);
@@ -272,7 +272,7 @@ $origin-values: (
           @include translate-x($value);
         }
 
-        #{VAR.$parent-selector} .-translate-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .-translate-y-#{$key}\@#{$breakpoint},
         #{VAR.$parent-selector} .hover\:-translate-y-#{$key}\@#{$breakpoint}:hover,
         #{VAR.$parent-selector} .group:hover .group-hover\:-translate-y-#{$key}\@#{$breakpoint} {
           @include translate-y($value);
@@ -285,6 +285,18 @@ $origin-values: (
         #{VAR.$parent-selector} .hover\:scale-#{$key}\@#{$breakpoint}:hover,
         #{VAR.$parent-selector} .group:hover .group-hover\:scale-#{$key}\@#{$breakpoint} {
           @include scale($value);
+        }
+
+        #{VAR.$parent-selector} .scale-x-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:scale-x-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:scale-x-#{$key}\@#{$breakpoint} {
+          @include scale-x($value);
+        }
+
+        #{VAR.$parent-selector} .scale-y-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:scale-y-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:scale-y-#{$key}\@#{$breakpoint} {
+          @include scale-y($value);
         }
       }
 
@@ -303,6 +315,15 @@ $origin-values: (
         #{VAR.$parent-selector} .hover\:-rotate-#{$key}\@#{$breakpoint}:hover,
         #{VAR.$parent-selector} .group:hover .group-hover\:-rotate-#{$key}\@#{$breakpoint} {
           @include rotate($value);
+        }
+      }
+
+      // Add missing origin responsive variants
+      @each $key, $value in $origin-values {
+        #{VAR.$parent-selector} .origin-#{$key}\@#{$breakpoint},
+        #{VAR.$parent-selector} .hover\:origin-#{$key}\@#{$breakpoint}:hover,
+        #{VAR.$parent-selector} .group:hover .group-hover\:origin-#{$key}\@#{$breakpoint} {
+          @include origin($value);
         }
       }
     }
