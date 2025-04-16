@@ -132,16 +132,22 @@ $alignments: (
 }
 
 @if VAR.$generate-utility-classes {
-  // Classes
-  #{VAR.$parent-selector} .grid {
+  // Build the flat selector list manually with proper escaping
+  $base-grid-selector: #{VAR.$parent-selector} + " .grid";
+  $all-grid-selectors: $base-grid-selector;
+
+  @each $breakpoint, $width in VAR.$breakpoints {
+    $all-grid-selectors: "#{$all-grid-selectors}, #{VAR.$parent-selector} .grid\\@#{$breakpoint}";
+  }
+
+  // Apply base grid styles to all grid variants at once
+  #{$all-grid-selectors} {
     @include grid;
-  }
 
-  #{VAR.$parent-selector} .grid.inline {
-    @include grid-inline;
-  }
+    &.inline {
+      @include grid-inline;
+    }
 
-  #{VAR.$parent-selector} .grid {
     // Auto-fit/fill Classes
     @each $size, $width in VAR.$grid-item-sizes {
       &.auto-fit-#{$size} {
@@ -166,70 +172,70 @@ $alignments: (
       @include flow-dense-items;
     }
 
+    // Basic column and row count
     @for $i from 1 through VAR.$column-count {
       &.cols-#{$i} {
         @include cols($i);
       }
-
       &.rows-#{$i} {
         @include rows($i);
       }
     }
 
-    // Grid Template Classes
-    @each $breakpoint, $width in VAR.$breakpoints {
-      // Responsive grid columns
-      @media (min-width: #{$width}) {
+    // Basic span classes (non-responsive)
+    @for $i from 1 through VAR.$column-count {
+      .col-span-#{$i} {
+        @include col-span($i);
+      }
+      .row-span-#{$i} {
+        @include row-span($i);
+      }
+    }
+
+    // Alignment classes
+    @each $name, $value in $alignments {
+      &.justify-#{$name} {
+        @include justify($value);
+      }
+      &.align-#{$name} {
+        @include align($value);
+      }
+      &.place-#{$name} {
+        @include place($value);
+      }
+    }
+  }
+
+  // Handle responsive variants
+  @each $breakpoint, $width in VAR.$breakpoints {
+    @media (min-width: #{$width}) {
+      // Responsive grid columns/rows
+      #{$all-grid-selectors} {
         @for $i from 1 through VAR.$column-count {
           &.cols-#{$i}\@#{$breakpoint} {
             @include cols($i);
           }
-
           &.rows-#{$i}\@#{$breakpoint} {
             @include rows($i);
           }
         }
       }
-    }
 
-    // Generate Column Span Classes with Responsive Variants
-    @for $i from 1 through VAR.$column-count {
-      & .col-span-#{$i} {
-        @include col-span($i);
-      }
-
-      & .row-span-#{$i} {
-        @include row-span($i);
-      }
-
-      @each $breakpoint, $width in VAR.$breakpoints {
-        @media (min-width: #{$width}) {
-          & .col-span-#{$i}\@#{$breakpoint} {
+      // Responsive spans
+      #{$all-grid-selectors} {
+        @for $i from 1 through VAR.$column-count {
+          .col-span-#{$i}\@#{$breakpoint} {
             @include col-span($i);
           }
-
-          & .row-span-#{$i}\@#{$breakpoint} {
+          .row-span-#{$i}\@#{$breakpoint} {
             @include row-span($i);
           }
         }
       }
-    }
 
-    @each $name, $value in $alignments {
-      &.justify-#{$name} {
-        @include justify($value);
-      }
-
-      &.align-#{$name} {
-        @include align($value);
-      }
-
-      &.place-#{$name} {
-        @include place($value);
-      }
-
-      @each $breakpoint, $width in VAR.$breakpoints {
-        @media (min-width: #{$width}) {
+      // Responsive alignments
+      #{$all-grid-selectors} {
+        @each $name, $value in $alignments {
           &.justify-#{$name}\@#{$breakpoint} {
             @include justify($value);
           }
