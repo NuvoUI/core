@@ -107,7 +107,7 @@ body#{$parent-selector} {
 #{$parent-selector} input[type="search"],
 #{$parent-selector} textarea {
   padding: 0.5rem;
-  border: 1px solid var(--border);
+  border: var(--border-size, 1px) var(--border-style, solid) var(--border-color, var(--secondary));
   border-radius: 0.25rem;
   width: 100%; // Full width
   font-family: var(--font-family-base);
@@ -128,7 +128,7 @@ body#{$parent-selector} {
 // Selects
 #{$parent-selector} select {
   padding: 0.5rem;
-  border: 1px solid var(--border);
+  border: var(--border-size, 1px) var(--border-style, solid) var(--border-color, var(--secondary));;
   border-radius: 0.25rem;
   width: 100%; // Full width
   font-family: var(--font-family-base);
@@ -144,14 +144,14 @@ body#{$parent-selector} {
 #{$parent-selector} blockquote {
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  border-left: 4px solid var(--border);
+  border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-color, var(--secondary));;
   font-style: italic;
 }
 
 // Horizontal Rule
 #{$parent-selector} hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-color, var(--secondary));
   margin: 1rem 0;
 }
 
