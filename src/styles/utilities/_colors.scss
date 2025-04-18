@@ -4,8 +4,10 @@
 @use "sass:map";
 @use "sass:meta";
 @use "sass:list";
+@use "sass:string";
 
 @use "../abstracts/config" as *;
+@use "../abstracts/functions" as FN;
 
 // Color Validation
 @function is-valid-color($color) {
@@ -15,37 +17,74 @@
 // Scale Generation Function
 @function create-color-scale($color) {
   $scale: ();
-  $stops: (
-    50: 95%,
-    100: 85%,
-    200: 75%,
-    300: 65%,
-    400: 55%,
-    500: 50%,
-    // Base color
-    600: 45%,
-    700: 35%,
-    800: 25%,
-    900: 15%,
-  );
+  $stops: (50, 100, 200, 300, 400, 500, 600, 700, 800, 900);
 
-  @each $shade, $lightness in $stops {
-    $adjusted-color: $color;
-
-    @if $shade < 500 {
-      // Lighter shades: mix with white
-      $mix-percentage: math.div($lightness - 50%, 50%) * 100%;
-      $adjusted-color: color.mix(white, $color, $mix-percentage);
-    } @else if $shade > 500 {
-      // Darker shades: mix with black
-      $mix-percentage: math.div(50% - $lightness, 50%) * 100%;
-      $adjusted-color: color.mix(black, $color, $mix-percentage);
-    }
-
+  @each $shade in $stops {
+    $adjusted-color: get-color($color, $shade);
     $scale: map.set($scale, $shade, $adjusted-color);
   }
 
   @return $scale;
+}
+
+@function get-color($color, $shade: 500) {
+  @if FN.is-css-var($color) {
+    @if $shade != 500 {
+      @warn "CSS variables do not support shade values. ";
+    }
+    @return FN.get-css-var($color);
+  }
+
+  $colors-list: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "danger": $danger,
+    "warning": $warning,
+    "info": $info,
+  );
+
+  @if meta.type-of($shade) == "string" {
+    $shade: FN.to-number($shade);
+  }
+
+  @if FN.get-type($color) == "color" {
+    $color: FN.to-color($color);
+  } @else if map.has-key($colors-list, $color) {
+    $color: map.get($colors-list, $color);
+  } @else if map.has-key($color-primitives, $color) {
+    $color: map.get($color-primitives, $color);
+  } @else {
+    @warn "Unexpected color value: #{$color}";
+    @return currentColor;
+  }
+
+  $x1: 50; // First input value
+  $y1: 95; // First output percentage
+  $x2: 900; // Second input value
+  $y2: 15; // Second output percentage
+  // Calculate slope (m) of the line
+  $slope: math.div($y2 - $y1, $x2 - $x1);
+
+  // Calculate y-intercept (b) of the line: y = mx + b
+  $y-intercept: $y1 - ($slope * $x1);
+
+  // Calculate the output percentage using the linear equation: y = mx + b
+  $result: ($slope * $shade) + $y-intercept;
+  $lightness: math.percentage(math.div($result, 100));
+  $adjusted-color: $color;
+
+  @if $shade < 500 {
+    // Lighter shades: mix with white
+    $mix-percentage: math.div($lightness - 50%, 50%) * 100%;
+    $adjusted-color: color.mix(white, $color, $mix-percentage);
+  } @else if $shade > 500 {
+    // Darker shades: mix with black
+    $mix-percentage: math.div(50% - $lightness, 50%) * 100%;
+    $adjusted-color: color.mix(black, $color, $mix-percentage);
+  }
+
+  @return $adjusted-color;
 }
 
 // Luminance calculation for contrast
@@ -64,7 +103,16 @@
 // Find appropriate text color for a background
 @function find-text-color($background) {
   $luminance: luminance($background);
-  @return if($luminance > 0.55, #000, #fff);
+  $dark-color: #000;
+  @if map.has-key($light-theme, "text-color") {
+    $dark-color: map.get($light-theme, "text-color");
+  }
+
+  $light-color: #fff;
+  @if map.has-key($light-theme, "text-inverted") {
+    $light-color: map.get($light-theme, "text-inverted");
+  }
+  @return if($luminance > 0.55, $dark-color, $light-color);
 }
 
 // Adaptive contrast mixin
@@ -98,12 +146,18 @@ $colors-primitives: ();
 }
 
 // todo: documentation
-@mixin bg($color) {
-  background-color: $color;
+@mixin bg($color, $shade: 500) {
+  background-color: get-color($color, $shade);
 }
-@mixin color($color) {
-  color: $color;
+
+@mixin text-color($color-name, $shade: 500) {
+  color: get-color($color-name, $shade);
 }
+
+@mixin text-on-color($color-name, $shade: 500) {
+  color: find-text-color(get-color($color-name, $shade));
+}
+
 @mixin gradient($direction, $colors...) {
   background-image: linear-gradient($direction, $colors);
 }
