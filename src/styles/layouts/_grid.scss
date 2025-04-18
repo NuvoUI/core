@@ -6,7 +6,6 @@
 @use "../abstracts/functions" as FN;
 @use "../abstracts/config" as VAR;
 
-
 // Grid Template Mixins
 @mixin cols($count) {
   grid-template-columns: repeat($count, minmax(0, 1fr));

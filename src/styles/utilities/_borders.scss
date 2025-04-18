@@ -275,7 +275,7 @@ $border-styles: (solid, dashed, dotted, double, none);
     }
   }
 
-  @each $color-name in VAR.$color-names {
+  @each $color-name in VAR.$color-names-with-basic {
     #{VAR.$parent-selector} .border-#{$color-name},
     #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
     #{VAR.$parent-selector} .active\:border-#{$color-name}:active,

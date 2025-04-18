@@ -76,7 +76,7 @@
   // -----------------------------------------------
 
   // Theme color background utilities
-  // primar, secondry, warning etc.
+  // primary, secondary, warning etc.
   @each $color-name, $scale in COL.$colors {
     @each $shade, $value in $scale {
       // Automatic text contrast for backgrounds
