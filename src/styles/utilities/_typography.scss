@@ -34,32 +34,16 @@
 }
 
 // Font weights
-@mixin font-thin {
-  font-weight: 100;
-}
-@mixin font-extralight {
-  font-weight: 200;
-}
-@mixin font-light {
-  font-weight: 300;
-}
-@mixin font-normal {
-  font-weight: 400;
-}
-@mixin font-medium {
-  font-weight: 500;
-}
-@mixin font-semibold {
-  font-weight: 600;
-}
-@mixin font-bold {
-  font-weight: 700;
-}
-@mixin font-extrabold {
-  font-weight: 800;
-}
-@mixin font-black {
-  font-weight: 900;
+@mixin font($weight) {
+  @if map.has-key(VAR.$font-weights, #{$weight}) {
+    font-weight: map.get(VAR.$font-weights, $weight);
+  } @else if meta.type-of($weight) == number {
+    font-weight: $weight;
+  } @else {
+    @warn "Unknown font weight: #{$weight} setting it to default.";
+
+    font-weight: 400; // Default to normal weight
+  }
 }
 
 @mixin leading($value) {
@@ -86,18 +70,23 @@
 @mixin leading-none {
   @include leading(none);
 }
+
 @mixin leading-tight {
   @include leading(tight);
 }
+
 @mixin leading-snug {
   @include leading(snug);
 }
+
 @mixin leading-normal {
   @include leading(normal);
 }
+
 @mixin leading-relaxed {
   @include leading(relaxed);
 }
+
 @mixin leading-loose {
   @include leading(loose);
 }
@@ -106,12 +95,15 @@
 @mixin text-left {
   text-align: left;
 }
+
 @mixin text-center {
   text-align: center;
 }
+
 @mixin text-right {
   text-align: right;
 }
+
 @mixin text-justify {
   text-align: justify;
 }
@@ -120,12 +112,15 @@
 @mixin uppercase {
   text-transform: uppercase;
 }
+
 @mixin lowercase {
   text-transform: lowercase;
 }
+
 @mixin capitalize {
   text-transform: capitalize;
 }
+
 @mixin normal-case {
   text-transform: none;
 }
@@ -134,6 +129,7 @@
 @mixin italic {
   font-style: italic;
 }
+
 @mixin not-italic {
   font-style: normal;
 }
@@ -142,9 +138,11 @@
 @mixin underline {
   text-decoration: underline;
 }
+
 @mixin line-through {
   text-decoration: line-through;
 }
+
 @mixin no-underline {
   text-decoration: none;
 }
@@ -180,21 +178,27 @@
 @mixin break-words {
   overflow-wrap: break-word;
 }
+
 @mixin break-all {
   word-break: break-all;
 }
+
 @mixin whitespace-normal {
   white-space: normal;
 }
+
 @mixin whitespace-nowrap {
   white-space: nowrap;
 }
+
 @mixin whitespace-pre {
   white-space: pre;
 }
+
 @mixin whitespace-pre-line {
   white-space: pre-line;
 }
+
 @mixin whitespace-pre-wrap {
   white-space: pre-wrap;
 }
@@ -223,18 +227,23 @@
 @mixin tracking-tighter {
   @include tracking(tighter);
 }
+
 @mixin tracking-tight {
   @include tracking(tight);
 }
+
 @mixin tracking-normal {
   @include tracking(normal);
 }
+
 @mixin tracking-wide {
   @include tracking(wide);
 }
+
 @mixin tracking-wider {
   @include tracking(wider);
 }
+
 @mixin tracking-widest {
   @include tracking(widest);
 }
@@ -250,39 +259,39 @@
 
   // Generate font weight utilities
   #{VAR.$parent-selector} .font-thin#{$suffix} {
-    @include font-thin;
+    @include font(thin);
   }
 
   #{VAR.$parent-selector} .font-extralight#{$suffix} {
-    @include font-extralight;
+    @include font(extralight);
   }
 
   #{VAR.$parent-selector} .font-light#{$suffix} {
-    @include font-light;
+    @include font(light);
   }
 
   #{VAR.$parent-selector} .font-normal#{$suffix} {
-    @include font-normal;
+    @include font(normal);
   }
 
   #{VAR.$parent-selector} .font-medium#{$suffix} {
-    @include font-medium;
+    @include font(medium);
   }
 
   #{VAR.$parent-selector} .font-semibold#{$suffix} {
-    @include font-semibold;
+    @include font(semibold);
   }
 
   #{VAR.$parent-selector} .font-bold#{$suffix} {
-    @include font-bold;
+    @include font(bold);
   }
 
   #{VAR.$parent-selector} .font-extrabold#{$suffix} {
-    @include font-extrabold;
+    @include font(extrabold);
   }
 
   #{VAR.$parent-selector} .font-black#{$suffix} {
-    @include font-black;
+    @include font(black);
   }
 
   // Generate line height utilities
