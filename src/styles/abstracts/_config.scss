@@ -107,7 +107,7 @@ $basic-colors: (
 $semantic-colors: ("primary", "secondary", "success", "danger", "warning", "info");
 $primitive-color-names: map.keys($color-primitives);
 $color-names: list.join($semantic-colors, $primitive-color-names);
-$color-names: list.join($color-names, map.keys($basic-colors));
+$color-names-with-basic: list.join($color-names, map.keys($basic-colors));
 
 @function validate-theme-tokens($theme-map, $required-tokens) {
   $missing-tokens: ();
@@ -235,6 +235,19 @@ $border-radii: (
   "2xl": 1.25rem,
   "full": 50%,
   "none": 0,
+) !default;
+
+// Font weight map
+$font-weights: (
+  "thin": 100,
+  "extralight": 200,
+  "light": 300,
+  "normal": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+  "extrabold": 800,
+  "black": 900,
 ) !default;
 
 $parent-selector: "" !default;
