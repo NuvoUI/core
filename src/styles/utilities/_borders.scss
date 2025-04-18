@@ -44,12 +44,12 @@ $border-styles: (solid, dashed, dotted, double, none);
   $val: FN.fix-units($val);
 
   --border-size: #{$val};
-  
+
   border-width: $val;
   @if $val != 0 {
     border-style: $style;
     border-color: $color;
-    
+
     --border-style: #{$style};
     --border-color: #{$color};
   }
@@ -167,7 +167,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 @mixin pill {
   @include rounded(9999px);
-} 
+}
 
 @if FN.feature-enabled("borders") {
   // Basic border classes (all sides)
@@ -222,7 +222,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   // Border radius classes
   #{VAR.$parent-selector} .rounded {
     @include rounded;
-  } 
+  }
   #{VAR.$parent-selector} .square {
     @include rounded(0);
   } // Alias for no radius
@@ -276,7 +276,6 @@ $border-styles: (solid, dashed, dotted, double, none);
   }
 
   @each $color-name in VAR.$color-names {
-
     #{VAR.$parent-selector} .border-#{$color-name},
     #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
     #{VAR.$parent-selector} .active\:border-#{$color-name}:active,
@@ -284,7 +283,6 @@ $border-styles: (solid, dashed, dotted, double, none);
     #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
       @include border-color(var(--#{$color-name}));
     }
-  
   }
 
   // -----------------------------------------------

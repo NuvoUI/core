@@ -40,6 +40,26 @@
   display: initial;
 }
 
+// @description Establishes a grid container.
+@mixin grid {
+  display: grid;
+}
+
+// @description Establishes a inline-grid container.
+@mixin grid-inline {
+  display: inline-grid;
+}
+
+// @description Establishes a flex container.
+@mixin flex {
+  display: flex;
+}
+
+// @description Establishes a flex-inline container.
+@mixin flex-inline {
+  display: inline-flex;
+}
+
 // @description Set display to table.
 @mixin d-tbl {
   display: table;
@@ -120,6 +140,24 @@
     @include inline-block;
   }
 
+  #{VAR.$parent-selector} .contents {
+    @include contents;
+  }
+
+  #{VAR.$parent-selector} .grid {
+    @include grid;
+
+    &.inline {
+      @include grid-inline;
+    }
+  }
+  #{VAR.$parent-selector} .flex {
+    @include flex;
+
+    &.inline {
+      @include flex-inline;
+    }
+  }
   #{VAR.$parent-selector} .visible {
     @include visible;
   }
@@ -130,10 +168,6 @@
 
   #{VAR.$parent-selector} .collapse {
     @include collapse;
-  }
-
-  #{VAR.$parent-selector} .contents {
-    @include contents;
   }
 
   #{VAR.$parent-selector} .overflow-hidden {
@@ -208,6 +242,24 @@
       #{VAR.$parent-selector} .inline-block\@#{$breakpoint} {
         @include inline-block;
       }
+
+      #{VAR.$parent-selector} .contents\@#{$breakpoint} {
+        @include contents;
+      }
+      #{VAR.$parent-selector} .grid\@#{$breakpoint} {
+        @include grid;
+
+        &.inline {
+          @include grid-inline;
+        }
+      }
+      #{VAR.$parent-selector} .flex\@#{$breakpoint} {
+        @include flex;
+
+        &.inline {
+          @include flex-inline;
+        }
+      }
       #{VAR.$parent-selector} .visible\@#{$breakpoint} {
         @include visible;
       }
@@ -216,9 +268,6 @@
       }
       #{VAR.$parent-selector} .collapse\@#{$breakpoint} {
         @include collapse;
-      }
-      #{VAR.$parent-selector} .contents\@#{$breakpoint} {
-        @include contents;
       }
       #{VAR.$parent-selector} .overflow-hidden\@#{$breakpoint} {
         @include overflow-hidden;

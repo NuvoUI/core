@@ -46,16 +46,6 @@
 @use "../abstracts/config" as VAR;
 @use "../abstracts/functions" as FN;
 
-// @description Establishes a flex container.
-@mixin flex {
-  display: flex;
-}
-
-// @description Establishes a flex-inline container.
-@mixin flex-inline {
-  display: inline-flex;
-}
-
 // @description Sets flex-direction to row.
 // @dependencies flex | flex-inline
 @mixin row {
@@ -321,12 +311,6 @@
 
   // Apply base flex styles to all flex variants at once
   #{$flex-selectors} {
-    @include flex;
-
-    &.inline {
-      @include flex-inline;
-    }
-
     // Direction modifiers
     &.row {
       @include row;
@@ -513,7 +497,7 @@
 
   // Handle responsive variants
   @each $breakpoint, $width in VAR.$breakpoints {
-    $bp-val: FN.get-breakpoint-value($breakpoint);
+    $bp-val: FN.get-breakpoint-value($breakpoint); // todo: why get-breakpoint-value?
 
     @media (min-width: #{$bp-val}) {
       #{$flex-selectors} {
@@ -663,12 +647,6 @@
             order: $i;
           }
         }
-      }
-
-      // Special case for inline@breakpoint
-      #{VAR.$parent-selector} .flex.inline\@#{$breakpoint},
-      #{VAR.$parent-selector} .flex\@#{$breakpoint}.inline\@#{$breakpoint} {
-        @include flex-inline;
       }
     }
   }

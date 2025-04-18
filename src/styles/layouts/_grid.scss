@@ -6,15 +6,6 @@
 @use "../abstracts/functions" as FN;
 @use "../abstracts/config" as VAR;
 
-// @description Establishes a grid container.
-@mixin grid {
-  display: grid;
-}
-
-// @description Establishes a inline-grid container.
-@mixin grid-inline {
-  display: inline-grid;
-}
 
 // Grid Template Mixins
 @mixin cols($count) {
@@ -129,12 +120,6 @@ $alignments: (
 
   // Apply base grid styles to all grid variants at once
   #{$all-grid-selectors} {
-    @include grid;
-
-    &.inline {
-      @include grid-inline;
-    }
-
     // Auto-fit/fill Classes
     @each $size, $width in VAR.$grid-item-sizes {
       &.auto-fit-#{$size} {

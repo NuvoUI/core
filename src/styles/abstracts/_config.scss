@@ -104,11 +104,10 @@ $basic-colors: (
   "transparent": transparent,
 ) !default;
 
-$semantic-colors: ('primary', 'secondary', 'success', 'danger', 'warning', 'info');
+$semantic-colors: ("primary", "secondary", "success", "danger", "warning", "info");
 $primitive-color-names: map.keys($color-primitives);
 $color-names: list.join($semantic-colors, $primitive-color-names);
 $color-names: list.join($color-names, map.keys($basic-colors));
-
 
 @function validate-theme-tokens($theme-map, $required-tokens) {
   $missing-tokens: ();
