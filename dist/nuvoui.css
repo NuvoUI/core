@@ -215,7 +215,7 @@ input[type=number],
 input[type=search],
 textarea {
   padding: 0.5rem;
-  border: var(--border-size, 1px) var(--border-style, solid) var(--border-color, var(--secondary));
+  border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
   border-radius: 0.25rem;
   width: 100%;
   font-family: var(--font-family-base);
@@ -238,7 +238,7 @@ input[type=radio] {
 
 select {
   padding: 0.5rem;
-  border: var(--border-size, 1px) var(--border-style, solid) var(--border-color, var(--secondary));
+  border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
   border-radius: 0.25rem;
   width: 100%;
   font-family: var(--font-family-base);
@@ -252,13 +252,13 @@ select:focus {
 blockquote {
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-color, var(--secondary));
+  border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-base, var(--secondary));
   font-style: italic;
 }
 
 hr {
   border: none;
-  border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-color, var(--secondary));
+  border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
   margin: 1rem 0;
 }
 
@@ -5295,42 +5295,60 @@ code {
   --border-size: 1px;
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-0 {
   --border-size: 0px;
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-t {
   border-top-width: 1px;
   border-top-style: var(--border-style, solid);
-  border-top-color: var(--border-color);
+  border-top-color: var(--border-base);
 }
 
 .border-r {
   border-right-width: 1px;
   border-right-style: var(--border-style, solid);
-  border-right-color: var(--border-color);
+  border-right-color: var(--border-base);
 }
 
 .border-b {
   border-bottom-width: 1px;
   border-bottom-style: var(--border-style, solid);
-  border-bottom-color: var(--border-color);
+  border-bottom-color: var(--border-base);
 }
 
 .border-l {
   border-left-width: 1px;
   border-left-style: var(--border-style, solid);
-  border-left-color: var(--border-color);
+  border-left-color: var(--border-base);
+}
+
+.border-x {
+  border-left-width: 1px;
+  border-left-style: var(--border-style, solid);
+  border-left-color: var(--border-base);
+  border-right-width: 1px;
+  border-right-style: var(--border-style, solid);
+  border-right-color: var(--border-base);
+}
+
+.border-y {
+  border-top-width: 1px;
+  border-top-style: var(--border-style, solid);
+  border-top-color: var(--border-base);
+  border-bottom-width: 1px;
+  border-bottom-style: var(--border-style, solid);
+  border-bottom-color: var(--border-base);
 }
 
 .border-0,
@@ -5341,33 +5359,51 @@ code {
   --border-size: 0px;
   border-width: 0px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-t-0 {
   border-top-width: 0px;
   border-top-style: var(--border-style, solid);
-  border-top-color: var(--border-color);
+  border-top-color: var(--border-base);
 }
 
 .border-r-0 {
   border-right-width: 0px;
   border-right-style: var(--border-style, solid);
-  border-right-color: var(--border-color);
+  border-right-color: var(--border-base);
 }
 
 .border-b-0 {
   border-bottom-width: 0px;
   border-bottom-style: var(--border-style, solid);
-  border-bottom-color: var(--border-color);
+  border-bottom-color: var(--border-base);
 }
 
 .border-l-0 {
   border-left-width: 0px;
   border-left-style: var(--border-style, solid);
-  border-left-color: var(--border-color);
+  border-left-color: var(--border-base);
+}
+
+.border-x-0 {
+  border-left-width: 1px;
+  border-left-style: var(--border-style, solid);
+  border-left-color: var(--border-base);
+  border-right-width: 1px;
+  border-right-style: var(--border-style, solid);
+  border-right-color: var(--border-base);
+}
+
+.border-y-0 {
+  border-top-width: 0px;
+  border-top-style: var(--border-style, solid);
+  border-top-color: var(--border-base);
+  border-bottom-width: 0px;
+  border-bottom-style: var(--border-style, solid);
+  border-bottom-color: var(--border-base);
 }
 
 .border-1,
@@ -5378,33 +5414,51 @@ code {
   --border-size: 1px;
   border-width: 1px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-t-1 {
   border-top-width: 1px;
   border-top-style: var(--border-style, solid);
-  border-top-color: var(--border-color);
+  border-top-color: var(--border-base);
 }
 
 .border-r-1 {
   border-right-width: 1px;
   border-right-style: var(--border-style, solid);
-  border-right-color: var(--border-color);
+  border-right-color: var(--border-base);
 }
 
 .border-b-1 {
   border-bottom-width: 1px;
   border-bottom-style: var(--border-style, solid);
-  border-bottom-color: var(--border-color);
+  border-bottom-color: var(--border-base);
 }
 
 .border-l-1 {
   border-left-width: 1px;
   border-left-style: var(--border-style, solid);
-  border-left-color: var(--border-color);
+  border-left-color: var(--border-base);
+}
+
+.border-x-1 {
+  border-left-width: 1px;
+  border-left-style: var(--border-style, solid);
+  border-left-color: var(--border-base);
+  border-right-width: 1px;
+  border-right-style: var(--border-style, solid);
+  border-right-color: var(--border-base);
+}
+
+.border-y-1 {
+  border-top-width: 1px;
+  border-top-style: var(--border-style, solid);
+  border-top-color: var(--border-base);
+  border-bottom-width: 1px;
+  border-bottom-style: var(--border-style, solid);
+  border-bottom-color: var(--border-base);
 }
 
 .border-2,
@@ -5415,33 +5469,51 @@ code {
   --border-size: 2px;
   border-width: 2px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-t-2 {
   border-top-width: 2px;
   border-top-style: var(--border-style, solid);
-  border-top-color: var(--border-color);
+  border-top-color: var(--border-base);
 }
 
 .border-r-2 {
   border-right-width: 2px;
   border-right-style: var(--border-style, solid);
-  border-right-color: var(--border-color);
+  border-right-color: var(--border-base);
 }
 
 .border-b-2 {
   border-bottom-width: 2px;
   border-bottom-style: var(--border-style, solid);
-  border-bottom-color: var(--border-color);
+  border-bottom-color: var(--border-base);
 }
 
 .border-l-2 {
   border-left-width: 2px;
   border-left-style: var(--border-style, solid);
-  border-left-color: var(--border-color);
+  border-left-color: var(--border-base);
+}
+
+.border-x-2 {
+  border-left-width: 1px;
+  border-left-style: var(--border-style, solid);
+  border-left-color: var(--border-base);
+  border-right-width: 1px;
+  border-right-style: var(--border-style, solid);
+  border-right-color: var(--border-base);
+}
+
+.border-y-2 {
+  border-top-width: 2px;
+  border-top-style: var(--border-style, solid);
+  border-top-color: var(--border-base);
+  border-bottom-width: 2px;
+  border-bottom-style: var(--border-style, solid);
+  border-bottom-color: var(--border-base);
 }
 
 .border-4,
@@ -5452,33 +5524,51 @@ code {
   --border-size: 4px;
   border-width: 4px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-t-4 {
   border-top-width: 4px;
   border-top-style: var(--border-style, solid);
-  border-top-color: var(--border-color);
+  border-top-color: var(--border-base);
 }
 
 .border-r-4 {
   border-right-width: 4px;
   border-right-style: var(--border-style, solid);
-  border-right-color: var(--border-color);
+  border-right-color: var(--border-base);
 }
 
 .border-b-4 {
   border-bottom-width: 4px;
   border-bottom-style: var(--border-style, solid);
-  border-bottom-color: var(--border-color);
+  border-bottom-color: var(--border-base);
 }
 
 .border-l-4 {
   border-left-width: 4px;
   border-left-style: var(--border-style, solid);
-  border-left-color: var(--border-color);
+  border-left-color: var(--border-base);
+}
+
+.border-x-4 {
+  border-left-width: 1px;
+  border-left-style: var(--border-style, solid);
+  border-left-color: var(--border-base);
+  border-right-width: 1px;
+  border-right-style: var(--border-style, solid);
+  border-right-color: var(--border-base);
+}
+
+.border-y-4 {
+  border-top-width: 4px;
+  border-top-style: var(--border-style, solid);
+  border-top-color: var(--border-base);
+  border-bottom-width: 4px;
+  border-bottom-style: var(--border-style, solid);
+  border-bottom-color: var(--border-base);
 }
 
 .border-8,
@@ -5489,33 +5579,51 @@ code {
   --border-size: 8px;
   border-width: 8px;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--border-base);
   --border-style: solid;
-  --border-color: var(--border-color);
+  --border-color: var(--border-base);
 }
 
 .border-t-8 {
   border-top-width: 8px;
   border-top-style: var(--border-style, solid);
-  border-top-color: var(--border-color);
+  border-top-color: var(--border-base);
 }
 
 .border-r-8 {
   border-right-width: 8px;
   border-right-style: var(--border-style, solid);
-  border-right-color: var(--border-color);
+  border-right-color: var(--border-base);
 }
 
 .border-b-8 {
   border-bottom-width: 8px;
   border-bottom-style: var(--border-style, solid);
-  border-bottom-color: var(--border-color);
+  border-bottom-color: var(--border-base);
 }
 
 .border-l-8 {
   border-left-width: 8px;
   border-left-style: var(--border-style, solid);
-  border-left-color: var(--border-color);
+  border-left-color: var(--border-base);
+}
+
+.border-x-8 {
+  border-left-width: 1px;
+  border-left-style: var(--border-style, solid);
+  border-left-color: var(--border-base);
+  border-right-width: 1px;
+  border-right-style: var(--border-style, solid);
+  border-right-color: var(--border-base);
+}
+
+.border-y-8 {
+  border-top-width: 8px;
+  border-top-style: var(--border-style, solid);
+  border-top-color: var(--border-base);
+  border-bottom-width: 8px;
+  border-bottom-style: var(--border-style, solid);
+  border-bottom-color: var(--border-base);
 }
 
 .rounded {
@@ -6023,57 +6131,57 @@ code {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-1\@xs {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-2\@xs {
     --border-size: 2px;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-4\@xs {
     --border-size: 4px;
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-8\@xs {
     --border-size: 8px;
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border\@xs {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-0\@xs {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .rounded-xs\@xs {
     border-radius: 0.25rem;
@@ -6114,57 +6222,57 @@ code {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-1\@sm {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-2\@sm {
     --border-size: 2px;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-4\@sm {
     --border-size: 4px;
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-8\@sm {
     --border-size: 8px;
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border\@sm {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-0\@sm {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .rounded-xs\@sm {
     border-radius: 0.25rem;
@@ -6205,57 +6313,57 @@ code {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-1\@md {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-2\@md {
     --border-size: 2px;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-4\@md {
     --border-size: 4px;
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-8\@md {
     --border-size: 8px;
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border\@md {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-0\@md {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .rounded-xs\@md {
     border-radius: 0.25rem;
@@ -6296,57 +6404,57 @@ code {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-1\@lg {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-2\@lg {
     --border-size: 2px;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-4\@lg {
     --border-size: 4px;
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-8\@lg {
     --border-size: 8px;
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border\@lg {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-0\@lg {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .rounded-xs\@lg {
     border-radius: 0.25rem;
@@ -6387,57 +6495,57 @@ code {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-1\@xl {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-2\@xl {
     --border-size: 2px;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-4\@xl {
     --border-size: 4px;
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-8\@xl {
     --border-size: 8px;
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border\@xl {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-0\@xl {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .rounded-xs\@xl {
     border-radius: 0.25rem;
@@ -6478,57 +6586,57 @@ code {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-1\@2xl {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-2\@2xl {
     --border-size: 2px;
     border-width: 2px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-4\@2xl {
     --border-size: 4px;
     border-width: 4px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-8\@2xl {
     --border-size: 8px;
     border-width: 8px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border\@2xl {
     --border-size: 1px;
     border-width: 1px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .border-0\@2xl {
     --border-size: 0px;
     border-width: 0px;
     border-style: solid;
-    border-color: var(--border-color);
+    border-color: var(--border-base);
     --border-style: solid;
-    --border-color: var(--border-color);
+    --border-color: var(--border-base);
   }
   .rounded-xs\@2xl {
     border-radius: 0.25rem;
@@ -6716,10 +6824,6 @@ code {
   cursor: all-scroll;
 }
 
-.hide {
-  display: none;
-}
-
 .show {
   display: initial;
 }
@@ -6764,6 +6868,14 @@ code {
 
 .collapse {
   visibility: collapse;
+}
+
+.hide {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .overflow-hidden {
@@ -20831,6 +20943,10 @@ code {
   font-weight: 800;
 }
 
+.font-black {
+  font-weight: 900;
+}
+
 .leading-none {
   line-height: 1;
 }
@@ -21089,6 +21205,9 @@ code {
   .font-extrabold\@xs {
     font-weight: 800;
   }
+  .font-black\@xs {
+    font-weight: 900;
+  }
   .leading-none\@xs {
     line-height: 1;
   }
@@ -21283,6 +21402,9 @@ code {
   }
   .font-extrabold\@sm {
     font-weight: 800;
+  }
+  .font-black\@sm {
+    font-weight: 900;
   }
   .leading-none\@sm {
     line-height: 1;
@@ -21479,6 +21601,9 @@ code {
   .font-extrabold\@md {
     font-weight: 800;
   }
+  .font-black\@md {
+    font-weight: 900;
+  }
   .leading-none\@md {
     line-height: 1;
   }
@@ -21673,6 +21798,9 @@ code {
   }
   .font-extrabold\@lg {
     font-weight: 800;
+  }
+  .font-black\@lg {
+    font-weight: 900;
   }
   .leading-none\@lg {
     line-height: 1;
@@ -21869,6 +21997,9 @@ code {
   .font-extrabold\@xl {
     font-weight: 800;
   }
+  .font-black\@xl {
+    font-weight: 900;
+  }
   .leading-none\@xl {
     line-height: 1;
   }
@@ -22063,6 +22194,9 @@ code {
   }
   .font-extrabold\@2xl {
     font-weight: 800;
+  }
+  .font-black\@2xl {
+    font-weight: 900;
   }
   .leading-none\@2xl {
     line-height: 1;
@@ -34674,7 +34808,7 @@ code {
   --inverted-bg-alternate: #f1f1f1;
   --bg-surface: #fff;
   --inverted-bg-surface: #2e2e2e;
-  --border-base: #e5e7eb;
+  --border-base: #d3d5d9;
   --inverted-border-base: #2e2e2e;
   --text-color: #1a1a1a;
   --inverted-text-color: #f1f1f1;
@@ -34701,7 +34835,7 @@ code {
   --bg-surface: #2e2e2e;
   --inverted-bg-surface: #fff;
   --border-base: #2e2e2e;
-  --inverted-border-base: #e5e7eb;
+  --inverted-border-base: #d3d5d9;
   --text-color: #f1f1f1;
   --inverted-text-color: #1a1a1a;
   --text-muted: rgba(241, 241, 241, 0.5411764706);
