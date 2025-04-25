@@ -40,7 +40,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
-@mixin border($val, $style: solid, $color: var(--border-color)) {
+@mixin border($val, $style: solid, $color: var(--border-base)) {
   $val: FN.fix-units($val);
 
   --border-size: #{$val};
@@ -61,7 +61,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-top-width: $val;
   @if $val != 0 {
     border-top-style: var(--border-style, solid);
-    border-top-color: var(--border-color);
+    border-top-color: var(--border-base);
   }
 }
 
@@ -71,7 +71,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-right-width: $val;
   @if $val != 0 {
     border-right-style: var(--border-style, solid);
-    border-right-color: var(--border-color);
+    border-right-color: var(--border-base);
   }
 }
 
@@ -81,7 +81,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-bottom-width: $val;
   @if $val != 0 {
     border-bottom-style: var(--border-style, solid);
-    border-bottom-color: var(--border-color);
+    border-bottom-color: var(--border-base);
   }
 }
 
@@ -91,7 +91,7 @@ $border-styles: (solid, dashed, dotted, double, none);
   border-left-width: $val;
   @if $val != 0 {
     border-left-style: var(--border-style, solid);
-    border-left-color: var(--border-color);
+    border-left-color: var(--border-base);
   }
 }
 
@@ -196,6 +196,16 @@ $border-styles: (solid, dashed, dotted, double, none);
     @include border-left(1);
   }
 
+  #{VAR.$parent-selector} .border-x {
+    @include border-left(1);
+    @include border-right(1);
+  }
+
+  #{VAR.$parent-selector} .border-y {
+    @include border-top(1);
+    @include border-bottom(1);
+  }
+
   // Directional border width
   @each $width in VAR.$border-widths {
     #{VAR.$parent-selector} .border-#{$width},
@@ -216,6 +226,16 @@ $border-styles: (solid, dashed, dotted, double, none);
     }
     #{VAR.$parent-selector} .border-l-#{$width} {
       @include border-left($width);
+    }
+
+    #{VAR.$parent-selector} .border-x-#{$width} {
+      @include border-left(1);
+      @include border-right(1);
+    }
+
+    #{VAR.$parent-selector} .border-y-#{$width} {
+      @include border-top($width);
+      @include border-bottom($width);
     }
   }
 

@@ -120,10 +120,6 @@
 }
 
 @if FN.feature-enabled("displays") {
-  #{VAR.$parent-selector} .hide {
-    @include hide;
-  }
-
   #{VAR.$parent-selector} .show {
     @include show;
   }
@@ -168,6 +164,14 @@
 
   #{VAR.$parent-selector} .collapse {
     @include collapse;
+  }
+
+  #{VAR.$parent-selector} .hide {
+    @include hide;
+  }
+
+  #{VAR.$parent-selector} .hidden {
+    display: none !important;
   }
 
   #{VAR.$parent-selector} .overflow-hidden {

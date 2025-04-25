@@ -258,40 +258,10 @@
   }
 
   // Generate font weight utilities
-  #{VAR.$parent-selector} .font-thin#{$suffix} {
-    @include font(thin);
-  }
-
-  #{VAR.$parent-selector} .font-extralight#{$suffix} {
-    @include font(extralight);
-  }
-
-  #{VAR.$parent-selector} .font-light#{$suffix} {
-    @include font(light);
-  }
-
-  #{VAR.$parent-selector} .font-normal#{$suffix} {
-    @include font(normal);
-  }
-
-  #{VAR.$parent-selector} .font-medium#{$suffix} {
-    @include font(medium);
-  }
-
-  #{VAR.$parent-selector} .font-semibold#{$suffix} {
-    @include font(semibold);
-  }
-
-  #{VAR.$parent-selector} .font-bold#{$suffix} {
-    @include font(bold);
-  }
-
-  #{VAR.$parent-selector} .font-extrabold#{$suffix} {
-    @include font(extrabold);
-  }
-
-  #{VAR.$parent-selector} .font-black#{$suffix} {
-    @include font(black);
+  @each $size, $val in VAR.$font-weights {
+    #{VAR.$parent-selector} .font-#{$size}#{$suffix} {
+      @include font($size);
+    }
   }
 
   // Generate line height utilities
