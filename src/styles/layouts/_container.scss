@@ -28,7 +28,7 @@
   @include container-padding(1rem);
 }
 
-@if FN.feature-enabled("container-queries") {
+@if FN.feature-enabled("container") {
   // Container classes
   #{VAR.$parent-selector} .container {
     @include container;
