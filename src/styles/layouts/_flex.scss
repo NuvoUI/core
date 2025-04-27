@@ -292,13 +292,8 @@
 // @description Sets how many columns this would take using percentage of VAR.$column-count.
 // @param {Number} $size - The number of columns to span.
 @mixin fill($size) {
-  $percentage: math.percentage(math.div($size, VAR.$column-count));
-
-  $n: math.div(VAR.$column-count, $size); // How many items fit in a row
-  $gap-adjustment: calc(var(--flex-gap, 0px) * #{$n - 1} / #{$n});
-
-  // The width calculation accounts for the gap proportionally
-  flex: 0 0 calc(#{$percentage} - #{$gap-adjustment});
+  $columns: math.div(VAR.$column-count, $size); // How many items per row
+  flex: 0 0 calc((100% - (#{$columns - 1} * var(--flex-gap, 0px))) / #{$columns});
 }
 
 @if FN.feature-enabled("flex") {

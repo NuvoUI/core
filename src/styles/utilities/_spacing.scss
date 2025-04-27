@@ -291,7 +291,11 @@
 // @description Sets vertical gap between grid/flex children
 // @param {Number|String} $val - Gap value
 @mixin gap-y($val) {
-  row-gap: FN.fix-units($val);
+  $val: FN.fix-units($val);
+
+  row-gap: $val;
+
+  --flex-gap: #{$val};
 }
 
 @if FN.feature-enabled("spacing") {
