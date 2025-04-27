@@ -12,178 +12,178 @@
 // @param {string|number} $breakpoint - The breakpoint value.
 // @param {string} $type - The media query type (e.g. 'lg', 'md').
 @mixin media-up($breakpoint, $debug: null) {
-  $blueprint-value: FN.fix-units(FN.get-breakpoint-value($breakpoint, $debug));
-  $val: $blueprint-value - 0.01;
-  @media screen and (min-width: #{$val}) {
-    @content;
-  }
+    $blueprint-value: FN.fix-units(FN.get-breakpoint-value($breakpoint, $debug));
+    $val: $blueprint-value - 0.01;
+    @media screen and (min-width: #{$val}) {
+        @content;
+    }
 }
 
 @mixin media-down($breakpoint) {
-  $blueprint-value: FN.fix-units(FN.get-breakpoint-value($breakpoint));
-  $val: $blueprint-value - 0.01;
-  @media screen and (max-width: #{$val}) {
-    @content;
-  }
+    $blueprint-value: FN.fix-units(FN.get-breakpoint-value($breakpoint));
+    $val: $blueprint-value - 0.01;
+    @media screen and (max-width: #{$val}) {
+        @content;
+    }
 }
 
 @mixin media-between($lower, $upper) {
-  $lower-val: FN.fix-units(FN.get-breakpoint-value($lower));
-  $upper-val: FN.fix-units(FN.get-breakpoint-value($upper));
-  $upper-val: $upper-val - 0.01;
-  @media screen and (min-width: #{$lower-val}) and (max-width: #{$upper-val}) {
-    @content;
-  }
+    $lower-val: FN.fix-units(FN.get-breakpoint-value($lower));
+    $upper-val: FN.fix-units(FN.get-breakpoint-value($upper));
+    $upper-val: $upper-val - 0.01;
+    @media screen and (min-width: #{$lower-val}) and (max-width: #{$upper-val}) {
+        @content;
+    }
 }
 
 // Only at specific breakpoint
 @mixin media-only($breakpoint) {
-  @if meta.type-of($breakpoint) == number and math.is-unitless($breakpoint) {
-    @error "media-only() needs a breakpoint value";
-  }
-
-  @if map.has-key(VAR.$breakpoints, $breakpoint) {
-    $min: FN.get-breakpoint-value($breakpoint);
-  } @else {
-    @error "media-only() needs a valid breakpoint value #{$breakpoint} is not in your $breakpoints map";
-  }
-
-  $next-breakpoint: null;
-
-  @each $name, $width in VAR.$breakpoints {
-    @if $width > $min and (meta.type-of($next-breakpoint) == "null" or $width < $next-breakpoint) {
-      $next-breakpoint: $width;
+    @if meta.type-of($breakpoint) == number and math.is-unitless($breakpoint) {
+        @error "media-only() needs a breakpoint value";
     }
-  }
 
-  @if $next-breakpoint {
-    @media (min-width: #{$min}) and (max-width: #{$next-breakpoint - 0.02px}) {
-      @content;
+    @if map.has-key(VAR.$breakpoints, $breakpoint) {
+        $min: FN.get-breakpoint-value($breakpoint);
+    } @else {
+        @error "media-only() needs a valid breakpoint value #{$breakpoint} is not in your $breakpoints map";
     }
-  } @else {
-    @media (min-width: #{$min}) {
-      @content;
+
+    $next-breakpoint: null;
+
+    @each $name, $width in VAR.$breakpoints {
+        @if $width > $min and (meta.type-of($next-breakpoint) == "null" or $width < $next-breakpoint) {
+            $next-breakpoint: $width;
+        }
     }
-  }
+
+    @if $next-breakpoint {
+        @media (min-width: #{$min}) and (max-width: #{$next-breakpoint - 0.02px}) {
+            @content;
+        }
+    } @else {
+        @media (min-width: #{$min}) {
+            @content;
+        }
+    }
 }
 
 // todo: doc
 // Touch devices
 @mixin touch {
-  @media (hover: none) and (pointer: coarse) {
-    @content;
-  }
+    @media (hover: none) and (pointer: coarse) {
+        @content;
+    }
 }
 
 // todo: doc
 // Print media
 @mixin print {
-  @media print {
-    @content;
-  }
+    @media print {
+        @content;
+    }
 }
 
 // todo: doc
 // Example: @include supports(display: grid) { }
 @mixin supports($property) {
-  @supports (#{$property}) {
-    @content;
-  }
+    @supports (#{$property}) {
+        @content;
+    }
 }
 
 // todo: doc
 // System preference only
 @mixin prefers-dark {
-  @media (prefers-color-scheme: dark) {
-    @content;
-  }
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
 }
 
 // todo: doc
 // User preference takes precedence
 @mixin dark-mode {
-  @if VAR.$enable-dark-mode {
-    // todo: documentation as this will fully remove the dark mode by force
-    // Apply when user explicitly chooses dark
-    [data-theme="dark"] & {
-      @content;
-    }
+    @if VAR.$enable-dark-mode {
+        // todo: documentation as this will fully remove the dark mode by force
+        // Apply when user explicitly chooses dark
+        [data-theme="dark"] & {
+            @content;
+        }
 
-    // Apply when system is dark AND user hasn't made a choice
-    @media (prefers-color-scheme: dark) {
-      [data-theme="system"] & {
-        @content;
-      }
+        // Apply when system is dark AND user hasn't made a choice
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] & {
+                @content;
+            }
+        }
     }
-  }
 }
 
 // todo: doc
 // Device orientation
 @mixin landscape {
-  @media screen and (orientation: landscape) {
-    @content;
-  }
+    @media screen and (orientation: landscape) {
+        @content;
+    }
 }
 
 // todo: doc
 @mixin portrait {
-  @media screen and (orientation: portrait) {
-    @content;
-  }
+    @media screen and (orientation: portrait) {
+        @content;
+    }
 }
 
 // todo: doc
 // Modern aspect ratio
 @mixin aspect-ratio($ratio) {
-  aspect-ratio: #{$ratio};
+    aspect-ratio: #{$ratio};
 }
 
 // todo: doc
 // Dynamic viewport units (modern browsers)
 @mixin dvh {
-  @supports (height: 100dvh) {
-    height: 100dvh;
-  }
+    @supports (height: 100dvh) {
+        height: 100dvh;
+    }
 
-  @supports not (height: 100dvh) {
-    height: 100vh;
-  }
+    @supports not (height: 100dvh) {
+        height: 100vh;
+    }
 }
 
 // todo: doc
 // Safe area insets (notches, home indicators)
 @mixin safe-area-inset($property, $position) {
-  #{$property}: env(safe-area-inset-#{$position});
+    #{$property}: env(safe-area-inset-#{$position});
 }
 
 // todo: doc
 @mixin reduced-motion {
-  @media (prefers-reduced-motion: reduce) {
-    @content;
-  }
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
 }
 
 // todo: doc
 // Mouse precision detection
 @mixin fine-pointer {
-  @media (pointer: fine) {
-    @content;
-  }
+    @media (pointer: fine) {
+        @content;
+    }
 }
 
 // todo: doc
 // Display mode for PWAs
 @mixin display-mode($mode: "standalone") {
-  @media (display-mode: #{$mode}) {
-    @content;
-  }
+    @media (display-mode: #{$mode}) {
+        @content;
+    }
 }
 
 // todo: doc
 // High contrast mode
 @mixin high-contrast {
-  @media (forced-colors: active) {
-    @content;
-  }
+    @media (forced-colors: active) {
+        @content;
+    }
 }

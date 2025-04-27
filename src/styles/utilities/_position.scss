@@ -50,7 +50,7 @@
 //   @include static;
 // }
 @mixin static {
-  position: static;
+    position: static;
 }
 
 // @mixin relative
@@ -60,7 +60,7 @@
 //   @include relative;
 // }
 @mixin relative {
-  position: relative;
+    position: relative;
 }
 
 // @mixin absolute
@@ -72,7 +72,7 @@
 //   left: 0;
 // }
 @mixin absolute {
-  position: absolute;
+    position: absolute;
 }
 
 // @mixin absolute
@@ -84,7 +84,7 @@
 //   left: 0;
 // }
 @mixin fixed {
-  position: fixed;
+    position: fixed;
 }
 
 // @mixin sticky
@@ -94,9 +94,9 @@
 //   @include sticky;
 // }
 @mixin sticky {
-  position: sticky;
-  z-index: 999;
-  top: 0;
+    position: sticky;
+    z-index: 999;
+    top: 0;
 }
 
 // @mixin top
@@ -108,7 +108,7 @@
 //   @include top(1rem);
 // }
 @mixin top($value) {
-  top: FN.fix-units($value);
+    top: FN.fix-units($value);
 }
 
 // @mixin right
@@ -120,7 +120,7 @@
 //   @include right(0);
 // }
 @mixin right($value) {
-  right: FN.fix-units($value);
+    right: FN.fix-units($value);
 }
 
 // @mixin bottom
@@ -132,7 +132,7 @@
 //  @include bottom(0);
 // }
 @mixin bottom($value) {
-  bottom: FN.fix-units($value);
+    bottom: FN.fix-units($value);
 }
 
 // @mixin left
@@ -144,148 +144,148 @@
 //  @include left(0);
 // }
 @mixin left($value) {
-  left: $value;
+    left: $value;
 }
 
 // todo: Documentation
 @mixin absolute-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
 
-  --translate-x: -50%;
-  --translate-y: -50%;
+    --translate-x: -50%;
+    --translate-y: -50%;
 
-  transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
+    transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
 }
 
 // todo: Documentation
 // Fractional and percentage placements
 $position-fractions: (
-  "25p": 25%,
-  "33p": 33.333%,
-  "50p": 50%,
-  "66p": 66.667%,
-  "75p": 75%,
-  "100p": 100%,
+    "25p": 25%,
+    "33p": 33.333%,
+    "50p": 50%,
+    "66p": 66.667%,
+    "75p": 75%,
+    "100p": 100%,
 );
 
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
 @if FN.feature-enabled("position") {
-  // Position Classes
-  #{VAR.$parent-selector} .static {
-    @include static;
-  }
-
-  #{VAR.$parent-selector} .relative {
-    @include relative;
-  }
-
-  #{VAR.$parent-selector} .absolute {
-    @include absolute;
-  }
-
-  #{VAR.$parent-selector} .fixed {
-    @include fixed;
-  }
-
-  #{VAR.$parent-selector} .sticky {
-    @include sticky;
-  }
-
-  #{VAR.$parent-selector} .absolute-center {
-    @include absolute-center;
-  }
-
-  @each $key, $value in $position-fractions {
-    #{VAR.$parent-selector} .top-#{$key} {
-      @include top($value);
-    }
-    #{VAR.$parent-selector} .right-#{$key} {
-      @include right($value);
-    }
-    #{VAR.$parent-selector} .bottom-#{$key} {
-      @include bottom($value);
-    }
-    #{VAR.$parent-selector} .left-#{$key} {
-      @include left($value);
-    }
-  }
-
-  // Placement Classes
-  @each $key, $value in VAR.$spacings {
-    #{VAR.$parent-selector} .top-#{$key} {
-      @include top($value);
-    }
-    #{VAR.$parent-selector} .right-#{$key} {
-      @include right($value);
-    }
-    #{VAR.$parent-selector} .bottom-#{$key} {
-      @include bottom($value);
-    }
-    #{VAR.$parent-selector} .left-#{$key} {
-      @include left($value);
-    }
-  }
-
-  // -----------------------------------------------
-  // RESPONSIVE CLASSES
-  // -----------------------------------------------
-
-  // Responsive Position Classes
-  @each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-      #{VAR.$parent-selector} .static\@#{$breakpoint} {
+    // Position Classes
+    #{VAR.$parent-selector} .static {
         @include static;
-      }
-      #{VAR.$parent-selector} .relative\@#{$breakpoint} {
-        @include relative;
-      }
-      #{VAR.$parent-selector} .absolute\@#{$breakpoint} {
-        @include absolute;
-      }
-      #{VAR.$parent-selector} .fixed\@#{$breakpoint} {
-        @include fixed;
-      }
-      #{VAR.$parent-selector} .sticky\@#{$breakpoint} {
-        @include sticky;
-      }
-      #{VAR.$parent-selector} .absolute-center\@#{$breakpoint} {
-        @include absolute-center;
-      }
-
-      // Fractional responsive placements
-      @each $key, $value in $position-fractions {
-        #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
-          @include top($value);
-        }
-        #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
-          @include right($value);
-        }
-        #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
-          @include bottom($value);
-        }
-        #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
-          @include left($value);
-        }
-      }
-
-      @each $key, $value in VAR.$spacings {
-        #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
-          @include top($value);
-        }
-        #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
-          @include right($value);
-        }
-        #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
-          @include bottom($value);
-        }
-        #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
-          @include left($value);
-        }
-      }
     }
-  }
+
+    #{VAR.$parent-selector} .relative {
+        @include relative;
+    }
+
+    #{VAR.$parent-selector} .absolute {
+        @include absolute;
+    }
+
+    #{VAR.$parent-selector} .fixed {
+        @include fixed;
+    }
+
+    #{VAR.$parent-selector} .sticky {
+        @include sticky;
+    }
+
+    #{VAR.$parent-selector} .absolute-center {
+        @include absolute-center;
+    }
+
+    @each $key, $value in $position-fractions {
+        #{VAR.$parent-selector} .top-#{$key} {
+            @include top($value);
+        }
+        #{VAR.$parent-selector} .right-#{$key} {
+            @include right($value);
+        }
+        #{VAR.$parent-selector} .bottom-#{$key} {
+            @include bottom($value);
+        }
+        #{VAR.$parent-selector} .left-#{$key} {
+            @include left($value);
+        }
+    }
+
+    // Placement Classes
+    @each $key, $value in VAR.$spacings {
+        #{VAR.$parent-selector} .top-#{$key} {
+            @include top($value);
+        }
+        #{VAR.$parent-selector} .right-#{$key} {
+            @include right($value);
+        }
+        #{VAR.$parent-selector} .bottom-#{$key} {
+            @include bottom($value);
+        }
+        #{VAR.$parent-selector} .left-#{$key} {
+            @include left($value);
+        }
+    }
+
+    // -----------------------------------------------
+    // RESPONSIVE CLASSES
+    // -----------------------------------------------
+
+    // Responsive Position Classes
+    @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+            #{VAR.$parent-selector} .static\@#{$breakpoint} {
+                @include static;
+            }
+            #{VAR.$parent-selector} .relative\@#{$breakpoint} {
+                @include relative;
+            }
+            #{VAR.$parent-selector} .absolute\@#{$breakpoint} {
+                @include absolute;
+            }
+            #{VAR.$parent-selector} .fixed\@#{$breakpoint} {
+                @include fixed;
+            }
+            #{VAR.$parent-selector} .sticky\@#{$breakpoint} {
+                @include sticky;
+            }
+            #{VAR.$parent-selector} .absolute-center\@#{$breakpoint} {
+                @include absolute-center;
+            }
+
+            // Fractional responsive placements
+            @each $key, $value in $position-fractions {
+                #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
+                    @include top($value);
+                }
+                #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
+                    @include right($value);
+                }
+                #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
+                    @include bottom($value);
+                }
+                #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
+                    @include left($value);
+                }
+            }
+
+            @each $key, $value in VAR.$spacings {
+                #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
+                    @include top($value);
+                }
+                #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
+                    @include right($value);
+                }
+                #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
+                    @include bottom($value);
+                }
+                #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
+                    @include left($value);
+                }
+            }
+        }
+    }
 }

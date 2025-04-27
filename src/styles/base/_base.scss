@@ -5,19 +5,19 @@
 @use "../utilities/media-queries" as media;
 
 :root {
-  --font-family-base: #{$font-family};
+    --font-family-base: #{$font-family};
 }
 
 // Base typography styles
 html {
-  font-size: $base-size;
+    font-size: $base-size;
 }
 
 body#{$parent-selector} {
-  font-family: var(--font-family-base);
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--text-default);
+    font-family: var(--font-family-base);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-default);
 }
 
 // Headings
@@ -27,76 +27,76 @@ body#{$parent-selector} {
 #{$parent-selector} h4,
 #{$parent-selector} h5,
 #{$parent-selector} h6 {
-  margin-bottom: 0.5em;
-  font-family: var(--font-family-base);
-  font-weight: 700;
-  line-height: 1.2;
+    margin-bottom: 0.5em;
+    font-family: var(--font-family-base);
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 #{$parent-selector} h1 {
-  font-size: map.get($font-sizes, "4xl");
+    font-size: map.get($font-sizes, "4xl");
 }
 
 #{$parent-selector} h2 {
-  font-size: map.get($font-sizes, "3xl");
+    font-size: map.get($font-sizes, "3xl");
 }
 
 #{$parent-selector} h3 {
-  font-size: map.get($font-sizes, "2xl");
+    font-size: map.get($font-sizes, "2xl");
 }
 
 #{$parent-selector} h4 {
-  font-size: map.get($font-sizes, "xl");
+    font-size: map.get($font-sizes, "xl");
 }
 
 #{$parent-selector} h5 {
-  font-size: map.get($font-sizes, "lg");
+    font-size: map.get($font-sizes, "lg");
 }
 
 #{$parent-selector} h6 {
-  font-size: map.get($font-sizes, "base");
+    font-size: map.get($font-sizes, "base");
 }
 
 // Paragraphs
 #{$parent-selector} p {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 // Small text
 #{$parent-selector} small {
-  font-size: map.get($font-sizes, "sm");
+    font-size: map.get($font-sizes, "sm");
 }
 
 // Buttons
 #{$parent-selector} button {
-  padding: 0.5rem 1rem;
-  border: 0;
-  border-radius: 0.25rem;
-  font-family: var(--font-family-base);
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease-in-out,
-    color 0.2s ease-in-out;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 0.25rem;
+    font-family: var(--font-family-base);
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease-in-out,
+        color 0.2s ease-in-out;
 
-  &:focus {
-    outline: none;
-  }
-
-  &:disabled {
-    background-color: #e0e0e0; // Disabled button color
-    color: #a0a0a0; // Disabled text color
-    cursor: not-allowed;
-  }
-
-  // Default styling when no bg-* class is present
-  &:not([class*="bg-"]) {
-    background-color: var(--button-bg-color, #007bff); // Default button color
-    color: var(--button-text-color, #fff);
-
-    &:hover {
-      background-color: var(--button-bg-color-hover, #0056b3);
+    &:focus {
+        outline: none;
     }
-  }
+
+    &:disabled {
+        background-color: #e0e0e0; // Disabled button color
+        color: #a0a0a0; // Disabled text color
+        cursor: not-allowed;
+    }
+
+    // Default styling when no bg-* class is present
+    &:not([class*="bg-"]) {
+        background-color: var(--button-bg-color, #007bff); // Default button color
+        color: var(--button-text-color, #fff);
+
+        &:hover {
+            background-color: var(--button-bg-color-hover, #0056b3);
+        }
+    }
 }
 
 // Inputs
@@ -106,113 +106,113 @@ body#{$parent-selector} {
 #{$parent-selector} input[type="number"],
 #{$parent-selector} input[type="search"],
 #{$parent-selector} textarea {
-  padding: 0.5rem;
-  border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
-  border-radius: 0.25rem;
-  width: 100%; // Full width
-  font-family: var(--font-family-base);
-  transition: border 0.2s ease-in-out;
+    padding: 0.5rem;
+    border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
+    border-radius: 0.25rem;
+    width: 100%; // Full width
+    font-family: var(--font-family-base);
+    transition: border 0.2s ease-in-out;
 
-  &:focus {
-    border-color: var(--link-color);
-    outline: none;
-  }
+    &:focus {
+        border-color: var(--link-color);
+        outline: none;
+    }
 }
 
 // Checkboxes and Radio Buttons
 #{$parent-selector} input[type="checkbox"],
 #{$parent-selector} input[type="radio"] {
-  margin-right: 0.5rem; // Space between input and label
+    margin-right: 0.5rem; // Space between input and label
 }
 
 // Selects
 #{$parent-selector} select {
-  padding: 0.5rem;
-  border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
-  border-radius: 0.25rem;
-  width: 100%; // Full width
-  font-family: var(--font-family-base);
-  transition: border 0.2s ease-in-out;
+    padding: 0.5rem;
+    border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
+    border-radius: 0.25rem;
+    width: 100%; // Full width
+    font-family: var(--font-family-base);
+    transition: border 0.2s ease-in-out;
 
-  &:focus {
-    border-color: var(--link-color);
-    outline: none;
-  }
+    &:focus {
+        border-color: var(--link-color);
+        outline: none;
+    }
 }
 
 // Blockquotes
 #{$parent-selector} blockquote {
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
-  border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-base, var(--secondary));
-  font-style: italic;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-base, var(--secondary));
+    font-style: italic;
 }
 
 // Horizontal Rule
 #{$parent-selector} hr {
-  border: none;
-  border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
-  margin: 1rem 0;
+    border: none;
+    border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
+    margin: 1rem 0;
 }
 
 // Images
 #{$parent-selector} img {
-  max-width: 100%; // Responsive images
-  height: auto;
+    max-width: 100%; // Responsive images
+    height: auto;
 }
 
 // Figures and Captions
 #{$parent-selector} figure {
-  margin: 1rem 0;
+    margin: 1rem 0;
 }
 
 #{$parent-selector} figcaption {
-  font-size: 0.875rem; // Smaller font for captions
-  color: var(--text-muted, #666); // Optional secondary text color
+    font-size: 0.875rem; // Smaller font for captions
+    color: var(--text-muted, #666); // Optional secondary text color
 }
 
 // Links
 #{$parent-selector} a {
-  transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
 
-  &:not([class*="text-"]) {
-    // document: if no hover or normal text provided it will use the default link color
-    color: var(--link-color);
+    &:not([class*="text-"]) {
+        // document: if no hover or normal text provided it will use the default link color
+        color: var(--link-color);
 
-    &:hover {
-      color: var(--link-hover-color);
+        &:hover {
+            color: var(--link-hover-color);
+        }
     }
-  }
 }
 
 // Labels
 #{$parent-selector} label[for] {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 // todo: add to doc
 #{$parent-selector} .sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
 #{$parent-selector} code {
-  font-family: "Courier New", Courier, monospace;
-  background-color: #f8f8f8;
-  color: #d63384;
-  padding: 2px 6px;
-  border-radius: 3px;
-  white-space: nowrap;
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f8f8f8;
+    color: #d63384;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
 
-  @include media.dark-mode {
-    background-color: #333;
-    color: #f8f8f2;
-  }
+    @include media.dark-mode {
+        background-color: #333;
+        color: #f8f8f2;
+    }
 }

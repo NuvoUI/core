@@ -3,27 +3,27 @@
 @use "sass:list";
 
 $feature-flags: (
-  "alignments": true,
-  "animations": true,
-  "backdrops": true,
-  "borders": true,
-  "container": true,
-  "container-queries": true,
-  "cursors": true,
-  "displays": true,
-  "flex": true,
-  "grid": true,
-  "opacity": true,
-  "position": true,
-  "shadows": true,
-  "sizing": true,
-  "spacing": true,
-  "tooltips": true,
-  "theme": true,
-  "transforms": true,
-  "transitions": true,
-  "typography": true,
-  "z-index": true,
+    "alignments": true,
+    "animations": true,
+    "backdrops": true,
+    "borders": true,
+    "container": true,
+    "container-queries": true,
+    "cursors": true,
+    "displays": true,
+    "flex": true,
+    "grid": true,
+    "opacity": true,
+    "position": true,
+    "shadows": true,
+    "sizing": true,
+    "spacing": true,
+    "tooltips": true,
+    "theme": true,
+    "transforms": true,
+    "transitions": true,
+    "typography": true,
+    "z-index": true,
 ) !default;
 
 // Framework Configuration Options
@@ -38,15 +38,15 @@ $default-unit: px !default;
 // Text
 $base-size: 16px !default;
 $font-family:
-  system-ui,
-  -apple-system,
-  "BlinkMacSystemFont",
-  "Segoe UI",
-  "Roboto",
-  "Oxygen",
-  "Ubuntu",
-  "Cantarell",
-  sans-serif !default;
+    system-ui,
+    -apple-system,
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    sans-serif !default;
 
 // Global variables that might be used across different modules
 $column-count: 12 !default; // todo: pending
@@ -63,25 +63,25 @@ $info: #17a2b8 !default;
 
 // Color palette
 $color-primitives: (
-  "gray": #6b7280,
-  "red": #ef4444,
-  "blue": #3b82f6,
-  "green": #22c55e,
-  "yellow": #eab308,
-  "purple": #a855f7,
-  "pink": #ec4899,
+    "gray": #6b7280,
+    "red": #ef4444,
+    "blue": #3b82f6,
+    "green": #22c55e,
+    "yellow": #eab308,
+    "purple": #a855f7,
+    "pink": #ec4899,
 ) !default;
 
 // Default theme config (can be overridden)
 $light-theme: (
-  "bg-base": #fbfafc,
-  "bg-alternate": #1a1a1a,
-  "bg-surface": #fff,
-  "border-base": #d3d5d9,
-  "text-color": #1a1a1a,
-  "text-muted": #1a1a1a8a,
-  "text-subtle": #1a1a1a50,
-  "text-inverted": #f1f1f1,
+    "bg-base": #fbfafc,
+    "bg-alternate": #1a1a1a,
+    "bg-surface": #fff,
+    "border-base": #d3d5d9,
+    "text-color": #1a1a1a,
+    "text-muted": #1a1a1a8a,
+    "text-subtle": #1a1a1a50,
+    "text-inverted": #f1f1f1,
 ) !default;
 
 // Extract theme tokens from light theme keys
@@ -89,20 +89,20 @@ $light-theme: (
 $theme-tokens: map.keys($light-theme) !default;
 
 $dark-theme: (
-  "bg-base": #1a1a1a,
-  "bg-alternate": #f1f1f1,
-  "bg-surface": #2e2e2e,
-  "border-base": #2e2e2e,
-  "text-color": #f1f1f1,
-  "text-muted": #f1f1f18a,
-  "text-subtle": #f1f1f150,
-  "text-inverted": #1a1a1a,
+    "bg-base": #1a1a1a,
+    "bg-alternate": #f1f1f1,
+    "bg-surface": #2e2e2e,
+    "border-base": #2e2e2e,
+    "text-color": #f1f1f1,
+    "text-muted": #f1f1f18a,
+    "text-subtle": #f1f1f150,
+    "text-inverted": #1a1a1a,
 ) !default;
 
 $basic-colors: (
-  "black": #000,
-  "white": #fff,
-  "transparent": transparent,
+    "black": #000,
+    "white": #fff,
+    "transparent": transparent,
 ) !default;
 
 $semantic-colors: ("primary", "secondary", "success", "danger", "warning", "info");
@@ -111,114 +111,114 @@ $color-names: list.join($semantic-colors, $primitive-color-names);
 $color-names-with-basic: list.join($color-names, map.keys($basic-colors));
 
 @function validate-theme-tokens($theme-map, $required-tokens) {
-  $missing-tokens: ();
+    $missing-tokens: ();
 
-  @each $token in $required-tokens {
-    @if not map.has-key($theme-map, $token) {
-      $missing-tokens: list.append($missing-tokens, $token, comma);
+    @each $token in $required-tokens {
+        @if not map.has-key($theme-map, $token) {
+            $missing-tokens: list.append($missing-tokens, $token, comma);
+        }
     }
-  }
 
-  @if list.length($missing-tokens) > 0 {
-    @error "Theme is missing required tokens: #{$missing-tokens}";
-  }
+    @if list.length($missing-tokens) > 0 {
+        @error "Theme is missing required tokens: #{$missing-tokens}";
+    }
 
-  @return list.length($missing-tokens) == 0;
+    @return list.length($missing-tokens) == 0;
 }
 
 // Validate both themes
 @mixin validate-tokens {
-  @if not validate-theme-tokens($light-theme, $theme-tokens) {
-    @error "Light theme is missing required tokens.";
-  }
-  @if not validate-theme-tokens($dark-theme, $theme-tokens) {
-    @error "Dark theme is missing required tokens.";
-  }
+    @if not validate-theme-tokens($light-theme, $theme-tokens) {
+        @error "Light theme is missing required tokens.";
+    }
+    @if not validate-theme-tokens($dark-theme, $theme-tokens) {
+        @error "Dark theme is missing required tokens.";
+    }
 }
 
 @include validate-tokens;
 
 $shadow-colors: (
-  "default": rgb(0 0 0 / 10%),
-  "dark": rgb(0 0 0 / 20%),
-  "darker": rgb(0 0 0 / 35%),
-  "darkest": rgb(0 0 0 / 50%),
+    "default": rgb(0 0 0 / 10%),
+    "dark": rgb(0 0 0 / 20%),
+    "darker": rgb(0 0 0 / 35%),
+    "darkest": rgb(0 0 0 / 50%),
 ) !default;
 
 // Breakpoints
 $breakpoints: (
-  "xs": 480px,
-  "sm": 640px,
-  "md": 768px,
-  "lg": 1024px,
-  "xl": 1280px,
-  "2xl": 1536px,
+    "xs": 480px,
+    "sm": 640px,
+    "md": 768px,
+    "lg": 1024px,
+    "xl": 1280px,
+    "2xl": 1536px,
 ) !default;
 
 $grid-item-sizes: (
-  "xs": 200px,
-  "sm": 250px,
-  "md": 300px,
-  "lg": 350px,
-  "xl": 400px,
+    "xs": 200px,
+    "sm": 250px,
+    "md": 300px,
+    "lg": 350px,
+    "xl": 400px,
 ) !default;
 
 // _variables.scss
 $font-sizes: (
-  "xs": 0.75rem,
-  // 12px
-  "sm": 0.875rem,
-  // 14px
-  "md": 1rem,
-  "base": 1rem,
-  // 16px
-  "lg": 1.25rem,
-  // 20px
-  "xl": 1.5rem,
-  // 24px
-  "2xl": 1.75rem,
-  // 28px
-  "3xl": 2rem,
-  // 32px
-  "4xl": 2.5rem, // 40px
+    "xs": 0.75rem,
+    // 12px
+    "sm": 0.875rem,
+    // 14px
+    "md": 1rem,
+    "base": 1rem,
+    // 16px
+    "lg": 1.25rem,
+    // 20px
+    "xl": 1.5rem,
+    // 24px
+    "2xl": 1.75rem,
+    // 28px
+    "3xl": 2rem,
+    // 32px
+    "4xl": 2.5rem, // 40px
 ) !default;
 
 // Updated spacing map
 $spacings: (
-  0: 0,
-  1: 0.25rem,
-  // 4px
-  2: 0.5rem,
-  // 8px
-  3: 0.75rem,
-  // 12px
-  4: 1rem,
-  // 16px
-  5: 1.25rem,
-  // 20px
-  6: 1.5rem,
-  // 24px
-  8: 2rem,
-  // 32px
-  10: 2.5rem,
-  // 40px
-  12: 3rem,
-  // 48px
-  16: 4rem,
-  // 64px
-  20: 5rem,
-  // 80px
-  24: 6rem,
-  // 96px
-  32: 8rem,
-  // 128px
-  40: 10rem,
-  // 160px
-  48: 12rem,
-  // 192px
-  56: 14rem,
-  // 224px
-  64: 16rem, // 256px
+    0: 0,
+    1: 0.25rem,
+    // 4px
+    2: 0.5rem,
+    // 8px
+    3: 0.75rem,
+    // 12px
+    4: 1rem,
+    // 16px
+    5: 1.25rem,
+    // 20px
+    6: 1.5rem,
+    // 24px
+    8: 2rem,
+    // 32px
+    10: 2.5rem,
+    // 40px
+    12: 3rem,
+    // 48px
+    16: 4rem,
+    // 64px
+    20: 5rem,
+    // 80px
+    24: 6rem,
+    // 96px
+    32: 8rem,
+    // 128px
+    40: 10rem,
+    // 160px
+    48: 12rem,
+    // 192px
+    56: 14rem,
+    // 224px
+    64: 16rem, // 256px
 ) !default;
 
 $percentages: (0, 5, 10, 20, 25, 30, 33, 40, 50, 60, 66, 70, 75, 80, 90, 100) !default;
@@ -228,27 +228,27 @@ $border-widths: (0, 1, 2, 4, 8) !default;
 
 // Common border radius values that are most useful
 $border-radii: (
-  "xs": 0.25rem,
-  "sm": 0.375rem,
-  "md": 0.5rem,
-  "lg": 0.75rem,
-  "xl": 1rem,
-  "2xl": 1.25rem,
-  "full": 50%,
-  "none": 0,
+    "xs": 0.25rem,
+    "sm": 0.375rem,
+    "md": 0.5rem,
+    "lg": 0.75rem,
+    "xl": 1rem,
+    "2xl": 1.25rem,
+    "full": 50%,
+    "none": 0,
 ) !default;
 
 // Font weight map
 $font-weights: (
-  "thin": 100,
-  "extralight": 200,
-  "light": 300,
-  "normal": 400,
-  "medium": 500,
-  "semibold": 600,
-  "bold": 700,
-  "extrabold": 800,
-  "black": 900,
+    "thin": 100,
+    "extralight": 200,
+    "light": 300,
+    "normal": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700,
+    "extrabold": 800,
+    "black": 900,
 ) !default;
 
 $parent-selector: "" !default;

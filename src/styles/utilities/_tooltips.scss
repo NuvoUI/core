@@ -2,257 +2,257 @@
 @use "../abstracts/functions" as FN;
 
 @mixin tooltip-variables {
-  // Tooltip core variables
-  --tooltip-bg: rgba(17 17 17 / 90%);
-  --tooltip-shadow-color: rgb(0 0 0 / 20%);
-  --tooltip-text-color: #fff;
+    // Tooltip core variables
+    --tooltip-bg: rgba(17 17 17 / 90%);
+    --tooltip-shadow-color: rgb(0 0 0 / 20%);
+    --tooltip-text-color: #fff;
 
-  // Animation variables
-  --microtip-transition-duration: 0.18s;
-  --microtip-transition-easing: ease-in-out;
-  --microtip-transition-delay: 0s;
+    // Animation variables
+    --microtip-transition-duration: 0.18s;
+    --microtip-transition-easing: ease-in-out;
+    --microtip-transition-delay: 0s;
 
-  // Typography variables
-  --microtip-font-size: 13px;
-  --microtip-font-weight: normal;
-  --microtip-text-transform: none;
+    // Typography variables
+    --microtip-font-size: 13px;
+    --microtip-font-weight: normal;
+    --microtip-text-transform: none;
 
-  // Sizing variables
-  --tooltip-small-width: 80px;
-  --tooltip-medium-width: 150px;
-  --tooltip-large-width: 260px;
-  --tooltip-border-radius: 4px;
+    // Sizing variables
+    --tooltip-small-width: 80px;
+    --tooltip-medium-width: 150px;
+    --tooltip-large-width: 260px;
+    --tooltip-border-radius: 4px;
 }
 
 @if FN.feature-enabled("tooltips") {
-  // Apply variables based on parent selector
-  @if VAR.$parent-selector == "" {
-    :root {
-      @include tooltip-variables;
-    }
-  } @else {
-    #{VAR.$parent-selector} {
-      @include tooltip-variables;
-    }
-  }
-
-  #{VAR.$parent-selector} [data-tooltip][role~="tooltip"] {
-    position: relative;
-
-    &::before,
-    &::after {
-      transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      will-change: transform;
-      opacity: 0;
-      pointer-events: none;
-      transition: all var(--microtip-transition-duration) var(--microtip-transition-easing) var(--microtip-transition-delay);
-      position: absolute;
-      box-sizing: border-box;
-      z-index: 10;
-      transform-origin: top;
+    // Apply variables based on parent selector
+    @if VAR.$parent-selector == "" {
+        :root {
+            @include tooltip-variables;
+        }
+    } @else {
+        #{VAR.$parent-selector} {
+            @include tooltip-variables;
+        }
     }
 
-    &::before {
-      background-size: 100% auto !important;
-      content: "";
+    #{VAR.$parent-selector} [data-tooltip][role~="tooltip"] {
+        position: relative;
+
+        &::before,
+        &::after {
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            will-change: transform;
+            opacity: 0;
+            pointer-events: none;
+            transition: all var(--microtip-transition-duration) var(--microtip-transition-easing) var(--microtip-transition-delay);
+            position: absolute;
+            box-sizing: border-box;
+            z-index: 10;
+            transform-origin: top;
+        }
+
+        &::before {
+            background-size: 100% auto !important;
+            content: "";
+        }
+
+        &::after {
+            background: var(--tooltip-bg);
+            box-shadow: 0 3px 7px var(--tooltip-shadow-color);
+            border-radius: var(--tooltip-border-radius);
+            color: var(--tooltip-text-color);
+            content: attr(data-tooltip);
+            font-size: var(--microtip-font-size);
+            font-weight: var(--microtip-font-weight);
+            text-transform: var(--microtip-text-transform);
+            padding: 0.5em 1em;
+            white-space: nowrap;
+            box-sizing: content-box;
+        }
+
+        &:hover::before,
+        &:hover::after,
+        &:focus::before,
+        &:focus::after {
+            opacity: 1;
+            pointer-events: auto;
+        }
     }
 
-    &::after {
-      background: var(--tooltip-bg);
-      box-shadow: 0 3px 7px var(--tooltip-shadow-color);
-      border-radius: var(--tooltip-border-radius);
-      color: var(--tooltip-text-color);
-      content: attr(data-tooltip);
-      font-size: var(--microtip-font-size);
-      font-weight: var(--microtip-font-weight);
-      text-transform: var(--microtip-text-transform);
-      padding: 0.5em 1em;
-      white-space: nowrap;
-      box-sizing: content-box;
+    // Top position tooltips
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position|="top"] {
+        &::before {
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+            height: 6px;
+            width: 18px;
+            margin-bottom: 6px;
+            transform: translate3d(-50%, 0, 0);
+            bottom: 100%;
+            left: 50%;
+        }
+
+        &::after {
+            margin-bottom: 11px;
+            transform: translate3d(-50%, 0, 0);
+            bottom: 100%;
+            left: 50%;
+        }
+
+        &:hover::before {
+            transform: translate3d(-50%, -5px, 0);
+        }
+
+        &:hover::after {
+            transform: translate3d(-50%, -5px, 0);
+        }
     }
 
-    &:hover::before,
-    &:hover::after,
-    &:focus::before,
-    &:focus::after {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="top-left"] {
+        &::after {
+            transform: translate3d(calc(-100% + 16px), 0, 0);
+            bottom: 100%;
+        }
 
-  // Top position tooltips
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position|="top"] {
-    &::before {
-      background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%280%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
-      height: 6px;
-      width: 18px;
-      margin-bottom: 6px;
-      transform: translate3d(-50%, 0, 0);
-      bottom: 100%;
-      left: 50%;
+        &:hover::after {
+            transform: translate3d(calc(-100% + 16px), -5px, 0);
+        }
     }
 
-    &::after {
-      margin-bottom: 11px;
-      transform: translate3d(-50%, 0, 0);
-      bottom: 100%;
-      left: 50%;
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="top-right"] {
+        &::after {
+            transform: translate3d(calc(0% + -16px), 0, 0);
+            bottom: 100%;
+        }
+
+        &:hover::after {
+            transform: translate3d(calc(0% + -16px), -5px, 0);
+        }
     }
 
-    &:hover::before {
-      transform: translate3d(-50%, -5px, 0);
+    // Bottom position tooltips
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position|="bottom"] {
+        &::before {
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+            height: 6px;
+            width: 18px;
+            margin-top: 5px;
+            margin-bottom: 0;
+            transform: translate3d(-50%, -10px, 0);
+            bottom: auto;
+            left: 50%;
+            top: 100%;
+        }
+
+        &::after {
+            margin-top: 11px;
+            transform: translate3d(-50%, -10px, 0);
+            top: 100%;
+            left: 50%;
+        }
+
+        &:hover::before {
+            transform: translate3d(-50%, 0, 0);
+        }
+
+        &:hover::after {
+            transform: translate3d(-50%, 0, 0);
+        }
     }
 
-    &:hover::after {
-      transform: translate3d(-50%, -5px, 0);
-    }
-  }
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="bottom-left"] {
+        &::after {
+            transform: translate3d(calc(-100% + 16px), -10px, 0);
+            top: 100%;
+        }
 
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="top-left"] {
-    &::after {
-      transform: translate3d(calc(-100% + 16px), 0, 0);
-      bottom: 100%;
-    }
-
-    &:hover::after {
-      transform: translate3d(calc(-100% + 16px), -5px, 0);
-    }
-  }
-
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="top-right"] {
-    &::after {
-      transform: translate3d(calc(0% + -16px), 0, 0);
-      bottom: 100%;
+        &:hover::after {
+            transform: translate3d(calc(-100% + 16px), 0, 0);
+        }
     }
 
-    &:hover::after {
-      transform: translate3d(calc(0% + -16px), -5px, 0);
-    }
-  }
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="bottom-right"] {
+        &::after {
+            transform: translate3d(calc(0% + -16px), -10px, 0);
+            top: 100%;
+        }
 
-  // Bottom position tooltips
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position|="bottom"] {
-    &::before {
-      background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28180%2018%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
-      height: 6px;
-      width: 18px;
-      margin-top: 5px;
-      margin-bottom: 0;
-      transform: translate3d(-50%, -10px, 0);
-      bottom: auto;
-      left: 50%;
-      top: 100%;
+        &:hover::after {
+            transform: translate3d(calc(0% + -16px), 0, 0);
+        }
     }
 
-    &::after {
-      margin-top: 11px;
-      transform: translate3d(-50%, -10px, 0);
-      top: 100%;
-      left: 50%;
+    // Left position tooltips
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="left"] {
+        &::before,
+        &::after {
+            inset: auto auto auto 100%;
+            left: auto; // Remove any left positioning
+            right: 100%; // Position to the left of the element
+            top: 50%;
+            transform: translate3d(10px, -50%, 0);
+        }
+
+        &::before {
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+            height: 18px;
+            width: 6px;
+            margin-right: 5px;
+            margin-bottom: 0;
+        }
+
+        &::after {
+            margin-right: 11px;
+        }
+
+        &:hover::before,
+        &:hover::after {
+            transform: translate3d(0, -50%, 0);
+        }
     }
 
-    &:hover::before {
-      transform: translate3d(-50%, 0, 0);
+    // Right position tooltips
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="right"] {
+        &::before,
+        &::after {
+            bottom: auto;
+            left: 100%;
+            top: 50%;
+            transform: translate3d(-10px, -50%, 0);
+        }
+
+        &::before {
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
+            height: 18px;
+            width: 6px;
+            margin-bottom: 0;
+            margin-left: 5px;
+        }
+
+        &::after {
+            margin-left: 11px;
+        }
+
+        &:hover::before,
+        &:hover::after {
+            transform: translate3d(0, -50%, 0);
+        }
     }
 
-    &:hover::after {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="bottom-left"] {
-    &::after {
-      transform: translate3d(calc(-100% + 16px), -10px, 0);
-      top: 100%;
+    // Tooltip sizes
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-size="small"]::after {
+        white-space: initial;
+        width: var(--tooltip-small-width);
     }
 
-    &:hover::after {
-      transform: translate3d(calc(-100% + 16px), 0, 0);
-    }
-  }
-
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="bottom-right"] {
-    &::after {
-      transform: translate3d(calc(0% + -16px), -10px, 0);
-      top: 100%;
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-size="medium"]::after {
+        white-space: initial;
+        width: var(--tooltip-medium-width);
     }
 
-    &:hover::after {
-      transform: translate3d(calc(0% + -16px), 0, 0);
+    #{VAR.$parent-selector} [role~="tooltip"][data-microtip-size="large"]::after {
+        white-space: initial;
+        width: var(--tooltip-large-width);
     }
-  }
-
-  // Left position tooltips
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="left"] {
-    &::before,
-    &::after {
-      inset: auto auto auto 100%;
-      left: auto; // Remove any left positioning
-      right: 100%; // Position to the left of the element
-      top: 50%;
-      transform: translate3d(10px, -50%, 0);
-    }
-
-    &::before {
-      background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%28-90%2018%2018%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
-      height: 18px;
-      width: 6px;
-      margin-right: 5px;
-      margin-bottom: 0;
-    }
-
-    &::after {
-      margin-right: 11px;
-    }
-
-    &:hover::before,
-    &:hover::after {
-      transform: translate3d(0, -50%, 0);
-    }
-  }
-
-  // Right position tooltips
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-position="right"] {
-    &::before,
-    &::after {
-      bottom: auto;
-      left: 100%;
-      top: 50%;
-      transform: translate3d(-10px, -50%, 0);
-    }
-
-    &::before {
-      background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A// www.w3.org/2000/svg%22%20width%3D%2212px%22%20height%3D%2236px%22%3E%3Cpath%20fill%3D%22rgba%2817,%2017,%2017,%200.9%29%22%20transform%3D%22rotate%2890%206%206%29%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E") no-repeat;
-      height: 18px;
-      width: 6px;
-      margin-bottom: 0;
-      margin-left: 5px;
-    }
-
-    &::after {
-      margin-left: 11px;
-    }
-
-    &:hover::before,
-    &:hover::after {
-      transform: translate3d(0, -50%, 0);
-    }
-  }
-
-  // Tooltip sizes
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-size="small"]::after {
-    white-space: initial;
-    width: var(--tooltip-small-width);
-  }
-
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-size="medium"]::after {
-    white-space: initial;
-    width: var(--tooltip-medium-width);
-  }
-
-  #{VAR.$parent-selector} [role~="tooltip"][data-microtip-size="large"]::after {
-    white-space: initial;
-    width: var(--tooltip-large-width);
-  }
 }

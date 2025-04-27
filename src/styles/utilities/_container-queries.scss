@@ -17,79 +17,79 @@
 
 // /Container Query: Up
 @mixin container-up($breakpoint, $containerName: null) {
-  $bp-val: FN.get-breakpoint-value($breakpoint);
-  @container #{$containerName} (min-width: #{$bp-val}) {
-    @content;
-  }
+    $bp-val: FN.get-breakpoint-value($breakpoint);
+    @container #{$containerName} (min-width: #{$bp-val}) {
+        @content;
+    }
 }
 
 // /Container Query: Down
 @mixin container-down($breakpoint, $containerName: null) {
-  $bp-val: FN.get-breakpoint-value($breakpoint);
-  @container #{$containerName} (max-width: (#{ $bp-val } - 0.02px)) {
-    @content;
-  }
+    $bp-val: FN.get-breakpoint-value($breakpoint);
+    @container #{$containerName} (max-width: (#{ $bp-val } - 0.02px)) {
+        @content;
+    }
 }
 
 // /Container Query: Between
 @mixin container-between($lower, $upper, $containerName: null) {
-  $min: FN.get-breakpoint-value($lower);
-  $max: FN.get-breakpoint-value($upper);
-  @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $max } - 0.02px)) {
-    @content;
-  }
+    $min: FN.get-breakpoint-value($lower);
+    $max: FN.get-breakpoint-value($upper);
+    @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $max } - 0.02px)) {
+        @content;
+    }
 }
 
 // /Container Query: Only
 @mixin container-only($breakpoint, $containerName: null) {
-  $min: FN.get-breakpoint-value($breakpoint);
-  $next-breakpoint: null;
+    $min: FN.get-breakpoint-value($breakpoint);
+    $next-breakpoint: null;
 
-  @each $name, $width in $breakpoints {
-    @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
-      $next-breakpoint: $width;
+    @each $name, $width in $breakpoints {
+        @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
+            $next-breakpoint: $width;
+        }
     }
-  }
 
-  @if $next-breakpoint {
-    @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $next-breakpoint } - 0.02px)) {
-      @content;
+    @if $next-breakpoint {
+        @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $next-breakpoint } - 0.02px)) {
+            @content;
+        }
+    } @else {
+        @container #{$containerName} (min-width: #{$min}) {
+            @content;
+        }
     }
-  } @else {
-    @container #{$containerName} (min-width: #{$min}) {
-      @content;
-    }
-  }
 }
 
 // /Container Query: Query by Size
 @mixin container-query($size, $containerName: null) {
-  @container #{$containerName} (min-width: $size) {
-    @content;
-  }
+    @container #{$containerName} (min-width: $size) {
+        @content;
+    }
 }
 
 @mixin container-type($type: inline-size) {
-  container-type: $type;
+    container-type: $type;
 }
 
 @mixin container-name($name) {
-  container-name: $name;
+    container-name: $name;
 }
 
 @if FN.feature-enabled("container-queries") {
-  // Utility classes
-  #{VAR.$parent-selector} .container-inline-size {
-    container-type: inline-size;
-  }
-
-  #{VAR.$parent-selector} .container-size {
-    container-type: size;
-  }
-
-  @each $name in ("main", "sidebar", "card", "section") {
-    #{VAR.$parent-selector} .container-#{$name} {
-      container-name: $name;
+    // Utility classes
+    #{VAR.$parent-selector} .container-inline-size {
+        container-type: inline-size;
     }
-  }
+
+    #{VAR.$parent-selector} .container-size {
+        container-type: size;
+    }
+
+    @each $name in ("main", "sidebar", "card", "section") {
+        #{VAR.$parent-selector} .container-#{$name} {
+            container-name: $name;
+        }
+    }
 }

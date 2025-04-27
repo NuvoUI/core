@@ -58,33 +58,33 @@
 //  @see transitions
 
 @mixin opacity($value) {
-  opacity: calc(#{$value} / 100);
+    opacity: calc(#{$value} / 100);
 }
 
 @if FN.feature-enabled("opacity") {
-  // Opacity Utilities
-  @each $i in VAR.$percentages {
-    #{VAR.$parent-selector} .opacity-#{$i},
-    #{VAR.$parent-selector} .hover\:opacity-#{$i}:hover,
-    #{VAR.$parent-selector} .focus\:opacity-#{$i}:focus,
-    #{VAR.$parent-selector} .active\:opacity-#{$i}:active,
-    #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i} {
-      @include opacity($i);
-    }
-  }
-
-  // Responsive Variants for Opacity
-  @each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-      @each $i in VAR.$percentages {
-        #{VAR.$parent-selector} .opacity-#{$i}\@#{$breakpoint},
-        #{VAR.$parent-selector} .hover\:opacity-#{$i}\@#{$breakpoint}:hover,
-        #{VAR.$parent-selector} .focus\:opacity-#{$i}\@#{$breakpoint}:focus,
-        #{VAR.$parent-selector} .active\:opacity-#{$i}\@#{$breakpoint}:active,
-        #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
-          @include opacity($i);
+    // Opacity Utilities
+    @each $i in VAR.$percentages {
+        #{VAR.$parent-selector} .opacity-#{$i},
+        #{VAR.$parent-selector} .hover\:opacity-#{$i}:hover,
+        #{VAR.$parent-selector} .focus\:opacity-#{$i}:focus,
+        #{VAR.$parent-selector} .active\:opacity-#{$i}:active,
+        #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i} {
+            @include opacity($i);
         }
-      }
     }
-  }
+
+    // Responsive Variants for Opacity
+    @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+            @each $i in VAR.$percentages {
+                #{VAR.$parent-selector} .opacity-#{$i}\@#{$breakpoint},
+                #{VAR.$parent-selector} .hover\:opacity-#{$i}\@#{$breakpoint}:hover,
+                #{VAR.$parent-selector} .focus\:opacity-#{$i}\@#{$breakpoint}:focus,
+                #{VAR.$parent-selector} .active\:opacity-#{$i}\@#{$breakpoint}:active,
+                #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
+                    @include opacity($i);
+                }
+            }
+        }
+    }
 }

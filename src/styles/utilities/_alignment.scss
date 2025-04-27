@@ -2,49 +2,49 @@
 @use "../abstracts/functions" as FN;
 
 @mixin align-baseline {
-  vertical-align: baseline;
+    vertical-align: baseline;
 }
 @mixin align-top {
-  vertical-align: top;
+    vertical-align: top;
 }
 @mixin align-middle {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 @mixin align-bottom {
-  vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 @if FN.feature-enabled("alignments") {
-  #{VAR.$parent-selector} .align-baseline {
-    @include align-baseline;
-  }
-
-  #{VAR.$parent-selector} .align-top {
-    @include align-top;
-  }
-
-  #{VAR.$parent-selector} .align-middle {
-    @include align-middle;
-  }
-
-  #{VAR.$parent-selector} .align-bottom {
-    @include align-bottom;
-  }
-
-  @each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-      #{VAR.$parent-selector} .align-baseline\@#{$breakpoint} {
+    #{VAR.$parent-selector} .align-baseline {
         @include align-baseline;
-      }
-      #{VAR.$parent-selector} .align-top\@#{$breakpoint} {
-        @include align-top;
-      }
-      #{VAR.$parent-selector} .align-middle\@#{$breakpoint} {
-        @include align-middle;
-      }
-      #{VAR.$parent-selector} .align-bottom\@#{$breakpoint} {
-        @include align-bottom;
-      }
     }
-  }
+
+    #{VAR.$parent-selector} .align-top {
+        @include align-top;
+    }
+
+    #{VAR.$parent-selector} .align-middle {
+        @include align-middle;
+    }
+
+    #{VAR.$parent-selector} .align-bottom {
+        @include align-bottom;
+    }
+
+    @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+            #{VAR.$parent-selector} .align-baseline\@#{$breakpoint} {
+                @include align-baseline;
+            }
+            #{VAR.$parent-selector} .align-top\@#{$breakpoint} {
+                @include align-top;
+            }
+            #{VAR.$parent-selector} .align-middle\@#{$breakpoint} {
+                @include align-middle;
+            }
+            #{VAR.$parent-selector} .align-bottom\@#{$breakpoint} {
+                @include align-bottom;
+            }
+        }
+    }
 }

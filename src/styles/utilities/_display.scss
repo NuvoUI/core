@@ -17,304 +17,304 @@
 
 // @description Set display to none.
 @mixin hide {
-  display: none;
+    display: none;
 }
 
 // @description Set display to block.
 @mixin block {
-  display: block;
+    display: block;
 }
 
 // @description Set display to inline.
 @mixin inline {
-  display: inline;
+    display: inline;
 }
 
 // @description Set display to inline-block.
 @mixin inline-block {
-  display: inline-block;
+    display: inline-block;
 }
 
 // @description Set display to initial original state.
 @mixin show {
-  display: initial;
+    display: initial;
 }
 
 // @description Establishes a grid container.
 @mixin grid {
-  display: grid;
+    display: grid;
 }
 
 // @description Establishes a inline-grid container.
 @mixin grid-inline {
-  display: inline-grid;
+    display: inline-grid;
 }
 
 // @description Establishes a flex container.
 @mixin flex {
-  display: flex;
+    display: flex;
 }
 
 // @description Establishes a flex-inline container.
 @mixin flex-inline {
-  display: inline-flex;
+    display: inline-flex;
 }
 
 // @description Set display to table.
 @mixin d-tbl {
-  display: table;
+    display: table;
 }
 
 // @description Set display to table-row.
 @mixin d-tbl-row {
-  display: table-row;
+    display: table-row;
 }
 
 // @description Set display to table-cell.
 @mixin d-tbl-cell {
-  display: table-cell;
+    display: table-cell;
 }
 
 @mixin visible {
-  visibility: visible;
+    visibility: visible;
 }
 @mixin invisible {
-  visibility: hidden;
+    visibility: hidden;
 }
 @mixin collapse {
-  visibility: collapse;
+    visibility: collapse;
 }
 @mixin contents {
-  display: contents;
+    display: contents;
 }
 
 @mixin overflow-hidden {
-  overflow: hidden;
+    overflow: hidden;
 }
 @mixin overflow-visible {
-  overflow: visible;
+    overflow: visible;
 }
 @mixin overflow-scroll {
-  overflow: scroll;
+    overflow: scroll;
 }
 @mixin overflow-auto {
-  overflow: auto;
+    overflow: auto;
 }
 @mixin overflow-x-hidden {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 @mixin overflow-y-hidden {
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
 @mixin overflow-x-scroll {
-  overflow-x: scroll;
+    overflow-x: scroll;
 }
 @mixin overflow-y-scroll {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 @mixin overflow-x-auto {
-  overflow-x: auto;
+    overflow-x: auto;
 }
 @mixin overflow-y-auto {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 @if FN.feature-enabled("displays") {
-  #{VAR.$parent-selector} .show {
-    @include show;
-  }
-
-  #{VAR.$parent-selector} .block {
-    @include block;
-  }
-
-  #{VAR.$parent-selector} .inline {
-    @include inline;
-  }
-
-  #{VAR.$parent-selector} .inline-block {
-    @include inline-block;
-  }
-
-  #{VAR.$parent-selector} .contents {
-    @include contents;
-  }
-
-  #{VAR.$parent-selector} .grid {
-    @include grid;
-
-    &.inline {
-      @include grid-inline;
-    }
-  }
-  #{VAR.$parent-selector} .flex {
-    @include flex;
-
-    &.inline {
-      @include flex-inline;
-    }
-  }
-  #{VAR.$parent-selector} .visible {
-    @include visible;
-  }
-
-  #{VAR.$parent-selector} .invisible {
-    @include invisible;
-  }
-
-  #{VAR.$parent-selector} .collapse {
-    @include collapse;
-  }
-
-  #{VAR.$parent-selector} .hide {
-    @include hide;
-  }
-
-  #{VAR.$parent-selector} .hidden {
-    display: none !important;
-  }
-
-  #{VAR.$parent-selector} .overflow-hidden {
-    @include overflow-hidden;
-  }
-
-  #{VAR.$parent-selector} .overflow-visible {
-    @include overflow-visible;
-  }
-
-  #{VAR.$parent-selector} .overflow-scroll {
-    @include overflow-scroll;
-  }
-
-  #{VAR.$parent-selector} .overflow-auto {
-    @include overflow-auto;
-  }
-
-  #{VAR.$parent-selector} .overflow-x-hidden {
-    @include overflow-x-hidden;
-  }
-
-  #{VAR.$parent-selector} .overflow-y-hidden {
-    @include overflow-y-hidden;
-  }
-
-  #{VAR.$parent-selector} .overflow-x-scroll {
-    @include overflow-x-scroll;
-  }
-
-  #{VAR.$parent-selector} .overflow-y-scroll {
-    @include overflow-y-scroll;
-  }
-
-  #{VAR.$parent-selector} .overflow-x-auto {
-    @include overflow-x-auto;
-  }
-
-  #{VAR.$parent-selector} .overflow-y-auto {
-    @include overflow-y-auto;
-  }
-
-  #{VAR.$parent-selector} .d {
-    &-tbl {
-      @include d-tbl;
-    }
-
-    &-tbl-row {
-      @include d-tbl-row;
-    }
-
-    &-tbl-cell {
-      @include d-tbl-cell;
-    }
-  }
-
-  // Responsive Variants
-  @each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-      #{VAR.$parent-selector} .hide\@#{$breakpoint} {
-        @include hide;
-      }
-      #{VAR.$parent-selector} .show\@#{$breakpoint} {
+    #{VAR.$parent-selector} .show {
         @include show;
-      }
-      #{VAR.$parent-selector} .block\@#{$breakpoint} {
-        @include block;
-      }
-      #{VAR.$parent-selector} .inline\@#{$breakpoint} {
-        @include inline;
-      }
-      #{VAR.$parent-selector} .inline-block\@#{$breakpoint} {
-        @include inline-block;
-      }
+    }
 
-      #{VAR.$parent-selector} .contents\@#{$breakpoint} {
+    #{VAR.$parent-selector} .block {
+        @include block;
+    }
+
+    #{VAR.$parent-selector} .inline {
+        @include inline;
+    }
+
+    #{VAR.$parent-selector} .inline-block {
+        @include inline-block;
+    }
+
+    #{VAR.$parent-selector} .contents {
         @include contents;
-      }
-      #{VAR.$parent-selector} .grid\@#{$breakpoint} {
+    }
+
+    #{VAR.$parent-selector} .grid {
         @include grid;
 
         &.inline {
-          @include grid-inline;
+            @include grid-inline;
         }
-      }
-      #{VAR.$parent-selector} .flex\@#{$breakpoint} {
+    }
+    #{VAR.$parent-selector} .flex {
         @include flex;
 
         &.inline {
-          @include flex-inline;
+            @include flex-inline;
         }
-      }
-      #{VAR.$parent-selector} .visible\@#{$breakpoint} {
-        @include visible;
-      }
-      #{VAR.$parent-selector} .invisible\@#{$breakpoint} {
-        @include invisible;
-      }
-      #{VAR.$parent-selector} .collapse\@#{$breakpoint} {
-        @include collapse;
-      }
-      #{VAR.$parent-selector} .overflow-hidden\@#{$breakpoint} {
-        @include overflow-hidden;
-      }
-      #{VAR.$parent-selector} .overflow-visible\@#{$breakpoint} {
-        @include overflow-visible;
-      }
-      #{VAR.$parent-selector} .overflow-scroll\@#{$breakpoint} {
-        @include overflow-scroll;
-      }
-      #{VAR.$parent-selector} .overflow-auto\@#{$breakpoint} {
-        @include overflow-auto;
-      }
-      #{VAR.$parent-selector} .overflow-x-hidden\@#{$breakpoint} {
-        @include overflow-x-hidden;
-      }
-      #{VAR.$parent-selector} .overflow-y-hidden\@#{$breakpoint} {
-        @include overflow-y-hidden;
-      }
-      #{VAR.$parent-selector} .overflow-x-scroll\@#{$breakpoint} {
-        @include overflow-x-scroll;
-      }
-      #{VAR.$parent-selector} .overflow-y-scroll\@#{$breakpoint} {
-        @include overflow-y-scroll;
-      }
-      #{VAR.$parent-selector} .overflow-x-auto\@#{$breakpoint} {
-        @include overflow-x-auto;
-      }
-      #{VAR.$parent-selector} .overflow-y-auto\@#{$breakpoint} {
-        @include overflow-y-auto;
-      }
-
-      #{VAR.$parent-selector} .d {
-        &-tbl\@#{$breakpoint} {
-          @include d-tbl;
-        }
-        &-tbl-row\@#{$breakpoint} {
-          @include d-tbl-row;
-        }
-        &-tbl-cell\@#{$breakpoint} {
-          @include d-tbl-cell;
-        }
-      }
     }
-  }
+    #{VAR.$parent-selector} .visible {
+        @include visible;
+    }
+
+    #{VAR.$parent-selector} .invisible {
+        @include invisible;
+    }
+
+    #{VAR.$parent-selector} .collapse {
+        @include collapse;
+    }
+
+    #{VAR.$parent-selector} .hide {
+        @include hide;
+    }
+
+    #{VAR.$parent-selector} .hidden {
+        display: none !important;
+    }
+
+    #{VAR.$parent-selector} .overflow-hidden {
+        @include overflow-hidden;
+    }
+
+    #{VAR.$parent-selector} .overflow-visible {
+        @include overflow-visible;
+    }
+
+    #{VAR.$parent-selector} .overflow-scroll {
+        @include overflow-scroll;
+    }
+
+    #{VAR.$parent-selector} .overflow-auto {
+        @include overflow-auto;
+    }
+
+    #{VAR.$parent-selector} .overflow-x-hidden {
+        @include overflow-x-hidden;
+    }
+
+    #{VAR.$parent-selector} .overflow-y-hidden {
+        @include overflow-y-hidden;
+    }
+
+    #{VAR.$parent-selector} .overflow-x-scroll {
+        @include overflow-x-scroll;
+    }
+
+    #{VAR.$parent-selector} .overflow-y-scroll {
+        @include overflow-y-scroll;
+    }
+
+    #{VAR.$parent-selector} .overflow-x-auto {
+        @include overflow-x-auto;
+    }
+
+    #{VAR.$parent-selector} .overflow-y-auto {
+        @include overflow-y-auto;
+    }
+
+    #{VAR.$parent-selector} .d {
+        &-tbl {
+            @include d-tbl;
+        }
+
+        &-tbl-row {
+            @include d-tbl-row;
+        }
+
+        &-tbl-cell {
+            @include d-tbl-cell;
+        }
+    }
+
+    // Responsive Variants
+    @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+            #{VAR.$parent-selector} .hide\@#{$breakpoint} {
+                @include hide;
+            }
+            #{VAR.$parent-selector} .show\@#{$breakpoint} {
+                @include show;
+            }
+            #{VAR.$parent-selector} .block\@#{$breakpoint} {
+                @include block;
+            }
+            #{VAR.$parent-selector} .inline\@#{$breakpoint} {
+                @include inline;
+            }
+            #{VAR.$parent-selector} .inline-block\@#{$breakpoint} {
+                @include inline-block;
+            }
+
+            #{VAR.$parent-selector} .contents\@#{$breakpoint} {
+                @include contents;
+            }
+            #{VAR.$parent-selector} .grid\@#{$breakpoint} {
+                @include grid;
+
+                &.inline {
+                    @include grid-inline;
+                }
+            }
+            #{VAR.$parent-selector} .flex\@#{$breakpoint} {
+                @include flex;
+
+                &.inline {
+                    @include flex-inline;
+                }
+            }
+            #{VAR.$parent-selector} .visible\@#{$breakpoint} {
+                @include visible;
+            }
+            #{VAR.$parent-selector} .invisible\@#{$breakpoint} {
+                @include invisible;
+            }
+            #{VAR.$parent-selector} .collapse\@#{$breakpoint} {
+                @include collapse;
+            }
+            #{VAR.$parent-selector} .overflow-hidden\@#{$breakpoint} {
+                @include overflow-hidden;
+            }
+            #{VAR.$parent-selector} .overflow-visible\@#{$breakpoint} {
+                @include overflow-visible;
+            }
+            #{VAR.$parent-selector} .overflow-scroll\@#{$breakpoint} {
+                @include overflow-scroll;
+            }
+            #{VAR.$parent-selector} .overflow-auto\@#{$breakpoint} {
+                @include overflow-auto;
+            }
+            #{VAR.$parent-selector} .overflow-x-hidden\@#{$breakpoint} {
+                @include overflow-x-hidden;
+            }
+            #{VAR.$parent-selector} .overflow-y-hidden\@#{$breakpoint} {
+                @include overflow-y-hidden;
+            }
+            #{VAR.$parent-selector} .overflow-x-scroll\@#{$breakpoint} {
+                @include overflow-x-scroll;
+            }
+            #{VAR.$parent-selector} .overflow-y-scroll\@#{$breakpoint} {
+                @include overflow-y-scroll;
+            }
+            #{VAR.$parent-selector} .overflow-x-auto\@#{$breakpoint} {
+                @include overflow-x-auto;
+            }
+            #{VAR.$parent-selector} .overflow-y-auto\@#{$breakpoint} {
+                @include overflow-y-auto;
+            }
+
+            #{VAR.$parent-selector} .d {
+                &-tbl\@#{$breakpoint} {
+                    @include d-tbl;
+                }
+                &-tbl-row\@#{$breakpoint} {
+                    @include d-tbl-row;
+                }
+                &-tbl-cell\@#{$breakpoint} {
+                    @include d-tbl-cell;
+                }
+            }
+        }
+    }
 }

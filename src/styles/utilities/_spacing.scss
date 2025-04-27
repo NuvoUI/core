@@ -67,49 +67,49 @@
 // @description Sets padding on all sides
 // @param {Number|String} $val - Padding value
 @mixin p($val) {
-  padding: FN.fix-units($val);
+    padding: FN.fix-units($val);
 }
 
 // @mixin px
 // @description Sets horizontal padding (left and right)
 // @param {Number|String} $val - Padding value
 @mixin px($val) {
-  padding-inline: FN.fix-units($val);
+    padding-inline: FN.fix-units($val);
 }
 
 // @mixin py
 // @description Sets vertical padding (top and bottom)
 // @param {Number|String} $val - Padding value
 @mixin py($val) {
-  padding-block: FN.fix-units($val);
+    padding-block: FN.fix-units($val);
 }
 
 // @mixin pt
 // @description Sets padding-top
 // @param {Number|String} $val - Padding value
 @mixin pt($val) {
-  padding-top: FN.fix-units($val);
+    padding-top: FN.fix-units($val);
 }
 
 // @mixin pr
 // @description Sets padding-right
 // @param {Number|String} $val - Padding value
 @mixin pr($val) {
-  padding-right: FN.fix-units($val);
+    padding-right: FN.fix-units($val);
 }
 
 // @mixin pb
 // @description Sets padding-bottom
 // @param {Number|String} $val - Padding value
 @mixin pb($val) {
-  padding-bottom: FN.fix-units($val);
+    padding-bottom: FN.fix-units($val);
 }
 
 // @mixin pl
 // @description Sets padding-left
 // @param {Number|String} $val - Padding value
 @mixin pl($val) {
-  padding-left: FN.fix-units($val);
+    padding-left: FN.fix-units($val);
 }
 
 // -----------------------------------------------
@@ -120,70 +120,70 @@
 // @description Sets margin on all sides
 // @param {Number|String} $val - Margin value
 @mixin m($val) {
-  margin: FN.fix-units($val);
+    margin: FN.fix-units($val);
 }
 
 // @mixin mx
 // @description Sets horizontal margin (left and right)
 // @param {Number|String} $val - Margin value
 @mixin mx($val) {
-  margin-inline: FN.fix-units($val);
+    margin-inline: FN.fix-units($val);
 }
 
 // @mixin my
 // @description Sets vertical margin (top and bottom)
 // @param {Number|String} $val - Margin value
 @mixin my($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  margin-block: FN.fix-units($val);
+    margin-block: FN.fix-units($val);
 }
 
 // @mixin mt
 // @description Sets margin-top
 // @param {Number|String} $val - Margin value
 @mixin mt($val) {
-  margin-top: FN.fix-units($val, VAR.$default-unit);
+    margin-top: FN.fix-units($val, VAR.$default-unit);
 }
 
 // @mixin mr
 // @description Sets margin-right
 // @param {Number|String} $val - Margin value
 @mixin mr($val) {
-  margin-right: FN.fix-units($val);
+    margin-right: FN.fix-units($val);
 }
 
 // @mixin mb
 // @description Sets margin-bottom
 // @param {Number|String} $val - Margin value
 @mixin mb($val) {
-  margin-bottom: FN.fix-units($val);
+    margin-bottom: FN.fix-units($val);
 }
 
 // @mixin ml
 // @description Sets margin-left
 // @param {Number|String} $val - Margin value
 @mixin ml($val) {
-  margin-left: FN.fix-units($val);
+    margin-left: FN.fix-units($val);
 }
 
 // @mixin ml-auto
 // @description Sets margin-left to auto
 @mixin ml-auto {
-  margin-left: auto;
+    margin-left: auto;
 }
 
 // @mixin mr-auto
 // @description Sets margin-right to auto
 @mixin mr-auto {
-  margin-right: auto;
+    margin-right: auto;
 }
 
 // @mixin mx-auto
 // @description Centers element horizontally using auto margins
 @mixin mx-auto {
-  @include ml-auto;
-  @include mr-auto;
+    @include ml-auto;
+    @include mr-auto;
 }
 
 // -----------------------------------------------
@@ -194,49 +194,49 @@
 // @description Sets all inset properties (top, right, bottom, left)
 // @param {Number|String} $val - Inset value
 @mixin inset($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  inset: FN.fix-units($val);
+    inset: FN.fix-units($val);
 }
 
 // @mixin inset-x
 // @description Sets horizontal inset properties (left and right)
 // @param {Number|String} $val - Inset value
 @mixin inset-x($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  left: $val;
-  right: $val;
+    left: $val;
+    right: $val;
 }
 
 // @mixin inset-y
 // @description Sets vertical inset properties (top and bottom)
 // @param {Number|String} $val - Inset value
 @mixin inset-y($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  top: $val;
-  bottom: $val;
+    top: $val;
+    bottom: $val;
 }
 
 // @mixin inset-auto
 // @description Sets all inset properties to auto
 @mixin inset-auto {
-  inset: auto;
+    inset: auto;
 }
 
 // @mixin inset-x-auto
 // @description Sets horizontal inset properties to auto
 @mixin inset-x-auto {
-  left: auto;
-  right: auto;
+    left: auto;
+    right: auto;
 }
 
 // @mixin inset-y-auto
 // @description Sets vertical inset properties to auto
 @mixin inset-y-auto {
-  top: auto;
-  bottom: auto;
+    top: auto;
+    bottom: auto;
 }
 
 // -----------------------------------------------
@@ -247,18 +247,18 @@
 // @description Adds vertical spacing between direct children
 // @param {Number|String} $i - Space amount
 @mixin space-y($i) {
-  & > * + * {
-    margin-top: FN.fix-units($i);
-  }
+    & > * + * {
+        margin-top: FN.fix-units($i);
+    }
 }
 
 // @mixin space-x
 // @description Adds horizontal spacing between direct children
 // @param {Number|String} $i - Space amount
 @mixin space-x($i) {
-  & > * + * {
-    margin-left: FN.fix-units($i);
-  }
+    & > * + * {
+        margin-left: FN.fix-units($i);
+    }
 }
 
 // -----------------------------------------------
@@ -269,254 +269,254 @@
 // @description Sets gap between grid/flex children
 // @param {Number|String} $val - Gap value
 @mixin gap($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  gap: $val;
+    gap: $val;
 
-  --flex-gap: #{$val};
+    --flex-gap: #{$val};
 }
 
 // @mixin gap-x
 // @description Sets horizontal gap between grid/flex children
 // @param {Number|String} $val - Gap value
 @mixin gap-x($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  column-gap: $val;
+    column-gap: $val;
 
-  --flex-gap: #{$val};
+    --flex-gap: #{$val};
 }
 
 // @mixin gap-y
 // @description Sets vertical gap between grid/flex children
 // @param {Number|String} $val - Gap value
 @mixin gap-y($val) {
-  $val: FN.fix-units($val);
+    $val: FN.fix-units($val);
 
-  row-gap: $val;
+    row-gap: $val;
 
-  --flex-gap: #{$val};
+    --flex-gap: #{$val};
 }
 
 @if FN.feature-enabled("spacing") {
-  // -----------------------------------------------
-  // AUTO MARGIN UTILITY CLASSES
-  // -----------------------------------------------
+    // -----------------------------------------------
+    // AUTO MARGIN UTILITY CLASSES
+    // -----------------------------------------------
 
-  #{VAR.$parent-selector} .mx-auto {
-    @include mx-auto;
-  }
-
-  #{VAR.$parent-selector} .ml-auto {
-    @include ml-auto;
-  }
-
-  #{VAR.$parent-selector} .mr-auto {
-    @include mr-auto;
-  }
-
-  // -----------------------------------------------
-  // GAP AUTO CLASS
-  // -----------------------------------------------
-
-  #{VAR.$parent-selector} .gap-auto {
-    gap: auto;
-  }
-
-  // Auto inset utility classes
-  #{VAR.$parent-selector} .inset-auto {
-    @include inset-auto;
-  }
-
-  #{VAR.$parent-selector} .inset-x-auto {
-    @include inset-x-auto;
-  }
-
-  #{VAR.$parent-selector} .inset-y-auto {
-    @include inset-y-auto;
-  }
-
-  // -----------------------------------------------
-  // SPACING CLASSES
-  // -----------------------------------------------
-
-  @each $key, $value in VAR.$spacings {
-    // Padding classes
-    #{VAR.$parent-selector} .p-#{$key} {
-      @include p($value);
-    }
-    #{VAR.$parent-selector} .px-#{$key} {
-      @include px($value);
-    }
-    #{VAR.$parent-selector} .py-#{$key} {
-      @include py($value);
-    }
-    #{VAR.$parent-selector} .pt-#{$key} {
-      @include pt($value);
-    }
-    #{VAR.$parent-selector} .pr-#{$key} {
-      @include pr($value);
-    }
-    #{VAR.$parent-selector} .pb-#{$key} {
-      @include pb($value);
-    }
-    #{VAR.$parent-selector} .pl-#{$key} {
-      @include pl($value);
-    }
-
-    // Margin classes
-    #{VAR.$parent-selector} .m-#{$key} {
-      @include m($value);
-    }
-    #{VAR.$parent-selector} .mx-#{$key} {
-      @include mx($value);
-    }
-    #{VAR.$parent-selector} .my-#{$key} {
-      @include my($value);
-    }
-    #{VAR.$parent-selector} .mt-#{$key} {
-      @include mt($value);
-    }
-    #{VAR.$parent-selector} .mr-#{$key} {
-      @include mr($value);
-    }
-    #{VAR.$parent-selector} .mb-#{$key} {
-      @include mb($value);
-    }
-    #{VAR.$parent-selector} .ml-#{$key} {
-      @include ml($value);
-    }
-
-    // Gap classes
-    #{VAR.$parent-selector} .gap-#{$key} {
-      @include gap($value);
-    }
-    #{VAR.$parent-selector} .gap-x-#{$key} {
-      @include gap-x($value);
-    }
-    #{VAR.$parent-selector} .gap-y-#{$key} {
-      @include gap-y($value);
-    }
-
-    // Space classes
-    #{VAR.$parent-selector} .space-x-#{$key} {
-      @include space-x($value);
-    }
-    #{VAR.$parent-selector} .space-y-#{$key} {
-      @include space-y($value);
-    }
-
-    #{VAR.$parent-selector} .inset-#{$key} {
-      @include inset($value);
-    }
-    #{VAR.$parent-selector} .inset-x-#{$key} {
-      @include inset-x($value);
-    }
-    #{VAR.$parent-selector} .inset-y-#{$key} {
-      @include inset-y($value);
-    }
-  }
-
-  // -----------------------------------------------
-  // RESPONSIVE SPACING CLASSES
-  // -----------------------------------------------
-
-  @each $breakpoint, $width in VAR.$breakpoints {
-    @media (min-width: #{$width}) {
-      #{VAR.$parent-selector} .mx-auto\@#{$breakpoint} {
+    #{VAR.$parent-selector} .mx-auto {
         @include mx-auto;
-      }
-      #{VAR.$parent-selector} .ml-auto\@#{$breakpoint} {
-        @include ml-auto;
-      }
-      #{VAR.$parent-selector} .mr-auto\@#{$breakpoint} {
-        @include mr-auto;
-      }
-      #{VAR.$parent-selector} .inset-auto\@#{$breakpoint} {
-        @include inset-auto;
-      }
-      #{VAR.$parent-selector} .inset-x-auto\@#{$breakpoint} {
-        @include inset-x-auto;
-      }
-      #{VAR.$parent-selector} .inset-y-auto\@#{$breakpoint} {
-        @include inset-y-auto;
-      }
+    }
 
-      // Generate utilities from spacing map
-      @each $key, $value in VAR.$spacings {
+    #{VAR.$parent-selector} .ml-auto {
+        @include ml-auto;
+    }
+
+    #{VAR.$parent-selector} .mr-auto {
+        @include mr-auto;
+    }
+
+    // -----------------------------------------------
+    // GAP AUTO CLASS
+    // -----------------------------------------------
+
+    #{VAR.$parent-selector} .gap-auto {
+        gap: auto;
+    }
+
+    // Auto inset utility classes
+    #{VAR.$parent-selector} .inset-auto {
+        @include inset-auto;
+    }
+
+    #{VAR.$parent-selector} .inset-x-auto {
+        @include inset-x-auto;
+    }
+
+    #{VAR.$parent-selector} .inset-y-auto {
+        @include inset-y-auto;
+    }
+
+    // -----------------------------------------------
+    // SPACING CLASSES
+    // -----------------------------------------------
+
+    @each $key, $value in VAR.$spacings {
         // Padding classes
-        #{VAR.$parent-selector} .p-#{$key}\@#{$breakpoint} {
-          @include p($value);
+        #{VAR.$parent-selector} .p-#{$key} {
+            @include p($value);
         }
-        #{VAR.$parent-selector} .px-#{$key}\@#{$breakpoint} {
-          @include px($value);
+        #{VAR.$parent-selector} .px-#{$key} {
+            @include px($value);
         }
-        #{VAR.$parent-selector} .py-#{$key}\@#{$breakpoint} {
-          @include py($value);
+        #{VAR.$parent-selector} .py-#{$key} {
+            @include py($value);
         }
-        #{VAR.$parent-selector} .pt-#{$key}\@#{$breakpoint} {
-          @include pt($value);
+        #{VAR.$parent-selector} .pt-#{$key} {
+            @include pt($value);
         }
-        #{VAR.$parent-selector} .pr-#{$key}\@#{$breakpoint} {
-          @include pr($value);
+        #{VAR.$parent-selector} .pr-#{$key} {
+            @include pr($value);
         }
-        #{VAR.$parent-selector} .pb-#{$key}\@#{$breakpoint} {
-          @include pb($value);
+        #{VAR.$parent-selector} .pb-#{$key} {
+            @include pb($value);
         }
-        #{VAR.$parent-selector} .pl-#{$key}\@#{$breakpoint} {
-          @include pl($value);
+        #{VAR.$parent-selector} .pl-#{$key} {
+            @include pl($value);
         }
 
         // Margin classes
-        #{VAR.$parent-selector} .m-#{$key}\@#{$breakpoint} {
-          @include m($value);
+        #{VAR.$parent-selector} .m-#{$key} {
+            @include m($value);
         }
-        #{VAR.$parent-selector} .mx-#{$key}\@#{$breakpoint} {
-          @include mx($value);
+        #{VAR.$parent-selector} .mx-#{$key} {
+            @include mx($value);
         }
-        #{VAR.$parent-selector} .my-#{$key}\@#{$breakpoint} {
-          @include my($value);
+        #{VAR.$parent-selector} .my-#{$key} {
+            @include my($value);
         }
-        #{VAR.$parent-selector} .mt-#{$key}\@#{$breakpoint} {
-          @include mt($value);
+        #{VAR.$parent-selector} .mt-#{$key} {
+            @include mt($value);
         }
-        #{VAR.$parent-selector} .mr-#{$key}\@#{$breakpoint} {
-          @include mr($value);
+        #{VAR.$parent-selector} .mr-#{$key} {
+            @include mr($value);
         }
-        #{VAR.$parent-selector} .mb-#{$key}\@#{$breakpoint} {
-          @include mb($value);
+        #{VAR.$parent-selector} .mb-#{$key} {
+            @include mb($value);
         }
-        #{VAR.$parent-selector} .ml-#{$key}\@#{$breakpoint} {
-          @include ml($value);
+        #{VAR.$parent-selector} .ml-#{$key} {
+            @include ml($value);
         }
 
-        #{VAR.$parent-selector} .gap-#{$key}\@#{$breakpoint} {
-          gap: $value;
+        // Gap classes
+        #{VAR.$parent-selector} .gap-#{$key} {
+            @include gap($value);
         }
-        #{VAR.$parent-selector} .gap-x-#{$key}\@#{$breakpoint} {
-          column-gap: $value;
+        #{VAR.$parent-selector} .gap-x-#{$key} {
+            @include gap-x($value);
         }
-        #{VAR.$parent-selector} .gap-y-#{$key}\@#{$breakpoint} {
-          row-gap: $value;
+        #{VAR.$parent-selector} .gap-y-#{$key} {
+            @include gap-y($value);
         }
 
         // Space classes
-        #{VAR.$parent-selector} .space-x-#{$key}\@#{$breakpoint} {
-          @include space-x($value);
+        #{VAR.$parent-selector} .space-x-#{$key} {
+            @include space-x($value);
         }
-        #{VAR.$parent-selector} .space-y-#{$key}\@#{$breakpoint} {
-          @include space-y($value);
+        #{VAR.$parent-selector} .space-y-#{$key} {
+            @include space-y($value);
         }
-        #{VAR.$parent-selector} .inset-#{$key}\@#{$breakpoint} {
-          @include inset($value);
+
+        #{VAR.$parent-selector} .inset-#{$key} {
+            @include inset($value);
         }
-        #{VAR.$parent-selector} .inset-x-#{$key}\@#{$breakpoint} {
-          @include inset-x($value);
+        #{VAR.$parent-selector} .inset-x-#{$key} {
+            @include inset-x($value);
         }
-        #{VAR.$parent-selector} .inset-y-#{$key}\@#{$breakpoint} {
-          @include inset-y($value);
+        #{VAR.$parent-selector} .inset-y-#{$key} {
+            @include inset-y($value);
         }
-      }
     }
-  }
+
+    // -----------------------------------------------
+    // RESPONSIVE SPACING CLASSES
+    // -----------------------------------------------
+
+    @each $breakpoint, $width in VAR.$breakpoints {
+        @media (min-width: #{$width}) {
+            #{VAR.$parent-selector} .mx-auto\@#{$breakpoint} {
+                @include mx-auto;
+            }
+            #{VAR.$parent-selector} .ml-auto\@#{$breakpoint} {
+                @include ml-auto;
+            }
+            #{VAR.$parent-selector} .mr-auto\@#{$breakpoint} {
+                @include mr-auto;
+            }
+            #{VAR.$parent-selector} .inset-auto\@#{$breakpoint} {
+                @include inset-auto;
+            }
+            #{VAR.$parent-selector} .inset-x-auto\@#{$breakpoint} {
+                @include inset-x-auto;
+            }
+            #{VAR.$parent-selector} .inset-y-auto\@#{$breakpoint} {
+                @include inset-y-auto;
+            }
+
+            // Generate utilities from spacing map
+            @each $key, $value in VAR.$spacings {
+                // Padding classes
+                #{VAR.$parent-selector} .p-#{$key}\@#{$breakpoint} {
+                    @include p($value);
+                }
+                #{VAR.$parent-selector} .px-#{$key}\@#{$breakpoint} {
+                    @include px($value);
+                }
+                #{VAR.$parent-selector} .py-#{$key}\@#{$breakpoint} {
+                    @include py($value);
+                }
+                #{VAR.$parent-selector} .pt-#{$key}\@#{$breakpoint} {
+                    @include pt($value);
+                }
+                #{VAR.$parent-selector} .pr-#{$key}\@#{$breakpoint} {
+                    @include pr($value);
+                }
+                #{VAR.$parent-selector} .pb-#{$key}\@#{$breakpoint} {
+                    @include pb($value);
+                }
+                #{VAR.$parent-selector} .pl-#{$key}\@#{$breakpoint} {
+                    @include pl($value);
+                }
+
+                // Margin classes
+                #{VAR.$parent-selector} .m-#{$key}\@#{$breakpoint} {
+                    @include m($value);
+                }
+                #{VAR.$parent-selector} .mx-#{$key}\@#{$breakpoint} {
+                    @include mx($value);
+                }
+                #{VAR.$parent-selector} .my-#{$key}\@#{$breakpoint} {
+                    @include my($value);
+                }
+                #{VAR.$parent-selector} .mt-#{$key}\@#{$breakpoint} {
+                    @include mt($value);
+                }
+                #{VAR.$parent-selector} .mr-#{$key}\@#{$breakpoint} {
+                    @include mr($value);
+                }
+                #{VAR.$parent-selector} .mb-#{$key}\@#{$breakpoint} {
+                    @include mb($value);
+                }
+                #{VAR.$parent-selector} .ml-#{$key}\@#{$breakpoint} {
+                    @include ml($value);
+                }
+
+                #{VAR.$parent-selector} .gap-#{$key}\@#{$breakpoint} {
+                    gap: $value;
+                }
+                #{VAR.$parent-selector} .gap-x-#{$key}\@#{$breakpoint} {
+                    column-gap: $value;
+                }
+                #{VAR.$parent-selector} .gap-y-#{$key}\@#{$breakpoint} {
+                    row-gap: $value;
+                }
+
+                // Space classes
+                #{VAR.$parent-selector} .space-x-#{$key}\@#{$breakpoint} {
+                    @include space-x($value);
+                }
+                #{VAR.$parent-selector} .space-y-#{$key}\@#{$breakpoint} {
+                    @include space-y($value);
+                }
+                #{VAR.$parent-selector} .inset-#{$key}\@#{$breakpoint} {
+                    @include inset($value);
+                }
+                #{VAR.$parent-selector} .inset-x-#{$key}\@#{$breakpoint} {
+                    @include inset-x($value);
+                }
+                #{VAR.$parent-selector} .inset-y-#{$key}\@#{$breakpoint} {
+                    @include inset-y($value);
+                }
+            }
+        }
+    }
 }

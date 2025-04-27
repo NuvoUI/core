@@ -4,7 +4,7 @@
 ::after,
 ::backdrop,
 ::file-selector-button {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 // Remove default margin and padding
@@ -20,28 +20,28 @@ figure,
 blockquote,
 dl,
 dd {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 // Prevent font size inflation
 html {
-  text-size-adjust: none;
+    text-size-adjust: none;
 }
 
 // Set core root defaults
 html:focus-within {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 // Set core body defaults
 body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  text-rendering: optimizespeed;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    min-height: 100dvh;
+    text-rendering: optimizespeed;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 // Set shorter line heights on headings and interactive elements
@@ -52,7 +52,7 @@ h4,
 button,
 input,
 label {
-  line-height: 1.1;
+    line-height: 1.1;
 }
 
 // Make images easier to work with
@@ -65,16 +65,16 @@ audio,
 iframe,
 embed,
 object {
-  display: block;
-  vertical-align: middle;
+    display: block;
+    vertical-align: middle;
 }
 
 img,
 picture,
 video,
 svg {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 // Inherit fonts for inputs and buttons
@@ -82,52 +82,51 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
-  cursor: pointer;
+    font: inherit;
+    cursor: pointer;
 
-  &:disabled {
-    cursor: not-allowed;
-  }
+    &:disabled {
+        cursor: not-allowed;
+    }
 }
 
 // Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed
 ul[role="list"],
 ol[role="list"] {
-  list-style: none;
-  
-  padding-inline-start: 0; // Replaces padding-left
-  margin-block: 0; // Replaces margin-top/bottom
+    list-style: none;
+    padding-inline-start: 0; // Replaces padding-left
+    margin-block: 0; // Replaces margin-top/bottom
 
-  & > li {
-    margin-block: 0;
-  }
+    & > li {
+        margin-block: 0;
+    }
 }
 
 // Remove underline from links
 a {
-  text-decoration-skip-ink: auto;
-  text-decoration: none;
-  color: inherit;
+    text-decoration-skip-ink: auto;
+    text-decoration: none;
+    color: inherit;
 }
 
 // Make sure textareas without a rows attribute are not tiny
 textarea:not([rows]) {
-  min-height: 10em;
+    min-height: 10em;
 }
 
 // Anything that has been anchored to should have extra scroll margin
 :target {
-  scroll-margin-block: 5ex;
+    scroll-margin-block: 5ex;
 }
 
 // Remove all animations and transitions for people that prefer not to see them
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
