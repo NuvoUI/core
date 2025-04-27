@@ -5,8 +5,6 @@
 ::backdrop,
 ::file-selector-button {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 // Remove default margin and padding
@@ -96,16 +94,11 @@ select {
 ul[role="list"],
 ol[role="list"] {
   list-style: none;
-  margin: 0;
-  padding: 0;
-
-  // Modern properties
+  
   padding-inline-start: 0; // Replaces padding-left
   margin-block: 0; // Replaces margin-top/bottom
 
   & > li {
-    margin: 0;
-    padding: 0;
     margin-block: 0;
   }
 }
