@@ -36,7 +36,7 @@ $enable-debugger: false !default;
 $default-unit: px !default;
 
 // Text
-$base-size: 16px !default;
+$base-size: 1rem !default;
 $font-family:
     system-ui,
     -apple-system,
@@ -234,7 +234,7 @@ $border-radii: (
     "lg": 0.75rem,
     "xl": 1rem,
     "2xl": 1.25rem,
-    "full": 50%,
+    "full": 99in,
     "none": 0,
 ) !default;
 
