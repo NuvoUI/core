@@ -16,7 +16,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 @function get-rounded-value($val) {
     @if not $val {
         @return map.get(VAR.$border-radii, "md");
-    } @else if meta.type-of($val) == string {
+    } @else if meta.type-of($val) == "string" {
         $clean-val: $val;
 
         // Try to find the value in the border-radii map

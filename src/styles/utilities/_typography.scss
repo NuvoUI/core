@@ -37,7 +37,7 @@
 @mixin font($weight) {
     @if map.has-key(VAR.$font-weights, #{$weight}) {
         font-weight: map.get(VAR.$font-weights, $weight);
-    } @else if meta.type-of($weight) == number {
+    } @else if meta.type-of($weight) == "number" {
         font-weight: $weight;
     } @else {
         @warn "Unknown font weight: #{$weight} setting it to default.";

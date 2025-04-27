@@ -126,7 +126,7 @@ $units: ("px", "rem", "%", "em", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "
 @function get-breakpoint-value($bp, $debug: false) {
     @if map.has-key($breakpoints, #{$bp}) {
         @return map.get($breakpoints, #{$bp});
-    } @else if meta.type-of($bp) == number {
+    } @else if meta.type-of($bp) == "number" {
         @return $bp;
     } @else {
         @error 'Invalid breakpoint: #{$bp}';
@@ -135,7 +135,7 @@ $units: ("px", "rem", "%", "em", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "
 }
 
 @function strip-unit($value) {
-    @if meta.type-of($value) != number {
+    @if meta.type-of($value) != "number" {
         @error "strip-unit() requires a number";
     }
     @return math.div($value, ($value * 0 + 1));
@@ -163,13 +163,13 @@ $units: ("px", "rem", "%", "em", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "
     }
 
     // Check type
-    @if meta.type-of($val) != number and meta.type-of($val) != string {
+    @if meta.type-of($val) != "number" and meta.type-of($val) != "string" {
         @error "fix-units() requires a number or string value";
         @return null;
     }
 
     // Handle number type
-    @if meta.type-of($val) == number {
+    @if meta.type-of($val) == "number" {
         @if math.is-unitless($val) {
             @return $val + $unit;
         }
@@ -209,7 +209,7 @@ $units: ("px", "rem", "%", "em", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "
 }
 
 @function strip-quotes($string) {
-    @if meta.type-of($string) == string {
+    @if meta.type-of($string) == "string" {
         @if string.slice($string, 1, 1) == '"' and string.slice($string, -1) == '"' {
             @return string.slice($string, 2, -2);
         } @else if string.slice($string, 1, 1) == "'" and string.slice($string, -1) == "'" {

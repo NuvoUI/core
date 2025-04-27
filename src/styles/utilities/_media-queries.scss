@@ -38,7 +38,7 @@
 
 // Only at specific breakpoint
 @mixin media-only($breakpoint) {
-    @if meta.type-of($breakpoint) == number and math.is-unitless($breakpoint) {
+    @if meta.type-of($breakpoint) == "number" and math.is-unitless($breakpoint) {
         @error "media-only() needs a breakpoint value";
     }
 
