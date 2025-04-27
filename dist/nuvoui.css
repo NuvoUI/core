@@ -571,73 +571,73 @@ code {
   align-self: auto;
 }
 .flex > .fill-1, .flex\@xs > .fill-1, .flex\@sm > .fill-1, .flex\@md > .fill-1, .flex\@lg > .fill-1, .flex\@xl > .fill-1, .flex\@2xl > .fill-1 {
-  flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+  flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
 }
 .flex > .order-1, .flex\@xs > .order-1, .flex\@sm > .order-1, .flex\@md > .order-1, .flex\@lg > .order-1, .flex\@xl > .order-1, .flex\@2xl > .order-1 {
   order: 1;
 }
 .flex > .fill-2, .flex\@xs > .fill-2, .flex\@sm > .fill-2, .flex\@md > .fill-2, .flex\@lg > .fill-2, .flex\@xl > .fill-2, .flex\@2xl > .fill-2 {
-  flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+  flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
 }
 .flex > .order-2, .flex\@xs > .order-2, .flex\@sm > .order-2, .flex\@md > .order-2, .flex\@lg > .order-2, .flex\@xl > .order-2, .flex\@2xl > .order-2 {
   order: 2;
 }
 .flex > .fill-3, .flex\@xs > .fill-3, .flex\@sm > .fill-3, .flex\@md > .fill-3, .flex\@lg > .fill-3, .flex\@xl > .fill-3, .flex\@2xl > .fill-3 {
-  flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+  flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
 }
 .flex > .order-3, .flex\@xs > .order-3, .flex\@sm > .order-3, .flex\@md > .order-3, .flex\@lg > .order-3, .flex\@xl > .order-3, .flex\@2xl > .order-3 {
   order: 3;
 }
 .flex > .fill-4, .flex\@xs > .fill-4, .flex\@sm > .fill-4, .flex\@md > .fill-4, .flex\@lg > .fill-4, .flex\@xl > .fill-4, .flex\@2xl > .fill-4 {
-  flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+  flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
 }
 .flex > .order-4, .flex\@xs > .order-4, .flex\@sm > .order-4, .flex\@md > .order-4, .flex\@lg > .order-4, .flex\@xl > .order-4, .flex\@2xl > .order-4 {
   order: 4;
 }
 .flex > .fill-5, .flex\@xs > .fill-5, .flex\@sm > .fill-5, .flex\@md > .fill-5, .flex\@lg > .fill-5, .flex\@xl > .fill-5, .flex\@2xl > .fill-5 {
-  flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+  flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
 }
 .flex > .order-5, .flex\@xs > .order-5, .flex\@sm > .order-5, .flex\@md > .order-5, .flex\@lg > .order-5, .flex\@xl > .order-5, .flex\@2xl > .order-5 {
   order: 5;
 }
 .flex > .fill-6, .flex\@xs > .fill-6, .flex\@sm > .fill-6, .flex\@md > .fill-6, .flex\@lg > .fill-6, .flex\@xl > .fill-6, .flex\@2xl > .fill-6 {
-  flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+  flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
 }
 .flex > .order-6, .flex\@xs > .order-6, .flex\@sm > .order-6, .flex\@md > .order-6, .flex\@lg > .order-6, .flex\@xl > .order-6, .flex\@2xl > .order-6 {
   order: 6;
 }
 .flex > .fill-7, .flex\@xs > .fill-7, .flex\@sm > .fill-7, .flex\@md > .fill-7, .flex\@lg > .fill-7, .flex\@xl > .fill-7, .flex\@2xl > .fill-7 {
-  flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+  flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
 }
 .flex > .order-7, .flex\@xs > .order-7, .flex\@sm > .order-7, .flex\@md > .order-7, .flex\@lg > .order-7, .flex\@xl > .order-7, .flex\@2xl > .order-7 {
   order: 7;
 }
 .flex > .fill-8, .flex\@xs > .fill-8, .flex\@sm > .fill-8, .flex\@md > .fill-8, .flex\@lg > .fill-8, .flex\@xl > .fill-8, .flex\@2xl > .fill-8 {
-  flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+  flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
 }
 .flex > .order-8, .flex\@xs > .order-8, .flex\@sm > .order-8, .flex\@md > .order-8, .flex\@lg > .order-8, .flex\@xl > .order-8, .flex\@2xl > .order-8 {
   order: 8;
 }
 .flex > .fill-9, .flex\@xs > .fill-9, .flex\@sm > .fill-9, .flex\@md > .fill-9, .flex\@lg > .fill-9, .flex\@xl > .fill-9, .flex\@2xl > .fill-9 {
-  flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+  flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
 }
 .flex > .order-9, .flex\@xs > .order-9, .flex\@sm > .order-9, .flex\@md > .order-9, .flex\@lg > .order-9, .flex\@xl > .order-9, .flex\@2xl > .order-9 {
   order: 9;
 }
 .flex > .fill-10, .flex\@xs > .fill-10, .flex\@sm > .fill-10, .flex\@md > .fill-10, .flex\@lg > .fill-10, .flex\@xl > .fill-10, .flex\@2xl > .fill-10 {
-  flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+  flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
 }
 .flex > .order-10, .flex\@xs > .order-10, .flex\@sm > .order-10, .flex\@md > .order-10, .flex\@lg > .order-10, .flex\@xl > .order-10, .flex\@2xl > .order-10 {
   order: 10;
 }
 .flex > .fill-11, .flex\@xs > .fill-11, .flex\@sm > .fill-11, .flex\@md > .fill-11, .flex\@lg > .fill-11, .flex\@xl > .fill-11, .flex\@2xl > .fill-11 {
-  flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+  flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
 }
 .flex > .order-11, .flex\@xs > .order-11, .flex\@sm > .order-11, .flex\@md > .order-11, .flex\@lg > .order-11, .flex\@xl > .order-11, .flex\@2xl > .order-11 {
   order: 11;
 }
 .flex > .fill-12, .flex\@xs > .fill-12, .flex\@sm > .fill-12, .flex\@md > .fill-12, .flex\@lg > .fill-12, .flex\@xl > .fill-12, .flex\@2xl > .fill-12 {
-  flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+  flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
 }
 .flex > .order-12, .flex\@xs > .order-12, .flex\@sm > .order-12, .flex\@md > .order-12, .flex\@lg > .order-12, .flex\@xl > .order-12, .flex\@2xl > .order-12 {
   order: 12;
@@ -771,73 +771,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@xs, .flex\@xs > .fill-1\@xs, .flex\@sm > .fill-1\@xs, .flex\@md > .fill-1\@xs, .flex\@lg > .fill-1\@xs, .flex\@xl > .fill-1\@xs, .flex\@2xl > .fill-1\@xs {
-    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+    flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
   }
   .flex > .order-1\@xs, .flex\@xs > .order-1\@xs, .flex\@sm > .order-1\@xs, .flex\@md > .order-1\@xs, .flex\@lg > .order-1\@xs, .flex\@xl > .order-1\@xs, .flex\@2xl > .order-1\@xs {
     order: 1;
   }
   .flex > .fill-2\@xs, .flex\@xs > .fill-2\@xs, .flex\@sm > .fill-2\@xs, .flex\@md > .fill-2\@xs, .flex\@lg > .fill-2\@xs, .flex\@xl > .fill-2\@xs, .flex\@2xl > .fill-2\@xs {
-    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+    flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
   }
   .flex > .order-2\@xs, .flex\@xs > .order-2\@xs, .flex\@sm > .order-2\@xs, .flex\@md > .order-2\@xs, .flex\@lg > .order-2\@xs, .flex\@xl > .order-2\@xs, .flex\@2xl > .order-2\@xs {
     order: 2;
   }
   .flex > .fill-3\@xs, .flex\@xs > .fill-3\@xs, .flex\@sm > .fill-3\@xs, .flex\@md > .fill-3\@xs, .flex\@lg > .fill-3\@xs, .flex\@xl > .fill-3\@xs, .flex\@2xl > .fill-3\@xs {
-    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+    flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
   }
   .flex > .order-3\@xs, .flex\@xs > .order-3\@xs, .flex\@sm > .order-3\@xs, .flex\@md > .order-3\@xs, .flex\@lg > .order-3\@xs, .flex\@xl > .order-3\@xs, .flex\@2xl > .order-3\@xs {
     order: 3;
   }
   .flex > .fill-4\@xs, .flex\@xs > .fill-4\@xs, .flex\@sm > .fill-4\@xs, .flex\@md > .fill-4\@xs, .flex\@lg > .fill-4\@xs, .flex\@xl > .fill-4\@xs, .flex\@2xl > .fill-4\@xs {
-    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+    flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
   }
   .flex > .order-4\@xs, .flex\@xs > .order-4\@xs, .flex\@sm > .order-4\@xs, .flex\@md > .order-4\@xs, .flex\@lg > .order-4\@xs, .flex\@xl > .order-4\@xs, .flex\@2xl > .order-4\@xs {
     order: 4;
   }
   .flex > .fill-5\@xs, .flex\@xs > .fill-5\@xs, .flex\@sm > .fill-5\@xs, .flex\@md > .fill-5\@xs, .flex\@lg > .fill-5\@xs, .flex\@xl > .fill-5\@xs, .flex\@2xl > .fill-5\@xs {
-    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+    flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
   }
   .flex > .order-5\@xs, .flex\@xs > .order-5\@xs, .flex\@sm > .order-5\@xs, .flex\@md > .order-5\@xs, .flex\@lg > .order-5\@xs, .flex\@xl > .order-5\@xs, .flex\@2xl > .order-5\@xs {
     order: 5;
   }
   .flex > .fill-6\@xs, .flex\@xs > .fill-6\@xs, .flex\@sm > .fill-6\@xs, .flex\@md > .fill-6\@xs, .flex\@lg > .fill-6\@xs, .flex\@xl > .fill-6\@xs, .flex\@2xl > .fill-6\@xs {
-    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+    flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
   }
   .flex > .order-6\@xs, .flex\@xs > .order-6\@xs, .flex\@sm > .order-6\@xs, .flex\@md > .order-6\@xs, .flex\@lg > .order-6\@xs, .flex\@xl > .order-6\@xs, .flex\@2xl > .order-6\@xs {
     order: 6;
   }
   .flex > .fill-7\@xs, .flex\@xs > .fill-7\@xs, .flex\@sm > .fill-7\@xs, .flex\@md > .fill-7\@xs, .flex\@lg > .fill-7\@xs, .flex\@xl > .fill-7\@xs, .flex\@2xl > .fill-7\@xs {
-    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+    flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
   }
   .flex > .order-7\@xs, .flex\@xs > .order-7\@xs, .flex\@sm > .order-7\@xs, .flex\@md > .order-7\@xs, .flex\@lg > .order-7\@xs, .flex\@xl > .order-7\@xs, .flex\@2xl > .order-7\@xs {
     order: 7;
   }
   .flex > .fill-8\@xs, .flex\@xs > .fill-8\@xs, .flex\@sm > .fill-8\@xs, .flex\@md > .fill-8\@xs, .flex\@lg > .fill-8\@xs, .flex\@xl > .fill-8\@xs, .flex\@2xl > .fill-8\@xs {
-    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+    flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
   }
   .flex > .order-8\@xs, .flex\@xs > .order-8\@xs, .flex\@sm > .order-8\@xs, .flex\@md > .order-8\@xs, .flex\@lg > .order-8\@xs, .flex\@xl > .order-8\@xs, .flex\@2xl > .order-8\@xs {
     order: 8;
   }
   .flex > .fill-9\@xs, .flex\@xs > .fill-9\@xs, .flex\@sm > .fill-9\@xs, .flex\@md > .fill-9\@xs, .flex\@lg > .fill-9\@xs, .flex\@xl > .fill-9\@xs, .flex\@2xl > .fill-9\@xs {
-    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+    flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
   }
   .flex > .order-9\@xs, .flex\@xs > .order-9\@xs, .flex\@sm > .order-9\@xs, .flex\@md > .order-9\@xs, .flex\@lg > .order-9\@xs, .flex\@xl > .order-9\@xs, .flex\@2xl > .order-9\@xs {
     order: 9;
   }
   .flex > .fill-10\@xs, .flex\@xs > .fill-10\@xs, .flex\@sm > .fill-10\@xs, .flex\@md > .fill-10\@xs, .flex\@lg > .fill-10\@xs, .flex\@xl > .fill-10\@xs, .flex\@2xl > .fill-10\@xs {
-    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+    flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
   }
   .flex > .order-10\@xs, .flex\@xs > .order-10\@xs, .flex\@sm > .order-10\@xs, .flex\@md > .order-10\@xs, .flex\@lg > .order-10\@xs, .flex\@xl > .order-10\@xs, .flex\@2xl > .order-10\@xs {
     order: 10;
   }
   .flex > .fill-11\@xs, .flex\@xs > .fill-11\@xs, .flex\@sm > .fill-11\@xs, .flex\@md > .fill-11\@xs, .flex\@lg > .fill-11\@xs, .flex\@xl > .fill-11\@xs, .flex\@2xl > .fill-11\@xs {
-    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+    flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
   }
   .flex > .order-11\@xs, .flex\@xs > .order-11\@xs, .flex\@sm > .order-11\@xs, .flex\@md > .order-11\@xs, .flex\@lg > .order-11\@xs, .flex\@xl > .order-11\@xs, .flex\@2xl > .order-11\@xs {
     order: 11;
   }
   .flex > .fill-12\@xs, .flex\@xs > .fill-12\@xs, .flex\@sm > .fill-12\@xs, .flex\@md > .fill-12\@xs, .flex\@lg > .fill-12\@xs, .flex\@xl > .fill-12\@xs, .flex\@2xl > .fill-12\@xs {
-    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+    flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
   }
   .flex > .order-12\@xs, .flex\@xs > .order-12\@xs, .flex\@sm > .order-12\@xs, .flex\@md > .order-12\@xs, .flex\@lg > .order-12\@xs, .flex\@xl > .order-12\@xs, .flex\@2xl > .order-12\@xs {
     order: 12;
@@ -971,73 +971,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@sm, .flex\@xs > .fill-1\@sm, .flex\@sm > .fill-1\@sm, .flex\@md > .fill-1\@sm, .flex\@lg > .fill-1\@sm, .flex\@xl > .fill-1\@sm, .flex\@2xl > .fill-1\@sm {
-    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+    flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
   }
   .flex > .order-1\@sm, .flex\@xs > .order-1\@sm, .flex\@sm > .order-1\@sm, .flex\@md > .order-1\@sm, .flex\@lg > .order-1\@sm, .flex\@xl > .order-1\@sm, .flex\@2xl > .order-1\@sm {
     order: 1;
   }
   .flex > .fill-2\@sm, .flex\@xs > .fill-2\@sm, .flex\@sm > .fill-2\@sm, .flex\@md > .fill-2\@sm, .flex\@lg > .fill-2\@sm, .flex\@xl > .fill-2\@sm, .flex\@2xl > .fill-2\@sm {
-    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+    flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
   }
   .flex > .order-2\@sm, .flex\@xs > .order-2\@sm, .flex\@sm > .order-2\@sm, .flex\@md > .order-2\@sm, .flex\@lg > .order-2\@sm, .flex\@xl > .order-2\@sm, .flex\@2xl > .order-2\@sm {
     order: 2;
   }
   .flex > .fill-3\@sm, .flex\@xs > .fill-3\@sm, .flex\@sm > .fill-3\@sm, .flex\@md > .fill-3\@sm, .flex\@lg > .fill-3\@sm, .flex\@xl > .fill-3\@sm, .flex\@2xl > .fill-3\@sm {
-    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+    flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
   }
   .flex > .order-3\@sm, .flex\@xs > .order-3\@sm, .flex\@sm > .order-3\@sm, .flex\@md > .order-3\@sm, .flex\@lg > .order-3\@sm, .flex\@xl > .order-3\@sm, .flex\@2xl > .order-3\@sm {
     order: 3;
   }
   .flex > .fill-4\@sm, .flex\@xs > .fill-4\@sm, .flex\@sm > .fill-4\@sm, .flex\@md > .fill-4\@sm, .flex\@lg > .fill-4\@sm, .flex\@xl > .fill-4\@sm, .flex\@2xl > .fill-4\@sm {
-    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+    flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
   }
   .flex > .order-4\@sm, .flex\@xs > .order-4\@sm, .flex\@sm > .order-4\@sm, .flex\@md > .order-4\@sm, .flex\@lg > .order-4\@sm, .flex\@xl > .order-4\@sm, .flex\@2xl > .order-4\@sm {
     order: 4;
   }
   .flex > .fill-5\@sm, .flex\@xs > .fill-5\@sm, .flex\@sm > .fill-5\@sm, .flex\@md > .fill-5\@sm, .flex\@lg > .fill-5\@sm, .flex\@xl > .fill-5\@sm, .flex\@2xl > .fill-5\@sm {
-    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+    flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
   }
   .flex > .order-5\@sm, .flex\@xs > .order-5\@sm, .flex\@sm > .order-5\@sm, .flex\@md > .order-5\@sm, .flex\@lg > .order-5\@sm, .flex\@xl > .order-5\@sm, .flex\@2xl > .order-5\@sm {
     order: 5;
   }
   .flex > .fill-6\@sm, .flex\@xs > .fill-6\@sm, .flex\@sm > .fill-6\@sm, .flex\@md > .fill-6\@sm, .flex\@lg > .fill-6\@sm, .flex\@xl > .fill-6\@sm, .flex\@2xl > .fill-6\@sm {
-    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+    flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
   }
   .flex > .order-6\@sm, .flex\@xs > .order-6\@sm, .flex\@sm > .order-6\@sm, .flex\@md > .order-6\@sm, .flex\@lg > .order-6\@sm, .flex\@xl > .order-6\@sm, .flex\@2xl > .order-6\@sm {
     order: 6;
   }
   .flex > .fill-7\@sm, .flex\@xs > .fill-7\@sm, .flex\@sm > .fill-7\@sm, .flex\@md > .fill-7\@sm, .flex\@lg > .fill-7\@sm, .flex\@xl > .fill-7\@sm, .flex\@2xl > .fill-7\@sm {
-    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+    flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
   }
   .flex > .order-7\@sm, .flex\@xs > .order-7\@sm, .flex\@sm > .order-7\@sm, .flex\@md > .order-7\@sm, .flex\@lg > .order-7\@sm, .flex\@xl > .order-7\@sm, .flex\@2xl > .order-7\@sm {
     order: 7;
   }
   .flex > .fill-8\@sm, .flex\@xs > .fill-8\@sm, .flex\@sm > .fill-8\@sm, .flex\@md > .fill-8\@sm, .flex\@lg > .fill-8\@sm, .flex\@xl > .fill-8\@sm, .flex\@2xl > .fill-8\@sm {
-    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+    flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
   }
   .flex > .order-8\@sm, .flex\@xs > .order-8\@sm, .flex\@sm > .order-8\@sm, .flex\@md > .order-8\@sm, .flex\@lg > .order-8\@sm, .flex\@xl > .order-8\@sm, .flex\@2xl > .order-8\@sm {
     order: 8;
   }
   .flex > .fill-9\@sm, .flex\@xs > .fill-9\@sm, .flex\@sm > .fill-9\@sm, .flex\@md > .fill-9\@sm, .flex\@lg > .fill-9\@sm, .flex\@xl > .fill-9\@sm, .flex\@2xl > .fill-9\@sm {
-    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+    flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
   }
   .flex > .order-9\@sm, .flex\@xs > .order-9\@sm, .flex\@sm > .order-9\@sm, .flex\@md > .order-9\@sm, .flex\@lg > .order-9\@sm, .flex\@xl > .order-9\@sm, .flex\@2xl > .order-9\@sm {
     order: 9;
   }
   .flex > .fill-10\@sm, .flex\@xs > .fill-10\@sm, .flex\@sm > .fill-10\@sm, .flex\@md > .fill-10\@sm, .flex\@lg > .fill-10\@sm, .flex\@xl > .fill-10\@sm, .flex\@2xl > .fill-10\@sm {
-    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+    flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
   }
   .flex > .order-10\@sm, .flex\@xs > .order-10\@sm, .flex\@sm > .order-10\@sm, .flex\@md > .order-10\@sm, .flex\@lg > .order-10\@sm, .flex\@xl > .order-10\@sm, .flex\@2xl > .order-10\@sm {
     order: 10;
   }
   .flex > .fill-11\@sm, .flex\@xs > .fill-11\@sm, .flex\@sm > .fill-11\@sm, .flex\@md > .fill-11\@sm, .flex\@lg > .fill-11\@sm, .flex\@xl > .fill-11\@sm, .flex\@2xl > .fill-11\@sm {
-    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+    flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
   }
   .flex > .order-11\@sm, .flex\@xs > .order-11\@sm, .flex\@sm > .order-11\@sm, .flex\@md > .order-11\@sm, .flex\@lg > .order-11\@sm, .flex\@xl > .order-11\@sm, .flex\@2xl > .order-11\@sm {
     order: 11;
   }
   .flex > .fill-12\@sm, .flex\@xs > .fill-12\@sm, .flex\@sm > .fill-12\@sm, .flex\@md > .fill-12\@sm, .flex\@lg > .fill-12\@sm, .flex\@xl > .fill-12\@sm, .flex\@2xl > .fill-12\@sm {
-    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+    flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
   }
   .flex > .order-12\@sm, .flex\@xs > .order-12\@sm, .flex\@sm > .order-12\@sm, .flex\@md > .order-12\@sm, .flex\@lg > .order-12\@sm, .flex\@xl > .order-12\@sm, .flex\@2xl > .order-12\@sm {
     order: 12;
@@ -1171,73 +1171,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@md, .flex\@xs > .fill-1\@md, .flex\@sm > .fill-1\@md, .flex\@md > .fill-1\@md, .flex\@lg > .fill-1\@md, .flex\@xl > .fill-1\@md, .flex\@2xl > .fill-1\@md {
-    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+    flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
   }
   .flex > .order-1\@md, .flex\@xs > .order-1\@md, .flex\@sm > .order-1\@md, .flex\@md > .order-1\@md, .flex\@lg > .order-1\@md, .flex\@xl > .order-1\@md, .flex\@2xl > .order-1\@md {
     order: 1;
   }
   .flex > .fill-2\@md, .flex\@xs > .fill-2\@md, .flex\@sm > .fill-2\@md, .flex\@md > .fill-2\@md, .flex\@lg > .fill-2\@md, .flex\@xl > .fill-2\@md, .flex\@2xl > .fill-2\@md {
-    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+    flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
   }
   .flex > .order-2\@md, .flex\@xs > .order-2\@md, .flex\@sm > .order-2\@md, .flex\@md > .order-2\@md, .flex\@lg > .order-2\@md, .flex\@xl > .order-2\@md, .flex\@2xl > .order-2\@md {
     order: 2;
   }
   .flex > .fill-3\@md, .flex\@xs > .fill-3\@md, .flex\@sm > .fill-3\@md, .flex\@md > .fill-3\@md, .flex\@lg > .fill-3\@md, .flex\@xl > .fill-3\@md, .flex\@2xl > .fill-3\@md {
-    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+    flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
   }
   .flex > .order-3\@md, .flex\@xs > .order-3\@md, .flex\@sm > .order-3\@md, .flex\@md > .order-3\@md, .flex\@lg > .order-3\@md, .flex\@xl > .order-3\@md, .flex\@2xl > .order-3\@md {
     order: 3;
   }
   .flex > .fill-4\@md, .flex\@xs > .fill-4\@md, .flex\@sm > .fill-4\@md, .flex\@md > .fill-4\@md, .flex\@lg > .fill-4\@md, .flex\@xl > .fill-4\@md, .flex\@2xl > .fill-4\@md {
-    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+    flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
   }
   .flex > .order-4\@md, .flex\@xs > .order-4\@md, .flex\@sm > .order-4\@md, .flex\@md > .order-4\@md, .flex\@lg > .order-4\@md, .flex\@xl > .order-4\@md, .flex\@2xl > .order-4\@md {
     order: 4;
   }
   .flex > .fill-5\@md, .flex\@xs > .fill-5\@md, .flex\@sm > .fill-5\@md, .flex\@md > .fill-5\@md, .flex\@lg > .fill-5\@md, .flex\@xl > .fill-5\@md, .flex\@2xl > .fill-5\@md {
-    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+    flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
   }
   .flex > .order-5\@md, .flex\@xs > .order-5\@md, .flex\@sm > .order-5\@md, .flex\@md > .order-5\@md, .flex\@lg > .order-5\@md, .flex\@xl > .order-5\@md, .flex\@2xl > .order-5\@md {
     order: 5;
   }
   .flex > .fill-6\@md, .flex\@xs > .fill-6\@md, .flex\@sm > .fill-6\@md, .flex\@md > .fill-6\@md, .flex\@lg > .fill-6\@md, .flex\@xl > .fill-6\@md, .flex\@2xl > .fill-6\@md {
-    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+    flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
   }
   .flex > .order-6\@md, .flex\@xs > .order-6\@md, .flex\@sm > .order-6\@md, .flex\@md > .order-6\@md, .flex\@lg > .order-6\@md, .flex\@xl > .order-6\@md, .flex\@2xl > .order-6\@md {
     order: 6;
   }
   .flex > .fill-7\@md, .flex\@xs > .fill-7\@md, .flex\@sm > .fill-7\@md, .flex\@md > .fill-7\@md, .flex\@lg > .fill-7\@md, .flex\@xl > .fill-7\@md, .flex\@2xl > .fill-7\@md {
-    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+    flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
   }
   .flex > .order-7\@md, .flex\@xs > .order-7\@md, .flex\@sm > .order-7\@md, .flex\@md > .order-7\@md, .flex\@lg > .order-7\@md, .flex\@xl > .order-7\@md, .flex\@2xl > .order-7\@md {
     order: 7;
   }
   .flex > .fill-8\@md, .flex\@xs > .fill-8\@md, .flex\@sm > .fill-8\@md, .flex\@md > .fill-8\@md, .flex\@lg > .fill-8\@md, .flex\@xl > .fill-8\@md, .flex\@2xl > .fill-8\@md {
-    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+    flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
   }
   .flex > .order-8\@md, .flex\@xs > .order-8\@md, .flex\@sm > .order-8\@md, .flex\@md > .order-8\@md, .flex\@lg > .order-8\@md, .flex\@xl > .order-8\@md, .flex\@2xl > .order-8\@md {
     order: 8;
   }
   .flex > .fill-9\@md, .flex\@xs > .fill-9\@md, .flex\@sm > .fill-9\@md, .flex\@md > .fill-9\@md, .flex\@lg > .fill-9\@md, .flex\@xl > .fill-9\@md, .flex\@2xl > .fill-9\@md {
-    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+    flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
   }
   .flex > .order-9\@md, .flex\@xs > .order-9\@md, .flex\@sm > .order-9\@md, .flex\@md > .order-9\@md, .flex\@lg > .order-9\@md, .flex\@xl > .order-9\@md, .flex\@2xl > .order-9\@md {
     order: 9;
   }
   .flex > .fill-10\@md, .flex\@xs > .fill-10\@md, .flex\@sm > .fill-10\@md, .flex\@md > .fill-10\@md, .flex\@lg > .fill-10\@md, .flex\@xl > .fill-10\@md, .flex\@2xl > .fill-10\@md {
-    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+    flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
   }
   .flex > .order-10\@md, .flex\@xs > .order-10\@md, .flex\@sm > .order-10\@md, .flex\@md > .order-10\@md, .flex\@lg > .order-10\@md, .flex\@xl > .order-10\@md, .flex\@2xl > .order-10\@md {
     order: 10;
   }
   .flex > .fill-11\@md, .flex\@xs > .fill-11\@md, .flex\@sm > .fill-11\@md, .flex\@md > .fill-11\@md, .flex\@lg > .fill-11\@md, .flex\@xl > .fill-11\@md, .flex\@2xl > .fill-11\@md {
-    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+    flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
   }
   .flex > .order-11\@md, .flex\@xs > .order-11\@md, .flex\@sm > .order-11\@md, .flex\@md > .order-11\@md, .flex\@lg > .order-11\@md, .flex\@xl > .order-11\@md, .flex\@2xl > .order-11\@md {
     order: 11;
   }
   .flex > .fill-12\@md, .flex\@xs > .fill-12\@md, .flex\@sm > .fill-12\@md, .flex\@md > .fill-12\@md, .flex\@lg > .fill-12\@md, .flex\@xl > .fill-12\@md, .flex\@2xl > .fill-12\@md {
-    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+    flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
   }
   .flex > .order-12\@md, .flex\@xs > .order-12\@md, .flex\@sm > .order-12\@md, .flex\@md > .order-12\@md, .flex\@lg > .order-12\@md, .flex\@xl > .order-12\@md, .flex\@2xl > .order-12\@md {
     order: 12;
@@ -1371,73 +1371,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@lg, .flex\@xs > .fill-1\@lg, .flex\@sm > .fill-1\@lg, .flex\@md > .fill-1\@lg, .flex\@lg > .fill-1\@lg, .flex\@xl > .fill-1\@lg, .flex\@2xl > .fill-1\@lg {
-    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+    flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
   }
   .flex > .order-1\@lg, .flex\@xs > .order-1\@lg, .flex\@sm > .order-1\@lg, .flex\@md > .order-1\@lg, .flex\@lg > .order-1\@lg, .flex\@xl > .order-1\@lg, .flex\@2xl > .order-1\@lg {
     order: 1;
   }
   .flex > .fill-2\@lg, .flex\@xs > .fill-2\@lg, .flex\@sm > .fill-2\@lg, .flex\@md > .fill-2\@lg, .flex\@lg > .fill-2\@lg, .flex\@xl > .fill-2\@lg, .flex\@2xl > .fill-2\@lg {
-    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+    flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
   }
   .flex > .order-2\@lg, .flex\@xs > .order-2\@lg, .flex\@sm > .order-2\@lg, .flex\@md > .order-2\@lg, .flex\@lg > .order-2\@lg, .flex\@xl > .order-2\@lg, .flex\@2xl > .order-2\@lg {
     order: 2;
   }
   .flex > .fill-3\@lg, .flex\@xs > .fill-3\@lg, .flex\@sm > .fill-3\@lg, .flex\@md > .fill-3\@lg, .flex\@lg > .fill-3\@lg, .flex\@xl > .fill-3\@lg, .flex\@2xl > .fill-3\@lg {
-    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+    flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
   }
   .flex > .order-3\@lg, .flex\@xs > .order-3\@lg, .flex\@sm > .order-3\@lg, .flex\@md > .order-3\@lg, .flex\@lg > .order-3\@lg, .flex\@xl > .order-3\@lg, .flex\@2xl > .order-3\@lg {
     order: 3;
   }
   .flex > .fill-4\@lg, .flex\@xs > .fill-4\@lg, .flex\@sm > .fill-4\@lg, .flex\@md > .fill-4\@lg, .flex\@lg > .fill-4\@lg, .flex\@xl > .fill-4\@lg, .flex\@2xl > .fill-4\@lg {
-    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+    flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
   }
   .flex > .order-4\@lg, .flex\@xs > .order-4\@lg, .flex\@sm > .order-4\@lg, .flex\@md > .order-4\@lg, .flex\@lg > .order-4\@lg, .flex\@xl > .order-4\@lg, .flex\@2xl > .order-4\@lg {
     order: 4;
   }
   .flex > .fill-5\@lg, .flex\@xs > .fill-5\@lg, .flex\@sm > .fill-5\@lg, .flex\@md > .fill-5\@lg, .flex\@lg > .fill-5\@lg, .flex\@xl > .fill-5\@lg, .flex\@2xl > .fill-5\@lg {
-    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+    flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
   }
   .flex > .order-5\@lg, .flex\@xs > .order-5\@lg, .flex\@sm > .order-5\@lg, .flex\@md > .order-5\@lg, .flex\@lg > .order-5\@lg, .flex\@xl > .order-5\@lg, .flex\@2xl > .order-5\@lg {
     order: 5;
   }
   .flex > .fill-6\@lg, .flex\@xs > .fill-6\@lg, .flex\@sm > .fill-6\@lg, .flex\@md > .fill-6\@lg, .flex\@lg > .fill-6\@lg, .flex\@xl > .fill-6\@lg, .flex\@2xl > .fill-6\@lg {
-    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+    flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
   }
   .flex > .order-6\@lg, .flex\@xs > .order-6\@lg, .flex\@sm > .order-6\@lg, .flex\@md > .order-6\@lg, .flex\@lg > .order-6\@lg, .flex\@xl > .order-6\@lg, .flex\@2xl > .order-6\@lg {
     order: 6;
   }
   .flex > .fill-7\@lg, .flex\@xs > .fill-7\@lg, .flex\@sm > .fill-7\@lg, .flex\@md > .fill-7\@lg, .flex\@lg > .fill-7\@lg, .flex\@xl > .fill-7\@lg, .flex\@2xl > .fill-7\@lg {
-    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+    flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
   }
   .flex > .order-7\@lg, .flex\@xs > .order-7\@lg, .flex\@sm > .order-7\@lg, .flex\@md > .order-7\@lg, .flex\@lg > .order-7\@lg, .flex\@xl > .order-7\@lg, .flex\@2xl > .order-7\@lg {
     order: 7;
   }
   .flex > .fill-8\@lg, .flex\@xs > .fill-8\@lg, .flex\@sm > .fill-8\@lg, .flex\@md > .fill-8\@lg, .flex\@lg > .fill-8\@lg, .flex\@xl > .fill-8\@lg, .flex\@2xl > .fill-8\@lg {
-    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+    flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
   }
   .flex > .order-8\@lg, .flex\@xs > .order-8\@lg, .flex\@sm > .order-8\@lg, .flex\@md > .order-8\@lg, .flex\@lg > .order-8\@lg, .flex\@xl > .order-8\@lg, .flex\@2xl > .order-8\@lg {
     order: 8;
   }
   .flex > .fill-9\@lg, .flex\@xs > .fill-9\@lg, .flex\@sm > .fill-9\@lg, .flex\@md > .fill-9\@lg, .flex\@lg > .fill-9\@lg, .flex\@xl > .fill-9\@lg, .flex\@2xl > .fill-9\@lg {
-    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+    flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
   }
   .flex > .order-9\@lg, .flex\@xs > .order-9\@lg, .flex\@sm > .order-9\@lg, .flex\@md > .order-9\@lg, .flex\@lg > .order-9\@lg, .flex\@xl > .order-9\@lg, .flex\@2xl > .order-9\@lg {
     order: 9;
   }
   .flex > .fill-10\@lg, .flex\@xs > .fill-10\@lg, .flex\@sm > .fill-10\@lg, .flex\@md > .fill-10\@lg, .flex\@lg > .fill-10\@lg, .flex\@xl > .fill-10\@lg, .flex\@2xl > .fill-10\@lg {
-    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+    flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
   }
   .flex > .order-10\@lg, .flex\@xs > .order-10\@lg, .flex\@sm > .order-10\@lg, .flex\@md > .order-10\@lg, .flex\@lg > .order-10\@lg, .flex\@xl > .order-10\@lg, .flex\@2xl > .order-10\@lg {
     order: 10;
   }
   .flex > .fill-11\@lg, .flex\@xs > .fill-11\@lg, .flex\@sm > .fill-11\@lg, .flex\@md > .fill-11\@lg, .flex\@lg > .fill-11\@lg, .flex\@xl > .fill-11\@lg, .flex\@2xl > .fill-11\@lg {
-    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+    flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
   }
   .flex > .order-11\@lg, .flex\@xs > .order-11\@lg, .flex\@sm > .order-11\@lg, .flex\@md > .order-11\@lg, .flex\@lg > .order-11\@lg, .flex\@xl > .order-11\@lg, .flex\@2xl > .order-11\@lg {
     order: 11;
   }
   .flex > .fill-12\@lg, .flex\@xs > .fill-12\@lg, .flex\@sm > .fill-12\@lg, .flex\@md > .fill-12\@lg, .flex\@lg > .fill-12\@lg, .flex\@xl > .fill-12\@lg, .flex\@2xl > .fill-12\@lg {
-    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+    flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
   }
   .flex > .order-12\@lg, .flex\@xs > .order-12\@lg, .flex\@sm > .order-12\@lg, .flex\@md > .order-12\@lg, .flex\@lg > .order-12\@lg, .flex\@xl > .order-12\@lg, .flex\@2xl > .order-12\@lg {
     order: 12;
@@ -1571,73 +1571,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@xl, .flex\@xs > .fill-1\@xl, .flex\@sm > .fill-1\@xl, .flex\@md > .fill-1\@xl, .flex\@lg > .fill-1\@xl, .flex\@xl > .fill-1\@xl, .flex\@2xl > .fill-1\@xl {
-    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+    flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
   }
   .flex > .order-1\@xl, .flex\@xs > .order-1\@xl, .flex\@sm > .order-1\@xl, .flex\@md > .order-1\@xl, .flex\@lg > .order-1\@xl, .flex\@xl > .order-1\@xl, .flex\@2xl > .order-1\@xl {
     order: 1;
   }
   .flex > .fill-2\@xl, .flex\@xs > .fill-2\@xl, .flex\@sm > .fill-2\@xl, .flex\@md > .fill-2\@xl, .flex\@lg > .fill-2\@xl, .flex\@xl > .fill-2\@xl, .flex\@2xl > .fill-2\@xl {
-    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+    flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
   }
   .flex > .order-2\@xl, .flex\@xs > .order-2\@xl, .flex\@sm > .order-2\@xl, .flex\@md > .order-2\@xl, .flex\@lg > .order-2\@xl, .flex\@xl > .order-2\@xl, .flex\@2xl > .order-2\@xl {
     order: 2;
   }
   .flex > .fill-3\@xl, .flex\@xs > .fill-3\@xl, .flex\@sm > .fill-3\@xl, .flex\@md > .fill-3\@xl, .flex\@lg > .fill-3\@xl, .flex\@xl > .fill-3\@xl, .flex\@2xl > .fill-3\@xl {
-    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+    flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
   }
   .flex > .order-3\@xl, .flex\@xs > .order-3\@xl, .flex\@sm > .order-3\@xl, .flex\@md > .order-3\@xl, .flex\@lg > .order-3\@xl, .flex\@xl > .order-3\@xl, .flex\@2xl > .order-3\@xl {
     order: 3;
   }
   .flex > .fill-4\@xl, .flex\@xs > .fill-4\@xl, .flex\@sm > .fill-4\@xl, .flex\@md > .fill-4\@xl, .flex\@lg > .fill-4\@xl, .flex\@xl > .fill-4\@xl, .flex\@2xl > .fill-4\@xl {
-    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+    flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
   }
   .flex > .order-4\@xl, .flex\@xs > .order-4\@xl, .flex\@sm > .order-4\@xl, .flex\@md > .order-4\@xl, .flex\@lg > .order-4\@xl, .flex\@xl > .order-4\@xl, .flex\@2xl > .order-4\@xl {
     order: 4;
   }
   .flex > .fill-5\@xl, .flex\@xs > .fill-5\@xl, .flex\@sm > .fill-5\@xl, .flex\@md > .fill-5\@xl, .flex\@lg > .fill-5\@xl, .flex\@xl > .fill-5\@xl, .flex\@2xl > .fill-5\@xl {
-    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+    flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
   }
   .flex > .order-5\@xl, .flex\@xs > .order-5\@xl, .flex\@sm > .order-5\@xl, .flex\@md > .order-5\@xl, .flex\@lg > .order-5\@xl, .flex\@xl > .order-5\@xl, .flex\@2xl > .order-5\@xl {
     order: 5;
   }
   .flex > .fill-6\@xl, .flex\@xs > .fill-6\@xl, .flex\@sm > .fill-6\@xl, .flex\@md > .fill-6\@xl, .flex\@lg > .fill-6\@xl, .flex\@xl > .fill-6\@xl, .flex\@2xl > .fill-6\@xl {
-    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+    flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
   }
   .flex > .order-6\@xl, .flex\@xs > .order-6\@xl, .flex\@sm > .order-6\@xl, .flex\@md > .order-6\@xl, .flex\@lg > .order-6\@xl, .flex\@xl > .order-6\@xl, .flex\@2xl > .order-6\@xl {
     order: 6;
   }
   .flex > .fill-7\@xl, .flex\@xs > .fill-7\@xl, .flex\@sm > .fill-7\@xl, .flex\@md > .fill-7\@xl, .flex\@lg > .fill-7\@xl, .flex\@xl > .fill-7\@xl, .flex\@2xl > .fill-7\@xl {
-    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+    flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
   }
   .flex > .order-7\@xl, .flex\@xs > .order-7\@xl, .flex\@sm > .order-7\@xl, .flex\@md > .order-7\@xl, .flex\@lg > .order-7\@xl, .flex\@xl > .order-7\@xl, .flex\@2xl > .order-7\@xl {
     order: 7;
   }
   .flex > .fill-8\@xl, .flex\@xs > .fill-8\@xl, .flex\@sm > .fill-8\@xl, .flex\@md > .fill-8\@xl, .flex\@lg > .fill-8\@xl, .flex\@xl > .fill-8\@xl, .flex\@2xl > .fill-8\@xl {
-    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+    flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
   }
   .flex > .order-8\@xl, .flex\@xs > .order-8\@xl, .flex\@sm > .order-8\@xl, .flex\@md > .order-8\@xl, .flex\@lg > .order-8\@xl, .flex\@xl > .order-8\@xl, .flex\@2xl > .order-8\@xl {
     order: 8;
   }
   .flex > .fill-9\@xl, .flex\@xs > .fill-9\@xl, .flex\@sm > .fill-9\@xl, .flex\@md > .fill-9\@xl, .flex\@lg > .fill-9\@xl, .flex\@xl > .fill-9\@xl, .flex\@2xl > .fill-9\@xl {
-    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+    flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
   }
   .flex > .order-9\@xl, .flex\@xs > .order-9\@xl, .flex\@sm > .order-9\@xl, .flex\@md > .order-9\@xl, .flex\@lg > .order-9\@xl, .flex\@xl > .order-9\@xl, .flex\@2xl > .order-9\@xl {
     order: 9;
   }
   .flex > .fill-10\@xl, .flex\@xs > .fill-10\@xl, .flex\@sm > .fill-10\@xl, .flex\@md > .fill-10\@xl, .flex\@lg > .fill-10\@xl, .flex\@xl > .fill-10\@xl, .flex\@2xl > .fill-10\@xl {
-    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+    flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
   }
   .flex > .order-10\@xl, .flex\@xs > .order-10\@xl, .flex\@sm > .order-10\@xl, .flex\@md > .order-10\@xl, .flex\@lg > .order-10\@xl, .flex\@xl > .order-10\@xl, .flex\@2xl > .order-10\@xl {
     order: 10;
   }
   .flex > .fill-11\@xl, .flex\@xs > .fill-11\@xl, .flex\@sm > .fill-11\@xl, .flex\@md > .fill-11\@xl, .flex\@lg > .fill-11\@xl, .flex\@xl > .fill-11\@xl, .flex\@2xl > .fill-11\@xl {
-    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+    flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
   }
   .flex > .order-11\@xl, .flex\@xs > .order-11\@xl, .flex\@sm > .order-11\@xl, .flex\@md > .order-11\@xl, .flex\@lg > .order-11\@xl, .flex\@xl > .order-11\@xl, .flex\@2xl > .order-11\@xl {
     order: 11;
   }
   .flex > .fill-12\@xl, .flex\@xs > .fill-12\@xl, .flex\@sm > .fill-12\@xl, .flex\@md > .fill-12\@xl, .flex\@lg > .fill-12\@xl, .flex\@xl > .fill-12\@xl, .flex\@2xl > .fill-12\@xl {
-    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+    flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
   }
   .flex > .order-12\@xl, .flex\@xs > .order-12\@xl, .flex\@sm > .order-12\@xl, .flex\@md > .order-12\@xl, .flex\@lg > .order-12\@xl, .flex\@xl > .order-12\@xl, .flex\@2xl > .order-12\@xl {
     order: 12;
@@ -1771,73 +1771,73 @@ code {
     align-self: auto;
   }
   .flex > .fill-1\@2xl, .flex\@xs > .fill-1\@2xl, .flex\@sm > .fill-1\@2xl, .flex\@md > .fill-1\@2xl, .flex\@lg > .fill-1\@2xl, .flex\@xl > .fill-1\@2xl, .flex\@2xl > .fill-1\@2xl {
-    flex: 0 0 calc(8.3333333333% - calc(var(--flex-gap, 0px) * 11 / 12));
+    flex: 0 0 calc((100% - 11 * var(--flex-gap, 0px)) / 12);
   }
   .flex > .order-1\@2xl, .flex\@xs > .order-1\@2xl, .flex\@sm > .order-1\@2xl, .flex\@md > .order-1\@2xl, .flex\@lg > .order-1\@2xl, .flex\@xl > .order-1\@2xl, .flex\@2xl > .order-1\@2xl {
     order: 1;
   }
   .flex > .fill-2\@2xl, .flex\@xs > .fill-2\@2xl, .flex\@sm > .fill-2\@2xl, .flex\@md > .fill-2\@2xl, .flex\@lg > .fill-2\@2xl, .flex\@xl > .fill-2\@2xl, .flex\@2xl > .fill-2\@2xl {
-    flex: 0 0 calc(16.6666666667% - calc(var(--flex-gap, 0px) * 5 / 6));
+    flex: 0 0 calc((100% - 5 * var(--flex-gap, 0px)) / 6);
   }
   .flex > .order-2\@2xl, .flex\@xs > .order-2\@2xl, .flex\@sm > .order-2\@2xl, .flex\@md > .order-2\@2xl, .flex\@lg > .order-2\@2xl, .flex\@xl > .order-2\@2xl, .flex\@2xl > .order-2\@2xl {
     order: 2;
   }
   .flex > .fill-3\@2xl, .flex\@xs > .fill-3\@2xl, .flex\@sm > .fill-3\@2xl, .flex\@md > .fill-3\@2xl, .flex\@lg > .fill-3\@2xl, .flex\@xl > .fill-3\@2xl, .flex\@2xl > .fill-3\@2xl {
-    flex: 0 0 calc(25% - calc(var(--flex-gap, 0px) * 3 / 4));
+    flex: 0 0 calc((100% - 3 * var(--flex-gap, 0px)) / 4);
   }
   .flex > .order-3\@2xl, .flex\@xs > .order-3\@2xl, .flex\@sm > .order-3\@2xl, .flex\@md > .order-3\@2xl, .flex\@lg > .order-3\@2xl, .flex\@xl > .order-3\@2xl, .flex\@2xl > .order-3\@2xl {
     order: 3;
   }
   .flex > .fill-4\@2xl, .flex\@xs > .fill-4\@2xl, .flex\@sm > .fill-4\@2xl, .flex\@md > .fill-4\@2xl, .flex\@lg > .fill-4\@2xl, .flex\@xl > .fill-4\@2xl, .flex\@2xl > .fill-4\@2xl {
-    flex: 0 0 calc(33.3333333333% - calc(var(--flex-gap, 0px) * 2 / 3));
+    flex: 0 0 calc((100% - 2 * var(--flex-gap, 0px)) / 3);
   }
   .flex > .order-4\@2xl, .flex\@xs > .order-4\@2xl, .flex\@sm > .order-4\@2xl, .flex\@md > .order-4\@2xl, .flex\@lg > .order-4\@2xl, .flex\@xl > .order-4\@2xl, .flex\@2xl > .order-4\@2xl {
     order: 4;
   }
   .flex > .fill-5\@2xl, .flex\@xs > .fill-5\@2xl, .flex\@sm > .fill-5\@2xl, .flex\@md > .fill-5\@2xl, .flex\@lg > .fill-5\@2xl, .flex\@xl > .fill-5\@2xl, .flex\@2xl > .fill-5\@2xl {
-    flex: 0 0 calc(41.6666666667% - calc(var(--flex-gap, 0px) * 1.4 / 2.4));
+    flex: 0 0 calc((100% - 1.4 * var(--flex-gap, 0px)) / 2.4);
   }
   .flex > .order-5\@2xl, .flex\@xs > .order-5\@2xl, .flex\@sm > .order-5\@2xl, .flex\@md > .order-5\@2xl, .flex\@lg > .order-5\@2xl, .flex\@xl > .order-5\@2xl, .flex\@2xl > .order-5\@2xl {
     order: 5;
   }
   .flex > .fill-6\@2xl, .flex\@xs > .fill-6\@2xl, .flex\@sm > .fill-6\@2xl, .flex\@md > .fill-6\@2xl, .flex\@lg > .fill-6\@2xl, .flex\@xl > .fill-6\@2xl, .flex\@2xl > .fill-6\@2xl {
-    flex: 0 0 calc(50% - calc(var(--flex-gap, 0px) * 1 / 2));
+    flex: 0 0 calc((100% - 1 * var(--flex-gap, 0px)) / 2);
   }
   .flex > .order-6\@2xl, .flex\@xs > .order-6\@2xl, .flex\@sm > .order-6\@2xl, .flex\@md > .order-6\@2xl, .flex\@lg > .order-6\@2xl, .flex\@xl > .order-6\@2xl, .flex\@2xl > .order-6\@2xl {
     order: 6;
   }
   .flex > .fill-7\@2xl, .flex\@xs > .fill-7\@2xl, .flex\@sm > .fill-7\@2xl, .flex\@md > .fill-7\@2xl, .flex\@lg > .fill-7\@2xl, .flex\@xl > .fill-7\@2xl, .flex\@2xl > .fill-7\@2xl {
-    flex: 0 0 calc(58.3333333333% - calc(var(--flex-gap, 0px) * 0.7142857143 / 1.7142857143));
+    flex: 0 0 calc((100% - 0.7142857143 * var(--flex-gap, 0px)) / 1.7142857143);
   }
   .flex > .order-7\@2xl, .flex\@xs > .order-7\@2xl, .flex\@sm > .order-7\@2xl, .flex\@md > .order-7\@2xl, .flex\@lg > .order-7\@2xl, .flex\@xl > .order-7\@2xl, .flex\@2xl > .order-7\@2xl {
     order: 7;
   }
   .flex > .fill-8\@2xl, .flex\@xs > .fill-8\@2xl, .flex\@sm > .fill-8\@2xl, .flex\@md > .fill-8\@2xl, .flex\@lg > .fill-8\@2xl, .flex\@xl > .fill-8\@2xl, .flex\@2xl > .fill-8\@2xl {
-    flex: 0 0 calc(66.6666666667% - calc(var(--flex-gap, 0px) * 0.5 / 1.5));
+    flex: 0 0 calc((100% - 0.5 * var(--flex-gap, 0px)) / 1.5);
   }
   .flex > .order-8\@2xl, .flex\@xs > .order-8\@2xl, .flex\@sm > .order-8\@2xl, .flex\@md > .order-8\@2xl, .flex\@lg > .order-8\@2xl, .flex\@xl > .order-8\@2xl, .flex\@2xl > .order-8\@2xl {
     order: 8;
   }
   .flex > .fill-9\@2xl, .flex\@xs > .fill-9\@2xl, .flex\@sm > .fill-9\@2xl, .flex\@md > .fill-9\@2xl, .flex\@lg > .fill-9\@2xl, .flex\@xl > .fill-9\@2xl, .flex\@2xl > .fill-9\@2xl {
-    flex: 0 0 calc(75% - calc(var(--flex-gap, 0px) * 0.3333333333 / 1.3333333333));
+    flex: 0 0 calc((100% - 0.3333333333 * var(--flex-gap, 0px)) / 1.3333333333);
   }
   .flex > .order-9\@2xl, .flex\@xs > .order-9\@2xl, .flex\@sm > .order-9\@2xl, .flex\@md > .order-9\@2xl, .flex\@lg > .order-9\@2xl, .flex\@xl > .order-9\@2xl, .flex\@2xl > .order-9\@2xl {
     order: 9;
   }
   .flex > .fill-10\@2xl, .flex\@xs > .fill-10\@2xl, .flex\@sm > .fill-10\@2xl, .flex\@md > .fill-10\@2xl, .flex\@lg > .fill-10\@2xl, .flex\@xl > .fill-10\@2xl, .flex\@2xl > .fill-10\@2xl {
-    flex: 0 0 calc(83.3333333333% - calc(var(--flex-gap, 0px) * 0.2 / 1.2));
+    flex: 0 0 calc((100% - 0.2 * var(--flex-gap, 0px)) / 1.2);
   }
   .flex > .order-10\@2xl, .flex\@xs > .order-10\@2xl, .flex\@sm > .order-10\@2xl, .flex\@md > .order-10\@2xl, .flex\@lg > .order-10\@2xl, .flex\@xl > .order-10\@2xl, .flex\@2xl > .order-10\@2xl {
     order: 10;
   }
   .flex > .fill-11\@2xl, .flex\@xs > .fill-11\@2xl, .flex\@sm > .fill-11\@2xl, .flex\@md > .fill-11\@2xl, .flex\@lg > .fill-11\@2xl, .flex\@xl > .fill-11\@2xl, .flex\@2xl > .fill-11\@2xl {
-    flex: 0 0 calc(91.6666666667% - calc(var(--flex-gap, 0px) * 0.0909090909 / 1.0909090909));
+    flex: 0 0 calc((100% - 0.0909090909 * var(--flex-gap, 0px)) / 1.0909090909);
   }
   .flex > .order-11\@2xl, .flex\@xs > .order-11\@2xl, .flex\@sm > .order-11\@2xl, .flex\@md > .order-11\@2xl, .flex\@lg > .order-11\@2xl, .flex\@xl > .order-11\@2xl, .flex\@2xl > .order-11\@2xl {
     order: 11;
   }
   .flex > .fill-12\@2xl, .flex\@xs > .fill-12\@2xl, .flex\@sm > .fill-12\@2xl, .flex\@md > .fill-12\@2xl, .flex\@lg > .fill-12\@2xl, .flex\@xl > .fill-12\@2xl, .flex\@2xl > .fill-12\@2xl {
-    flex: 0 0 calc(100% - calc(var(--flex-gap, 0px) * 0 / 1));
+    flex: 0 0 calc((100% - 0 * var(--flex-gap, 0px)) / 1);
   }
   .flex > .order-12\@2xl, .flex\@xs > .order-12\@2xl, .flex\@sm > .order-12\@2xl, .flex\@md > .order-12\@2xl, .flex\@lg > .order-12\@2xl, .flex\@xl > .order-12\@2xl, .flex\@2xl > .order-12\@2xl {
     order: 12;
@@ -23019,6 +23019,7 @@ code {
 
 .gap-y-0 {
   row-gap: 0px;
+  --flex-gap: 0px;
 }
 
 .space-x-0 > * + * {
@@ -23111,6 +23112,7 @@ code {
 
 .gap-y-1 {
   row-gap: 0.25rem;
+  --flex-gap: 0.25rem;
 }
 
 .space-x-1 > * + * {
@@ -23203,6 +23205,7 @@ code {
 
 .gap-y-2 {
   row-gap: 0.5rem;
+  --flex-gap: 0.5rem;
 }
 
 .space-x-2 > * + * {
@@ -23295,6 +23298,7 @@ code {
 
 .gap-y-3 {
   row-gap: 0.75rem;
+  --flex-gap: 0.75rem;
 }
 
 .space-x-3 > * + * {
@@ -23387,6 +23391,7 @@ code {
 
 .gap-y-4 {
   row-gap: 1rem;
+  --flex-gap: 1rem;
 }
 
 .space-x-4 > * + * {
@@ -23479,6 +23484,7 @@ code {
 
 .gap-y-5 {
   row-gap: 1.25rem;
+  --flex-gap: 1.25rem;
 }
 
 .space-x-5 > * + * {
@@ -23571,6 +23577,7 @@ code {
 
 .gap-y-6 {
   row-gap: 1.5rem;
+  --flex-gap: 1.5rem;
 }
 
 .space-x-6 > * + * {
@@ -23663,6 +23670,7 @@ code {
 
 .gap-y-8 {
   row-gap: 2rem;
+  --flex-gap: 2rem;
 }
 
 .space-x-8 > * + * {
@@ -23755,6 +23763,7 @@ code {
 
 .gap-y-10 {
   row-gap: 2.5rem;
+  --flex-gap: 2.5rem;
 }
 
 .space-x-10 > * + * {
@@ -23847,6 +23856,7 @@ code {
 
 .gap-y-12 {
   row-gap: 3rem;
+  --flex-gap: 3rem;
 }
 
 .space-x-12 > * + * {
@@ -23939,6 +23949,7 @@ code {
 
 .gap-y-16 {
   row-gap: 4rem;
+  --flex-gap: 4rem;
 }
 
 .space-x-16 > * + * {
@@ -24031,6 +24042,7 @@ code {
 
 .gap-y-20 {
   row-gap: 5rem;
+  --flex-gap: 5rem;
 }
 
 .space-x-20 > * + * {
@@ -24123,6 +24135,7 @@ code {
 
 .gap-y-24 {
   row-gap: 6rem;
+  --flex-gap: 6rem;
 }
 
 .space-x-24 > * + * {
@@ -24215,6 +24228,7 @@ code {
 
 .gap-y-32 {
   row-gap: 8rem;
+  --flex-gap: 8rem;
 }
 
 .space-x-32 > * + * {
@@ -24307,6 +24321,7 @@ code {
 
 .gap-y-40 {
   row-gap: 10rem;
+  --flex-gap: 10rem;
 }
 
 .space-x-40 > * + * {
@@ -24399,6 +24414,7 @@ code {
 
 .gap-y-48 {
   row-gap: 12rem;
+  --flex-gap: 12rem;
 }
 
 .space-x-48 > * + * {
@@ -24491,6 +24507,7 @@ code {
 
 .gap-y-56 {
   row-gap: 14rem;
+  --flex-gap: 14rem;
 }
 
 .space-x-56 > * + * {
@@ -24583,6 +24600,7 @@ code {
 
 .gap-y-64 {
   row-gap: 16rem;
+  --flex-gap: 16rem;
 }
 
 .space-x-64 > * + * {

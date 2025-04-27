@@ -293,6 +293,7 @@
 // @param {Number} $size - The number of columns to span.
 @mixin fill($size) {
   $columns: math.div(VAR.$column-count, $size); // How many items per row
+
   flex: 0 0 calc((100% - (#{$columns - 1} * var(--flex-gap, 0px))) / #{$columns});
 }
 
