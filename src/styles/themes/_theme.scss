@@ -57,17 +57,6 @@
             --button-bg-color-hover: var(--primary-400);
             --link-color: var(--primary);
             --link-hover-color: var(--primary-400);
-
-            &::-webkit-scrollbar-track {
-                background: var(--background);
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background-color: #555;
-                border: 3px solid var(--background);
-            }
-
-            scrollbar-color: #555 var(--background);
         }
     }
 
