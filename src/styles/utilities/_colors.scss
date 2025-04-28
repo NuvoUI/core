@@ -27,7 +27,7 @@
     @return $scale;
 }
 
-@function get-color($color, $shade: 500) {
+@function get-color($color, $shade: 500, $default-color: $default-color) {
     @if FN.is-css-var($color) {
         @if $shade != 500 {
             @warn "CSS variables do not support shade values. ";
@@ -56,7 +56,7 @@
         $color: map.get($color-primitives, $color);
     } @else {
         @warn "Unexpected color value: #{$color}";
-        @return currentColor;
+        @return $default-color;
     }
 
     $x1: 50; // First input value

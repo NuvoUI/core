@@ -252,3 +252,7 @@ $font-weights: (
 ) !default;
 
 $parent-selector: "" !default;
+
+
+// A default color for color generation function `get-color` to return a a default value on using wrong value
+$default-color: currentColor !default;
