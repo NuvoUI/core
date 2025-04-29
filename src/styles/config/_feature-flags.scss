@@ -1,0 +1,33 @@
+// Configuration: Feature flags
+// Control which features are enabled in the framework
+
+$feature-flags: (
+    "alignments": true,
+    "animations": true,
+    "backdrops": true,
+    "borders": true,
+    "container": true,
+    "container-queries": true,
+    "cursors": true,
+    "displays": true,
+    "flex": true,
+    "grid": true,
+    "opacity": true,
+    "position": true,
+    "shadows": true,
+    "sizing": true,
+    "spacing": true,
+    "tooltips": true,
+    "theme": true,
+    "transforms": true,
+    "transitions": true,
+    "config-typo": true,
+    "z-index": true,
+) !default;
+
+// Framework global settings
+$generate-utility-classes: false !default;
+$enable-dark-mode: true !default;
+$enable-debugger: false !default;
+$default-unit: px !default;
+$parent-selector: "" !default;

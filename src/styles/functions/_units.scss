@@ -1,0 +1,83 @@
+@use "sass:string";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "../config/feature-flags" as config-flags;
+@use "../config/constants" as config-constants;
+@use "../functions/strings" as fn-string;
+@use "../functions/math" as fn-math;
+
+@function strip-unit($value) {
+    @if meta.type-of($value) != "number" {
+        @error "strip-unit() requires a number";
+    }
+    @return math.div($value, ($value * 0 + 1));
+}
+
+// used in animation unique name creation
+@function safe-unit-name($unit) {
+    @if $unit == "%" {
+        @return "per";
+    } @else if $unit == "." {
+        @return "dot";
+    } @else {
+        @return $unit;
+    }
+}
+
+// Ensures a value has a unit, adding $default-unit if none exists
+// @param {Number|String} $val - The value to check
+// @return {String} - The value with units
+// todo improve this when we can
+@function fix-units($val, $unit: config-flags.$default-unit, $debug: null) {
+    // Handle null values
+    @if not $val {
+        @return null;
+    }
+
+    // Check type
+    @if meta.type-of($val) != "number" and meta.type-of($val) != "string" {
+        @error "fix-units() requires a number or string value";
+        @return null;
+    }
+
+    // Handle number type
+    @if meta.type-of($val) == "number" {
+        @if math.is-unitless($val) {
+            @return $val + $unit;
+        }
+        @return $val;
+    }
+
+    // String handling - strip quotes first
+    $val: fn-string.strip-quotes($val);
+
+    // CSS keywords - return as is
+    @if $val == auto or $val == inherit or $val == initial or $val == "min-content" or $val == "max-content" or $val == "fit-content" {
+        @return #{$val};
+    }
+
+    // Check if string already has units
+    @each $u in config-constants.$units {
+        @if string.slice($val, -1 * string.length($u)) == $u {
+            // Try to convert numeric strings with units (like "20px") to actual numbers
+            $number-part: string.slice($val, 1, string.length($val) - string.length($u));
+
+            @if string.index($number-part, ".") or fn-math.to-number($number-part) {
+                @return fn-math.to-number($number-part) + string.unquote($u);
+            }
+
+            @return $val;
+        }
+    }
+
+    // Try to convert to number if possible
+    @if string.index($val, ".") or fn-math.to-number($val) {
+        $number-val: fn-math.to-number($val);
+        @return $number-val + $unit;
+    }
+
+    // Default: just add the unit
+    @return string.unquote($val + $unit);
+}

@@ -1,7 +1,10 @@
 @use "sass:map";
 @use "sass:meta";
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../config/container-queries" as config-container;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/breakpoints" as fn-breakpoints;
 
 // Container Query Mixins
 // Usage:
@@ -17,7 +20,7 @@
 
 // /Container Query: Up
 @mixin container-up($breakpoint, $containerName: null) {
-    $bp-val: FN.get-breakpoint-value($breakpoint);
+    $bp-val: fn-breakpoints.get-breakpoint-value($breakpoint);
     @container #{$containerName} (min-width: #{$bp-val}) {
         @content;
     }
@@ -25,7 +28,7 @@
 
 // /Container Query: Down
 @mixin container-down($breakpoint, $containerName: null) {
-    $bp-val: FN.get-breakpoint-value($breakpoint);
+    $bp-val: fn-breakpoints.get-breakpoint-value($breakpoint);
     @container #{$containerName} (max-width: (#{ $bp-val } - 0.02px)) {
         @content;
     }
@@ -33,8 +36,8 @@
 
 // /Container Query: Between
 @mixin container-between($lower, $upper, $containerName: null) {
-    $min: FN.get-breakpoint-value($lower);
-    $max: FN.get-breakpoint-value($upper);
+    $min: fn-breakpoints.get-breakpoint-value($lower);
+    $max: fn-breakpoints.get-breakpoint-value($upper);
     @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $max } - 0.02px)) {
         @content;
     }
@@ -42,10 +45,10 @@
 
 // /Container Query: Only
 @mixin container-only($breakpoint, $containerName: null) {
-    $min: FN.get-breakpoint-value($breakpoint);
+    $min: fn-breakpoints.get-breakpoint-value($breakpoint);
     $next-breakpoint: null;
 
-    @each $name, $width in $breakpoints {
+    @each $name, $width in config-breakpoint.$breakpoints {
         @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
             $next-breakpoint: $width;
         }
@@ -77,18 +80,18 @@
     container-name: $name;
 }
 
-@if FN.feature-enabled("container-queries") {
+@if fn-flags.feature-enabled("container-queries") {
     // Utility classes
-    #{VAR.$parent-selector} .container-inline-size {
+    #{config-flags.$parent-selector} .container-inline-size {
         container-type: inline-size;
     }
 
-    #{VAR.$parent-selector} .container-size {
+    #{config-flags.$parent-selector} .container-size {
         container-type: size;
     }
 
-    @each $name in ("main", "sidebar", "card", "section") {
-        #{VAR.$parent-selector} .container-#{$name} {
+    @each $name in config-container.$container-names {
+        #{config-flags.$parent-selector} .container-#{$name} {
             container-name: $name;
         }
     }

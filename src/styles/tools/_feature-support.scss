@@ -1,0 +1,46 @@
+// Section: Tools
+// Module: Device Capabilities
+// Description: Mixins for targeting device-specific capabilities
+
+// todo: doc
+/// Target touch devices
+/// @example @include touch { button { padding: 12px; } }
+@mixin touch {
+    @media (hover: none) and (pointer: coarse) {
+        @content;
+    }
+}
+
+// todo: doc
+/// Target devices with precise pointing (mouse)
+/// @example @include fine-pointer { .tooltip { opacity: 0; } }
+@mixin fine-pointer {
+    @media (pointer: fine) {
+        @content;
+    }
+}
+
+// todo: doc
+/// Target devices in landscape orientation
+@mixin landscape {
+    @media screen and (orientation: landscape) {
+        @content;
+    }
+}
+
+// todo: doc
+/// Target devices in portrait orientation
+@mixin portrait {
+    @media screen and (orientation: portrait) {
+        @content;
+    }
+}
+
+// todo: doc
+/// Target Progressive Web App display modes
+/// @param {String} $mode - Display mode (standalone, fullscreen, minimal-ui, browser)
+@mixin display-mode($mode: "standalone") {
+    @media (display-mode: #{$mode}) {
+        @content;
+    }
+}

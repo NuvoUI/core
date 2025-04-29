@@ -1,0 +1,50 @@
+// Section: Tools
+// Module: Accessibility
+// Description: Mixins for handling user preferences and accessibility
+
+@use "../config/feature-flags" as config-flags;
+
+// todo: doc
+/// Target system dark mode preference
+@mixin prefers-dark {
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
+}
+
+// todo: doc
+/// Apply dark mode styles based on user and system preferences
+/// Respects the site's theme selection system
+@mixin dark-mode {
+    @if config-flags.$enable-dark-mode {
+        // Apply when user explicitly chooses dark
+        [data-theme="dark"] & {
+            @content;
+        }
+
+        // Apply when system is dark AND user hasn't made a choice
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] & {
+                @content;
+            }
+        }
+    }
+}
+
+// todo: doc
+/// Target reduced motion preference
+/// @example @include reduced-motion { * { transition: none !important; } }
+@mixin reduced-motion {
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
+}
+
+// todo: doc
+/// Target high contrast mode
+/// @example @include high-contrast { border: 1px solid; }
+@mixin high-contrast {
+    @media (forced-colors: active) {
+        @content;
+    }
+}

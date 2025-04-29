@@ -1,0 +1,68 @@
+@use "sass:string";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+
+@function str-replace($string, $search, $replace: " ") {
+    $index: string.index($string, $search);
+    @if $index {
+        @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
+@function strip-quotes($string) {
+    @if meta.type-of($string) == "string" {
+        @if string.slice($string, 1, 1) == '"' and string.slice($string, -1) == '"' {
+            @return string.slice($string, 2, -2);
+        } @else if string.slice($string, 1, 1) == "'" and string.slice($string, -1) == "'" {
+            @return string.slice($string, 2, -2);
+        }
+    }
+
+    @return $string;
+}
+
+@function str-trim($string) {
+    @while string.length($string) > 0 and string.slice($string, 1, 1) == " " {
+        $string: string.slice($string, 2);
+    }
+
+    @while string.length($string) > 0 and string.slice($string, -1) == " " {
+        $string: string.slice($string, 1, string.length($string) - 1);
+    }
+
+    @return $string;
+}
+
+@function split($string, $delimiter) {
+    $result: ();
+    $current: "";
+    $paren-depth: 0;
+
+    @for $i from 1 through string.length($string) {
+        $char: string.slice($string, $i, $i);
+
+        @if $char == "(" {
+            $paren-depth: $paren-depth + 1;
+            $current: $current + $char;
+        } @else if $char == ")" {
+            $paren-depth: $paren-depth - 1;
+            $current: $current + $char;
+        } @else if $char == $delimiter and $paren-depth == 0 {
+            // Only split on delimiter when not inside parentheses
+            $result: list.append($result, str-trim(string.unquote(strip-quotes($current))), "comma");
+            $current: "";
+        } @else {
+            $current: $current + $char;
+        }
+    }
+
+    // Add the last parameter
+    @if $current != "" {
+        $result: list.append($result, string.unquote(str-trim($current)));
+    }
+
+    @return $result;
+}

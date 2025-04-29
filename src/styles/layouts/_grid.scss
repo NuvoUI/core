@@ -3,8 +3,11 @@
 // Note: Gap utilities are defined in _spacing.scss
 
 @use "sass:math";
-@use "../abstracts/functions" as FN;
-@use "../abstracts/config" as VAR;
+@use "../config/feature-flags" as config-flags;
+@use "../config/layouts" as config-layout;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/strings" as fn-string;
 
 // Grid Template Mixins
 @mixin cols($count) {
@@ -25,7 +28,7 @@
 
 @mixin cols-custom($template) {
     // Convert underscores to spaces so "1fr_auto" becomes "1fr auto"
-    $converted: FN.str-replace($template, "_", " ");
+    $converted: fn-string.str-replace($template, "_", " ");
 
     grid-template-columns: $converted;
 }
@@ -108,19 +111,19 @@ $alignments: (
     grid-row: $row;
 }
 
-@if FN.feature-enabled("grid") {
+@if fn-flags.feature-enabled("grid") {
     // Build the flat selector list manually with proper escaping
-    $base-grid-selector: #{VAR.$parent-selector} + " .grid";
+    $base-grid-selector: #{config-flags.$parent-selector} + " .grid";
     $all-grid-selectors: $base-grid-selector;
 
-    @each $breakpoint, $width in VAR.$breakpoints {
-        $all-grid-selectors: "#{$all-grid-selectors}, #{VAR.$parent-selector} .grid\\@#{$breakpoint}";
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
+        $all-grid-selectors: "#{$all-grid-selectors}, #{config-flags.$parent-selector} .grid\\@#{$breakpoint}";
     }
 
     // Apply base grid styles to all grid variants at once
     #{$all-grid-selectors} {
         // Auto-fit/fill Classes
-        @each $size, $width in VAR.$grid-item-sizes {
+        @each $size, $width in config-layout.$grid-item-sizes {
             &.auto-fit-#{$size} {
                 @include auto-fit($width);
             }
@@ -144,7 +147,7 @@ $alignments: (
         }
 
         // Basic column and row count
-        @for $i from 1 through VAR.$column-count {
+        @for $i from 1 through config-layout.$column-count {
             &.cols-#{$i} {
                 @include cols($i);
             }
@@ -154,7 +157,7 @@ $alignments: (
         }
 
         // Basic span classes (non-responsive)
-        @for $i from 1 through VAR.$column-count {
+        @for $i from 1 through config-layout.$column-count {
             .col-span-#{$i} {
                 @include col-span($i);
             }
@@ -178,11 +181,11 @@ $alignments: (
     }
 
     // Handle responsive variants
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
             // Responsive grid columns/rows
             #{$all-grid-selectors} {
-                @for $i from 1 through VAR.$column-count {
+                @for $i from 1 through config-layout.$column-count {
                     &.cols-#{$i}\@#{$breakpoint} {
                         @include cols($i);
                     }
@@ -194,7 +197,7 @@ $alignments: (
 
             // Responsive spans
             #{$all-grid-selectors} {
-                @for $i from 1 through VAR.$column-count {
+                @for $i from 1 through config-layout.$column-count {
                     .col-span-#{$i}\@#{$breakpoint} {
                         @include col-span($i);
                     }

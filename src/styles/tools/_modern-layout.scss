@@ -1,0 +1,49 @@
+// Section: Tools
+// Module: Modern Layout
+// Description: Mixins for modern CSS layout techniques
+
+// todo: doc
+/// Set aspect ratio with fallbacks
+/// @param {String} $ratio - Aspect ratio (e.g. "16/9")
+@mixin aspect-ratio($ratio) {
+    aspect-ratio: #{$ratio};
+}
+
+// todo: doc
+/// Use dynamic viewport height with fallback
+@mixin dvh {
+    @supports (height: 100dvh) {
+        height: 100dvh;
+    }
+
+    @supports not (height: 100dvh) {
+        height: 100vh;
+    }
+}
+
+// todo: doc
+/// Handle safe area insets for notches, etc.
+/// @param {String} $property - CSS property to apply inset to
+/// @param {String} $position - Inset position (top, right, bottom, left)
+@mixin safe-area-inset($property, $position) {
+    #{$property}: env(safe-area-inset-#{$position});
+}
+
+// todo: doc
+/// Target print media
+/// @example @include print { .nav { display: none; } }
+@mixin print {
+    @media print {
+        @content;
+    }
+}
+
+// todo: doc
+/// Check for feature support
+/// @param {String} $property - CSS property to check for support
+/// @example @include supports(display: grid) { .grid { display: grid; } }
+@mixin supports($property) {
+    @supports (#{$property}) {
+        @content;
+    }
+}

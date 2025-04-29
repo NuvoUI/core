@@ -3,15 +3,50 @@
 @use "sass:map";
 @use "sass:string";
 @use "sass:list";
-@use "../utilities/colors" as COL;
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/colors" as config-colors;
+@use "../config/feature-flags" as config-flags;
+@use "../config/theme-validation" as config-theme;
+@use "../config/colors" as config-color;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/colors" as fn-colors;
 
-@if FN.feature-enabled("theme") {
+@use "../tools/accessibility" as a11y;
+
+// Generate color scales
+$colors: (
+    "primary": fn-colors.create-color-scale(config-color.$primary),
+    "secondary": fn-colors.create-color-scale(config-color.$secondary),
+    "success": fn-colors.create-color-scale(config-color.$success),
+    "danger": fn-colors.create-color-scale(config-color.$danger),
+    "warning": fn-colors.create-color-scale(config-color.$warning),
+    "info": fn-colors.create-color-scale(config-color.$info),
+);
+
+// Generate scales for primitives
+$colors-primitives: ();
+
+@each $name, $color in config-color.$color-primitives {
+    $colors-primitives: map.set($colors-primitives, $name, fn-colors.create-color-scale($color));
+}
+
+@mixin dark-theme {
+    @each $token in config-theme.$theme-tokens {
+        --#{$token}: #{map.get(config-theme.$dark-theme, $token)};
+        --inverted-#{$token}: #{map.get(config-theme.$light-theme, $token)};
+    }
+
+    --button-text-color: #{map.get(config-theme.$light-theme, "text-default")};
+    --button-bg-color: var(--primary);
+    --button-bg-color-hover: var(--primary-400);
+    --link-color: var(--primary);
+    --link-hover-color: var(--primary-400);
+}
+
+@if fn-flags.feature-enabled("theme") {
     :root,
-    #{VAR.$parent-selector} [data-theme="light"] {
+    #{config-flags.$parent-selector} [data-theme="light"] {
         // Theme color CSS variables
-        @each $color-name, $scale in COL.$colors {
+        @each $color-name, $scale in $colors {
             --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
             @each $shade, $value in $scale {
                 --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
@@ -19,44 +54,39 @@
         }
 
         // Primitive color CSS variables
-        @each $color-name, $scale in COL.$colors-primitives {
+        @each $color-name, $scale in $colors-primitives {
             --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
             @each $shade, $value in $scale {
                 --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
             }
         }
 
-        @each $token in VAR.$theme-tokens {
-            --#{$token}: #{map.get(VAR.$light-theme, $token)};
-            --inverted-#{$token}: #{map.get(VAR.$dark-theme, $token)};
+        @each $token in config-theme.$theme-tokens {
+            --#{$token}: #{map.get(config-theme.$light-theme, $token)};
+            --inverted-#{$token}: #{map.get(config-theme.$dark-theme, $token)};
         }
-        @each $color-name, $color-val in VAR.$basic-colors {
+        @each $color-name, $color-val in config-color.$basic-colors {
             --#{$color-name}: #{$color-val};
         }
 
-        // --button-text-color: #{map.get(VAR.$dark-theme, "text-default")};
-        // --inverted-text-color: #{map.get(VAR.$dark-theme, "text-default")};
-
         // Light theme variables
+        --button-text-color: #{map.get(config-theme.$dark-theme, "text-default")};
         --button-bg-color: var(--primary);
         --button-bg-color-hover: var(--primary-600);
         --link-color: var(--primary);
         --link-hover-color: var(--primary-600);
     }
 
-    @if VAR.$enable-dark-mode {
+    @if config-flags.$enable-dark-mode {
         // Dark theme settings
         [data-theme="dark"] {
-            @each $token in VAR.$theme-tokens {
-                --#{$token}: #{map.get(VAR.$dark-theme, $token)};
-                --inverted-#{$token}: #{map.get(VAR.$light-theme, $token)};
+            @include dark-theme;
+        }
+        @include a11y.prefers-dark {
+            :root:not([data-theme]),
+            #{config-flags.$parent-selector}:not([data-theme]) {
+                @include dark-theme;
             }
-
-            --button-text-color: #{map.get(VAR.$light-theme, "text-default")};
-            --button-bg-color: var(--primary);
-            --button-bg-color-hover: var(--primary-400);
-            --link-color: var(--primary);
-            --link-hover-color: var(--primary-400);
         }
     }
 
@@ -66,127 +96,127 @@
 
     // Theme color background utilities
     // primary, secondary, warning etc.
-    @each $color-name, $scale in COL.$colors {
+    @each $color-name, $scale in $colors {
         @each $shade, $value in $scale {
             // Automatic text contrast for backgrounds
-            #{VAR.$parent-selector} .text-on-#{$color-name}-#{$shade} {
-                color: COL.find-text-color($value);
+            #{config-flags.$parent-selector} .text-on-#{$color-name}-#{$shade} {
+                color: fn-colors.find-text-color($value);
             }
 
-            #{VAR.$parent-selector} .text-#{$color-name}-#{$shade},
-            #{VAR.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
-            #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
+            #{config-flags.$parent-selector} .text-#{$color-name}-#{$shade},
+            #{config-flags.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
                 color: var(--#{$color-name}-#{$shade});
             }
 
-            #{VAR.$parent-selector} .bg-#{$color-name}-#{$shade},
-            #{VAR.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
-            #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
+            #{config-flags.$parent-selector} .bg-#{$color-name}-#{$shade},
+            #{config-flags.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
                 background-color: var(--#{$color-name}-#{$shade});
             }
 
-            #{VAR.$parent-selector} .border-#{$color-name}-#{$shade},
-            #{VAR.$parent-selector} .hover\:border-#{$color-name}-#{$shade}:hover,
-            #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name}-#{$shade} {
+            #{config-flags.$parent-selector} .border-#{$color-name}-#{$shade},
+            #{config-flags.$parent-selector} .hover\:border-#{$color-name}-#{$shade}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name}-#{$shade} {
                 border-color: var(--#{$color-name}-#{$shade});
             }
         }
 
         // Base color classes
-        #{VAR.$parent-selector} .text-#{$color-name},
-        #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
+        #{config-flags.$parent-selector} .text-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:text-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
             color: var(--#{$color-name});
         }
 
-        #{VAR.$parent-selector} .bg-#{$color-name},
-        #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
+        #{config-flags.$parent-selector} .bg-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:bg-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
             background-color: var(--#{$color-name});
         }
 
-        #{VAR.$parent-selector} .border-#{$color-name},
-        #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
+        #{config-flags.$parent-selector} .border-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
             border-color: var(--#{$color-name});
         }
     }
 
     // Primitive color utilities
     // green, purple, pink etc.
-    @each $color-name, $scale in COL.$colors-primitives {
+    @each $color-name, $scale in $colors-primitives {
         @each $shade, $value in $scale {
-            #{VAR.$parent-selector} .text-on-#{$color-name}-#{$shade} {
-                color: COL.find-text-color($value);
+            #{config-flags.$parent-selector} .text-on-#{$color-name}-#{$shade} {
+                color: fn-colors.find-text-color($value);
             }
 
-            #{VAR.$parent-selector} .text-#{$color-name}-#{$shade},
-            #{VAR.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
-            #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
+            #{config-flags.$parent-selector} .text-#{$color-name}-#{$shade},
+            #{config-flags.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
                 color: var(--#{$color-name}-#{$shade});
             }
 
-            #{VAR.$parent-selector} .bg-#{$color-name}-#{$shade},
-            #{VAR.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
-            #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
+            #{config-flags.$parent-selector} .bg-#{$color-name}-#{$shade},
+            #{config-flags.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
                 background-color: var(--#{$color-name}-#{$shade});
             }
 
-            #{VAR.$parent-selector} .border-#{$color-name}-#{$shade},
-            #{VAR.$parent-selector} .hover\:border-#{$color-name}-#{$shade}:hover,
-            #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name}-#{$shade} {
+            #{config-flags.$parent-selector} .border-#{$color-name}-#{$shade},
+            #{config-flags.$parent-selector} .hover\:border-#{$color-name}-#{$shade}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name}-#{$shade} {
                 border-color: var(--#{$color-name}-#{$shade});
             }
         }
 
         // Base color classes
-        #{VAR.$parent-selector} .text-#{$color-name},
-        #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
+        #{config-flags.$parent-selector} .text-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:text-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
             color: var(--#{$color-name});
         }
 
-        #{VAR.$parent-selector} .bg-#{$color-name},
-        #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
+        #{config-flags.$parent-selector} .bg-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:bg-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
             background-color: var(--#{$color-name});
         }
 
-        #{VAR.$parent-selector} .border-#{$color-name},
-        #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
+        #{config-flags.$parent-selector} .border-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
             border-color: var(--#{$color-name});
         }
     }
 
-    @each $color-name, $color-val in VAR.$basic-colors {
+    @each $color-name, $color-val in config-color.$basic-colors {
         // Base color classes
-        #{VAR.$parent-selector} .text-#{$color-name},
-        #{VAR.$parent-selector} .hover\:text-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
+        #{config-flags.$parent-selector} .text-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:text-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
             color: var(--#{$color-name});
         }
 
-        #{VAR.$parent-selector} .bg-#{$color-name},
-        #{VAR.$parent-selector} .hover\:bg-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
+        #{config-flags.$parent-selector} .bg-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:bg-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
             background-color: var(--#{$color-name});
         }
 
-        #{VAR.$parent-selector} .border-#{$color-name},
-        #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
+        #{config-flags.$parent-selector} .border-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
             border-color: var(--#{$color-name});
         }
     }
 
-    @each $token in VAR.$theme-tokens {
+    @each $token in config-theme.$theme-tokens {
         $parts: string.split($token, "-");
         $prefix: list.nth($parts, 1);
 
-        #{VAR.$parent-selector} .#{$token},
-        #{VAR.$parent-selector} .hover\:#{$token}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:#{$token} {
+        #{config-flags.$parent-selector} .#{$token},
+        #{config-flags.$parent-selector} .hover\:#{$token}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:#{$token} {
             @if $prefix == "bg" {
                 background-color: var(--#{$token});
             } @else if $prefix == "text" {
@@ -196,9 +226,9 @@
             }
         }
 
-        #{VAR.$parent-selector} .inverted-#{$token},
-        #{VAR.$parent-selector} .hover\:inverted-#{$token}:hover,
-        #{VAR.$parent-selector} .group:hover .group-hover\:inverted-#{$token} {
+        #{config-flags.$parent-selector} .inverted-#{$token},
+        #{config-flags.$parent-selector} .hover\:inverted-#{$token}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:inverted-#{$token} {
             @if $prefix == "bg" {
                 background-color: var(--inverted-#{$token});
             } @else if $prefix == "text" {

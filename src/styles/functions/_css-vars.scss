@@ -1,0 +1,33 @@
+@use "sass:string";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+
+@use "./strings" as fn-strings;
+
+@function is-css-var($value) {
+    @if meta.type-of($value) != "string" {
+        @return false;
+    }
+    $val: string.unquote(fn-strings.strip-quotes($value));
+    @return string.index($val, "var(") == 1;
+}
+
+@function get-css-var($value) {
+    @if is-css-var($value) {
+        $val: string.unquote(fn-strings.strip-quotes($value));
+        $var-name: string.slice($val, 5, -2);
+        @return var(#{$var-name});
+    } @else {
+        @error "Value is not a CSS variable";
+        @return null;
+    }
+}
+
+@function to-css-var($name, $fallback: null) {
+    @if $fallback {
+        @return var(--#{$name}, #{$fallback});
+    }
+    @return var(--#{$name});
+}

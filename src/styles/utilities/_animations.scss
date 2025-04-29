@@ -2,9 +2,10 @@
 @use "sass:math";
 @use "sass:map";
 
-@use "../abstracts/functions" as FN;
-@use "../abstracts/config" as VAR;
-
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/units" as fn-units;
 $generated-keyframes: ();
 
 @mixin ensure-keyframes($name) {
@@ -38,12 +39,12 @@ $generated-keyframes: ();
     $iteration: map.get($props, "iteration");
 
     // Handle units
-    $x-unit: if($x, safe-unit-name(math.unit($x)), "-");
-    $y-unit: if($y, safe-unit-name(math.unit($y)), "-");
+    $x-unit: if($x, fn-units.safe-unit-name(math.unit($x)), "-");
+    $y-unit: if($y, fn-units.safe-unit-name(math.unit($y)), "-");
 
     // Clean values (remove units)
-    $clean-x: if($x, strip-unit($x), 0);
-    $clean-y: if($y, strip-unit($y), 0);
+    $clean-x: if($x, fn-units.strip-unit($x), 0);
+    $clean-y: if($y, fn-units.strip-unit($y), 0);
 
     $animation-name: anim-bounce-#{$clean-x}#{$x-unit}-#{$clean-y}#{$y-unit};
 
@@ -256,7 +257,7 @@ $generated-keyframes: ();
     $timing: map.get($props, "timing");
     $iteration: map.get($props, "iteration");
 
-    $intensity-val: strip-unit($intensity);
+    $intensity-val: fn-units.strip-unit($intensity);
     $animation-name: anim-shake-#{$intensity-val};
 
     animation: #{$animation-name} $duration $timing $iteration;
@@ -284,22 +285,22 @@ $generated-keyframes: ();
     }
 }
 
-@if FN.feature-enabled("animations") {
+@if fn-flags.feature-enabled("animations") {
     // Add to your existing animation utilities
 
-    #{VAR.$parent-selector} .animate-pulse {
+    #{config-flags.$parent-selector} .animate-pulse {
         @include animate-pulse;
     }
 
-    #{VAR.$parent-selector} .animate-spin {
+    #{config-flags.$parent-selector} .animate-spin {
         @include animate-spin;
     }
 
-    #{VAR.$parent-selector} .animate-ping {
+    #{config-flags.$parent-selector} .animate-ping {
         @include animate-ping;
     }
 
-    #{VAR.$parent-selector} .animate-fade-in {
+    #{config-flags.$parent-selector} .animate-fade-in {
         @include animate-fade(
             (
                 type: in,
@@ -307,7 +308,7 @@ $generated-keyframes: ();
         );
     }
 
-    #{VAR.$parent-selector} .animate-fade-out {
+    #{config-flags.$parent-selector} .animate-fade-out {
         @include animate-fade(
             (
                 type: out,
@@ -315,7 +316,7 @@ $generated-keyframes: ();
         );
     }
 
-    #{VAR.$parent-selector} .animate-fade-in-up {
+    #{config-flags.$parent-selector} .animate-fade-in-up {
         @include animate-fade(
             (
                 type: in-up,
@@ -323,7 +324,7 @@ $generated-keyframes: ();
         );
     }
 
-    #{VAR.$parent-selector} .animate-fade-in-down {
+    #{config-flags.$parent-selector} .animate-fade-in-down {
         @include animate-fade(
             (
                 type: in-down,
@@ -331,26 +332,26 @@ $generated-keyframes: ();
         );
     }
 
-    #{VAR.$parent-selector} .animate-shake {
+    #{config-flags.$parent-selector} .animate-shake {
         @include animate-shake;
     }
 
     // Add responsive variants if needed
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            #{VAR.$parent-selector} .animate-pulse\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-pulse\@#{$breakpoint} {
                 @include animate-pulse;
             }
 
-            #{VAR.$parent-selector} .animate-spin\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-spin\@#{$breakpoint} {
                 @include animate-spin;
             }
 
-            #{VAR.$parent-selector} .animate-ping\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-ping\@#{$breakpoint} {
                 @include animate-ping;
             }
 
-            #{VAR.$parent-selector} .animate-fade-in\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-fade-in\@#{$breakpoint} {
                 @include animate-fade(
                     (
                         type: in,
@@ -358,7 +359,7 @@ $generated-keyframes: ();
                 );
             }
 
-            #{VAR.$parent-selector} .animate-fade-out\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-fade-out\@#{$breakpoint} {
                 @include animate-fade(
                     (
                         type: out,
@@ -366,7 +367,7 @@ $generated-keyframes: ();
                 );
             }
 
-            #{VAR.$parent-selector} .animate-fade-in-up\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-fade-in-up\@#{$breakpoint} {
                 @include animate-fade(
                     (
                         type: in-up,
@@ -374,7 +375,7 @@ $generated-keyframes: ();
                 );
             }
 
-            #{VAR.$parent-selector} .animate-fade-in-down\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-fade-in-down\@#{$breakpoint} {
                 @include animate-fade(
                     (
                         type: in-down,
@@ -382,13 +383,13 @@ $generated-keyframes: ();
                 );
             }
 
-            #{VAR.$parent-selector} .animate-shake\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .animate-shake\@#{$breakpoint} {
                 @include animate-shake;
             }
         }
     }
 
-    #{VAR.$parent-selector} .hover-ready {
+    #{config-flags.$parent-selector} .hover-ready {
         @include hover-ready;
     }
 }

@@ -3,8 +3,10 @@
 
 @use "sass:math";
 @use "sass:meta";
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../config/spacing" as config-spacing;
+@use "../functions/feature-flags" as fn-flags;
 
 // @component Opacity
 // @description Controls element transparency with customizable opacity values and interactive states
@@ -61,27 +63,27 @@
     opacity: calc(#{$value} / 100);
 }
 
-@if FN.feature-enabled("opacity") {
+@if fn-flags.feature-enabled("opacity") {
     // Opacity Utilities
-    @each $i in VAR.$percentages {
-        #{VAR.$parent-selector} .opacity-#{$i},
-        #{VAR.$parent-selector} .hover\:opacity-#{$i}:hover,
-        #{VAR.$parent-selector} .focus\:opacity-#{$i}:focus,
-        #{VAR.$parent-selector} .active\:opacity-#{$i}:active,
-        #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i} {
+    @each $i in config-spacing.$percentages {
+        #{config-flags.$parent-selector} .opacity-#{$i},
+        #{config-flags.$parent-selector} .hover\:opacity-#{$i}:hover,
+        #{config-flags.$parent-selector} .focus\:opacity-#{$i}:focus,
+        #{config-flags.$parent-selector} .active\:opacity-#{$i}:active,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:opacity-#{$i} {
             @include opacity($i);
         }
     }
 
     // Responsive Variants for Opacity
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            @each $i in VAR.$percentages {
-                #{VAR.$parent-selector} .opacity-#{$i}\@#{$breakpoint},
-                #{VAR.$parent-selector} .hover\:opacity-#{$i}\@#{$breakpoint}:hover,
-                #{VAR.$parent-selector} .focus\:opacity-#{$i}\@#{$breakpoint}:focus,
-                #{VAR.$parent-selector} .active\:opacity-#{$i}\@#{$breakpoint}:active,
-                #{VAR.$parent-selector} .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
+            @each $i in config-spacing.$percentages {
+                #{config-flags.$parent-selector} .opacity-#{$i}\@#{$breakpoint},
+                #{config-flags.$parent-selector} .hover\:opacity-#{$i}\@#{$breakpoint}:hover,
+                #{config-flags.$parent-selector} .focus\:opacity-#{$i}\@#{$breakpoint}:focus,
+                #{config-flags.$parent-selector} .active\:opacity-#{$i}\@#{$breakpoint}:active,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:opacity-#{$i}\@#{$breakpoint} {
                     @include opacity($i);
                 }
             }

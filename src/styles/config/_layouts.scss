@@ -1,0 +1,13 @@
+// Configuration: Layout
+// Layout constants and grid configurations
+
+$column-count: 12 !default;
+$default-container-name: nuvoui-container !default;
+
+$grid-item-sizes: (
+    "xs": 200px,
+    "sm": 250px,
+    "md": 300px,
+    "lg": 350px,
+    "xl": 400px,
+) !default;

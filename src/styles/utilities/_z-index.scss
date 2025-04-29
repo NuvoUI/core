@@ -5,8 +5,9 @@
 @use "sass:meta";
 
 // Import variables
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
 
 // Z-Index Utilities
 // Classes:
@@ -69,14 +70,14 @@ $z-index-levels: (
 
     // Standard numbered z-index utilities
     @each $key, $value in $z-indexes {
-        #{VAR.$parent-selector} .z-#{$key}#{$suffix} {
+        #{config-flags.$parent-selector} .z-#{$key}#{$suffix} {
             @include z-index($key);
         }
     }
 
     // Named semantic z-index utilities
     @each $key, $value in $z-index-levels {
-        #{VAR.$parent-selector} .z-#{$key}#{$suffix} {
+        #{config-flags.$parent-selector} .z-#{$key}#{$suffix} {
             @include z-index($value);
         }
     }
@@ -124,12 +125,12 @@ $z-index-levels: (
 }
 
 // Generate utility classes
-@if FN.feature-enabled("z-index") {
+@if fn-flags.feature-enabled("z-index") {
     // Generate base utilities
     @include z-index-utilities;
 
     // Generate responsive variants
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
             @include z-index-utilities($breakpoint);
         }

@@ -1,6 +1,7 @@
 // _transitions.scss
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
 
 // Transition Utilities
 // - .transition: Default transition for common properties
@@ -87,119 +88,119 @@ $delays: (
     "1000": 1000ms,
 );
 
-@if FN.feature-enabled("transitions") {
+@if fn-flags.feature-enabled("transitions") {
     // Property-specific transitions
-    #{VAR.$parent-selector} .transition-none {
+    #{config-flags.$parent-selector} .transition-none {
         @include transition-none;
     }
 
-    #{VAR.$parent-selector} .transition {
+    #{config-flags.$parent-selector} .transition {
         @include transition;
     }
 
-    #{VAR.$parent-selector} .transition-colors {
+    #{config-flags.$parent-selector} .transition-colors {
         @include transition-colors;
     }
 
-    #{VAR.$parent-selector} .transition-opacity {
+    #{config-flags.$parent-selector} .transition-opacity {
         @include transition-opacity;
     }
 
-    #{VAR.$parent-selector} .transition-shadow {
+    #{config-flags.$parent-selector} .transition-shadow {
         @include transition-shadow;
     }
 
-    #{VAR.$parent-selector} .transition-transform {
+    #{config-flags.$parent-selector} .transition-transform {
         @include transition-transform;
     }
 
     @each $name, $value in $durations {
-        #{VAR.$parent-selector} .duration-#{$name} {
+        #{config-flags.$parent-selector} .duration-#{$name} {
             @include duration($value);
         }
     }
 
     @each $name, $value in $timing-functions {
-        #{VAR.$parent-selector} .ease-#{$name} {
+        #{config-flags.$parent-selector} .ease-#{$name} {
             transition-timing-function: $value;
         }
     }
 
     // Specific timing function classes
-    #{VAR.$parent-selector} .ease-linear {
+    #{config-flags.$parent-selector} .ease-linear {
         @include ease-linear;
     }
 
-    #{VAR.$parent-selector} .ease-in {
+    #{config-flags.$parent-selector} .ease-in {
         @include ease-in;
     }
 
-    #{VAR.$parent-selector} .ease-out {
+    #{config-flags.$parent-selector} .ease-out {
         @include ease-out;
     }
 
-    #{VAR.$parent-selector} .ease-in-out {
+    #{config-flags.$parent-selector} .ease-in-out {
         @include ease-in-out;
     }
 
     @each $name, $value in $delays {
-        #{VAR.$parent-selector} .delay-#{$name} {
+        #{config-flags.$parent-selector} .delay-#{$name} {
             @include delay($value);
         }
     }
 
     // Responsive variants
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
             // Base transition
-            #{VAR.$parent-selector} .transition\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition\@#{$breakpoint} {
                 @include transition;
             }
 
             // Property-specific transitions
-            #{VAR.$parent-selector} .transition-none\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition-none\@#{$breakpoint} {
                 @include transition-none;
             }
-            #{VAR.$parent-selector} .transition\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition\@#{$breakpoint} {
                 @include transition;
             }
-            #{VAR.$parent-selector} .transition-colors\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition-colors\@#{$breakpoint} {
                 @include transition-colors;
             }
-            #{VAR.$parent-selector} .transition-opacity\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition-opacity\@#{$breakpoint} {
                 @include transition-opacity;
             }
-            #{VAR.$parent-selector} .transition-shadow\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition-shadow\@#{$breakpoint} {
                 @include transition-shadow;
             }
-            #{VAR.$parent-selector} .transition-transform\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .transition-transform\@#{$breakpoint} {
                 @include transition-transform;
             }
 
             // Duration responsive variants
             @each $name, $value in $durations {
-                #{VAR.$parent-selector} .duration-#{$name}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .duration-#{$name}\@#{$breakpoint} {
                     @include duration($value);
                 }
             }
 
             // Timing function responsive variants
-            #{VAR.$parent-selector} .ease-linear\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .ease-linear\@#{$breakpoint} {
                 @include ease-linear;
             }
-            #{VAR.$parent-selector} .ease-in\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .ease-in\@#{$breakpoint} {
                 @include ease-in;
             }
-            #{VAR.$parent-selector} .ease-out\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .ease-out\@#{$breakpoint} {
                 @include ease-out;
             }
-            #{VAR.$parent-selector} .ease-in-out\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .ease-in-out\@#{$breakpoint} {
                 @include ease-in-out;
             }
 
             // Delay responsive variants
             @each $name, $value in $delays {
-                #{VAR.$parent-selector} .delay-#{$name}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .delay-#{$name}\@#{$breakpoint} {
                     @include delay($value);
                 }
             }

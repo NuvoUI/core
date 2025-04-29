@@ -1,5 +1,6 @@
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
 
 @mixin align-baseline {
     vertical-align: baseline;
@@ -14,35 +15,35 @@
     vertical-align: bottom;
 }
 
-@if FN.feature-enabled("alignments") {
-    #{VAR.$parent-selector} .align-baseline {
+@if fn-flags.feature-enabled("alignments") {
+    #{config-flags.$parent-selector} .align-baseline {
         @include align-baseline;
     }
 
-    #{VAR.$parent-selector} .align-top {
+    #{config-flags.$parent-selector} .align-top {
         @include align-top;
     }
 
-    #{VAR.$parent-selector} .align-middle {
+    #{config-flags.$parent-selector} .align-middle {
         @include align-middle;
     }
 
-    #{VAR.$parent-selector} .align-bottom {
+    #{config-flags.$parent-selector} .align-bottom {
         @include align-bottom;
     }
 
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            #{VAR.$parent-selector} .align-baseline\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .align-baseline\@#{$breakpoint} {
                 @include align-baseline;
             }
-            #{VAR.$parent-selector} .align-top\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .align-top\@#{$breakpoint} {
                 @include align-top;
             }
-            #{VAR.$parent-selector} .align-middle\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .align-middle\@#{$breakpoint} {
                 @include align-middle;
             }
-            #{VAR.$parent-selector} .align-bottom\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .align-bottom\@#{$breakpoint} {
                 @include align-bottom;
             }
         }

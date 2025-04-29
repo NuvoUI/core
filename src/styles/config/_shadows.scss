@@ -1,0 +1,9 @@
+// Configuration: Shadows
+// Shadow color definitions
+
+$shadow-colors: (
+    "default": rgb(0 0 0 / 10%),
+    "dark": rgb(0 0 0 / 20%),
+    "darker": rgb(0 0 0 / 35%),
+    "darkest": rgb(0 0 0 / 50%),
+) !default;

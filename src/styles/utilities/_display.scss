@@ -1,8 +1,9 @@
 // Section: Utilities
 // Module: Display
 
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
 
 // Display Utilities
 // Classes:
@@ -119,102 +120,102 @@
     overflow-y: auto;
 }
 
-@if FN.feature-enabled("displays") {
-    #{VAR.$parent-selector} .show {
+@if fn-flags.feature-enabled("displays") {
+    #{config-flags.$parent-selector} .show {
         @include show;
     }
 
-    #{VAR.$parent-selector} .block {
+    #{config-flags.$parent-selector} .block {
         @include block;
     }
 
-    #{VAR.$parent-selector} .inline {
+    #{config-flags.$parent-selector} .inline {
         @include inline;
     }
 
-    #{VAR.$parent-selector} .inline-block {
+    #{config-flags.$parent-selector} .inline-block {
         @include inline-block;
     }
 
-    #{VAR.$parent-selector} .contents {
+    #{config-flags.$parent-selector} .contents {
         @include contents;
     }
 
-    #{VAR.$parent-selector} .grid {
+    #{config-flags.$parent-selector} .grid {
         @include grid;
 
         &.inline {
             @include grid-inline;
         }
     }
-    #{VAR.$parent-selector} .flex {
+    #{config-flags.$parent-selector} .flex {
         @include flex;
 
         &.inline {
             @include flex-inline;
         }
     }
-    #{VAR.$parent-selector} .visible {
+    #{config-flags.$parent-selector} .visible {
         @include visible;
     }
 
-    #{VAR.$parent-selector} .invisible {
+    #{config-flags.$parent-selector} .invisible {
         @include invisible;
     }
 
-    #{VAR.$parent-selector} .collapse {
+    #{config-flags.$parent-selector} .collapse {
         @include collapse;
     }
 
-    #{VAR.$parent-selector} .hide {
+    #{config-flags.$parent-selector} .hide {
         @include hide;
     }
 
-    #{VAR.$parent-selector} .hidden {
+    #{config-flags.$parent-selector} .hidden {
         display: none !important;
     }
 
-    #{VAR.$parent-selector} .overflow-hidden {
+    #{config-flags.$parent-selector} .overflow-hidden {
         @include overflow-hidden;
     }
 
-    #{VAR.$parent-selector} .overflow-visible {
+    #{config-flags.$parent-selector} .overflow-visible {
         @include overflow-visible;
     }
 
-    #{VAR.$parent-selector} .overflow-scroll {
+    #{config-flags.$parent-selector} .overflow-scroll {
         @include overflow-scroll;
     }
 
-    #{VAR.$parent-selector} .overflow-auto {
+    #{config-flags.$parent-selector} .overflow-auto {
         @include overflow-auto;
     }
 
-    #{VAR.$parent-selector} .overflow-x-hidden {
+    #{config-flags.$parent-selector} .overflow-x-hidden {
         @include overflow-x-hidden;
     }
 
-    #{VAR.$parent-selector} .overflow-y-hidden {
+    #{config-flags.$parent-selector} .overflow-y-hidden {
         @include overflow-y-hidden;
     }
 
-    #{VAR.$parent-selector} .overflow-x-scroll {
+    #{config-flags.$parent-selector} .overflow-x-scroll {
         @include overflow-x-scroll;
     }
 
-    #{VAR.$parent-selector} .overflow-y-scroll {
+    #{config-flags.$parent-selector} .overflow-y-scroll {
         @include overflow-y-scroll;
     }
 
-    #{VAR.$parent-selector} .overflow-x-auto {
+    #{config-flags.$parent-selector} .overflow-x-auto {
         @include overflow-x-auto;
     }
 
-    #{VAR.$parent-selector} .overflow-y-auto {
+    #{config-flags.$parent-selector} .overflow-y-auto {
         @include overflow-y-auto;
     }
 
-    #{VAR.$parent-selector} .d {
+    #{config-flags.$parent-selector} .d {
         &-tbl {
             @include d-tbl;
         }
@@ -229,82 +230,82 @@
     }
 
     // Responsive Variants
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            #{VAR.$parent-selector} .hide\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .hide\@#{$breakpoint} {
                 @include hide;
             }
-            #{VAR.$parent-selector} .show\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .show\@#{$breakpoint} {
                 @include show;
             }
-            #{VAR.$parent-selector} .block\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .block\@#{$breakpoint} {
                 @include block;
             }
-            #{VAR.$parent-selector} .inline\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .inline\@#{$breakpoint} {
                 @include inline;
             }
-            #{VAR.$parent-selector} .inline-block\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .inline-block\@#{$breakpoint} {
                 @include inline-block;
             }
 
-            #{VAR.$parent-selector} .contents\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .contents\@#{$breakpoint} {
                 @include contents;
             }
-            #{VAR.$parent-selector} .grid\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .grid\@#{$breakpoint} {
                 @include grid;
 
                 &.inline {
                     @include grid-inline;
                 }
             }
-            #{VAR.$parent-selector} .flex\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .flex\@#{$breakpoint} {
                 @include flex;
 
                 &.inline {
                     @include flex-inline;
                 }
             }
-            #{VAR.$parent-selector} .visible\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .visible\@#{$breakpoint} {
                 @include visible;
             }
-            #{VAR.$parent-selector} .invisible\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .invisible\@#{$breakpoint} {
                 @include invisible;
             }
-            #{VAR.$parent-selector} .collapse\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .collapse\@#{$breakpoint} {
                 @include collapse;
             }
-            #{VAR.$parent-selector} .overflow-hidden\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-hidden\@#{$breakpoint} {
                 @include overflow-hidden;
             }
-            #{VAR.$parent-selector} .overflow-visible\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-visible\@#{$breakpoint} {
                 @include overflow-visible;
             }
-            #{VAR.$parent-selector} .overflow-scroll\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-scroll\@#{$breakpoint} {
                 @include overflow-scroll;
             }
-            #{VAR.$parent-selector} .overflow-auto\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-auto\@#{$breakpoint} {
                 @include overflow-auto;
             }
-            #{VAR.$parent-selector} .overflow-x-hidden\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-x-hidden\@#{$breakpoint} {
                 @include overflow-x-hidden;
             }
-            #{VAR.$parent-selector} .overflow-y-hidden\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-y-hidden\@#{$breakpoint} {
                 @include overflow-y-hidden;
             }
-            #{VAR.$parent-selector} .overflow-x-scroll\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-x-scroll\@#{$breakpoint} {
                 @include overflow-x-scroll;
             }
-            #{VAR.$parent-selector} .overflow-y-scroll\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-y-scroll\@#{$breakpoint} {
                 @include overflow-y-scroll;
             }
-            #{VAR.$parent-selector} .overflow-x-auto\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-x-auto\@#{$breakpoint} {
                 @include overflow-x-auto;
             }
-            #{VAR.$parent-selector} .overflow-y-auto\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .overflow-y-auto\@#{$breakpoint} {
                 @include overflow-y-auto;
             }
 
-            #{VAR.$parent-selector} .d {
+            #{config-flags.$parent-selector} .d {
                 &-tbl\@#{$breakpoint} {
                     @include d-tbl;
                 }

@@ -1,0 +1,280 @@
+// _colors.scss - Color functions and scale generation
+@use "sass:math";
+@use "sass:color";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:string";
+
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../config/colors" as config-color;
+@use "../config/theme-validation" as config-theme;
+@use "./css-vars" as fn-css-vars;
+@use "./types" as fn-types;
+@use "./math" as fn-math;
+@use "./strings" as fn-strings;
+
+@function to-color($color-name) {
+    // Return if already a color
+    @if meta.type-of($color-name) == "color" {
+        @return $color-name;
+    }
+
+    // Convert to string if needed
+    $color-string: string.unquote($color-name);
+    $color-lower: string.to-lower-case($color-string);
+
+    // Handle named colors (red, blue, etc.)
+    @if map.has-key(config-color.$colors-constants, $color-string) {
+        @return map.get(config-color.$colors-constants, $color-string);
+    }
+
+    // Handle hex colors - use from-hex function which returns a proper RGB color
+    @if string.slice($color-string, 1, 1) == "#" {
+        @return from-hex($color-string);
+    }
+
+    // Handle rgb/rgba strings
+    @if string.index($color-lower, "rgb(") == 1 {
+        $trimmed: string.slice($color-string, string.length("rgb(") + 1, -1);
+        $values: fn-strings.split($trimmed, ",");
+
+        @if list.length($values) == 3 {
+            @return rgb(fn-math.to-number(list.nth($values, 1)), fn-math.to-number(list.nth($values, 2)), fn-math.to-number(list.nth($values, 3)));
+        }
+    }
+
+    @if string.index($color-lower, "rgba(") == 1 {
+        $trimmed: string.slice($color-string, string.length("rgba(") + 1, -1);
+        $values: fn-strings.split($trimmed, ",");
+
+        @if list.length($values) == 4 {
+            @return rgba(fn-math.to-number(list.nth($values, 1)), fn-math.to-number(list.nth($values, 2)), fn-math.to-number(list.nth($values, 3)), fn-math.to-number(list.nth($values, 4)));
+        }
+    }
+
+    @warn "#{$color-string} is not a valid color format. Use hex colors like #FF0 or #FF0000";
+    @return null;
+}
+
+@function from-hex($hex-string) {
+    // Normalize input
+
+    $hex: string.to-lower-case(string.unquote($hex-string));
+    $valid-chars: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f";
+    $length: string.length($hex);
+
+    // Validate format and length
+    @if string.slice($hex, 1, 1) != "#" {
+        @warn "Invalid hex color format: #{$hex-string}. Must start with #";
+        @return $hex-string;
+    }
+
+    // Check for valid lengths: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
+    @if not($length == 4 or $length == 5 or $length == 7 or $length == 9) {
+        @warn "Invalid hex color length: #{$hex-string}. Must be 4, 5, 7 or 9 characters";
+        @return $hex-string;
+    }
+
+    // Extract components
+    $r: "";
+    $g: "";
+    $b: "";
+    $a: "";
+    $has-alpha: $length == 5 or $length == 9;
+    $component-size: if($length < 6, 1, 2);
+
+    // Validate and extract color components
+    @for $i from 2 through $length {
+        $char: string.slice($hex, $i, $i);
+
+        @if not list.index($valid-chars, $char) {
+            @warn "Invalid hex character: #{$char} in #{$hex-string}";
+            @return $hex-string;
+        }
+
+        // Determine which component we're building
+        $position: $i - 1;
+
+        @if $position <= $component-size {
+            $r: $r + $char;
+        } @else if $position <= $component-size * 2 {
+            $g: $g + $char;
+        } @else if $position <= $component-size * 3 {
+            $b: $b + $char;
+        } @else {
+            $a: $a + $char;
+        }
+    }
+
+    // Double characters for short hex notation
+    @if $component-size == 1 {
+        $r: $r + $r;
+        $g: $g + $g;
+        $b: $b + $b;
+        @if $has-alpha {
+            $a: $a + $a;
+        }
+    }
+
+    // Convert to RGB/RGBA
+    @if $has-alpha {
+        $alpha-value: math.div(hex-to-dec($a), 255);
+        @return rgba(hex-to-dec($r), hex-to-dec($g), hex-to-dec($b), $alpha-value);
+    } @else {
+        @return rgb(hex-to-dec($r), hex-to-dec($g), hex-to-dec($b));
+    }
+}
+
+@function hex-to-dec($string) {
+    $hex-digits: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f";
+    $string: string.to-lower-case($string);
+    $length: string.length($string);
+
+    $dec: 0;
+    @for $i from 1 through $length {
+        $character: string.slice($string, $i, $i);
+        $digit-value: list.index($hex-digits, $character) - 1;
+
+        @if $digit-value >= 0 {
+            $position: $length - $i;
+            $dec: $dec + ($digit-value * math.pow(16, $position));
+        } @else {
+            @warn "Invalid hex character: #{$character}";
+        }
+    }
+
+    @return $dec;
+}
+
+// Color Validation
+@function is-valid-color($color) {
+    @return meta.type-of($color) == "color";
+}
+
+// Scale Generation Function
+@function create-color-scale($color) {
+    $scale: ();
+    $stops: (50, 100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+    @each $shade in $stops {
+        $adjusted-color: get-color($color, $shade);
+        $scale: map.set($scale, $shade, $adjusted-color);
+    }
+
+    @return $scale;
+}
+
+$color-cache: (); // to store the generated colors
+// todo : add documentation for Cache
+@function get-color($color, $shade: 500, $default-color: config-color.$default-color) {
+    @if not $color {
+        @warn "No color provided to get-color()";
+        @return $default-color;
+    }
+
+    @if not is-valid-shade($shade) {
+        @warn "Invalid shade value: #{$shade}. Valid range is 50 to 900.";
+        @return $default-color;
+    }
+
+    $cache-key: "#{$color}-#{$shade}";
+    @if map.has-key($color-cache, $cache-key) {
+        @return map.get($color-cache, $cache-key);
+    }
+
+    @if fn-css-vars.is-css-var($color) {
+        @if $shade != 500 {
+            @warn "CSS variables do not support shade values. ";
+        }
+        @return fn-css-vars.get-css-var($color);
+    }
+
+    $colors-list: (
+        "primary": config-color.$primary,
+        "secondary": config-color.$secondary,
+        "success": config-color.$success,
+        "danger": config-color.$danger,
+        "warning": config-color.$warning,
+        "info": config-color.$info,
+    );
+
+    @if meta.type-of($shade) == "string" {
+        $shade: fn-math.to-number($shade);
+    }
+
+    @if fn-types.get-type($color) == "color" {
+        $color: to-color($color);
+    } @else if map.has-key($colors-list, $color) {
+        $color: map.get($colors-list, $color);
+    } @else if map.has-key(config-color.$color-primitives, $color) {
+        $color: map.get(config-color.$color-primitives, $color);
+    } @else {
+        @warn "Unexpected color value: #{$color}";
+        @return $default-color;
+    }
+
+    $x1: 50; // First input value
+    $y1: 95; // First output percentage
+    $x2: 900; // Second input value
+    $y2: 15; // Second output percentage
+    // Calculate slope (m) of the line
+    $slope: math.div($y2 - $y1, $x2 - $x1);
+
+    // Calculate y-intercept (b) of the line: y = mx + b
+    $y-intercept: $y1 - ($slope * $x1);
+
+    // Calculate the output percentage using the linear equation: y = mx + b
+    $result: ($slope * $shade) + $y-intercept;
+    $lightness: math.percentage(math.div($result, 100));
+    $adjusted-color: $color;
+
+    @if $shade < 500 {
+        // Lighter shades: mix with white
+        $mix-percentage: math.div($lightness - 50%, 50%) * 100%;
+        $adjusted-color: color.mix(white, $color, $mix-percentage);
+    } @else if $shade > 500 {
+        // Darker shades: mix with black
+        $mix-percentage: math.div(50% - $lightness, 50%) * 100%;
+        $adjusted-color: color.mix(black, $color, $mix-percentage);
+    }
+
+    $color-cache: map.set($color-cache, $cache-key, $adjusted-color) !global;
+    @return $adjusted-color;
+}
+
+// Luminance calculation for contrast
+@function luminance($color) {
+    $red: math.div(color.channel($color, "red"), 255);
+    $green: math.div(color.channel($color, "green"), 255);
+    $blue: math.div(color.channel($color, "blue"), 255);
+
+    $red: if($red <= 0.0393, math.div($red, 12.92), math.pow((math.div($red + 0.055, 1.055)), 2.4));
+    $green: if($green <= 0.0393, math.div($green, 12.92), math.pow((math.div($green + 0.055, 1.055)), 2.4));
+    $blue: if($blue <= 0.0393, math.div($blue, 12.92), math.pow((math.div($blue + 0.055, 1.055)), 2.4));
+
+    @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+// Find appropriate text color for a background
+@function find-text-color($background) {
+    $luminance: luminance($background);
+    $dark-color: #000;
+    @if map.has-key(config-theme.$light-theme, "text-color") {
+        $dark-color: map.get(config-theme.$light-theme, "text-color");
+    }
+
+    $light-color: #fff;
+    @if map.has-key(config-theme.$light-theme, "text-inverted") {
+        $light-color: map.get(config-theme.$light-theme, "text-inverted");
+    }
+    @return if($luminance > 0.55, $dark-color, $light-color);
+}
+
+@function is-valid-shade($shade) {
+    @if meta.type-of($shade) == "number" {
+        @return $shade >= 50 and $shade <= 900;
+    }
+    @return false;
+}

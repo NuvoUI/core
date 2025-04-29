@@ -1,5 +1,8 @@
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../config/spacing" as config-spacing;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/units" as fn-units;
 
 // @component Position
 // @description Controls element positioning and placement within the document flow
@@ -108,7 +111,7 @@
 //   @include top(1rem);
 // }
 @mixin top($value) {
-    top: FN.fix-units($value);
+    top: fn-units.fix-units($value);
 }
 
 // @mixin right
@@ -120,7 +123,7 @@
 //   @include right(0);
 // }
 @mixin right($value) {
-    right: FN.fix-units($value);
+    right: fn-units.fix-units($value);
 }
 
 // @mixin bottom
@@ -132,7 +135,7 @@
 //  @include bottom(0);
 // }
 @mixin bottom($value) {
-    bottom: FN.fix-units($value);
+    bottom: fn-units.fix-units($value);
 }
 
 // @mixin left
@@ -173,59 +176,59 @@ $position-fractions: (
 // -----------------------------------------------
 // UTILITY CLASSES
 // -----------------------------------------------
-@if FN.feature-enabled("position") {
+@if fn-flags.feature-enabled("position") {
     // Position Classes
-    #{VAR.$parent-selector} .static {
+    #{config-flags.$parent-selector} .static {
         @include static;
     }
 
-    #{VAR.$parent-selector} .relative {
+    #{config-flags.$parent-selector} .relative {
         @include relative;
     }
 
-    #{VAR.$parent-selector} .absolute {
+    #{config-flags.$parent-selector} .absolute {
         @include absolute;
     }
 
-    #{VAR.$parent-selector} .fixed {
+    #{config-flags.$parent-selector} .fixed {
         @include fixed;
     }
 
-    #{VAR.$parent-selector} .sticky {
+    #{config-flags.$parent-selector} .sticky {
         @include sticky;
     }
 
-    #{VAR.$parent-selector} .absolute-center {
+    #{config-flags.$parent-selector} .absolute-center {
         @include absolute-center;
     }
 
     @each $key, $value in $position-fractions {
-        #{VAR.$parent-selector} .top-#{$key} {
+        #{config-flags.$parent-selector} .top-#{$key} {
             @include top($value);
         }
-        #{VAR.$parent-selector} .right-#{$key} {
+        #{config-flags.$parent-selector} .right-#{$key} {
             @include right($value);
         }
-        #{VAR.$parent-selector} .bottom-#{$key} {
+        #{config-flags.$parent-selector} .bottom-#{$key} {
             @include bottom($value);
         }
-        #{VAR.$parent-selector} .left-#{$key} {
+        #{config-flags.$parent-selector} .left-#{$key} {
             @include left($value);
         }
     }
 
     // Placement Classes
-    @each $key, $value in VAR.$spacings {
-        #{VAR.$parent-selector} .top-#{$key} {
+    @each $key, $value in config-spacing.$spacings {
+        #{config-flags.$parent-selector} .top-#{$key} {
             @include top($value);
         }
-        #{VAR.$parent-selector} .right-#{$key} {
+        #{config-flags.$parent-selector} .right-#{$key} {
             @include right($value);
         }
-        #{VAR.$parent-selector} .bottom-#{$key} {
+        #{config-flags.$parent-selector} .bottom-#{$key} {
             @include bottom($value);
         }
-        #{VAR.$parent-selector} .left-#{$key} {
+        #{config-flags.$parent-selector} .left-#{$key} {
             @include left($value);
         }
     }
@@ -235,54 +238,54 @@ $position-fractions: (
     // -----------------------------------------------
 
     // Responsive Position Classes
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            #{VAR.$parent-selector} .static\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .static\@#{$breakpoint} {
                 @include static;
             }
-            #{VAR.$parent-selector} .relative\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .relative\@#{$breakpoint} {
                 @include relative;
             }
-            #{VAR.$parent-selector} .absolute\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .absolute\@#{$breakpoint} {
                 @include absolute;
             }
-            #{VAR.$parent-selector} .fixed\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .fixed\@#{$breakpoint} {
                 @include fixed;
             }
-            #{VAR.$parent-selector} .sticky\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .sticky\@#{$breakpoint} {
                 @include sticky;
             }
-            #{VAR.$parent-selector} .absolute-center\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .absolute-center\@#{$breakpoint} {
                 @include absolute-center;
             }
 
             // Fractional responsive placements
             @each $key, $value in $position-fractions {
-                #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .top-#{$key}\@#{$breakpoint} {
                     @include top($value);
                 }
-                #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .right-#{$key}\@#{$breakpoint} {
                     @include right($value);
                 }
-                #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
                     @include bottom($value);
                 }
-                #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .left-#{$key}\@#{$breakpoint} {
                     @include left($value);
                 }
             }
 
-            @each $key, $value in VAR.$spacings {
-                #{VAR.$parent-selector} .top-#{$key}\@#{$breakpoint} {
+            @each $key, $value in config-spacing.$spacings {
+                #{config-flags.$parent-selector} .top-#{$key}\@#{$breakpoint} {
                     @include top($value);
                 }
-                #{VAR.$parent-selector} .right-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .right-#{$key}\@#{$breakpoint} {
                     @include right($value);
                 }
-                #{VAR.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
                     @include bottom($value);
                 }
-                #{VAR.$parent-selector} .left-#{$key}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .left-#{$key}\@#{$breakpoint} {
                     @include left($value);
                 }
             }

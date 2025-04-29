@@ -4,10 +4,10 @@
 @use "sass:list";
 @use "sass:meta";
 
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
 
-@if VAR.$enable-debugger {
+@if config-flags.$enable-debugger {
     .NuvoUI-Debugger-Wrapper {
         color: #fff;
         font-family: Arial, sans-serif;
@@ -47,7 +47,7 @@
         }
 
         .NuvoUI-Debugger-Main {
-            $breakpoint-keys: map.keys(VAR.$breakpoints);
+            $breakpoint-keys: map.keys(config-breakpoint.$breakpoints);
             $total: list.length($breakpoint-keys);
 
             &::before,
@@ -63,7 +63,7 @@
 
             @for $i from 1 through $total {
                 $current: list.nth($breakpoint-keys, $i);
-                $current-width: map.get(VAR.$breakpoints, $current);
+                $current-width: map.get(config-breakpoint.$breakpoints, $current);
 
                 @if $i == 1 {
                     @media (max-width: #{$current-width}) {
@@ -73,7 +73,7 @@
                     }
                 } @else {
                     $prev: list.nth($breakpoint-keys, $i - 1);
-                    $prev-width: map.get(VAR.$breakpoints, $prev);
+                    $prev-width: map.get(config-breakpoint.$breakpoints, $prev);
 
                     @media (min-width: #{$prev-width}) and (max-width: (#{$current-width} - 1)) {
                         &::before {

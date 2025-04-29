@@ -1,6 +1,7 @@
 @use "sass:map";
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
 
 // Base container styles
 @mixin container-base {
@@ -20,7 +21,7 @@
 @mixin container($display: block) {
     display: $display;
     @include container-base;
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: $width) {
             max-width: $width - 100px;
         }
@@ -28,15 +29,15 @@
     @include container-padding(1rem);
 }
 
-@if FN.feature-enabled("container") {
+@if fn-flags.feature-enabled("container") {
     // Container classes
-    #{VAR.$parent-selector} .container {
+    #{config-flags.$parent-selector} .container {
         @include container;
     }
-    #{VAR.$parent-selector} .container.flex {
+    #{config-flags.$parent-selector} .container.flex {
         @include container(flex);
     }
-    #{VAR.$parent-selector} .container.grid {
+    #{config-flags.$parent-selector} .container.grid {
         @include container(grid);
     }
 }

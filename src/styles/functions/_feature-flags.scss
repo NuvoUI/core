@@ -1,0 +1,20 @@
+@use "sass:string";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+
+// Helper function to check if a feature is enabled
+@function feature-enabled($feature) {
+    @if not config-flags.$generate-utility-classes {
+        @return false;
+    }
+
+    @if not map.has-key(config-flags.$feature-flags, $feature) {
+        @return true; // Default to enabled if not specified
+    }
+
+    @return map.get(config-flags.$feature-flags, $feature);
+}

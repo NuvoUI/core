@@ -5,10 +5,12 @@
 @use "sass:meta";
 
 // Import variables
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../config/typography" as config-typo;
+@use "../functions/feature-flags" as fn-flags;
 
-// Typography Utilities
+// config-typo Utilities
 // Classes:
 // - Font Size: .text-xs, .text-sm, .text-base, etc.
 // - Font Weight: .font-thin, .font-normal, .font-bold, etc.
@@ -26,8 +28,8 @@
 // Text size utility
 // @param {string} $size - The size of the text.
 @mixin text-size($size) {
-    @if map.has-key(VAR.$font-sizes, $size) {
-        font-size: map.get(VAR.$font-sizes, $size);
+    @if map.has-key(config-typo.$font-sizes, $size) {
+        font-size: map.get(config-typo.$font-sizes, $size);
     } @else {
         font-size: $size;
     }
@@ -35,8 +37,8 @@
 
 // Font weights
 @mixin font($weight) {
-    @if map.has-key(VAR.$font-weights, #{$weight}) {
-        font-weight: map.get(VAR.$font-weights, $weight);
+    @if map.has-key(config-typo.$font-weights, #{$weight}) {
+        font-weight: map.get(config-typo.$font-weights, $weight);
     } @else if meta.type-of($weight) == "number" {
         font-weight: $weight;
     } @else {
@@ -154,6 +156,7 @@
     white-space: nowrap;
 }
 
+// todo: doc missing
 @mixin overflow-label {
     white-space: nowrap;
     word-break: break-all;
@@ -248,193 +251,193 @@
     @include tracking(widest);
 }
 
-@mixin responsive-typography($breakpoint: null) {
+@mixin responsive-config-typo($breakpoint: null) {
     $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
 
-    @each $size, $val in VAR.$font-sizes {
-        #{VAR.$parent-selector} .text-#{$size}#{$suffix} {
+    @each $size, $val in config-typo.$font-sizes {
+        #{config-flags.$parent-selector} .text-#{$size}#{$suffix} {
             @include text-size($size);
         }
     }
 
     // Generate font weight utilities
-    @each $size, $val in VAR.$font-weights {
-        #{VAR.$parent-selector} .font-#{$size}#{$suffix} {
+    @each $size, $val in config-typo.$font-weights {
+        #{config-flags.$parent-selector} .font-#{$size}#{$suffix} {
             @include font($size);
         }
     }
 
     // Generate line height utilities
-    #{VAR.$parent-selector} .leading-none#{$suffix} {
+    #{config-flags.$parent-selector} .leading-none#{$suffix} {
         @include leading-none;
     }
 
-    #{VAR.$parent-selector} .leading-tight#{$suffix} {
+    #{config-flags.$parent-selector} .leading-tight#{$suffix} {
         @include leading-tight;
     }
 
-    #{VAR.$parent-selector} .leading-snug#{$suffix} {
+    #{config-flags.$parent-selector} .leading-snug#{$suffix} {
         @include leading-snug;
     }
 
-    #{VAR.$parent-selector} .leading-normal#{$suffix} {
+    #{config-flags.$parent-selector} .leading-normal#{$suffix} {
         @include leading-normal;
     }
 
-    #{VAR.$parent-selector} .leading-relaxed#{$suffix} {
+    #{config-flags.$parent-selector} .leading-relaxed#{$suffix} {
         @include leading-relaxed;
     }
 
-    #{VAR.$parent-selector} .leading-loose#{$suffix} {
+    #{config-flags.$parent-selector} .leading-loose#{$suffix} {
         @include leading-loose;
     }
 
     // Generate text alignment utilities
-    #{VAR.$parent-selector} .text-left#{$suffix} {
+    #{config-flags.$parent-selector} .text-left#{$suffix} {
         @include text-left;
     }
 
-    #{VAR.$parent-selector} .text-center#{$suffix} {
+    #{config-flags.$parent-selector} .text-center#{$suffix} {
         @include text-center;
     }
 
-    #{VAR.$parent-selector} .text-right#{$suffix} {
+    #{config-flags.$parent-selector} .text-right#{$suffix} {
         @include text-right;
     }
 
-    #{VAR.$parent-selector} .text-justify#{$suffix} {
+    #{config-flags.$parent-selector} .text-justify#{$suffix} {
         @include text-justify;
     }
 
     // Classes using mixins
-    #{VAR.$parent-selector} .uppercase#{$suffix} {
+    #{config-flags.$parent-selector} .uppercase#{$suffix} {
         @include uppercase;
     }
 
-    #{VAR.$parent-selector} .lowercase#{$suffix} {
+    #{config-flags.$parent-selector} .lowercase#{$suffix} {
         @include lowercase;
     }
 
-    #{VAR.$parent-selector} .capitalize#{$suffix} {
+    #{config-flags.$parent-selector} .capitalize#{$suffix} {
         @include capitalize;
     }
 
-    #{VAR.$parent-selector} .normal-case#{$suffix} {
+    #{config-flags.$parent-selector} .normal-case#{$suffix} {
         @include normal-case;
     }
 
-    #{VAR.$parent-selector} .italic#{$suffix} {
+    #{config-flags.$parent-selector} .italic#{$suffix} {
         @include italic;
     }
 
-    #{VAR.$parent-selector} .not-italic#{$suffix} {
+    #{config-flags.$parent-selector} .not-italic#{$suffix} {
         @include not-italic;
     }
 
-    #{VAR.$parent-selector} .underline#{$suffix} {
+    #{config-flags.$parent-selector} .underline#{$suffix} {
         @include underline;
     }
 
-    #{VAR.$parent-selector} .line-through#{$suffix} {
+    #{config-flags.$parent-selector} .line-through#{$suffix} {
         @include line-through;
     }
 
-    #{VAR.$parent-selector} .no-underline#{$suffix} {
+    #{config-flags.$parent-selector} .no-underline#{$suffix} {
         @include no-underline;
     }
 
-    #{VAR.$parent-selector} .truncate#{$suffix} {
+    #{config-flags.$parent-selector} .truncate#{$suffix} {
         @include truncate;
     }
 
-    #{VAR.$parent-selector} .truncate-2#{$suffix} {
+    #{config-flags.$parent-selector} .truncate-2#{$suffix} {
         @include truncate-lines(2);
     }
 
-    #{VAR.$parent-selector} .truncate-3#{$suffix} {
+    #{config-flags.$parent-selector} .truncate-3#{$suffix} {
         @include truncate-lines(3);
     }
 
-    #{VAR.$parent-selector} .truncate-4#{$suffix} {
+    #{config-flags.$parent-selector} .truncate-4#{$suffix} {
         @include truncate-lines(4);
     }
 
-    #{VAR.$parent-selector} .truncate-5#{$suffix} {
+    #{config-flags.$parent-selector} .truncate-5#{$suffix} {
         @include truncate-lines(5);
     }
 
-    #{VAR.$parent-selector} .tracking-tighter#{$suffix} {
+    #{config-flags.$parent-selector} .tracking-tighter#{$suffix} {
         @include tracking(tighter);
     }
 
-    #{VAR.$parent-selector} .tracking-tight#{$suffix} {
+    #{config-flags.$parent-selector} .tracking-tight#{$suffix} {
         @include tracking(tight);
     }
 
-    #{VAR.$parent-selector} .tracking-normal#{$suffix} {
+    #{config-flags.$parent-selector} .tracking-normal#{$suffix} {
         @include tracking(normal);
     }
 
-    #{VAR.$parent-selector} .tracking-wide#{$suffix} {
+    #{config-flags.$parent-selector} .tracking-wide#{$suffix} {
         @include tracking(wide);
     }
 
-    #{VAR.$parent-selector} .tracking-wider#{$suffix} {
+    #{config-flags.$parent-selector} .tracking-wider#{$suffix} {
         @include tracking(wider);
     }
 
-    #{VAR.$parent-selector} .tracking-widest#{$suffix} {
+    #{config-flags.$parent-selector} .tracking-widest#{$suffix} {
         @include tracking(widest);
     }
 
-    #{VAR.$parent-selector} .overflow-label#{$suffix} {
+    #{config-flags.$parent-selector} .overflow-label#{$suffix} {
         @include overflow-label;
     }
 }
 
-@if FN.feature-enabled("typography") {
-    @include responsive-typography;
+@if fn-flags.feature-enabled("config-typo") {
+    @include responsive-config-typo;
 
-    #{VAR.$parent-selector} .break-normal {
+    #{config-flags.$parent-selector} .break-normal {
         @include break-normal;
     }
 
-    #{VAR.$parent-selector} .break-words {
+    #{config-flags.$parent-selector} .break-words {
         @include break-words;
     }
 
-    #{VAR.$parent-selector} .break-all {
+    #{config-flags.$parent-selector} .break-all {
         @include break-all;
     }
 
-    #{VAR.$parent-selector} .whitespace-normal {
+    #{config-flags.$parent-selector} .whitespace-normal {
         @include whitespace-normal;
     }
 
-    #{VAR.$parent-selector} .whitespace-nowrap {
+    #{config-flags.$parent-selector} .whitespace-nowrap {
         @include whitespace-nowrap;
     }
 
-    #{VAR.$parent-selector} .whitespace-pre {
+    #{config-flags.$parent-selector} .whitespace-pre {
         @include whitespace-pre;
     }
 
-    #{VAR.$parent-selector} .whitespace-pre-line {
+    #{config-flags.$parent-selector} .whitespace-pre-line {
         @include whitespace-pre-line;
     }
 
-    #{VAR.$parent-selector} .whitespace-pre-wrap {
+    #{config-flags.$parent-selector} .whitespace-pre-wrap {
         @include whitespace-pre-wrap;
     }
 
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            @each $size, $val in VAR.$font-sizes {
-                #{VAR.$parent-selector} .text-#{$size}\@#{$breakpoint} {
+            @each $size, $val in config-typo.$font-sizes {
+                #{config-flags.$parent-selector} .text-#{$size}\@#{$breakpoint} {
                     @include text-size($size);
                 }
             }
-            @include responsive-typography($breakpoint);
+            @include responsive-config-typo($breakpoint);
         }
     }
 }

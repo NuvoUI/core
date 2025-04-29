@@ -42,9 +42,12 @@
 // @see grid
 
 @use "sass:math";
-@use "../utilities/media-queries" as MC;
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../tools/media-queries" as MC;
+@use "../config/feature-flags" as config-flags;
+@use "../config/layouts" as config-layout;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/breakpoints" as fn-breakpoints;
 
 // @description Sets flex-direction to row.
 // @dependencies flex | flex-inline
@@ -289,20 +292,20 @@
     flex: 1 0 auto;
 }
 
-// @description Sets how many columns this would take using percentage of VAR.$column-count.
+// @description Sets how many columns this would take using percentage of config-layout.$column-count.
 // @param {Number} $size - The number of columns to span.
 @mixin fill($size) {
-    $columns: math.div(VAR.$column-count, $size); // How many items per row
+    $columns: math.div(config-layout.$column-count, $size); // How many items per row
 
     flex: 0 0 calc((100% - (#{$columns - 1} * var(--flex-gap, 0px))) / #{$columns});
 }
 
-@if FN.feature-enabled("flex") {
+@if fn-flags.feature-enabled("flex") {
     // Build flat selector list for all flex containers
-    $flex-selectors: "#{VAR.$parent-selector} .flex";
+    $flex-selectors: "#{config-flags.$parent-selector} .flex";
 
-    @each $breakpoint, $width in VAR.$breakpoints {
-        $flex-selectors: "#{$flex-selectors}, #{VAR.$parent-selector} .flex\\@#{$breakpoint}";
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
+        $flex-selectors: "#{$flex-selectors}, #{config-flags.$parent-selector} .flex\\@#{$breakpoint}";
     }
 
     // Apply base flex styles to all flex variants at once
@@ -481,7 +484,7 @@
             @include self-auto;
         }
 
-        @for $i from 1 through VAR.$column-count {
+        @for $i from 1 through config-layout.$column-count {
             > .fill-#{$i} {
                 @include fill($i);
             }
@@ -492,8 +495,8 @@
     }
 
     // Handle responsive variants
-    @each $breakpoint, $width in VAR.$breakpoints {
-        $bp-val: FN.get-breakpoint-value($breakpoint); // todo: why get-breakpoint-value?
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
+        $bp-val: fn-breakpoints.get-breakpoint-value($breakpoint); // todo: why get-breakpoint-value?
 
         @media (min-width: #{$bp-val}) {
             #{$flex-selectors} {
@@ -635,7 +638,7 @@
                     @include self-auto;
                 }
 
-                @for $i from 1 through VAR.$column-count {
+                @for $i from 1 through config-layout.$column-count {
                     > .fill-#{$i}\@#{$breakpoint} {
                         @include fill($i);
                     }

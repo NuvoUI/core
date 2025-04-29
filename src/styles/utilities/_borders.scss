@@ -7,30 +7,34 @@
 @use "sass:string" as str;
 @use "sass:list";
 
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../config/breakpoints" as config-breakpoint;
+@use "../config/borders" as config-border;
+@use "../config/colors" as config-color;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/units" as fn-units;
 
 // Common border styles
 $border-styles: (solid, dashed, dotted, double, none);
 
 @function get-rounded-value($val) {
     @if not $val {
-        @return map.get(VAR.$border-radii, "md");
+        @return map.get(config-border.$border-radii, "md");
     } @else if meta.type-of($val) == "string" {
         $clean-val: $val;
 
         // Try to find the value in the border-radii map
-        @if map.has-key(VAR.$border-radii, $clean-val) {
-            @return map.get(VAR.$border-radii, $clean-val);
-        } @else if map.has-key(VAR.$border-radii, str.unquote($clean-val)) {
-            @return map.get(VAR.$border-radii, str.unquote($clean-val));
+        @if map.has-key(config-border.$border-radii, $clean-val) {
+            @return map.get(config-border.$border-radii, $clean-val);
+        } @else if map.has-key(config-border.$border-radii, str.unquote($clean-val)) {
+            @return map.get(config-border.$border-radii, str.unquote($clean-val));
         } @else {
             // Not a predefined value, process it as a custom value
-            @return FN.fix-units($val);
+            @return fn-units.fix-units($val);
         }
     } @else {
         // Case 3: $val is a custom value, ensure it has units
-        @return FN.fix-units($val);
+        @return fn-units.fix-units($val);
     }
 }
 
@@ -41,7 +45,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
 @mixin border($val, $style: solid, $color: var(--border-base)) {
-    $val: FN.fix-units($val);
+    $val: fn-units.fix-units($val);
 
     --border-size: #{$val};
 
@@ -55,42 +59,42 @@ $border-styles: (solid, dashed, dotted, double, none);
     }
 }
 
-@mixin border-top($val) {
-    $val: FN.fix-units($val);
+@mixin border-top($val, $style: var(--border-style, solid)) {
+    $val: fn-units.fix-units($val);
 
     border-top-width: $val;
     @if $val != 0 {
-        border-top-style: var(--border-style, solid);
+        border-top-style: $style;
         border-top-color: var(--border-base);
     }
 }
 
-@mixin border-right($val) {
-    $val: FN.fix-units($val);
+@mixin border-right($val, $style: var(--border-style, solid)) {
+    $val: fn-units.fix-units($val);
 
     border-right-width: $val;
     @if $val != 0 {
-        border-right-style: var(--border-style, solid);
+        border-right-style: $style;
         border-right-color: var(--border-base);
     }
 }
 
-@mixin border-bottom($val) {
-    $val: FN.fix-units($val);
+@mixin border-bottom($val, $style: var(--border-style, solid)) {
+    $val: fn-units.fix-units($val);
 
     border-bottom-width: $val;
     @if $val != 0 {
-        border-bottom-style: var(--border-style, solid);
+        border-bottom-style: $style;
         border-bottom-color: var(--border-base);
     }
 }
 
-@mixin border-left($val) {
-    $val: FN.fix-units($val);
+@mixin border-left($val, $style: var(--border-style, solid)) {
+    $val: fn-units.fix-units($val);
 
     border-left-width: $val;
     @if $val != 0 {
-        border-left-style: var(--border-style, solid);
+        border-left-style: $style;
         border-left-color: var(--border-base);
     }
 }
@@ -152,10 +156,12 @@ $border-styles: (solid, dashed, dotted, double, none);
 
 // Border Style and Color
 @mixin border-style($style) {
-    border-style: $style;
+    --border-style: #{$style};
 }
 @mixin border-color($color) {
     border-color: $color;
+
+    --border-color: #{$color};
 }
 
 // Combined border properties
@@ -169,138 +175,138 @@ $border-styles: (solid, dashed, dotted, double, none);
     @include rounded(9999px);
 }
 
-@if FN.feature-enabled("borders") {
+@if fn-flags.feature-enabled("borders") {
     // Basic border classes (all sides)
-    #{VAR.$parent-selector} .border {
+    #{config-flags.$parent-selector} .border {
         @include border(1);
     }
 
     // Common shortcuts for single-side borders
-    #{VAR.$parent-selector} .border-0 {
+    #{config-flags.$parent-selector} .border-0 {
         @include border(0);
     }
 
-    #{VAR.$parent-selector} .border-t {
+    #{config-flags.$parent-selector} .border-t {
         @include border-top(1);
     }
 
-    #{VAR.$parent-selector} .border-r {
+    #{config-flags.$parent-selector} .border-r {
         @include border-right(1);
     }
 
-    #{VAR.$parent-selector} .border-b {
+    #{config-flags.$parent-selector} .border-b {
         @include border-bottom(1);
     }
 
-    #{VAR.$parent-selector} .border-l {
+    #{config-flags.$parent-selector} .border-l {
         @include border-left(1);
     }
 
-    #{VAR.$parent-selector} .border-x {
+    #{config-flags.$parent-selector} .border-x {
         @include border-left(1);
         @include border-right(1);
     }
 
-    #{VAR.$parent-selector} .border-y {
+    #{config-flags.$parent-selector} .border-y {
         @include border-top(1);
         @include border-bottom(1);
     }
 
     // Directional border width
-    @each $width in VAR.$border-widths {
-        #{VAR.$parent-selector} .border-#{$width},
-        #{VAR.$parent-selector} .hover\:border-#{$width}:hover,
-        #{VAR.$parent-selector} .active\:border-#{$width}:active,
-        #{VAR.$parent-selector} .focus\:border-#{$width}:focus,
-        #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$width} {
+    @each $width in config-border.$border-widths {
+        #{config-flags.$parent-selector} .border-#{$width},
+        #{config-flags.$parent-selector} .hover\:border-#{$width}:hover,
+        #{config-flags.$parent-selector} .active\:border-#{$width}:active,
+        #{config-flags.$parent-selector} .focus\:border-#{$width}:focus,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$width} {
             @include border($width);
         }
-        #{VAR.$parent-selector} .border-t-#{$width} {
+        #{config-flags.$parent-selector} .border-t-#{$width} {
             @include border-top($width);
         }
-        #{VAR.$parent-selector} .border-r-#{$width} {
+        #{config-flags.$parent-selector} .border-r-#{$width} {
             @include border-right($width);
         }
-        #{VAR.$parent-selector} .border-b-#{$width} {
+        #{config-flags.$parent-selector} .border-b-#{$width} {
             @include border-bottom($width);
         }
-        #{VAR.$parent-selector} .border-l-#{$width} {
+        #{config-flags.$parent-selector} .border-l-#{$width} {
             @include border-left($width);
         }
 
-        #{VAR.$parent-selector} .border-x-#{$width} {
+        #{config-flags.$parent-selector} .border-x-#{$width} {
             @include border-left(1);
             @include border-right(1);
         }
 
-        #{VAR.$parent-selector} .border-y-#{$width} {
+        #{config-flags.$parent-selector} .border-y-#{$width} {
             @include border-top($width);
             @include border-bottom($width);
         }
     }
 
     // Border radius classes
-    #{VAR.$parent-selector} .rounded {
+    #{config-flags.$parent-selector} .rounded {
         @include rounded;
     }
-    #{VAR.$parent-selector} .square {
+    #{config-flags.$parent-selector} .square {
         @include rounded(0);
     } // Alias for no radius
 
-    @each $name, $value in VAR.$border-radii {
-        #{VAR.$parent-selector} .rounded-#{$name} {
+    @each $name, $value in config-border.$border-radii {
+        #{config-flags.$parent-selector} .rounded-#{$name} {
             @include rounded($value);
         }
-        #{VAR.$parent-selector} .rounded-t-#{$name} {
+        #{config-flags.$parent-selector} .rounded-t-#{$name} {
             @include rounded-t($value);
         }
-        #{VAR.$parent-selector} .rounded-r-#{$name} {
+        #{config-flags.$parent-selector} .rounded-r-#{$name} {
             @include rounded-r($value);
         }
-        #{VAR.$parent-selector} .rounded-b-#{$name} {
+        #{config-flags.$parent-selector} .rounded-b-#{$name} {
             @include rounded-b($value);
         }
-        #{VAR.$parent-selector} .rounded-l-#{$name} {
+        #{config-flags.$parent-selector} .rounded-l-#{$name} {
             @include rounded-l($value);
         }
 
         // Individual corners
-        #{VAR.$parent-selector} .rounded-tl-#{$name} {
+        #{config-flags.$parent-selector} .rounded-tl-#{$name} {
             @include rounded-tl($value);
         }
-        #{VAR.$parent-selector} .rounded-tr-#{$name} {
+        #{config-flags.$parent-selector} .rounded-tr-#{$name} {
             @include rounded-tr($value);
         }
-        #{VAR.$parent-selector} .rounded-br-#{$name} {
+        #{config-flags.$parent-selector} .rounded-br-#{$name} {
             @include rounded-br($value);
         }
-        #{VAR.$parent-selector} .rounded-bl-#{$name} {
+        #{config-flags.$parent-selector} .rounded-bl-#{$name} {
             @include rounded-bl($value);
         }
     }
 
     // Pill shape (alias for full radius)
-    #{VAR.$parent-selector} .pill {
+    #{config-flags.$parent-selector} .pill {
         @include pill;
     }
 
     // Border styles - these override the default solid style if needed
     @each $style in $border-styles {
-        #{VAR.$parent-selector} .border-#{$style},
-        #{VAR.$parent-selector} .hover\:border-#{$style}:hover,
-        #{VAR.$parent-selector} .active\:border-#{$style}:active,
-        #{VAR.$parent-selector} .focus\:border-#{$style}:focus,
-        #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$style} {
+        #{config-flags.$parent-selector} .border-#{$style},
+        #{config-flags.$parent-selector} .hover\:border-#{$style}:hover,
+        #{config-flags.$parent-selector} .active\:border-#{$style}:active,
+        #{config-flags.$parent-selector} .focus\:border-#{$style}:focus,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$style} {
             @include border-style($style);
         }
     }
 
-    @each $color-name in VAR.$color-names-with-basic {
-        #{VAR.$parent-selector} .border-#{$color-name},
-        #{VAR.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{VAR.$parent-selector} .active\:border-#{$color-name}:active,
-        #{VAR.$parent-selector} .focus\:border-#{$color-name}:focus,
-        #{VAR.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
+    @each $color-name in config-color.$color-names-with-basic {
+        #{config-flags.$parent-selector} .border-#{$color-name},
+        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
+        #{config-flags.$parent-selector} .active\:border-#{$color-name}:active,
+        #{config-flags.$parent-selector} .focus\:border-#{$color-name}:focus,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
             @include border-color(var(--#{$color-name}));
         }
     }
@@ -309,37 +315,37 @@ $border-styles: (solid, dashed, dotted, double, none);
     // RESPONSIVE CLASSES
     // -----------------------------------------------
 
-    @each $breakpoint, $width in VAR.$breakpoints {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
             // Border width responsive
-            @each $val in VAR.$border-widths {
-                #{VAR.$parent-selector} .border-#{$val}\@#{$breakpoint} {
+            @each $val in config-border.$border-widths {
+                #{config-flags.$parent-selector} .border-#{$val}\@#{$breakpoint} {
                     @include border($val);
                 }
             }
 
             // Common shortcuts for responsive
-            #{VAR.$parent-selector} .border\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .border\@#{$breakpoint} {
                 @include border(1);
             }
-            #{VAR.$parent-selector} .border-0\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .border-0\@#{$breakpoint} {
                 @include border(0);
             }
 
             // Border radius responsive
-            @each $name, $value in VAR.$border-radii {
-                #{VAR.$parent-selector} .rounded-#{$name}\@#{$breakpoint} {
+            @each $name, $value in config-border.$border-radii {
+                #{config-flags.$parent-selector} .rounded-#{$name}\@#{$breakpoint} {
                     @include rounded($value);
                 }
             }
 
-            #{VAR.$parent-selector} .rounded\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .rounded\@#{$breakpoint} {
                 @include rounded;
             }
-            #{VAR.$parent-selector} .square\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .square\@#{$breakpoint} {
                 @include rounded(0);
             }
-            #{VAR.$parent-selector} .pill\@#{$breakpoint} {
+            #{config-flags.$parent-selector} .pill\@#{$breakpoint} {
                 @include pill;
             }
         }

@@ -1,16 +1,16 @@
-@use "../abstracts/config" as VAR;
-@use "../abstracts/functions" as FN;
+@use "../config/feature-flags" as config-flags;
+@use "../functions/feature-flags" as fn-flags;
 
 @mixin cursor($cursor-value) {
     cursor: #{$cursor-value};
 }
 
-@if FN.feature-enabled("cursors") {
+@if fn-flags.feature-enabled("cursors") {
     $cursor-values: ("auto", "pointer", "default", "move", "not-allowed", "wait", "help", "text", "cell", "crosshair", "grabbing", "grab", "zoom-in", "zoom-out", "none", "progress", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "context-menu", "all-scroll");
 
     // Generate classes for each cursor value
     @each $value in $cursor-values {
-        #{VAR.$parent-selector} .cursor-#{$value} {
+        #{config-flags.$parent-selector} .cursor-#{$value} {
             @include cursor($value);
         }
     }

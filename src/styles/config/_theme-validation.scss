@@ -1,0 +1,59 @@
+// Configuration: Theme validation
+// Theme token validation and theme definitions
+
+@use "sass:map";
+@use "sass:list";
+
+// Default theme config (can be overridden)
+$light-theme: (
+    "bg-base": #fbfafc,
+    "bg-alternate": #1a1a1a,
+    "bg-surface": #fff,
+    "border-base": #d3d5d9,
+    "text-color": #1a1a1a,
+    "text-muted": #1a1a1a8a,
+    "text-subtle": #1a1a1a50,
+    "text-inverted": #f1f1f1,
+) !default;
+
+// Extract theme tokens from light theme keys
+$theme-tokens: map.keys($light-theme) !default;
+
+$dark-theme: (
+    "bg-base": #1a1a1a,
+    "bg-alternate": #f1f1f1,
+    "bg-surface": #2e2e2e,
+    "border-base": #2e2e2e,
+    "text-color": #f1f1f1,
+    "text-muted": #f1f1f18a,
+    "text-subtle": #f1f1f150,
+    "text-inverted": #1a1a1a,
+) !default;
+
+@function validate-theme-tokens($theme-map, $required-tokens) {
+    $missing-tokens: ();
+
+    @each $token in $required-tokens {
+        @if not map.has-key($theme-map, $token) {
+            $missing-tokens: list.append($missing-tokens, $token, comma);
+        }
+    }
+
+    @if list.length($missing-tokens) > 0 {
+        @error "Theme is missing required tokens: #{$missing-tokens}";
+    }
+
+    @return list.length($missing-tokens) == 0;
+}
+
+// Validate both themes
+@mixin validate-tokens {
+    @if not validate-theme-tokens($light-theme, $theme-tokens) {
+        @error "Light theme is missing required tokens.";
+    }
+    @if not validate-theme-tokens($dark-theme, $theme-tokens) {
+        @error "Dark theme is missing required tokens.";
+    }
+}
+
+@include validate-tokens;

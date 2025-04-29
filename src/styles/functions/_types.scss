@@ -1,0 +1,104 @@
+@use "sass:string";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+
+@use "../config/colors" as config-colors;
+@use "../config/constants" as config-constants;
+@use "../config/borders" as config-borders;
+@use "../config/breakpoints" as config-breakpoints;
+@use "../config/typography" as config-type;
+@use "./units" as fn-units;
+@use "./strings" as fn-strings;
+@use "./math" as fn-math;
+@use "./css-vars" as fn-css-vars;
+
+@function get-type($value) {
+    // Handle null and empty values
+    @if not $value {
+        @return "null";
+    }
+
+    // Handle already typed values
+    @if meta.type-of($value) == "color" {
+        @return "color";
+    } @else if meta.type-of($value) == "number" {
+        @return "number";
+    } @else if meta.type-of($value) == "bool" {
+        @return "boolean";
+    } @else if meta.type-of($value) == "list" or meta.type-of($value) == "map" {
+        @return meta.type-of($value);
+    }
+
+    // Convert to string if needed
+    $val: string.unquote(fn-strings.strip-quotes($value));
+    $val-lower: string.to-lower-case($val);
+
+    // Check for colors
+    @if string.slice($val, 1, 1) == "#" and (string.length($val) == 4 or string.length($val) == 7 or string.length($val) == 5 or string.length($val) == 9) {
+        @return "color";
+    }
+    @if string.index($val-lower, "rgb(") == 1 or string.index($val-lower, "rgba(") == 1 {
+        @return "color";
+    }
+    @if map.has-key(config-colors.$colors-constants, $val-lower) {
+        @return "color";
+    }
+
+    // Check for CSS variables first
+    @if fn-css-vars.is-css-var($val) {
+        @return "css-var";
+    }
+
+    // Check for known CSS states
+    $states: ("hover", "active", "focus", "visited", "disabled", "checked", "first-child", "last-child");
+    @if list.index($states, $val-lower) {
+        @return "state";
+    }
+
+    // Check for numbers with units
+    @each $unit in config-constants.$units {
+        @if string.slice($val, -1 * string.length($unit)) == $unit {
+            // Check if the part before the unit is numeric
+            $num-part: string.slice($val, 1, string.length($val) - string.length($unit));
+            @if fn-math.to-number($num-part) {
+                @return "number";
+            }
+        }
+    }
+
+    // Check for pure numbers
+    @if fn-math.to-number($val) {
+        @return "number";
+    }
+
+    // Check for breakpoints
+    @if map.has-key(config-breakpoints.$breakpoints, $val) {
+        @return "breakpoint";
+    }
+
+    // Check for font weights
+    @if map.has-key(config-type.$font-weights, $val-lower) {
+        @return "font-weight";
+    }
+
+    // Check for border radius values
+    @if map.has-key(config-borders.$border-radii, $val-lower) {
+        @return "border-radius";
+    }
+
+    // Check for special CSS keywords
+    $keywords: ("auto", "inherit", "initial", "unset", "none", "flex", "grid", "block", "inline");
+    @if list.index($keywords, $val-lower) {
+        @return "css-keyword";
+    }
+
+    // Check for CSS functions
+    @if string.index($val-lower, "calc(") == 1 or string.index($val-lower, "var(") == 1 or string.index($val-lower, "min(") == 1 or string.index($val-lower, "max(") == 1 {
+        @return "css-function";
+    }
+
+    // Default to string
+    @return "string";
+}

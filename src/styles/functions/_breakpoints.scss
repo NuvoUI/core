@@ -1,0 +1,15 @@
+@use "sass:map";
+@use "sass:meta";
+
+@use "../config/breakpoints" as config-breakpoint;
+
+@function get-breakpoint-value($bp, $debug: false) {
+    @if map.has-key(config-breakpoint.$breakpoints, #{$bp}) {
+        @return map.get(config-breakpoint.$breakpoints, #{$bp});
+    } @else if meta.type-of($bp) == "number" {
+        @return $bp;
+    } @else {
+        @error 'Invalid breakpoint: #{$bp}';
+        @return null;
+    }
+}
