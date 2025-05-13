@@ -27,7 +27,19 @@
 
 // Text size utility
 // @param {string} $size - The size of the text.
+// @deprecated - Use `font-size` instead.
 @mixin text-size($size) {
+    @warn "The `text-size` mixin has been deprecated. Use `font-size` instead.";
+    @if map.has-key(config-typo.$font-sizes, $size) {
+        font-size: map.get(config-typo.$font-sizes, $size);
+    } @else {
+        font-size: $size;
+    }
+}
+
+// font size utility
+// @param {string} $size - The size of the text.
+@mixin font-size($size) {
     @if map.has-key(config-typo.$font-sizes, $size) {
         font-size: map.get(config-typo.$font-sizes, $size);
     } @else {
