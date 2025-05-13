@@ -296,8 +296,11 @@
 // @param {Number} $size - The number of columns to span.
 @mixin fill($size) {
     $columns: math.div(config-layout.$column-count, $size); // How many items per row
-
-    flex: 0 0 calc((100% - (#{$columns - 1} * var(--flex-gap, 0px))) / #{$columns});
+    $width: calc((100% - (#{$columns - 1} * var(--flex-gap, 0px))) / #{$columns});
+    
+    flex: 0 0 $width;
+    max-width: $width; // Add this to ensure content doesn't push width wider
+    min-width: 0; // Add this to allow content to shrink below intrinsic width
 }
 
 @if fn-flags.feature-enabled("flex") {
