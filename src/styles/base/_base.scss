@@ -102,6 +102,7 @@ body#{config-flags.$parent-selector} {
 
 // Inputs
 #{config-flags.$parent-selector} input[type="text"],
+#{config-flags.$parent-selector} input[type="tel"],
 #{config-flags.$parent-selector} input[type="email"],
 #{config-flags.$parent-selector} input[type="password"],
 #{config-flags.$parent-selector} input[type="number"],
