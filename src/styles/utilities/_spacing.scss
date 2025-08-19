@@ -137,8 +137,6 @@
 // @description Sets vertical margin (top and bottom)
 // @param {Number|String} $val - Margin value
 @mixin my($val) {
-    $val: fn-units.fix-units($val);
-
     margin-block: fn-units.fix-units($val);
 }
 
@@ -146,7 +144,7 @@
 // @description Sets margin-top
 // @param {Number|String} $val - Margin value
 @mixin mt($val) {
-    margin-top: fn-units.fix-units($val, config-flags.$default-unit);
+    margin-top: fn-units.fix-units($val);
 }
 
 // @mixin mr
