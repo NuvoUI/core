@@ -1,9 +1,50 @@
 // Configuration: Shadows
-// Shadow color definitions
+// Shadow color definitions and shadow size configurations
 
 $shadow-colors: (
     "default": rgb(0 0 0 / 10%),
     "dark": rgb(0 0 0 / 20%),
     "darker": rgb(0 0 0 / 35%),
     "darkest": rgb(0 0 0 / 50%),
+) !default;
+
+// Shadow size definitions
+// Each size contains x, y, blur, and spread values
+$shadow-sizes: (
+    "sm": (
+        "x": 0,
+        "y": 1px,
+        "blur": 2px,
+        "spread": 0,
+    ),
+    "md": (
+        "x": 0,
+        "y": 4px,
+        "blur": 6px,
+        "spread": -1px,
+    ),
+    "lg": (
+        "x": 0,
+        "y": 10px,
+        "blur": 15px,
+        "spread": -3px,
+    ),
+    "xl": (
+        "x": 0,
+        "y": 20px,
+        "blur": 25px,
+        "spread": -5px,
+    ),
+    "hero": (
+        "x": 0,
+        "y": 20px,
+        "blur": 25px,
+        "spread": 5px,
+    ),
+    "monster": (
+        "x": 0,
+        "y": 20px,
+        "blur": 55px,
+        "spread": 20px,
+    ),
 ) !default;

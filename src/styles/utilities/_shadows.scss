@@ -7,45 +7,7 @@
 @use "../config/shadows" as config-shadow;
 @use "../functions/feature-flags" as fn-flags;
 
-// TODO: SHADOWS WITH COLOR VARIANTS WITH RESPONSIVE
-$shadow-sizes: (
-    "sm": (
-        "x": 0,
-        "y": 1px,
-        "blur": 2px,
-        "spread": 0,
-    ),
-    "md": (
-        "x": 0,
-        "y": 4px,
-        "blur": 6px,
-        "spread": -1px,
-    ),
-    "lg": (
-        "x": 0,
-        "y": 10px,
-        "blur": 15px,
-        "spread": -3px,
-    ),
-    "xl": (
-        "x": 0,
-        "y": 20px,
-        "blur": 25px,
-        "spread": -5px,
-    ),
-    "hero": (
-        "x": 0,
-        "y": 20px,
-        "blur": 25px,
-        "spread": 5px,
-    ),
-    "monster": (
-        "x": 0,
-        "y": 20px,
-        "blur": 55px,
-        "spread": 20px,
-    ),
-);
+// Shadow sizes are now configured in config/_shadows.scss
 
 // Generates a CSS shadow string from a given size.
 // @param {String} $size - The shadow size.
@@ -60,8 +22,8 @@ $shadow-sizes: (
 // @param {String} $size - The shadow size.
 // @param {String} $color - The shadow color.
 @mixin shadow($size: "md", $color: "default") {
-    @if not map.has-key($shadow-sizes, $size) {
-        @error "Shadow size '#{$size}' not found in $shadow-sizes map";
+    @if not map.has-key(config-shadow.$shadow-sizes, $size) {
+        @error "Shadow size '#{$size}' not found in config-shadow.$shadow-sizes map";
         $size: "md"; // Fallback to default
     }
     @if not map.has-key(config-shadow.$shadow-colors, $color) {
@@ -69,13 +31,13 @@ $shadow-sizes: (
         $color: "default"; // Fallback to default
     }
 
-    $shadow: map.get($shadow-sizes, $size);
+    $shadow: map.get(config-shadow.$shadow-sizes, $size);
     $shadow-color: map.get(config-shadow.$shadow-colors, $color);
     @include shadow-base(map.get($shadow, "x"), map.get($shadow, "y"), map.get($shadow, "blur"), map.get($shadow, "spread"), $shadow-color);
 }
 
 @mixin shadow-inset($size: "md", $color: "default") {
-    $shadow: map.get($shadow-sizes, $size);
+    $shadow: map.get(config-shadow.$shadow-sizes, $size);
     $shadow-color: map.get(config-shadow.$shadow-colors, $color);
 
     box-shadow: inset map.get($shadow, "x") map.get($shadow, "y") map.get($shadow, "blur") map.get($shadow, "spread") $shadow-color;
@@ -103,7 +65,7 @@ $shadow-sizes: (
         box-shadow: none !important;
     }
 
-    @each $size, $values in $shadow-sizes {
+    @each $size, $values in config-shadow.$shadow-sizes {
         #{config-flags.$parent-selector} .shadow-#{$size} {
             @include shadow($size);
         }
@@ -176,7 +138,7 @@ $shadow-sizes: (
     // Responsive variants
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            @each $size, $values in $shadow-sizes {
+            @each $size, $values in config-shadow.$shadow-sizes {
                 // Regular shadows with breakpoints
                 #{config-flags.$parent-selector} .shadow-#{$size}\@#{$breakpoint} {
                     @include shadow($size);
