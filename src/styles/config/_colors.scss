@@ -39,6 +39,18 @@ $color-names-with-basic: list.join($color-names, map.keys($basic-colors));
 // A default color for color generation function `get-color` to return a a default value on using wrong value
 $default-color: currentcolor !default;
 
+// CSS Named Colors Map
+// Purpose: This map contains 159+ CSS named colors for internal use only.
+// These colors are NOT generated as utility classes to prevent CSS bloat.
+// 
+// Used by:
+// - Color validation functions (to check if a string is a valid color)
+// - SCSS mixins that accept color names (e.g., @include apply(bg(coral)))
+// - Type detection in the framework
+//
+// Note: Generating utilities for all these colors would create thousands of classes
+// (each color × states × breakpoints), significantly increasing bundle size.
+// If you need specific named colors as utilities, add them to $color-primitives instead.
 $colors-constants: (
     "aliceblue": aliceblue,
     "antiquewhite": antiquewhite,

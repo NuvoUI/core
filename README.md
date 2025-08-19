@@ -1,6 +1,6 @@
 # NuvoUI
 
-_Human-readable SCSS for modern devs. Discover NuvoUI_
+A utility-first CSS framework built with modern SCSS, providing atomic classes and mixins for rapid UI development.
 
 [![GitHub stars](https://img.shields.io/github/stars/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
 [![GitHub forks](https://img.shields.io/github/forks/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
@@ -8,9 +8,53 @@ _Human-readable SCSS for modern devs. Discover NuvoUI_
 [![Discord](https://img.shields.io/discord/1307989034638905345?style=flat-square&label=Discord&color=5865F2)](https://discord.gg/dhxxKTK5Zx)
 [![Twitter](https://img.shields.io/badge/Twitter-@NuvoUI-1DA1F2?style=flat-square)](https://x.com/NuvoUI)
 
-## The Human-First SCSS Framework
+## What is NuvoUI?
 
-NuvoUI is designed for developers who want a better way to build responsive, beautiful websites without unnecessary complexity. Write CSS as naturally as you would speak it.
+NuvoUI is a comprehensive CSS framework that combines the flexibility of utility classes with the power of SCSS mixins. It offers a complete design system with responsive breakpoints, semantic theming, and advanced layout capabilities designed for developers who want to build responsive, beautiful websites without unnecessary complexity.
+
+## Key Features
+
+### Utility-First Architecture
+- **Atomic Classes**: Single-purpose classes like `bg-primary`, `p-4`, `flex`
+- **SCSS Mixins**: Use utilities in SCSS via `@include apply(bg(primary), p(4), flex)`
+- **Responsive Modifiers**: Breakpoint-specific classes with `@breakpoint` syntax
+- **State Modifiers**: Interactive states with `hover:`, `focus:`, `active:` prefixes
+
+### Advanced Theming System
+- **CSS Custom Properties**: Dynamic theming with CSS variables
+- **Semantic Tokens**: Brand colors (primary, secondary) and contextual colors (success, danger, warning, info)
+- **Automatic Color Scales**: Generate complete color palettes from base colors
+- **Contrast Calculation**: Automatic text color based on background contrast ratios
+- **Dark Mode Support**: Built-in theme switching capabilities
+
+### Comprehensive Layout System
+- **CSS Grid Utilities**: Complete grid system with areas, spans, and responsive variants
+- **Flexbox System**: Full flexbox implementation with alignment and distribution controls
+- **Container Queries**: Modern responsive design with element-based breakpoints
+- **Modern Layout Tools**: CSS Subgrid, aspect ratios, and intrinsic sizing
+
+### Typography & Content
+- **Fluid Typography**: Responsive font sizes with configurable scales
+- **Advanced Text Handling**: Truncation (single and multi-line), overflow control, text transforms
+- **Letter Spacing**: Granular tracking controls
+- **Line Height**: Semantic leading classes for optimal readability
+
+### Visual Enhancement
+- **Elevation System**: Consistent shadow scales with z-index management
+- **Border System**: Comprehensive border utilities with radius, styles, and colors
+- **Transform System**: CSS transforms using CSS variables for better performance
+- **Transition System**: Smooth animations with configurable timing and easing
+
+### Interactive Components
+- **Tooltip System**: Lightweight tooltips with positioning and sizing options
+- **State Management**: Comprehensive hover, focus, and active state handling
+- **Backdrop Utilities**: Modern backdrop filters and effects
+
+### Developer Experience
+- **Build System**: Automated utility generation from configuration
+- **Configuration**: Extensive customization through SCSS variables
+- **Documentation**: Interactive examples with live previews
+- **Atomic Structure**: BEM-compatible component architecture
 
 ## ✨ Why Choose NuvoUI?
 
@@ -58,7 +102,27 @@ yarn add @nuvoui/core
 <link rel="stylesheet" href="node_modules/@nuvoui/core/dist/nuvoui.min.css">
 ```
 
-## Core Features
+## Architecture
+
+### Configuration-Driven
+All utilities are generated from SCSS configuration maps:
+```scss
+$spacing: (0, 0.25rem, 0.5rem, 1rem, 1.5rem, 2rem, 3rem, 4rem, 6rem, 8rem);
+$colors: (primary: #3b82f6, secondary: #6b7280, success: #10b981);
+$breakpoints: (sm: 576px, md: 768px, lg: 992px, xl: 1200px);
+```
+
+### Modern CSS Features
+- CSS Custom Properties for dynamic theming
+- CSS Grid and Flexbox for layout
+- Container Queries for responsive design
+- CSS Transforms and Filters
+- Modern color functions (oklch, color-mix)
+
+### Framework Agnostic
+Works with any frontend framework or vanilla HTML/CSS. No JavaScript dependencies.
+
+## Core Features Examples
 
 ### 🎨 Beautiful Color System
 
@@ -72,7 +136,6 @@ NuvoUI includes a comprehensive color system with semantic color variables and a
 ### 📐 Flexible Layout System
 
 Build complex layouts with ease using our grid and flexbox utilities.
-
 
 ```html
 <!-- Responsive grid with auto placement -->
@@ -88,21 +151,7 @@ Build complex layouts with ease using our grid and flexbox utilities.
 </div>
 ```
 
-### 
-```scss
-.floating-element {
-  @include NuvoUI.animate-float((
-    distance: 10px,
-    duration: 3s,
-    direction: vertical
-  ));
-}
-```
-
 ### 🌓 Simple Dark Mode
-
-
-### Example 2: Elegant SCSS Mixins
 
 ```html
 <html data-theme="dark">
@@ -119,56 +168,22 @@ Toggle with a simple script:
 </button>
 ```
 
-## Step 3: Implementing Responsive Design
+### Elegant SCSS Mixins
 
 ```scss
 .hero-image {
-  @include NuvoUI.mx-auto;
-  @include NuvoUI.my(40);
-  @include NuvoUI.rounded(8);
-  @include NuvoUI.shadow-lg;
-  
-  // Add custom animation
-  @include NuvoUI.animate-bounce((
-    horizontal: 3%,
-    duration: 25s,
-  ));
+  @include apply(mx(auto), my(40), rounded(8), shadow(lg));
   
   // Responsive behavior
-  @include NuvoUI.media-up(lg) {
-    @include NuvoUI.max-width(80%);
-  }
-}
-
-// Generated CSS:
-.hero-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px !important;
-  margin-bottom: 40px !important;
-  border-radius: 8px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  animation: anim-bounce-0p-3per 25s ease-in-out infinite;
-}
-
-@media (min-width: 1024px) {
-  .hero-image {
-    max-width: 80%;
-  }
-}
-
-@keyframes anim-bounce-0p-3per {
-  0% {
-    transform: translateX(-0%) translateY(-3%);
-  }
-  50% {
-    transform: translateX(0%) translateY(3%);
-  }
-  100% {
-    transform: translateX(-0%) translateY(-3%);
+  @include media-up(lg) {
+    @include apply(max-w(80%));
   }
 }
 ```
+
+## Browser Support
+
+Modern browsers supporting CSS Grid, Custom Properties, and modern CSS features. IE11+ with appropriate polyfills for legacy support.
 
 
 ## Documentation
