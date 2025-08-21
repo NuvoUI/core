@@ -78,11 +78,11 @@
     position: absolute;
 }
 
-// @mixin absolute
-// @description Sets position to absolute, removing from normal document flow
+// @mixin fixed
+// @description Sets position to fixed, removing from normal document flow and fixing relative to viewport
 // @example
 // .popup {
-//   @include absolute;
+//   @include fixed;
 //   top: 0;
 //   left: 0;
 // }
@@ -147,10 +147,15 @@
 //  @include left(0);
 // }
 @mixin left($value) {
-    left: $value;
+    left: fn-units.fix-units($value);
 }
 
-// todo: Documentation
+// @mixin absolute-center
+// @description Centers an element absolutely within its positioned parent
+// @example
+// .modal {
+//   @include absolute-center;
+// }
 @mixin absolute-center {
     position: absolute;
     left: 50%;
@@ -162,8 +167,14 @@
     transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
 }
 
-// todo: Documentation
-// Fractional and percentage placements
+// @variable $position-fractions
+// @description Common percentage values for positioning elements
+// @note These values are used to generate position utility classes like .top-25p, .left-50p, etc.
+// @example
+// .sidebar {
+//   @include absolute;
+//   @include top(map.get($position-fractions, "25p")); // top: 25%
+// }
 $position-fractions: (
     "25p": 25%,
     "33p": 33.333%,
