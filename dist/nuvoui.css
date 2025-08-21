@@ -32725,7 +32725,7 @@ code {
 }
 
 .left-0 {
-  left: 0;
+  left: 0rem;
 }
 
 .top-1 {
@@ -33108,7 +33108,7 @@ code {
     bottom: 0rem;
   }
   .left-0\@xs {
-    left: 0;
+    left: 0rem;
   }
   .top-1\@xs {
     top: 0.25rem;
@@ -33423,7 +33423,7 @@ code {
     bottom: 0rem;
   }
   .left-0\@sm {
-    left: 0;
+    left: 0rem;
   }
   .top-1\@sm {
     top: 0.25rem;
@@ -33738,7 +33738,7 @@ code {
     bottom: 0rem;
   }
   .left-0\@md {
-    left: 0;
+    left: 0rem;
   }
   .top-1\@md {
     top: 0.25rem;
@@ -34053,7 +34053,7 @@ code {
     bottom: 0rem;
   }
   .left-0\@lg {
-    left: 0;
+    left: 0rem;
   }
   .top-1\@lg {
     top: 0.25rem;
@@ -34368,7 +34368,7 @@ code {
     bottom: 0rem;
   }
   .left-0\@xl {
-    left: 0;
+    left: 0rem;
   }
   .top-1\@xl {
     top: 0.25rem;
@@ -34683,7 +34683,7 @@ code {
     bottom: 0rem;
   }
   .left-0\@2xl {
-    left: 0;
+    left: 0rem;
   }
   .top-1\@2xl {
     top: 0.25rem;
