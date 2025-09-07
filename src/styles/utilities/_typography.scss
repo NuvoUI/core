@@ -268,7 +268,7 @@
 
     @each $size, $val in config-typo.$font-sizes {
         #{config-flags.$parent-selector} .text-#{$size}#{$suffix} {
-            @include text-size($size);
+            @include font-size($size);
         }
     }
 
@@ -446,7 +446,7 @@
         @media (min-width: #{$width}) {
             @each $size, $val in config-typo.$font-sizes {
                 #{config-flags.$parent-selector} .text-#{$size}\@#{$breakpoint} {
-                    @include text-size($size);
+                    @include font-size($size);
                 }
             }
             @include responsive-config-typo($breakpoint);
