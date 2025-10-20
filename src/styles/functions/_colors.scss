@@ -282,7 +282,7 @@ $color-cache: (); // to store the generated colors
     @if meta.type-of($shade) == "string" {
         $shade: fn-math.to-number($shade);
     }
-    
+
     @if meta.type-of($shade) == "number" {
         @return $shade >= 50 and $shade <= 900;
     }
