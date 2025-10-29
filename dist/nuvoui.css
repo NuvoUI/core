@@ -295,13 +295,10 @@ figcaption {
   color: var(--text-muted, #666);
 }
 
-a {
-  transition: color 0.2s ease-in-out;
-}
-a:not([class*=text-]) {
+a:not([class]) {
   color: var(--link-color);
 }
-a:not([class*=text-]):hover {
+a:not([class]):hover {
   color: var(--link-hover-color);
 }
 

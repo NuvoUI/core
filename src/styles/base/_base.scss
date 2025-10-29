@@ -175,10 +175,7 @@ body#{config-flags.$parent-selector} {
 
 // Links
 #{config-flags.$parent-selector} a {
-    transition: color 0.2s ease-in-out;
-
-    &:not([class*="text-"]) {
-        // document: if no hover or normal text provided it will use the default link color
+    &:not([class]) {
         color: var(--link-color);
 
         &:hover {
