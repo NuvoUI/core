@@ -9,6 +9,7 @@
 @use "../config/breakpoints" as config-breakpoint;
 @use "../config/typography" as config-typo;
 @use "../functions/feature-flags" as fn-flags;
+@use "../functions/math" as fn-math;
 
 // config-typo Utilities
 // Classes:
@@ -54,9 +55,15 @@
     } @else if meta.type-of($weight) == "number" {
         font-weight: $weight;
     } @else {
-        @warn "Unknown font weight: #{$weight} setting it to default.";
+        // Try converting string to number (handles "600" -> 600)
+        $converted: fn-math.to-number($weight);
+        @if meta.type-of($converted) == "number" {
+            font-weight: $converted;
+        } @else {
+            @warn "Unknown font weight: #{$weight} setting it to default.";
 
-        font-weight: 400; // Default to normal weight
+            font-weight: 400; // Default to normal weight
+        }
     }
 }
 
