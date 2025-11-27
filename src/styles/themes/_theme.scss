@@ -35,7 +35,7 @@ $colors-primitives: ();
         --inverted-#{$token}: #{map.get(config-theme.$light-theme, $token)};
     }
 
-    --button-text-color: #{map.get(config-theme.$light-theme, "text-default")};
+    --button-text-color: #{map.get(config-theme.$light-theme, "text-color")};
     --button-bg-color: var(--primary);
     --button-bg-color-hover: var(--primary-400);
     --link-color: var(--primary);
@@ -70,7 +70,7 @@ $colors-primitives: ();
         }
 
         // Light theme variables
-        --button-text-color: #{map.get(config-theme.$dark-theme, "text-default")};
+        --button-text-color: #{map.get(config-theme.$dark-theme, "text-color")};
         --button-bg-color: var(--primary);
         --button-bg-color-hover: var(--primary-600);
         --link-color: var(--primary);
