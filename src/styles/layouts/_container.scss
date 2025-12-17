@@ -11,10 +11,8 @@
 }
 
 @mixin container-padding($padding) {
-    & {
-        padding-top: $padding;
-        padding-bottom: $padding;
-    }
+    padding-top: $padding;
+    padding-bottom: $padding;
 }
 
 // Responsive container mixin

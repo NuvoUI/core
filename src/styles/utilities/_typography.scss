@@ -271,7 +271,10 @@
 }
 
 @mixin responsive-config-typo($breakpoint: null) {
-    $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
+    $suffix: "";
+    @if $breakpoint {
+        $suffix: "\\@#{$breakpoint}";
+    }
 
     @each $size, $val in config-typo.$font-sizes {
         #{config-flags.$parent-selector} .text-#{$size}#{$suffix} {

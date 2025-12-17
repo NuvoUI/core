@@ -83,7 +83,10 @@
     $b: "";
     $a: "";
     $has-alpha: $length == 5 or $length == 9;
-    $component-size: if($length < 6, 1, 2);
+    $component-size: 2;
+    @if $length < 6 {
+        $component-size: 1;
+    }
 
     // Validate and extract color components
     @for $i from 2 through $length {
@@ -255,9 +258,23 @@ $color-cache: (); // to store the generated colors
     $green: math.div(color.channel($color, "green"), 255);
     $blue: math.div(color.channel($color, "blue"), 255);
 
-    $red: if($red <= 0.0393, math.div($red, 12.92), math.pow((math.div($red + 0.055, 1.055)), 2.4));
-    $green: if($green <= 0.0393, math.div($green, 12.92), math.pow((math.div($green + 0.055, 1.055)), 2.4));
-    $blue: if($blue <= 0.0393, math.div($blue, 12.92), math.pow((math.div($blue + 0.055, 1.055)), 2.4));
+    @if $red <= 0.0393 {
+        $red: math.div($red, 12.92);
+    } @else {
+        $red: math.pow(math.div($red + 0.055, 1.055), 2.4);
+    }
+
+    @if $green <= 0.0393 {
+        $green: math.div($green, 12.92);
+    } @else {
+        $green: math.pow(math.div($green + 0.055, 1.055), 2.4);
+    }
+
+    @if $blue <= 0.0393 {
+        $blue: math.div($blue, 12.92);
+    } @else {
+        $blue: math.pow(math.div($blue + 0.055, 1.055), 2.4);
+    }
 
     @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
 }
@@ -274,7 +291,11 @@ $color-cache: (); // to store the generated colors
     @if map.has-key(config-theme.$light-theme, "text-inverted") {
         $light-color: map.get(config-theme.$light-theme, "text-inverted");
     }
-    @return if($luminance > 0.55, $dark-color, $light-color);
+    @if $luminance > 0.55 {
+        @return $dark-color;
+    } @else {
+        @return $light-color;
+    }
 }
 
 @function is-valid-shade($shade) {

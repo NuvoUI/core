@@ -32,8 +32,12 @@
         "9": 9,
     );
     $number-chars-end: 0;
+    $start-index: 1;
+    @if $minus {
+        $start-index: 2;
+    }
 
-    @for $i from if($minus, 2, 1) through string.length($val) {
+    @for $i from $start-index through string.length($val) {
         $character: string.slice($val, $i, $i);
 
         @if list.index(map.keys($numbers), $character) or $character == "." {
@@ -54,19 +58,31 @@
             // Look for valid unit
             @each $unit in config-constants.$units {
                 @if $rest == $unit {
-                    @return if($minus, -$result, $result) + string.unquote($unit);
+                    @if $minus {
+                        @return (-1 * $result) + string.unquote($unit);
+                    } @else {
+                        @return $result + string.unquote($unit);
+                    }
                 }
             }
 
             // No valid unit - return null for non-numeric strings
-            @if $i == if($minus, 2, 1) {
+            @if $i == $start-index {
                 @return null; // First char is non-numeric
             }
 
             // Otherwise return just the parsed number
-            @return if($minus, -$result, $result);
+            @if $minus {
+                @return -1 * $result;
+            } @else {
+                @return $result;
+            }
         }
     }
 
-    @return if($minus, -$result, $result);
+    @if $minus {
+        @return -1 * $result;
+    } @else {
+        @return $result;
+    }
 }

@@ -39,12 +39,24 @@ $generated-keyframes: ();
     $iteration: map.get($props, "iteration");
 
     // Handle units
-    $x-unit: if($x, fn-units.safe-unit-name(math.unit($x)), "-");
-    $y-unit: if($y, fn-units.safe-unit-name(math.unit($y)), "-");
+    $x-unit: "-";
+    @if $x {
+        $x-unit: fn-units.safe-unit-name(math.unit($x));
+    }
+    $y-unit: "-";
+    @if $y {
+        $y-unit: fn-units.safe-unit-name(math.unit($y));
+    }
 
     // Clean values (remove units)
-    $clean-x: if($x, fn-units.strip-unit($x), 0);
-    $clean-y: if($y, fn-units.strip-unit($y), 0);
+    $clean-x: 0;
+    @if $x {
+        $clean-x: fn-units.strip-unit($x);
+    }
+    $clean-y: 0;
+    @if $y {
+        $clean-y: fn-units.strip-unit($y);
+    }
 
     $animation-name: anim-bounce-#{$clean-x}#{$x-unit}-#{$clean-y}#{$y-unit};
 

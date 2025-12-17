@@ -216,7 +216,10 @@ $backdrop-filter-presets: (
 
 // Generate utility classes
 @mixin generate-backdrop-filter-utilities($breakpoint: null) {
-    $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
+    $suffix: "";
+    @if $breakpoint {
+        $suffix: "\\@#{$breakpoint}";
+    }
 
     // Base layer class
     #{config-flags.$parent-selector} .backdrop-layer#{$suffix} {

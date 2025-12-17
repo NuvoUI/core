@@ -25,6 +25,9 @@
       {
         "message": "Expected id selector to be kebab-case, optionally with : or @"
       }
-    ]
+    ],
+    "container-name-pattern": null,
+    "scss/dollar-variable-no-missing-interpolation": null,
+    "no-invalid-position-declaration": null
   }
 }

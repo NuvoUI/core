@@ -5,213 +5,212 @@
 @use "../config/feature-flags" as config-flags;
 @use "../tools/accessibility" as tool-accessibility;
 
-:root {
-    --font-family-base: #{config-typo.$font-family};
-}
-
-// Base config-typo styles
-html {
-    font-size: config-typo.$base-size;
-}
-
-body#{config-flags.$parent-selector} {
-    font-family: var(--font-family-base);
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--text-default);
-}
-
-// Headings
-#{config-flags.$parent-selector} h1,
-#{config-flags.$parent-selector} h2,
-#{config-flags.$parent-selector} h3,
-#{config-flags.$parent-selector} h4,
-#{config-flags.$parent-selector} h5,
-#{config-flags.$parent-selector} h6 {
-    margin-bottom: 0.5em;
-    font-family: var(--font-family-base);
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-#{config-flags.$parent-selector} h1 {
-    font-size: map.get(config-typo.$font-sizes, "4xl");
-}
-
-#{config-flags.$parent-selector} h2 {
-    font-size: map.get(config-typo.$font-sizes, "3xl");
-}
-
-#{config-flags.$parent-selector} h3 {
-    font-size: map.get(config-typo.$font-sizes, "2xl");
-}
-
-#{config-flags.$parent-selector} h4 {
-    font-size: map.get(config-typo.$font-sizes, "xl");
-}
-
-#{config-flags.$parent-selector} h5 {
-    font-size: map.get(config-typo.$font-sizes, "lg");
-}
-
-#{config-flags.$parent-selector} h6 {
-    font-size: map.get(config-typo.$font-sizes, "base");
-}
-
-// Paragraphs
-#{config-flags.$parent-selector} p {
-    margin-bottom: 1rem;
-}
-
-// Small text
-#{config-flags.$parent-selector} small {
-    font-size: map.get(config-typo.$font-sizes, "sm");
-}
-
-// Buttons
-#{config-flags.$parent-selector} button {
-    padding: 0.5rem 1rem;
-    border: 0;
-    border-radius: 0.25rem;
-    font-family: var(--font-family-base);
-    cursor: pointer;
-    transition:
-        background-color 0.2s ease-in-out,
-        color 0.2s ease-in-out;
-
-    &:focus {
-        outline: none;
+@layer base {
+    :root {
+        --font-family-base: #{config-typo.$font-family};
     }
 
-    &:disabled {
-        background-color: #e0e0e0; // Disabled button color
-        color: #a0a0a0; // Disabled text color
-        cursor: not-allowed;
+    // Base config-typo styles
+    html {
+        font-size: config-typo.$base-size;
     }
 
-    // Default styling when no bg-* class is present
-    &:not([class*="bg-"]) {
-        background-color: var(--button-bg-color, #007bff); // Default button color
+    body#{config-flags.$parent-selector} {
+        font-family: var(--font-family-base);
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--text-default);
+    }
+
+    // Headings
+    #{config-flags.$parent-selector} h1,
+    #{config-flags.$parent-selector} h2,
+    #{config-flags.$parent-selector} h3,
+    #{config-flags.$parent-selector} h4,
+    #{config-flags.$parent-selector} h5,
+    #{config-flags.$parent-selector} h6 {
+        margin-bottom: 0.5em;
+        font-family: var(--font-family-base);
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    #{config-flags.$parent-selector} h1 {
+        font-size: map.get(config-typo.$font-sizes, "4xl");
+    }
+
+    #{config-flags.$parent-selector} h2 {
+        font-size: map.get(config-typo.$font-sizes, "3xl");
+    }
+
+    #{config-flags.$parent-selector} h3 {
+        font-size: map.get(config-typo.$font-sizes, "2xl");
+    }
+
+    #{config-flags.$parent-selector} h4 {
+        font-size: map.get(config-typo.$font-sizes, "xl");
+    }
+
+    #{config-flags.$parent-selector} h5 {
+        font-size: map.get(config-typo.$font-sizes, "lg");
+    }
+
+    #{config-flags.$parent-selector} h6 {
+        font-size: map.get(config-typo.$font-sizes, "base");
+    }
+
+    // Paragraphs
+    #{config-flags.$parent-selector} p {
+        margin-bottom: 1rem;
+    }
+
+    // Small text
+    #{config-flags.$parent-selector} small {
+        font-size: map.get(config-typo.$font-sizes, "sm");
+    }
+
+    // Buttons
+    #{config-flags.$parent-selector} button {
+        padding: 0.5rem 1rem;
+        border: 0;
+        border-radius: 0.25rem;
+        font-family: var(--font-family-base);
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease-in-out,
+            color 0.2s ease-in-out;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:disabled {
+            background-color: #e0e0e0;
+            color: #a0a0a0;
+            cursor: not-allowed;
+        }
+
+        background-color: var(--button-bg-color, #007bff);
         color: var(--button-text-color, #fff);
 
         &:hover {
             background-color: var(--button-bg-color-hover, #0056b3);
         }
     }
-}
 
-// Inputs
-#{config-flags.$parent-selector} input[type="text"],
-#{config-flags.$parent-selector} input[type="tel"],
-#{config-flags.$parent-selector} input[type="email"],
-#{config-flags.$parent-selector} input[type="password"],
-#{config-flags.$parent-selector} input[type="number"],
-#{config-flags.$parent-selector} input[type="search"],
-#{config-flags.$parent-selector} textarea {
-    padding: 0.5rem;
-    border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
-    border-radius: 0.25rem;
-    width: 100%; // Full width
-    font-family: var(--font-family-base);
-    transition: border 0.2s ease-in-out;
+    // Inputs
+    #{config-flags.$parent-selector} input[type="text"],
+    #{config-flags.$parent-selector} input[type="tel"],
+    #{config-flags.$parent-selector} input[type="email"],
+    #{config-flags.$parent-selector} input[type="password"],
+    #{config-flags.$parent-selector} input[type="number"],
+    #{config-flags.$parent-selector} input[type="search"],
+    #{config-flags.$parent-selector} textarea {
+        padding: 0.5rem;
+        border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
+        border-radius: 0.25rem;
+        width: 100%; // Full width
+        font-family: var(--font-family-base);
+        transition: border 0.2s ease-in-out;
 
-    &:focus {
-        border-color: var(--link-color);
-        outline: none;
-    }
-}
-
-// Checkboxes and Radio Buttons
-#{config-flags.$parent-selector} input[type="checkbox"],
-#{config-flags.$parent-selector} input[type="radio"] {
-    margin-right: 0.5rem; // Space between input and label
-}
-
-// Selects
-#{config-flags.$parent-selector} select {
-    padding: 0.5rem;
-    border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
-    border-radius: 0.25rem;
-    width: 100%; // Full width
-    font-family: var(--font-family-base);
-    transition: border 0.2s ease-in-out;
-
-    &:focus {
-        border-color: var(--link-color);
-        outline: none;
-    }
-}
-
-// Blockquotes
-#{config-flags.$parent-selector} blockquote {
-    margin: 1rem 0;
-    padding: 0.5rem 1rem;
-    border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-base, var(--secondary));
-    font-style: italic;
-}
-
-// Horizontal Rule
-#{config-flags.$parent-selector} hr {
-    border: none;
-    border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
-    margin: 1rem 0;
-}
-
-// Images
-#{config-flags.$parent-selector} img {
-    max-width: 100%; // Responsive images
-    height: auto;
-}
-
-// Figures and Captions
-#{config-flags.$parent-selector} figure {
-    margin: 1rem 0;
-}
-
-#{config-flags.$parent-selector} figcaption {
-    font-size: 0.875rem; // Smaller font for captions
-    color: var(--text-muted, #666); // Optional secondary text color
-}
-
-// Links
-#{config-flags.$parent-selector} a {
-    &:not([class]) {
-        color: var(--link-color);
-
-        &:hover {
-            color: var(--link-hover-color);
+        &:focus {
+            border-color: var(--link-color);
+            outline: none;
         }
     }
-}
 
-// Labels
-#{config-flags.$parent-selector} label[for] {
-    cursor: pointer;
-}
-
-// todo: add to doc
-#{config-flags.$parent-selector} .sr-only {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-}
-
-#{config-flags.$parent-selector} code {
-    font-family: "Courier New", Courier, monospace;
-    background-color: #f8f8f8;
-    color: #d63384;
-    padding: 2px 6px;
-    border-radius: 3px;
-    white-space: nowrap;
-
-    @include tool-accessibility.dark-mode {
-        background-color: #333;
-        color: #f8f8f2;
+    // Checkboxes and Radio Buttons
+    #{config-flags.$parent-selector} input[type="checkbox"],
+    #{config-flags.$parent-selector} input[type="radio"] {
+        margin-right: 0.5rem; // Space between input and label
     }
-}
+
+    // Selects
+    #{config-flags.$parent-selector} select {
+        padding: 0.5rem;
+        border: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
+        border-radius: 0.25rem;
+        width: 100%; // Full width
+        font-family: var(--font-family-base);
+        transition: border 0.2s ease-in-out;
+
+        &:focus {
+            border-color: var(--link-color);
+            outline: none;
+        }
+    }
+
+    // Blockquotes
+    #{config-flags.$parent-selector} blockquote {
+        margin: 1rem 0;
+        padding: 0.5rem 1rem;
+        border-left: var(--border-size, 4px) var(--border-style, solid) var(--border-base, var(--secondary));
+        font-style: italic;
+    }
+
+    // Horizontal Rule
+    #{config-flags.$parent-selector} hr {
+        border: none;
+        border-top: var(--border-size, 1px) var(--border-style, solid) var(--border-base, var(--secondary));
+        margin: 1rem 0;
+    }
+
+    // Images
+    #{config-flags.$parent-selector} img {
+        max-width: 100%; // Responsive images
+        height: auto;
+    }
+
+    // Figures and Captions
+    #{config-flags.$parent-selector} figure {
+        margin: 1rem 0;
+    }
+
+    #{config-flags.$parent-selector} figcaption {
+        font-size: 0.875rem; // Smaller font for captions
+        color: var(--text-muted, #666); // Optional secondary text color
+    }
+
+    // Links
+    #{config-flags.$parent-selector} a {
+        &:not([class]) {
+            color: var(--link-color);
+
+            &:hover {
+                color: var(--link-hover-color);
+            }
+        }
+    }
+
+    // Labels
+    #{config-flags.$parent-selector} label[for] {
+        cursor: pointer;
+    }
+
+    // todo: add to doc
+    #{config-flags.$parent-selector} .sr-only {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip-path: inset(50%) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
+    #{config-flags.$parent-selector} code {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f8f8f8;
+        color: #d63384;
+        padding: 2px 6px;
+        border-radius: 3px;
+        white-space: nowrap;
+
+        @include tool-accessibility.dark-mode {
+            background-color: #333;
+            color: #f8f8f2;
+        }
+    }
+} // end @layer base

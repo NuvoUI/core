@@ -66,7 +66,10 @@ $z-index-levels: (
 // Generate z-index utility classes
 // @param {String} $breakpoint - Optional breakpoint name for responsive variants
 @mixin z-index-utilities($breakpoint: null) {
-    $suffix: if($breakpoint, "\\@#{$breakpoint}", "");
+    $suffix: "";
+    @if $breakpoint {
+        $suffix: "\\@#{$breakpoint}";
+    }
 
     // Standard numbered z-index utilities
     @each $key, $value in $z-indexes {

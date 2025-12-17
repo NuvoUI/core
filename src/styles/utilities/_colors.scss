@@ -18,7 +18,10 @@
     color: color-fn.find-text-color($color);
 
     @media (prefers-contrast: more) {
-        $adjusted: if(color.lightness($color) > 50%, color.adjust($color, $lightness: -10%), color.adjust($color, $lightness: 10%));
+        $adjusted: color.adjust($color, $lightness: 10%);
+        @if color.lightness($color) > 50% {
+            $adjusted: color.adjust($color, $lightness: -10%);
+        }
 
         background-color: $adjusted;
         color: color-fn.find-text-color($adjusted);
