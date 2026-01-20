@@ -29,25 +29,24 @@
 // Ensures a value has a unit, adding $default-unit if none exists
 // @param {Number|String} $val - The value to check
 // @return {String} - The value with units
-// todo improve this when we can
 @function fix-units($val, $unit: config-flags.$default-unit, $debug: null) {
-    // Handle null values
-    @if not $val {
-        @return null;
-    }
-
-    // Check type
-    @if meta.type-of($val) != "number" and meta.type-of($val) != "string" {
-        @error "fix-units() requires a number or string value";
-        @return null;
-    }
-
-    // Handle number type
+    // Numbers first (hot path for utility generation)
     @if meta.type-of($val) == "number" {
         @if math.is-unitless($val) {
             @return $val + $unit;
         }
         @return $val;
+    }
+
+    // Handle null values
+    @if not $val {
+        @return null;
+    }
+
+    // Type validation
+    @if meta.type-of($val) != "string" {
+        @error "fix-units() requires a number or string value";
+        @return null;
     }
 
     // String handling - strip quotes first
@@ -61,21 +60,21 @@
     // Check if string already has units
     @each $u in config-constants.$units {
         @if string.slice($val, -1 * string.length($u)) == $u {
-            // Try to convert numeric strings with units (like "20px") to actual numbers
             $number-part: string.slice($val, 1, string.length($val) - string.length($u));
 
-            @if string.index($number-part, ".") or fn-math.to-number($number-part) {
-                @return fn-math.to-number($number-part) + string.unquote($u);
+            $parsed: fn-math.to-number($number-part, string.unquote($u));
+            @if $parsed {
+                @return $parsed;
             }
 
             @return $val;
         }
     }
 
-    // Try to convert to number if possible
-    @if string.index($val, ".") or fn-math.to-number($val) {
-        $number-val: fn-math.to-number($val);
-        @return $number-val + $unit;
+    // Try to convert to number if possible (unitless case - skip unit detection)
+    $parsed: fn-math.to-number-raw($val);
+    @if $parsed {
+        @return list.nth($parsed, 1) + $unit;
     }
 
     // Default: just add the unit

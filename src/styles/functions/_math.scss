@@ -6,83 +6,85 @@
 @use "../config/constants" as config-constants;
 @use "./strings" as fn-strings;
 
-@function to-number($value) {
+// Module-level constant - created once, not per function call
+$digit-map: (
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+);
+
+// Raw number parsing - returns (number, remaining-string) tuple
+@function to-number-raw($value) {
     @if meta.type-of($value) == "number" {
-        @return $value;
+        @return ($value, "");
     } @else if meta.type-of($value) != "string" {
-        @error "Value for `number` should be a number or a string.";
-        @return $value;
+        @error "Value for `to-number-raw` should be a number or a string.";
+        @return null;
     }
 
     $val: string.unquote(fn-strings.strip-quotes($value));
 
     $result: 0;
     $digits: 0;
-    $minus: string.slice($value, 1, 1) == "-";
-    $numbers: (
-        "0": 0,
-        "1": 1,
-        "2": 2,
-        "3": 3,
-        "4": 4,
-        "5": 5,
-        "6": 6,
-        "7": 7,
-        "8": 8,
-        "9": 9,
-    );
-    $number-chars-end: 0;
-    $start-index: 1;
-    @if $minus {
-        $start-index: 2;
-    }
+    $minus: string.slice($val, 1, 1) == "-";
+    $sign: if($minus, -1, 1);
+    $start-index: if($minus, 2, 1);
 
     @for $i from $start-index through string.length($val) {
         $character: string.slice($val, $i, $i);
 
-        @if list.index(map.keys($numbers), $character) or $character == "." {
-            $number-chars-end: $i;
-
+        @if list.index(map.keys($digit-map), $character) or $character == "." {
             @if $character == "." {
                 $digits: 1;
             } @else if $digits == 0 {
-                $result: $result * 10 + map.get($numbers, $character);
+                $result: $result * 10 + map.get($digit-map, $character);
             } @else {
                 $digits: $digits * 10;
-                $result: $result + math.div(map.get($numbers, $character), $digits);
+                $result: $result + math.div(map.get($digit-map, $character), $digits);
             }
         } @else {
-            // Non-numeric character found - check for unit
-            $rest: string.slice($val, $i);
-
-            // Look for valid unit
-            @each $unit in config-constants.$units {
-                @if $rest == $unit {
-                    @if $minus {
-                        @return (-1 * $result) + string.unquote($unit);
-                    } @else {
-                        @return $result + string.unquote($unit);
-                    }
-                }
-            }
-
-            // No valid unit - return null for non-numeric strings
             @if $i == $start-index {
-                @return null; // First char is non-numeric
+                @return null;
             }
-
-            // Otherwise return just the parsed number
-            @if $minus {
-                @return -1 * $result;
-            } @else {
-                @return $result;
-            }
+            @return (($sign * $result), string.slice($val, $i));
         }
     }
 
-    @if $minus {
-        @return -1 * $result;
-    } @else {
-        @return $result;
+    @return (($sign * $result), "");
+}
+
+// Full conversion with unit handling - calls to-number-raw internally
+@function to-number($value, $append-unit: null) {
+    $parsed: to-number-raw($value);
+    @if not $parsed {
+        @return null;
     }
+
+    $number: list.nth($parsed, 1);
+
+    @if $append-unit {
+        @return $number + $append-unit;
+    }
+
+    $rest: list.nth($parsed, 2);
+    @if $rest == "" {
+        @return $number;
+    }
+
+    // Check if remaining string is a valid unit
+    @each $unit in config-constants.$units {
+        @if $rest == $unit {
+            @return $number + string.unquote($unit);
+        }
+    }
+
+    // No valid unit found, return just the number
+    @return $number;
 }

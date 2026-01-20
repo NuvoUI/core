@@ -7,14 +7,14 @@
     --tooltip-text-color: #fff;
 
     // Animation variables
-    --microtip-transition-duration: 0.18s;
-    --microtip-transition-easing: ease-in-out;
-    --microtip-transition-delay: 0s;
+    --tooltip-transition-duration: 0.18s;
+    --tooltip-transition-easing: ease-in-out;
+    --tooltip-transition-delay: 0s;
 
-    // config-typo variables
-    --microtip-font-size: 13px;
-    --microtip-font-weight: normal;
-    --microtip-text-transform: none;
+    // Typography variables
+    --tooltip-font-size: 13px;
+    --tooltip-font-weight: normal;
+    --tooltip-text-transform: none;
 
     // Sizing variables
     --tooltip-small-width: 80px;
@@ -47,8 +47,8 @@
                 opacity: 0;
                 pointer-events: none;
                 transition:
-                    opacity var(--microtip-transition-duration) var(--microtip-transition-easing) var(--microtip-transition-delay),
-                    transform var(--microtip-transition-duration) var(--microtip-transition-easing) var(--microtip-transition-delay);
+                    opacity var(--tooltip-transition-duration) var(--tooltip-transition-easing) var(--tooltip-transition-delay),
+                    transform var(--tooltip-transition-duration) var(--tooltip-transition-easing) var(--tooltip-transition-delay);
                 position: absolute;
                 box-sizing: border-box;
                 z-index: 10;
@@ -66,9 +66,9 @@
                 border-radius: var(--tooltip-border-radius);
                 color: var(--tooltip-text-color);
                 content: attr(data-tooltip);
-                font-size: var(--microtip-font-size);
-                font-weight: var(--microtip-font-weight);
-                text-transform: var(--microtip-text-transform);
+                font-size: var(--tooltip-font-size);
+                font-weight: var(--tooltip-font-weight);
+                text-transform: var(--tooltip-text-transform);
                 padding: 0.5em 1em;
                 white-space: nowrap;
                 box-sizing: content-box;
@@ -84,7 +84,7 @@
         }
 
         // Top position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position|="top"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position|="top"] {
             &::before {
                 border-left: 9px solid transparent;
                 border-right: 9px solid transparent;
@@ -114,7 +114,7 @@
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position="top-left"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="top-left"] {
             &::after {
                 transform: translate3d(calc(-100% + 16px), 0, 0);
                 bottom: 100%;
@@ -125,7 +125,7 @@
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position="top-right"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="top-right"] {
             &::after {
                 transform: translate3d(calc(0% + -16px), 0, 0);
                 bottom: 100%;
@@ -137,7 +137,7 @@
         }
 
         // Bottom position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position|="bottom"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position|="bottom"] {
             &::before {
                 border-left: 9px solid transparent;
                 border-right: 9px solid transparent;
@@ -169,7 +169,7 @@
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position="bottom-left"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="bottom-left"] {
             &::after {
                 transform: translate3d(calc(-100% + 16px), -10px, 0);
                 top: 100%;
@@ -180,7 +180,7 @@
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position="bottom-right"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="bottom-right"] {
             &::after {
                 transform: translate3d(calc(0% + -16px), -10px, 0);
                 top: 100%;
@@ -192,7 +192,7 @@
         }
 
         // Left position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position="left"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="left"] {
             &::before,
             &::after {
                 inset: auto auto auto 100%;
@@ -224,7 +224,7 @@
         }
 
         // Right position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-position="right"] {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="right"] {
             &::before,
             &::after {
                 bottom: auto;
@@ -255,17 +255,17 @@
         }
 
         // Tooltip sizes
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-size="small"]::after {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-size="small"]::after {
             white-space: initial;
             width: var(--tooltip-small-width);
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-size="medium"]::after {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-size="medium"]::after {
             white-space: initial;
             width: var(--tooltip-medium-width);
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-microtip-size="large"]::after {
+        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-size="large"]::after {
             white-space: initial;
             width: var(--tooltip-large-width);
         }
