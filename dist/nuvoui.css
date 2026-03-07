@@ -5655,8 +5655,8 @@
   }
 }
 .border {
-  --border-size: 1rem;
-  border-width: 1rem;
+  --border-size: 1px;
+  border-width: 1px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5664,8 +5664,8 @@
 }
 
 .border-0 {
-  --border-size: 0rem;
-  border-width: 0rem;
+  --border-size: 0px;
+  border-width: 0px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5673,43 +5673,43 @@
 }
 
 .border-t {
-  border-top-width: 1rem;
+  border-top-width: 1px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
 }
 
 .border-r {
-  border-right-width: 1rem;
+  border-right-width: 1px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-b {
-  border-bottom-width: 1rem;
+  border-bottom-width: 1px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
 
 .border-l {
-  border-left-width: 1rem;
+  border-left-width: 1px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
 }
 
 .border-x {
-  border-left-width: 1rem;
+  border-left-width: 1px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
-  border-right-width: 1rem;
+  border-right-width: 1px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-y {
-  border-top-width: 1rem;
+  border-top-width: 1px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
-  border-bottom-width: 1rem;
+  border-bottom-width: 1px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
@@ -5719,8 +5719,8 @@
 .active\:border-0:active,
 .focus\:border-0:focus,
 .group:hover .group-hover\:border-0 {
-  --border-size: 0rem;
-  border-width: 0rem;
+  --border-size: 0px;
+  border-width: 0px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5728,43 +5728,43 @@
 }
 
 .border-t-0 {
-  border-top-width: 0rem;
+  border-top-width: 0px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
 }
 
 .border-r-0 {
-  border-right-width: 0rem;
+  border-right-width: 0px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-b-0 {
-  border-bottom-width: 0rem;
+  border-bottom-width: 0px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
 
 .border-l-0 {
-  border-left-width: 0rem;
+  border-left-width: 0px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
 }
 
 .border-x-0 {
-  border-left-width: 1rem;
+  border-left-width: 0px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
-  border-right-width: 1rem;
+  border-right-width: 0px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-y-0 {
-  border-top-width: 0rem;
+  border-top-width: 0px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
-  border-bottom-width: 0rem;
+  border-bottom-width: 0px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
@@ -5774,8 +5774,8 @@
 .active\:border-1:active,
 .focus\:border-1:focus,
 .group:hover .group-hover\:border-1 {
-  --border-size: 1rem;
-  border-width: 1rem;
+  --border-size: 1px;
+  border-width: 1px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5783,43 +5783,43 @@
 }
 
 .border-t-1 {
-  border-top-width: 1rem;
+  border-top-width: 1px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
 }
 
 .border-r-1 {
-  border-right-width: 1rem;
+  border-right-width: 1px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-b-1 {
-  border-bottom-width: 1rem;
+  border-bottom-width: 1px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
 
 .border-l-1 {
-  border-left-width: 1rem;
+  border-left-width: 1px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
 }
 
 .border-x-1 {
-  border-left-width: 1rem;
+  border-left-width: 1px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
-  border-right-width: 1rem;
+  border-right-width: 1px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-y-1 {
-  border-top-width: 1rem;
+  border-top-width: 1px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
-  border-bottom-width: 1rem;
+  border-bottom-width: 1px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
@@ -5829,8 +5829,8 @@
 .active\:border-2:active,
 .focus\:border-2:focus,
 .group:hover .group-hover\:border-2 {
-  --border-size: 2rem;
-  border-width: 2rem;
+  --border-size: 2px;
+  border-width: 2px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5838,43 +5838,43 @@
 }
 
 .border-t-2 {
-  border-top-width: 2rem;
+  border-top-width: 2px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
 }
 
 .border-r-2 {
-  border-right-width: 2rem;
+  border-right-width: 2px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-b-2 {
-  border-bottom-width: 2rem;
+  border-bottom-width: 2px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
 
 .border-l-2 {
-  border-left-width: 2rem;
+  border-left-width: 2px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
 }
 
 .border-x-2 {
-  border-left-width: 1rem;
+  border-left-width: 2px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
-  border-right-width: 1rem;
+  border-right-width: 2px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-y-2 {
-  border-top-width: 2rem;
+  border-top-width: 2px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
-  border-bottom-width: 2rem;
+  border-bottom-width: 2px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
@@ -5884,8 +5884,8 @@
 .active\:border-4:active,
 .focus\:border-4:focus,
 .group:hover .group-hover\:border-4 {
-  --border-size: 4rem;
-  border-width: 4rem;
+  --border-size: 4px;
+  border-width: 4px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5893,43 +5893,43 @@
 }
 
 .border-t-4 {
-  border-top-width: 4rem;
+  border-top-width: 4px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
 }
 
 .border-r-4 {
-  border-right-width: 4rem;
+  border-right-width: 4px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-b-4 {
-  border-bottom-width: 4rem;
+  border-bottom-width: 4px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
 
 .border-l-4 {
-  border-left-width: 4rem;
+  border-left-width: 4px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
 }
 
 .border-x-4 {
-  border-left-width: 1rem;
+  border-left-width: 4px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
-  border-right-width: 1rem;
+  border-right-width: 4px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-y-4 {
-  border-top-width: 4rem;
+  border-top-width: 4px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
-  border-bottom-width: 4rem;
+  border-bottom-width: 4px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
@@ -5939,8 +5939,8 @@
 .active\:border-8:active,
 .focus\:border-8:focus,
 .group:hover .group-hover\:border-8 {
-  --border-size: 8rem;
-  border-width: 8rem;
+  --border-size: 8px;
+  border-width: 8px;
   border-style: solid;
   border-color: var(--border-base);
   --border-style: solid;
@@ -5948,43 +5948,43 @@
 }
 
 .border-t-8 {
-  border-top-width: 8rem;
+  border-top-width: 8px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
 }
 
 .border-r-8 {
-  border-right-width: 8rem;
+  border-right-width: 8px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-b-8 {
-  border-bottom-width: 8rem;
+  border-bottom-width: 8px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
 
 .border-l-8 {
-  border-left-width: 8rem;
+  border-left-width: 8px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
 }
 
 .border-x-8 {
-  border-left-width: 1rem;
+  border-left-width: 8px;
   border-left-style: var(--border-style, solid);
   border-left-color: var(--border-base);
-  border-right-width: 1rem;
+  border-right-width: 8px;
   border-right-style: var(--border-style, solid);
   border-right-color: var(--border-base);
 }
 
 .border-y-8 {
-  border-top-width: 8rem;
+  border-top-width: 8px;
   border-top-style: var(--border-style, solid);
   border-top-color: var(--border-base);
-  border-bottom-width: 8rem;
+  border-bottom-width: 8px;
   border-bottom-style: var(--border-style, solid);
   border-bottom-color: var(--border-base);
 }
@@ -6507,56 +6507,56 @@
 
 @media (min-width: 480px) {
   .border-0\@xs {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-1\@xs {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-2\@xs {
-    --border-size: 2rem;
-    border-width: 2rem;
+    --border-size: 2px;
+    border-width: 2px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-4\@xs {
-    --border-size: 4rem;
-    border-width: 4rem;
+    --border-size: 4px;
+    border-width: 4px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-8\@xs {
-    --border-size: 8rem;
-    border-width: 8rem;
+    --border-size: 8px;
+    border-width: 8px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border\@xs {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-0\@xs {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
@@ -6598,56 +6598,56 @@
 }
 @media (min-width: 640px) {
   .border-0\@sm {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-1\@sm {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-2\@sm {
-    --border-size: 2rem;
-    border-width: 2rem;
+    --border-size: 2px;
+    border-width: 2px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-4\@sm {
-    --border-size: 4rem;
-    border-width: 4rem;
+    --border-size: 4px;
+    border-width: 4px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-8\@sm {
-    --border-size: 8rem;
-    border-width: 8rem;
+    --border-size: 8px;
+    border-width: 8px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border\@sm {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-0\@sm {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
@@ -6689,56 +6689,56 @@
 }
 @media (min-width: 768px) {
   .border-0\@md {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-1\@md {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-2\@md {
-    --border-size: 2rem;
-    border-width: 2rem;
+    --border-size: 2px;
+    border-width: 2px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-4\@md {
-    --border-size: 4rem;
-    border-width: 4rem;
+    --border-size: 4px;
+    border-width: 4px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-8\@md {
-    --border-size: 8rem;
-    border-width: 8rem;
+    --border-size: 8px;
+    border-width: 8px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border\@md {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-0\@md {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
@@ -6780,56 +6780,56 @@
 }
 @media (min-width: 1024px) {
   .border-0\@lg {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-1\@lg {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-2\@lg {
-    --border-size: 2rem;
-    border-width: 2rem;
+    --border-size: 2px;
+    border-width: 2px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-4\@lg {
-    --border-size: 4rem;
-    border-width: 4rem;
+    --border-size: 4px;
+    border-width: 4px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-8\@lg {
-    --border-size: 8rem;
-    border-width: 8rem;
+    --border-size: 8px;
+    border-width: 8px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border\@lg {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-0\@lg {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
@@ -6871,56 +6871,56 @@
 }
 @media (min-width: 1280px) {
   .border-0\@xl {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-1\@xl {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-2\@xl {
-    --border-size: 2rem;
-    border-width: 2rem;
+    --border-size: 2px;
+    border-width: 2px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-4\@xl {
-    --border-size: 4rem;
-    border-width: 4rem;
+    --border-size: 4px;
+    border-width: 4px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-8\@xl {
-    --border-size: 8rem;
-    border-width: 8rem;
+    --border-size: 8px;
+    border-width: 8px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border\@xl {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-0\@xl {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
@@ -6962,56 +6962,56 @@
 }
 @media (min-width: 1536px) {
   .border-0\@2xl {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-1\@2xl {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-2\@2xl {
-    --border-size: 2rem;
-    border-width: 2rem;
+    --border-size: 2px;
+    border-width: 2px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-4\@2xl {
-    --border-size: 4rem;
-    border-width: 4rem;
+    --border-size: 4px;
+    border-width: 4px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-8\@2xl {
-    --border-size: 8rem;
-    border-width: 8rem;
+    --border-size: 8px;
+    border-width: 8px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border\@2xl {
-    --border-size: 1rem;
-    border-width: 1rem;
+    --border-size: 1px;
+    border-width: 1px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
     --border-color: var(--border-base);
   }
   .border-0\@2xl {
-    --border-size: 0rem;
-    border-width: 0rem;
+    --border-size: 0px;
+    border-width: 0px;
     border-style: solid;
     border-color: var(--border-base);
     --border-style: solid;
@@ -10568,7 +10568,7 @@
   height: fit-content;
 }
 
-@media screen and (min-width: 479.99px) {
+@media screen and (min-width: 480px) {
   .w-0p\@xs,
   .hover\:w-0p\@xs:hover,
   .group:hover .group-hover\:w-0p\@xs {
@@ -11362,7 +11362,7 @@
   height: fit-content;
 }
 
-@media screen and (min-width: 639.99px) {
+@media screen and (min-width: 640px) {
   .w-0p\@sm,
   .hover\:w-0p\@sm:hover,
   .group:hover .group-hover\:w-0p\@sm {
@@ -12156,7 +12156,7 @@
   height: fit-content;
 }
 
-@media screen and (min-width: 767.99px) {
+@media screen and (min-width: 768px) {
   .w-0p\@md,
   .hover\:w-0p\@md:hover,
   .group:hover .group-hover\:w-0p\@md {
@@ -12950,7 +12950,7 @@
   height: fit-content;
 }
 
-@media screen and (min-width: 1023.99px) {
+@media screen and (min-width: 1024px) {
   .w-0p\@lg,
   .hover\:w-0p\@lg:hover,
   .group:hover .group-hover\:w-0p\@lg {
@@ -13744,7 +13744,7 @@
   height: fit-content;
 }
 
-@media screen and (min-width: 1279.99px) {
+@media screen and (min-width: 1280px) {
   .w-0p\@xl,
   .hover\:w-0p\@xl:hover,
   .group:hover .group-hover\:w-0p\@xl {
@@ -14538,7 +14538,7 @@
   height: fit-content;
 }
 
-@media screen and (min-width: 1535.99px) {
+@media screen and (min-width: 1536px) {
   .w-0p\@2xl,
   .hover\:w-0p\@2xl:hover,
   .group:hover .group-hover\:w-0p\@2xl {
@@ -21322,33 +21322,6 @@
   .text-4xl\@xs {
     font-size: 2.5rem;
   }
-  .text-xs\@xs {
-    font-size: 0.75rem;
-  }
-  .text-sm\@xs {
-    font-size: 0.875rem;
-  }
-  .text-md\@xs {
-    font-size: 1rem;
-  }
-  .text-base\@xs {
-    font-size: 1rem;
-  }
-  .text-lg\@xs {
-    font-size: 1.25rem;
-  }
-  .text-xl\@xs {
-    font-size: 1.5rem;
-  }
-  .text-2xl\@xs {
-    font-size: 1.75rem;
-  }
-  .text-3xl\@xs {
-    font-size: 2rem;
-  }
-  .text-4xl\@xs {
-    font-size: 2.5rem;
-  }
   .font-thin\@xs {
     font-weight: 100;
   }
@@ -21493,33 +21466,6 @@
   }
 }
 @media (min-width: 640px) {
-  .text-xs\@sm {
-    font-size: 0.75rem;
-  }
-  .text-sm\@sm {
-    font-size: 0.875rem;
-  }
-  .text-md\@sm {
-    font-size: 1rem;
-  }
-  .text-base\@sm {
-    font-size: 1rem;
-  }
-  .text-lg\@sm {
-    font-size: 1.25rem;
-  }
-  .text-xl\@sm {
-    font-size: 1.5rem;
-  }
-  .text-2xl\@sm {
-    font-size: 1.75rem;
-  }
-  .text-3xl\@sm {
-    font-size: 2rem;
-  }
-  .text-4xl\@sm {
-    font-size: 2.5rem;
-  }
   .text-xs\@sm {
     font-size: 0.75rem;
   }
@@ -21718,33 +21664,6 @@
   .text-4xl\@md {
     font-size: 2.5rem;
   }
-  .text-xs\@md {
-    font-size: 0.75rem;
-  }
-  .text-sm\@md {
-    font-size: 0.875rem;
-  }
-  .text-md\@md {
-    font-size: 1rem;
-  }
-  .text-base\@md {
-    font-size: 1rem;
-  }
-  .text-lg\@md {
-    font-size: 1.25rem;
-  }
-  .text-xl\@md {
-    font-size: 1.5rem;
-  }
-  .text-2xl\@md {
-    font-size: 1.75rem;
-  }
-  .text-3xl\@md {
-    font-size: 2rem;
-  }
-  .text-4xl\@md {
-    font-size: 2.5rem;
-  }
   .font-thin\@md {
     font-weight: 100;
   }
@@ -21889,33 +21808,6 @@
   }
 }
 @media (min-width: 1024px) {
-  .text-xs\@lg {
-    font-size: 0.75rem;
-  }
-  .text-sm\@lg {
-    font-size: 0.875rem;
-  }
-  .text-md\@lg {
-    font-size: 1rem;
-  }
-  .text-base\@lg {
-    font-size: 1rem;
-  }
-  .text-lg\@lg {
-    font-size: 1.25rem;
-  }
-  .text-xl\@lg {
-    font-size: 1.5rem;
-  }
-  .text-2xl\@lg {
-    font-size: 1.75rem;
-  }
-  .text-3xl\@lg {
-    font-size: 2rem;
-  }
-  .text-4xl\@lg {
-    font-size: 2.5rem;
-  }
   .text-xs\@lg {
     font-size: 0.75rem;
   }
@@ -22114,33 +22006,6 @@
   .text-4xl\@xl {
     font-size: 2.5rem;
   }
-  .text-xs\@xl {
-    font-size: 0.75rem;
-  }
-  .text-sm\@xl {
-    font-size: 0.875rem;
-  }
-  .text-md\@xl {
-    font-size: 1rem;
-  }
-  .text-base\@xl {
-    font-size: 1rem;
-  }
-  .text-lg\@xl {
-    font-size: 1.25rem;
-  }
-  .text-xl\@xl {
-    font-size: 1.5rem;
-  }
-  .text-2xl\@xl {
-    font-size: 1.75rem;
-  }
-  .text-3xl\@xl {
-    font-size: 2rem;
-  }
-  .text-4xl\@xl {
-    font-size: 2.5rem;
-  }
   .font-thin\@xl {
     font-weight: 100;
   }
@@ -22285,33 +22150,6 @@
   }
 }
 @media (min-width: 1536px) {
-  .text-xs\@2xl {
-    font-size: 0.75rem;
-  }
-  .text-sm\@2xl {
-    font-size: 0.875rem;
-  }
-  .text-md\@2xl {
-    font-size: 1rem;
-  }
-  .text-base\@2xl {
-    font-size: 1rem;
-  }
-  .text-lg\@2xl {
-    font-size: 1.25rem;
-  }
-  .text-xl\@2xl {
-    font-size: 1.5rem;
-  }
-  .text-2xl\@2xl {
-    font-size: 1.75rem;
-  }
-  .text-3xl\@2xl {
-    font-size: 2rem;
-  }
-  .text-4xl\@2xl {
-    font-size: 2.5rem;
-  }
   .text-xs\@2xl {
     font-size: 0.75rem;
   }
