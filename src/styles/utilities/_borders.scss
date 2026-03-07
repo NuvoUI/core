@@ -45,7 +45,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 // Core Border Mixins - improved to include style and color by default
 // SKIP Documentation
 @mixin border($val, $style: solid, $color: var(--border-base)) {
-    $val: fn-units.fix-units($val);
+    $val: fn-units.fix-units($val, px);
 
     --border-size: #{$val};
 
@@ -60,7 +60,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-top($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val);
+    $val: fn-units.fix-units($val, px);
 
     border-top-width: $val;
     @if $val != 0 {
@@ -70,7 +70,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-right($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val);
+    $val: fn-units.fix-units($val, px);
 
     border-right-width: $val;
     @if $val != 0 {
@@ -80,7 +80,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-bottom($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val);
+    $val: fn-units.fix-units($val, px);
 
     border-bottom-width: $val;
     @if $val != 0 {
@@ -90,7 +90,7 @@ $border-styles: (solid, dashed, dotted, double, none);
 }
 
 @mixin border-left($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val);
+    $val: fn-units.fix-units($val, px);
 
     border-left-width: $val;
     @if $val != 0 {
@@ -235,8 +235,8 @@ $border-styles: (solid, dashed, dotted, double, none);
         }
 
         #{config-flags.$parent-selector} .border-x-#{$width} {
-            @include border-left(1);
-            @include border-right(1);
+            @include border-left($width);
+            @include border-right($width);
         }
 
         #{config-flags.$parent-selector} .border-y-#{$width} {
