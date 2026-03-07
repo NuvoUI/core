@@ -454,11 +454,6 @@
 
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            @each $size, $val in config-typo.$font-sizes {
-                #{config-flags.$parent-selector} .text-#{$size}\@#{$breakpoint} {
-                    @include font-size($size);
-                }
-            }
             @include responsive-config-typo($breakpoint);
         }
     }
