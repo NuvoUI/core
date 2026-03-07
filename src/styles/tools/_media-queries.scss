@@ -15,8 +15,7 @@
 // @param {string} $type - The media query type (e.g. 'lg', 'md').
 @mixin media-up($breakpoint, $debug: null) {
     $blueprint-value: fn-units.fix-units(fn-breakpoints.get-breakpoint-value($breakpoint, $debug));
-    $val: $blueprint-value - 0.01;
-    @media screen and (min-width: #{$val}) {
+    @media screen and (min-width: #{$blueprint-value}) {
         @content;
     }
 }
