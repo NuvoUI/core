@@ -29,7 +29,8 @@
 // /Container Query: Down
 @mixin container-down($breakpoint, $containerName: null) {
     $bp-val: fn-breakpoints.get-breakpoint-value($breakpoint);
-    @container #{$containerName} (max-width: (#{ $bp-val } - 0.02px)) {
+    $max-val: $bp-val - 0.02px;
+    @container #{$containerName} (max-width: #{$max-val}) {
         @content;
     }
 }
@@ -38,7 +39,8 @@
 @mixin container-between($lower, $upper, $containerName: null) {
     $min: fn-breakpoints.get-breakpoint-value($lower);
     $max: fn-breakpoints.get-breakpoint-value($upper);
-    @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $max } - 0.02px)) {
+    $max-val: $max - 0.02px;
+    @container #{$containerName} (min-width: #{$min}) and (max-width: #{$max-val}) {
         @content;
     }
 }
@@ -55,7 +57,8 @@
     }
 
     @if $next-breakpoint {
-        @container #{$containerName} (min-width: #{$min}) and (max-width: (#{ $next-breakpoint } - 0.02px)) {
+        $max-val: $next-breakpoint - 0.02px;
+        @container #{$containerName} (min-width: #{$min}) and (max-width: #{$max-val}) {
             @content;
         }
     } @else {
