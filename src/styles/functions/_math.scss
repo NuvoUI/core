@@ -34,8 +34,13 @@ $digit-map: (
     $result: 0;
     $digits: 0;
     $minus: string.slice($val, 1, 1) == "-";
-    $sign: if($minus, -1, 1);
-    $start-index: if($minus, 2, 1);
+    $sign: 1;
+    $start-index: 1;
+
+    @if $minus {
+        $sign: -1;
+        $start-index: 2;
+    }
 
     @for $i from $start-index through string.length($val) {
         $character: string.slice($val, $i, $i);
