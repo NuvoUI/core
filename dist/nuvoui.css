@@ -7273,13 +7273,15 @@
   overflow-y: auto;
 }
 
-.d-tbl {
+.table {
   display: table;
 }
-.d-tbl-row {
+
+.table-row {
   display: table-row;
 }
-.d-tbl-cell {
+
+.table-cell {
   display: table-cell;
 }
 
@@ -7353,13 +7355,13 @@
   .overflow-y-auto\@xs {
     overflow-y: auto;
   }
-  .d-tbl\@xs {
+  .table\@xs {
     display: table;
   }
-  .d-tbl-row\@xs {
+  .table-row\@xs {
     display: table-row;
   }
-  .d-tbl-cell\@xs {
+  .table-cell\@xs {
     display: table-cell;
   }
 }
@@ -7433,13 +7435,13 @@
   .overflow-y-auto\@sm {
     overflow-y: auto;
   }
-  .d-tbl\@sm {
+  .table\@sm {
     display: table;
   }
-  .d-tbl-row\@sm {
+  .table-row\@sm {
     display: table-row;
   }
-  .d-tbl-cell\@sm {
+  .table-cell\@sm {
     display: table-cell;
   }
 }
@@ -7513,13 +7515,13 @@
   .overflow-y-auto\@md {
     overflow-y: auto;
   }
-  .d-tbl\@md {
+  .table\@md {
     display: table;
   }
-  .d-tbl-row\@md {
+  .table-row\@md {
     display: table-row;
   }
-  .d-tbl-cell\@md {
+  .table-cell\@md {
     display: table-cell;
   }
 }
@@ -7593,13 +7595,13 @@
   .overflow-y-auto\@lg {
     overflow-y: auto;
   }
-  .d-tbl\@lg {
+  .table\@lg {
     display: table;
   }
-  .d-tbl-row\@lg {
+  .table-row\@lg {
     display: table-row;
   }
-  .d-tbl-cell\@lg {
+  .table-cell\@lg {
     display: table-cell;
   }
 }
@@ -7673,13 +7675,13 @@
   .overflow-y-auto\@xl {
     overflow-y: auto;
   }
-  .d-tbl\@xl {
+  .table\@xl {
     display: table;
   }
-  .d-tbl-row\@xl {
+  .table-row\@xl {
     display: table-row;
   }
-  .d-tbl-cell\@xl {
+  .table-cell\@xl {
     display: table-cell;
   }
 }
@@ -7753,13 +7755,13 @@
   .overflow-y-auto\@2xl {
     overflow-y: auto;
   }
-  .d-tbl\@2xl {
+  .table\@2xl {
     display: table;
   }
-  .d-tbl-row\@2xl {
+  .table-row\@2xl {
     display: table-row;
   }
-  .d-tbl-cell\@2xl {
+  .table-cell\@2xl {
     display: table-cell;
   }
 }
@@ -20516,9 +20518,6 @@
   .transition-none\@xs {
     transition-property: none;
   }
-  .transition\@xs {
-    transition-property: all;
-  }
   .transition-colors\@xs {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   }
@@ -20604,9 +20603,6 @@
   }
   .transition-none\@sm {
     transition-property: none;
-  }
-  .transition\@sm {
-    transition-property: all;
   }
   .transition-colors\@sm {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
@@ -20694,9 +20690,6 @@
   .transition-none\@md {
     transition-property: none;
   }
-  .transition\@md {
-    transition-property: all;
-  }
   .transition-colors\@md {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   }
@@ -20782,9 +20775,6 @@
   }
   .transition-none\@lg {
     transition-property: none;
-  }
-  .transition\@lg {
-    transition-property: all;
   }
   .transition-colors\@lg {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
@@ -20872,9 +20862,6 @@
   .transition-none\@xl {
     transition-property: none;
   }
-  .transition\@xl {
-    transition-property: all;
-  }
   .transition-colors\@xl {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   }
@@ -20960,9 +20947,6 @@
   }
   .transition-none\@2xl {
     transition-property: none;
-  }
-  .transition\@2xl {
-    transition-property: all;
   }
   .transition-colors\@2xl {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
