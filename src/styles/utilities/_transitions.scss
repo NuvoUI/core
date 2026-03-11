@@ -161,9 +161,6 @@ $delays: (
             #{config-flags.$parent-selector} .transition-none\@#{$breakpoint} {
                 @include transition-none;
             }
-            #{config-flags.$parent-selector} .transition\@#{$breakpoint} {
-                @include transition;
-            }
             #{config-flags.$parent-selector} .transition-colors\@#{$breakpoint} {
                 @include transition-colors;
             }

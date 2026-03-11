@@ -9,7 +9,7 @@
 // Classes:
 //  - .hide, .show: Control element visibility
 //  - .block, .inline, .inline-block: Basic display modes
-//  - .d-tbl, .d-tbl-row, .d-tbl-cell: Table display modes
+//  - .table, .table-row, .table-cell: Table display modes
 //  - .overflow-hidden: Control overflow behavior
 // All utilities support responsive variants with @breakpoint suffix:
 //  - .hide@md, .block@lg, etc.
@@ -46,9 +46,15 @@
     display: grid;
 }
 
-// @description Establishes a inline-grid container.
-@mixin grid-inline {
+// @description Establishes an inline-grid container.
+@mixin inline-grid {
     display: inline-grid;
+}
+
+// @deprecated Use `inline-grid` instead. Removal in v2.0.
+@mixin grid-inline {
+    @warn "grid-inline is deprecated. Use inline-grid instead. Removal in v2.0.";
+    @include inline-grid;
 }
 
 // @description Establishes a flex container.
@@ -56,24 +62,48 @@
     display: flex;
 }
 
-// @description Establishes a flex-inline container.
-@mixin flex-inline {
+// @description Establishes an inline-flex container.
+@mixin inline-flex {
     display: inline-flex;
 }
 
+// @deprecated Use `inline-flex` instead. Removal in v2.0.
+@mixin flex-inline {
+    @warn "flex-inline is deprecated. Use inline-flex instead. Removal in v2.0.";
+    @include inline-flex;
+}
+
 // @description Set display to table.
-@mixin d-tbl {
+@mixin table {
     display: table;
 }
 
+// @deprecated Use `table` instead. Removal in v2.0.
+@mixin d-tbl {
+    @warn "d-tbl is deprecated. Use table instead. Removal in v2.0.";
+    @include table;
+}
+
 // @description Set display to table-row.
-@mixin d-tbl-row {
+@mixin table-row {
     display: table-row;
 }
 
+// @deprecated Use `table-row` instead. Removal in v2.0.
+@mixin d-tbl-row {
+    @warn "d-tbl-row is deprecated. Use table-row instead. Removal in v2.0.";
+    @include table-row;
+}
+
 // @description Set display to table-cell.
-@mixin d-tbl-cell {
+@mixin table-cell {
     display: table-cell;
+}
+
+// @deprecated Use `table-cell` instead. Removal in v2.0.
+@mixin d-tbl-cell {
+    @warn "d-tbl-cell is deprecated. Use table-cell instead. Removal in v2.0.";
+    @include table-cell;
 }
 
 @mixin visible {
@@ -145,14 +175,14 @@
         @include grid;
 
         &.inline {
-            @include grid-inline;
+            @include inline-grid;
         }
     }
     #{config-flags.$parent-selector} .flex {
         @include flex;
 
         &.inline {
-            @include flex-inline;
+            @include inline-flex;
         }
     }
     #{config-flags.$parent-selector} .visible {
@@ -215,18 +245,16 @@
         @include overflow-y-auto;
     }
 
-    #{config-flags.$parent-selector} .d {
-        &-tbl {
-            @include d-tbl;
-        }
+    #{config-flags.$parent-selector} .table {
+        @include table;
+    }
 
-        &-tbl-row {
-            @include d-tbl-row;
-        }
+    #{config-flags.$parent-selector} .table-row {
+        @include table-row;
+    }
 
-        &-tbl-cell {
-            @include d-tbl-cell;
-        }
+    #{config-flags.$parent-selector} .table-cell {
+        @include table-cell;
     }
 
     // Responsive Variants
@@ -255,14 +283,14 @@
                 @include grid;
 
                 &.inline {
-                    @include grid-inline;
+                    @include inline-grid;
                 }
             }
             #{config-flags.$parent-selector} .flex\@#{$breakpoint} {
                 @include flex;
 
                 &.inline {
-                    @include flex-inline;
+                    @include inline-flex;
                 }
             }
             #{config-flags.$parent-selector} .visible\@#{$breakpoint} {
@@ -305,16 +333,14 @@
                 @include overflow-y-auto;
             }
 
-            #{config-flags.$parent-selector} .d {
-                &-tbl\@#{$breakpoint} {
-                    @include d-tbl;
-                }
-                &-tbl-row\@#{$breakpoint} {
-                    @include d-tbl-row;
-                }
-                &-tbl-cell\@#{$breakpoint} {
-                    @include d-tbl-cell;
-                }
+            #{config-flags.$parent-selector} .table\@#{$breakpoint} {
+                @include table;
+            }
+            #{config-flags.$parent-selector} .table-row\@#{$breakpoint} {
+                @include table-row;
+            }
+            #{config-flags.$parent-selector} .table-cell\@#{$breakpoint} {
+                @include table-cell;
             }
         }
     }
