@@ -4,7 +4,13 @@ All notable changes to `@nuvoui/core` are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - Unreleased
+## [2.0.1] - 2026-10-14
+
+### Changed
+
+- Documentation: README, CHANGELOG and MIGRATION-v2.md describe 2.0 as released; pre-release wording removed.
+
+## [2.0.0] - 2026-10-14
 
 Version 2.0 is a breaking release that rebuilds core as the foundation layer of a design system. There is no compatibility layer for 1.x names. See the [migration guide](docs/MIGRATION-v2.md) for every rename and the [token reference](docs/TOKENS.md) for the full token list with default values.
 
@@ -82,9 +88,9 @@ Version 2.0 is a breaking release that rebuilds core as the foundation layer of 
 - `translate-x()`, `translate-y()`, `translate-z()` and `translate()` read a unitless number as a spacing key (`translate-x(4)` gives `var(--nu-space-4)`, a negated key gives `calc(-1 * token)`) and accept the fraction keys `25p`, `33p`, `50p`, `66p`, `75p` and `100p`; a unitless number that is not a key raises an error, values with units pass through. The translate classes keep the 1.x key set (0 to 20 and the fractions).
 - `rotate()`, `skew-x()` and `skew-y()` raise an error for a unitless number other than 0 that is not a rotation key, which produced invalid CSS.
 - `scale()`, `scale-x()` and `scale-y()` read the class keys: `scale(150)` gives `1.5`, as `.scale-150` does (1.x gave `150`). Other values (`1.5`, `150%`, `var()`) pass through as factors.
-- The `dark-mode` mixin applies exactly where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and `:root:not([data-theme])` under `prefers-color-scheme: dark`, stopping at a nested `data-theme` section that resolves light (v1 also matched inside a light section of a dark page). It emits CSS `@scope` rules (Chrome 118, Safari 17.4, Firefox 146); browsers without `@scope` ignore them. The `@scope` approach may change before release. `[data-theme="system"]` is no longer read.
+- The `dark-mode` mixin applies exactly where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and `:root:not([data-theme])` under `prefers-color-scheme: dark`, stopping at a nested `data-theme` section that resolves light (v1 also matched inside a light section of a dark page). It emits CSS `@scope` rules (Chrome 118, Safari 17.4, Firefox 146); browsers without `@scope` ignore them. `[data-theme="system"]` is no longer read.
 - Shade values changed: scales are generated in OKLCH instead of mixing with white and black.
-- Default values (current defaults, may change before release): light `bg-alternate` is gray 100 (was near black), dark `bg-alternate` is `#242424`, dark `border-regular` is `#474747`, and muted and subtle text are solid colours. Role default stops are listed in the [token reference](docs/TOKENS.md); light `text-success`, `text-warning` and `text-info` use stop 800. Light `text-warning` measures 5.53:1 on white but 4.42:1 on gray 100 (`bg-alternate`, `bg-hover`); this is an accepted exception, named in `test/contrast.mjs`. Headings use the `tight` line height (1.25, was 1.2). Tooltips use `text-regular` as background and `text-inverted` as text (opaque and flipping with the theme; was a 90% alpha background), font size `sm` (14px, was 13px) and z-index `--nu-z-tooltip` (800; was 10 and 999). Base `<code>` padding is `0 var(--nu-space-1)` (0 and 4px; was 2px and 6px), and only inline code (`:not(pre) > code`) is kept on one line, so code inside `pre` keeps its line breaks.
+- Default values: light `bg-alternate` is gray 100 (was near black), dark `bg-alternate` is `#242424`, dark `border-regular` is `#474747`, and muted and subtle text are solid colours. Role default stops are listed in the [token reference](docs/TOKENS.md); light `text-success`, `text-warning` and `text-info` use stop 800. Light `text-warning` measures 5.53:1 on white but 4.42:1 on gray 100 (`bg-alternate`, `bg-hover`); this is an accepted exception, named in `test/contrast.mjs`. Headings use the `tight` line height (1.25, was 1.2). Tooltips use `text-regular` as background and `text-inverted` as text (opaque and flipping with the theme; was a 90% alpha background), font size `sm` (14px, was 13px) and z-index `--nu-z-tooltip` (800; was 10 and 999). Base `<code>` padding is `0 var(--nu-space-1)` (0 and 4px; was 2px and 6px), and only inline code (`:not(pre) > code`) is kept on one line, so code inside `pre` keeps its line breaks.
 - Z-index and transition maps moved to `config/` and are configurable with `!default`. `$position-fractions` is also configurable with `!default`.
 - Percentage keys 33 and 66 mean exact thirds everywhere: `.w-33p` and the other percentage sizing classes, and `width-percent(33)` and the other percentage mixins, give `33.333%` and `66.667%` (1.x gave `33%` and `66%`), matching the `33p` and `66p` position and translate keys. An explicit percentage (`width-percent(33%)`) is unchanged.
 - Sizing mixins raise an error for a number followed by text that is not a CSS length unit (`width(3xl)`), naming the accepted keys.
@@ -139,7 +145,6 @@ Version 2.0 is a breaking release that rebuilds core as the foundation layer of 
 - The `secondary` colour role and its classes and custom properties.
 - v1 custom properties `--button-text-color`, `--button-bg-color`, `--button-bg-color-hover`, `--link-color`, `--link-hover-color` and `--font-family-base` (replaced by `--nu-font-family`).
 - Deprecated mixins `flex-inline`, `grid-inline`, `d-tbl`, `d-tbl-row`, `d-tbl-cell` and `text-size`. Use `inline-flex`, `inline-grid`, `table`, `table-row`, `table-cell` and `font-size`.
-- `$high-contrast-theme` of the 2.0 pre-release builds (never in a 1.x release), replaced by `$high-contrast-light` and `$high-contrast-dark`.
 - The `config-typo` feature flag name (now `typography`).
 - Per-shade contrast classes `.text-on-{color}-{stop}`. Use `.text-on-{role}` or the `text-on-color()` mixin.
 - Acceptance of in-between shade stops such as 450.

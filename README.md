@@ -179,7 +179,7 @@ The full token list with light and dark values is in the [token reference](docs/
 
 ## Browser support
 
-Current versions of evergreen browsers. The output relies on CSS custom properties, cascade layers, logical properties and `:focus-visible`; the `dark-mode` mixin emits `@scope` (Chrome 118, Safari 17.4, Firefox 146; this approach may change before release). Transform and flex gap variables are registered with `@property` so they do not inherit, and the declarations that read them have no `var()` fallback: browsers without `@property` support (before Chrome 85, Safari 16.4, Firefox 128) treat those declarations as invalid.
+Current versions of evergreen browsers. The output relies on CSS custom properties, cascade layers, logical properties and `:focus-visible`; the `dark-mode` mixin emits `@scope` (Chrome 118, Safari 17.4, Firefox 146). Transform and flex gap variables are registered with `@property` so they do not inherit, and the declarations that read them have no `var()` fallback: browsers without `@property` support (before Chrome 85, Safari 16.4, Firefox 128) treat those declarations as invalid.
 
 ## Community and support
 

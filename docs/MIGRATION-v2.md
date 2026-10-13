@@ -58,7 +58,7 @@ Related documents:
 | `$semantic-colors` | now a map of role name to colour | Built from `$brand`, `$success`, `$danger`, `$warning` and `$info`. In v1 it was a list of names. |
 | `$default-color` | removed | `get-color()` raises an error for an unknown colour. |
 | `$light-theme`, `$dark-theme` | override maps | Merged over built-in defaults. Keys are v2 token names without `--nu-`. See [Theme overrides](#theme-overrides). |
-| (none) | `$high-contrast-light`, `$high-contrast-dark` | Override maps applied under `[data-contrast="high"]` in light and dark contexts. Empty by default. See [Theme behaviour](#theme-behaviour). 1.x had no high-contrast map; pre-release builds of 2.0 had one `$high-contrast-theme` map, which is removed (passing it fails with "This variable was not declared with !default"). |
+| (none) | `$high-contrast-light`, `$high-contrast-dark` | Override maps applied under `[data-contrast="high"]` in light and dark contexts. Empty by default. See [Theme behaviour](#theme-behaviour). 1.x had no high-contrast map. |
 | `$theme-tokens` | no longer exported | Derived from the light theme keys inside the package; the package entry does not forward it. |
 | `$color-names`, `$color-names-with-basic` | removed | |
 | `$primitive-color-names` | not configurable | Derived from `$color-primitives`. |
@@ -133,7 +133,7 @@ All v2 properties use the `--nu-` prefix with single hyphens. The full list with
 
 | v1 | v2 | Notes |
 | --- | --- | --- |
-| `--primary` | `--nu-brand` | v1 `--primary` was the 500 base and fixed. `--nu-brand` is the fill colour for the current theme, a different stop per theme (current default stops are in [TOKENS.md](./TOKENS.md) and may change before release). For the exact base colour use `--nu-brand-500`. |
+| `--primary` | `--nu-brand` | v1 `--primary` was the 500 base and fixed. `--nu-brand` is the fill colour for the current theme, a different stop per theme (default stops are in [TOKENS.md](./TOKENS.md)). For the exact base colour use `--nu-brand-500`. |
 | `--primary-50` to `--primary-900` | `--nu-brand-50` to `--nu-brand-900` | Fixed across themes. Values differ (new generator). `--nu-brand-950` is new. |
 | `--secondary`, `--secondary-*` | removed | Use a palette hue such as `--nu-purple-500`. |
 | `--success`, `--danger`, `--warning`, `--info` | `--nu-{role}` | Flips per theme. Exact base colour: `--nu-{role}-500`. |
@@ -150,7 +150,7 @@ New role tokens: `--nu-{role}-hover`, `-active`, `-subtle`, `-border`, `--nu-tex
 | --- | --- | --- |
 | `--bg-base` | `--nu-bg-base` | |
 | `--bg-surface` | `--nu-bg-surface` | |
-| `--bg-alternate` | `--nu-bg-alternate` | Value changed. v1 light was near black; the current v2 defaults are gray 100 in light and `#242424` in dark, and may change before release. |
+| `--bg-alternate` | `--nu-bg-alternate` | Value changed. v1 light was near black; v2 defaults are gray 100 in light and `#242424` in dark. |
 | `--text-color` | `--nu-text-regular` | |
 | `--text-muted` | `--nu-text-muted` | Solid colour (v1 used alpha). |
 | `--text-subtle` | `--nu-text-subtle` | Solid colour (v1 used alpha). |
@@ -263,7 +263,7 @@ Utility classes are generated only with `$generate-utility-classes: true` (`npm 
 | Tooltips (`data-tooltip`) | Needed `role="tooltip"` on the trigger | `[data-tooltip]` alone; remove `role="tooltip"` from triggers so they keep their real role |
 | Tooltips without `data-tooltip-position` | No offset or arrow | Shown on top, as `data-tooltip-position="top"` |
 | Tooltips on keyboard focus | Appeared without the slide | `:focus-visible` slides the tooltip in as hover does |
-| Tooltip colours, size and stacking | 90% alpha background, 13px text, z-index 10 and 999 | `text-regular` as background and `text-inverted` as text (opaque, flipping with the theme), font size `sm` (14px), z-index `--nu-z-tooltip` (800). Current defaults, may change before release |
+| Tooltip colours, size and stacking | 90% alpha background, 13px text, z-index 10 and 999 | `text-regular` as background and `text-inverted` as text (opaque, flipping with the theme), font size `sm` (14px), z-index `--nu-z-tooltip` (800) |
 | Tooltips and `$generate-utility-classes` | Emitted only with `$generate-utility-classes: true` | Emitted whenever the `tooltips` flag is on (a component, like the base layer); set `"tooltips": false` to leave them out |
 | Backdrop presets, `.backdrop-layer` and `.backdrop-none` | `backdrop-filter` only | `-webkit-backdrop-filter` and `backdrop-filter` |
 | `.animate-shake` | Keyframes `anim-shake-5` | Keyframes `anim-shake-5px` (the name includes the unit) |
@@ -497,7 +497,7 @@ A removed name raises "Undefined mixin" (direct `@include`) or "Mixin not found"
 - `animate-shake`, `animate-ping`, `animate-pulse` and `animate-bounce` build valid keyframes names from decimal values (`.` becomes `_`); `animate-shake` includes the unit in the name.
 - New logical mixins: `ps()`, `pe()`, `ms()`, `me()`, `ms-auto`, `me-auto`, `inset-start()`, `inset-end()`, `border-start()`, `border-end()`, `rounded-s()`, `rounded-e()`, `rounded-ss()`, `rounded-se()`, `rounded-es()`, `rounded-ee()`, `text-start`, `text-end`.
 - `border()` with no colour uses `--nu-border-regular`. `border(0)` sets the width only.
-- `dark-mode { ... }` applies where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and (through `prefers-color-scheme: dark`) `:root:not([data-theme])`, stopping at a nested `data-theme` section that resolves light; v1 also matched inside a light section of a dark page. The output is CSS `@scope` (Chrome 118, Safari 17.4, Firefox 146); a browser without `@scope` ignores the dark-mode styles. The `@scope` approach may change before release. v1 read `[data-theme="system"]` for the OS case; that value is no longer recognised. Omit `data-theme` on the root element to follow the OS.
+- `dark-mode { ... }` applies where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and (through `prefers-color-scheme: dark`) `:root:not([data-theme])`, stopping at a nested `data-theme` section that resolves light; v1 also matched inside a light section of a dark page. The output is CSS `@scope` (Chrome 118, Safari 17.4, Firefox 146); a browser without `@scope` ignores the dark-mode styles. v1 read `[data-theme="system"]` for the OS case; that value is no longer recognised. Omit `data-theme` on the root element to follow the OS.
 - `mx-auto` sets `margin-inline: auto`.
 - `gap()` and `gap-x()` set `--nu-flex-gap` on direct children (`& > *`), so they need a selector. `gap(normal)` emits `gap: normal` (v1 emitted `normalrem`).
 - `container-name()` emits the name unquoted (v1 emitted a quoted string, which is not a valid container name).
@@ -517,7 +517,7 @@ A removed name raises "Undefined mixin" (direct `@include`) or "Mixin not found"
 
 ## Theme behaviour
 
-- **Fixed palette, flipping roles.** Palette shades (`--nu-red-100`) never change. The dark theme re-points role and theme tokens at other stops of the same scale (current default stops are listed in [TOKENS.md](./TOKENS.md) and may change before release). `text-on-{role}` is computed in both themes and becomes dark in dark mode when the fill is light (the default dark role fills, stop 400, all take the dark text `#1a1a1a`).
+- **Fixed palette, flipping roles.** Palette shades (`--nu-red-100`) never change. The dark theme re-points role and theme tokens at other stops of the same scale (default stops are listed in [TOKENS.md](./TOKENS.md)). `text-on-{role}` is computed in both themes and becomes dark in dark mode when the fill is light (the default dark role fills, stop 400, all take the dark text `#1a1a1a`).
 - **Selectors.** Fixed tokens (palette, basic colours, non-colour scales, `--nu-font-family`) are on `:root` only. Light theme tokens are on `:root, [data-theme="light"]`, so a runtime `:root { --nu-font-family: ... }` override also applies inside a `[data-theme="light"]` section. Dark tokens are on `[data-theme="dark"]` and, through `prefers-color-scheme: dark`, on `:root:not([data-theme])` only. In v1 the fallback selector also matched every element without a `data-theme` attribute, which overrode nested light sections.
 - **Inverse sections.** `data-theme="inverse"` (replaces the v1 `inverted-*` layer) gives a section the opposite theme of the page: the dark values on a light page (`[data-theme="inverse"]`), the light values under an explicit dark page (`[data-theme="dark"] [data-theme="inverse"]`) or the OS fallback (`:root:not([data-theme]) [data-theme="inverse"]` inside `prefers-color-scheme: dark`). An inverse section inside another inverse section flips back (`[data-theme="inverse"] [data-theme="inverse"]` takes the light values; `[data-theme="dark"] [data-theme="inverse"] [data-theme="inverse"]` and the fallback form take the dark values): what counts is whether the outer inverse section has a `[data-theme="dark"]` ancestor or the fallback root, and a `data-theme="light"` or `"dark"` section between the two inverse sections is not taken into account. Deeper inverse nesting is not supported. Every theme token is set, so the regular classes and mixins work inside it. It resolves against the nearest `[data-theme="dark"]` ancestor or the page: inside a `[data-theme="light"]` section that sits in a dark page it still gives the light values, so set `data-theme="dark"` there instead. It is not emitted when `$enable-dark-mode` is false.
 - **Nested themes.** Because every role is a custom property, `data-theme="dark"` or `data-theme="light"` on any element re-themes that subtree.
