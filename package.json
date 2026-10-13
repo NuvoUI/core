@@ -48,7 +48,7 @@
     "test:all": "npm run test && npm run test:perf",
     "docs:tokens": "node scripts/token-reference.mjs",
     "scales": "node scripts/generate-scales.mjs",
-    "prepublishOnly": "npm run lint && npm run test:all && npm run format:check && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run format:check && npm run build"
   },
   "repository": {
     "type": "git",

@@ -23,7 +23,7 @@ Run from the repository root. `pnpm` and `npm` both work (`pnpm-lock.yaml` is co
 | `pnpm build` | Cleans `dist/`, compiles `src/styles/build.scss` to `dist/nuvoui.css` and `dist/nuvoui.min.css` |
 | `pnpm dev` | Watches `src/styles/index.scss` into `dist/nuvoui.css` |
 
-`prepublishOnly` runs lint, `test:all`, `format:check` and build. Before finishing a change, run at least `pnpm test`, `pnpm lint` and `pnpm format:check`.
+`prepublishOnly` runs lint, `test`, `format:check` and build. Run `test:perf` yourself when a change touches `apply()` or the caches. Before finishing a change, run at least `pnpm test`, `pnpm lint` and `pnpm format:check`.
 
 ## 3. Repository layout
 

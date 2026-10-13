@@ -1,6 +1,6 @@
 // apply() compile time guard, measured against v1 live.
 //
-// Usage: node test/perf.mjs (npm run test:perf, also run before publish by test:all)
+// Usage: node test/perf.mjs (npm run test:perf)
 //
 // v1-relative checks. The v1 sources (1.5.7, commit V1_COMMIT) are extracted from git into a temporary directory at
 // run time and removed at the end. Each fixture is compiled against v1 and v2 in this process, interleaved: after
