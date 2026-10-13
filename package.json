@@ -1,7 +1,7 @@
 {
   "name": "@nuvoui/core",
-  "version": "1.5.7",
-  "description": "NuvoUI is a human-friendly SCSS framework designed for simplicity, and modern responsive designs.",
+  "version": "2.0.0",
+  "description": "Human-readable, utility-first SCSS framework and design-system foundation: design tokens, light, dark, inverse and high-contrast themes, readable utility classes and apply() mixins. No JavaScript.",
   "author": {
     "name": "AALA IT Solutions",
     "url": "https://aalasolutions.com"
@@ -20,7 +20,8 @@
   "module": "src/styles/index.scss",
   "files": [
     "dist",
-    "src"
+    "src",
+    "docs"
   ],
   "exports": {
     ".": {
@@ -55,26 +56,24 @@
   },
   "keywords": [
     "scss",
+    "sass",
     "css",
     "framework",
     "nuvoui",
-    "ui-library",
     "design-system",
-    "responsive",
-    "animations",
-    "frontend",
-    "modern-ui",
-    "web-development",
-    "responsive-design",
-    "developer-friendly",
-    "mixins",
+    "design-tokens",
+    "css-variables",
+    "utility-first",
     "utility-classes",
-    "themeable",
+    "mixins",
+    "theming",
     "dark-mode",
-    "lightweight",
-    "modular-css",
-    "tailwind-alternative",
-    "sass-library"
+    "high-contrast",
+    "rtl",
+    "oklch",
+    "responsive",
+    "sass-library",
+    "tailwind-alternative"
   ],
   "browserslist": [
     "> 1%",
