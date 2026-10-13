@@ -1,8 +1,11 @@
 // Section: Text
 // Module: Text
 
+@use "sass:list";
 @use "sass:map";
+@use "sass:math";
 @use "sass:meta";
+@use "sass:string";
 
 // Import variables
 @use "../config/feature-flags" as config-flags;
@@ -10,308 +13,722 @@
 @use "../config/typography" as config-typo;
 @use "../functions/feature-flags" as fn-flags;
 @use "../functions/math" as fn-math;
+@use "../functions/css-vars" as fn-css-vars;
+@use "./display" as util-display;
 
-// config-typo Utilities
+// Typography Utilities
 // Classes:
 // - Font Size: .text-xs, .text-sm, .text-base, etc.
 // - Font Weight: .font-thin, .font-normal, .font-bold, etc.
 // - Line Height: .leading-none, .leading-tight, .leading-normal, etc.
-// - Text Align: .text-left, .text-center, .text-right, .text-justify
+// - Text Align: .text-left, .text-center, .text-right, .text-justify, .text-start, .text-end
 // - Text Transform: .uppercase, .lowercase, .capitalize, .normal-case
 // - Text Style: .italic, .not-italic
 // - Text Decoration: .underline, .line-through, .no-underline
-// - Text Overflow: .truncate
 // All utilities support responsive variants with @breakpoint suffix:
 // - .text-lg@md, .font-bold@lg, etc.
 
-// Utilities for text sizes
+$-font-size-keywords: (xx-small, x-small, small, medium, large, x-large, xx-large, xxx-large, smaller, larger, math, inherit, initial, unset, revert, revert-layer);
 
-// Text size utility
-// @param {string} $size - The size of the text.
-// @deprecated - Use `font-size` instead.
-@mixin text-size($size) {
-    @warn "The `text-size` mixin has been deprecated. Use `font-size` instead.";
-    @if map.has-key(config-typo.$font-sizes, $size) {
-        font-size: map.get(config-typo.$font-sizes, $size);
-    } @else {
-        font-size: $size;
-    }
-}
-
-// font size utility
-// @param {string} $size - The size of the text.
-@mixin font-size($size) {
-    @if map.has-key(config-typo.$font-sizes, $size) {
-        font-size: map.get(config-typo.$font-sizes, $size);
-    } @else {
-        font-size: $size;
-    }
-}
-
-// Font weights
-@mixin font($weight) {
-    @if map.has-key(config-typo.$font-weights, #{$weight}) {
-        font-weight: map.get(config-typo.$font-weights, $weight);
-    } @else if meta.type-of($weight) == "number" {
-        font-weight: $weight;
-    } @else {
-        // Try converting string to number (handles "600" -> 600)
-        $converted: fn-math.to-number($weight);
-        @if meta.type-of($converted) == "number" {
-            font-weight: $converted;
-        } @else {
-            @warn "Unknown font weight: #{$weight} setting it to default.";
-
-            font-weight: 400; // Default to normal weight
+// True for a font-size value that is not a key: 0, a number with a CSS length unit or % (also as a string), calc(),
+// var() or a keyword
+@function -is-font-size-value($size) {
+    $type: meta.type-of($size);
+    @if $type == "number" {
+        @if math.is-unitless($size) {
+            @return $size == 0;
         }
+        @return fn-css-vars.is-length-unit(math.unit($size));
     }
+    @if fn-css-vars.is-css-function($size) or fn-css-vars.is-css-var($size) {
+        @return true;
+    }
+    @if $type == "string" {
+        @if list.index($-font-size-keywords, $size) {
+            @return true;
+        }
+        $number: fn-math.to-number($size);
+        @return meta.type-of($number) == "number" and not math.is-unitless($number) and "#{$number}" == "#{$size}";
+    }
+    @return false;
 }
 
-@mixin leading($value) {
-    @if meta.type-of($value) == "number" {
-        line-height: $value;
-    } @else if $value == "none" {
-        line-height: 1;
-    } @else if $value == "tight" {
-        line-height: 1.25;
-    } @else if $value == "snug" {
-        line-height: 1.375;
-    } @else if $value == "normal" {
-        line-height: 1.5;
-    } @else if $value == "relaxed" {
-        line-height: 1.625;
-    } @else if $value == "loose" {
-        line-height: 2;
-    } @else {
-        line-height: $value;
+// @mixin font-size
+// @description Sets font-size from a $font-sizes key (lg gives var(--nu-font-size-lg)) or a raw value; an unknown key or unitless number raises an error.
+// @param {String|Length|Calculation} $size - Font size key, 0, a value with a unit, calc(), var() or a CSS font-size keyword
+// @example
+// .title {
+//   @include font-size(lg); // font-size: var(--nu-font-size-lg)
+// }
+// @example
+// .hero {
+//   @include font-size(clamp(2rem, 5vw, 3rem));
+// }
+// @see font, leading, tracking
+@mixin font-size($size) {
+    font-size: -font-size($size);
+}
+
+// font-size() values, cached by fn-css-vars.value-key()
+$-font-size-cache: ();
+
+// Cached lookup behind font-size()
+@function -font-size($size) {
+    @if meta.type-of($size) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($size)) and $size >= 0 and not map.has-key(config-typo.$font-sizes, $size) {
+        @return $size;
     }
+    $cache-key: fn-css-vars.value-key($size);
+    @if map.has-key($-font-size-cache, $cache-key) {
+        @return map.get($-font-size-cache, $cache-key);
+    }
+    $result: -resolve-font-size($size);
+    @if fn-css-vars.is-bounded-value($size) {
+        $-font-size-cache: map.set($-font-size-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Resolves a font size: key to its token, a raw value kept, anything else raises an error
+@function -resolve-font-size($size) {
+    $size: fn-math.css-arg($size);
+    @if meta.type-of($size) == "number" and $size < 0 {
+        @error "font-size(#{$size}): negative sizes are not allowed. Use a key (#{map.keys(config-typo.$font-sizes)}) or a size of 0 or more.";
+    }
+    $token: fn-css-vars.scale-var("font-size", config-typo.$font-sizes, $size);
+    $message: fn-css-vars.unknown-key-message("font-size", config-typo.$font-sizes, $size);
+    @if $token {
+        @return $token;
+    } @else if $message {
+        @error $message;
+    } @else if -is-font-size-value($size) {
+        @return $size;
+    }
+    @error "font-size(#{$size}): unknown size. Use a key (#{map.keys(config-typo.$font-sizes)}), a value with a unit, calc(), var() or a keyword (#{$-font-size-keywords}).";
+}
+
+// @mixin font
+// @description Sets font-weight from a $font-weights key (bold gives var(--nu-font-weight-bold)) or a unitless number from 1 to 1000; anything else raises an error.
+// @param {String|Number} $weight - Font weight key (thin to black) or a number from 1 to 1000
+// @example
+// .label {
+//   @include font(semibold); // font-weight: var(--nu-font-weight-semibold)
+// }
+// @example
+// .heading {
+//   @include apply(font-size(xl), font(bold), leading(tight));
+// }
+// @see font-size
+@mixin font($weight) {
+    font-weight: -font-weight($weight);
+}
+
+$-font-weight-cache: ();
+
+// Cached lookup behind font()
+@function -font-weight($weight) {
+    $cache-key: fn-css-vars.value-key($weight);
+    @if map.has-key($-font-weight-cache, $cache-key) {
+        @return map.get($-font-weight-cache, $cache-key);
+    }
+    $result: -resolve-font-weight($weight);
+    @if meta.type-of($weight) != "number" and fn-css-vars.is-bounded-value($weight) {
+        $-font-weight-cache: map.set($-font-weight-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Resolves a font weight: key to its token, a number from 1 to 1000 kept, anything else raises an error
+@function -resolve-font-weight($weight) {
+    $token: fn-css-vars.scale-var("font-weight", config-typo.$font-weights, $weight);
+    $number: $weight;
+    @if meta.type-of($weight) == "string" {
+        $number: fn-math.to-number($weight);
+    }
+    @if $token {
+        @return $token;
+    } @else if meta.type-of($number) == "number" and math.is-unitless($number) and $number >= 1 and $number <= 1000 {
+        @return $number;
+    }
+    @error "Unknown font weight: #{$weight}. Use a key (#{map.keys(config-typo.$font-weights)}) or a number from 1 to 1000.";
+}
+
+// A number with no unit or a CSS length unit or %, also as a string ("1.5rem"), as (value, sign, unitless):
+// value is the number or the unquoted text, sign is -1, 0 or 1. Null for anything else
+@function -numeric($value) {
+    @if meta.type-of($value) == "number" {
+        @if not math.is-unitless($value) and not fn-css-vars.is-length-unit(math.unit($value)) {
+            @return null;
+        }
+        @return ($value, -sign($value), math.is-unitless($value));
+    }
+    @if meta.type-of($value) != "string" {
+        @return null;
+    }
+    $text: string.unquote($value);
+    @if string.length($text) == 0 {
+        @return null;
+    }
+    $parsed: fn-math.to-number-raw($text);
+    @if not $parsed {
+        @return null;
+    }
+    $rest: list.nth($parsed, 2);
+    @if $rest != "" and not fn-css-vars.is-length-unit($rest) {
+        @return null;
+    }
+    @return ($text, -sign(list.nth($parsed, 1)), $rest == "");
+}
+
+// -1, 0 or 1 for the sign of a number
+@function -sign($number) {
+    @if $number < 0 {
+        @return -1;
+    }
+    @if $number > 0 {
+        @return 1;
+    }
+    @return 0;
+}
+
+$-line-height-keywords: ("normal", "inherit", "initial", "unset", "revert", "revert-layer");
+
+// @mixin leading
+// @description Sets line-height from a $line-heights key (tight gives var(--nu-line-height-tight)) or a raw value; negative or unknown values raise an error.
+// @param {String|Number|Length|Calculation} $value - Line height key, a number or length of 0 or more (also as a string), calc(), var() or a keyword
+// @example
+// .body {
+//   @include leading(relaxed); // line-height: var(--nu-line-height-relaxed)
+// }
+// @example
+// .caption {
+//   @include leading(1.6); // line-height: 1.6
+// }
+// @see leading-normal, font-size
+@mixin leading($value) {
+    line-height: -line-height($value);
+}
+
+$-line-height-cache: ();
+
+// Cached lookup behind leading()
+@function -line-height($value) {
+    @if meta.type-of($value) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($value)) and $value >= 0 and not map.has-key(config-typo.$line-heights, $value) {
+        @return $value;
+    }
+    $cache-key: fn-css-vars.value-key($value);
+    @if map.has-key($-line-height-cache, $cache-key) {
+        @return map.get($-line-height-cache, $cache-key);
+    }
+    $result: -resolve-line-height($value);
+    @if meta.type-of($value) != "number" and fn-css-vars.is-bounded-value($value) {
+        $-line-height-cache: map.set($-line-height-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Resolves a line height: key to its token, a non-negative number, length or keyword kept, anything else raises an error
+@function -resolve-line-height($value) {
+    $type: meta.type-of($value);
+    $key: fn-css-vars.scale-key(config-typo.$line-heights, $value);
+    $numeric: -numeric($value);
+
+    @if $key {
+        @return fn-css-vars.scale-var("line-height", config-typo.$line-heights, $key);
+    } @else if $numeric {
+        @if list.nth($numeric, 2) == -1 {
+            @error "leading(#{$value}): line height cannot be negative.";
+        }
+        @return list.nth($numeric, 1);
+    } @else if fn-css-vars.is-css-function($value) or ($type == "string" and (list.index($-line-height-keywords, "#{$value}") or fn-css-vars.is-css-var($value))) {
+        @return $value;
+    }
+    @error "Unknown line height: #{$value}. Use a $line-heights key (#{map.keys(config-typo.$line-heights)}), a number, a length, calc(), var() or a keyword (#{$-line-height-keywords}).";
+}
+
+// Shortcut mixins: the key must exist in $line-heights
+@function -leading-key($key) {
+    @if not map.has-key(config-typo.$line-heights, $key) {
+        @error "leading-#{$key}: key \"#{$key}\" is missing from $line-heights.";
+    }
+    @return $key;
 }
 
 // Line heights
+
+// @mixin leading-none
+// @description Sets line-height to the none key (var(--nu-line-height-none)); raises an error if the key is missing from $line-heights.
+// @example
+// .text {
+//   @include leading-none; // line-height: var(--nu-line-height-none)
+// }
+// @see leading
 @mixin leading-none {
-    @include leading(none);
+    @include leading(-leading-key("none"));
 }
 
+// @mixin leading-tight
+// @description Sets line-height to the tight key (var(--nu-line-height-tight)); raises an error if the key is missing from $line-heights.
+// @example
+// .text {
+//   @include leading-tight; // line-height: var(--nu-line-height-tight)
+// }
+// @see leading
 @mixin leading-tight {
-    @include leading(tight);
+    @include leading(-leading-key("tight"));
 }
 
+// @mixin leading-snug
+// @description Sets line-height to the snug key (var(--nu-line-height-snug)); raises an error if the key is missing from $line-heights.
+// @example
+// .text {
+//   @include leading-snug; // line-height: var(--nu-line-height-snug)
+// }
+// @see leading
 @mixin leading-snug {
-    @include leading(snug);
+    @include leading(-leading-key("snug"));
 }
 
+// @mixin leading-normal
+// @description Sets line-height to the normal key (var(--nu-line-height-normal)); raises an error if the key is missing from $line-heights.
+// @example
+// .text {
+//   @include leading-normal; // line-height: var(--nu-line-height-normal)
+// }
+// @see leading
 @mixin leading-normal {
-    @include leading(normal);
+    @include leading(-leading-key("normal"));
 }
 
+// @mixin leading-relaxed
+// @description Sets line-height to the relaxed key (var(--nu-line-height-relaxed)); raises an error if the key is missing from $line-heights.
+// @example
+// .text {
+//   @include leading-relaxed; // line-height: var(--nu-line-height-relaxed)
+// }
+// @see leading
 @mixin leading-relaxed {
-    @include leading(relaxed);
+    @include leading(-leading-key("relaxed"));
 }
 
+// @mixin leading-loose
+// @description Sets line-height to the loose key (var(--nu-line-height-loose)); raises an error if the key is missing from $line-heights.
+// @example
+// .text {
+//   @include leading-loose; // line-height: var(--nu-line-height-loose)
+// }
+// @see leading
 @mixin leading-loose {
-    @include leading(loose);
+    @include leading(-leading-key("loose"));
 }
 
 // Text alignment
+
+// @mixin text-left
+// @description Aligns text to the left (physical, does not follow text direction).
+// @example
+// .cell {
+//   @include text-left; // text-align: left
+// }
+// @see text-start, text-right
 @mixin text-left {
     text-align: left;
 }
 
+// @mixin text-center
+// @description Centers text.
+// @example
+// .title {
+//   @include text-center; // text-align: center
+// }
+// @see text-start, text-end
 @mixin text-center {
     text-align: center;
 }
 
+// @mixin text-right
+// @description Aligns text to the right (physical, does not follow text direction).
+// @example
+// .amount {
+//   @include text-right; // text-align: right
+// }
+// @see text-end, text-left
 @mixin text-right {
     text-align: right;
 }
 
+// @mixin text-justify
+// @description Justifies text to both edges.
+// @example
+// .article {
+//   @include text-justify; // text-align: justify
+// }
 @mixin text-justify {
     text-align: justify;
 }
 
+// @mixin text-start
+// @description Aligns text to the inline start: left in LTR, right in RTL.
+// @example
+// .label {
+//   @include text-start; // text-align: start
+// }
+// @see text-end, text-left
+@mixin text-start {
+    text-align: start;
+}
+
+// @mixin text-end
+// @description Aligns text to the inline end: right in LTR, left in RTL.
+// @example
+// .amount {
+//   @include text-end; // text-align: end
+// }
+// @see text-start, text-right
+@mixin text-end {
+    text-align: end;
+}
+
 // Text transform mixins
+
+// @mixin uppercase
+// @description Transforms text to uppercase.
+// @example
+// .eyebrow {
+//   @include uppercase; // text-transform: uppercase
+// }
+// @see lowercase, capitalize, normal-case
 @mixin uppercase {
     text-transform: uppercase;
 }
 
+// @mixin lowercase
+// @description Transforms text to lowercase.
+// @example
+// .tag {
+//   @include lowercase; // text-transform: lowercase
+// }
+// @see uppercase, normal-case
 @mixin lowercase {
     text-transform: lowercase;
 }
 
+// @mixin capitalize
+// @description Capitalizes the first letter of each word.
+// @example
+// .name {
+//   @include capitalize; // text-transform: capitalize
+// }
+// @see uppercase, normal-case
 @mixin capitalize {
     text-transform: capitalize;
 }
 
+// @mixin normal-case
+// @description Removes any text transform.
+// @example
+// .plain {
+//   @include normal-case; // text-transform: none
+// }
+// @see uppercase, lowercase
 @mixin normal-case {
     text-transform: none;
 }
 
 // Font style mixins
+
+// @mixin italic
+// @description Sets the font style to italic.
+// @example
+// .quote {
+//   @include italic; // font-style: italic
+// }
+// @see not-italic
 @mixin italic {
     font-style: italic;
 }
 
+// @mixin not-italic
+// @description Resets the font style to normal.
+// @example
+// em {
+//   @include not-italic; // font-style: normal
+// }
+// @see italic
 @mixin not-italic {
     font-style: normal;
 }
 
 // Text decoration mixins
+
+// @mixin underline
+// @description Underlines text.
+// @example
+// .link {
+//   @include underline; // text-decoration: underline
+// }
+// @see no-underline, line-through
 @mixin underline {
     text-decoration: underline;
 }
 
+// @mixin line-through
+// @description Draws a line through text.
+// @example
+// .old-price {
+//   @include line-through; // text-decoration: line-through
+// }
+// @see no-underline
 @mixin line-through {
     text-decoration: line-through;
 }
 
+// @mixin no-underline
+// @description Removes text decoration.
+// @example
+// a.nav {
+//   @include no-underline; // text-decoration: none
+// }
+// @see underline
 @mixin no-underline {
     text-decoration: none;
 }
 
-// Text overflow mixin
-@mixin truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-// todo: doc missing
-@mixin overflow-label {
-    white-space: nowrap;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    min-width: 0;
-}
-
-@mixin truncate-lines($lines: 2) {
-    display: -webkit-box;
-    -webkit-line-clamp: $lines;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+// @mixin break-normal
+// @description Resets overflow-wrap and word-break to normal line breaking.
+// @example
+// .text {
+//   @include break-normal; // overflow-wrap: normal; word-break: normal
+// }
+// @see break-words, break-all
 @mixin break-normal {
     overflow-wrap: normal;
     word-break: normal;
 }
 
+// @mixin break-words
+// @description Lets long words break onto the next line when they would overflow (overflow-wrap: break-word).
+// @example
+// .url {
+//   @include break-words; // overflow-wrap: break-word
+// }
+// @see break-all, break-normal
 @mixin break-words {
     overflow-wrap: break-word;
 }
 
+// @mixin break-all
+// @description Allows line breaks between any two characters (word-break: break-all).
+// @example
+// .hash {
+//   @include break-all; // word-break: break-all
+// }
+// @see break-words, break-normal
 @mixin break-all {
     word-break: break-all;
 }
 
+// @mixin whitespace-normal
+// @description Sets white-space to normal, collapsing spaces and wrapping lines.
+// @example
+// .text {
+//   @include whitespace-normal; // white-space: normal
+// }
 @mixin whitespace-normal {
     white-space: normal;
 }
 
+// @mixin whitespace-nowrap
+// @description Prevents text from wrapping (white-space: nowrap).
+// @example
+// .text {
+//   @include whitespace-nowrap; // white-space: nowrap
+// }
 @mixin whitespace-nowrap {
     white-space: nowrap;
 }
 
+// @mixin whitespace-pre
+// @description Preserves spaces and line breaks without wrapping (white-space: pre).
+// @example
+// .text {
+//   @include whitespace-pre; // white-space: pre
+// }
 @mixin whitespace-pre {
     white-space: pre;
 }
 
+// @mixin whitespace-pre-line
+// @description Collapses spaces but keeps line breaks (white-space: pre-line).
+// @example
+// .text {
+//   @include whitespace-pre-line; // white-space: pre-line
+// }
 @mixin whitespace-pre-line {
     white-space: pre-line;
 }
 
+// @mixin whitespace-pre-wrap
+// @description Preserves spaces and line breaks and wraps lines (white-space: pre-wrap).
+// @example
+// .text {
+//   @include whitespace-pre-wrap; // white-space: pre-wrap
+// }
 @mixin whitespace-pre-wrap {
     white-space: pre-wrap;
 }
 
-// Custom letter spacing mixin with value
+// Letter spacing keys, as in the .tracking-{key} classes. Emitted as raw em values: there is no tracking token family
+$-tracking-values: (
+    "tighter": -0.05em,
+    "tight": -0.025em,
+    "normal": 0,
+    "wide": 0.025em,
+    "wider": 0.05em,
+    "widest": 0.1em,
+);
+
+$-tracking-keywords: ("inherit", "initial", "unset", "revert", "revert-layer");
+
+// @mixin tracking
+// @description Sets letter-spacing from a key (tighter, tight, normal, wide, wider, widest; raw em values, not tokens) or a raw value; anything else raises an error.
+// @param {String|Number|Length|Calculation} $value - Tracking key, 0, a value with a unit (also as a string), calc(), var() or a CSS-wide keyword
+// @example
+// .eyebrow {
+//   @include tracking(wide); // letter-spacing: 0.025em
+// }
+// @example
+// .logo {
+//   @include tracking(0.2em); // letter-spacing: 0.2em
+// }
+// @see tracking-wide, tracking-tight
 @mixin tracking($value) {
-    @if meta.type-of($value) == "number" {
+    $type: meta.type-of($value);
+    $numeric: -numeric($value);
+    @if map.has-key($-tracking-values, "#{$value}") {
+        letter-spacing: map.get($-tracking-values, "#{$value}");
+    } @else if $numeric and (list.nth($numeric, 2) == 0 or not list.nth($numeric, 3)) {
+        letter-spacing: list.nth($numeric, 1);
+    } @else if $type == "calculation" or fn-css-vars.is-css-var($value) or list.index($-tracking-keywords, "#{$value}") {
         letter-spacing: $value;
-    } @else if $value == "tighter" {
-        letter-spacing: -0.05em;
-    } @else if $value == "tight" {
-        letter-spacing: -0.025em;
-    } @else if $value == "normal" {
-        letter-spacing: 0;
-    } @else if $value == "wide" {
-        letter-spacing: 0.025em;
-    } @else if $value == "wider" {
-        letter-spacing: 0.05em;
-    } @else if $value == "widest" {
-        letter-spacing: 0.1em;
     } @else {
-        letter-spacing: $value;
+        @error "tracking(#{$value}): use a key (#{map.keys($-tracking-values)}), 0, a value with a unit, calc() or var().";
     }
 }
 
+// @mixin tracking-tighter
+// @description Sets letter-spacing to the tighter key (-0.05em).
+// @example
+// .text {
+//   @include tracking-tighter; // letter-spacing: -0.05em
+// }
+// @see tracking
 @mixin tracking-tighter {
     @include tracking(tighter);
 }
 
+// @mixin tracking-tight
+// @description Sets letter-spacing to the tight key (-0.025em).
+// @example
+// .text {
+//   @include tracking-tight; // letter-spacing: -0.025em
+// }
+// @see tracking
 @mixin tracking-tight {
     @include tracking(tight);
 }
 
+// @mixin tracking-normal
+// @description Sets letter-spacing to the normal key (0).
+// @example
+// .text {
+//   @include tracking-normal; // letter-spacing: 0
+// }
+// @see tracking
 @mixin tracking-normal {
     @include tracking(normal);
 }
 
+// @mixin tracking-wide
+// @description Sets letter-spacing to the wide key (0.025em).
+// @example
+// .text {
+//   @include tracking-wide; // letter-spacing: 0.025em
+// }
+// @see tracking
 @mixin tracking-wide {
     @include tracking(wide);
 }
 
+// @mixin tracking-wider
+// @description Sets letter-spacing to the wider key (0.05em).
+// @example
+// .text {
+//   @include tracking-wider; // letter-spacing: 0.05em
+// }
+// @see tracking
 @mixin tracking-wider {
     @include tracking(wider);
 }
 
+// @mixin tracking-widest
+// @description Sets letter-spacing to the widest key (0.1em).
+// @example
+// .text {
+//   @include tracking-widest; // letter-spacing: 0.1em
+// }
+// @see tracking
 @mixin tracking-widest {
     @include tracking(widest);
 }
 
-@mixin responsive-config-typo($breakpoint: null) {
+// Responsive truncate classes for one breakpoint suffix; the base classes and the mixins live in utilities/_display.scss
+@mixin -responsive-truncate($suffix) {
+    #{config-flags.$parent-selector} .truncate#{$suffix} {
+        @include util-display.truncate;
+    }
+
+    @for $lines from 2 through 5 {
+        #{config-flags.$parent-selector} .truncate-#{$lines}#{$suffix} {
+            @include util-display.truncate-lines($lines);
+        }
+    }
+
+    #{config-flags.$parent-selector} .overflow-label#{$suffix} {
+        @include util-display.overflow-label;
+    }
+}
+
+// @mixin responsive-typography
+// @description Emits the typography utility classes (size, weight, line height, alignment, transform, style, decoration, tracking), suffixed with @breakpoint when a breakpoint is given.
+// @param {String|Null} $breakpoint [null] - Breakpoint name for the class suffix (also adds responsive truncate classes); null emits the base classes
+// @example
+// @media (min-width: 1440px) {
+//   @include responsive-typography(wide);
+// }
+@mixin responsive-typography($breakpoint: null) {
     $suffix: "";
     @if $breakpoint {
         $suffix: "\\@#{$breakpoint}";
     }
 
     @each $size, $val in config-typo.$font-sizes {
-        #{config-flags.$parent-selector} .text-#{$size}#{$suffix} {
+        #{config-flags.$parent-selector} .text-#{fn-css-vars.class-key($size)}#{$suffix} {
             @include font-size($size);
         }
     }
 
     // Generate font weight utilities
     @each $size, $val in config-typo.$font-weights {
-        #{config-flags.$parent-selector} .font-#{$size}#{$suffix} {
+        #{config-flags.$parent-selector} .font-#{fn-css-vars.class-key($size)}#{$suffix} {
             @include font($size);
         }
     }
 
     // Generate line height utilities
-    #{config-flags.$parent-selector} .leading-none#{$suffix} {
-        @include leading-none;
-    }
-
-    #{config-flags.$parent-selector} .leading-tight#{$suffix} {
-        @include leading-tight;
-    }
-
-    #{config-flags.$parent-selector} .leading-snug#{$suffix} {
-        @include leading-snug;
-    }
-
-    #{config-flags.$parent-selector} .leading-normal#{$suffix} {
-        @include leading-normal;
-    }
-
-    #{config-flags.$parent-selector} .leading-relaxed#{$suffix} {
-        @include leading-relaxed;
-    }
-
-    #{config-flags.$parent-selector} .leading-loose#{$suffix} {
-        @include leading-loose;
+    @each $name, $val in config-typo.$line-heights {
+        #{config-flags.$parent-selector} .leading-#{fn-css-vars.class-key($name)}#{$suffix} {
+            @include leading($name);
+        }
     }
 
     // Generate text alignment utilities
@@ -329,6 +746,14 @@
 
     #{config-flags.$parent-selector} .text-justify#{$suffix} {
         @include text-justify;
+    }
+
+    #{config-flags.$parent-selector} .text-start#{$suffix} {
+        @include text-start;
+    }
+
+    #{config-flags.$parent-selector} .text-end#{$suffix} {
+        @include text-end;
     }
 
     // Classes using mixins
@@ -368,24 +793,9 @@
         @include no-underline;
     }
 
-    #{config-flags.$parent-selector} .truncate#{$suffix} {
-        @include truncate;
-    }
-
-    #{config-flags.$parent-selector} .truncate-2#{$suffix} {
-        @include truncate-lines(2);
-    }
-
-    #{config-flags.$parent-selector} .truncate-3#{$suffix} {
-        @include truncate-lines(3);
-    }
-
-    #{config-flags.$parent-selector} .truncate-4#{$suffix} {
-        @include truncate-lines(4);
-    }
-
-    #{config-flags.$parent-selector} .truncate-5#{$suffix} {
-        @include truncate-lines(5);
+    // Responsive truncate classes belong to the displays flag; emitted here, after the classes they must override
+    @if $breakpoint and fn-flags.feature-flag-on("displays") {
+        @include -responsive-truncate($suffix);
     }
 
     #{config-flags.$parent-selector} .tracking-tighter#{$suffix} {
@@ -411,14 +821,10 @@
     #{config-flags.$parent-selector} .tracking-widest#{$suffix} {
         @include tracking(widest);
     }
-
-    #{config-flags.$parent-selector} .overflow-label#{$suffix} {
-        @include overflow-label;
-    }
 }
 
-@if fn-flags.feature-enabled("config-typo") {
-    @include responsive-config-typo;
+@if fn-flags.feature-enabled("typography") {
+    @include responsive-typography;
 
     #{config-flags.$parent-selector} .break-normal {
         @include break-normal;
@@ -454,7 +860,16 @@
 
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
-            @include responsive-config-typo($breakpoint);
+            @include responsive-typography($breakpoint);
+        }
+    }
+}
+
+// Without the typography flag, the displays flag still gets its responsive truncate classes
+@if not fn-flags.feature-enabled("typography") and fn-flags.feature-enabled("displays") {
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
+        @media (min-width: #{$width}) {
+            @include -responsive-truncate("\\@#{$breakpoint}");
         }
     }
 }

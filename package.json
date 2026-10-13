@@ -34,14 +34,20 @@
   },
   "scripts": {
     "lint": "stylelint \"src/**/*.scss\"",
-    "format": "prettier --write \"src/**/*.{scss,js,json}\"",
+    "format": "prettier --write \"src/**/*.{scss,js,json}\" \"test/[a-z]*.mjs\" \"scripts/**/*.mjs\"",
+    "format:check": "prettier --check \"src/**/*.{scss,js,json}\" \"test/[a-z]*.mjs\" \"scripts/**/*.mjs\"",
     "clean": "node -e \"const fs=require('fs');if(fs.existsSync('dist')) fs.rmSync('dist',{recursive:true})\"",
     "build:scss": "sass src/styles/build.scss:dist/nuvoui.css --style expanded",
     "build:minify": "postcss dist/nuvoui.css -o dist/nuvoui.min.css --use cssnano --map",
     "prebuild": "npm run clean",
     "build": "npm run build:scss && npm run build:minify",
     "dev": "sass src/styles/index.scss:dist/nuvoui.css --watch",
-    "prepublishOnly": "npm run lint && npm run format && npm run build"
+    "test": "node test/contrast.mjs && node test/tokens.mjs && node test/mixins.mjs && node test/config.mjs && node test/docblocks.mjs && node test/mixins-map-sync.mjs && node scripts/generate-scales.mjs --check && node test/size.mjs && node scripts/token-reference.mjs --check",
+    "test:perf": "node test/perf.mjs",
+    "test:all": "npm run test && npm run test:perf",
+    "docs:tokens": "node scripts/token-reference.mjs",
+    "scales": "node scripts/generate-scales.mjs",
+    "prepublishOnly": "npm run lint && npm run test:all && npm run format:check && npm run build"
   },
   "repository": {
     "type": "git",
@@ -87,7 +93,7 @@
     "stylelint-config-standard-scss": "^17.0.0"
   },
   "peerDependencies": {
-    "sass": "^1.x"
+    "sass": ">=1.79.0 <2"
   },
   "engines": {
     "node": ">=14.0.0"

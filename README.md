@@ -1,6 +1,6 @@
-# NuvoUI
+# NuvoUI Core
 
-A utility-first CSS framework built with modern SCSS, providing atomic classes and mixins for rapid UI development.
+The foundation layer of the NuvoUI design system: design tokens, utility classes and SCSS mixins, written in Sass.
 
 [![GitHub stars](https://img.shields.io/github/stars/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
 [![GitHub forks](https://img.shields.io/github/forks/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
@@ -8,202 +8,184 @@ A utility-first CSS framework built with modern SCSS, providing atomic classes a
 [![Discord](https://img.shields.io/discord/1307989034638905345?style=flat-square&label=Discord&color=5865F2)](https://discord.gg/dhxxKTK5Zx)
 [![Twitter](https://img.shields.io/badge/Twitter-@NuvoUI-1DA1F2?style=flat-square)](https://x.com/NuvoUI)
 
-## What is NuvoUI?
+## Overview
 
-NuvoUI is a comprehensive CSS framework that combines the flexibility of utility classes with the power of SCSS mixins. It offers a complete design system with responsive breakpoints, semantic theming, and advanced layout capabilities designed for developers who want to build responsive, beautiful websites without unnecessary complexity.
+`@nuvoui/core` provides:
 
-## Key Features
+- **Design tokens** emitted as CSS custom properties with the `--nu-` prefix, with light and dark themes built from one token model.
+- **Utility classes** with human-readable names (`between`, `x-center`), responsive suffixes (`p-4@md`) and state prefixes (`hover:`, `focus:`, `active:`, `group-hover:`).
+- **SCSS mixins** through `@include apply(...)`, which output the same tokens as the classes, so styles written in SCSS follow the active theme.
+- **Base styles** for plain HTML elements, including buttons and form controls built on tokens.
 
-### Utility-First Architecture
-- **Atomic Classes**: Single-purpose classes like `bg-primary`, `p-4`, `flex`
-- **SCSS Mixins**: Use utilities in SCSS via `@include apply(bg(primary), p(4), flex)`
-- **Responsive Modifiers**: Breakpoint-specific classes with `@breakpoint` syntax
-- **State Modifiers**: Interactive states with `hover:`, `focus:`, `active:` prefixes
+Core is SCSS and CSS only. It has no JavaScript runtime.
 
-### Advanced Theming System
-- **CSS Custom Properties**: Dynamic theming with CSS variables
-- **Semantic Tokens**: Brand colors (primary, secondary) and contextual colors (success, danger, warning, info)
-- **Automatic Color Scales**: Generate complete color palettes from base colors
-- **Contrast Calculation**: Automatic text color based on background contrast ratios
-- **Dark Mode Support**: Built-in theme switching capabilities
+Version 2.0 is a breaking release. Projects upgrading from 1.x should read the [migration guide](docs/MIGRATION-v2.md).
 
-### Comprehensive Layout System
-- **CSS Grid Utilities**: Complete grid system with areas, spans, and responsive variants
-- **Flexbox System**: Full flexbox implementation with alignment and distribution controls
-- **Container Queries**: Modern responsive design with element-based breakpoints
-- **Modern Layout Tools**: CSS Subgrid, aspect ratios, and intrinsic sizing
+## Requirements
 
-### Typography & Content
-- **Fluid Typography**: Responsive font sizes with configurable scales
-- **Advanced Text Handling**: Truncation (single and multi-line), overflow control, text transforms
-- **Letter Spacing**: Granular tracking controls
-- **Line Height**: Semantic leading classes for optimal readability
+- Dart Sass `>=1.79.0 <2` (peer dependency). The colour space API in Sass 1.79 is required for OKLCH shade generation.
 
-### Visual Enhancement
-- **Elevation System**: Consistent shadow scales with z-index management
-- **Border System**: Comprehensive border utilities with radius, styles, and colors
-- **Transform System**: CSS transforms using CSS variables for better performance
-- **Transition System**: Smooth animations with configurable timing and easing
-
-### Interactive Components
-- **Tooltip System**: Lightweight tooltips with positioning and sizing options
-- **State Management**: Comprehensive hover, focus, and active state handling
-- **Backdrop Utilities**: Modern backdrop filters and effects
-
-### Developer Experience
-- **Build System**: Automated utility generation from configuration
-- **Configuration**: Extensive customization through SCSS variables
-- **Documentation**: Interactive examples with live previews
-- **Atomic Structure**: BEM-compatible component architecture
-
-## ✨ Why Choose NuvoUI?
-
-- **💬 Human-Readable** - Intuitive, readable class names and mixins
-- **📱 Responsive First** - Use `@lg` or `@sm` directly in class names - being natural like `font-bold@lg`
-- **🧩 Component-Focused** - Container queries for truly modular design
-- **🌙 Dark Mode Built In** - Theme switching with zero effort
-- **🚀 Performance Focused** - Smaller CSS footprint than most frameworks
-- **⚙️ Fully Customizable** - Configure everything via SCSS variables
-- **📦 Zero Runtime** - Pure CSS, no JavaScript dependencies
-
-## Quick Installation
+## Installation
 
 ```bash
-# Using npm
-npm install @nuvoui/core
-
-# Using pnpm
-pnpm add @nuvoui/core
-
-# Using yarn
-yarn add @nuvoui/core
+npm install @nuvoui/core sass
+# or
+pnpm add @nuvoui/core sass
+# or
+yarn add @nuvoui/core sass
 ```
 
 ## Usage
 
-### SCSS Import (Recommended)
+### SCSS
 
 ```scss
-// Basic import with defaults
-@use '@nuvoui/core' as NuvoUI;
-
-// Or customize with your preferences
-@use '@nuvoui/core' as NuvoUI with (
-  $primary: #ff6f00,
-  $secondary: #03DAC6,
-  $column-count: 12,
-  $enable-dark-mode: true,
-  // Add more customizations as needed
+@use "@nuvoui/core" as * with (
+    $brand: #4361ee,
+    $light-theme: (
+        "brand": brand 800,
+        "bg-base": #fff,
+    ),
+    $dark-theme: (
+        "bg-base": #121212,
+    ),
+    $generate-utility-classes: true
 );
 ```
-### Direct CSS Import (coming soon to CDN)
+
+- `$brand` sets the main colour role. `$success`, `$danger`, `$warning` and `$info` set the status roles.
+- `$light-theme`, `$dark-theme`, `$high-contrast-light` and `$high-contrast-dark` hold overrides only. Keys are token names without `--nu-`. A value is a CSS value or a scale reference written as a name and a stop (`brand 800`), emitted as `var(--nu-brand-800)`. Unknown keys and malformed references raise compile errors.
+- Tokens and base styles are emitted by default. Utility classes are emitted only with `$generate-utility-classes: true`; mixin-only projects can leave it off.
+- Every compiled entry that `@use`s the package emits the tokens, reset, base layer, tooltips and `@property` registrations (about 42 KB with `--style=compressed`, under 6 KB gzipped), so compile one entry that imports your partials rather than one stylesheet per component.
+
+`@use "@nuvoui/core"` resolves through the package `sass` export in bundlers that support it, such as Vite and webpack `sass-loader`. With the Dart Sass command line or JavaScript API, use the Node package importer:
+
+```scss
+@use "pkg:@nuvoui/core" as *;
+```
+
+```bash
+sass --pkg-importer=node src/app.scss dist/app.css
+```
+
+### Prebuilt CSS
+
+`npm run build` compiles the default configuration with every utility class to `dist/nuvoui.css` and `dist/nuvoui.min.css`, the files the package `style` and `./css` exports point at:
 
 ```html
 <link rel="stylesheet" href="node_modules/@nuvoui/core/dist/nuvoui.min.css">
 ```
 
-## Architecture
+## Design tokens
 
-### Configuration-Driven
-All utilities are generated from SCSS configuration maps:
-```scss
-$spacing: (0, 0.25rem, 0.5rem, 1rem, 1.5rem, 2rem, 3rem, 4rem, 6rem, 8rem);
-$colors: (primary: #3b82f6, secondary: #6b7280, success: #10b981);
-$breakpoints: (sm: 576px, md: 768px, lg: 992px, xl: 1200px);
-```
+Every token is a CSS custom property named `--nu-{name}` with single hyphens (`--nu-text-muted`, `--nu-space-4`). Tokens fall into two groups:
 
-### Modern CSS Features
-- CSS Custom Properties for dynamic theming
-- CSS Grid and Flexbox for layout
-- Container Queries for responsive design
-- CSS Transforms and Filters
-- Modern color functions (oklch, color-mix)
+| Tier                     | Examples                                                                                                                      | Behaviour                                                                     |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Palette, basic and scale | `--nu-red-500`, `--nu-white`, `--nu-space-4`, `--nu-radius-md`, `--nu-font-size-lg`, `--nu-font-family`                    | Fixed. The same value in every theme. Emitted on `:root` only.                |
+| Theme and role           | `--nu-bg-surface`, `--nu-text-muted`, `--nu-border-regular`, `--nu-brand`, `--nu-danger-subtle`, `--nu-text-on-brand`         | Flip per theme. The dark theme points roles at other stops of the same scale. |
 
-### Framework Agnostic
-Works with any frontend framework or vanilla HTML/CSS. No JavaScript dependencies.
+Roles are `brand`, `success`, `danger`, `warning` and `info`. The bare name is the fill (`--nu-brand`), with `-hover`, `-active`, `-subtle` and `-border`, plus `--nu-text-{role}` and `--nu-text-on-{role}`. `--nu-error` and the other `--nu-error-*` tokens alias `--nu-danger-*`.
 
-## Core Features Examples
+Fixed tokens are declared on `:root` only, and the light block (`:root, [data-theme="light"]`) holds the theme tokens, so a runtime override on `:root` (for example `:root { --nu-font-family: "Inter", sans-serif; }`) also applies inside `data-theme="light"` sections.
 
-### 🎨 Beautiful Color System
+Themes are selected with the `data-theme` attribute:
 
-NuvoUI includes a comprehensive color system with semantic color variables and automatic dark mode support.
-
-```html
-<div class="bg-primary text-white">Primary color with contrast text</div>
-<div class="bg-success-200 text-success-900">Success colors with different shades</div>
-```
-
-### 📐 Flexible Layout System
-
-Build complex layouts with ease using our grid and flexbox utilities.
-
-```html
-<!-- Responsive grid with auto placement -->
-<div class="grid cols-12 gap-4">
-  <div class="col-span-12 col-span-6@md col-span-4@lg">Responsive column</div>
-  <div class="col-span-12 col-span-6@md col-span-8@lg">Another column</div>
-</div>
-
-<!-- Flexbox with alignment -->
-<div class="flex between y-center wrap">
-  <div>Left content</div>
-  <div>Right content</div>
-</div>
-```
-
-### 🌓 Simple Dark Mode
+- `data-theme="light"` or `data-theme="dark"` on any element themes that element and its subtree, so sections can be nested.
+- Without a `data-theme` attribute on the root element, the page follows the operating system through `prefers-color-scheme`.
+- `data-theme="inverse"` gives a section the opposite theme of the page: dark values on a light page, light values under a dark page (explicit or from the operating system).
+- `data-contrast="high"` on the root, on an element that sets `data-theme`, or on an ancestor of either applies `$high-contrast-light` where the theme resolves to light and `$high-contrast-dark` where it resolves to dark, inverse and nested inverse sections included. Every theme selector has a high-contrast twin of higher specificity, and each twin carries the keys of both maps (a key its own map lacks keeps the base theme value), so a value from the other map never leaks. An element without `data-theme` inherits; it is not restyled by a `data-contrast` attribute of its own. Both maps are empty by default, so nothing is emitted until values are set.
 
 ```html
 <html data-theme="dark">
-  <!-- Your content will use dark theme colors -->
+  <body>
+    <section data-theme="light">A light section inside a dark page</section>
+    <section data-theme="inverse">The opposite of the page (light here)</section>
+  </body>
 </html>
 ```
 
-Toggle with a simple script:
+The full token list with light and dark values is in the [token reference](docs/TOKENS.md).
+
+## Utility classes
 
 ```html
-<button onclick="document.documentElement.setAttribute('data-theme', 
-  document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')">
-  Toggle Theme
-</button>
+<article class="bg-surface border border-regular rounded-md p-4 p-6@md">
+  <h2 class="text-regular font-bold">Invoice 1042</h2>
+  <p class="text-muted ms-4">Due in 3 days</p>
+  <div class="bg-danger-subtle text-danger rounded-md p-2">Payment failed</div>
+  <button class="bg-brand text-on-brand px-4 py-2">Pay now</button>
+</article>
+
+<div class="grid cols-12 gap-4">
+  <div class="col-span-12 col-span-6@md col-span-4@lg">Sidebar</div>
+  <div class="col-span-12 col-span-6@md col-span-8@lg">Content</div>
+</div>
+
+<div class="flex between x-center wrap">
+  <span>Left</span>
+  <span>Right</span>
+</div>
 ```
 
-### Elegant SCSS Mixins
+- Colour classes use theme words (`bg-surface`, `text-muted`, `border-regular`), roles (`bg-brand`, `text-danger`, `text-on-brand`, `bg-danger-subtle`) and palette shades (`bg-blue-100`).
+- Logical classes (`ms-*`, `me-*`, `ps-*`, `pe-*`, `text-start`, `text-end`) follow the text direction. Physical classes (`ml-*`, `pr-*`, `text-left`) remain for content that keeps its side in both directions.
+- A breakpoint suffix applies from that width up: `p-6@md`, `col-span-4@lg`.
+
+## Mixins with `apply()`
+
+`apply()` takes mixin calls separated by commas. A state and a breakpoint follow the call, in that order.
 
 ```scss
-.hero-image {
-  @include apply(mx(auto), my(40), rounded(8), shadow(lg));
-  
-  // Responsive behavior
-  @include media-up(lg) {
-    @include apply(max-w(80%));
-  }
+@use "@nuvoui/core" as *;
+
+.card {
+    @include apply(bg(surface), text-color(regular), border(1), rounded(md), p(4), shadow(md));
+    @include apply(p(6) md, bg(hover) hover, bg(selected) hover lg);
+}
+
+.badge {
+    @include apply(bg(danger-subtle), text-color(danger), px(2), rounded(sm), ms(2));
 }
 ```
 
-## Browser Support
+- A unitless number is a configuration key: `p(4)` outputs `padding: var(--nu-space-4)`, the same value as the `.p-4` class. A number that is not a key raises an error. Values with units pass through: `p(1.5rem)`.
+- Colour mixins take the class words and output tokens: `bg(brand)` gives `var(--nu-brand)`, `text-color(muted)` gives `var(--nu-text-muted)`.
+- With a namespaced load (`@use "@nuvoui/core" as nu`), write `nu.apply(...)`. One item needs the namespace inside it: Sass reads a bare `opacity(inherit)` or `opacity("50")` as its built-in colour function, so write `nu.apply(nu.opacity(inherit))` (`opacity(50)` works as it is).
 
-Modern browsers supporting CSS Grid, Custom Properties, and modern CSS features. IE11+ with appropriate polyfills for legacy support.
+## `token()`
 
+`token($name)` returns `var(--nu-{name})` and raises an error with close matches for an unknown name. Use it for tokens in hand-written CSS properties.
+
+```scss
+@use "@nuvoui/core" as nu;
+
+.panel {
+    background: nu.token(bg-raised);
+    box-shadow: nu.token(shadow-md);
+    outline: nu.token(border-focus-width) solid nu.token(border-focus);
+    outline-offset: nu.token(border-focus-offset);
+}
+```
+
+`get-color($name, $stop)` returns a real colour value for Sass maths, for example `color.mix(nu.get-color(brand, 600), #fff, 80%)`.
 
 ## Documentation
 
-For complete documentation, examples, and guides:
+- [Migration guide from 1.x](docs/MIGRATION-v2.md)
+- [Token reference](docs/TOKENS.md)
+- [Changelog](CHANGELOG.md)
+- [Documentation site](https://nuvoui.io/)
 
-[Visit the NuvoUI Documentation Site →](https://nuvoui.io/).
+## Browser support
 
+Current versions of evergreen browsers. The output relies on CSS custom properties, cascade layers, logical properties and `:focus-visible`; the `dark-mode` mixin emits `@scope` (Chrome 118, Safari 17.4, Firefox 146; this approach may change before release). Transform and flex gap variables are registered with `@property` so they do not inherit, and the declarations that read them have no `var()` fallback: browsers without `@property` support (before Chrome 85, Safari 16.4, Firefox 128) treat those declarations as invalid.
 
-### Community & Support
+## Community and support
 
-- [Discord Community](https://discord.gg/nWGsbQKE) - Chat with the team & other users
-- [X @NuvoUI](https://x.com/NuvoUi) - Latest updates and announcements
-- [GitHub Issues](https://github.com/NuvoUI/core/issues) - Bug reports & feature requests
-
+- [X @NuvoUI](https://x.com/NuvoUi)
+- [GitHub Issues](https://github.com/NuvoUI/core/issues)
 
 ## License
 
-NuvoUI is open-source and licensed under the [MIT License](https://github.com/NuvoUI/core/blob/main/LICENSE).
-
-Feel free to use NuvoUI in your projects—commercial or personal. Just don't forget to give us a shoutout when possible!
-
-![Working with CSS](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjV3ZDhyeWp0bno2aTBjMzd5bTltazg0Y29mM2czeDl1aHNxam8xbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yYSSBtDgbbRzq/giphy.webp)
+NuvoUI is open source under the [MIT License](https://github.com/NuvoUI/core/blob/main/LICENSE).

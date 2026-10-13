@@ -1,30 +1,74 @@
-@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
+@use "../config/spacing" as config-spacing;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
 
-// Base container styles
+// @mixin container-base
+// @description Makes an element full width and centres it on the inline axis (margin-inline: auto).
+// @example
+// .page {
+//   @include container-base;
+//   @include max-width(1200px);
+// }
+// @see container
 @mixin container-base {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
 }
 
+// @mixin container-padding
+// @description Sets padding-top and padding-bottom to the same spacing value.
+// @param {Number|Length} $padding - A `$spacings` key (4 gives var(--nu-space-4)) or a value with units, passed through raw
+// @example
+// .section {
+//   @include container-padding(8); // padding-top and padding-bottom: var(--nu-space-8)
+// }
+// @note A unitless number that is not a spacing key, or a negative key, raises `@error`.
+// @see container, py
 @mixin container-padding($padding) {
-    padding-top: $padding;
-    padding-bottom: $padding;
+    $value: fn-css-vars.scale-value("space", config-spacing.$spacings, $padding, $label: "container-padding");
+
+    padding-top: $value;
+    padding-bottom: $value;
 }
 
-// Responsive container mixin
+// Display values accepted by container()
+$-container-displays: (block, flex, grid, inline-block, inline-flex, inline-grid, flow-root, inherit, initial, unset, revert, revert-layer);
+
+// @mixin container
+// @description Builds a centred, full-width container whose max-width steps up at each breakpoint (breakpoint width minus 100px), with block padding of spacing key 4 (top and bottom only, as in v1).
+// @param {String} $display [block] - Display value: block, flex, grid, inline-block, inline-flex, inline-grid, flow-root, a CSS-wide keyword or var(); anything else raises an error
+// @example
+// .page {
+//   @include container;
+// }
+// .page-grid {
+//   @include container(grid);
+//   @include cols(12);
+// }
+// @note 100px is subtracted from each breakpoint width; an em or rem breakpoint gives calc(40em - 100px).
+// @see container-base, container-padding
 @mixin container($display: block) {
-    display: $display;
+    $text: string.unquote("#{$display}");
+    @if not list.index($-container-displays, $text) and not fn-css-vars.is-css-var($display) {
+        @error "container: #{meta.inspect($display)} is not a display value. Use one of #{$-container-displays} or var().";
+    }
+
+    display: $text;
     @include container-base;
+
+    // Declarations before the nested @media rules (Sass 1.79 to 1.91 warn about declarations after nested rules)
+    @include container-padding(4);
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: $width) {
-            max-width: $width - 100px;
+            // calc() keeps em and rem breakpoints valid; px widths simplify to a plain length
+            max-width: calc($width - 100px);
         }
     }
-    @include container-padding(1rem);
 }
 
 @if fn-flags.feature-enabled("container") {
@@ -32,10 +76,17 @@
     #{config-flags.$parent-selector} .container {
         @include container;
     }
-    #{config-flags.$parent-selector} .container.flex {
-        @include container(flex);
+
+    // .container.flex and .container.grid also need the flex and grid flags, which own every .flex and .grid class.
+    // :where() keeps them at one class of specificity, so later utilities (.hide, .py-0, .max-w-full) still win
+    @if fn-flags.feature-flag-on("flex") {
+        #{config-flags.$parent-selector} .container:where(.flex) {
+            @include container(flex);
+        }
     }
-    #{config-flags.$parent-selector} .container.grid {
-        @include container(grid);
+    @if fn-flags.feature-flag-on("grid") {
+        #{config-flags.$parent-selector} .container:where(.grid) {
+            @include container(grid);
+        }
     }
 }

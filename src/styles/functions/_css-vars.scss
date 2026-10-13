@@ -1,11 +1,26 @@
-@use "sass:string";
-@use "sass:math";
-@use "sass:map";
 @use "sass:list";
+@use "sass:map";
+@use "sass:math";
 @use "sass:meta";
+@use "sass:string";
 
+@use "./feature-flags" as fn-flags;
+@use "./math" as fn-math;
 @use "./strings" as fn-strings;
+@use "../config/constants" as config-constants;
+@use "./units" as fn-units;
 
+// @function is-css-var
+// @description Whether a value is a var() reference.
+// @param {Any} $value - Value to test
+// @return {Boolean} - True when the value is a string starting with var(
+// @example
+// $value: var(--nu-space-4);
+// .card {
+//   @if is-css-var($value) {
+//     padding: $value;
+//   }
+// }
 @function is-css-var($value) {
     @if meta.type-of($value) != "string" {
         @return false;
@@ -14,20 +29,365 @@
     @return string.index($val, "var(") == 1;
 }
 
+// True for a calculation (calc(), clamp(), min(), max()) or a CSS function call written as text, as apply() passes it
+// in the namespaced form ("clamp(1rem, 2vw, 2rem)", "var(--x)"); quoted strings do not count
+@function is-css-function($value) {
+    $type: meta.type-of($value);
+    @if $type == "calculation" {
+        @return true;
+    }
+    @if $type != "string" or list.index(('"', "'"), string.slice(meta.inspect($value), 1, 1)) {
+        @return false;
+    }
+    $open: string.index($value, "(");
+    @return $open != null and $open > 1 and string.slice($value, -1) == ")";
+}
+
+// @function get-css-var
+// @description Normalises a var() reference given as a string (quoted or not) into a var() value; any other value raises an error.
+// @param {String} $value - A var() reference
+// @return {String} - The var() value
+// @example
+// .card {
+//   padding: get-css-var("var(--nu-space-4)");
+// }
 @function get-css-var($value) {
     @if is-css-var($value) {
         $val: string.unquote(fn-strings.strip-quotes($value));
         $var-name: string.slice($val, 5, -2);
         @return var(#{$var-name});
     } @else {
-        @error "Value is not a CSS variable";
+        @error "get-css-var(): #{meta.inspect($value)} is not a CSS variable. Pass a var() reference such as var(--nu-space-4).";
         @return null;
     }
 }
 
-@function to-css-var($name, $fallback: null) {
-    @if $fallback {
-        @return var(--#{$name}, #{$fallback});
+// Map a config key to a custom property name part: "." becomes "_" and "/" becomes "-" (0.5 is 0_5, 1/2 is 1-2)
+@function css-var-key($key) {
+    @return fn-strings.str-replace(fn-strings.str-replace("#{$key}", ".", "_"), "/", "-");
+}
+
+// Escape a config key for a class name: 0.5 gives 0\.5 and 1/2 gives 1\/2
+@function class-key($key) {
+    @return fn-strings.str-replace(fn-strings.str-replace("#{$key}", ".", "\\."), "/", "\\/");
+}
+
+// Key of $map matching $value; a number key also matches its string form ("4" finds 4) and a colour
+// matches its name (black finds "black"). Null when none
+@function scale-key($map, $value) {
+    $type: meta.type-of($value);
+    @if $type != "string" and $type != "number" and $type != "color" {
+        @return null;
     }
-    @return var(--#{$name});
+    @if map.has-key($map, $value) {
+        @return $value;
+    }
+
+    // A number with a CSS unit (12px, 250ms) is never a key, so its text form is not looked up
+    @if $type == "number" and map.has-key(fn-math.$unit-values, math.unit($value)) {
+        @return null;
+    }
+    @if map.has-key($map, "#{$value}") {
+        @return "#{$value}";
+    }
+    @if $type == "string" {
+        $number: fn-math.to-number($value);
+        @if $number and "#{$number}" == "#{$value}" and map.has-key($map, $number) {
+            @return $number;
+        }
+    }
+    @return null;
+}
+
+// Cache key part for a value: its type and inspected form, plus the text of a string, so 4, "4", 4px and an
+// unquoted string holding quote characters (a quoted argument passed through apply()) never share an entry
+@function value-key($value) {
+    $type: meta.type-of($value);
+    @if $type == "string" {
+        @return "string|#{meta.inspect($value)}|#{$value}";
+    }
+    @return "#{$type}|#{meta.inspect($value)}";
+}
+
+// True for a value from a small fixed set (a unitless number, a word, a named colour, null), which is worth caching.
+// False for raw values (a number with a unit, calc(), var(), a hex colour, a list): those are never stored in an
+// unbounded cache, because it would grow with every unique value and map.set() copies the whole map per insert; the
+// callers that cache them use functions/_raw-cache.scss
+@function is-bounded-value($value) {
+    $type: meta.type-of($value);
+    @if $type == "number" {
+        @return math.is-unitless($value);
+    }
+    @if $type == "string" {
+        @if string.index($value, "(") {
+            @return false;
+        }
+        $first: string.slice($value, 1, 1);
+        @if $first == "#" {
+            @return false;
+        }
+        @if $first == "-" or $first == "." or map.has-key(fn-math.$digit-map, $first) {
+            @return map.has-key(fn-math.$digit-map, string.slice($value, -1));
+        }
+        @return true;
+    }
+    @if $type == "color" {
+        $text: meta.inspect($value);
+        @return string.slice($text, 1, 1) != "#" and not string.index($text, "(");
+    }
+    @return $type == "null" or $type == "bool";
+}
+
+// Resolved scale-var() and scale-value() results. Keys start with the prefix, which names one config map in every
+// internal caller, followed by value-key(). scale-var() stores hits only (keys of a config map) and scale-value()
+// stores bounded values only (is-bounded-value()), so neither grows with unique raw values. Config is fixed per
+// compile, so entries never go stale; errors are raised before anything is stored
+$-var-cache: ();
+$-value-cache: ();
+
+// Tokens of every configured key, per prefix: (prefix: (key: token)). Built once per prefix on first use
+$-key-tokens: ();
+
+// A map of every key of $map to its token (the same result as scale-var()). Utility modules keep it in a module
+// variable, so the common case (p(4), rounded(md)) is one map lookup with no validation or cache-key building
+@function key-tokens($prefix, $map) {
+    $tokens: map.get($-key-tokens, $prefix);
+    @if not $tokens {
+        $tokens: ();
+        @each $key, $unused in $map {
+            $tokens: map.set($tokens, $key, -scale-var($prefix, $map, $key));
+        }
+        $-key-tokens: map.set($-key-tokens, $prefix, $tokens) !global;
+    }
+    @return $tokens;
+}
+
+// The token for $value when it is a configured key of $map, else null
+@function key-token($prefix, $map, $value) {
+    @return map.get(key-tokens($prefix, $map), $value);
+}
+
+// var(--nu-{prefix}-{key}) when $value is a key of $map, else null. With the theme flag off no tokens are emitted,
+// so the raw map value is returned
+@function scale-var($prefix, $map, $value) {
+    $hit: key-token($prefix, $map, $value);
+    @if $hit {
+        @return $hit;
+    }
+    $cache-key: "#{$prefix}|#{value-key($value)}";
+    @if map.has-key($-var-cache, $cache-key) {
+        @return map.get($-var-cache, $cache-key);
+    }
+    $result: -scale-var($prefix, $map, $value);
+    @if $result {
+        $-var-cache: map.set($-var-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Uncached resolver behind scale-var()
+@function -scale-var($prefix, $map, $value) {
+    $key: scale-key($map, $value);
+    @if not $key {
+        @return null;
+    }
+    @if not fn-flags.feature-flag-on("theme") {
+        @return map.get($map, $key);
+    }
+    @return var(--nu-#{$prefix}-#{css-var-key($key)});
+}
+
+// A number, or a string holding exactly one ("4", "-4"); else null
+@function -as-number($value) {
+    @if meta.type-of($value) == "string" {
+        $number: fn-math.to-number($value);
+        @if meta.type-of($number) != "number" or "#{$number}" != "#{$value}" {
+            @return null;
+        }
+        @return $number;
+    }
+    @if meta.type-of($value) == "number" {
+        @return $value;
+    }
+    @return null;
+}
+
+// Error message for a unitless number (or numeric string) that is not a key of $map, else null. 0 is allowed
+@function unknown-key-message($prefix, $map, $value) {
+    $number: -as-number($value);
+    @if $number and math.is-unitless($number) and $number != 0 and not scale-key($map, $value) {
+        @return "#{$prefix}: #{$value} is not a configured key. Valid keys: #{map.keys($map)}. Write a unit for a custom value (#{math.abs($number)}px, #{math.abs($number)}rem).";
+    }
+    @return null;
+}
+
+// CSS-wide keywords, valid for every property
+$-global-keywords: ("inherit", "initial", "unset", "revert", "revert-layer");
+
+// CSS length units (absolute, font-relative, viewport and container query units); % is checked separately
+$length-units: ("px", "cm", "mm", "q", "in", "pt", "pc", "em", "rem", "ex", "rex", "ch", "rch", "cap", "rcap", "ic", "ric", "lh", "rlh", "vw", "vh", "vi", "vb", "vmin", "vmax", "svw", "svh", "svi", "svb", "svmin", "svmax", "lvw", "lvh", "lvi", "lvb", "lvmin", "lvmax", "dvw", "dvh", "dvi", "dvb", "dvmin", "dvmax", "cqw", "cqh", "cqi", "cqb", "cqmin", "cqmax");
+
+// $length-units as map keys, for a constant-time lookup (% is not included)
+$length-unit-set: ();
+
+@each $length-unit in $length-units {
+    $length-unit-set: map.set($length-unit-set, $length-unit, true);
+}
+
+// $length-unit-set plus %, for the one-lookup check of a raw length or percentage in the mixin fast paths
+$length-percent-unit-set: map.set($length-unit-set, "%", true);
+
+// True when $unit is a CSS length unit in any case, or % when $percent is true
+@function is-length-unit($unit, $percent: true) {
+    @if $unit == "%" {
+        @return $percent;
+    }
+    @return map.has-key($length-unit-set, $unit) or map.has-key($length-unit-set, string.to-lower-case($unit));
+}
+
+// calc(-1 * token) for a negated key (-4), else null. Raises an error (prefixed with $label) when negative keys are
+// not allowed
+@function -negative-key($prefix, $map, $value, $allow-negative, $label) {
+    $number: -as-number($value);
+    @if not $number or $number >= 0 {
+        @return null;
+    }
+    $token: scale-var($prefix, $map, math.abs($number));
+    @if $token and not $allow-negative {
+        @error "#{$label}: negative key #{$value} is not allowed here. Negative keys work for margin, inset, offsets, translate and space only.";
+    }
+    @if $token {
+        @return calc(-1 * #{$token});
+    }
+    @return null;
+}
+
+// A string value kept as written: a CSS-wide keyword, a caller keyword, a CSS function, or a number with a length
+// unit fix-units does not know (dvh). Null for a number fix-units handles. Any other string raises an error
+@function -string-value($prefix, $map, $value, $keywords, $percent) {
+    $text: string.unquote(fn-strings.strip-quotes($value));
+    @if list.index($-global-keywords, $text) or list.index($keywords, $text) or string.index($text, "(") {
+        @return $text;
+    }
+    $parsed: fn-math.to-number-raw($text);
+    @if not $parsed or (list.nth($parsed, 2) != "" and not is-length-unit(list.nth($parsed, 2), $percent)) {
+        @error -unknown-value-message($prefix, $map, $text, $keywords);
+    }
+    $rest: list.nth($parsed, 2);
+    @if $rest != "" and not list.index(config-constants.$units, $rest) {
+        @return $text;
+    }
+    @return null;
+}
+
+// Error message for a value that is neither a key, a number with a CSS length unit, a CSS function nor a keyword
+@function -unknown-value-message($prefix, $map, $text, $keywords) {
+    $allowed: list.join($keywords, $-global-keywords, comma);
+    @return "#{$prefix}: unknown value #{$text}. Use a key (#{map.keys($map)}), a value with a CSS unit, calc(), var() or a keyword (#{$allowed}).";
+}
+
+// A scale value: a key gives its token, a negated key (-4) gives calc(-1 * token) when $allow-negative is true
+// (margin, inset, offsets, translate and space) and an error otherwise; a negative raw value (-1rem) also needs $allow-negative. A unitless number that is not a key raises an error (0 excepted);
+// values with a CSS length unit (or % when $percent is true), calc(), var() and other CSS functions pass through, as
+// do CSS-wide keywords and the caller's $keywords (auto for width). Any other unit or string raises an error, as does
+// a list (4px 8px). $label names the mixin in error messages (width: unknown value foo); it defaults to $prefix
+@function scale-value($prefix, $map, $value, $unit: null, $allow-negative: false, $keywords: (), $percent: true, $label: null) {
+    $hit: key-token($prefix, $map, $value);
+    @if $hit {
+        @return $hit;
+    }
+    $label: $label or $prefix;
+    $type: meta.type-of($value);
+    @if $type != "number" and $type != "string" and $type != "calculation" {
+        @error -unknown-value-message($label, $map, meta.inspect($value), $keywords);
+    }
+    @if meta.type-of($value) == "number" and not math.is-unitless($value) and not map.has-key($map, $value) {
+        $value-unit: math.unit($value);
+        $is-length: map.has-key($length-unit-set, $value-unit) or ($value-unit == "%" and $percent);
+        @if $is-length and ($allow-negative or $value >= 0) {
+            @return $value;
+        }
+
+        // Sass reads an alphanumeric key such as 2xl as the number 2 with the unit xl
+        $text-key: key-token($prefix, $map, "#{$value}");
+        @if $text-key {
+            @return $text-key;
+        }
+        @return -length-value($label, $map, $value, $allow-negative, $keywords, $percent);
+    }
+    $cache-key: "#{$prefix}|#{value-key($value)}|#{$unit}|#{$allow-negative}|#{meta.inspect($keywords)}|#{$percent}";
+    @if map.has-key($-value-cache, $cache-key) {
+        @return map.get($-value-cache, $cache-key);
+    }
+    $result: -scale-value($prefix, $map, $value, $unit, $allow-negative, $keywords, $percent, $label);
+    @if is-bounded-value($value) {
+        $-value-cache: map.set($-value-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Uncached resolver behind scale-value(); $label is the message prefix
+@function -scale-value($prefix, $map, $value, $unit, $allow-negative, $keywords, $percent, $label) {
+    $token: scale-var($prefix, $map, $value);
+    @if $token {
+        @return $token;
+    }
+    @if meta.type-of($value) == "calculation" {
+        @return $value;
+    }
+    @if is-css-var($value) {
+        @return get-css-var($value);
+    }
+
+    $negative: -negative-key($prefix, $map, $value, $allow-negative, $label);
+    @if $negative {
+        @return $negative;
+    }
+
+    $message: unknown-key-message($label, $map, $value);
+    @if $message {
+        @error $message;
+    }
+
+    @if not $allow-negative and -is-negative($value) {
+        @error "#{$label}: negative value #{$value} is not allowed here. Negative values work for margin, inset, offsets, translate and space only.";
+    }
+
+    @if meta.type-of($value) == "string" {
+        $text: -string-value($label, $map, $value, $keywords, $percent);
+        @if $text {
+            @return $text;
+        }
+    } @else if meta.type-of($value) == "number" and not math.is-unitless($value) and not is-length-unit(math.unit($value), $percent) {
+        @error -unknown-value-message($label, $map, $value, $keywords);
+    }
+
+    @if $unit {
+        @return fn-units.fix-units($value, $unit);
+    }
+    @return fn-units.fix-units($value);
+}
+
+// A number with a unit for scale-value(): kept when the unit is a CSS length unit (or % when $percent is true) and
+// the sign is allowed, else an error. The same outcome as -scale-value() for such a number, without its other checks
+@function -length-value($prefix, $map, $value, $allow-negative, $keywords, $percent) {
+    @if not is-length-unit(math.unit($value), $percent) {
+        @error -unknown-value-message($prefix, $map, $value, $keywords);
+    }
+    @if $value < 0 and not $allow-negative {
+        @error "#{$prefix}: negative value #{$value} is not allowed here. Negative values work for margin, inset, offsets, translate and space only.";
+    }
+    @return $value;
+}
+
+// True for a negative number or a string starting with one ("-1rem")
+@function -is-negative($value) {
+    @if meta.type-of($value) == "number" {
+        @return $value < 0;
+    }
+    @if meta.type-of($value) == "string" {
+        $parsed: fn-math.to-number-raw($value);
+        @return $parsed and list.nth($parsed, 1) < 0;
+    }
+    @return false;
 }

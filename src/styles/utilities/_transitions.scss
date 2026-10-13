@@ -1,92 +1,276 @@
 // _transitions.scss
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
+@use "../config/transitions" as config-transitions;
 @use "../functions/feature-flags" as fn-flags;
+@use "../functions/css-vars" as fn-css-vars;
+@use "../functions/math" as fn-math;
 
 // Transition Utilities
-// - .transition: Default transition for common properties
-// - .transition-{property}: Transition specific properties
+// - .transition: Sets transition-property to all with the default duration and easing tokens ($transition-default-duration,
+//   $transition-default-ease); the defaults sit in :where(), so .duration-{time} and .ease-{type} override them in any order
+// - .transition-{property}: Transition specific properties (none, colors, opacity, shadow, transform); colors, opacity, shadow
+//   and transform get the same :where() defaults as .transition
 // - .duration-{time}: Set transition duration
 // - .ease-{type}: Set transition timing function
 // - .delay-{time}: Set transition delay
 
-// Property-specific transition mixins
+// @mixin transition-none
+// @description Disables transitions by setting transition-property to none.
+// @example
+// .no-motion {
+//   @include transition-none;
+// }
+// @see duration, ease, delay
 @mixin transition-none {
     transition-property: none;
 }
+
+// @mixin transition
+// @description Transitions every animatable property with the default duration and easing tokens ($transition-default-duration, 200; $transition-default-ease, in-out).
+// @output transition-property: all; transition-duration: var(--nu-duration-200); transition-timing-function: var(--nu-ease-in-out)
+// @example
+// .card {
+//   @include transition;
+// }
+// @example
+// .panel {
+//   @include apply(transition, duration(300));
+// }
+// @note Include duration() or ease() after it to override a default.
+// @see duration, ease, delay
 @mixin transition {
     transition-property: all;
+
+    @include -transition-defaults;
 }
+
+// Default duration and easing: tokens of the $transition-default-duration and $transition-default-ease keys
+@mixin -transition-defaults {
+    transition-duration: fn-css-vars.scale-var("duration", config-transitions.$durations, config-transitions.$transition-default-duration);
+    transition-timing-function: fn-css-vars.scale-var("ease", config-transitions.$timing-functions, config-transitions.$transition-default-ease);
+}
+
+// Properties of transition-colors and .transition-colors
+$-color-properties: color, background-color, border-color, text-decoration-color, fill, stroke;
+
+// @mixin transition-colors
+// @description Transitions colour properties (color, background-color, border-color, text-decoration-color, fill, stroke) with the default duration and easing tokens, like transition.
+// @output transition-property: color, background-color, ...; transition-duration: var(--nu-duration-200); transition-timing-function: var(--nu-ease-in-out)
+// @example
+// .button {
+//   @include apply(transition-colors, duration(150), ease(out));
+// }
+// @see duration, ease, delay
 @mixin transition-colors {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-property: $-color-properties;
+
+    @include -transition-defaults;
 }
+
+// @mixin transition-opacity
+// @description Transitions opacity only, with the default duration and easing tokens, like transition.
+// @output transition-property: opacity; transition-duration: var(--nu-duration-200); transition-timing-function: var(--nu-ease-in-out)
+// @example
+// .button {
+//   @include apply(transition-opacity, duration(150), ease(out));
+// }
+// @see duration, ease, delay
 @mixin transition-opacity {
     transition-property: opacity;
+
+    @include -transition-defaults;
 }
+
+// @mixin transition-shadow
+// @description Transitions box-shadow only, with the default duration and easing tokens, like transition.
+// @output transition-property: box-shadow; transition-duration: var(--nu-duration-200); transition-timing-function: var(--nu-ease-in-out)
+// @example
+// .button {
+//   @include apply(transition-shadow, duration(150), ease(out));
+// }
+// @see duration, ease, delay
 @mixin transition-shadow {
     transition-property: box-shadow;
+
+    @include -transition-defaults;
 }
+
+// @mixin transition-transform
+// @description Transitions transform only, with the default duration and easing tokens, like transition.
+// @output transition-property: transform; transition-duration: var(--nu-duration-200); transition-timing-function: var(--nu-ease-in-out)
+// @example
+// .button {
+//   @include apply(transition-transform, duration(150), ease(out));
+// }
+// @see duration, ease, delay
 @mixin transition-transform {
     transition-property: transform;
+
+    @include -transition-defaults;
 }
 
-// Duration mixins
+// Resolve a duration or delay: a key of $map (reached by delay(); duration() resolves keys first), a time in s
+// or ms, calc() or var()
+@function -time($value, $map, $label, $allow-negative: false) {
+    $value: fn-math.css-arg($value);
+    $type: meta.type-of($value);
+    $time: $type == "number" and (math.unit($value) == "s" or math.unit($value) == "ms");
+    @if $time and $value < 0 and not $allow-negative {
+        @error "#{$label}: negative time #{$value} is not allowed. Use a key (#{map.keys($map)}) or a time of 0 or more.";
+    }
+    @if $time and not map.has-key($map, $value) {
+        @return $value;
+    }
+    $key: fn-css-vars.scale-key($map, $value);
+    @if $key {
+        @return map.get($map, $key);
+    }
+    @if $time or fn-css-vars.is-css-function($value) or fn-css-vars.is-css-var($value) {
+        @return $value;
+    }
+    @error "Unknown #{$label}: #{$value}. Use a key (#{map.keys($map)}), a time in s or ms, calc() or var().";
+}
+
+// @mixin duration
+// @description Sets transition-duration from a $durations key, emitted as var(--nu-duration-*), or a raw time.
+// @param {Number|Duration|String} $time - A $durations key (0, 75, 100, 150, 200, 300, 500, 700, 1000), a time in s or ms, calc() or var()
+// @example
+// .panel {
+//   @include duration(300); // var(--nu-duration-300)
+// }
+// @example
+// .toast {
+//   @include apply(transition-opacity, duration(250ms));
+// }
+// @note A unitless number that is not a key, a negative time, or a time in another unit raises an error.
+// @see ease, delay
 @mixin duration($time) {
-    transition-duration: $time;
+    transition-duration: -duration($time);
 }
 
-// Timing function mixins
+// Resolved duration() values, cached by fn-css-vars.value-key()
+$-duration-cache: ();
+
+// Cached front for -resolve-duration()
+@function -duration($time) {
+    @if meta.type-of($time) == "number" and (math.unit($time) == "ms" or math.unit($time) == "s") and $time >= 0 and not map.has-key(config-transitions.$durations, $time) {
+        @return $time;
+    }
+    $cache-key: fn-css-vars.value-key($time);
+    @if map.has-key($-duration-cache, $cache-key) {
+        @return map.get($-duration-cache, $cache-key);
+    }
+    $result: -resolve-duration($time);
+    @if fn-css-vars.is-bounded-value($time) {
+        $-duration-cache: map.set($-duration-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// A $durations key gives its token, anything else goes through -time()
+@function -resolve-duration($time) {
+    $token: fn-css-vars.scale-var("duration", config-transitions.$durations, $time);
+    @if $token {
+        @return $token;
+    }
+    @return -time($time, config-transitions.$durations, "duration");
+}
+
+$-timing-keywords: (linear, ease, ease-in, ease-out, ease-in-out, step-start, step-end);
+
+// A timing function that is not a $timing-functions key (ease() resolves keys first): a CSS function
+// (cubic-bezier(), steps(), linear(), var()) or a timing keyword stays raw
+@function -timing-function($name) {
+    @if meta.type-of($name) == "string" and (string.index($name, "(") or list.index($-timing-keywords, $name)) {
+        @return $name;
+    }
+    @error "Unknown timing function: #{$name}. Use a key (#{map.keys(config-transitions.$timing-functions)}), cubic-bezier(), steps(), linear(), var() or a keyword (#{$-timing-keywords}).";
+}
+
+// @mixin ease
+// @description Sets transition-timing-function from a $timing-functions key, emitted as var(--nu-ease-*), or a raw timing function.
+// @param {String} $name - A $timing-functions key (linear, in, out, in-out), cubic-bezier(), steps(), linear(), var() or a CSS keyword (ease, ease-in, ease-out, ease-in-out, step-start, step-end)
+// @example
+// .menu {
+//   @include ease(out); // var(--nu-ease-out)
+// }
+// @example
+// .sheet {
+//   @include apply(transition-transform, duration(300), ease(cubic-bezier(0.2, 0, 0, 1)));
+// }
+// @note Keys win over keywords, so ease(linear) gives var(--nu-ease-linear); any other value raises an error.
+// @see ease-in, ease-out, ease-in-out, ease-linear, duration
+@mixin ease($name) {
+    $token: fn-css-vars.scale-var("ease", config-transitions.$timing-functions, $name);
+    @if not $token {
+        $token: -timing-function($name);
+    }
+
+    transition-timing-function: $token;
+}
+
+// @mixin ease-linear
+// @description Sets transition-timing-function to the linear key, var(--nu-ease-linear).
+// @example
+// .fade {
+//   @include apply(transition-opacity, ease-linear);
+// }
+// @see ease
 @mixin ease-linear {
-    transition-timing-function: linear;
+    @include ease("linear");
 }
+
+// @mixin ease-in
+// @description Sets transition-timing-function to the in key, var(--nu-ease-in).
+// @example
+// .fade {
+//   @include apply(transition-opacity, ease-in);
+// }
+// @see ease
 @mixin ease-in {
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    @include ease("in");
 }
+
+// @mixin ease-out
+// @description Sets transition-timing-function to the out key, var(--nu-ease-out).
+// @example
+// .fade {
+//   @include apply(transition-opacity, ease-out);
+// }
+// @see ease
 @mixin ease-out {
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    @include ease("out");
 }
+
+// @mixin ease-in-out
+// @description Sets transition-timing-function to the in-out key, var(--nu-ease-in-out).
+// @example
+// .fade {
+//   @include apply(transition-opacity, ease-in-out);
+// }
+// @see ease
 @mixin ease-in-out {
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    @include ease("in-out");
 }
 
-// Delay mixins
+// @mixin delay
+// @description Sets transition-delay from a $delays key or a raw time; delays are not tokens, so a key gives its configured time.
+// @param {Number|Duration|String} $time - A $delays key (0, 75, 100, 150, 200, 300, 500, 700, 1000; 150 gives 150ms), a time in s or ms, calc() or var()
+// @example
+// .tooltip {
+//   @include delay(300); // transition-delay: 300ms
+// }
+// @note A unitless number that is not a key raises an error.
+// @see duration
 @mixin delay($time) {
-    transition-delay: $time;
+    transition-delay: -time($time, config-transitions.$delays, "delay", $allow-negative: true);
 }
-
-// Timing functions
-$timing-functions: (
-    "linear": linear,
-    "in": cubic-bezier(0.4, 0, 1, 1),
-    "out": cubic-bezier(0, 0, 0.2, 1),
-    "in-out": cubic-bezier(0.4, 0, 0.2, 1),
-);
-
-// Durations
-$durations: (
-    "0": 0ms,
-    "75": 75ms,
-    "100": 100ms,
-    "150": 150ms,
-    "200": 200ms,
-    "300": 300ms,
-    "500": 500ms,
-    "700": 700ms,
-    "1000": 1000ms,
-);
-
-// Delays
-$delays: (
-    "0": 0ms,
-    "75": 75ms,
-    "100": 100ms,
-    "150": 150ms,
-    "200": 200ms,
-    "300": 300ms,
-    "500": 500ms,
-    "700": 700ms,
-    "1000": 1000ms,
-);
 
 @if fn-flags.feature-enabled("transitions") {
     // Property-specific transitions
@@ -94,57 +278,44 @@ $delays: (
         @include transition-none;
     }
 
+    // Defaults in :where() (no specificity), so .duration-* and .ease-* override them wherever they appear
     #{config-flags.$parent-selector} .transition {
-        @include transition;
+        transition-property: all;
+    }
+    #{config-flags.$parent-selector} :where(.transition, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
+        @include -transition-defaults;
     }
 
     #{config-flags.$parent-selector} .transition-colors {
-        @include transition-colors;
+        transition-property: $-color-properties;
     }
 
     #{config-flags.$parent-selector} .transition-opacity {
-        @include transition-opacity;
+        transition-property: opacity;
     }
 
     #{config-flags.$parent-selector} .transition-shadow {
-        @include transition-shadow;
+        transition-property: box-shadow;
     }
 
     #{config-flags.$parent-selector} .transition-transform {
-        @include transition-transform;
+        transition-property: transform;
     }
 
-    @each $name, $value in $durations {
-        #{config-flags.$parent-selector} .duration-#{$name} {
-            @include duration($value);
+    @each $name, $value in config-transitions.$durations {
+        #{config-flags.$parent-selector} .duration-#{fn-css-vars.class-key($name)} {
+            @include duration($name);
         }
     }
 
-    @each $name, $value in $timing-functions {
-        #{config-flags.$parent-selector} .ease-#{$name} {
-            transition-timing-function: $value;
+    @each $name, $value in config-transitions.$timing-functions {
+        #{config-flags.$parent-selector} .ease-#{fn-css-vars.class-key($name)} {
+            @include ease($name);
         }
     }
 
-    // Specific timing function classes
-    #{config-flags.$parent-selector} .ease-linear {
-        @include ease-linear;
-    }
-
-    #{config-flags.$parent-selector} .ease-in {
-        @include ease-in;
-    }
-
-    #{config-flags.$parent-selector} .ease-out {
-        @include ease-out;
-    }
-
-    #{config-flags.$parent-selector} .ease-in-out {
-        @include ease-in-out;
-    }
-
-    @each $name, $value in $delays {
-        #{config-flags.$parent-selector} .delay-#{$name} {
+    @each $name, $value in config-transitions.$delays {
+        #{config-flags.$parent-selector} .delay-#{fn-css-vars.class-key($name)} {
             @include delay($value);
         }
     }
@@ -154,7 +325,10 @@ $delays: (
         @media (min-width: #{$width}) {
             // Base transition
             #{config-flags.$parent-selector} .transition\@#{$breakpoint} {
-                @include transition;
+                transition-property: all;
+            }
+            #{config-flags.$parent-selector} :where(.transition\@#{$breakpoint}, .transition-colors\@#{$breakpoint}, .transition-opacity\@#{$breakpoint}, .transition-shadow\@#{$breakpoint}, .transition-transform\@#{$breakpoint}) {
+                @include -transition-defaults;
             }
 
             // Property-specific transitions
@@ -162,42 +336,35 @@ $delays: (
                 @include transition-none;
             }
             #{config-flags.$parent-selector} .transition-colors\@#{$breakpoint} {
-                @include transition-colors;
+                transition-property: $-color-properties;
             }
             #{config-flags.$parent-selector} .transition-opacity\@#{$breakpoint} {
-                @include transition-opacity;
+                transition-property: opacity;
             }
             #{config-flags.$parent-selector} .transition-shadow\@#{$breakpoint} {
-                @include transition-shadow;
+                transition-property: box-shadow;
             }
             #{config-flags.$parent-selector} .transition-transform\@#{$breakpoint} {
-                @include transition-transform;
+                transition-property: transform;
             }
 
             // Duration responsive variants
-            @each $name, $value in $durations {
-                #{config-flags.$parent-selector} .duration-#{$name}\@#{$breakpoint} {
-                    @include duration($value);
+            @each $name, $value in config-transitions.$durations {
+                #{config-flags.$parent-selector} .duration-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                    @include duration($name);
                 }
             }
 
             // Timing function responsive variants
-            #{config-flags.$parent-selector} .ease-linear\@#{$breakpoint} {
-                @include ease-linear;
-            }
-            #{config-flags.$parent-selector} .ease-in\@#{$breakpoint} {
-                @include ease-in;
-            }
-            #{config-flags.$parent-selector} .ease-out\@#{$breakpoint} {
-                @include ease-out;
-            }
-            #{config-flags.$parent-selector} .ease-in-out\@#{$breakpoint} {
-                @include ease-in-out;
+            @each $name, $value in config-transitions.$timing-functions {
+                #{config-flags.$parent-selector} .ease-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                    @include ease($name);
+                }
             }
 
             // Delay responsive variants
-            @each $name, $value in $delays {
-                #{config-flags.$parent-selector} .delay-#{$name}\@#{$breakpoint} {
+            @each $name, $value in config-transitions.$delays {
+                #{config-flags.$parent-selector} .delay-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
                     @include delay($value);
                 }
             }

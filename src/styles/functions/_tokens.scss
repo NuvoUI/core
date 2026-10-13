@@ -1,0 +1,333 @@
+// Token names and the token() function. themes/_theme.scss emits palette, basic colour, text-on, error alias
+// and scale tokens from the functions below, and theme tokens from config-theme.$light-tokens (whose keys are
+// config-theme.$theme-tokens), so token() accepts exactly the emitted names
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "../config/borders" as config-border;
+@use "../config/colors" as config-color;
+@use "../config/feature-flags" as config-flags;
+@use "../config/opacity" as config-opacity;
+@use "../config/shadows" as config-shadow;
+@use "../config/spacing" as config-spacing;
+@use "../config/theme-validation" as config-theme;
+@use "../config/transitions" as config-transition;
+@use "../config/typography" as config-typo;
+@use "../config/z-index" as config-z;
+@use "./colors" as fn-colors;
+@use "./css-vars" as fn-css-vars;
+@use "./feature-flags" as fn-flags;
+@use "./units" as fn-units;
+
+// Colour scales: role and palette hue name to (stop to opaque colour). Alpha is dropped so contrast
+// is computed on the colour that is emitted
+$-color-scales: ();
+
+@each $name, $value in map.merge(config-color.$semantic-colors, config-color.$color-primitives) {
+    $scale: ();
+    @each $stop, $shade in fn-colors.create-color-scale($value) {
+        $scale: map.set($scale, $stop, color.adjust($shade, $alpha: 1));
+    }
+    $-color-scales: map.set($-color-scales, $name, $scale);
+}
+
+// Internal: generated colour scales by name, opaque, fixed across themes
+@function color-scales() {
+    @return $-color-scales;
+}
+
+// Palette tokens: {name}-{stop} to colour, fixed across themes
+@function palette-tokens() {
+    @return $-palette-tokens;
+}
+
+// Builds the palette token map once: {hue}-{stop} to colour
+@function -palette-tokens() {
+    $tokens: ();
+    @each $name, $scale in $-color-scales {
+        @each $stop, $value in $scale {
+            $tokens: map.set($tokens, "#{$name}-#{$stop}", $value);
+        }
+    }
+    @return $tokens;
+}
+
+// Basic colour tokens: black, white, transparent
+@function basic-tokens() {
+    @return config-color.$basic-colors;
+}
+
+// Roles whose text-on-{role} is computed in a theme map: the {role} fill is set and text-on-{role} is not
+@function text-on-roles($tokens) {
+    $roles: ();
+    @each $role in config-theme.$role-names {
+        @if map.has-key($tokens, $role) and not map.has-key($tokens, "text-on-#{$role}") {
+            $roles: list.append($roles, $role);
+        }
+    }
+    @return $roles;
+}
+
+// Error aliases of danger: alias name to target name
+@function error-aliases() {
+    $aliases: ();
+    @if map.has-key(config-color.$semantic-colors, "danger") {
+        @each $state in config-theme.$role-states {
+            $aliases: map.set($aliases, config-theme.role-token("error", $state), config-theme.role-token("danger", $state));
+        }
+        $aliases: map.set($aliases, "text-error", "text-danger");
+        $aliases: map.set($aliases, "text-on-error", "text-on-danger");
+    }
+    @return $aliases;
+}
+
+// Tooltip colour variables and the theme tokens they read. Theme blocks re-declare them (like the error aliases),
+// so a tooltip inside a data-theme section takes that section's colours; empty when the tooltips feature is off
+@function tooltip-color-variables() {
+    @if not fn-flags.feature-flag-on("tooltips") {
+        @return ();
+    }
+    @return ("tooltip--Background": "text-regular", "tooltip--Color": "text-inverted");
+}
+
+// Theme selector parts shared by the theme token blocks and dark-mode()
+$-dark: '[data-theme="dark"]';
+$-inverse: '[data-theme="inverse"]';
+$-fallback: ":root:not([data-theme])";
+
+// Theme blocks in cascade order: (media, selector, theme). media is null or dark (prefers-color-scheme: dark).
+// data-theme="inverse" takes the opposite of the page: dark values by default, light values under an explicit
+// [data-theme="dark"] ancestor, the prefers-color-scheme fallback or another inverse section (higher specificity
+// wins over source order). One level of nesting flips back: the inner section is dark when the outer one has a
+// [data-theme="dark"] ancestor or the fallback root, light otherwise; data-theme sections between the two are not
+// counted. Deeper inverse nesting is not supported
+@function theme-blocks() {
+    $blocks: list.append((), (null, ':root, #{config-flags.$parent-selector} [data-theme="light"]', light), comma);
+    @if config-flags.$enable-dark-mode {
+        $blocks: list.append($blocks, (null, "#{$-dark}, #{$-inverse}", dark));
+        $blocks: list.append($blocks, (null, "#{$-dark} #{$-inverse}, #{$-inverse} #{$-inverse}", light));
+        $blocks: list.append($blocks, (null, "#{$-dark} #{$-inverse} #{$-inverse}", dark));
+        $blocks: list.append($blocks, (dark, $-fallback, dark));
+        $blocks: list.append($blocks, (dark, "#{$-fallback} #{$-inverse}", light));
+        $blocks: list.append($blocks, (dark, "#{$-fallback} #{$-inverse} #{$-inverse}", dark));
+    }
+    @return $blocks;
+}
+
+// Elements whose own theme block in theme-blocks() is dark-valued after the cascade: each dark-valued selector,
+// minus the elements a more specific or later light-valued selector also matches. $os-dark adds the fallback
+// blocks (prefers-color-scheme: dark): the fallback root and its nested inverse are dark, and an inverse section
+// under the fallback root without another inverse ancestor is light
+@function dark-theme-roots($os-dark) {
+    @if $os-dark {
+        @return "#{$-dark}, #{$-fallback}, #{$-fallback} #{$-inverse} #{$-inverse}, #{$-inverse}:not(#{$-dark} *, #{$-inverse} *, #{$-fallback} *), #{$-dark} #{$-inverse} #{$-inverse}:not(#{$-fallback} *)";
+    }
+    @return "#{$-dark}, #{$-inverse}:not(#{$-dark} *, #{$-inverse} *), #{$-dark} #{$-inverse} #{$-inverse}";
+}
+
+// Elements that a theme block matches below the root: where one theme context ends and the next begins
+@function theme-boundary() {
+    $light: '[data-theme="light"]';
+    @if config-flags.$parent-selector != "" {
+        $light: "#{config-flags.$parent-selector} #{$light}";
+    }
+    @return "#{$light}, #{$-dark}, #{$-inverse}";
+}
+
+// Border widths as a map (width to px value), so width keys resolve like other scales
+@function border-width-map() {
+    $map: ();
+    @each $width in config-border.$border-widths {
+        $map: map.set($map, $width, fn-units.fix-units($width, px));
+    }
+    @return $map;
+}
+
+// Internal: $font-family as CSS text. Quoted family names keep their quotes; a single quoted string holding a
+// comma ("Inter, sans-serif") is a family list and is unquoted, so it does not become one family name
+@function font-family-value() {
+    $family: config-typo.$font-family;
+    @if meta.type-of($family) == "string" and string.index($family, ",") {
+        @return string.unquote($family);
+    }
+    @return meta.inspect($family);
+}
+
+// Adds {prefix}-{key} entries for every key of a config map
+@function -add-scale($tokens, $prefix, $map) {
+    @each $key, $value in $map {
+        $tokens: map.set($tokens, "#{$prefix}-#{fn-css-vars.css-var-key($key)}", $value);
+    }
+    @return $tokens;
+}
+
+// Non-colour scale tokens: name to value; font-family is a single token. Shadows use the "default" shadow colour, as the .shadow-{size} classes do
+@function scale-tokens() {
+    @return $-scale-tokens;
+}
+
+// Builds the non-colour scale token map once
+@function -scale-tokens() {
+    $tokens: -add-scale((), "space", config-spacing.$spacings);
+    $tokens: -add-scale($tokens, "radius", config-border.$border-radii);
+    $tokens: -add-scale($tokens, "border-width", border-width-map());
+
+    $tokens: map.set($tokens, "font-family", font-family-value());
+    $tokens: -add-scale($tokens, "font-size", config-typo.$font-sizes);
+    $tokens: -add-scale($tokens, "font-weight", config-typo.$font-weights);
+    $tokens: -add-scale($tokens, "line-height", config-typo.$line-heights);
+    $shadow-color: map.get(config-shadow.$shadow-colors, "default");
+    @each $key, $size in config-shadow.$shadow-sizes {
+        $tokens: map.set($tokens, "shadow-#{fn-css-vars.css-var-key($key)}", map.get($size, "x") map.get($size, "y") map.get($size, "blur") map.get($size, "spread") $shadow-color);
+    }
+    $tokens: -add-scale($tokens, "opacity", config-opacity.$opacities);
+    $tokens: -add-scale($tokens, "z", config-z.$z-index-levels);
+    $tokens: -add-scale($tokens, "duration", config-transition.$durations);
+    $tokens: -add-scale($tokens, "ease", config-transition.$timing-functions);
+    $tokens: -add-scale($tokens, "control-height", config-spacing.$control-heights);
+    $tokens: -add-scale($tokens, "control-padding-inline", config-spacing.$control-padding-inline);
+    @return $tokens;
+}
+
+// Built once per compile: config is fixed, and the token name list and the theme read them
+$-palette-tokens: -palette-tokens();
+$-scale-tokens: -scale-tokens();
+
+// Every emitted token name (without --nu-), as a map for lookup; only the keys are read. Whole maps are merged in
+// emission order because map.set copies the map, so adding 300 names one at a time is slow
+@function -token-names() {
+    $theme: ();
+    @each $name in config-theme.$theme-tokens {
+        $theme: map.set($theme, $name, true);
+    }
+    @each $role in text-on-roles(config-theme.$light-tokens) {
+        $theme: map.set($theme, "text-on-#{$role}", true);
+    }
+    $names: map.merge(palette-tokens(), basic-tokens());
+    $names: map.merge($names, $theme);
+    $names: map.merge($names, error-aliases());
+    @return map.merge($names, scale-tokens());
+}
+
+$-names: -token-names();
+
+// Role and hue names must not reuse a basic colour name (black), and their palette and role tokens must not reuse a
+// non-colour scale token (a hue named opacity would emit --nu-opacity-50 twice)
+@mixin -validate-scale-names {
+    $basic: ();
+    @each $key in map.keys(basic-tokens()) {
+        $basic: list.append($basic, "#{$key}");
+    }
+    $generated: map.merge(palette-tokens(), config-theme.$light-tokens);
+    @each $name in list.join(config-theme.$role-names, config-theme.$hue-names) {
+        @if list.index($basic, $name) {
+            @error "'#{$name}' is a basic colour ($basic-colors) and cannot also be a role or palette hue name. Rename it.";
+        }
+    }
+    @each $token in map.keys($generated) {
+        @if map.has-key(scale-tokens(), $token) {
+            @error "The colour token '#{$token}' (from a role or palette hue name) is also a non-colour scale token (--nu-#{$token}). Rename the role or hue.";
+        }
+    }
+}
+
+@include -validate-scale-names;
+
+// True when --nu-{name} is emitted (the names token() accepts); false when the theme feature flag is off. Never raises
+@function has-token($name) {
+    @if meta.type-of($name) == "color" {
+        $name: meta.inspect($name);
+    }
+    @return fn-flags.feature-flag-on("theme") and map.has-key($-names, $name);
+}
+
+// Token names that start with the given text, for error suggestions
+@function -starting-with($start) {
+    $matches: ();
+    @each $candidate in map.keys($-names) {
+        @if string.index($candidate, $start) == 1 and list.length($matches) < 12 {
+            $matches: list.append($matches, $candidate, comma);
+        }
+    }
+    @return $matches;
+}
+
+// Names sharing the first part and the next letter (brand-h* for brand-hovr), else the first part
+@function -close-matches($name) {
+    $prefix: "#{list.nth(string.split($name, "-"), 1)}-";
+    $matches: -starting-with(string.slice($name, 1, string.length($prefix) + 1));
+    @if list.length($matches) == 0 {
+        $matches: -starting-with($prefix);
+    }
+    @return $matches;
+}
+
+// The role that replaced an old {role}-default fill name from the 2.0 drafts (error points at danger), else null
+@function renamed-role($name) {
+    $suffix: string.index($name, "-default");
+    @if $suffix and $suffix == string.length($name) - 7 {
+        $role: string.slice($name, 1, $suffix - 1);
+        @if $role == "error" and map.has-key($-names, "error") {
+            @return "danger";
+        }
+        @if map.has-key($-names, $role) and list.index(config-theme.$role-names, $role) {
+            @return $role;
+        }
+    }
+    @return null;
+}
+
+// @function token
+// @description Returns the var() reference of a v2 token; an unknown name, a --nu- prefixed name or a disabled theme feature raises an error.
+// @param {String} $name - Token name without the --nu- prefix (brand, text-muted, space-4)
+// @return {String} - var(--nu-{name}), with no fallback value
+// @example
+// .card {
+//   color: token(text-muted);
+//   background: token(bg-surface);
+//   padding: token(space-4);
+// }
+@function token($name) {
+    // Unquoted black, white and transparent arrive as colours
+    @if meta.type-of($name) == "color" {
+        $name: meta.inspect($name);
+    }
+    @if meta.type-of($name) != "string" {
+        @error "token(#{meta.inspect($name)}): pass a token name, e.g. token(brand).";
+    }
+    $name: string.unquote($name);
+    @if not fn-flags.feature-flag-on("theme") {
+        @error "token(#{$name}): no tokens are emitted because the theme feature flag is off.";
+    }
+    @if map.has-key($-names, $name) {
+        @return var(--nu-#{$name});
+    }
+
+    // Not a token name: strip a leading --, - or nu- prefix
+    $bare: $name;
+    @while string.index($bare, "-") == 1 {
+        $bare: string.slice($bare, 2);
+    }
+    @if string.index($bare, "nu-") == 1 {
+        $bare: string.slice($bare, 4);
+    }
+    @if $bare == "" {
+        @error "token(\"#{$name}\"): pass a token name, e.g. token(brand).";
+    }
+    @if $bare != $name {
+        @error "token(#{$name}): pass the name without the prefix, e.g. token(#{$bare}).";
+    }
+
+    $renamed: renamed-role($name);
+    @if $renamed {
+        @error "token(#{$name}): renamed in 2.0, use token(#{$renamed}).";
+    }
+
+    $matches: -close-matches($name);
+    @if list.length($matches) > 0 {
+        @error "token(#{$name}): unknown token. Close matches: #{$matches}.";
+    }
+    @error "token(#{$name}): unknown token. Valid names are the --nu- custom properties in :root, without --nu-.";
+}

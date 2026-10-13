@@ -1,0 +1,142 @@
+// _color-parse.scss - Parse colour strings (named, hex, rgb, rgba) into Sass colours
+@use "sass:math";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:string";
+
+@use "../config/colors" as config-color;
+@use "./math" as fn-math;
+@use "./strings" as fn-strings;
+
+// Internal: converts a colour, hex, rgb()/rgba() or CSS colour name string to a Sass colour
+@function to-color($color-name) {
+    // Return if already a color
+    @if meta.type-of($color-name) == "color" {
+        @return $color-name;
+    }
+
+    // Convert to string if needed
+    $color-string: string.unquote($color-name);
+    $color-lower: string.to-lower-case($color-string);
+
+    // Handle named colors (red, blue, etc.)
+    @if map.has-key(config-color.$colors-constants, $color-lower) {
+        @return map.get(config-color.$colors-constants, $color-lower);
+    }
+
+    // Handle hex colors - use from-hex function which returns a proper RGB color
+    @if string.slice($color-string, 1, 1) == "#" {
+        @return from-hex($color-string);
+    }
+
+    // Handle rgb/rgba strings
+    @if string.index($color-lower, "rgb(") == 1 {
+        $trimmed: string.slice($color-string, string.length("rgb(") + 1, -1);
+        $values: fn-strings.split($trimmed, ",");
+
+        @if list.length($values) == 3 {
+            @return rgb(fn-math.to-number(list.nth($values, 1)), fn-math.to-number(list.nth($values, 2)), fn-math.to-number(list.nth($values, 3)));
+        }
+    }
+
+    @if string.index($color-lower, "rgba(") == 1 {
+        $trimmed: string.slice($color-string, string.length("rgba(") + 1, -1);
+        $values: fn-strings.split($trimmed, ",");
+
+        @if list.length($values) == 4 {
+            @return rgba(fn-math.to-number(list.nth($values, 1)), fn-math.to-number(list.nth($values, 2)), fn-math.to-number(list.nth($values, 3)), fn-math.to-number(list.nth($values, 4)));
+        }
+    }
+
+    @error "#{$color-string} is not a valid colour format. Use a hex colour (#ff0, #ff0000), rgb(r, g, b), rgba(r, g, b, a) or a CSS colour name.";
+}
+
+// Internal: converts a #rgb, #rgba, #rrggbb or #rrggbbaa string to a Sass colour
+@function from-hex($hex-string) {
+    // Normalize input
+
+    $hex: string.to-lower-case(string.unquote($hex-string));
+    $valid-chars: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f";
+    $length: string.length($hex);
+
+    // Validate format and length
+    @if string.slice($hex, 1, 1) != "#" {
+        @error "Invalid hex colour format: #{$hex-string}. It must start with #.";
+    }
+
+    // Check for valid lengths: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
+    @if not($length == 4 or $length == 5 or $length == 7 or $length == 9) {
+        @error "Invalid hex colour length: #{$hex-string}. It must be 4, 5, 7 or 9 characters long.";
+    }
+
+    // Extract components
+    $r: "";
+    $g: "";
+    $b: "";
+    $a: "";
+    $has-alpha: $length == 5 or $length == 9;
+    $component-size: 2;
+    @if $length < 6 {
+        $component-size: 1;
+    }
+
+    // Validate and extract color components
+    @for $i from 2 through $length {
+        $char: string.slice($hex, $i, $i);
+
+        @if not list.index($valid-chars, $char) {
+            @error "Invalid hex character: #{$char} in #{$hex-string}.";
+        }
+
+        // Determine which component we're building
+        $position: $i - 1;
+
+        @if $position <= $component-size {
+            $r: $r + $char;
+        } @else if $position <= $component-size * 2 {
+            $g: $g + $char;
+        } @else if $position <= $component-size * 3 {
+            $b: $b + $char;
+        } @else {
+            $a: $a + $char;
+        }
+    }
+
+    // Double characters for short hex notation
+    @if $component-size == 1 {
+        $r: $r + $r;
+        $g: $g + $g;
+        $b: $b + $b;
+        @if $has-alpha {
+            $a: $a + $a;
+        }
+    }
+
+    // Convert to RGB/RGBA
+    @if $has-alpha {
+        $alpha-value: math.div(hex-to-dec($a), 255);
+        @return rgba(hex-to-dec($r), hex-to-dec($g), hex-to-dec($b), $alpha-value);
+    } @else {
+        @return rgb(hex-to-dec($r), hex-to-dec($g), hex-to-dec($b));
+    }
+}
+
+// Internal: converts a hexadecimal digit string to a number
+@function hex-to-dec($string) {
+    $hex-digits: "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "b" "c" "d" "e" "f";
+    $string: string.to-lower-case($string);
+    $length: string.length($string);
+
+    $dec: 0;
+    @for $i from 1 through $length {
+        $character: string.slice($string, $i, $i);
+        $index: list.index($hex-digits, $character);
+        @if not $index {
+            @error "Invalid hex character: #{$character} in #{$string}.";
+        }
+        $dec: $dec + (($index - 1) * math.pow(16, $length - $i));
+    }
+
+    @return $dec;
+}

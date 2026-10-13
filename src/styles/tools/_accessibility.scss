@@ -3,46 +3,104 @@
 // Description: Mixins for handling user preferences and accessibility
 
 @use "../config/feature-flags" as config-flags;
+@use "sass:list";
+@use "sass:selector";
+@use "../functions/tokens" as fn-tokens;
 
-// todo: doc
-/// Target system dark mode preference
+// Unify keeps a pseudo-element last, where appending :scope would not
+@function -scoped-selector($parent) {
+    $result: ();
+    @each $complex in $parent {
+        $result: list.append($result, selector.unify($complex, ":scope"), comma);
+        $result: list.append($result, selector.unify($complex, ":is(:scope *)"), comma);
+    }
+    @return $result;
+}
+
+// @mixin prefers-dark
+// @description Wraps styles in a prefers-color-scheme: dark media query, following the OS setting only (data-theme is ignored).
+// @content Styles to apply when the OS prefers a dark colour scheme
+// @example
+// .logo {
+//   @include prefers-dark {
+//     filter: invert(1);
+//   }
+// }
+// @see dark-mode
 @mixin prefers-dark {
     @media (prefers-color-scheme: dark) {
         @content;
     }
 }
 
-// todo: doc
-/// Apply dark mode styles based on user and system preferences
-/// Respects the site's theme selection system
+// @mixin dark-mode
+// @description Applies styles where the dark theme tokens resolve: on and under the elements a dark-valued theme block matches (data-theme="dark", data-theme="inverse" on a light page, a nested inverse section, and :root without data-theme when the OS is dark), stopping at a nested data-theme section that resolves light.
+// @content Styles to apply in dark mode
+// @output One @scope rule per colour scheme condition, rooted at the elements whose theme tokens are dark and bounded by nested data-theme sections. Nothing when $enable-dark-mode is false. At the top level the content applies to those dark elements, and rules nested in it to their descendants
+// @example
+// .card {
+//   @include dark-mode {
+//     box-shadow: none;
+//   }
+// }
+// @note Uses CSS @scope (Chrome 118, Safari 17.4, Firefox 146); a browser without @scope ignores the dark-mode styles.
+// @see prefers-dark, dark-theme
 @mixin dark-mode {
     @if config-flags.$enable-dark-mode {
-        // Apply when user explicitly chooses dark
-        [data-theme="dark"] & {
-            @content;
+        $boundary: fn-tokens.theme-boundary();
+        @media not all and (prefers-color-scheme: dark) {
+            @scope (#{fn-tokens.dark-theme-roots(false)}) to (#{$boundary}) {
+                @if & {
+                    @at-root #{-scoped-selector(&)} {
+                        @content;
+                    }
+                } @else {
+                    :scope {
+                        @content;
+                    }
+                }
+            }
         }
-
-        // Apply when system is dark AND user hasn't made a choice
         @media (prefers-color-scheme: dark) {
-            [data-theme="system"] & {
-                @content;
+            @scope (#{fn-tokens.dark-theme-roots(true)}) to (#{$boundary}) {
+                @if & {
+                    @at-root #{-scoped-selector(&)} {
+                        @content;
+                    }
+                } @else {
+                    :scope {
+                        @content;
+                    }
+                }
             }
         }
     }
 }
 
-// todo: doc
-/// Target reduced motion preference
-/// @example @include reduced-motion { * { transition: none !important; } }
+// @mixin reduced-motion
+// @description Wraps styles in a prefers-reduced-motion: reduce media query.
+// @content Styles to apply when the user asks for reduced motion
+// @example
+// .spinner {
+//   @include reduced-motion {
+//     animation: none;
+//   }
+// }
 @mixin reduced-motion {
     @media (prefers-reduced-motion: reduce) {
         @content;
     }
 }
 
-// todo: doc
-/// Target high contrast mode
-/// @example @include high-contrast { border: 1px solid; }
+// @mixin high-contrast
+// @description Wraps styles in a forced-colors: active media query (Windows high contrast and other forced colour modes).
+// @content Styles to apply when the browser forces a limited colour palette
+// @example
+// .button {
+//   @include high-contrast {
+//     border: 1px solid ButtonText;
+//   }
+// }
 @mixin high-contrast {
     @media (forced-colors: active) {
         @content;

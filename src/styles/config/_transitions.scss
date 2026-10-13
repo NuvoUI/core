@@ -1,0 +1,45 @@
+// Configuration: Transitions
+// Timing functions, durations and delays
+
+@use "sass:map";
+
+$timing-functions: (
+    "linear": linear,
+    "in": cubic-bezier(0.4, 0, 1, 1),
+    "out": cubic-bezier(0, 0, 0.2, 1),
+    "in-out": cubic-bezier(0.4, 0, 0.2, 1),
+) !default;
+
+$durations: (
+    "0": 0ms,
+    "75": 75ms,
+    "100": 100ms,
+    "150": 150ms,
+    "200": 200ms,
+    "300": 300ms,
+    "500": 500ms,
+    "700": 700ms,
+    "1000": 1000ms,
+) !default;
+
+$delays: (
+    "0": 0ms,
+    "75": 75ms,
+    "100": 100ms,
+    "150": 150ms,
+    "200": 200ms,
+    "300": 300ms,
+    "500": 500ms,
+    "700": 700ms,
+    "1000": 1000ms,
+) !default;
+
+// Duration and easing keys used when none is given: transition(), the .transition classes, hover-ready and tooltips
+$transition-default-duration: "200" !default;
+$transition-default-ease: "in-out" !default;
+
+@each $label, $map, $key in ("duration" $durations $transition-default-duration, "ease" $timing-functions $transition-default-ease) {
+    @if not map.has-key($map, $key) and not map.has-key($map, "#{$key}") {
+        @error "$transition-default-#{$label}: #{$key} is not a configured key. Valid keys: #{map.keys($map)}.";
+    }
+}

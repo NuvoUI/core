@@ -2,11 +2,9 @@
 // Core color definitions and semantic mappings
 
 @use "sass:map";
-@use "sass:list";
 
 // Accessible color palette - semantic colors
-$primary: #007bff !default;
-$secondary: #6c757d !default;
+$brand: #007bff !default;
 $success: #28a745 !default;
 $danger: #dc3545 !default;
 $warning: #ffc107 !default;
@@ -30,14 +28,32 @@ $basic-colors: (
     "transparent": transparent,
 ) !default;
 
-// Generate required lists
-$semantic-colors: ("primary", "secondary", "success", "danger", "warning", "info");
-$primitive-color-names: map.keys($color-primitives);
-$color-names: list.join($semantic-colors, $primitive-color-names);
-$color-names-with-basic: list.join($color-names, map.keys($basic-colors));
+// Semantic roles: role name to colour. Single source for get-color() and theme scales
+$semantic-colors: (
+    "brand": $brand,
+    "success": $success,
+    "danger": $danger,
+    "warning": $warning,
+    "info": $info,
+) !default;
 
-// A default color for color generation function `get-color` to return a a default value on using wrong value
-$default-color: currentcolor !default;
+// Keys as strings, so an unquoted key (red: #ef4444, which Sass reads as a colour) matches "red"
+@function -string-keys($map) {
+    $result: ();
+    @each $key, $value in $map {
+        $result: map.set($result, "#{$key}", $value);
+    }
+    @return $result;
+}
+
+$color-primitives: -string-keys($color-primitives);
+$semantic-colors: -string-keys($semantic-colors);
+
+// Shade stops produced by the scale generator. Not configurable: the generator has one step per stop
+$shade-stops: (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950);
+
+// Palette hue names. Derived, not configurable
+$primitive-color-names: map.keys($color-primitives);
 
 // CSS Named Colors Map
 // Purpose: This map contains 159+ CSS named colors for internal use only.
@@ -199,4 +215,4 @@ $colors-constants: (
     "whitesmoke": whitesmoke,
     "yellow": yellow,
     "yellowgreen": yellowgreen,
-);
+) !default;

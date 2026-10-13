@@ -1,46 +1,392 @@
-// _colors.scss - Color functions and scale generation
-@use "sass:math";
+// _colors.scss - Colour mixins (bg, text-color, text-on-color) and the colour name resolver shared with border-color
 @use "sass:color";
 @use "sass:map";
+@use "sass:math";
 @use "sass:meta";
 @use "sass:list";
 @use "sass:string";
 
-@use "../config/feature-flags" as config-flags;
-@use "../config/breakpoints" as config-breakpoint;
 @use "../config/colors" as config-color;
 @use "../config/theme-validation" as config-theme;
 @use "../functions/colors" as color-fn;
+@use "../functions/contrast" as fn-contrast;
+@use "../functions/css-vars" as fn-css-vars;
+@use "../functions/feature-flags" as fn-flags;
+@use "../functions/raw-cache" as fn-raw-cache;
+@use "../functions/strings" as fn-strings;
+@use "../functions/math" as fn-math;
+@use "../functions/tokens" as fn-tokens;
+@use "../functions/types" as fn-types;
 
-// Adaptive contrast mixin
+// Names usable as they are: role and hue states (brand-hover, danger-subtle), error aliases, basic colours
+$-bare-names: ();
+
+@each $name in list.join(config-theme.$role-hue-tokens, list.join(map.keys(fn-tokens.error-aliases()), map.keys(fn-tokens.basic-tokens()))) {
+    @if string.index($name, "text-") != 1 {
+        $-bare-names: map.set($-bare-names, $name, true);
+    }
+}
+
+$-color-keywords: ("currentcolor", "inherit", "initial", "unset", "revert", "revert-layer");
+
+// Theme token words per family, for error messages: bg gives (base, surface, ...), text (regular, muted, ...)
+$-theme-words: (
+    "bg": (),
+    "text": (),
+    "border": (),
+);
+
+@each $token in config-theme.$theme-tokens {
+    $family: list.nth(string.split($token, "-"), 1);
+    @if map.has-key($-theme-words, $family) and config-theme.is-color-token($token) and not list.index(config-theme.$role-hue-tokens, $token) {
+        $words: list.append(map.get($-theme-words, $family), string.slice($token, string.length($family) + 2), comma);
+        $-theme-words: map.set($-theme-words, $family, $words);
+    }
+}
+
+// Mixin name per family, for error messages
+$-family-mixins: (
+    "bg": "bg",
+    "text": "text-color",
+    "border": "border-color",
+);
+
+// Token name of a colour name for a family (bg, text or border), else null.
+// Roles (and error) give their bare fill token {role}, hues {hue}-500, theme words {family}-{name}; text uses text-{name}
+@function -color-token($name, $family) {
+    @if $family == "text" {
+        @if fn-tokens.has-token("text-#{$name}") {
+            @return "text-#{$name}";
+        }
+    } @else {
+        @if fn-tokens.has-token($name) and (list.index(config-theme.$role-names, $name) or $name == "error") {
+            @return $name;
+        }
+        @if list.index(config-color.$primitive-color-names, $name) {
+            @return "#{$name}-500";
+        }
+        @if string.index($name, "#{$family}-") != 1 and config-theme.is-color-token("#{$family}-#{$name}") {
+            @return "#{$family}-#{$name}";
+        }
+    }
+    @if map.has-key($-bare-names, $name) {
+        @return $name;
+    }
+    @return null;
+}
+
+// Whether a name would give a token with the theme feature on: a role, a hue, a theme word or a bare state name
+@function -is-theme-name($name, $family) {
+    @if map.has-key(fn-tokens.color-scales(), $name) or map.has-key($-bare-names, $name) {
+        @return true;
+    }
+    @if $family == "text" {
+        @return list.index(config-theme.$theme-tokens, "text-#{$name}") != null;
+    }
+    @return list.index(config-theme.$theme-tokens, "#{$family}-#{$name}") != null;
+}
+
+// CSS value of a colour for bg(), text-color() and border-color(): a role, hue or theme word gives its token,
+// a role or hue with a shade gives the palette token, var() passes through, other colours stay raw
+// (a raw colour with a shade is shaded at compile time)
+// Resolved color-value() results as (family: (colour text: (shade: result))). Only bounded colours and shades are
+// stored, so a quoted word shares the entry of the same unquoted word; errors are raised before anything is stored.
+// A raw colour value with no shade is returned at once; raw colours with a shade go in the size-capped raw cache
+$-value-cache: ();
+
+@function color-value($color, $shade: null, $family: "bg") {
+    // Fast path for hex colours: with no shade a colour value is returned as is and hex text (namespaced apply()) is
+    // unquoted after the length check of fn-types.get-type(). Boundedness is worked out here for colour values, the
+    // same test as fn-css-vars.is-bounded-value() without a second call
+    $type: meta.type-of($color);
+    $bounded: false;
+    @if $type == "color" {
+        $inspected: meta.inspect($color);
+        @if string.slice($inspected, 1, 1) == "#" {
+            @if not $shade {
+                @return $color;
+            }
+        } @else {
+            $bounded: not string.index($inspected, "(");
+        }
+    } @else if $type == "string" and string.slice($color, 1, 1) == "#" {
+        @if not $shade and list.index((4, 5, 7, 9), string.length($color)) {
+            @return string.unquote($color);
+        }
+    } @else {
+        $bounded: fn-css-vars.is-bounded-value($color);
+    }
+    @if $bounded and (not $shade or fn-css-vars.is-bounded-value($shade)) {
+        $text: "#{$color}";
+        $hit: map.get($-value-cache, $family, $text, $shade);
+        @if $hit {
+            @return $hit;
+        }
+        $result: -color-value($color, $shade, $family);
+        $-value-cache: map.set($-value-cache, $family, $text, $shade, $result) !global;
+        @return $result;
+    }
+    @if not $shade {
+        @return -color-value($color, $shade, $family);
+    }
+    $key: "#{$family}|#{$color}|#{$shade}";
+    $hit: fn-raw-cache.raw-cache-get("color-value", $key);
+    @if $hit {
+        @return $hit;
+    }
+    @return fn-raw-cache.raw-cache-set("color-value", $key, -color-value($color, $shade, $family));
+}
+
+// CSS colour functions passed through as written when no shade is given (the namespaced apply() form passes them as
+// text, and Sass keeps color-mix() and light-dark() as text on every path)
+$-color-functions: (
+    "rgb": true,
+    "rgba": true,
+    "hsl": true,
+    "hsla": true,
+    "hwb": true,
+    "lab": true,
+    "lch": true,
+    "oklab": true,
+    "oklch": true,
+    "color": true,
+    "color-mix": true,
+    "light-dark": true,
+);
+
+// True when $text is a call of a CSS colour function: rgb(...), oklch(...), color-mix(...)
+@function -is-color-function($text) {
+    $open: string.index($text, "(");
+    @return $open != null and $open > 1 and string.slice($text, -1) == ")" and map.has-key($-color-functions, string.to-lower-case(string.slice($text, 1, $open - 1)));
+}
+
+// Uncached resolver behind color-value()
+@function -color-value($color, $shade, $family) {
+    $mixin: map.get($-family-mixins, $family);
+    @if fn-css-vars.is-css-var($color) {
+        @if $shade {
+            @error "#{$mixin}(#{$color}, #{$shade}): a CSS variable has no shades.";
+        }
+        @return fn-css-vars.get-css-var($color);
+    }
+
+    $name: string.unquote("#{$color}");
+
+    @if $shade {
+        $stop: $shade;
+        @if meta.type-of($stop) == "string" {
+            $stop: fn-math.to-number($stop);
+        }
+        @if map.has-key(fn-tokens.color-scales(), $name) {
+            @if not color-fn.is-valid-shade($stop) {
+                @error "#{$mixin}(#{$name}, #{$shade}): invalid shade. Valid shades: #{config-color.$shade-stops}.";
+            }
+            @if not fn-flags.feature-flag-on("theme") {
+                @error "#{$mixin}(#{$name}, #{$shade}): colour names give --nu-* tokens, which are not emitted because the theme feature flag is off. Use a colour value, or get-color(#{$name}, #{$stop}) for a compile time colour.";
+            }
+            @return fn-tokens.token("#{$name}-#{$stop}");
+        }
+        @if fn-types.get-type($color) != "color" {
+            @error "#{$mixin}(#{$name}, #{$shade}): only a role, a palette name or a value Sass reads as a colour takes a shade: a hex colour, rgb(), rgba(), a CSS colour name, or a colour function such as oklch() in a direct call or apply() after @use ... as *. color-mix(), light-dark(), and colour functions other than rgb() and rgba() in namespaced apply() (passed as text) take no shade.";
+        }
+        @return color-fn.get-color($color, $stop);
+    }
+
+    // Token names never hold # or (, so raw values (hex colours, colour functions) skip the lookup
+    @if fn-css-vars.is-bounded-value($color) {
+        @if not fn-flags.feature-flag-on("theme") and -is-theme-name($name, $family) {
+            // Basic colours stay plain CSS colours without tokens
+            @if map.has-key(fn-tokens.basic-tokens(), $name) {
+                @return $name;
+            }
+            $hint: "Use a colour value";
+            @if map.has-key(fn-tokens.color-scales(), $name) {
+                $hint: "Use a colour value, or get-color(#{$name}) for a compile time colour";
+            }
+            @error "#{$mixin}(#{$name}): colour names give --nu-* tokens, which are not emitted because the theme feature flag is off. #{$hint}.";
+        }
+        $token: -color-token($name, $family);
+        @if $token {
+            @return fn-tokens.token($token);
+        }
+        $renamed: fn-tokens.renamed-role($name);
+        @if $renamed {
+            @error "#{$mixin}(#{$name}): renamed in 2.0, use #{$mixin}(#{$renamed}).";
+        }
+    }
+
+    @if meta.type-of($color) == "color" {
+        @return $color;
+    }
+    @if fn-types.get-type($color) == "color" or -is-color-function($name) or list.index($-color-keywords, string.to-lower-case($name)) {
+        @return $name;
+    }
+
+    @error "#{$mixin}(#{$name}): unknown colour. Use a role (#{map.keys(config-color.$semantic-colors)}), a palette name (#{config-color.$primitive-color-names}), a theme word (#{map.get($-theme-words, $family)}), a hex colour, a CSS colour name, a colour function (rgb(), hsl(), hwb(), lab(), lch(), oklab(), oklch(), color(), color-mix(), light-dark()), a keyword (#{$-color-keywords}) or var().";
+}
+
+// @mixin adaptive-contrast
+// @description Sets background-color and the higher contrast text colour, both computed at compile time; under prefers-contrast: more the background moves away from the text colour (darker under light text, lighter under dark text) for a higher ratio.
+// @param {String|Color} $color - A role or palette name (resolved with get-color()) or a colour value
+// @output Resolved colour values, not var(--nu-*) tokens, so the result does not follow themes
+// @example
+// .banner {
+//   @include adaptive-contrast(brand);
+// }
+// @example
+// .badge {
+//   @include adaptive-contrast(#1e293b);
+// }
+// @see bg, text-on-color
 @mixin adaptive-contrast($color) {
+    $color: color-fn.get-color($color);
+    $text: color-fn.find-text-color($color);
+
     background-color: $color;
-    color: color-fn.find-text-color($color);
+    color: $text;
 
     @media (prefers-contrast: more) {
-        $adjusted: color.adjust($color, $lightness: 10%);
-        @if color.lightness($color) > 50% {
-            $adjusted: color.adjust($color, $lightness: -10%);
+        // Move the background away from the text colour: darker under light text, lighter under dark text
+        $step: 10%;
+        @if fn-contrast.luminance($text) > fn-contrast.luminance($color) {
+            $step: -10%;
         }
+        $lightness: math.clamp(0%, color.channel($color, "lightness", $space: hsl) + $step, 100%);
+        $adjusted: color.to-space(color.change($color, $lightness: $lightness, $space: hsl), rgb);
 
         background-color: $adjusted;
         color: color-fn.find-text-color($adjusted);
     }
 }
 
-// todo: documentation
-@mixin bg($color, $shade: 500) {
-    background-color: color-fn.get-color($color, $shade);
+// @mixin bg
+// @description Sets background-color from a role, palette name, theme word or colour, emitting the matching var(--nu-*) token.
+// @param {String|Color} $color - A role (brand, danger), role state (danger-subtle, brand-hover), palette name (red), theme word (base, surface, alternate, raised, hover, selected, disabled), colour value or var()
+// @param {Number|Null} $shade [null] - A shade stop (50, 100 to 900, 950) for a role or palette name
+// @example
+// .card {
+//   @include bg(surface); // var(--nu-bg-surface)
+// }
+// @example
+// .alert {
+//   @include apply(bg(danger-subtle), text-color(danger), border(1, solid, danger-border));
+// }
+// @example
+// .chip {
+//   @include bg(brand, 100); // var(--nu-brand-100)
+// }
+// @note bg(brand) gives var(--nu-brand) and bg(red) the fixed var(--nu-red-500); a shade outside 50 to 950 raises an error, and a raw colour with a shade is shaded at compile time.
+// @see text-color, border-color
+@mixin bg($color, $shade: null) {
+    background-color: color-value($color, $shade, "bg");
 }
 
-@mixin text-color($color-name, $shade: 500) {
-    color: color-fn.get-color($color-name, $shade);
+// @mixin text-color
+// @description Sets color from a role, palette name, theme word or colour, emitting the matching var(--nu-text-*) token.
+// @param {String|Color} $color-name - A role (brand, danger), palette name (red), theme word (regular, muted, subtle, inverted, link, link-hover), colour value or var()
+// @param {Number|Null} $shade [null] - A shade stop (50, 100 to 900, 950) for a role or palette name, giving the fixed palette token
+// @example
+// .caption {
+//   @include text-color(muted); // var(--nu-text-muted)
+// }
+// @example
+// .error-message {
+//   @include apply(text-color(danger), font-size(sm));
+// }
+// @note text-color(brand) gives var(--nu-text-brand) and text-color(red) the theme aware var(--nu-text-red); with a shade the token is var(--nu-{name}-{stop}).
+// @see bg, text-on-color
+@mixin text-color($color-name, $shade: null) {
+    color: color-value($color-name, $shade, "text");
 }
 
-@mixin text-on-color($color-name, $shade: 500) {
-    color: color-fn.find-text-color(color-fn.get-color($color-name, $shade));
+// @mixin text-on-color
+// @description Sets the text colour for content placed on a filled colour: a role gives its var(--nu-text-on-*) token, anything else the higher contrast text colour computed at compile time.
+// @param {String|Color} $color-name - A role (brand, danger), palette name (purple) or colour value
+// @param {Number|Null} $shade [null] - Shade stop of the fill (50, 100 to 900, 950); defaults to 500 when the colour is not a role
+// @example
+// .button {
+//   @include apply(bg(brand), text-on-color(brand)); // color: var(--nu-text-on-brand)
+// }
+// @example
+// .tag {
+//   @include bg(purple, 700);
+//   @include text-on-color(purple, 700);
+// }
+// @note A role with a shade, a palette name or a colour value gives a fixed colour that does not follow themes.
+// @see adaptive-contrast, text-color
+@mixin text-on-color($color-name, $shade: null) {
+    $name: string.unquote("#{$color-name}");
+    @if not $shade and fn-tokens.has-token("text-on-#{$name}") {
+        color: fn-tokens.token("text-on-#{$name}");
+    } @else {
+        $renamed: fn-tokens.renamed-role($name);
+        @if $renamed {
+            @error "text-on-color(#{$name}): renamed in 2.0, use text-on-color(#{$renamed}).";
+        }
+        @if not $shade {
+            $shade: 500;
+        }
+        $stop: $shade;
+        @if meta.type-of($stop) == "string" {
+            $stop: fn-math.to-number($stop);
+        }
+        @if not color-fn.is-valid-shade($stop) {
+            @error "text-on-color(#{$name}, #{$shade}): invalid shade. Valid shades: #{config-color.$shade-stops}.";
+        }
+        @if not map.has-key(fn-tokens.color-scales(), $name) and fn-types.get-type($color-name) != "color" {
+            @error "text-on-color(#{$name}): unknown colour. Use a role (#{map.keys(config-color.$semantic-colors)}), a palette name (#{config-color.$primitive-color-names}) or a colour value.";
+        }
+
+        color: color-fn.find-text-color(color-fn.get-color($color-name, $stop));
+    }
 }
 
+// A gradient stop with its colour resolved like bg(): brand gives var(--nu-brand), red var(--nu-red-500),
+// surface var(--nu-bg-surface); a colour hint or position (50%) and a stop holding a CSS function stay as written
+@function -gradient-stop($stop) {
+    $parts: null;
+    @if meta.type-of($stop) == "string" and string.index($stop, " ") and not string.index($stop, "(") {
+        $parts: fn-strings.split(string.unquote($stop), " ");
+    } @else if meta.type-of($stop) == "list" and list.separator($stop) == "space" {
+        $parts: $stop;
+    }
+    @if $parts and list.length($parts) > 1 {
+        $resolved: (-gradient-color(list.nth($parts, 1)));
+        @for $i from 2 through list.length($parts) {
+            $resolved: list.append($resolved, list.nth($parts, $i), space);
+        }
+        @return $resolved;
+    }
+    @return -gradient-color($stop);
+}
+
+// The colour of one gradient stop: numbers and CSS functions as written, any other value through color-value()
+@function -gradient-color($value) {
+    $type: meta.type-of($value);
+    @if $type == "number" or $type == "calculation" or ($type == "string" and string.index($value, "(") and not -is-color-function("#{$value}")) {
+        @return $value;
+    }
+    @return color-value($value, null, "bg");
+}
+
+// @mixin gradient
+// @description Sets background-image to a linear-gradient with the given direction and colour stops; colour names resolve like bg() (roles, palette names, theme words), other colours and positions are written as passed.
+// @param {String|Number} $direction - A direction such as to right or an angle such as 135deg
+// @param {Any} $colors - Colour stops: a role (brand), palette name (red), theme word (surface), colour value or var(), each optionally followed by a position (brand 20%)
+// @example
+// .hero {
+//   @include gradient(to right, brand, purple); // linear-gradient(to right, var(--nu-brand), var(--nu-purple-500))
+// }
+// @example
+// .fade {
+//   @include gradient(180deg, transparent, base 80%);
+// }
+// @note An unknown colour word raises the same error as bg().
 @mixin gradient($direction, $colors...) {
-    background-image: linear-gradient($direction, $colors);
+    $stops: ();
+    @each $stop in $colors {
+        $stops: list.append($stops, -gradient-stop($stop), comma);
+    }
+
+    background-image: linear-gradient(fn-math.css-arg($direction), $stops);
 }

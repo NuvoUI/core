@@ -7,8 +7,8 @@
 
 // @example
 // <div class="flex row between x-center">
-//   <div class="w-6">Left column (6 units)</div>
-//   <div class="w-6">Right column (6 units)</div>
+//   <div class="fill-6">Left column (6 of 12 columns)</div>
+//   <div class="fill-6">Right column (6 of 12 columns)</div>
 // </div>
 
 // <div class="flex col@md row@lg">
@@ -25,14 +25,22 @@
 // - row-reverse: Reverses row direction
 // - col-reverse: Reverses column direction
 
-// Alignment:
-// - start/end/center: Controls justify-content
-// - x-start/x-end/x-center: Controls align-items
+// Wrapping:
+// - wrap/nowrap/wrap-reverse: Controls flex-wrap
 
-// Child elements:
-// - w-{1-12}: Sets width based on column count
-// - grow: Allows item to grow
-// - shrink/no-shrink: Controls shrink behavior
+// Alignment:
+// - start/end/center/between/around/evenly: Controls justify-content
+// - stretch: Direct children share the main axis equally (flex: 1 1 0%)
+// - x-start/x-end/x-center/x-stretch/x-baseline: Controls align-items
+// - x-content-{start|end|center|between|around|evenly|stretch}: Controls align-content
+
+// Child elements (direct children of .flex):
+// - fill-{1-12}: Takes that many of the 12 columns, minus the gap
+// - fill-auto/fill-full: Grows and shrinks from its content size, or takes the full row
+// - grow/no-grow: Allows or prevents growing
+// - shrink/no-shrink/shrink-twice: Controls shrink behavior
+// - self-{auto|start|end|center|stretch|baseline}: Controls align-self
+// - order-{1-12}, order-first, order-last, order-none: Controls order
 
 // @responsive
 // All classes support responsive variants using @breakpoint suffix:
@@ -42,261 +50,499 @@
 // @see grid
 
 @use "sass:math";
-@use "../tools/media-queries" as MC;
+@use "sass:meta";
 @use "../config/feature-flags" as config-flags;
 @use "../config/layouts" as config-layout;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../functions/feature-flags" as fn-flags;
-@use "../functions/breakpoints" as fn-breakpoints;
+@use "../functions/math" as fn-math;
 
-// @description Sets flex-direction to row.
-// @dependencies flex | flex-inline
+// @mixin row
+// @description Sets flex-direction to row; applies to a flex container.
+// @example
+// .toolbar {
+//   @include apply(flex, row);
+// }
+// @see col, row-reverse
 @mixin row {
     flex-direction: row;
 }
 
-// @description Sets flex-direction to row-reverse.
-// @dependencies flex | flex-inline
+// @mixin row-reverse
+// @description Sets flex-direction to row-reverse; applies to a flex container.
+// @example
+// .toolbar {
+//   @include flex;
+//   @include row-reverse;
+// }
+// @see row
 @mixin row-reverse {
     flex-direction: row-reverse;
 }
 
-// @description Sets flex-direction to column.
-// @dependencies flex | flex-inline
+// @mixin col
+// @description Sets flex-direction to column; applies to a flex container.
+// @example
+// .stack {
+//   @include apply(flex, col, gap(4));
+// }
+// @see row, col-reverse
 @mixin col {
     flex-direction: column;
 }
 
-// @description Sets flex-direction to column-reverse.
-// @dependencies flex | flex-inline
+// @mixin col-reverse
+// @description Sets flex-direction to column-reverse; applies to a flex container.
+// @example
+// .chat-log {
+//   @include flex;
+//   @include col-reverse;
+// }
+// @see col
 @mixin col-reverse {
     flex-direction: column-reverse;
 }
 
-// @description Sets flex-wrap to wrap.
-// @dependencies flex | flex-inline
+// @mixin wrap
+// @description Sets flex-wrap to wrap so items move onto new lines; applies to a flex container.
+// @example
+// .tag-list {
+//   @include apply(flex, wrap, gap(2));
+// }
+// @see nowrap, wrap-reverse
 @mixin wrap {
     flex-wrap: wrap;
 }
 
-// @description Sets flex-wrap to nowrap.
-// @dependencies flex | flex-inline
+// @mixin nowrap
+// @description Sets flex-wrap to nowrap so items stay on one line; applies to a flex container.
+// @example
+// .tabs {
+//   @include flex;
+//   @include nowrap;
+// }
+// @see wrap
 @mixin nowrap {
     flex-wrap: nowrap;
 }
 
-// @description Sets flex-wrap to wrap-reverse
-// @dependencies flex | flex-inline
+// @mixin wrap-reverse
+// @description Sets flex-wrap to wrap-reverse so new lines stack in reverse order; applies to a flex container.
+// @example
+// .tag-list {
+//   @include flex;
+//   @include wrap-reverse;
+// }
+// @see wrap
 @mixin wrap-reverse {
     flex-wrap: wrap-reverse;
 }
 
-// @description Sets justify-content to flex-start
-// @dependencies flex | flex-inline
+// @mixin start
+// @description Sets justify-content to flex-start, packing items at the start of the main axis.
+// @example
+// .toolbar {
+//   @include apply(flex, start);
+// }
+// @see end, center, between
 @mixin start {
     justify-content: flex-start;
 }
 
-// @description Sets justify-content to flex-end
-// @dependencies flex | flex-inline
+// @mixin end
+// @description Sets justify-content to flex-end, packing items at the end of the main axis.
+// @example
+// .actions {
+//   @include apply(flex, end, gap(2));
+// }
+// @see start, center
 @mixin end {
     justify-content: flex-end;
 }
 
-// @description Sets justify-content to center
-// @dependencies flex | flex-inline
+// @mixin center
+// @description Sets justify-content to center, centring items on the main axis.
+// @example
+// .hero {
+//   @include apply(flex, center, x-center);
+// }
+// @see x-center
 @mixin center {
     justify-content: center;
 }
 
-// @description Sets justify-content to stretch
-// @dependencies flex | flex-inline
+// @mixin stretch
+// @description Makes the direct children of a flex container share the main axis equally (each child gets flex: 1 1 0%). Takes no argument; when one child must be wider, give it a fill-{n} or no-grow class.
+// @output & > * { flex: 1 1 0% }
+// @example
+// .tabs {
+//   @include apply(flex, stretch);
+// }
+// .segmented {
+//   @include flex;
+//   @include stretch; // .segmented > * { flex: 1 1 0% }
+// }
+// @see grow, x-stretch
 @mixin stretch {
-    justify-content: stretch;
+    & > * {
+        flex: 1 1 0%;
+    }
 }
 
-// @description Sets justify-content to space-between
-// @dependencies flex | flex-inline
+// @mixin between
+// @description Sets justify-content to space-between, spreading items with the free space between them.
+// @example
+// .header {
+//   @include apply(flex, between, x-center);
+// }
+// @see around, evenly
 @mixin between {
     justify-content: space-between;
 }
 
-// @description Sets justify-content to space-around
-// @dependencies flex | flex-inline
+// @mixin around
+// @description Sets justify-content to space-around, giving each item equal space on both sides.
+// @example
+// .nav {
+//   @include flex;
+//   @include around;
+// }
+// @see between, evenly
 @mixin around {
     justify-content: space-around;
 }
 
-// @description Sets justify-content to space-evenly
-// @dependencies flex | flex-inline
+// @mixin evenly
+// @description Sets justify-content to space-evenly, making every gap between and around items equal.
+// @example
+// .stats {
+//   @include flex;
+//   @include evenly;
+// }
+// @see between, around
 @mixin evenly {
     justify-content: space-evenly;
 }
 
 // Cross Axis Alignment Mixins
 
-// @description Sets align-items to flex-start - aligns items to the start of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-start
+// @description Sets align-items to flex-start, aligning items to the start of the cross axis.
+// @example
+// .media {
+//   @include apply(flex, x-start, gap(4));
+// }
+// @see x-end, x-center
 @mixin x-start {
     align-items: flex-start;
 }
 
-// @description Sets align-items to flex-end - aligns items to the end of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-end
+// @description Sets align-items to flex-end, aligning items to the end of the cross axis.
+// @example
+// .bars {
+//   @include flex;
+//   @include x-end;
+// }
+// @see x-start
 @mixin x-end {
     align-items: flex-end;
 }
 
-// @description Sets align-items to center - aligns items to the center of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-center
+// @description Sets align-items to center, centring items on the cross axis.
+// @example
+// .header {
+//   @include apply(flex, between, x-center);
+// }
+// @see center
 @mixin x-center {
     align-items: center;
 }
 
-// @description Sets align-items to stretch - aligns items to the stretch of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-stretch
+// @description Sets align-items to stretch, stretching items to fill the cross axis.
+// @example
+// .columns {
+//   @include flex;
+//   @include x-stretch;
+// }
+// @see x-start
 @mixin x-stretch {
     align-items: stretch;
 }
 
-// @description Sets align-items to baseline - aligns items to the baseline of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-baseline
+// @description Sets align-items to baseline, aligning items along their text baseline.
+// @example
+// .price-row {
+//   @include apply(flex, x-baseline, gap(2));
+// }
+// @see x-center
 @mixin x-baseline {
     align-items: baseline;
 }
 
 // Cross Axis Content Mixins
 
-// @description Sets align-content to flex-start - aligns content to the start of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-start
+// @description Sets align-content to flex-start, packing wrapped lines at the start of the cross axis.
+// @example
+// .tag-list {
+//   @include apply(flex, wrap, x-content-start);
+// }
+// @see x-content-end
 @mixin x-content-start {
     align-content: flex-start;
 }
 
-// @description Sets align-content to flex-end - aligns content to the end of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-end
+// @description Sets align-content to flex-end, packing wrapped lines at the end of the cross axis.
+// @example
+// .tag-list {
+//   @include apply(flex, wrap, x-content-end);
+// }
+// @see x-content-start
 @mixin x-content-end {
     align-content: flex-end;
 }
 
-// @description Sets align-content to center - aligns content to the center of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-center
+// @description Sets align-content to center, centring wrapped lines on the cross axis.
+// @example
+// .gallery {
+//   @include apply(flex, wrap, x-content-center);
+// }
+// @see x-center
 @mixin x-content-center {
     align-content: center;
 }
 
-// @description Sets align-content to space-between - aligns content to the space between the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-between
+// @description Sets align-content to space-between, spreading wrapped lines with the free space between them.
+// @example
+// .gallery {
+//   @include apply(flex, wrap, x-content-between);
+// }
+// @see x-content-around, x-content-evenly
 @mixin x-content-between {
     align-content: space-between;
 }
 
-// @description Sets align-content to space-around - aligns content to the space around the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-around
+// @description Sets align-content to space-around, giving each wrapped line equal space on both sides.
+// @example
+// .gallery {
+//   @include apply(flex, wrap, x-content-around);
+// }
+// @see x-content-between
 @mixin x-content-around {
     align-content: space-around;
 }
 
-// @description Sets align-content to space-evenly - aligns content to the space evenly between the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-evenly
+// @description Sets align-content to space-evenly, making every gap between and around wrapped lines equal.
+// @example
+// .gallery {
+//   @include apply(flex, wrap, x-content-evenly);
+// }
+// @see x-content-between
 @mixin x-content-evenly {
     align-content: space-evenly;
 }
 
-// @description Sets align-content to stretch - aligns content to the stretch of the cross axis.
-// @dependencies flex | flex-inline
+// @mixin x-content-stretch
+// @description Sets align-content to stretch, stretching wrapped lines to fill the cross axis.
+// @example
+// .gallery {
+//   @include apply(flex, wrap, x-content-stretch);
+// }
+// @see x-stretch
 @mixin x-content-stretch {
     align-content: stretch;
 }
 
 // Self Alignment Mixins
 
-// @description Sets align-self to auto
-// @dependencies flex | flex-inline
+// @mixin self-auto
+// @description Sets align-self to auto, so the item follows the container's align-items.
+// @example
+// .item {
+//   @include self-auto;
+// }
+// @see self-start, self-center
 @mixin self-auto {
     align-self: auto;
 }
 
-// @description Sets align-self to flex-start
-// @dependencies flex | flex-inline
+// @mixin self-start
+// @description Sets align-self to flex-start, aligning this item to the start of the cross axis.
+// @example
+// .badge {
+//   @include self-start;
+// }
+// @see self-end
 @mixin self-start {
     align-self: flex-start;
 }
 
-// @description Sets align-self to flex-end
-// @dependencies flex | flex-inline
+// @mixin self-end
+// @description Sets align-self to flex-end, aligning this item to the end of the cross axis.
+// @example
+// .timestamp {
+//   @include self-end;
+// }
+// @see self-start
 @mixin self-end {
     align-self: flex-end;
 }
 
-// @description Sets align-self to center
-// @dependencies flex | flex-inline
+// @mixin self-center
+// @description Sets align-self to center, centring this item on the cross axis.
+// @example
+// .icon {
+//   @include self-center;
+// }
+// @see x-center
 @mixin self-center {
     align-self: center;
 }
 
-// @description Sets align-self to stretch
-// @dependencies flex | flex-inline
+// @mixin self-stretch
+// @description Sets align-self to stretch, stretching this item to fill the cross axis.
+// @example
+// .divider {
+//   @include self-stretch;
+// }
+// @see x-stretch
 @mixin self-stretch {
     align-self: stretch;
 }
 
-// @description Sets align-self to baseline
-// @dependencies flex | flex-inline
+// @mixin self-baseline
+// @description Sets align-self to baseline, aligning this item along the text baseline.
+// @example
+// .label {
+//   @include self-baseline;
+// }
+// @see x-baseline
 @mixin self-baseline {
     align-self: baseline;
 }
 
-// @description Sets flex-shrink to 1 - allows the item to shrink.
-// @dependencies flex | flex-inline
+// @mixin shrink
+// @description Sets flex-shrink to 1 so the item can shrink when space runs out.
+// @example
+// .title {
+//   @include apply(shrink, truncate);
+// }
+// @see no-shrink, shrink-twice
 @mixin shrink {
     flex-shrink: 1;
 }
 
-// @description Sets flex-shrink to 0 - prevents the item from shrinking.
-// @dependencies flex | flex-inline
+// @mixin no-shrink
+// @description Sets flex-shrink to 0 so the item never shrinks below its size.
+// @example
+// .avatar {
+//   @include apply(no-shrink, width(10));
+// }
+// @see shrink
 @mixin no-shrink {
     flex-shrink: 0;
 }
 
-// @description Sets flex-shrink to 2 - allows the item to shrink twice as much as the other items.
-// @dependencies flex | flex-inline
+// @mixin shrink-twice
+// @description Sets flex-shrink to 2 so the item shrinks twice as fast as items with flex-shrink 1.
+// @example
+// .sidebar {
+//   @include shrink-twice;
+// }
+// @see shrink
 @mixin shrink-twice {
     flex-shrink: 2;
 }
 
 // Flex Child Mixins
 
-// @description Sets flex to 0 0 100%
+// @mixin fill-full
+// @description Sets flex to 0 0 100% so the item takes a full row and neither grows nor shrinks.
+// @example
+// .banner {
+//   @include fill-full;
+// }
+// @see fill, fill-auto
 @mixin fill-full {
     flex: 0 0 100%;
 }
 
-// @description Sets flex to 1 1 auto - allows the item to grow and shrink.
+// @mixin fill-auto
+// @description Sets flex to 1 1 auto so the item starts at its content size, then grows and shrinks.
+// @example
+// .search {
+//   @include fill-auto;
+// }
+// @see grow, fill-full
 @mixin fill-auto {
     flex: 1 1 auto;
 }
 
-// @description Sets flex to 1 1 0% - allows the item to grow but not shrink.
+// @mixin grow
+// @description Sets flex to 1 1 0% so the item grows and shrinks from a zero base, sharing space equally with other grow items.
+// @example
+// .main {
+//   @include grow;
+// }
+// @see grow-only, no-grow, fill-auto
 @mixin grow {
     flex: 1 1 0%;
 }
 
-// @description Sets flex to none - prevents the item from growing.
+// @mixin no-grow
+// @description Sets flex to none so the item keeps its size and neither grows nor shrinks.
+// @example
+// .logo {
+//   @include no-grow;
+// }
+// @see grow
 @mixin no-grow {
     flex: none;
 }
 
-// @description Sets flex to 1 0 auto - allows the item to grow but not shrink.
+// @mixin grow-only
+// @description Sets flex to 1 0 auto so the item grows from its content size but never shrinks.
+// @example
+// .content {
+//   @include grow-only;
+// }
+// @see grow
 @mixin grow-only {
     flex: 1 0 auto;
 }
 
-// @description Sets how many columns this would take using percentage of config-layout.$column-count.
-// @param {Number} $size - The number of columns to span.
+// @mixin fill
+// @description Sizes a flex child to span a number of columns out of `$column-count` (12 by default), subtracting the container gap from `--nu-flex-gap`.
+// @param {Number} $size - Whole number of columns to span, from 1 to `$column-count`; a fraction, 0, a negative number, more than `$column-count`, a value with a unit or a non-number raises an error
+// @output flex: 0 0 <width>; max-width: <width>; min-width: 0, where width is a calc() over 100% and var(--nu-flex-gap)
+// @example
+// .sidebar {
+//   @include fill(4); // one third of the row, minus its share of the gap
+// }
+// .layout {
+//   @include apply(flex, gap(4));
+//   > .main {
+//     @include fill(8);
+//   }
+// }
+// @note Gap mixins set `--nu-flex-gap` on direct children, so place the item directly inside the gap container; without a gap it reads the registered initial value 0px.
+// @see grow, fill-full, gap
 @mixin fill($size) {
+    $size: fn-math.css-arg($size);
+    @if meta.type-of($size) != "number" or not math.is-unitless($size) or math.round($size) != $size or $size <= 0 or $size > config-layout.$column-count {
+        @error "fill(#{$size}): use a whole number of columns from 1 to #{config-layout.$column-count}.";
+    }
     $columns: math.div(config-layout.$column-count, $size); // How many items per row
-    $width: calc((100% - (#{$columns - 1} * var(--flex-gap, 0px))) / #{$columns});
+    $width: calc((100% - (#{$columns - 1} * var(--nu-flex-gap))) / #{$columns});
 
     flex: 0 0 $width;
     max-width: $width; // Add this to ensure content doesn't push width wider
@@ -356,7 +602,9 @@
             @include center;
         }
 
-        &.stretch {
+        // :where() keeps .flex.stretch > * at the specificity of one class, so the child classes (.no-grow, .fill-*,
+        // .grow) win in any order, including the responsive variants
+        &:where(.stretch) {
             @include stretch;
         }
 
@@ -499,9 +747,7 @@
 
     // Handle responsive variants
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        $bp-val: fn-breakpoints.get-breakpoint-value($breakpoint); // todo: why get-breakpoint-value?
-
-        @media (min-width: #{$bp-val}) {
+        @media (min-width: #{$width}) {
             #{$flex-selectors} {
                 // Direction modifiers
                 &.row\@#{$breakpoint} {
@@ -538,7 +784,7 @@
                 &.center\@#{$breakpoint} {
                     @include center;
                 }
-                &.stretch\@#{$breakpoint} {
+                &:where(.stretch\@#{$breakpoint}) {
                     @include stretch;
                 }
                 &.between\@#{$breakpoint} {

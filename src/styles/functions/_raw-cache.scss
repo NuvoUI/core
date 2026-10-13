@@ -1,0 +1,29 @@
+// _raw-cache.scss - Size-capped caches for results resolved from raw values (apply() items, shaded raw colours)
+@use "sass:list";
+@use "sass:map";
+
+// Entries per generation of each cache. A cache keeps hitting while a stylesheet repeats fewer than about twice this
+// many raw values. Each insert copies at most this many entries (map.set() copies the whole map), so a stylesheet of
+// unique values stays linear
+$raw-cache-size: 128;
+
+// Two generations per cache, as (cache name: (key: result)): inserts go to $-young; a full young generation becomes
+// the old one and the previous old generation is dropped
+$-young: ();
+$-old: ();
+
+// Cached result for $key in the cache named $cache, or null
+@function raw-cache-get($cache, $key) {
+    @return map.get($-young, $cache, $key) or map.get($-old, $cache, $key);
+}
+
+// Stores $value under $key in the cache named $cache and returns $value
+@function raw-cache-set($cache, $key, $value) {
+    $young: map.get($-young, $cache);
+    @if $young and list.length($young) >= $raw-cache-size {
+        $-old: map.set($-old, $cache, $young) !global;
+        $-young: map.set($-young, $cache, ()) !global;
+    }
+    $-young: map.set($-young, $cache, $key, $value) !global;
+    @return $value;
+}

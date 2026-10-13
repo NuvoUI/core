@@ -2,15 +2,81 @@
 // Module: Modern Layout
 // Description: Mixins for modern CSS layout techniques
 
-// todo: doc
-/// Set aspect ratio with fallbacks
-/// @param {String} $ratio - Aspect ratio (e.g. "16/9")
-@mixin aspect-ratio($ratio) {
-    aspect-ratio: #{$ratio};
+@use "sass:list";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:string";
+@use "../functions/css-vars" as fn-css-vars;
+@use "../functions/math" as fn-math;
+@use "../functions/strings" as fn-strings;
+
+// A positive unitless number, from a number or a string spelling one, else null
+@function -ratio-part($value) {
+    $number: fn-math.css-arg(fn-strings.str-trim("#{$value}"));
+    @if meta.type-of($number) == "number" and math.is-unitless($number) and $number > 0 {
+        @return $number;
+    }
+    @return null;
 }
 
-// todo: doc
-/// Use dynamic viewport height with fallback
+// The aspect-ratio value of aspect-ratio(): width / height, a single number, auto, a CSS-wide keyword, calc() or var()
+@function -ratio($ratio, $height) {
+    $width: $ratio;
+    @if not $height and meta.type-of($ratio) == "list" and list.separator($ratio) == "slash" and list.length($ratio) == 2 {
+        $width: list.nth($ratio, 1);
+        $height: list.nth($ratio, 2);
+    } @else if not $height and meta.type-of($ratio) == "string" and string.index($ratio, "/") and not string.index($ratio, "(") {
+        $parts: fn-strings.split(string.unquote($ratio), "/");
+        @if list.length($parts) == 2 {
+            $width: list.nth($parts, 1);
+            $height: list.nth($parts, 2);
+        }
+    }
+    @if $height {
+        $w: -ratio-part($width);
+        $h: -ratio-part($height);
+        @if $w and $h {
+            @return string.unquote("#{$w} / #{$h}");
+        }
+    } @else {
+        $value: fn-math.css-arg($ratio);
+        @if meta.type-of($value) == "number" and math.is-unitless($value) and $value > 0 {
+            @return $value;
+        }
+        @if list.index((auto, inherit, initial, unset, revert, revert-layer), $value) or fn-css-vars.is-css-function($value) {
+            @return $value;
+        }
+    }
+    $given: meta.inspect($ratio);
+    @if $height {
+        $given: "#{$given}, #{meta.inspect($height)}";
+    }
+    @error "aspect-ratio: #{$given} is not a ratio. Use width and height (aspect-ratio(16, 9) or \"16/9\"), a positive number, auto, calc() or var().";
+}
+
+// @mixin aspect-ratio
+// @description Sets the aspect-ratio property from a width and height (emitted as 16 / 9), a single number, auto, calc() or var(); anything else raises an error.
+// @param {Number|String|List} $ratio - Width (with $height), a ratio as text ("16/9"), list.slash(16, 9), a positive number (1.5), auto, calc() or var()
+// @param {Number|Null} $height [null] - Height of the ratio, when $ratio is the width
+// @example
+// .video {
+//   @include aspect-ratio(16, 9); // aspect-ratio: 16 / 9
+// }
+// @example
+// .thumb {
+//   @include apply(aspect-ratio("4/3")); // aspect-ratio: 4 / 3
+// }
+// @note An unquoted 16/9 is Sass division: Sass warns and passes 1.7777777778. Write aspect-ratio(16, 9) or "16/9".
+@mixin aspect-ratio($ratio, $height: null) {
+    aspect-ratio: -ratio($ratio, $height);
+}
+
+// @mixin dvh
+// @description Sets height to 100dvh where supported and to 100vh otherwise, each inside an @supports block.
+// @example
+// .app-shell {
+//   @include dvh;
+// }
 @mixin dvh {
     @supports (height: 100dvh) {
         height: 100dvh;
@@ -21,28 +87,55 @@
     }
 }
 
-// todo: doc
-/// Handle safe area insets for notches, etc.
-/// @param {String} $property - CSS property to apply inset to
-/// @param {String} $position - Inset position (top, right, bottom, left)
+// @mixin safe-area-inset
+// @description Sets a property to the device safe area inset for one side, for notches and rounded screens.
+// @param {String} $property - CSS property to set, e.g. padding-top
+// @param {String} $position - Inset side (top, right, bottom, left); any other value raises an error
+// @example
+// .toolbar {
+//   @include safe-area-inset(padding-bottom, bottom); // padding-bottom: env(safe-area-inset-bottom)
+// }
 @mixin safe-area-inset($property, $position) {
-    #{$property}: env(safe-area-inset-#{$position});
+    $side: string.unquote("#{$position}");
+    @if not list.index((top, right, bottom, left), $side) {
+        @error "safe-area-inset(#{$property}, #{$position}): #{meta.inspect($position)} is not an inset side. Use top, right, bottom or left.";
+    }
+    @if meta.type-of($property) != "string" {
+        @error "safe-area-inset(#{meta.inspect($property)}, #{$position}): pass a CSS property name, such as padding-top.";
+    }
+
+    #{$property}: env(safe-area-inset-#{$side});
 }
 
-// todo: doc
-/// Target print media
-/// @example @include print { .nav { display: none; } }
+// @mixin print
+// @description Wraps styles in a print media query.
+// @content Styles for printed output
+// @example
+// .site-nav {
+//   @include print {
+//     display: none;
+//   }
+// }
 @mixin print {
     @media print {
         @content;
     }
 }
 
-// todo: doc
-/// Check for feature support
-/// @param {String} $property - CSS property to check for support
-/// @example @include supports(display: grid) { .grid { display: grid; } }
+// @mixin supports
+// @description Wraps styles in an @supports query for the given declaration; pass it as a quoted string.
+// @param {String} $property - Declaration to test, e.g. "display: grid"; a value without a colon raises an error
+// @content Styles to apply when the declaration is supported
+// @example
+// .layout {
+//   @include supports("display: grid") {
+//     display: grid;
+//   }
+// }
 @mixin supports($property) {
+    @if meta.type-of($property) != "string" or not string.index($property, ":") {
+        @error "supports(#{meta.inspect($property)}): pass a declaration as a quoted string, such as \"display: grid\".";
+    }
     @supports (#{$property}) {
         @content;
     }

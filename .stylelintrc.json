@@ -26,6 +26,12 @@
         "message": "Expected id selector to be kebab-case, optionally with : or @"
       }
     ],
+    "custom-property-pattern": [
+      "^(([a-z][a-z0-9]*)(-[a-z0-9]+)*|nu-[a-z0-9]+(-[a-z0-9]+)*--[A-Z][a-zA-Z0-9]*)$",
+      {
+        "message": "Expected custom property name to be kebab-case, or --nu-{block}--{Name} for component variables"
+      }
+    ],
     "container-name-pattern": null,
     "scss/dollar-variable-no-missing-interpolation": null,
     "no-invalid-position-declaration": null

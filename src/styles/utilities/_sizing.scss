@@ -1,98 +1,396 @@
-// _spacing.scss
+// _sizing.scss
+// Sizing utilities: .w-{key}, .h-{key}, .min-w-{key}, .min-h-{key}, .max-w-{key}, .max-h-{key} from the spacing scale,
+// .w-{n}p etc. from $percentages, .w-{breakpoint} etc. from breakpoint widths, and keyword classes (.w-full, .h-screen, .w-fit).
+// Responsive variants use the @breakpoint suffix (.w-full@md).
 
+@use "sass:list";
+@use "sass:map";
 @use "sass:math";
-@use "sass:string" as str;
+@use "sass:meta";
+@use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../config/spacing" as config-spacing;
 @use "../config/breakpoints" as config-breakpoint;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
-@use "../functions/units" as fn-units;
-@use "../tools/container-queries" as Q;
+@use "../functions/math" as fn-math;
+@use "../functions/strings" as fn-strings;
 @use "../tools/media-queries" as MQ;
 
-@mixin width($value) {
-    width: fn-units.fix-units($value);
-}
-@mixin height($value) {
-    height: fn-units.fix-units($value);
-}
-@mixin min-width($value) {
-    min-width: fn-units.fix-units($value);
-}
-@mixin min-height($value) {
-    min-height: fn-units.fix-units($value);
-}
-@mixin max-width($value) {
-    max-width: fn-units.fix-units($value);
-}
-@mixin max-height($value) {
-    max-height: fn-units.fix-units($value);
-}
-@mixin width-percent($i) {
-    width: str.unquote($i + "%");
-}
-@mixin height-percent($i) {
-    height: str.unquote($i + "%");
-}
-@mixin min-width-percent($i) {
-    min-width: str.unquote($i + "%");
-}
-@mixin min-height-percent($i) {
-    min-height: str.unquote($i + "%");
-}
-@mixin max-width-percent($i) {
-    max-width: str.unquote($i + "%");
-}
-@mixin max-height-percent($i) {
-    max-height: str.unquote($i + "%");
+// Keywords accepted by the sizing mixins besides spacing keys and raw values
+$-size-keywords: (auto, min-content, max-content, fit-content);
+
+// Keywords of max-width and max-height: the sizing keywords plus none
+$-max-size-keywords: list.append($-size-keywords, none);
+
+// Percentage keys that are thirds give the exact third, as the 33p and 66p position and translate keys do
+$-thirds: (
+    33: 33.333%,
+    66: 66.667%,
+);
+
+// Resolved sizing values by property and fn-css-vars.value-key()
+$-size-cache: ();
+
+// A $spacings key gives its token (4 is var(--nu-space-4)), a percentage key (50p) its percentage, a breakpoint name
+// its width (width, min-width and max-width only); other values stay raw. Unknown words raise an error
+@function -size($property, $value, $keywords: $-size-keywords) {
+    @if meta.type-of($value) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($value)) and $value >= 0 and not map.has-key(config-spacing.$spacings, $value) {
+        @return $value;
+    }
+    $cache-key: "#{$property}|#{fn-css-vars.value-key($value)}";
+    @if map.has-key($-size-cache, $cache-key) {
+        @return map.get($-size-cache, $cache-key);
+    }
+    $result: -resolve-size($property, $value, $keywords);
+    @if fn-css-vars.is-bounded-value($value) {
+        $-size-cache: map.set($-size-cache, $cache-key, $result) !global;
+    }
+    @return $result;
 }
 
+// Uncached resolver behind -size()
+@function -resolve-size($property, $value, $keywords) {
+    // A configured key first, so a key such as "1/2" or 0.5 is not parsed as a number with trailing text
+    $token: fn-css-vars.scale-var("space", config-spacing.$spacings, $value);
+    @if $token {
+        @return $token;
+    }
+    $type: meta.type-of($value);
+    @if $type == "string" or ($type == "number" and not math.is-unitless($value)) {
+        $text: "#{$value}";
+        @if $type == "string" {
+            $text: string.unquote(fn-strings.str-trim(fn-strings.strip-quotes($value)));
+        }
+        $breakpoint-keys: string.index($property, "width") != null;
+        @if $breakpoint-keys and map.has-key(config-breakpoint.$breakpoints, $text) {
+            @return map.get(config-breakpoint.$breakpoints, $text);
+        }
+        $parsed: fn-math.to-number-raw($text);
+        @if $parsed and list.nth($parsed, 2) != "" and not fn-css-vars.is-length-unit(list.nth($parsed, 2)) {
+            $number: list.nth($parsed, 1);
+            @if list.nth($parsed, 2) == "p" and list.index(config-spacing.$percentages, $number) {
+                @return -percent($property, $number);
+            }
+            $breakpoint-hint: "";
+            @if $breakpoint-keys {
+                $breakpoint-hint: ", a breakpoint name (#{map.keys(config-breakpoint.$breakpoints)})";
+            }
+            @error "#{$property}: #{$text} is not a sizing key. Use a spacing key (#{map.keys(config-spacing.$spacings)}), a percentage key (#{config-spacing.$percentages} followed by p, as in 50p)#{$breakpoint-hint}, a keyword (#{$keywords}) or a value with a length unit.";
+        }
+    }
+    @return fn-css-vars.scale-value("space", config-spacing.$spacings, $value, $keywords: $keywords, $label: $property);
+}
+
+// @mixin width
+// @description Sets width from a spacing key, a percentage key, a breakpoint name, a sizing keyword or a raw value; negative keys and unknown words raise an error.
+// @param {Number|Length|String} $value - Spacing key (4), percentage key (50p gives 50%, 33p gives 33.333%), breakpoint name (lg gives its width), auto, min-content, max-content, fit-content, or a raw length, percentage, calc() or var()
+// @example
+// .sidebar {
+//   @include width(20rem);
+// }
+@mixin width($value) {
+    width: -size("width", $value);
+}
+
+// @mixin height
+// @description Sets height from a spacing key, a percentage key, a sizing keyword or a raw value; negative keys and unknown words raise an error.
+// @param {Number|Length|String} $value - Spacing key (4), percentage key (50p gives 50%, 33p gives 33.333%), auto, min-content, max-content, fit-content, or a raw length, percentage, calc() or var()
+// @example
+// .avatar {
+//   @include height(12); // height: var(--nu-space-12)
+// }
+@mixin height($value) {
+    height: -size("height", $value);
+}
+
+// @mixin min-width
+// @description Sets min-width from a spacing key, a percentage key, a breakpoint name, a sizing keyword or a raw value; negative keys and unknown words raise an error.
+// @param {Number|Length|String} $value - Spacing key (4), percentage key (50p gives 50%, 33p gives 33.333%), breakpoint name (lg gives its width), auto, min-content, max-content, fit-content, or a raw length, percentage, calc() or var()
+// @example
+// .dialog {
+//   @include min-width(16); // min-width: var(--nu-space-16)
+// }
+@mixin min-width($value) {
+    min-width: -size("min-width", $value);
+}
+
+// @mixin min-height
+// @description Sets min-height from a spacing key, a percentage key, a sizing keyword or a raw value; negative keys and unknown words raise an error.
+// @param {Number|Length|String} $value - Spacing key (4), percentage key (50p gives 50%, 33p gives 33.333%), auto, min-content, max-content, fit-content, or a raw length, percentage, calc() or var()
+// @example
+// .drop-zone {
+//   @include min-height(10rem);
+// }
+@mixin min-height($value) {
+    min-height: -size("min-height", $value);
+}
+
+// @mixin max-width
+// @description Sets max-width from a spacing key, a percentage key, a breakpoint name, a sizing keyword, none or a raw value; negative keys and unknown words raise an error.
+// @param {Number|Length|String} $value - Spacing key (4), percentage key (50p gives 50%, 33p gives 33.333%), breakpoint name (lg gives its width), auto, min-content, max-content, fit-content, none, or a raw length, percentage, calc() or var()
+// @example
+// .article {
+//   @include max-width(48rem);
+// }
+@mixin max-width($value) {
+    max-width: -size("max-width", $value, $-max-size-keywords);
+}
+
+// @mixin max-height
+// @description Sets max-height from a spacing key, a percentage key, a sizing keyword, none or a raw value; negative keys and unknown words raise an error.
+// @param {Number|Length|String} $value - Spacing key (4), percentage key (50p gives 50%, 33p gives 33.333%), auto, min-content, max-content, fit-content, none, or a raw length, percentage, calc() or var()
+// @example
+// .dropdown-menu {
+//   @include max-height(64);
+// }
+@mixin max-height($value) {
+    max-height: -size("max-height", $value, $-max-size-keywords);
+}
+
+// A percentage key (50) or a percentage (50%) gives 50%, the third keys 33 and 66 give 33.333% and 66.667%; any
+// other value raises an error naming $mixin
+@function -percent($mixin, $i) {
+    @if meta.type-of($i) == "string" and fn-math.to-number($i) and "#{fn-math.to-number($i)}" == "#{$i}" {
+        $i: fn-math.to-number($i);
+    }
+    @if meta.type-of($i) == "number" and $i < 0 {
+        @error "#{$mixin}: #{$i} is not a percentage size: sizes cannot be negative.";
+    }
+    @if meta.type-of($i) == "number" and math.unit($i) == "%" {
+        @return $i;
+    }
+    @if meta.type-of($i) == "number" and math.is-unitless($i) {
+        @if map.has-key($-thirds, $i) {
+            @return map.get($-thirds, $i);
+        }
+        @return $i * 1%;
+    }
+    @error "#{$mixin}: #{$i} is not a percentage. Use a number (50) or a percentage (50%).";
+}
+
+// @mixin width-percent
+// @description Sets width as a percentage from a unitless number or a percentage; any other value raises an error.
+// @param {Number|Percentage} $i - Unitless number (50 gives 50%; 33 and 66 give the exact thirds 33.333% and 66.667%) or a percentage (50%)
+// @example
+// .column {
+//   @include width-percent(50); // width: 50%
+// }
+@mixin width-percent($i) {
+    width: -percent("width-percent", $i);
+}
+
+// @mixin height-percent
+// @description Sets height as a percentage from a unitless number or a percentage; any other value raises an error.
+// @param {Number|Percentage} $i - Unitless number (50 gives 50%; 33 and 66 give the exact thirds 33.333% and 66.667%) or a percentage (50%)
+// @example
+// .chart {
+//   @include height-percent(75); // height: 75%
+// }
+@mixin height-percent($i) {
+    height: -percent("height-percent", $i);
+}
+
+// @mixin min-width-percent
+// @description Sets min-width as a percentage from a unitless number or a percentage; any other value raises an error.
+// @param {Number|Percentage} $i - Unitless number (50 gives 50%; 33 and 66 give the exact thirds 33.333% and 66.667%) or a percentage (50%)
+// @example
+// .search {
+//   @include min-width-percent(30); // min-width: 30%
+// }
+@mixin min-width-percent($i) {
+    min-width: -percent("min-width-percent", $i);
+}
+
+// @mixin min-height-percent
+// @description Sets min-height as a percentage from a unitless number or a percentage; any other value raises an error.
+// @param {Number|Percentage} $i - Unitless number (50 gives 50%; 33 and 66 give the exact thirds 33.333% and 66.667%) or a percentage (50%)
+// @example
+// .hero {
+//   @include min-height-percent(50); // min-height: 50%
+// }
+@mixin min-height-percent($i) {
+    min-height: -percent("min-height-percent", $i);
+}
+
+// @mixin max-width-percent
+// @description Sets max-width as a percentage from a unitless number or a percentage; any other value raises an error.
+// @param {Number|Percentage} $i - Unitless number (50 gives 50%; 33 and 66 give the exact thirds 33.333% and 66.667%) or a percentage (50%)
+// @example
+// .toast {
+//   @include max-width-percent(90); // max-width: 90%
+// }
+@mixin max-width-percent($i) {
+    max-width: -percent("max-width-percent", $i);
+}
+
+// @mixin max-height-percent
+// @description Sets max-height as a percentage from a unitless number or a percentage; any other value raises an error.
+// @param {Number|Percentage} $i - Unitless number (50 gives 50%; 33 and 66 give the exact thirds 33.333% and 66.667%) or a percentage (50%)
+// @example
+// .modal-body {
+//   @include max-height-percent(80); // max-height: 80%
+// }
+@mixin max-height-percent($i) {
+    max-height: -percent("max-height-percent", $i);
+}
+
+// @mixin w-auto
+// @description Sets width to auto.
+// @example
+// .image {
+//   @include w-auto;
+// }
 @mixin w-auto {
     @include width(auto);
 }
+
+// @mixin w-full
+// @description Sets width to 100%.
+// @example
+// .input-group {
+//   @include w-full;
+// }
 @mixin w-full {
     @include width(100%);
 }
+
+// @mixin h-auto
+// @description Sets height to auto.
+// @example
+// .image {
+//   @include h-auto;
+// }
 @mixin h-auto {
     @include height(auto);
 }
+
+// @mixin h-full
+// @description Sets height to 100%.
+// @example
+// .panel {
+//   @include h-full;
+// }
 @mixin h-full {
     @include height(100%);
 }
+
+// @mixin w-max
+// @description Sets width to max-content.
+// @example
+// .menu {
+//   @include w-max;
+// }
 @mixin w-max {
     @include width(max-content);
 }
+
+// @mixin h-max
+// @description Sets height to max-content.
+// @example
+// .menu {
+//   @include h-max;
+// }
 @mixin h-max {
     @include height(max-content);
 }
+
+// @mixin w-min
+// @description Sets width to min-content.
+// @example
+// .label {
+//   @include w-min;
+// }
 @mixin w-min {
     @include width(min-content);
 }
+
+// @mixin h-min
+// @description Sets height to min-content.
+// @example
+// .label {
+//   @include h-min;
+// }
 @mixin h-min {
     @include height(min-content);
 }
+
+// @mixin w-fit
+// @description Sets width to fit-content.
+// @example
+// .chip {
+//   @include w-fit;
+// }
 @mixin w-fit {
     @include width(fit-content);
 }
+
+// @mixin h-fit
+// @description Sets height to fit-content.
+// @example
+// .chip {
+//   @include h-fit;
+// }
 @mixin h-fit {
     @include height(fit-content);
 }
+
+// @mixin min-w-full
+// @description Sets min-width to 100%.
+// @example
+// .table {
+//   @include min-w-full;
+// }
 @mixin min-w-full {
     @include min-width(100%);
 }
+
+// @mixin max-w-full
+// @description Sets max-width to 100%.
+// @example
+// .media {
+//   @include max-w-full;
+// }
 @mixin max-w-full {
     @include max-width(100%);
 }
+
+// @mixin min-h-full
+// @description Sets min-height to 100%.
+// @example
+// .layout {
+//   @include min-h-full;
+// }
 @mixin min-h-full {
     @include min-height(100%);
 }
+
+// @mixin max-h-full
+// @description Sets max-height to 100%.
+// @example
+// .media {
+//   @include max-h-full;
+// }
 @mixin max-h-full {
     @include max-height(100%);
 }
 
+// @mixin w-screen
+// @description Sets width to 100vw, the full viewport width.
+// @example
+// .backdrop {
+//   @include w-screen;
+// }
 @mixin w-screen {
     width: 100vw;
 }
+
+// @mixin h-screen
+// @description Sets height to 100dvh, the full dynamic viewport height.
+// @example
+// .app-shell {
+//   @include h-screen;
+// }
 @mixin h-screen {
     height: 100dvh;
 }
@@ -120,6 +418,14 @@
 
     #{config-flags.$parent-selector} .h-full {
         @include h-full;
+    }
+
+    #{config-flags.$parent-selector} .w-max {
+        @include w-max;
+    }
+
+    #{config-flags.$parent-selector} .h-max {
+        @include h-max;
     }
 
     #{config-flags.$parent-selector} .w-min {
@@ -156,54 +462,60 @@
 
     // Percentage widths
     @each $i in config-spacing.$percentages {
-        #{config-flags.$parent-selector} .w-#{$i}p {
+        #{config-flags.$parent-selector} .w-#{fn-css-vars.class-key($i)}p,
+        #{config-flags.$parent-selector} .hover\:w-#{fn-css-vars.class-key($i)}p:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{fn-css-vars.class-key($i)}p {
             @include width-percent($i);
         }
-        #{config-flags.$parent-selector} .h-#{$i}p {
+        #{config-flags.$parent-selector} .h-#{fn-css-vars.class-key($i)}p,
+        #{config-flags.$parent-selector} .hover\:h-#{fn-css-vars.class-key($i)}p:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{fn-css-vars.class-key($i)}p {
             @include height-percent($i);
         }
-        #{config-flags.$parent-selector} .min-w-#{$i}p {
+        #{config-flags.$parent-selector} .min-w-#{fn-css-vars.class-key($i)}p {
             @include min-width-percent($i);
         }
-        #{config-flags.$parent-selector} .min-h-#{$i}p {
+        #{config-flags.$parent-selector} .min-h-#{fn-css-vars.class-key($i)}p {
             @include min-height-percent($i);
         }
-        #{config-flags.$parent-selector} .max-w-#{$i}p {
+        #{config-flags.$parent-selector} .max-w-#{fn-css-vars.class-key($i)}p {
             @include max-width-percent($i);
         }
-        #{config-flags.$parent-selector} .max-h-#{$i}p {
+        #{config-flags.$parent-selector} .max-h-#{fn-css-vars.class-key($i)}p {
             @include max-height-percent($i);
         }
     }
 
     // Generate utilities from spacing map
     @each $key, $value in config-spacing.$spacings {
-        #{config-flags.$parent-selector} .w-#{$key},
-        #{config-flags.$parent-selector} .hover\:w-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$key} {
-            @include width($value);
+        $k: fn-css-vars.class-key($key);
+
+        #{config-flags.$parent-selector} .w-#{$k},
+        #{config-flags.$parent-selector} .hover\:w-#{$k}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$k} {
+            @include width($key);
         }
-        #{config-flags.$parent-selector} .h-#{$key},
-        #{config-flags.$parent-selector} .hover\:h-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$key} {
-            @include height($value);
+        #{config-flags.$parent-selector} .h-#{$k},
+        #{config-flags.$parent-selector} .hover\:h-#{$k}:hover,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$k} {
+            @include height($key);
         }
 
-        #{config-flags.$parent-selector} .min-w-#{$key} {
-            @include min-width($value);
+        #{config-flags.$parent-selector} .min-w-#{$k} {
+            @include min-width($key);
         }
-        #{config-flags.$parent-selector} .min-h-#{$key} {
-            @include min-height($value);
+        #{config-flags.$parent-selector} .min-h-#{$k} {
+            @include min-height($key);
         }
-        #{config-flags.$parent-selector} .max-w-#{$key} {
-            @include max-width($value);
+        #{config-flags.$parent-selector} .max-w-#{$k} {
+            @include max-width($key);
         }
-        #{config-flags.$parent-selector} .max-h-#{$key} {
-            @include max-height($value);
+        #{config-flags.$parent-selector} .max-h-#{$k} {
+            @include max-height($key);
         }
     }
 
-    // Pixel widths based on spacing scale
+    // Fixed widths from the breakpoint values; all non-responsive classes come before the media blocks
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
         #{config-flags.$parent-selector} .w-#{$breakpoint} {
             @include width($width);
@@ -214,83 +526,93 @@
         #{config-flags.$parent-selector} .max-w-#{$breakpoint} {
             @include max-width($width);
         }
+    }
 
-        #{config-flags.$parent-selector} .w-auto\@#{$breakpoint} {
-            @include w-auto;
-        }
-        #{config-flags.$parent-selector} .w-full\@#{$breakpoint} {
-            @include w-full;
-        }
-        #{config-flags.$parent-selector} .h-auto\@#{$breakpoint} {
-            @include h-auto;
-        }
-        #{config-flags.$parent-selector} .h-full\@#{$breakpoint} {
-            @include h-full;
-        }
-        #{config-flags.$parent-selector} .w-min\@#{$breakpoint} {
-            @include w-min;
-        }
-        #{config-flags.$parent-selector} .h-min\@#{$breakpoint} {
-            @include h-min;
-        }
-        #{config-flags.$parent-selector} .w-fit\@#{$breakpoint} {
-            @include w-fit;
-        }
-        #{config-flags.$parent-selector} .h-fit\@#{$breakpoint} {
-            @include h-fit;
-        }
-
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @include MQ.media-up($breakpoint) {
+            #{config-flags.$parent-selector} .w-auto\@#{$breakpoint} {
+                @include w-auto;
+            }
+            #{config-flags.$parent-selector} .w-full\@#{$breakpoint} {
+                @include w-full;
+            }
+            #{config-flags.$parent-selector} .h-auto\@#{$breakpoint} {
+                @include h-auto;
+            }
+            #{config-flags.$parent-selector} .h-full\@#{$breakpoint} {
+                @include h-full;
+            }
+            #{config-flags.$parent-selector} .w-max\@#{$breakpoint} {
+                @include w-max;
+            }
+            #{config-flags.$parent-selector} .h-max\@#{$breakpoint} {
+                @include h-max;
+            }
+            #{config-flags.$parent-selector} .w-min\@#{$breakpoint} {
+                @include w-min;
+            }
+            #{config-flags.$parent-selector} .h-min\@#{$breakpoint} {
+                @include h-min;
+            }
+            #{config-flags.$parent-selector} .w-fit\@#{$breakpoint} {
+                @include w-fit;
+            }
+            #{config-flags.$parent-selector} .h-fit\@#{$breakpoint} {
+                @include h-fit;
+            }
+
             // Generate utilities from spacing map
             @each $i in config-spacing.$percentages {
-                #{config-flags.$parent-selector} .w-#{$i}p\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:w-#{$i}p\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$i}p\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint},
+                #{config-flags.$parent-selector} .hover\:w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint}:hover,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
                     @include width-percent($i);
                 }
-                #{config-flags.$parent-selector} .h-#{$i}p\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:h-#{$i}p\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$i}p\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint},
+                #{config-flags.$parent-selector} .hover\:h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint}:hover,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
                     @include height-percent($i);
                 }
 
-                #{config-flags.$parent-selector} .min-w-#{$i}p\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .min-w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
                     @include min-width-percent($i);
                 }
-                #{config-flags.$parent-selector} .min-h-#{$i}p\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .min-h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
                     @include min-height-percent($i);
                 }
-                #{config-flags.$parent-selector} .max-w-#{$i}p\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .max-w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
                     @include max-width-percent($i);
                 }
-                #{config-flags.$parent-selector} .max-h-#{$i}p\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .max-h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
                     @include max-height-percent($i);
                 }
             }
 
             @each $key, $value in config-spacing.$spacings {
-                #{config-flags.$parent-selector} .w-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:w-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$key}\@#{$breakpoint} {
-                    @include width($value);
+                $k: fn-css-vars.class-key($key);
+
+                #{config-flags.$parent-selector} .w-#{$k}\@#{$breakpoint},
+                #{config-flags.$parent-selector} .hover\:w-#{$k}\@#{$breakpoint}:hover,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$k}\@#{$breakpoint} {
+                    @include width($key);
                 }
-                #{config-flags.$parent-selector} .h-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:h-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$key}\@#{$breakpoint} {
-                    @include height($value);
+                #{config-flags.$parent-selector} .h-#{$k}\@#{$breakpoint},
+                #{config-flags.$parent-selector} .hover\:h-#{$k}\@#{$breakpoint}:hover,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$k}\@#{$breakpoint} {
+                    @include height($key);
                 }
 
-                #{config-flags.$parent-selector} .min-w-#{$key}\@#{$breakpoint} {
-                    @include min-width($value);
+                #{config-flags.$parent-selector} .min-w-#{$k}\@#{$breakpoint} {
+                    @include min-width($key);
                 }
-                #{config-flags.$parent-selector} .min-h-#{$key}\@#{$breakpoint} {
-                    @include min-height($value);
+                #{config-flags.$parent-selector} .min-h-#{$k}\@#{$breakpoint} {
+                    @include min-height($key);
                 }
-                #{config-flags.$parent-selector} .max-w-#{$key}\@#{$breakpoint} {
-                    @include max-width($value);
+                #{config-flags.$parent-selector} .max-w-#{$k}\@#{$breakpoint} {
+                    @include max-width($key);
                 }
-                #{config-flags.$parent-selector} .max-h-#{$key}\@#{$breakpoint} {
-                    @include max-height($value);
+                #{config-flags.$parent-selector} .max-h-#{$k}\@#{$breakpoint} {
+                    @include max-height($key);
                 }
             }
         }

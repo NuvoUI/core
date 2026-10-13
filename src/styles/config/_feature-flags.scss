@@ -5,6 +5,7 @@ $feature-flags: (
     "alignments": true,
     "animations": true,
     "backdrops": true,
+    "base": true,
     "borders": true,
     "container": true,
     "container-queries": true,
@@ -21,7 +22,7 @@ $feature-flags: (
     "theme": true,
     "transforms": true,
     "transitions": true,
-    "config-typo": true,
+    "typography": true,
     "z-index": true,
 ) !default;
 

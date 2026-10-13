@@ -1,64 +1,95 @@
-// Section: Utilities
+// Section: Tools
 // Module: Media Queries
 
-@use "sass:map";
-@use "sass:string";
 @use "sass:math";
 @use "sass:meta";
 @use "../config/breakpoints" as config-breakpoint;
-@use "../functions/feature-flags" as fn-flags;
-@use "../functions/units" as fn-units;
 @use "../functions/breakpoints" as fn-breakpoints;
 
-// @description Media query mixins.
-// @param {string|number} $breakpoint - The breakpoint value.
-// @param {string} $type - The media query type (e.g. 'lg', 'md').
+// @mixin media-up
+// @description Applies styles from the given breakpoint width upwards (min-width media query, no screen and).
+// @param {String|Number} $breakpoint - Breakpoint name from $breakpoints (xs, sm, md, lg, xl, 2xl) or a length such as 800px; a unitless number that is not a name raises an error
+// @param {Any} $debug [null] - Unused
+// @content Styles to apply at and above the breakpoint
+// @example
+// .sidebar {
+//   @include media-up(lg) {
+//     display: block;
+//   }
+// }
+// @see media-down, media-between, media-only
 @mixin media-up($breakpoint, $debug: null) {
-    $blueprint-value: fn-units.fix-units(fn-breakpoints.get-breakpoint-value($breakpoint, $debug));
-    @media screen and (min-width: #{$blueprint-value}) {
+    @media (min-width: #{fn-breakpoints.get-breakpoint-value($breakpoint)}) {
         @content;
     }
 }
 
+// @mixin media-down
+// @description Applies styles below the given breakpoint (max-width of the breakpoint minus 0.02px).
+// @param {String|Number} $breakpoint - Breakpoint name from $breakpoints or a length such as 800px
+// @content Styles to apply below the breakpoint
+// @example
+// .sidebar {
+//   @include media-down(md) {
+//     display: none;
+//   }
+// }
+// @see media-up
 @mixin media-down($breakpoint) {
-    $blueprint-value: fn-units.fix-units(fn-breakpoints.get-breakpoint-value($breakpoint));
-    $val: $blueprint-value - 0.01;
-    @media screen and (max-width: #{$val}) {
+    @media (max-width: #{fn-breakpoints.breakpoint-max($breakpoint)}) {
         @content;
     }
 }
 
+// @mixin media-between
+// @description Applies styles from the lower breakpoint up to just below the upper breakpoint (upper minus 0.02px).
+// @param {String|Number} $lower - Lower breakpoint name or length (inclusive)
+// @param {String|Number} $upper - Upper breakpoint name or length (exclusive)
+// @content Styles to apply inside the range
+// @example
+// .grid {
+//   @include media-between(sm, lg) {
+//     grid-template-columns: repeat(2, 1fr);
+//   }
+// }
+// @see media-up, media-down
 @mixin media-between($lower, $upper) {
-    $lower-val: fn-units.fix-units(fn-breakpoints.get-breakpoint-value($lower));
-    $upper-val: fn-units.fix-units(fn-breakpoints.get-breakpoint-value($upper));
-    $upper-val: $upper-val - 0.01;
-    @media screen and (min-width: #{$lower-val}) and (max-width: #{$upper-val}) {
+    $min: fn-breakpoints.get-breakpoint-value($lower);
+    $max: fn-breakpoints.get-breakpoint-value($upper);
+    @if meta.type-of($min) == "number" and meta.type-of($max) == "number" and math.compatible($min, $max) and $min >= $max {
+        @error "media-between(#{$lower}, #{$upper}): the lower breakpoint (#{$min}) must be smaller than the upper one (#{$max}).";
+    }
+    @media (min-width: #{fn-breakpoints.get-breakpoint-value($lower)}) and (max-width: #{fn-breakpoints.breakpoint-max($upper)}) {
         @content;
     }
 }
 
-// Only at specific breakpoint
+// @mixin media-only
+// @description Applies styles only between the given breakpoint and the next larger one (minus 0.02px); the largest breakpoint has no upper limit.
+// @param {String|Number} $breakpoint - Breakpoint name from $breakpoints (2xl may be unquoted) or a length in the breakpoint unit (px by default), such as 800px; a length in another unit raises an error
+// @content Styles to apply within that breakpoint range
+// @example
+// .hero {
+//   @include media-only(md) {
+//     padding-inline: 2rem;
+//   }
+// }
+// @see container-only
 @mixin media-only($breakpoint) {
-    @if meta.type-of($breakpoint) == "number" and math.is-unitless($breakpoint) {
-        @error "media-only() needs a breakpoint value";
-    }
-    $min: 0;
-    @if map.has-key(config-breakpoint.$breakpoints, $breakpoint) {
-        $min: fn-breakpoints.get-breakpoint-value($breakpoint);
-    } @else {
-        @error "media-only() needs a valid breakpoint value #{$breakpoint} is not in your $breakpoints map";
-    }
-
+    $min: fn-breakpoints.get-breakpoint-value($breakpoint);
     $next-breakpoint: null;
 
     @each $name, $width in config-breakpoint.$breakpoints {
-        @if $width > $min and (meta.type-of($next-breakpoint) == "null" or $width < $next-breakpoint) {
+        @if not math.compatible($width, $min) {
+            @error "media-only(#{$breakpoint}): #{$min} cannot be compared with the breakpoint #{$name} (#{$width}). Pass a breakpoint name or a length in the breakpoint unit.";
+        }
+        @if $width > $min and (not $next-breakpoint or $width < $next-breakpoint) {
             $next-breakpoint: $width;
         }
     }
 
     @if $next-breakpoint {
-        @media (min-width: #{$min}) and (max-width: #{$next-breakpoint - 0.02px}) {
+        @media (min-width: #{$min}) and (max-width: #{fn-breakpoints.breakpoint-max($next-breakpoint)}) {
             @content;
         }
     } @else {

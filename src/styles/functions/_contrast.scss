@@ -1,0 +1,130 @@
+// _contrast.scss - WCAG luminance, contrast ratio and text colour choice
+@use "sass:math";
+@use "sass:color";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:string";
+
+@use "../config/colors" as config-color;
+@use "../config/theme-validation" as config-theme;
+@use "./color-parse" as fn-parse;
+@use "./color-scale" as fn-scale;
+@use "./types" as fn-types;
+
+// WCAG 2 sRGB linearisation threshold
+$-srgb-threshold: 0.03928; // stylelint-disable-line number-max-precision
+
+// Linearises one sRGB channel (0 to 1) for relative luminance
+@function -linear($channel) {
+    @if $channel <= $-srgb-threshold {
+        @return math.div($channel, 12.92);
+    }
+    @return math.pow(math.div($channel + 0.055, 1.055), 2.4);
+}
+
+// WCAG relative luminance
+@function luminance($color) {
+    $red: -linear(math.div(color.channel($color, "red", $space: rgb), 255));
+    $green: -linear(math.div(color.channel($color, "green", $space: rgb), 255));
+    $blue: -linear(math.div(color.channel($color, "blue", $space: rgb), 255));
+
+    @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+// WCAG contrast ratio of two colours
+@function -contrast-ratio($color-a, $color-b) {
+    $lum-a: luminance($color-a);
+    $lum-b: luminance($color-b);
+    @return math.div(math.max($lum-a, $lum-b) + 0.05, math.min($lum-a, $lum-b) + 0.05);
+}
+
+// Colour of a theme text token in $tokens: a colour, or a scale reference resolved to the emitted opaque palette
+// colour. $setting names the map a consumer sets to fix it ($light-theme, $dark-theme)
+@function -text-color($token, $tokens, $setting) {
+    $value: config-theme.theme-value(map.get($tokens, $token));
+    @if config-theme.is-scale-ref($value) {
+        $name: "#{list.nth($value, 1)}";
+        $base: map.get(map.merge(config-color.$semantic-colors, config-color.$color-primitives), $name);
+        @return color.adjust(map.get(fn-scale.create-color-scale($base), list.nth($value, 2)), $alpha: 1);
+    }
+    $value: quoted-color($value);
+    @if meta.type-of($value) != "color" {
+        @error "find-text-color(): #{$token} in #{$setting} (merged with the defaults) is #{meta.inspect($value)}, not a colour or scale reference, so contrast cannot be computed. Set #{$token} in #{$setting} to a colour, or set every text-on-{role} token.";
+    }
+    @if color.channel($value, "alpha") < 1 {
+        @error "find-text-color(): #{$token} in #{$setting} (merged with the defaults) is #{$value}, not opaque (alpha #{color.channel($value, "alpha")}). Contrast needs opaque text; set #{$token} in #{$setting} to a solid colour.";
+    }
+    @return $value;
+}
+
+// Internal: a quoted colour ("#111", "red", "rgb(0, 0, 0)") as the colour it spells, as unquoted values are read;
+// any other value is returned unchanged
+@function quoted-color($value) {
+    @if meta.type-of($value) == "string" and fn-types.get-type($value) == "color" {
+        // adjust() with a zero step gives a colour Sass prints as hex, like the unquoted value
+        @return color.adjust(fn-parse.to-color($value), $alpha: 0);
+    }
+    @return $value;
+}
+
+// The text-regular and text-inverted colours of a theme token map, the candidates for find-text-color()
+@function theme-text-colors($tokens, $setting) {
+    @return (-text-color("text-regular", $tokens, $setting), -text-color("text-inverted", $tokens, $setting));
+}
+
+// Light theme text-regular and text-inverted colours, resolved on first use
+$-text-colors: null;
+
+// WCAG AA minimum for normal text
+$-min-text-contrast: 4.5;
+
+// text-on tokens already warned about, so a token emitted in several theme blocks warns once
+$-warned: ();
+
+// @function find-text-color
+// @description Picks whichever of two text colours has the higher WCAG contrast against the background, by default the light theme text-regular and text-inverted; a transparent background raises an error.
+// @param {Color} $background - Opaque background colour
+// @param {List|Null} $text-colors [null] - Two opaque candidate text colours; null uses the light theme text-regular and text-inverted
+// @return {Color} - The text colour with the higher contrast ratio (the first one on a tie)
+// @example
+// .badge {
+//   background: get-color(brand, 700);
+//   color: find-text-color(get-color(brand, 700));
+// }
+// @example
+// .chip {
+//   color: find-text-color(#0b1f3a, (#111, #fafafa));
+// }
+@function find-text-color($background, $text-colors: null) {
+    @if color.channel($background, "alpha") < 1 {
+        @error "find-text-color(#{$background}): the background is not opaque (alpha #{color.channel($background, "alpha")}). Contrast needs an opaque background; set the text colour explicitly.";
+    }
+
+    @if not $text-colors {
+        @if not $-text-colors {
+            $-text-colors: theme-text-colors(config-theme.$light-tokens, "$light-theme") !global;
+        }
+        $text-colors: $-text-colors;
+    }
+    $first: list.nth($text-colors, 1);
+    $second: list.nth($text-colors, 2);
+
+    @if -contrast-ratio($background, $first) >= -contrast-ratio($background, $second) {
+        @return $first;
+    }
+    @return $second;
+}
+
+// Computed text-on-{role} for a theme block: find-text-color() over the theme's text colours, with a warning when
+// neither candidate reaches 4.5:1 on the fill. $token names the text-on token, $setting the map that fixes it
+@function theme-text-on($background, $text-colors, $token, $setting) {
+    $text: find-text-color($background, $text-colors);
+    $ratio: -contrast-ratio($background, $text);
+    $key: "#{$setting} #{$token}";
+    @if $ratio < $-min-text-contrast and not list.index($-warned, $key) {
+        $-warned: list.append($-warned, $key) !global;
+        @warn "#{$token} (#{$setting}): the better of text-regular and text-inverted reaches #{math.div(math.round($ratio * 100), 100)}:1 on the #{string.slice($token, 9)} fill (#{$background}), below 4.5:1. Point the fill at another stop or set #{$token} in #{$setting}.";
+    }
+    @return $text;
+}

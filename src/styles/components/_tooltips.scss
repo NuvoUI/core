@@ -1,29 +1,75 @@
+@use "sass:map";
+@use "../config/borders" as config-border;
 @use "../config/feature-flags" as config-flags;
+@use "../config/transitions" as config-transitions;
+@use "../config/typography" as config-typo;
+@use "../config/z-index" as config-z;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
-@mixin tooltip-variables {
-    // Tooltip core variables
-    --tooltip-bg: rgb(17 17 17 / 90%);
-    --tooltip-shadow-color: rgb(0 0 0 / 20%);
-    --tooltip-text-color: #fff;
+@use "../functions/tokens" as fn-tokens;
 
-    // Animation variables
-    --tooltip-transition-duration: 0.18s;
-    --tooltip-transition-easing: ease-in-out;
-    --tooltip-transition-delay: 0s;
-
-    // Typography variables
-    --tooltip-font-size: 13px;
-    --tooltip-font-weight: normal;
-    --tooltip-text-transform: none;
-
-    // Sizing variables
-    --tooltip-small-width: 80px;
-    --tooltip-medium-width: 150px;
-    --tooltip-large-width: 260px;
-    --tooltip-border-radius: 4px;
+// Theme colour token, or the fixed v1 colour when the theme feature is off (no tokens emitted)
+@function -color($token, $fallback) {
+    @if not fn-flags.feature-flag-on("theme") {
+        @return $fallback;
+    }
+    @return fn-tokens.token($token);
 }
 
-@if fn-flags.feature-enabled("tooltips") {
+// Config map names per token prefix, for the missing-key error
+$-map-names: (
+    "z": "$z-index-levels",
+    "duration": "$durations",
+    "ease": "$timing-functions",
+    "font-size": "$font-sizes",
+    "radius": "$border-radii",
+);
+
+// scale-var() for a key the tooltips need; a missing key raises an error instead of dropping the declaration
+@function -scale-var($prefix, $map, $key) {
+    $value: fn-css-vars.scale-var($prefix, $map, $key);
+    @if not $value {
+        $name: map.get($-map-names, $prefix);
+        @error "Tooltips need the key #{$key} in #{$name}. Configured keys: #{map.keys($map)}. Add #{$key} back to #{$name}.";
+    }
+    @return $value;
+}
+
+// @mixin tooltip-variables
+// @description Emits the tooltip component variables (--nu-tooltip--{Name}); the bubble uses text-regular as background and text-inverted as text, so it contrasts with the page in both themes.
+// @output --nu-tooltip--* custom properties for colours, z-index, transition, typography, widths and radius
+// @example
+// .help-panel {
+//   @include tooltip-variables;
+//   --nu-tooltip--WidthLarge: 320px;
+// }
+// @note Already emitted on :root (or $parent-selector) when the tooltips feature is enabled; include it again only to reset a scope. The theme blocks re-declare the two colour variables, so tooltips inside a data-theme section take that section's colours.
+@mixin tooltip-variables {
+    // Tooltip core variables
+    --nu-tooltip--Background: #{-color("text-regular", rgb(17 17 17 / 90%))};
+    --nu-tooltip--ShadowColor: rgb(0 0 0 / 20%);
+    --nu-tooltip--Color: #{-color("text-inverted", #fff)};
+    --nu-tooltip--ZIndex: #{-scale-var("z", config-z.$z-index-levels, "tooltip")};
+
+    // Animation variables
+    --nu-tooltip--TransitionDuration: #{-scale-var("duration", config-transitions.$durations, config-transitions.$transition-default-duration)};
+    --nu-tooltip--TransitionTimingFunction: #{-scale-var("ease", config-transitions.$timing-functions, config-transitions.$transition-default-ease)};
+    --nu-tooltip--TransitionDelay: 0s;
+
+    // Typography variables
+    --nu-tooltip--FontSize: #{-scale-var("font-size", config-typo.$font-sizes, "sm")};
+    --nu-tooltip--FontWeight: normal;
+    --nu-tooltip--TextTransform: none;
+
+    // Sizing variables
+    --nu-tooltip--WidthSmall: 80px;
+    --nu-tooltip--WidthMedium: 150px;
+    --nu-tooltip--WidthLarge: 260px;
+    --nu-tooltip--BorderRadius: #{-scale-var("radius", config-border.$border-radii, "xs")};
+}
+
+// Tooltips are a component: they follow the tooltips feature flag alone, independent of $generate-utility-classes
+@if fn-flags.feature-flag-on("tooltips") {
     @layer components {
         // Apply variables based on parent selector
         @if config-flags.$parent-selector == "" {
@@ -36,7 +82,7 @@
             }
         }
 
-        #{config-flags.$parent-selector} [data-tooltip][role~="tooltip"] {
+        #{config-flags.$parent-selector} [data-tooltip] {
             position: relative;
 
             &::before,
@@ -47,11 +93,11 @@
                 opacity: 0;
                 pointer-events: none;
                 transition:
-                    opacity var(--tooltip-transition-duration) var(--tooltip-transition-easing) var(--tooltip-transition-delay),
-                    transform var(--tooltip-transition-duration) var(--tooltip-transition-easing) var(--tooltip-transition-delay);
+                    opacity var(--nu-tooltip--TransitionDuration) var(--nu-tooltip--TransitionTimingFunction) var(--nu-tooltip--TransitionDelay),
+                    transform var(--nu-tooltip--TransitionDuration) var(--nu-tooltip--TransitionTimingFunction) var(--nu-tooltip--TransitionDelay);
                 position: absolute;
                 box-sizing: border-box;
-                z-index: 10;
+                z-index: var(--nu-tooltip--ZIndex);
                 transform-origin: top;
             }
 
@@ -61,138 +107,146 @@
             }
 
             &::after {
-                background: var(--tooltip-bg);
-                box-shadow: 0 3px 7px var(--tooltip-shadow-color);
-                border-radius: var(--tooltip-border-radius);
-                color: var(--tooltip-text-color);
+                background: var(--nu-tooltip--Background);
+                box-shadow: 0 3px 7px var(--nu-tooltip--ShadowColor);
+                border-radius: var(--nu-tooltip--BorderRadius);
+                color: var(--nu-tooltip--Color);
                 content: attr(data-tooltip);
-                font-size: var(--tooltip-font-size);
-                font-weight: var(--tooltip-font-weight);
-                text-transform: var(--tooltip-text-transform);
-                padding: 0.5em 1em;
+                font-size: var(--nu-tooltip--FontSize);
+                font-weight: var(--nu-tooltip--FontWeight);
+                text-transform: var(--nu-tooltip--TextTransform);
+                padding-block: 0.5em;
+                padding-inline: 1em;
                 white-space: nowrap;
                 box-sizing: content-box;
             }
 
             &:hover::before,
             &:hover::after,
-            &:focus::before,
-            &:focus::after {
+            &:focus-visible::before,
+            &:focus-visible::after {
                 opacity: 1;
                 pointer-events: auto;
             }
         }
 
-        // Top position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position|="top"] {
+        // Top position tooltips; top is the default when data-tooltip-position is absent
+        #{config-flags.$parent-selector} [data-tooltip]:not([data-tooltip-position]),
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position|="top"] {
+            // Block-axis offsets are logical; the horizontal centring stays physical to match translate3d()
             &::before {
-                border-left: 9px solid transparent;
-                border-right: 9px solid transparent;
-                border-top: 6px solid var(--tooltip-bg);
+                border-inline: 9px solid transparent;
+                border-block-start: 6px solid var(--nu-tooltip--Background);
                 height: 0;
                 width: 0;
-                margin-bottom: 6px;
+                margin-block-end: 6px;
                 transform: translate3d(-50%, 0, 0);
-                bottom: 100%;
+                inset-block-end: 100%;
                 left: 50%;
-                z-index: 999;
+                z-index: var(--nu-tooltip--ZIndex);
             }
 
             &::after {
-                margin-bottom: 11px;
+                margin-block-end: 11px;
                 transform: translate3d(-50%, 0, 0);
-                bottom: 100%;
+                inset-block-end: 100%;
                 left: 50%;
             }
 
-            &:hover::before {
+            &:hover::before,
+            &:focus-visible::before {
                 transform: translate3d(-50%, -5px, 0);
             }
 
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::after {
                 transform: translate3d(-50%, -5px, 0);
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="top-left"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="top-left"] {
             &::after {
                 transform: translate3d(calc(-100% + 16px), 0, 0);
-                bottom: 100%;
+                inset-block-end: 100%;
             }
 
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::after {
                 transform: translate3d(calc(-100% + 16px), -5px, 0);
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="top-right"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="top-right"] {
             &::after {
                 transform: translate3d(calc(0% + -16px), 0, 0);
-                bottom: 100%;
+                inset-block-end: 100%;
             }
 
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::after {
                 transform: translate3d(calc(0% + -16px), -5px, 0);
             }
         }
 
         // Bottom position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position|="bottom"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position|="bottom"] {
             &::before {
-                border-left: 9px solid transparent;
-                border-right: 9px solid transparent;
-                border-bottom: 6px solid var(--tooltip-bg);
+                border-inline: 9px solid transparent;
+                border-block-end: 6px solid var(--nu-tooltip--Background);
                 height: 0;
                 width: 0;
-                margin-top: 5px;
-                margin-bottom: 0;
+                margin-block: 5px 0;
                 transform: translate3d(-50%, -10px, 0);
-                bottom: auto;
+                inset-block: 100% auto;
                 left: 50%;
-                top: 100%;
-                z-index: 999;
+                z-index: var(--nu-tooltip--ZIndex);
             }
 
             &::after {
-                margin-top: 11px;
+                margin-block-start: 11px;
                 transform: translate3d(-50%, -10px, 0);
-                top: 100%;
+                inset-block-start: 100%;
                 left: 50%;
             }
 
-            &:hover::before {
+            &:hover::before,
+            &:focus-visible::before {
                 transform: translate3d(-50%, 0, 0);
             }
 
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::after {
                 transform: translate3d(-50%, 0, 0);
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="bottom-left"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="bottom-left"] {
             &::after {
                 transform: translate3d(calc(-100% + 16px), -10px, 0);
-                top: 100%;
+                inset-block-start: 100%;
             }
 
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::after {
                 transform: translate3d(calc(-100% + 16px), 0, 0);
             }
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="bottom-right"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="bottom-right"] {
             &::after {
                 transform: translate3d(calc(0% + -16px), -10px, 0);
-                top: 100%;
+                inset-block-start: 100%;
             }
 
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::after {
                 transform: translate3d(calc(0% + -16px), 0, 0);
             }
         }
 
+        // Left and right position tooltips name physical sides, so their inline offsets stay physical
         // Left position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="left"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="left"] {
             &::before,
             &::after {
                 inset: auto auto auto 100%;
@@ -203,14 +257,13 @@
             }
 
             &::before {
-                border-top: 9px solid transparent;
-                border-bottom: 9px solid transparent;
-                border-left: 6px solid var(--tooltip-bg);
+                border-block: 9px solid transparent;
+                border-left: 6px solid var(--nu-tooltip--Background);
                 height: 0;
                 width: 0;
                 margin-right: 5px;
-                margin-bottom: 0;
-                z-index: 999;
+                margin-block-end: 0;
+                z-index: var(--nu-tooltip--ZIndex);
             }
 
             &::after {
@@ -218,30 +271,31 @@
             }
 
             &:hover::before,
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::before,
+            &:focus-visible::after {
                 transform: translate3d(0, -50%, 0);
             }
         }
 
         // Right position tooltips
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-position="right"] {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="right"] {
             &::before,
             &::after {
-                bottom: auto;
+                inset-block-end: auto;
                 left: 100%;
                 top: 50%;
                 transform: translate3d(-10px, -50%, 0);
             }
 
             &::before {
-                border-top: 9px solid transparent;
-                border-bottom: 9px solid transparent;
-                border-right: 6px solid var(--tooltip-bg);
+                border-block: 9px solid transparent;
+                border-right: 6px solid var(--nu-tooltip--Background);
                 height: 0;
                 width: 0;
-                margin-bottom: 0;
+                margin-block-end: 0;
                 margin-left: 5px;
-                z-index: 999;
+                z-index: var(--nu-tooltip--ZIndex);
             }
 
             &::after {
@@ -249,25 +303,27 @@
             }
 
             &:hover::before,
-            &:hover::after {
+            &:hover::after,
+            &:focus-visible::before,
+            &:focus-visible::after {
                 transform: translate3d(0, -50%, 0);
             }
         }
 
         // Tooltip sizes
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-size="small"]::after {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="small"]::after {
             white-space: initial;
-            width: var(--tooltip-small-width);
+            width: var(--nu-tooltip--WidthSmall);
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-size="medium"]::after {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="medium"]::after {
             white-space: initial;
-            width: var(--tooltip-medium-width);
+            width: var(--nu-tooltip--WidthMedium);
         }
 
-        #{config-flags.$parent-selector} [role~="tooltip"][data-tooltip-size="large"]::after {
+        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="large"]::after {
             white-space: initial;
-            width: var(--tooltip-large-width);
+            width: var(--nu-tooltip--WidthLarge);
         }
     } // end @layer components
 }

@@ -1,20 +1,29 @@
-@use "sass:string";
-@use "sass:math";
 @use "sass:map";
-@use "sass:list";
-@use "sass:meta";
 @use "../config/feature-flags" as config-flags;
-@use "../config/breakpoints" as config-breakpoint;
 
-// Helper function to check if a feature is enabled
+// Feature flag alone; a feature missing from the map is enabled
+@function feature-flag-on($feature) {
+    @if not map.has-key(config-flags.$feature-flags, $feature) {
+        @return true;
+    }
+
+    @return map.get(config-flags.$feature-flags, $feature);
+}
+
+// @function feature-enabled
+// @description Whether utility classes for a feature are generated: requires $generate-utility-classes and a feature flag that is on (a feature missing from $feature-flags counts as on).
+// @param {String} $feature - Feature flag name (position, spacing, theme, ...)
+// @return {Boolean} - True when the feature's utility classes are generated
+// @example
+// @if feature-enabled("position") {
+//   .pinned {
+//     @include sticky;
+//   }
+// }
 @function feature-enabled($feature) {
     @if not config-flags.$generate-utility-classes {
         @return false;
     }
 
-    @if not map.has-key(config-flags.$feature-flags, $feature) {
-        @return true; // Default to enabled if not specified
-    }
-
-    @return map.get(config-flags.$feature-flags, $feature);
+    @return feature-flag-on($feature);
 }

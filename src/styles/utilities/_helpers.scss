@@ -1,11 +1,9 @@
-@use "sass:string";
-@use "sass:math";
 @use "sass:map";
 @use "sass:list";
-@use "sass:meta";
 
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
+@use "../functions/breakpoints" as fn-breakpoints;
 
 @if config-flags.$enable-debugger {
     .NuvoUI-Debugger-Wrapper {
@@ -61,21 +59,28 @@
                 font-weight: bold;
             }
 
+            // The label names the active breakpoint suffix: the largest breakpoint at or below the viewport width,
+            // as media-up() applies it (640px shows sm). Below the first breakpoint no suffix applies (base)
+            @if $total > 0 {
+                @media (max-width: #{fn-breakpoints.breakpoint-max(list.nth($breakpoint-keys, 1))}) {
+                    &::before {
+                        content: "Screen: base";
+                    }
+                }
+            }
+
             @for $i from 1 through $total {
                 $current: list.nth($breakpoint-keys, $i);
                 $current-width: map.get(config-breakpoint.$breakpoints, $current);
 
-                @if $i == 1 {
-                    @media (max-width: #{$current-width}) {
+                @if $i == $total {
+                    @media (min-width: #{$current-width}) {
                         &::before {
                             content: "Screen: #{$current}";
                         }
                     }
                 } @else {
-                    $prev: list.nth($breakpoint-keys, $i - 1);
-                    $prev-width: map.get(config-breakpoint.$breakpoints, $prev);
-
-                    @media (min-width: #{$prev-width}) and (max-width: (#{$current-width} - 1)) {
+                    @media (min-width: #{$current-width}) and (max-width: #{fn-breakpoints.breakpoint-max(list.nth($breakpoint-keys, $i + 1))}) {
                         &::before {
                             content: "Screen: #{$current}";
                         }

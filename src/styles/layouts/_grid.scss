@@ -2,53 +2,189 @@
 // Module: Grid | Grid Inline
 // Note: Gap utilities are defined in _spacing.scss
 
+@use "sass:map";
 @use "sass:math";
+@use "sass:meta";
+@use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../config/layouts" as config-layout;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../functions/feature-flags" as fn-flags;
 @use "../functions/strings" as fn-string;
+@use "../functions/css-vars" as fn-css-vars;
+@use "../functions/math" as fn-math;
 
 // Grid Template Mixins
-@mixin cols($count) {
-    grid-template-columns: repeat($count, minmax(0, 1fr));
-}
-@mixin rows($count) {
-    grid-template-rows: repeat($count, minmax(0, 1fr));
+
+// A track or span count: a whole number of 1 or more, calc() or var(); anything else raises an error naming $mixin
+@function -count($mixin, $value) {
+    $value: fn-math.css-arg($value);
+    @if meta.type-of($value) == "number" and math.is-unitless($value) and math.round($value) == $value and $value >= 1 {
+        @return $value;
+    }
+    @if fn-css-vars.is-css-function($value) {
+        @return $value;
+    }
+    @error "#{$mixin}: #{meta.inspect($value)} is not a count. Use a whole number of 1 or more, calc() or var().";
 }
 
-// @description Establishes a grid container with a specified number of columns.
-// @param {number} $count - The number of columns.
-
-// /EXAMPLE USAGE
-// .custom-grid {
-//  display: grid;
-//  @include cols-custom("1fr_auto_1fr");
+// @mixin cols
+// @description Sets grid-template-columns to a number of equal columns that can shrink below their content width.
+// @param {Number|String} $count - Number of columns: a whole number of 1 or more, calc() or var(); anything else raises an error
+// @output grid-template-columns: repeat($count, minmax(0, 1fr))
+// @example
+// .cards {
+//   @include apply(grid, cols(3), gap(4));
 // }
+// @see rows, cols-custom, auto-fit
+@mixin cols($count) {
+    grid-template-columns: repeat(-count("cols", $count), minmax(0, 1fr));
+}
 
+// @mixin rows
+// @description Sets grid-template-rows to a number of equal rows that can shrink below their content height.
+// @param {Number|String} $count - Number of rows: a whole number of 1 or more, calc() or var(); anything else raises an error
+// @output grid-template-rows: repeat($count, minmax(0, 1fr))
+// @example
+// .board {
+//   @include grid;
+//   @include rows(2);
+// }
+// @see cols
+@mixin rows($count) {
+    grid-template-rows: repeat(-count("rows", $count), minmax(0, 1fr));
+}
+
+// @mixin cols-custom
+// @description Sets grid-template-columns to a custom track list, with underscores standing in for spaces.
+// @param {String|List} $template - Track list, quoted ("1fr_auto_1fr", each underscore outside brackets and parentheses becomes a space) or unquoted (1fr auto 1fr)
+// @example
+// .layout {
+//   @include grid;
+//   @include cols-custom("250px_1fr"); // grid-template-columns: 250px 1fr
+// }
+// @see cols
 @mixin cols-custom($template) {
-    // Convert underscores to spaces so "1fr_auto" becomes "1fr auto"
-    $converted: fn-string.str-replace($template, "_", " ");
+    grid-template-columns: string.unquote(-underscores-to-spaces("#{$template}"));
+}
 
-    grid-template-columns: $converted;
+// Underscores outside brackets and parentheses become spaces: "[main_start]_1fr_var(--a_b)" keeps the line name
+// and the variable name
+@function -underscores-to-spaces($text) {
+    @if not string.index($text, "_") {
+        @return $text;
+    }
+    $out: "";
+    $depth: 0;
+    @for $i from 1 through string.length($text) {
+        $char: string.slice($text, $i, $i);
+        @if $char == "(" or $char == "[" {
+            $depth: $depth + 1;
+        } @else if $char == ")" or $char == "]" {
+            $depth: $depth - 1;
+        }
+        @if $char == "_" and $depth == 0 {
+            $char: " ";
+        }
+        $out: $out + $char;
+    }
+    @return $out;
 }
 
 // Auto-fit/fill Mixins
-@mixin auto-fit($min-width) {
-    grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+
+// A $grid-item-sizes key (sm) gives its width, as in the .auto-fit-sm class; a length, percentage, 0, calc() or var()
+// passes through, anything else raises an error naming $mixin
+@function -min-width($mixin, $value) {
+    $value: fn-math.css-arg($value);
+    $key: $value;
+    @if meta.type-of($value) == "string" {
+        $key: string.unquote(fn-string.str-trim($value));
+    }
+    @if map.has-key(config-layout.$grid-item-sizes, $key) {
+        @return map.get(config-layout.$grid-item-sizes, $key);
+    }
+    @if meta.type-of($value) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($value)) and $value >= 0 {
+        @return $value;
+    }
+    @if $value == 0 or fn-css-vars.is-css-function($value) {
+        @return $value;
+    }
+    @error "#{$mixin}: #{meta.inspect($value)} is not a minimum width. Use a key (#{map.keys(config-layout.$grid-item-sizes)}), a length or percentage, calc() or var().";
 }
+
+// @mixin auto-fit
+// @description Creates as many columns of at least `$min-width` as fit, collapsing empty tracks so items stretch to fill the row.
+// @param {Length|String} $min-width - Minimum column width: a $grid-item-sizes key (xs, sm, md, lg, xl; sm gives 250px by default), a length or percentage, calc() or var(), or a whole minmax() track used as written; a unitless number or unknown word raises an error
+// @output grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr))
+// @example
+// .cards {
+//   @include apply(grid, auto-fit(250px), gap(4));
+// }
+// @see auto-fill
+@mixin auto-fit($min-width) {
+    grid-template-columns: repeat(auto-fit, -track("auto-fit", $min-width));
+}
+
+// The repeated track: minmax($min-width, 1fr), or a minmax() given as the argument as written
+@function -track($mixin, $value) {
+    $value: fn-math.css-arg($value);
+    @if meta.type-of($value) == "string" and string.index(string.to-lower-case($value), "minmax(") == 1 {
+        @return $value;
+    }
+    @return minmax(-min-width($mixin, $value), 1fr);
+}
+
+// @mixin auto-fill
+// @description Creates as many columns of at least `$min-width` as fit, keeping empty tracks so items keep their column width.
+// @param {Length|String} $min-width - Minimum column width: a $grid-item-sizes key (xs, sm, md, lg, xl; sm gives 250px by default), a length or percentage, calc() or var(), or a whole minmax() track used as written; a unitless number or unknown word raises an error
+// @output grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr))
+// @example
+// .gallery {
+//   @include grid;
+//   @include auto-fill(200px);
+// }
+// @see auto-fit
 @mixin auto-fill($min-width) {
-    grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+    grid-template-columns: repeat(auto-fill, -track("auto-fill", $min-width));
 }
 
 // Grid Flow Mixins
-@mixin flow-in-row {
+
+// @mixin flow-row
+// @description Sets grid-auto-flow to row, placing items row by row; same as the `.flow-row` class.
+// @example
+// .list {
+//   @include grid;
+//   @include flow-row;
+// }
+// @see flow-col, flow-dense
+@mixin flow-row {
     grid-auto-flow: row;
 }
-@mixin flow-in-col {
+
+// @mixin flow-col
+// @description Sets grid-auto-flow to column, placing items column by column; same as the `.flow-col` class.
+// @example
+// .list {
+//   @include grid;
+//   @include rows(3);
+//   @include flow-col;
+// }
+// @see flow-row
+@mixin flow-col {
     grid-auto-flow: column;
 }
-@mixin flow-dense-items {
+
+// @mixin flow-dense
+// @description Sets grid-auto-flow to dense so later items back-fill earlier gaps; same as the `.flow-dense` class.
+// @example
+// .masonry {
+//   @include grid;
+//   @include flow-dense;
+// }
+// @see flow-row
+@mixin flow-dense {
     grid-auto-flow: dense;
 }
 
@@ -62,53 +198,172 @@ $alignments: (
     "stretch": stretch,
 );
 
-// @description justify-items container.
-// @param {string} $value - The value for the justify-items property.
+// @mixin justify
+// @description Sets justify-items, aligning grid items along the inline axis of their cells. Grid only: for flex containers use the flex justify mixins (start, center, between).
+// @param {String} $value - Any justify-items value, such as start, end, center or stretch
+// @example
+// .cards {
+//   @include apply(grid, cols(3), justify(center));
+// }
+// @see align, place
 @mixin justify($value) {
-    justify-items: $value;
+    justify-items: fn-math.css-arg($value);
 }
 
-// @description Establishes a align-items container.
-// @param {string} $value - The value for the align-items property.
+// @mixin align
+// @description Sets align-items, aligning grid items along the block axis of their cells. Grid only: for flex containers use the x-* mixins (x-center, x-start).
+// @param {String} $value - Any align-items value, such as start, end, center or stretch
+// @example
+// .cards {
+//   @include grid;
+//   @include align(start);
+// }
+// @see justify, place
 @mixin align($value) {
-    align-items: $value;
+    align-items: fn-math.css-arg($value);
 }
 
-// @description Establishes a place-items container.
-// @param {string} $value - The value for the place-items property.
+// @mixin place
+// @description Sets place-items, aligning grid items on both axes of their cells at once. Grid only.
+// @param {String} $value - Any place-items value, such as center or start end
+// @example
+// .icon-grid {
+//   @include grid;
+//   @include place(center);
+// }
+// @see justify, align
 @mixin place($value) {
-    place-items: $value;
+    place-items: fn-math.css-arg($value);
 }
 
 // Grid Item Placement Mixins
+
+// @mixin col-span
+// @description Makes a grid item span a number of columns.
+// @param {Number|String} $span - Number of columns to span: a whole number of 1 or more, calc() or var(); anything else raises an error
+// @output grid-column: span $span / span $span
+// @example
+// .featured {
+//   @include col-span(2);
+// }
+// @see row-span, col-start
 @mixin col-span($span) {
+    $span: -count("col-span", $span);
+
     grid-column: span $span / span $span;
 }
+
+// @mixin row-span
+// @description Makes a grid item span a number of rows.
+// @param {Number|String} $span - Number of rows to span: a whole number of 1 or more, calc() or var(); anything else raises an error
+// @output grid-row: span $span / span $span
+// @example
+// .tall {
+//   @include row-span(2);
+// }
+// @see col-span
 @mixin row-span($span) {
+    $span: -count("row-span", $span);
+
     grid-row: span $span / span $span;
 }
+
+// @mixin col-start
+// @description Sets grid-column-start, the column line where the item begins.
+// @param {Number|String} $start - Line number, line name or span value
+// @example
+// .aside {
+//   @include col-start(2);
+// }
+// @see col-end
 @mixin col-start($start) {
-    grid-column-start: $start;
-}
-@mixin col-end($end) {
-    grid-column-end: $end;
-}
-@mixin row-start($start) {
-    grid-row-start: $start;
-}
-@mixin row-end($end) {
-    grid-row-end: $end;
+    grid-column-start: -line("col-start", $start);
 }
 
-@mixin grid-position($col, $row) {
-    grid-column: $col;
-    grid-row: $row;
+// @mixin col-end
+// @description Sets grid-column-end, the column line where the item ends.
+// @param {Number|String} $end - Line number, line name or span value
+// @example
+// .wide {
+//   @include col-end(-1); // runs to the last column line
+// }
+// @see col-start
+@mixin col-end($end) {
+    grid-column-end: -line("col-end", $end);
 }
-@mixin position-col($col) {
-    grid-column: $col;
+
+// @mixin row-start
+// @description Sets grid-row-start, the row line where the item begins.
+// @param {Number|String} $start - Line number, line name or span value
+// @example
+// .footer {
+//   @include row-start(3);
+// }
+// @see row-end
+@mixin row-start($start) {
+    grid-row-start: -line("row-start", $start);
 }
-@mixin position-row($row) {
-    grid-row: $row;
+
+// @mixin row-end
+// @description Sets grid-row-end, the row line where the item ends.
+// @param {Number|String} $end - Line number, line name or span value
+// @example
+// .sidebar {
+//   @include row-end(-1);
+// }
+// @see row-start
+@mixin row-end($end) {
+    grid-row-end: -line("row-end", $end);
+}
+
+// @mixin grid-place-at
+// @description Sets grid-column and grid-row together to place an item in the grid.
+// @param {Number|String|List} $col - Value for grid-column, such as 2 or span 2
+// @param {Number|String|List} $row - Value for grid-row, such as 1 or span 2
+// @example
+// .hero {
+//   @include grid-place-at(2, span 2);
+// }
+// @note For start / end pairs pass `list.slash(1, 3)`; a literal `1 / 3` is Sass division and warns.
+// @see grid-col-at, grid-row-at
+@mixin grid-place-at($col, $row) {
+    grid-column: -line("grid-place-at", $col);
+    grid-row: -line("grid-place-at", $row);
+}
+
+// A grid line value as written; a number must be a whole number, since 1 / 3 written unquoted is Sass division
+// (0.333) and would emit an invalid line
+@function -line($mixin, $value) {
+    $value: fn-math.css-arg($value);
+    @if meta.type-of($value) == "number" and (not math.is-unitless($value) or math.round($value) != $value) {
+        @error "#{$mixin}: #{$value} is not a grid line. Write a whole line number, span 2, or a start / end pair as \"1 / 3\" or list.slash(1, 3).";
+    }
+    @return $value;
+}
+
+// @mixin grid-col-at
+// @description Sets grid-column to place an item across columns.
+// @param {Number|String|List} $col - Value for grid-column, such as 2, span 2 or list.slash(1, -1)
+// @example
+// @use "sass:list";
+// .full-width {
+//   @include grid-col-at(list.slash(1, -1)); // grid-column: 1 / -1
+// }
+// @see grid-place-at
+@mixin grid-col-at($col) {
+    grid-column: -line("grid-col-at", $col);
+}
+
+// @mixin grid-row-at
+// @description Sets grid-row to place an item across rows.
+// @param {Number|String|List} $row - Value for grid-row, such as 2, span 2 or list.slash(1, 3)
+// @example
+// .tall {
+//   @include grid-row-at(span 2);
+// }
+// @see grid-place-at
+@mixin grid-row-at($row) {
+    grid-row: -line("grid-row-at", $row);
 }
 
 @if fn-flags.feature-enabled("grid") {
@@ -135,15 +390,15 @@ $alignments: (
 
         // Flow Classes
         &.flow-row {
-            @include flow-in-row;
+            @include flow-row;
         }
 
         &.flow-col {
-            @include flow-in-col;
+            @include flow-col;
         }
 
         &.flow-dense {
-            @include flow-dense-items;
+            @include flow-dense;
         }
 
         // Basic column and row count
@@ -153,16 +408,6 @@ $alignments: (
             }
             &.rows-#{$i} {
                 @include rows($i);
-            }
-        }
-
-        // Basic span classes (non-responsive)
-        @for $i from 1 through config-layout.$column-count {
-            .col-span-#{$i} {
-                @include col-span($i);
-            }
-            .row-span-#{$i} {
-                @include row-span($i);
             }
         }
 
@@ -177,6 +422,16 @@ $alignments: (
             &.place-#{$name} {
                 @include place($value);
             }
+        }
+    }
+
+    // Span classes sit on grid items, so they stand alone: they work in any grid, including one built with mixins
+    @for $i from 1 through config-layout.$column-count {
+        #{config-flags.$parent-selector} .col-span-#{$i} {
+            @include col-span($i);
+        }
+        #{config-flags.$parent-selector} .row-span-#{$i} {
+            @include row-span($i);
         }
     }
 
@@ -196,14 +451,12 @@ $alignments: (
             }
 
             // Responsive spans
-            #{$all-grid-selectors} {
-                @for $i from 1 through config-layout.$column-count {
-                    .col-span-#{$i}\@#{$breakpoint} {
-                        @include col-span($i);
-                    }
-                    .row-span-#{$i}\@#{$breakpoint} {
-                        @include row-span($i);
-                    }
+            @for $i from 1 through config-layout.$column-count {
+                #{config-flags.$parent-selector} .col-span-#{$i}\@#{$breakpoint} {
+                    @include col-span($i);
+                }
+                #{config-flags.$parent-selector} .row-span-#{$i}\@#{$breakpoint} {
+                    @include row-span($i);
                 }
             }
 

@@ -2,69 +2,88 @@
 // Module: Z-Index
 
 @use "sass:map";
+@use "sass:math";
 @use "sass:meta";
 
 // Import variables
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
+@use "../config/z-index" as config-z;
 @use "../functions/feature-flags" as fn-flags;
+@use "../functions/css-vars" as fn-css-vars;
+@use "../functions/math" as fn-math;
 
 // Z-Index Utilities
 // Classes:
-// - z-index values: .z-0, .z-10, .z-20, etc.
-// - Named z-index levels: .z-auto, .z-base, .z-dropdown, etc.
+// - z-index values: .z-auto, .z-0, .z-10, .z-20, etc. (raw values from $z-indexes)
+// - Named z-index levels: .z-base, .z-dropdown, .z-modal, etc. (var(--nu-z-*) tokens from $z-index-levels)
 // All utilities support responsive variants with @breakpoint suffix:
 // - .z-10@md, .z-dropdown@lg, etc.
 
-// Z-index values map (can be moved to variables)
-$z-indexes: (
-    "auto": auto,
-    "0": 0,
-    "10": 10,
-    "20": 20,
-    "30": 30,
-    "40": 40,
-    "50": 50,
-    "60": 60,
-    "70": 70,
-    "80": 80,
-    "90": 90,
-    "100": 100,
-    "200": 200,
-    "500": 500,
-    "1000": 1000,
-);
-
-// Named z-index levels (can be moved to variables)
-$z-index-levels: (
-    "base": 0,
-    "hover": 10,
-    "dropdown": 100,
-    "sticky": 200,
-    "fixed": 300,
-    "overlay": 400,
-    "drawer": 500,
-    "modal": 600,
-    "popover": 700,
-    "tooltip": 800,
-    "toast": 900,
-    "max": 9999,
-);
-
-// Apply a z-index value
-// @param {Number|String} $value - Z-index value or key
+// @mixin z-index
+// @description Sets z-index from a numbered key (raw value), a named level (var(--nu-z-*) token), an integer, auto, calc() or var(); other values raise an error.
+// @param {Number|String} $value - Numbered key (10), named level (modal), integer, auto, calc() or var()
+// @example
+// .dialog {
+//   @include z-index(modal); // z-index: var(--nu-z-modal)
+// }
+// .badge {
+//   @include z-index(10); // z-index: 10
+// }
+// @see z-modal, z-dropdown
 @mixin z-index($value) {
-    @if map.has-key($z-indexes, $value) {
-        z-index: map.get($z-indexes, $value);
-    } @else if map.has-key($z-index-levels, $value) {
-        z-index: map.get($z-index-levels, $value);
-    } @else {
-        z-index: $value;
-    }
+    z-index: -z-index($value);
 }
 
-// Generate z-index utility classes
-// @param {String} $breakpoint - Optional breakpoint name for responsive variants
+// Resolved z-index() values, cached by fn-css-vars.value-key()
+$-z-index-cache: ();
+
+// Cached wrapper around -resolve-z-index()
+@function -z-index($value) {
+    @if meta.type-of($value) == "number" and math.is-unitless($value) and math.round($value) == $value {
+        @return map.get(config-z.$z-indexes, $value) or map.get(config-z.$z-indexes, "#{$value}") or $value;
+    }
+    $cache-key: fn-css-vars.value-key($value);
+    @if map.has-key($-z-index-cache, $cache-key) {
+        @return map.get($-z-index-cache, $cache-key);
+    }
+    $result: -resolve-z-index($value);
+    @if meta.type-of($value) != "number" and fn-css-vars.is-bounded-value($value) {
+        $-z-index-cache: map.set($-z-index-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Resolves a z-index() argument to a raw value or a var(--nu-z-*) token
+@function -resolve-z-index($value) {
+    $value: fn-math.css-arg($value);
+    $type: meta.type-of($value);
+    $integer: $type == "number" and math.is-unitless($value) and math.round($value) == $value;
+    $key: fn-css-vars.scale-key(config-z.$z-indexes, $value);
+
+    // Numbered keys give their value; named levels give their token
+    $resolved: null;
+    @if $key {
+        $resolved: map.get(config-z.$z-indexes, $key);
+    } @else {
+        $resolved: fn-css-vars.scale-var("z", config-z.$z-index-levels, $value);
+    }
+
+    @if $resolved {
+        @return $resolved;
+    } @else if $integer or "#{$value}" == "auto" or fn-css-vars.is-css-function($value) or fn-css-vars.is-css-var($value) {
+        @return $value;
+    }
+    @error "Unknown z-index: #{$value}. Use a key (#{map.keys(config-z.$z-indexes)}), a level (#{map.keys(config-z.$z-index-levels)}), an integer, auto, calc() or var().";
+}
+
+// @mixin z-index-utilities
+// @description Emits the .z-{key} and .z-{level} classes; with a breakpoint it adds the @breakpoint suffix but does not wrap them in a media query.
+// @param {String|Null} $breakpoint [null] - Breakpoint name used as the class suffix
+// @example
+// @media (min-width: 768px) {
+//   @include z-index-utilities(md);
+// }
 @mixin z-index-utilities($breakpoint: null) {
     $suffix: "";
     @if $breakpoint {
@@ -72,57 +91,171 @@ $z-index-levels: (
     }
 
     // Standard numbered z-index utilities
-    @each $key, $value in $z-indexes {
-        #{config-flags.$parent-selector} .z-#{$key}#{$suffix} {
+    @each $key, $value in config-z.$z-indexes {
+        #{config-flags.$parent-selector} .z-#{fn-css-vars.class-key($key)}#{$suffix} {
             @include z-index($key);
         }
     }
 
     // Named semantic z-index utilities
-    @each $key, $value in $z-index-levels {
-        #{config-flags.$parent-selector} .z-#{$key}#{$suffix} {
-            @include z-index($value);
+    @each $key, $value in config-z.$z-index-levels {
+        #{config-flags.$parent-selector} .z-#{fn-css-vars.class-key($key)}#{$suffix} {
+            @include z-index($key);
         }
     }
 }
 
-// Create specific named utilities as mixins for use in other files
+// @mixin z-base
+// @description Sets z-index to the base level token.
+// @output z-index: var(--nu-z-base)
+// @example
+// .content {
+//   @include z-base;
+// }
+// @see z-index
 @mixin z-base {
     @include z-index("base");
 }
+
+// @mixin z-hover
+// @description Sets z-index to the hover level token.
+// @output z-index: var(--nu-z-hover)
+// @example
+// .card {
+//   @include z-hover;
+// }
+// @see z-index
 @mixin z-hover {
     @include z-index("hover");
 }
+
+// @mixin z-dropdown
+// @description Sets z-index to the dropdown level token.
+// @output z-index: var(--nu-z-dropdown)
+// @example
+// .dropdown-menu {
+//   @include z-dropdown;
+// }
+// @see z-index
 @mixin z-dropdown {
     @include z-index("dropdown");
 }
+
+// @mixin z-sticky
+// @description Sets z-index to the sticky level token.
+// @output z-index: var(--nu-z-sticky)
+// @example
+// .table-header {
+//   @include z-sticky;
+// }
+// @see z-index
 @mixin z-sticky {
     @include z-index("sticky");
 }
+
+// @mixin z-fixed
+// @description Sets z-index to the fixed level token.
+// @output z-index: var(--nu-z-fixed)
+// @example
+// .navbar {
+//   @include z-fixed;
+// }
+// @see z-index
 @mixin z-fixed {
     @include z-index("fixed");
 }
+
+// @mixin z-drawer
+// @description Sets z-index to the drawer level token.
+// @output z-index: var(--nu-z-drawer)
+// @example
+// .drawer {
+//   @include z-drawer;
+// }
+// @see z-index
 @mixin z-drawer {
     @include z-index("drawer");
 }
+
+// @mixin z-modal
+// @description Sets z-index to the modal level token.
+// @output z-index: var(--nu-z-modal)
+// @example
+// .modal {
+//   @include z-modal;
+// }
+// @see z-index
 @mixin z-modal {
     @include z-index("modal");
 }
+
+// @mixin z-popover
+// @description Sets z-index to the popover level token.
+// @output z-index: var(--nu-z-popover)
+// @example
+// .popover {
+//   @include z-popover;
+// }
+// @see z-index
 @mixin z-popover {
     @include z-index("popover");
 }
+
+// @mixin z-tooltip
+// @description Sets z-index to the tooltip level token.
+// @output z-index: var(--nu-z-tooltip)
+// @example
+// .tooltip {
+//   @include z-tooltip;
+// }
+// @see z-index
 @mixin z-tooltip {
     @include z-index("tooltip");
 }
+
+// @mixin z-overlay
+// @description Sets z-index to the overlay level token.
+// @output z-index: var(--nu-z-overlay)
+// @example
+// .backdrop {
+//   @include z-overlay;
+// }
+// @see z-index
 @mixin z-overlay {
     @include z-index("overlay");
 }
+
+// @mixin z-toast
+// @description Sets z-index to the toast level token.
+// @output z-index: var(--nu-z-toast)
+// @example
+// .toast {
+//   @include z-toast;
+// }
+// @see z-index
 @mixin z-toast {
     @include z-index("toast");
 }
+
+// @mixin z-max
+// @description Sets z-index to the max level token.
+// @output z-index: var(--nu-z-max)
+// @example
+// .debug-panel {
+//   @include z-max;
+// }
+// @see z-index
 @mixin z-max {
     @include z-index("max");
 }
+
+// @mixin z-auto
+// @description Sets z-index to auto.
+// @example
+// .card {
+//   @include z-auto;
+// }
+// @see z-index
 @mixin z-auto {
     @include z-index("auto");
 }

@@ -3,7 +3,6 @@
 @use "sass:map";
 @use "sass:list";
 @use "sass:meta";
-@use "../config/constants" as config-constants;
 @use "./strings" as fn-strings;
 
 // Module-level constant - created once, not per function call
@@ -20,7 +19,83 @@ $digit-map: (
     "9": 9,
 );
 
-// Raw number parsing - returns (number, remaining-string) tuple
+// One of each CSS unit by its lower-case name, so a parsed unit becomes a real Sass unit
+$unit-values: (
+    "%": 1%,
+    "px": 1px,
+    "cm": 1cm,
+    "mm": 1mm,
+    "q": 1Q,
+    "in": 1in,
+    "pt": 1pt,
+    "pc": 1pc,
+    "em": 1em,
+    "rem": 1rem,
+    "ex": 1ex,
+    "rex": 1rex,
+    "ch": 1ch,
+    "rch": 1rch,
+    "cap": 1cap,
+    "rcap": 1rcap,
+    "ic": 1ic,
+    "ric": 1ric,
+    "lh": 1lh,
+    "rlh": 1rlh,
+    "vw": 1vw,
+    "vh": 1vh,
+    "vi": 1vi,
+    "vb": 1vb,
+    "vmin": 1vmin,
+    "vmax": 1vmax,
+    "svw": 1svw,
+    "svh": 1svh,
+    "svi": 1svi,
+    "svb": 1svb,
+    "svmin": 1svmin,
+    "svmax": 1svmax,
+    "lvw": 1lvw,
+    "lvh": 1lvh,
+    "lvi": 1lvi,
+    "lvb": 1lvb,
+    "lvmin": 1lvmin,
+    "lvmax": 1lvmax,
+    "dvw": 1dvw,
+    "dvh": 1dvh,
+    "dvi": 1dvi,
+    "dvb": 1dvb,
+    "dvmin": 1dvmin,
+    "dvmax": 1dvmax,
+    "cqw": 1cqw,
+    "cqh": 1cqh,
+    "cqi": 1cqi,
+    "cqb": 1cqb,
+    "cqmin": 1cqmin,
+    "cqmax": 1cqmax,
+    "s": 1s,
+    "ms": 1ms,
+    "deg": 1deg,
+    "grad": 1grad,
+    "rad": 1rad,
+    "turn": 1turn,
+    "hz": 1Hz,
+    "khz": 1kHz,
+    "dpi": 1dpi,
+    "dpcm": 1dpcm,
+    "dppx": 1dppx,
+    "x": 1x,
+    "fr": 1fr,
+);
+
+// @function to-number-raw
+// @description Parses the leading number of a string and returns it with the remaining text; a string that does not start with a number gives null.
+// @param {Number|String} $value - Number or string to parse
+// @return {List|Null} - A (number, rest) pair, for example (12, "px")
+// @example
+// @use "sass:list";
+// $parsed: to-number-raw("12px");
+// .card {
+//   z-index: list.nth($parsed, 1);
+// }
 @function to-number-raw($value) {
     @if meta.type-of($value) == "number" {
         @return ($value, "");
@@ -29,43 +104,70 @@ $digit-map: (
         @return null;
     }
 
-    $val: string.unquote(fn-strings.strip-quotes($value));
+    @return -parse-number(string.unquote(fn-strings.strip-quotes($value)));
+}
 
-    $result: 0;
-    $digits: 0;
-    $minus: string.slice($val, 1, 1) == "-";
+// Parser behind to-number-raw() for an unquoted string
+@function -parse-number($val) {
+    $length: string.length($val);
     $sign: 1;
     $start-index: 1;
-
-    @if $minus {
+    @if string.slice($val, 1, 1) == "-" {
         $sign: -1;
         $start-index: 2;
     }
 
-    @for $i from $start-index through string.length($val) {
+    // Digits accumulate as an integer; a decimal part is divided out once at the end. Text without a digit before
+    // its first other character (".", "-", ".px") is not a number
+    $result: 0;
+    $scale: 0;
+    $digits: false;
+    @if $length < $start-index {
+        @return null;
+    }
+    @for $i from $start-index through $length {
         $character: string.slice($val, $i, $i);
-
-        @if list.index(map.keys($digit-map), $character) or $character == "." {
-            @if $character == "." {
-                $digits: 1;
-            } @else if $digits == 0 {
-                $result: $result * 10 + map.get($digit-map, $character);
-            } @else {
-                $digits: $digits * 10;
-                $result: $result + math.div(map.get($digit-map, $character), $digits);
+        $digit: map.get($digit-map, $character);
+        @if $digit {
+            $digits: true;
+            $result: $result * 10 + $digit;
+            @if $scale > 0 {
+                $scale: $scale * 10;
             }
+        } @else if $character == "." and $scale == 0 {
+            $scale: 1;
         } @else {
-            @if $i == $start-index {
+            @if not $digits {
                 @return null;
             }
-            @return (($sign * $result), string.slice($val, $i));
+            @return -signed($result, $scale, $sign, string.slice($val, $i));
         }
     }
 
-    @return (($sign * $result), "");
+    @if not $digits {
+        @return null;
+    }
+    @return -signed($result, $scale, $sign, "");
 }
 
-// Full conversion with unit handling - calls to-number-raw internally
+// (number, rest) pair from the accumulated digits, the decimal scale (0 or a power of ten) and the sign
+@function -signed($result, $scale, $sign, $rest) {
+    @if $scale > 1 {
+        $result: math.div($result, $scale);
+    }
+    @return ($sign * $result, $rest);
+}
+
+// @function to-number
+// @description Converts a string to a number, keeping a trailing CSS unit as a real unit ("12px" gives 12px) or applying $append-unit; other trailing text is dropped and a non-numeric string gives null.
+// @param {Number|String} $value - Number or string to convert
+// @param {String|Number} $append-unit [null] - Unit name or unit number (rem, 1rem) applied to the parsed number, replacing any trailing text
+// @return {Number|Null} - The number, or null when the string is not numeric
+// @example
+// .card {
+//   width: to-number("12px");
+//   height: to-number("8", 1rem);
+// }
 @function to-number($value, $append-unit: null) {
     $parsed: to-number-raw($value);
     @if not $parsed {
@@ -74,7 +176,14 @@ $digit-map: (
 
     $number: list.nth($parsed, 1);
 
+    @if meta.type-of($append-unit) == "number" {
+        @return $number * $append-unit;
+    }
     @if $append-unit {
+        $unit: map.get($unit-values, string.to-lower-case("#{$append-unit}"));
+        @if $unit {
+            @return $number * $unit;
+        }
         @return $number + $append-unit;
     }
 
@@ -83,13 +192,47 @@ $digit-map: (
         @return $number;
     }
 
-    // Check if remaining string is a valid unit
-    @each $unit in config-constants.$units {
-        @if $rest == $unit {
-            @return $number + string.unquote($unit);
-        }
+    $unit: map.get($unit-values, string.to-lower-case($rest));
+    @if $unit {
+        @return $number * $unit;
     }
 
     // No valid unit found, return just the number
     @return $number;
+}
+
+// A string argument as the value it spells, so quoted input is validated like unquoted input: "3" gives 3,
+// "1.25rem" gives 1.25rem and "md" gives the unquoted word md. Any other value is returned unchanged
+@function css-arg($value) {
+    @if meta.type-of($value) != "string" {
+        @return $value;
+    }
+    $number: to-css-number($value);
+    @if $number {
+        @return $number;
+    }
+    @return string.unquote($value);
+}
+
+// The number a string spells completely, unitless or with one CSS unit ("12px", "-0.5", "250ms"); else null
+@function to-css-number($value) {
+    @if meta.type-of($value) == "number" {
+        @return $value;
+    }
+    @if meta.type-of($value) != "string" {
+        @return null;
+    }
+    $parsed: -parse-number(string.unquote($value));
+    @if not $parsed {
+        @return null;
+    }
+    $rest: list.nth($parsed, 2);
+    @if $rest == "" {
+        @return list.nth($parsed, 1);
+    }
+    $unit: map.get($unit-values, $rest);
+    @if $unit {
+        @return list.nth($parsed, 1) * $unit;
+    }
+    @return null;
 }

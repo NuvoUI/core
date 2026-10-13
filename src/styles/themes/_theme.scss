@@ -1,243 +1,314 @@
 // _theme.scss - CSS variables and utility classes
-@use "sass:color";
 @use "sass:map";
+@use "sass:meta";
 @use "sass:string";
 @use "sass:list";
-@use "../config/colors" as config-colors;
+@use "../config/colors" as config-color;
 @use "../config/feature-flags" as config-flags;
 @use "../config/theme-validation" as config-theme;
-@use "../config/colors" as config-color;
 @use "../functions/feature-flags" as fn-flags;
-@use "../functions/colors" as fn-colors;
+@use "../functions/contrast" as fn-contrast;
+@use "../functions/tokens" as fn-tokens;
 
 @use "../tools/accessibility" as a11y;
 
-// Generate color scales
-$colors: (
-    "primary": fn-colors.create-color-scale(config-color.$primary),
-    "secondary": fn-colors.create-color-scale(config-color.$secondary),
-    "success": fn-colors.create-color-scale(config-color.$success),
-    "danger": fn-colors.create-color-scale(config-color.$danger),
-    "warning": fn-colors.create-color-scale(config-color.$warning),
-    "info": fn-colors.create-color-scale(config-color.$info),
-);
+// Colour scales of roles and palette hues
+$-scales: fn-tokens.color-scales();
 
-// Generate scales for primitives
-$colors-primitives: ();
-
-@each $name, $color in config-color.$color-primitives {
-    $colors-primitives: map.set($colors-primitives, $name, fn-colors.create-color-scale($color));
+// Validates a theme scale reference (name stop) and returns the scale name
+@function -check-scale-ref($value, $token) {
+    $name: "#{list.nth($value, 1)}";
+    $stop: list.nth($value, 2);
+    @if not map.has-key($-scales, $name) {
+        @error "Theme token '#{$token}': unknown scale '#{$name}' in (#{$value}). Use a role (#{map.keys(config-color.$semantic-colors)}) or palette name (#{map.keys(config-color.$color-primitives)}).";
+    }
+    @if not map.has-key(map.get($-scales, $name), $stop) {
+        @error "Theme token '#{$token}': invalid stop #{$stop} in (#{$value}). Valid stops: #{config-color.$shade-stops}.";
+    }
+    @return $name;
 }
 
-@mixin dark-theme {
-    @each $token in config-theme.$theme-tokens {
-        --#{$token}: #{map.get(config-theme.$dark-theme, $token)};
-        --inverted-#{$token}: #{map.get(config-theme.$light-theme, $token)};
+// Theme tokens with a utility class, token name to CSS property: bg-, text- and border- tokens whose light value
+// is a colour (custom tokens included). border-focus is applied through outline, so it gets no class; an explicit
+// text-on-{role} for a role keeps the plain .text-on-{role} class of the role loop below
+$-class-properties: (
+    "bg": background-color,
+    "text": color,
+    "border": border-color,
+);
+$-class-tokens: ();
+
+@each $token in config-theme.$theme-tokens {
+    $prefix: list.nth(string.split($token, "-"), 1);
+    $is-text-on: string.index($token, "text-on-") == 1 and list.index(config-theme.$role-names, string.slice($token, 9)) != null;
+    @if config-theme.is-color-token($token) and $token != "border-focus" and not $is-text-on and not list.index(config-theme.$role-hue-tokens, $token) and map.has-key($-class-properties, $prefix) {
+        $-class-tokens: map.set($-class-tokens, $token, map.get($-class-properties, $prefix));
+    }
+}
+
+// CSS value of a token: scale references become var(--nu-{name}-{stop})
+@function -token-value($value, $token) {
+    $value: config-theme.theme-value($value);
+    @if config-theme.is-scale-ref($value) {
+        @return var(--nu-#{-check-scale-ref($value, $token)}-#{list.nth($value, 2)});
+    }
+    @return $value;
+}
+
+// Colour value of a token, for compile time contrast
+@function -token-color($value, $token) {
+    $value: config-theme.theme-value($value);
+    @if config-theme.is-scale-ref($value) {
+        @return map.get(map.get($-scales, -check-scale-ref($value, $token)), list.nth($value, 2));
+    }
+    $value: fn-contrast.quoted-color($value);
+    @if meta.type-of($value) != "color" {
+        @error "Theme token '#{$token}': text-on cannot be computed from #{$value}. Set the text-on token in the theme map.";
+    }
+    @return $value;
+}
+
+// Theme token variables, computed text-on-{role}, and error aliases of danger. text-on-{role} picks from the
+// text-regular and text-inverted colours of $context, the full theme the block belongs to ($tokens merged over its
+// base theme for high contrast); $setting names the map a consumer sets to fix an uncomputable text colour
+@mixin -theme-tokens($tokens, $context, $setting) {
+    @each $token, $value in $tokens {
+        --nu-#{$token}: #{-token-value($value, $token)};
     }
 
-    --button-text-color: #{map.get(config-theme.$light-theme, "text-color")};
-    --button-bg-color: var(--primary);
-    --button-bg-color-hover: var(--primary-400);
-    --link-color: var(--primary);
-    --link-hover-color: var(--primary-400);
+    $roles: fn-tokens.text-on-roles($tokens);
+    @if list.length($roles) > 0 {
+        $text-colors: fn-contrast.theme-text-colors($context, $setting);
+        @each $role in $roles {
+            $fill: -token-color(map.get($tokens, $role), $role);
+
+            --nu-text-on-#{$role}: #{fn-contrast.theme-text-on($fill, $text-colors, "text-on-#{$role}", $setting)};
+        }
+    }
+
+    @each $alias, $target in fn-tokens.error-aliases() {
+        --nu-#{$alias}: var(--nu-#{$target});
+    }
+
+    @each $variable, $token in fn-tokens.tooltip-color-variables() {
+        --nu-#{$variable}: var(--nu-#{$token});
+    }
+}
+
+// @mixin dark-theme
+// @description Emits the dark theme token custom properties (--nu-*), including computed text-on-{role} and the error aliases of danger.
+// @output --nu-* theme token declarations with the dark values (built-in defaults merged with $dark-theme)
+// @example
+// .dark-preview {
+//   @include dark-theme;
+// }
+// @note The theme already emits these under [data-theme="dark"] and the prefers-color-scheme fallback; use this for a custom scope.
+// @see dark-mode
+@mixin dark-theme {
+    @include -theme-tokens(config-theme.$dark-tokens, config-theme.$dark-tokens, "$dark-theme");
+}
+
+// Non-colour scales
+@mixin -scale-tokens {
+    @each $token, $value in fn-tokens.scale-tokens() {
+        --nu-#{$token}: #{$value};
+    }
+}
+
+// Color utility class with hover: and group-hover: variants; $with-active-focus adds active: and focus:
+@mixin -color-class($class, $property, $value, $with-active-focus: false) {
+    #{config-flags.$parent-selector} .#{$class},
+    #{config-flags.$parent-selector} .hover\:#{$class}:hover,
+    #{config-flags.$parent-selector} .group:hover .group-hover\:#{$class} {
+        #{$property}: $value;
+    }
+    @if $with-active-focus {
+        #{config-flags.$parent-selector} .active\:#{$class}:active,
+        #{config-flags.$parent-selector} .focus\:#{$class}:focus {
+            #{$property}: $value;
+        }
+    }
+}
+
+// Full themes behind the high-contrast blocks, for computed text-on-{role}
+$-high-contrast-light-context: map.merge(config-theme.$light-tokens, config-theme.$high-contrast-light);
+$-high-contrast-dark-context: map.merge(config-theme.$dark-tokens, config-theme.$high-contrast-dark);
+
+// High-contrast tokens of one theme. Both twins of a selector pair carry the same keys, so where a light-valued
+// and a dark-valued twin match one element the winner overrides everything the loser set. The keys are both maps'
+// keys plus: every {role} fill when either map sets text-regular or text-inverted (text-on is recomputed from
+// the new text colours); {role} for every text-on-{role} key; and text-on-{role} for every {role} key when the
+// base theme sets text-on-{role} explicitly (an explicit value is never replaced by a computed one).
+// Values come from $own, else from $base; a text-on-{role} in neither is computed from the {role} fill
+@function -high-contrast-tokens($own, $other, $base) {
+    $keys: map.merge($other, $own);
+    $roles: ();
+    @if map.has-key($keys, "text-regular") or map.has-key($keys, "text-inverted") {
+        $roles: config-theme.$role-names;
+    } @else {
+        @each $role in config-theme.$role-names {
+            @if map.has-key($keys, "text-on-#{$role}") or map.has-key($keys, $role) {
+                $roles: list.append($roles, $role);
+            }
+        }
+    }
+    @each $role in $roles {
+        $keys: map.set($keys, $role, true);
+        @if map.has-key($base, "text-on-#{$role}") {
+            $keys: map.set($keys, "text-on-#{$role}", true);
+        }
+    }
+
+    $tokens: ();
+    @each $token in map.keys($keys) {
+        @if map.has-key($own, $token) {
+            $tokens: map.set($tokens, $token, map.get($own, $token));
+        } @else if map.has-key($base, $token) {
+            $tokens: map.set($tokens, $token, map.get($base, $token));
+        }
+    }
+    @return $tokens;
+}
+
+// Theme token block contents: base tokens, or with $high-contrast the high-contrast union for that theme
+@mixin -theme-block($theme, $high-contrast: false) {
+    @if $high-contrast and $theme == light {
+        $other: ();
+        @if config-flags.$enable-dark-mode {
+            $other: config-theme.$high-contrast-dark;
+        }
+        $tokens: -high-contrast-tokens(config-theme.$high-contrast-light, $other, config-theme.$light-tokens);
+        @include -theme-tokens($tokens, $-high-contrast-light-context, "$high-contrast-light");
+    } @else if $high-contrast {
+        $tokens: -high-contrast-tokens(config-theme.$high-contrast-dark, config-theme.$high-contrast-light, config-theme.$dark-tokens);
+        @include -theme-tokens($tokens, $-high-contrast-dark-context, "$high-contrast-dark");
+    } @else if $theme == light {
+        @include -theme-tokens(config-theme.$light-tokens, config-theme.$light-tokens, "$light-theme");
+    } @else {
+        @include dark-theme;
+    }
+}
+
+// The theme blocks of one media condition, in order; the first block (the root) is preceded by a :root block with the
+// fixed tokens (palette, basic colours, scales).
+// With $high-contrast each selector gets a twin compounded with :is([data-contrast="high"], [data-contrast="high"] *):
+// one more attribute of specificity, so every twin outranks the base blocks its element matches, and twins keep
+// the base order, so the twin that wins is the twin of the base block that wins
+@mixin -theme-group($media, $high-contrast: false) {
+    @each $block in fn-tokens.theme-blocks() {
+        $selector: list.nth($block, 2);
+        $theme: list.nth($block, 3);
+        $is-root: list.index(fn-tokens.theme-blocks(), $block) == 1;
+        @if list.nth($block, 1) == $media {
+            @if $high-contrast {
+                #{$selector} {
+                    &:is([data-contrast="high"], [data-contrast="high"] *) {
+                        @include -theme-block($theme, true);
+                    }
+                }
+            } @else if $is-root {
+                // Fixed tokens (palette, basic colours, scales) on :root only, so a runtime :root override is not
+                // re-declared by a light section
+                :root {
+                    @each $token, $value in fn-tokens.palette-tokens() {
+                        --nu-#{$token}: #{$value};
+                    }
+                    @each $token, $value in fn-tokens.basic-tokens() {
+                        --nu-#{$token}: #{$value};
+                    }
+                    @include -scale-tokens;
+                }
+                #{$selector} {
+                    @include -theme-block(light);
+                }
+            } @else {
+                #{$selector} {
+                    @include -theme-block($theme);
+                }
+            }
+        }
+    }
+}
+
+// Tokens follow the theme feature flag alone; utility classes also need $generate-utility-classes.
+// Dark, inverse, fallback and high-contrast blocks are global by design (not scoped by $parent-selector).
+// High contrast: [data-contrast="high"] on an element that sets a theme (the root or a data-theme section) or on
+// one of its ancestors. Light-valued blocks get $high-contrast-light, dark-valued blocks $high-contrast-dark
+@if fn-flags.feature-flag-on("theme") {
+    @include -theme-group(null);
+    @if config-flags.$enable-dark-mode {
+        @include a11y.prefers-dark {
+            @include -theme-group(dark);
+        }
+    }
+
+    $high-contrast-keys: map.keys(config-theme.$high-contrast-light);
+    @if config-flags.$enable-dark-mode {
+        $high-contrast-keys: list.join($high-contrast-keys, map.keys(config-theme.$high-contrast-dark));
+    }
+    @if list.length($high-contrast-keys) > 0 {
+        @include -theme-group(null, true);
+        @if config-flags.$enable-dark-mode {
+            @include a11y.prefers-dark {
+                @include -theme-group(dark, true);
+            }
+        }
+    }
 }
 
 @if fn-flags.feature-enabled("theme") {
-    :root,
-    #{config-flags.$parent-selector} [data-theme="light"] {
-        // Theme color CSS variables
-        @each $color-name, $scale in $colors {
-            --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
-            @each $shade, $value in $scale {
-                --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
-            }
-        }
-
-        // Primitive color CSS variables
-        @each $color-name, $scale in $colors-primitives {
-            --#{$color-name}: #{color.adjust(map.get($scale, 500), $alpha: 1)};
-            @each $shade, $value in $scale {
-                --#{$color-name}-#{$shade}: #{color.adjust($value, $alpha: 1)};
-            }
-        }
-
-        @each $token in config-theme.$theme-tokens {
-            --#{$token}: #{map.get(config-theme.$light-theme, $token)};
-            --inverted-#{$token}: #{map.get(config-theme.$dark-theme, $token)};
-        }
-        @each $color-name, $color-val in config-color.$basic-colors {
-            --#{$color-name}: #{$color-val};
-        }
-
-        // Light theme variables
-        --button-text-color: #{map.get(config-theme.$dark-theme, "text-color")};
-        --button-bg-color: var(--primary);
-        --button-bg-color-hover: var(--primary-600);
-        --link-color: var(--primary);
-        --link-hover-color: var(--primary-600);
-    }
-
-    @if config-flags.$enable-dark-mode {
-        // Dark theme settings
-        [data-theme="dark"] {
-            @include dark-theme;
-        }
-        @include a11y.prefers-dark {
-            :root:not([data-theme]),
-            #{config-flags.$parent-selector}:not([data-theme]) {
-                @include dark-theme;
-            }
-        }
-    }
-
     // -----------------------------------------------
     // COLOR UTILITY CLASSES
     // -----------------------------------------------
 
-    // Theme color background utilities
-    // primary, secondary, warning etc.
-    @each $color-name, $scale in $colors {
+    // Roles (brand, danger etc.) and palette hues (red, blue etc.)
+    @each $color-name, $scale in $-scales {
+        $is-role: map.has-key(config-color.$semantic-colors, $color-name);
+
         @each $shade, $value in $scale {
-            // Automatic text contrast for backgrounds
-            #{config-flags.$parent-selector} .text-on-#{$color-name}-#{$shade} {
-                color: fn-colors.find-text-color($value);
-            }
-
-            #{config-flags.$parent-selector} .text-#{$color-name}-#{$shade},
-            #{config-flags.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
-                color: var(--#{$color-name}-#{$shade});
-            }
-
-            #{config-flags.$parent-selector} .bg-#{$color-name}-#{$shade},
-            #{config-flags.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
-                background-color: var(--#{$color-name}-#{$shade});
-            }
-
-            #{config-flags.$parent-selector} .border-#{$color-name}-#{$shade},
-            #{config-flags.$parent-selector} .hover\:border-#{$color-name}-#{$shade}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name}-#{$shade} {
-                border-color: var(--#{$color-name}-#{$shade});
-            }
+            @include -color-class("text-#{$color-name}-#{$shade}", color, var(--nu-#{$color-name}-#{$shade}));
+            @include -color-class("bg-#{$color-name}-#{$shade}", background-color, var(--nu-#{$color-name}-#{$shade}));
+            @include -color-class("border-#{$color-name}-#{$shade}", border-color, var(--nu-#{$color-name}-#{$shade}), true);
         }
 
-        // Base color classes
-        #{config-flags.$parent-selector} .text-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:text-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
-            color: var(--#{$color-name});
+        // Base classes: roles use their flipping default fill, hues the fixed 500 shade
+        $fill: var(--nu-#{$color-name}-500);
+        @if $is-role {
+            $fill: var(--nu-#{$color-name});
         }
 
-        #{config-flags.$parent-selector} .bg-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:bg-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
-            background-color: var(--#{$color-name});
-        }
+        @include -color-class("text-#{$color-name}", color, var(--nu-text-#{$color-name}));
+        @include -color-class("bg-#{$color-name}", background-color, $fill);
+        @include -color-class("border-#{$color-name}", border-color, $fill, true);
+        @include -color-class("bg-#{$color-name}-subtle", background-color, var(--nu-#{$color-name}-subtle));
 
-        #{config-flags.$parent-selector} .border-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
-            border-color: var(--#{$color-name});
+        @if $is-role {
+            #{config-flags.$parent-selector} .text-on-#{$color-name} {
+                color: var(--nu-text-on-#{$color-name});
+            }
         }
     }
 
-    // Primitive color utilities
-    // green, purple, pink etc.
-    @each $color-name, $scale in $colors-primitives {
-        @each $shade, $value in $scale {
-            #{config-flags.$parent-selector} .text-on-#{$color-name}-#{$shade} {
-                color: fn-colors.find-text-color($value);
-            }
+    // Error aliases of danger
+    @if map.has-key(fn-tokens.error-aliases(), "text-on-error") {
+        @include -color-class("text-error", color, var(--nu-text-error));
+        @include -color-class("bg-error", background-color, var(--nu-error));
+        @include -color-class("border-error", border-color, var(--nu-error), true);
+        @include -color-class("bg-error-subtle", background-color, var(--nu-error-subtle));
 
-            #{config-flags.$parent-selector} .text-#{$color-name}-#{$shade},
-            #{config-flags.$parent-selector} .hover\:text-#{$color-name}-#{$shade}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name}-#{$shade} {
-                color: var(--#{$color-name}-#{$shade});
-            }
-
-            #{config-flags.$parent-selector} .bg-#{$color-name}-#{$shade},
-            #{config-flags.$parent-selector} .hover\:bg-#{$color-name}-#{$shade}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name}-#{$shade} {
-                background-color: var(--#{$color-name}-#{$shade});
-            }
-
-            #{config-flags.$parent-selector} .border-#{$color-name}-#{$shade},
-            #{config-flags.$parent-selector} .hover\:border-#{$color-name}-#{$shade}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name}-#{$shade} {
-                border-color: var(--#{$color-name}-#{$shade});
-            }
-        }
-
-        // Base color classes
-        #{config-flags.$parent-selector} .text-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:text-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
-            color: var(--#{$color-name});
-        }
-
-        #{config-flags.$parent-selector} .bg-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:bg-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
-            background-color: var(--#{$color-name});
-        }
-
-        #{config-flags.$parent-selector} .border-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
-            border-color: var(--#{$color-name});
+        #{config-flags.$parent-selector} .text-on-error {
+            color: var(--nu-text-on-error);
         }
     }
 
-    @each $color-name, $color-val in config-color.$basic-colors {
-        // Base color classes
-        #{config-flags.$parent-selector} .text-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:text-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:text-#{$color-name} {
-            color: var(--#{$color-name});
-        }
-
-        #{config-flags.$parent-selector} .bg-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:bg-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:bg-#{$color-name} {
-            background-color: var(--#{$color-name});
-        }
-
-        #{config-flags.$parent-selector} .border-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
-            border-color: var(--#{$color-name});
-        }
+    @each $color-name, $color-val in fn-tokens.basic-tokens() {
+        @include -color-class("text-#{$color-name}", color, var(--nu-#{$color-name}));
+        @include -color-class("bg-#{$color-name}", background-color, var(--nu-#{$color-name}));
+        @include -color-class("border-#{$color-name}", border-color, var(--nu-#{$color-name}), true);
     }
 
-    @each $token in config-theme.$theme-tokens {
-        $parts: string.split($token, "-");
-        $prefix: list.nth($parts, 1);
-
-        #{config-flags.$parent-selector} .#{$token},
-        #{config-flags.$parent-selector} .hover\:#{$token}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:#{$token} {
-            @if $prefix == "bg" {
-                background-color: var(--#{$token});
-            } @else if $prefix == "text" {
-                color: var(--#{$token});
-            } @else if $prefix == "border" {
-                border-color: var(--#{$token});
-            }
-        }
-
-        #{config-flags.$parent-selector} .inverted-#{$token},
-        #{config-flags.$parent-selector} .hover\:inverted-#{$token}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:inverted-#{$token} {
-            @if $prefix == "bg" {
-                background-color: var(--inverted-#{$token});
-            } @else if $prefix == "text" {
-                color: var(--inverted-#{$token});
-            } @else if $prefix == "border" {
-                border-color: var(--inverted-#{$token});
-            } @else if $prefix == "fg" {
-                color: var(--inverted-#{$token});
-            }
-        }
+    // Theme token classes: .bg-surface, .text-muted, .border-regular etc.; border classes add active: and focus:
+    @each $token, $property in $-class-tokens {
+        @include -color-class($token, $property, var(--nu-#{$token}), $property == border-color);
     }
 }

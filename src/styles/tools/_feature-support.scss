@@ -2,43 +2,80 @@
 // Module: Device Capabilities
 // Description: Mixins for targeting device-specific capabilities
 
-// todo: doc
-/// Target touch devices
-/// @example @include touch { button { padding: 12px; } }
+// @mixin touch
+// @description Applies styles on touch devices: no hover support and a coarse pointer.
+// @content Styles for touch devices
+// @example
+// .menu-link {
+//   @include touch {
+//     padding-block: 12px;
+//   }
+// }
+// @see fine-pointer
 @mixin touch {
     @media (hover: none) and (pointer: coarse) {
         @content;
     }
 }
 
-// todo: doc
-/// Target devices with precise pointing (mouse)
-/// @example @include fine-pointer { .tooltip { opacity: 0; } }
+// @mixin fine-pointer
+// @description Applies styles on devices with a precise pointer such as a mouse (pointer: fine).
+// @content Styles for fine pointer devices
+// @example
+// .row-actions {
+//   @include fine-pointer {
+//     opacity: 0;
+//   }
+// }
+// @see touch
 @mixin fine-pointer {
     @media (pointer: fine) {
         @content;
     }
 }
 
-// todo: doc
-/// Target devices in landscape orientation
+// @mixin landscape
+// @description Applies styles in landscape orientation ((orientation: landscape) media query, no screen and).
+// @content Styles for landscape orientation
+// @example
+// .gallery {
+//   @include landscape {
+//     grid-template-columns: repeat(3, 1fr);
+//   }
+// }
+// @see portrait
 @mixin landscape {
-    @media screen and (orientation: landscape) {
+    @media (orientation: landscape) {
         @content;
     }
 }
 
-// todo: doc
-/// Target devices in portrait orientation
+// @mixin portrait
+// @description Applies styles in portrait orientation ((orientation: portrait) media query, no screen and).
+// @content Styles for portrait orientation
+// @example
+// .gallery {
+//   @include portrait {
+//     grid-template-columns: 1fr;
+//   }
+// }
+// @see landscape
 @mixin portrait {
-    @media screen and (orientation: portrait) {
+    @media (orientation: portrait) {
         @content;
     }
 }
 
-// todo: doc
-/// Target Progressive Web App display modes
-/// @param {String} $mode - Display mode (standalone, fullscreen, minimal-ui, browser)
+// @mixin display-mode
+// @description Applies styles when the page runs in the given Progressive Web App display mode.
+// @param {String} $mode ["standalone"] - Display mode (standalone, fullscreen, minimal-ui, browser)
+// @content Styles for that display mode
+// @example
+// .install-banner {
+//   @include display-mode(standalone) {
+//     display: none;
+//   }
+// }
 @mixin display-mode($mode: "standalone") {
     @media (display-mode: #{$mode}) {
         @content;

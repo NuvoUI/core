@@ -1,23 +1,23 @@
+@use "sass:map";
 @use "sass:math";
-@use "sass:string";
 @use "sass:meta";
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../config/spacing" as config-spacing;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
-@use "../functions/units" as fn-units;
 
 // @component Spacing
 // @description Controls element margins, padding, gaps, and spacing between children
 // @example
 // <!-- Padding -->
 // <div class="p-4">All sides padding</div>
-// <div class="px-4 py-2">Horizontal and vertical padding</div>
+// <div class="px-4 py-2">Inline and block padding</div>
 // <div class="pt-2 pb-4">Top and bottom padding</div>
 // <!-- Margins -->
 // <div class="m-4">All sides margin</div>
 // <div class="mt-4">Top margin only</div>
-// <div class="mx-auto">Horizontally centered</div>
+// <div class="mx-auto">Centered on the inline axis</div>
 // <!-- Gap (for flex/grid containers) -->
 // <div class="flex gap-4">
 //  <div>Item 1</div>
@@ -30,89 +30,230 @@
 // <!-- Child spacing -->
 // <div class="space-y-4">
 //  <div>First child</div>
-//  <div>Second child (margin-top: 1rem)</div>
-//  <div>Third child (margin-top: 1rem)</div>
+//  <div>Second child (margin-block-start: 1rem)</div>
+//  <div>Third child (margin-block-start: 1rem)</div>
 // </div>
 // @classes
 // Padding:
 // - p-{size}: Padding on all sides
-// - px-{size}: Horizontal padding (left and right)
-// - py-{size}: Vertical padding (top and bottom)
+// - px-{size}: Inline start and end padding (padding-inline, follows text direction)
+// - py-{size}: Block start and end padding (padding-block)
 // - pt-{size}, pr-{size}, pb-{size}, pl-{size}: Individual side padding
+// - ps-{size}, pe-{size}: Inline start and end padding (follow text direction)
 // Margin:
 // - m-{size}: Margin on all sides
-// - mx-{size}: Horizontal margin (left and right)
-// - my-{size}: Vertical margin (top and bottom)
+// - mx-{size}: Inline start and end margin (margin-inline, follows text direction)
+// - my-{size}: Block start and end margin (margin-block)
 // - mt-{size}, mr-{size}, mb-{size}, ml-{size}: Individual side margin
-// - mx-auto, ml-auto, mr-auto: Auto margin for alignment
+// - ms-{size}, me-{size}: Inline start and end margin (follow text direction)
+// - mx-auto, ml-auto, mr-auto, ms-auto, me-auto: Auto margin for alignment
 // Gap:
 // - gap-{size}: Gap between flex/grid children (all directions)
-// - gap-x-{size}: Horizontal gap between children (column-gap)
-// - gap-y-{size}: Vertical gap between children (row-gap)
+// - gap-x-{size}: Gap between columns (column-gap)
+// - gap-y-{size}: Gap between rows (row-gap)
 // Child Spacing:
-// - space-x-{size}: Horizontal space between children
-// - space-y-{size}: Vertical space between children
+// - space-x-{size}: Inline space between children (margin-inline-start, follows text direction)
+// - space-y-{size}: Block space between children (margin-block-start, top in horizontal writing modes)
 // @responsive
 // All spacing classes support responsive variants using @breakpoint suffix:
 // - p-4@md: 1rem padding on medium screens and up
 // - mt-8@lg: 2rem top margin on large screens
 // - gap-2@xl: 0.5rem gap on extra large screens
 // @customization
-// Spacing values are defined in the $spacings map in variables.scss
+// Spacing values are defined in the $spacings map in config/_spacing.scss; each key is emitted as a --nu-space-{key} token
 // Typically follows a scale where higher numbers mean more spacing
 // @see flex, grid, display
+
+// Token of every $spacings key, for the direct key lookup that runs before any validation. A miss means the value is
+// not a key, so the raw fast paths below need no second key check
+$-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
+
+// A $spacings key gives its token (4 is var(--nu-space-4)), other values stay raw. Negative keys raise an error
+@function -space($val, $keywords: (), $label: "space") {
+    $token: map.get($-space-tokens, $val);
+    @if $token {
+        @return $token;
+    }
+    @if meta.type-of($val) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($val)) and $val >= 0 {
+        @return $val;
+    }
+    @return fn-css-vars.scale-value("space", config-spacing.$spacings, $val, $keywords: $keywords, $label: $label);
+}
+
+// Margin, inset, position offset and space values: as -space(), auto is allowed, and a negated key gives
+// calc(-1 * token). Shared with utilities/_position.scss
+@function space-offset($val, $label: "space") {
+    $token: map.get($-space-tokens, $val);
+    @if $token {
+        @return $token;
+    }
+    @if meta.type-of($val) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($val)) {
+        @return $val;
+    }
+    @return fn-css-vars.scale-value("space", config-spacing.$spacings, $val, $allow-negative: true, $keywords: (auto), $label: $label);
+}
+
+// Padding values: as -space(); auto is not a valid padding
+@function -padding($val, $label: "padding") {
+    $token: map.get($-space-tokens, $val);
+    @if $token {
+        @return $token;
+    }
+    @if meta.type-of($val) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($val)) and $val >= 0 {
+        @return $val;
+    }
+    @if $val == "auto" {
+        @error "#{$label}: auto is not a valid padding value.";
+    }
+    @return fn-css-vars.scale-value("space", config-spacing.$spacings, $val, $label: $label);
+}
 
 // -----------------------------------------------
 // PADDING MIXINS
 // -----------------------------------------------
 
 // @mixin p
-// @description Sets padding on all sides
-// @param {Number|String} $val - Padding value
+// @description Sets padding on all sides from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .card {
+//   @include p(4); // padding: var(--nu-space-4)
+// }
+// @example
+// .card-wide {
+//   @include p(1.5rem); // padding: 1.5rem
+// }
+// @see px, py, pt, ps
 @mixin p($val) {
-    padding: fn-units.fix-units($val);
+    padding: -padding($val, "p");
 }
 
 // @mixin px
-// @description Sets horizontal padding (left and right)
-// @param {Number|String} $val - Padding value
+// @description Sets padding on the inline start and end (padding-inline), following text direction.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .button {
+//   @include px(4); // padding-inline: var(--nu-space-4)
+// }
+// @example
+// .chip {
+//   @include apply(px(2), py(1));
+// }
+// @see py, ps, pe
 @mixin px($val) {
-    padding-inline: fn-units.fix-units($val);
+    padding-inline: -padding($val, "px");
 }
 
 // @mixin py
-// @description Sets vertical padding (top and bottom)
-// @param {Number|String} $val - Padding value
+// @description Sets padding on the block start and end (padding-block), top and bottom in horizontal writing modes.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .button {
+//   @include py(2); // padding-block: var(--nu-space-2)
+// }
+// @example
+// .row {
+//   @include py(0.625rem); // padding-block: 0.625rem
+// }
+// @see px, pt, pb
 @mixin py($val) {
-    padding-block: fn-units.fix-units($val);
+    padding-block: -padding($val, "py");
 }
 
 // @mixin pt
-// @description Sets padding-top
-// @param {Number|String} $val - Padding value
+// @description Sets padding-top from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .section {
+//   @include pt(4); // padding-top: var(--nu-space-4)
+// }
+// @example
+// .section-wide {
+//   @include pt(1.5rem); // padding-top: 1.5rem
+// }
+// @see pb, py
 @mixin pt($val) {
-    padding-top: fn-units.fix-units($val);
+    padding-top: -padding($val, "pt");
 }
 
 // @mixin pr
-// @description Sets padding-right
-// @param {Number|String} $val - Padding value
+// @description Sets padding-right (physical, does not follow text direction) from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .gutter {
+//   @include pr(4); // padding-right: var(--nu-space-4)
+// }
+// @example
+// .gutter-wide {
+//   @include pr(1.5rem); // padding-right: 1.5rem
+// }
+// @see pe, pl
 @mixin pr($val) {
-    padding-right: fn-units.fix-units($val);
+    padding-right: -padding($val, "pr");
 }
 
 // @mixin pb
-// @description Sets padding-bottom
-// @param {Number|String} $val - Padding value
+// @description Sets padding-bottom from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .section {
+//   @include pb(4); // padding-bottom: var(--nu-space-4)
+// }
+// @example
+// .section-wide {
+//   @include pb(1.5rem); // padding-bottom: 1.5rem
+// }
+// @see pt, py
 @mixin pb($val) {
-    padding-bottom: fn-units.fix-units($val);
+    padding-bottom: -padding($val, "pb");
 }
 
 // @mixin pl
-// @description Sets padding-left
-// @param {Number|String} $val - Padding value
+// @description Sets padding-left (physical, does not follow text direction) from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .gutter {
+//   @include pl(4); // padding-left: var(--nu-space-4)
+// }
+// @example
+// .gutter-wide {
+//   @include pl(1.5rem); // padding-left: 1.5rem
+// }
+// @see ps, pr
 @mixin pl($val) {
-    padding-left: fn-units.fix-units($val);
+    padding-left: -padding($val, "pl");
+}
+
+// @mixin ps
+// @description Sets padding-inline-start (left in LTR, right in RTL) from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .list {
+//   @include ps(4); // padding-inline-start: var(--nu-space-4)
+// }
+// @example
+// .list-wide {
+//   @include ps(1.5rem); // padding-inline-start: 1.5rem
+// }
+// @see pe, px, pl
+@mixin ps($val) {
+    padding-inline-start: -padding($val, "ps");
+}
+
+// @mixin pe
+// @description Sets padding-inline-end (right in LTR, left in RTL) from a spacing key or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), or a value with a unit, calc() or var(); negative keys and auto raise an error
+// @example
+// .input {
+//   @include pe(4); // padding-inline-end: var(--nu-space-4)
+// }
+// @example
+// .input-wide {
+//   @include pe(1.5rem); // padding-inline-end: 1.5rem
+// }
+// @see ps, px, pr
+@mixin pe($val) {
+    padding-inline-end: -padding($val, "pe");
 }
 
 // -----------------------------------------------
@@ -120,124 +261,202 @@
 // -----------------------------------------------
 
 // @mixin m
-// @description Sets margin on all sides
-// @param {Number|String} $val - Margin value
+// @description Sets margin on all sides from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .card {
+//   @include m(4); // margin: var(--nu-space-4)
+// }
+// @example
+// .bleed {
+//   @include m(-2); // margin: calc(-1 * var(--nu-space-2))
+// }
+// @see mx, my, mt, ms
 @mixin m($val) {
-    margin: fn-units.fix-units($val);
+    margin: space-offset($val, "m");
 }
 
 // @mixin mx
-// @description Sets horizontal margin (left and right)
-// @param {Number|String} $val - Margin value
+// @description Sets margin on the inline start and end (margin-inline), following text direction.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .divider {
+//   @include mx(4); // margin-inline: var(--nu-space-4)
+// }
+// @example
+// .bleed {
+//   @include mx(-4); // margin-inline: calc(-1 * var(--nu-space-4))
+// }
+// @see mx-auto, my, ms, me
 @mixin mx($val) {
-    margin-inline: fn-units.fix-units($val);
+    margin-inline: space-offset($val, "mx");
 }
 
 // @mixin my
-// @description Sets vertical margin (top and bottom)
-// @param {Number|String} $val - Margin value
+// @description Sets margin on the block start and end (margin-block), top and bottom in horizontal writing modes.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .divider {
+//   @include my(6); // margin-block: var(--nu-space-6)
+// }
+// @example
+// .hr {
+//   @include my(1.5rem); // margin-block: 1.5rem
+// }
+// @see mx, mt, mb
 @mixin my($val) {
-    margin-block: fn-units.fix-units($val);
+    margin-block: space-offset($val, "my");
 }
 
 // @mixin mt
-// @description Sets margin-top
-// @param {Number|String} $val - Margin value
+// @description Sets margin-top from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .section {
+//   @include mt(4); // margin-top: var(--nu-space-4)
+// }
+// @example
+// .section-pull {
+//   @include mt(-2); // margin-top: calc(-1 * var(--nu-space-2))
+// }
+// @see mb, my
 @mixin mt($val) {
-    margin-top: fn-units.fix-units($val);
+    margin-top: space-offset($val, "mt");
 }
 
 // @mixin mr
-// @description Sets margin-right
-// @param {Number|String} $val - Margin value
+// @description Sets margin-right (physical, does not follow text direction) from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .icon {
+//   @include mr(4); // margin-right: var(--nu-space-4)
+// }
+// @example
+// .icon-pull {
+//   @include mr(-2); // margin-right: calc(-1 * var(--nu-space-2))
+// }
+// @see me, ml, mr-auto
 @mixin mr($val) {
-    margin-right: fn-units.fix-units($val);
+    margin-right: space-offset($val, "mr");
 }
 
 // @mixin mb
-// @description Sets margin-bottom
-// @param {Number|String} $val - Margin value
+// @description Sets margin-bottom from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .heading {
+//   @include mb(4); // margin-bottom: var(--nu-space-4)
+// }
+// @example
+// .heading-pull {
+//   @include mb(-2); // margin-bottom: calc(-1 * var(--nu-space-2))
+// }
+// @see mt, my
 @mixin mb($val) {
-    margin-bottom: fn-units.fix-units($val);
+    margin-bottom: space-offset($val, "mb");
 }
 
 // @mixin ml
-// @description Sets margin-left
-// @param {Number|String} $val - Margin value
+// @description Sets margin-left (physical, does not follow text direction) from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .icon {
+//   @include ml(4); // margin-left: var(--nu-space-4)
+// }
+// @example
+// .icon-pull {
+//   @include ml(-2); // margin-left: calc(-1 * var(--nu-space-2))
+// }
+// @see ms, mr, ml-auto
 @mixin ml($val) {
-    margin-left: fn-units.fix-units($val);
+    margin-left: space-offset($val, "ml");
+}
+
+// @mixin ms
+// @description Sets margin-inline-start (left in LTR, right in RTL) from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .icon {
+//   @include ms(4); // margin-inline-start: var(--nu-space-4)
+// }
+// @example
+// .icon-pull {
+//   @include ms(-2); // margin-inline-start: calc(-1 * var(--nu-space-2))
+// }
+// @see me, mx, ms-auto
+@mixin ms($val) {
+    margin-inline-start: space-offset($val, "ms");
+}
+
+// @mixin me
+// @description Sets margin-inline-end (right in LTR, left in RTL) from a spacing key, a negative key, auto or a raw value.
+// @param {Number|Length|Calculation|String} $val - Spacing key (4 gives var(--nu-space-4)), a negative key, auto, or a value with a unit, calc() or var()
+// @example
+// .icon {
+//   @include me(4); // margin-inline-end: var(--nu-space-4)
+// }
+// @example
+// .icon-pull {
+//   @include me(-2); // margin-inline-end: calc(-1 * var(--nu-space-2))
+// }
+// @see ms, mx, me-auto
+@mixin me($val) {
+    margin-inline-end: space-offset($val, "me");
 }
 
 // @mixin ml-auto
-// @description Sets margin-left to auto
+// @description Sets margin-left to auto (physical), pushing the element to the right in a flex row.
+// @example
+// .actions {
+//   @include ml-auto; // margin-left: auto
+// }
+// @see ms-auto, mr-auto
 @mixin ml-auto {
     margin-left: auto;
 }
 
 // @mixin mr-auto
-// @description Sets margin-right to auto
+// @description Sets margin-right to auto (physical), pushing the element to the left in a flex row.
+// @example
+// .logo {
+//   @include mr-auto; // margin-right: auto
+// }
+// @see me-auto, ml-auto
 @mixin mr-auto {
     margin-right: auto;
 }
 
+// @mixin ms-auto
+// @description Sets margin-inline-start to auto, pushing the element to the inline end in a flex row.
+// @example
+// .actions {
+//   @include ms-auto; // margin-inline-start: auto
+// }
+// @see me-auto, ml-auto
+@mixin ms-auto {
+    margin-inline-start: auto;
+}
+
+// @mixin me-auto
+// @description Sets margin-inline-end to auto, pushing the element to the inline start in a flex row.
+// @example
+// .logo {
+//   @include me-auto; // margin-inline-end: auto
+// }
+// @see ms-auto, mr-auto
+@mixin me-auto {
+    margin-inline-end: auto;
+}
+
 // @mixin mx-auto
-// @description Centers element horizontally using auto margins
+// @description Centers a block element on the inline axis with margin-inline: auto.
+// @example
+// .container {
+//   @include apply(max-width(64rem), mx-auto);
+// }
+// @see mx, ms-auto, me-auto
 @mixin mx-auto {
-    @include ml-auto;
-    @include mr-auto;
-}
-
-// -----------------------------------------------
-// INSET MIXINS
-// -----------------------------------------------
-
-// @mixin inset
-// @description Sets all inset properties (top, right, bottom, left)
-// @param {Number|String} $val - Inset value
-@mixin inset($val) {
-    $val: fn-units.fix-units($val);
-
-    inset: fn-units.fix-units($val);
-}
-
-// @mixin inset-x
-// @description Sets horizontal inset properties (left and right)
-// @param {Number|String} $val - Inset value
-@mixin inset-x($val) {
-    $val: fn-units.fix-units($val);
-
-    left: $val;
-    right: $val;
-}
-
-// @mixin inset-y
-// @description Sets vertical inset properties (top and bottom)
-// @param {Number|String} $val - Inset value
-@mixin inset-y($val) {
-    $val: fn-units.fix-units($val);
-
-    top: $val;
-    bottom: $val;
-}
-
-// @mixin inset-auto
-// @description Sets all inset properties to auto
-@mixin inset-auto {
-    inset: auto;
-}
-
-// @mixin inset-x-auto
-// @description Sets horizontal inset properties to auto
-@mixin inset-x-auto {
-    left: auto;
-    right: auto;
-}
-
-// @mixin inset-y-auto
-// @description Sets vertical inset properties to auto
-@mixin inset-y-auto {
-    top: auto;
-    bottom: auto;
+    margin-inline: auto;
 }
 
 // -----------------------------------------------
@@ -245,20 +464,30 @@
 // -----------------------------------------------
 
 // @mixin space-y
-// @description Adds vertical spacing between direct children
-// @param {Number|String} $i - Space amount
+// @description Adds margin-block-start to every direct child after the first, spacing children along the block axis (vertically in horizontal writing modes).
+// @param {Number|Length|Calculation|String} $i - Spacing key, a negative key, or a value with a unit, calc() or var()
+// @example
+// .stack {
+//   @include space-y(4); // .stack > * + * { margin-block-start: var(--nu-space-4) }
+// }
+// @see space-x, gap
 @mixin space-y($i) {
     & > * + * {
-        margin-top: fn-units.fix-units($i);
+        margin-block-start: space-offset($i, "space-y");
     }
 }
 
 // @mixin space-x
-// @description Adds horizontal spacing between direct children
-// @param {Number|String} $i - Space amount
+// @description Adds margin-inline-start to every direct child after the first, spacing children along the inline axis.
+// @param {Number|Length|Calculation|String} $i - Spacing key, a negative key, or a value with a unit, calc() or var()
+// @example
+// .toolbar {
+//   @include space-x(2); // .toolbar > * + * { margin-inline-start: var(--nu-space-2) }
+// }
+// @see space-y, gap-x
 @mixin space-x($i) {
     & > * + * {
-        margin-left: fn-units.fix-units($i);
+        margin-inline-start: space-offset($i, "space-x");
     }
 }
 
@@ -266,42 +495,164 @@
 // GAP MIXINS
 // -----------------------------------------------
 
+// --nu-flex-gap is set on the children of a gap container and feeds their fill() width maths, so it must be a length:
+// normal (no gap in flex layout) gives 0px. Registered so it does not inherit (a nested flex reads only its own gap)
+// and so fill() outside a gap container reads 0px, since fill() has no fallback. Registered whenever the module loads,
+// independent of feature flags, because the gap and fill() mixins need it too
+@property --nu-flex-gap {
+    syntax: "<length-percentage>";
+    inherits: false;
+    initial-value: 0px; // stylelint-disable-line length-zero-no-unit -- a length, as fill() uses it in calc()
+}
+
+// normal becomes 0px so --nu-flex-gap stays a length; any other value passes through
+@function -flex-gap($val) {
+    @if $val == "normal" {
+        @return 0px; // stylelint-disable-line length-zero-no-unit -- unitless 0 is invalid in the fill() calc()
+    }
+    @return $val;
+}
+
 // @mixin gap
-// @description Sets gap between grid/flex children
-// @param {Number|String} $val - Gap value
+// @description Sets gap on a flex or grid container and passes it to direct children as --nu-flex-gap for fill() widths.
+// @param {Number|Length|Calculation|String} $val - Spacing key, normal, or a value with a unit, calc() or var(); negative keys raise an error
+// @example
+// .grid {
+//   @include gap(4); // gap: var(--nu-space-4)
+// }
+// @example
+// .cards {
+//   @include apply(flex, gap(1.25rem));
+// }
+// @see gap-x, gap-y, space-x
 @mixin gap($val) {
-    $val: fn-units.fix-units($val);
+    $val: -space($val, (normal), "gap");
 
     gap: $val;
 
-    --flex-gap: #{$val};
+    & > * {
+        --nu-flex-gap: #{-flex-gap($val)};
+    }
 }
 
 // @mixin gap-x
-// @description Sets horizontal gap between grid/flex children
-// @param {Number|String} $val - Gap value
+// @description Sets column-gap on a flex or grid container and passes it to direct children as --nu-flex-gap for fill() widths.
+// @param {Number|Length|Calculation|String} $val - Spacing key, normal, or a value with a unit, calc() or var(); negative keys raise an error
+// @example
+// .row {
+//   @include gap-x(6); // column-gap: var(--nu-space-6)
+// }
+// @see gap, gap-y
 @mixin gap-x($val) {
-    $val: fn-units.fix-units($val);
+    $val: -space($val, (normal), "gap-x");
 
     column-gap: $val;
 
-    --flex-gap: #{$val};
+    & > * {
+        --nu-flex-gap: #{-flex-gap($val)};
+    }
 }
 
 // @mixin gap-y
-// @description Sets vertical gap between grid/flex children
-// @param {Number|String} $val - Gap value
+// @description Sets row-gap on a flex or grid container; --nu-flex-gap is not set because it only feeds inline widths.
+// @param {Number|Length|Calculation|String} $val - Spacing key, normal, or a value with a unit, calc() or var(); negative keys raise an error
+// @example
+// .column {
+//   @include gap-y(2); // row-gap: var(--nu-space-2)
+// }
+// @see gap, gap-x
 @mixin gap-y($val) {
-    $val: fn-units.fix-units($val);
-
-    row-gap: $val;
-
-    --flex-gap: #{$val};
+    row-gap: -space($val, (normal), "gap-y");
 }
 
 @if fn-flags.feature-enabled("spacing") {
     // -----------------------------------------------
-    // AUTO MARGIN UTILITY CLASSES
+    // SPACING CLASSES
+    // -----------------------------------------------
+
+    @each $key, $value in config-spacing.$spacings {
+        $k: fn-css-vars.class-key($key);
+
+        // Padding classes
+        #{config-flags.$parent-selector} .p-#{$k} {
+            @include p($key);
+        }
+        #{config-flags.$parent-selector} .px-#{$k} {
+            @include px($key);
+        }
+        #{config-flags.$parent-selector} .py-#{$k} {
+            @include py($key);
+        }
+        #{config-flags.$parent-selector} .pt-#{$k} {
+            @include pt($key);
+        }
+        #{config-flags.$parent-selector} .pr-#{$k} {
+            @include pr($key);
+        }
+        #{config-flags.$parent-selector} .pb-#{$k} {
+            @include pb($key);
+        }
+        #{config-flags.$parent-selector} .pl-#{$k} {
+            @include pl($key);
+        }
+        #{config-flags.$parent-selector} .ps-#{$k} {
+            @include ps($key);
+        }
+        #{config-flags.$parent-selector} .pe-#{$k} {
+            @include pe($key);
+        }
+
+        // Margin classes
+        #{config-flags.$parent-selector} .m-#{$k} {
+            @include m($key);
+        }
+        #{config-flags.$parent-selector} .mx-#{$k} {
+            @include mx($key);
+        }
+        #{config-flags.$parent-selector} .my-#{$k} {
+            @include my($key);
+        }
+        #{config-flags.$parent-selector} .mt-#{$k} {
+            @include mt($key);
+        }
+        #{config-flags.$parent-selector} .mr-#{$k} {
+            @include mr($key);
+        }
+        #{config-flags.$parent-selector} .mb-#{$k} {
+            @include mb($key);
+        }
+        #{config-flags.$parent-selector} .ml-#{$k} {
+            @include ml($key);
+        }
+        #{config-flags.$parent-selector} .ms-#{$k} {
+            @include ms($key);
+        }
+        #{config-flags.$parent-selector} .me-#{$k} {
+            @include me($key);
+        }
+
+        // Gap classes
+        #{config-flags.$parent-selector} .gap-#{$k} {
+            @include gap($key);
+        }
+        #{config-flags.$parent-selector} .gap-x-#{$k} {
+            @include gap-x($key);
+        }
+        #{config-flags.$parent-selector} .gap-y-#{$k} {
+            @include gap-y($key);
+        }
+
+        // Space classes
+        #{config-flags.$parent-selector} .space-x-#{$k} {
+            @include space-x($key);
+        }
+        #{config-flags.$parent-selector} .space-y-#{$k} {
+            @include space-y($key);
+        }
+    }
+
+    // -----------------------------------------------
+    // AUTO MARGIN UTILITY CLASSES (after .m-*, so .mx-auto wins over .m-4 on the same element)
     // -----------------------------------------------
 
     #{config-flags.$parent-selector} .mx-auto {
@@ -316,106 +667,12 @@
         @include mr-auto;
     }
 
-    // -----------------------------------------------
-    // GAP AUTO CLASS
-    // -----------------------------------------------
-
-    #{config-flags.$parent-selector} .gap-auto {
-        gap: auto;
+    #{config-flags.$parent-selector} .ms-auto {
+        @include ms-auto;
     }
 
-    // Auto inset utility classes
-    #{config-flags.$parent-selector} .inset-auto {
-        @include inset-auto;
-    }
-
-    #{config-flags.$parent-selector} .inset-x-auto {
-        @include inset-x-auto;
-    }
-
-    #{config-flags.$parent-selector} .inset-y-auto {
-        @include inset-y-auto;
-    }
-
-    // -----------------------------------------------
-    // SPACING CLASSES
-    // -----------------------------------------------
-
-    @each $key, $value in config-spacing.$spacings {
-        // Padding classes
-        #{config-flags.$parent-selector} .p-#{$key} {
-            @include p($value);
-        }
-        #{config-flags.$parent-selector} .px-#{$key} {
-            @include px($value);
-        }
-        #{config-flags.$parent-selector} .py-#{$key} {
-            @include py($value);
-        }
-        #{config-flags.$parent-selector} .pt-#{$key} {
-            @include pt($value);
-        }
-        #{config-flags.$parent-selector} .pr-#{$key} {
-            @include pr($value);
-        }
-        #{config-flags.$parent-selector} .pb-#{$key} {
-            @include pb($value);
-        }
-        #{config-flags.$parent-selector} .pl-#{$key} {
-            @include pl($value);
-        }
-
-        // Margin classes
-        #{config-flags.$parent-selector} .m-#{$key} {
-            @include m($value);
-        }
-        #{config-flags.$parent-selector} .mx-#{$key} {
-            @include mx($value);
-        }
-        #{config-flags.$parent-selector} .my-#{$key} {
-            @include my($value);
-        }
-        #{config-flags.$parent-selector} .mt-#{$key} {
-            @include mt($value);
-        }
-        #{config-flags.$parent-selector} .mr-#{$key} {
-            @include mr($value);
-        }
-        #{config-flags.$parent-selector} .mb-#{$key} {
-            @include mb($value);
-        }
-        #{config-flags.$parent-selector} .ml-#{$key} {
-            @include ml($value);
-        }
-
-        // Gap classes
-        #{config-flags.$parent-selector} .gap-#{$key} {
-            @include gap($value);
-        }
-        #{config-flags.$parent-selector} .gap-x-#{$key} {
-            @include gap-x($value);
-        }
-        #{config-flags.$parent-selector} .gap-y-#{$key} {
-            @include gap-y($value);
-        }
-
-        // Space classes
-        #{config-flags.$parent-selector} .space-x-#{$key} {
-            @include space-x($value);
-        }
-        #{config-flags.$parent-selector} .space-y-#{$key} {
-            @include space-y($value);
-        }
-
-        #{config-flags.$parent-selector} .inset-#{$key} {
-            @include inset($value);
-        }
-        #{config-flags.$parent-selector} .inset-x-#{$key} {
-            @include inset-x($value);
-        }
-        #{config-flags.$parent-selector} .inset-y-#{$key} {
-            @include inset-y($value);
-        }
+    #{config-flags.$parent-selector} .me-auto {
+        @include me-auto;
     }
 
     // -----------------------------------------------
@@ -424,6 +681,87 @@
 
     @each $breakpoint, $width in config-breakpoint.$breakpoints {
         @media (min-width: #{$width}) {
+            // Generate utilities from spacing map
+            @each $key, $value in config-spacing.$spacings {
+                $k: fn-css-vars.class-key($key);
+
+                // Padding classes
+                #{config-flags.$parent-selector} .p-#{$k}\@#{$breakpoint} {
+                    @include p($key);
+                }
+                #{config-flags.$parent-selector} .px-#{$k}\@#{$breakpoint} {
+                    @include px($key);
+                }
+                #{config-flags.$parent-selector} .py-#{$k}\@#{$breakpoint} {
+                    @include py($key);
+                }
+                #{config-flags.$parent-selector} .pt-#{$k}\@#{$breakpoint} {
+                    @include pt($key);
+                }
+                #{config-flags.$parent-selector} .pr-#{$k}\@#{$breakpoint} {
+                    @include pr($key);
+                }
+                #{config-flags.$parent-selector} .pb-#{$k}\@#{$breakpoint} {
+                    @include pb($key);
+                }
+                #{config-flags.$parent-selector} .pl-#{$k}\@#{$breakpoint} {
+                    @include pl($key);
+                }
+                #{config-flags.$parent-selector} .ps-#{$k}\@#{$breakpoint} {
+                    @include ps($key);
+                }
+                #{config-flags.$parent-selector} .pe-#{$k}\@#{$breakpoint} {
+                    @include pe($key);
+                }
+
+                // Margin classes
+                #{config-flags.$parent-selector} .m-#{$k}\@#{$breakpoint} {
+                    @include m($key);
+                }
+                #{config-flags.$parent-selector} .mx-#{$k}\@#{$breakpoint} {
+                    @include mx($key);
+                }
+                #{config-flags.$parent-selector} .my-#{$k}\@#{$breakpoint} {
+                    @include my($key);
+                }
+                #{config-flags.$parent-selector} .mt-#{$k}\@#{$breakpoint} {
+                    @include mt($key);
+                }
+                #{config-flags.$parent-selector} .mr-#{$k}\@#{$breakpoint} {
+                    @include mr($key);
+                }
+                #{config-flags.$parent-selector} .mb-#{$k}\@#{$breakpoint} {
+                    @include mb($key);
+                }
+                #{config-flags.$parent-selector} .ml-#{$k}\@#{$breakpoint} {
+                    @include ml($key);
+                }
+                #{config-flags.$parent-selector} .ms-#{$k}\@#{$breakpoint} {
+                    @include ms($key);
+                }
+                #{config-flags.$parent-selector} .me-#{$k}\@#{$breakpoint} {
+                    @include me($key);
+                }
+
+                #{config-flags.$parent-selector} .gap-#{$k}\@#{$breakpoint} {
+                    @include gap($key);
+                }
+                #{config-flags.$parent-selector} .gap-x-#{$k}\@#{$breakpoint} {
+                    @include gap-x($key);
+                }
+                #{config-flags.$parent-selector} .gap-y-#{$k}\@#{$breakpoint} {
+                    @include gap-y($key);
+                }
+
+                // Space classes
+                #{config-flags.$parent-selector} .space-x-#{$k}\@#{$breakpoint} {
+                    @include space-x($key);
+                }
+                #{config-flags.$parent-selector} .space-y-#{$k}\@#{$breakpoint} {
+                    @include space-y($key);
+                }
+            }
+
             #{config-flags.$parent-selector} .mx-auto\@#{$breakpoint} {
                 @include mx-auto;
             }
@@ -433,90 +771,11 @@
             #{config-flags.$parent-selector} .mr-auto\@#{$breakpoint} {
                 @include mr-auto;
             }
-            #{config-flags.$parent-selector} .inset-auto\@#{$breakpoint} {
-                @include inset-auto;
+            #{config-flags.$parent-selector} .ms-auto\@#{$breakpoint} {
+                @include ms-auto;
             }
-            #{config-flags.$parent-selector} .inset-x-auto\@#{$breakpoint} {
-                @include inset-x-auto;
-            }
-            #{config-flags.$parent-selector} .inset-y-auto\@#{$breakpoint} {
-                @include inset-y-auto;
-            }
-
-            // Generate utilities from spacing map
-            @each $key, $value in config-spacing.$spacings {
-                // Padding classes
-                #{config-flags.$parent-selector} .p-#{$key}\@#{$breakpoint} {
-                    @include p($value);
-                }
-                #{config-flags.$parent-selector} .px-#{$key}\@#{$breakpoint} {
-                    @include px($value);
-                }
-                #{config-flags.$parent-selector} .py-#{$key}\@#{$breakpoint} {
-                    @include py($value);
-                }
-                #{config-flags.$parent-selector} .pt-#{$key}\@#{$breakpoint} {
-                    @include pt($value);
-                }
-                #{config-flags.$parent-selector} .pr-#{$key}\@#{$breakpoint} {
-                    @include pr($value);
-                }
-                #{config-flags.$parent-selector} .pb-#{$key}\@#{$breakpoint} {
-                    @include pb($value);
-                }
-                #{config-flags.$parent-selector} .pl-#{$key}\@#{$breakpoint} {
-                    @include pl($value);
-                }
-
-                // Margin classes
-                #{config-flags.$parent-selector} .m-#{$key}\@#{$breakpoint} {
-                    @include m($value);
-                }
-                #{config-flags.$parent-selector} .mx-#{$key}\@#{$breakpoint} {
-                    @include mx($value);
-                }
-                #{config-flags.$parent-selector} .my-#{$key}\@#{$breakpoint} {
-                    @include my($value);
-                }
-                #{config-flags.$parent-selector} .mt-#{$key}\@#{$breakpoint} {
-                    @include mt($value);
-                }
-                #{config-flags.$parent-selector} .mr-#{$key}\@#{$breakpoint} {
-                    @include mr($value);
-                }
-                #{config-flags.$parent-selector} .mb-#{$key}\@#{$breakpoint} {
-                    @include mb($value);
-                }
-                #{config-flags.$parent-selector} .ml-#{$key}\@#{$breakpoint} {
-                    @include ml($value);
-                }
-
-                #{config-flags.$parent-selector} .gap-#{$key}\@#{$breakpoint} {
-                    gap: $value;
-                }
-                #{config-flags.$parent-selector} .gap-x-#{$key}\@#{$breakpoint} {
-                    column-gap: $value;
-                }
-                #{config-flags.$parent-selector} .gap-y-#{$key}\@#{$breakpoint} {
-                    row-gap: $value;
-                }
-
-                // Space classes
-                #{config-flags.$parent-selector} .space-x-#{$key}\@#{$breakpoint} {
-                    @include space-x($value);
-                }
-                #{config-flags.$parent-selector} .space-y-#{$key}\@#{$breakpoint} {
-                    @include space-y($value);
-                }
-                #{config-flags.$parent-selector} .inset-#{$key}\@#{$breakpoint} {
-                    @include inset($value);
-                }
-                #{config-flags.$parent-selector} .inset-x-#{$key}\@#{$breakpoint} {
-                    @include inset-x($value);
-                }
-                #{config-flags.$parent-selector} .inset-y-#{$key}\@#{$breakpoint} {
-                    @include inset-y($value);
-                }
+            #{config-flags.$parent-selector} .me-auto\@#{$breakpoint} {
+                @include me-auto;
             }
         }
     }

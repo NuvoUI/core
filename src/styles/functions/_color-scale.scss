@@ -1,0 +1,148 @@
+// _color-scale.scss - OKLCH shade generator and colour scales
+@use "sass:math";
+@use "sass:color";
+@use "sass:map";
+@use "sass:meta";
+
+@use "../config/colors" as config-color;
+@use "./color-parse" as fn-parse;
+@use "./default-scales" as defaults;
+@use "./types" as fn-types;
+
+// OKLCH lightness of the lightest and darkest bounds
+$-lightness-max: 0.985;
+$-lightness-min: 0.2;
+
+// Share of the distance from the base lightness to the bound, per stop
+$-lightness-steps: (
+    50: 0.94,
+    100: 0.86,
+    200: 0.7,
+    300: 0.5,
+    400: 0.26,
+    600: 0.14,
+    700: 0.31,
+    800: 0.5,
+    900: 0.68,
+    950: 0.84,
+);
+
+// Share of the base chroma kept per stop
+$-chroma-steps: (
+    50: 0.2,
+    100: 0.38,
+    200: 0.62,
+    300: 0.82,
+    400: 0.95,
+    600: 0.98,
+    700: 0.92,
+    800: 0.82,
+    900: 0.7,
+    950: 0.56,
+);
+
+// Fit an OKLCH colour into sRGB by reducing chroma only, so lightness and hue stay fixed
+@function -fit-chroma($oklch) {
+    @if color.is-in-gamut($oklch, $space: rgb) {
+        @return $oklch;
+    }
+
+    $low: 0;
+    $high: color.channel($oklch, "chroma", $space: oklch);
+
+    @for $i from 1 through 20 {
+        $mid: math.div($low + $high, 2);
+        @if color.is-in-gamut(color.change($oklch, $chroma: $mid, $space: oklch), $space: rgb) {
+            $low: $mid;
+        } @else {
+            $high: $mid;
+        }
+    }
+
+    @return color.change($oklch, $chroma: $low, $space: oklch);
+}
+
+// Shade a colour in OKLCH: same hue, stepped lightness, eased chroma, sRGB output.
+// Stop 500 returns the input unchanged, in its own colour space.
+// $label is the caller's argument and $caller the function named in messages. $clamp returns the base unchanged where no shade exists.
+@function oklch-shade($color, $shade, $label: $color, $clamp: false, $caller: "get-color") {
+    @if $shade == 500 {
+        @return $color;
+    }
+
+    @if color.channel($color, "alpha") == 0 {
+        @error "#{$caller}(#{$label}, #{$shade}): the colour is fully transparent, it has no shades.";
+    }
+
+    $oklch: color.to-space($color, oklch);
+    $lightness: math.div(color.channel($oklch, "lightness", $space: oklch), 100%);
+    $chroma: color.channel($oklch, "chroma", $space: oklch);
+    $hue: color.channel($oklch, "hue", $space: oklch);
+    $step: map.get($-lightness-steps, $shade);
+
+    @if $shade < 500 {
+        @if $lightness >= 1 {
+            @if $clamp {
+                @return $color;
+            }
+            @error "#{$caller}(#{$label}, #{$shade}): the colour is pure white, no lighter shades exist. Use a darker base colour.";
+        }
+        $top: math.max($-lightness-max, $lightness + (1 - $lightness) * 0.5);
+        $lightness: $lightness + ($top - $lightness) * $step;
+    } @else {
+        @if $lightness <= 0 {
+            @if $clamp {
+                @return $color;
+            }
+            @error "#{$caller}(#{$label}, #{$shade}): the colour is pure black, no darker shades exist. Use a lighter base colour.";
+        }
+        $bottom: math.min($-lightness-min, $lightness * 0.5);
+        $lightness: $lightness - ($lightness - $bottom) * $step;
+    }
+
+    $shaded: color.change($oklch, $lightness: $lightness * 100%, $chroma: $chroma * map.get($-chroma-steps, $shade), $hue: $hue, $space: oklch);
+    $rgb: color.to-space(color.to-gamut(-fit-chroma($shaded), $space: rgb, $method: clip), rgb);
+
+    @return color.change(#000, $red: math.round(color.channel($rgb, "red", $space: rgb)), $green: math.round(color.channel($rgb, "green", $space: rgb)), $blue: math.round(color.channel($rgb, "blue", $space: rgb)), $alpha: color.channel($color, "alpha"));
+}
+
+// @function create-color-scale
+// @description Returns the OKLCH shade scale (50 to 950) of a colour value, precomputed for the default role and palette colours and generated for any other; the value is shaded directly and never re-read as a palette name, so "blue" is CSS blue.
+// @param {Color|String} $color - Colour value or colour string (#007bff, blue, rgb())
+// @return {Map} - Stop to colour map with keys 50, 100 to 900 and 950
+// @example
+// @use "sass:map";
+// $teal: create-color-scale(#1ab5a5);
+// .card {
+//   background: map.get($teal, 100);
+//   border-color: map.get($teal, 600);
+// }
+@function create-color-scale($color) {
+    $base: $color;
+    @if meta.type-of($base) == "string" and fn-types.get-type($base) == "color" {
+        $base: fn-parse.to-color($base);
+    }
+
+    @if meta.type-of($base) != "color" {
+        @error "create-color-scale(#{meta.inspect($color)}): needs a colour value, e.g. #007bff or blue.";
+    }
+
+    // Stop 500 is the input itself, so it keeps the input's colour space and format
+    $precomputed: map.get(defaults.$default-color-scales, meta.inspect($base));
+    @if $precomputed {
+        @return map.set($precomputed, 500, $base);
+    }
+
+    @return generate-color-scale($base, $color);
+}
+
+// The generator behind create-color-scale(), without the precomputed lookup; scripts/generate-scales.mjs runs it
+@function generate-color-scale($base, $label: $base) {
+    $scale: ();
+
+    @each $shade in config-color.$shade-stops {
+        $scale: map.set($scale, $shade, oklch-shade($base, $shade, $label, true, "create-color-scale"));
+    }
+
+    @return $scale;
+}

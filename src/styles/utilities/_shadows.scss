@@ -1,49 +1,109 @@
 // _shadows.scss
+// Shadow utilities: .shadow-{size}, .shadow-{size}-{color}, .shadow-inset-{size}, .shadow-inset-{size}-{color}, .shadow-none,
+// hover:, focus: and active: variants, and .elevation-{1-5}. Sizes and colours come from config/_shadows.scss.
+// Responsive variants use the @breakpoint suffix (.shadow-md@lg); inset and active classes have no responsive variant.
+@use "sass:list";
 @use "sass:map";
-@use "sass:math";
-@use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../config/shadows" as config-shadow;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
+@use "../functions/math" as fn-math;
 
-// Shadow sizes are now configured in config/_shadows.scss
-
-// Generates a CSS shadow string from a given size.
-// @param {String} $size - The shadow size.
-// @param {String} $color - The shadow color.
-// @return {String} - The CSS shadow string.
-
+// @mixin shadow-base
+// @description Sets box-shadow from explicit offset, blur, spread and colour values.
+// @param {Length|Number} $x - Horizontal offset
+// @param {Length|Number} $y - Vertical offset
+// @param {Length|Number} $blur - Blur radius
+// @param {Length|Number} $spread - Spread radius
+// @param {Color|String} $color - Shadow colour
+// @example
+// .floating-button {
+//   @include shadow-base(0, 2px, 4px, 0, rgb(0 0 0 / 20%));
+// }
+// @see shadow
 @mixin shadow-base($x, $y, $blur, $spread, $color) {
-    box-shadow: $x $y $blur $spread $color;
+    box-shadow: fn-math.css-arg($x) fn-math.css-arg($y) fn-math.css-arg($blur) fn-math.css-arg($spread) fn-math.css-arg($color);
 }
 
-// Generates a CSS shadow string from a given size.
-// @param {String} $size - The shadow size.
-// @param {String} $color - The shadow color.
-@mixin shadow($size: "md", $color: "default") {
+// Raises an error when the size or colour is not a key of the shadow config maps
+@mixin -check-shadow($size, $color) {
     @if not map.has-key(config-shadow.$shadow-sizes, $size) {
         @error "Shadow size '#{$size}' not found in config-shadow.$shadow-sizes map";
-        $size: "md"; // Fallback to default
     }
     @if not map.has-key(config-shadow.$shadow-colors, $color) {
         @error "Shadow color '#{$color}' not found in config-shadow.$shadow-colors map";
-        $color: "default"; // Fallback to default
     }
-
-    $shadow: map.get(config-shadow.$shadow-sizes, $size);
-    $shadow-color: map.get(config-shadow.$shadow-colors, $color);
-    @include shadow-base(map.get($shadow, "x"), map.get($shadow, "y"), map.get($shadow, "blur"), map.get($shadow, "spread"), $shadow-color);
 }
 
+// @mixin shadow
+// @description Sets box-shadow from a configured size; the default colour emits the var(--nu-shadow-*) token when the theme feature is on, other colours emit a raw shadow.
+// @param {String} $size ["md"] - Size key from $shadow-sizes (sm, md, lg, xl, hero, monster), or none (box-shadow: none, as .shadow-none)
+// @param {String} $color ["default"] - Colour key from $shadow-colors (default, dark, darker, darkest)
+// @example
+// .card {
+//   @include shadow(sm); // box-shadow: var(--nu-shadow-sm)
+//   &:hover {
+//     @include shadow(lg, dark);
+//   }
+// }
+// @note Unknown size or colour keys raise an error.
+// @see shadow-inset, elevation
+@mixin shadow($size: "md", $color: "default") {
+    @if $size == "none" {
+        box-shadow: none;
+    } @else {
+        @include -shadow($size, $color);
+    }
+}
+
+// Body of shadow() for a size key
+@mixin -shadow($size, $color) {
+    @include -check-shadow($size, $color);
+
+    // Tokens carry the default shadow colour; other colours are composed here
+    @if $color == "default" and fn-flags.feature-flag-on("theme") {
+        box-shadow: fn-css-vars.scale-var("shadow", config-shadow.$shadow-sizes, $size);
+    } @else {
+        $shadow: map.get(config-shadow.$shadow-sizes, $size);
+        $shadow-color: map.get(config-shadow.$shadow-colors, $color);
+        @include shadow-base(map.get($shadow, "x"), map.get($shadow, "y"), map.get($shadow, "blur"), map.get($shadow, "spread"), $shadow-color);
+    }
+}
+
+// @mixin shadow-inset
+// @description Sets an inset box-shadow from a configured size and colour, always as a raw value (no token).
+// @param {String} $size ["md"] - Size key from $shadow-sizes (sm, md, lg, xl, hero, monster)
+// @param {String} $color ["default"] - Colour key from $shadow-colors (default, dark, darker, darkest)
+// @example
+// .input-well {
+//   @include shadow-inset(sm);
+// }
+// @see shadow
 @mixin shadow-inset($size: "md", $color: "default") {
+    @include -check-shadow($size, $color);
+
     $shadow: map.get(config-shadow.$shadow-sizes, $size);
     $shadow-color: map.get(config-shadow.$shadow-colors, $color);
 
     box-shadow: inset map.get($shadow, "x") map.get($shadow, "y") map.get($shadow, "blur") map.get($shadow, "spread") $shadow-color;
 }
 
+// @mixin elevation
+// @description Sets a shadow and a matching z-index for levels 1 to 5 (sm, md, lg, xl, monster); other levels raise an error.
+// @param {Number} $i - Elevation level from 1 to 5, also emitted as the raw z-index
+// @example
+// .dropdown-panel {
+//   @include elevation(3); // box-shadow: var(--nu-shadow-lg); z-index: 3
+// }
+// @note The z-index is the level itself (1 to 5), a small local scale that orders raised siblings; it is not a $z-index-levels token. Use z-index(dropdown), z-index(modal) and the other level tokens for page layers.
+// @see shadow, z-index
 @mixin elevation($i) {
+    $i: fn-math.css-arg($i);
+    @if not list.index((1, 2, 3, 4, 5), $i) {
+        @error "elevation(#{$i}): use a level from 1 to 5.";
+    }
     @if $i == 1 {
         @include shadow("sm");
     } @else if $i == 2 {
@@ -61,124 +121,71 @@
 
 // Utility Classes
 @if fn-flags.feature-enabled("shadows") {
-    #{config-flags.$parent-selector} .shadow-none {
-        box-shadow: none !important;
-    }
-
     @each $size, $values in config-shadow.$shadow-sizes {
-        #{config-flags.$parent-selector} .shadow-#{$size} {
+        #{config-flags.$parent-selector} .shadow-#{fn-css-vars.class-key($size)} {
             @include shadow($size);
         }
 
         // Shadow with color variants
         @each $color-name, $color-value in config-shadow.$shadow-colors {
             @if $color-name != "default" {
-                #{config-flags.$parent-selector} .shadow-#{$size}-#{$color-name} {
+                #{config-flags.$parent-selector} .shadow-#{fn-css-vars.class-key($size)}-#{$color-name} {
                     @include shadow($size, $color-name);
                 }
             }
         }
 
-        #{config-flags.$parent-selector} .shadow-inset-#{$size} {
+        #{config-flags.$parent-selector} .shadow-inset-#{fn-css-vars.class-key($size)} {
             @include shadow-inset($size);
         }
 
         // Inset shadows with color variants
         @each $color-name, $color-value in config-shadow.$shadow-colors {
             @if $color-name != "default" {
-                #{config-flags.$parent-selector} .shadow-inset-#{$size}-#{$color-name} {
+                #{config-flags.$parent-selector} .shadow-inset-#{fn-css-vars.class-key($size)}-#{$color-name} {
                     @include shadow-inset($size, $color-name);
                 }
             }
         }
 
         // Hover shadows
-        #{config-flags.$parent-selector} .hover\:shadow-#{$size}:hover {
+        #{config-flags.$parent-selector} .hover\:shadow-#{fn-css-vars.class-key($size)}:hover {
             @include shadow($size);
         }
 
         // Hover shadows with color variants
         @each $color-name, $color-value in config-shadow.$shadow-colors {
             @if $color-name != "default" {
-                #{config-flags.$parent-selector} .hover\:shadow-#{$size}-#{$color-name}:hover {
+                #{config-flags.$parent-selector} .hover\:shadow-#{fn-css-vars.class-key($size)}-#{$color-name}:hover {
                     @include shadow($size, $color-name);
                 }
             }
         }
 
         // Focus shadows
-        #{config-flags.$parent-selector} .focus\:shadow-#{$size}:focus {
+        #{config-flags.$parent-selector} .focus\:shadow-#{fn-css-vars.class-key($size)}:focus {
             @include shadow($size);
         }
 
         // Focus shadows with color variants
         @each $color-name, $color-value in config-shadow.$shadow-colors {
             @if $color-name != "default" {
-                #{config-flags.$parent-selector} .focus\:shadow-#{$size}-#{$color-name}:focus {
+                #{config-flags.$parent-selector} .focus\:shadow-#{fn-css-vars.class-key($size)}-#{$color-name}:focus {
                     @include shadow($size, $color-name);
                 }
             }
         }
 
         // Active shadows
-        #{config-flags.$parent-selector} .active\:shadow-#{$size}:active {
+        #{config-flags.$parent-selector} .active\:shadow-#{fn-css-vars.class-key($size)}:active {
             @include shadow($size);
         }
 
         // Active shadows with color variants
         @each $color-name, $color-value in config-shadow.$shadow-colors {
             @if $color-name != "default" {
-                #{config-flags.$parent-selector} .active\:shadow-#{$size}-#{$color-name}:active {
+                #{config-flags.$parent-selector} .active\:shadow-#{fn-css-vars.class-key($size)}-#{$color-name}:active {
                     @include shadow($size, $color-name);
-                }
-            }
-        }
-    }
-
-    // Responsive variants
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @each $size, $values in config-shadow.$shadow-sizes {
-                // Regular shadows with breakpoints
-                #{config-flags.$parent-selector} .shadow-#{$size}\@#{$breakpoint} {
-                    @include shadow($size);
-                }
-
-                // Shadows with color variants at breakpoints
-                @each $color-name, $color-value in config-shadow.$shadow-colors {
-                    @if $color-name != "default" {
-                        #{config-flags.$parent-selector} .shadow-#{$size}-#{$color-name}\@#{$breakpoint} {
-                            @include shadow($size, $color-name);
-                        }
-                    }
-                }
-
-                // Hover shadows with breakpoints
-                #{config-flags.$parent-selector} .hover\:shadow-#{$size}\@#{$breakpoint}:hover {
-                    @include shadow($size);
-                }
-
-                // Hover shadows with color variants at breakpoints
-                @each $color-name, $color-value in config-shadow.$shadow-colors {
-                    @if $color-name != "default" {
-                        #{config-flags.$parent-selector} .hover\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:hover {
-                            @include shadow($size, $color-name);
-                        }
-                    }
-                }
-
-                // Focus shadows with breakpoints
-                #{config-flags.$parent-selector} .focus\:shadow-#{$size}\@#{$breakpoint}:focus {
-                    @include shadow($size);
-                }
-
-                // Focus shadows with color variants at breakpoints
-                @each $color-name, $color-value in config-shadow.$shadow-colors {
-                    @if $color-name != "default" {
-                        #{config-flags.$parent-selector} .focus\:shadow-#{$size}-#{$color-name}\@#{$breakpoint}:focus {
-                            @include shadow($size, $color-name);
-                        }
-                    }
                 }
             }
         }
@@ -187,6 +194,64 @@
     @for $i from 1 through 5 {
         #{config-flags.$parent-selector} .elevation-#{$i} {
             @include elevation($i);
+        }
+    }
+
+    // After the shadow and elevation classes, so .shadow-none removes their shadow
+    #{config-flags.$parent-selector} .shadow-none {
+        box-shadow: none;
+    }
+
+    // Responsive variants
+    @each $breakpoint, $width in config-breakpoint.$breakpoints {
+        @media (min-width: #{$width}) {
+            @each $size, $values in config-shadow.$shadow-sizes {
+                // Regular shadows with breakpoints
+                #{config-flags.$parent-selector} .shadow-#{fn-css-vars.class-key($size)}\@#{$breakpoint} {
+                    @include shadow($size);
+                }
+
+                // Shadows with color variants at breakpoints
+                @each $color-name, $color-value in config-shadow.$shadow-colors {
+                    @if $color-name != "default" {
+                        #{config-flags.$parent-selector} .shadow-#{fn-css-vars.class-key($size)}-#{$color-name}\@#{$breakpoint} {
+                            @include shadow($size, $color-name);
+                        }
+                    }
+                }
+
+                // Hover shadows with breakpoints
+                #{config-flags.$parent-selector} .hover\:shadow-#{fn-css-vars.class-key($size)}\@#{$breakpoint}:hover {
+                    @include shadow($size);
+                }
+
+                // Hover shadows with color variants at breakpoints
+                @each $color-name, $color-value in config-shadow.$shadow-colors {
+                    @if $color-name != "default" {
+                        #{config-flags.$parent-selector} .hover\:shadow-#{fn-css-vars.class-key($size)}-#{$color-name}\@#{$breakpoint}:hover {
+                            @include shadow($size, $color-name);
+                        }
+                    }
+                }
+
+                // Focus shadows with breakpoints
+                #{config-flags.$parent-selector} .focus\:shadow-#{fn-css-vars.class-key($size)}\@#{$breakpoint}:focus {
+                    @include shadow($size);
+                }
+
+                // Focus shadows with color variants at breakpoints
+                @each $color-name, $color-value in config-shadow.$shadow-colors {
+                    @if $color-name != "default" {
+                        #{config-flags.$parent-selector} .focus\:shadow-#{fn-css-vars.class-key($size)}-#{$color-name}\@#{$breakpoint}:focus {
+                            @include shadow($size, $color-name);
+                        }
+                    }
+                }
+            }
+
+            #{config-flags.$parent-selector} .shadow-none\@#{$breakpoint} {
+                box-shadow: none;
+            }
         }
     }
 }

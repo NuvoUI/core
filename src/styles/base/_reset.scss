@@ -80,13 +80,19 @@
         height: auto;
     }
 
+    // Pointer cursor for clickable controls only; text inputs and textareas keep the text cursor
+    button,
+    select,
+    input:is([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="file"], [type="color"], [type="range"], [type="image"]) {
+        cursor: pointer;
+    }
+
     // Inherit fonts for inputs and buttons
     input,
     button,
     textarea,
     select {
         font: inherit;
-        cursor: pointer;
 
         &:disabled {
             cursor: not-allowed;
@@ -122,7 +128,8 @@
         scroll-margin-block: 5ex;
     }
 
-    // Remove all animations and transitions for people that prefer not to see them
+    // Remove all animations and transitions for people that prefer not to see them (WCAG 2.3.3), hand-written ones
+    // included. Restore an essential animation with !important inside @layer reset (see MIGRATION-v2.md)
     @media (prefers-reduced-motion: reduce) {
         *,
         *::before,

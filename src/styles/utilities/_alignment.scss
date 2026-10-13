@@ -2,15 +2,46 @@
 @use "../config/breakpoints" as config-breakpoint;
 @use "../functions/feature-flags" as fn-flags;
 
+// @mixin align-baseline
+// @description Sets vertical-align to baseline (inline and table cell content).
+// @example
+// .icon {
+//   @include align-baseline;
+// }
+// @see align-top, align-middle, align-bottom
 @mixin align-baseline {
     vertical-align: baseline;
 }
+
+// @mixin align-top
+// @description Sets vertical-align to top (inline and table cell content).
+// @example
+// td {
+//   @include align-top;
+// }
+// @see align-baseline, align-middle, align-bottom
 @mixin align-top {
     vertical-align: top;
 }
+
+// @mixin align-middle
+// @description Sets vertical-align to middle (inline and table cell content).
+// @example
+// .avatar {
+//   @include align-middle;
+// }
+// @see align-baseline, align-top, align-bottom
 @mixin align-middle {
     vertical-align: middle;
 }
+
+// @mixin align-bottom
+// @description Sets vertical-align to bottom (inline and table cell content).
+// @example
+// td {
+//   @include align-bottom;
+// }
+// @see align-baseline, align-top, align-middle
 @mixin align-bottom {
     vertical-align: bottom;
 }

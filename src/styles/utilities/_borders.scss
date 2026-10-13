@@ -1,178 +1,544 @@
 // _borders.scss
 // Border utility classes for NuvoUI
 
-@use "sass:math";
+@use "sass:list";
 @use "sass:map";
 @use "sass:meta";
-@use "sass:string" as str;
-@use "sass:list";
 
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../config/borders" as config-border;
-@use "../config/colors" as config-color;
+@use "../config/theme-validation" as config-theme;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
+@use "../functions/math" as fn-math;
+@use "../functions/tokens" as fn-tokens;
 @use "../functions/units" as fn-units;
+@use "./colors" as util-color;
 
 // Common border styles
 $border-styles: (solid, dashed, dotted, double, none);
 
-@function get-rounded-value($val) {
-    @if not $val {
-        @return map.get(config-border.$border-radii, "md");
-    } @else if meta.type-of($val) == "string" {
-        $clean-val: $val;
+$-global-keywords: (inherit, initial, unset, revert, revert-layer);
 
-        // Try to find the value in the border-radii map
-        @if map.has-key(config-border.$border-radii, $clean-val) {
-            @return map.get(config-border.$border-radii, $clean-val);
-        } @else if map.has-key(config-border.$border-radii, str.unquote($clean-val)) {
-            @return map.get(config-border.$border-radii, str.unquote($clean-val));
-        } @else {
-            // Not a predefined value, process it as a custom value
-            @return fn-units.fix-units($val);
-        }
-    } @else {
-        // Case 3: $val is a custom value, ensure it has units
-        @return fn-units.fix-units($val);
+// A style from $border-styles, a CSS-wide keyword or var(); anything else raises an error
+@function -style($style) {
+    @if list.index($border-styles, $style) or list.index($-global-keywords, $style) or fn-css-vars.is-css-var($style) {
+        @return $style;
     }
+    @error "Unknown border style: #{$style}. Use one of #{$border-styles}, a CSS-wide keyword (#{$-global-keywords}) or var().";
+}
+
+$-border-width-map: fn-tokens.border-width-map();
+
+// A $border-widths entry gives its token (1 is var(--nu-border-width-1)), other lengths stay raw in px; % raises an
+// error. $label names the mixin in error messages
+@function -width($val, $label: "border") {
+    @return fn-css-vars.scale-value("border-width", $-border-width-map, $val, px, $keywords: (thin, medium, thick), $percent: false, $label: $label);
+}
+
+// Default border colour: the border-regular token. Null when the theme feature is off (no tokens emitted).
+// Resolved on first use; config is fixed per compile
+$-default-color: null;
+
+// Returns the cached border-regular token, or null when the theme feature is off
+@function -default-color() {
+    @if $-default-color {
+        @return $-default-color;
+    }
+    @if not fn-flags.feature-flag-on("theme") {
+        @return null;
+    }
+    @if not $-default-color {
+        @if not config-theme.is-color-token("border-regular") {
+            @error "border(): the border-regular theme token must be a colour.";
+        }
+        $-default-color: fn-tokens.token("border-regular") !global;
+    }
+    @return $-default-color;
+}
+
+// Token of every $border-radii key, for the direct key lookup that runs before any validation
+$-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
+
+// @function get-rounded-value
+// @description Resolves a border radius: a $border-radii key gives its token, null gives the md token, and values with units stay raw.
+// @param {String|Length|Null} $val - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc(), var() or null
+// @param {String} $label ["get-rounded-value"] - Name that starts error messages; the rounded mixins pass their own name
+// @return {String|Length} - A var(--nu-radius-*) reference or the raw value
+// @example
+// .card {
+//   border-radius: get-rounded-value(lg); // var(--nu-radius-lg)
+// }
+// @note A unitless number that is not a key, such as 4, raises an error.
+// @see rounded
+@function get-rounded-value($val, $label: "get-rounded-value") {
+    $token: map.get($-radius-tokens, $val or "md");
+    @if $token {
+        @return $token;
+    }
+    @if not $val {
+        $val: "md";
+    }
+    @return fn-css-vars.scale-value("radius", config-border.$border-radii, $val, $label: $label);
 }
 
 // -----------------------------------------------
 // MIXINS
 // -----------------------------------------------
 
-// Core Border Mixins - improved to include style and color by default
-// SKIP Documentation
-@mixin border($val, $style: solid, $color: var(--border-base)) {
-    $val: fn-units.fix-units($val, px);
+// True for a zero width (0, 0px, "0")
+@function -is-zero($val) {
+    @if meta.type-of($val) == "string" {
+        $val: fn-math.to-number($val);
+    }
+    @return meta.type-of($val) == "number" and fn-units.strip-unit($val) == 0;
+}
 
-    --border-size: #{$val};
+// Border styles go through --nu-border-style, which each border mixin sets to $style; .border-{style} classes and
+// border-style() override it, so class="border-t border-dashed" gives a dashed top border only
+
+// @mixin border
+// @description Draws a border on all sides with a width key, a style and a colour that defaults to the border-regular token.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word (regular, strong, control, control-hover, focus), colour value or var(); resolved like border-color()
+// @output border-width, border-style: var(--nu-border-style), border-color and --nu-border-style; a zero width emits border-width only
+// @example
+// .card {
+//   @include border(1); // var(--nu-border-width-1), solid, var(--nu-border-regular)
+// }
+// @example
+// .alert {
+//   @include border(2, dashed, danger);
+// }
+// @example
+// .input {
+//   @include apply(border(1, solid, control), rounded(md));
+// }
+// @note A unitless width that is not a key, such as 3, raises an error; an unknown style raises an error.
+// @see border-color, border-style, border-all
+@mixin border($val, $style: solid, $color: null) {
+    $zero: -is-zero($val);
+    $val: -width($val);
+    @if not $color {
+        $color: -default-color();
+    } @else {
+        $color: util-color.color-value($color, null, "border");
+    }
 
     border-width: $val;
-    @if $val != 0 {
-        border-style: $style;
+    @if not $zero {
+        border-style: var(--nu-border-style);
         border-color: $color;
 
-        --border-style: #{$style};
-        --border-color: #{$color};
+        --nu-border-style: #{-style($style)};
     }
 }
 
-@mixin border-top($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val, px);
+// Border on one or more sides (top, right, bottom, left, inline-start, inline-end); colour as in border()
+@mixin -border-side($sides, $val, $style, $color: null, $label: "border") {
+    $width: -width($val, $label);
+    @if not $color {
+        $color: -default-color();
+    } @else {
+        $color: util-color.color-value($color, null, "border");
+    }
+    @each $side in $sides {
+        border-#{$side}-width: $width;
+    }
+    @if not -is-zero($val) {
+        @each $side in $sides {
+            border-#{$side}-style: var(--nu-border-style);
+            border-#{$side}-color: $color;
+        }
 
-    border-top-width: $val;
-    @if $val != 0 {
-        border-top-style: $style;
-        border-top-color: var(--border-base);
+        --nu-border-style: #{-style($style)};
     }
 }
 
-@mixin border-right($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val, px);
-
-    border-right-width: $val;
-    @if $val != 0 {
-        border-right-style: $style;
-        border-right-color: var(--border-base);
-    }
+// @mixin border-top
+// @description Draws a border on the top side in the border-regular colour unless a colour is given.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @example
+// .item {
+//   @include border-top(1);
+// }
+// @example
+// .divider {
+//   @include border-top(2, dashed, brand);
+// }
+// @see border, border-color
+@mixin border-top($val, $style: solid, $color: null) {
+    @include -border-side(top, $val, $style, $color, "border-top");
 }
 
-@mixin border-bottom($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val, px);
-
-    border-bottom-width: $val;
-    @if $val != 0 {
-        border-bottom-style: $style;
-        border-bottom-color: var(--border-base);
-    }
+// @mixin border-right
+// @description Draws a border on the right side (physical) in the border-regular colour unless a colour is given.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @example
+// .item {
+//   @include border-right(1);
+// }
+// @example
+// .divider {
+//   @include border-right(2, dashed, brand);
+// }
+// @see border, border-color
+@mixin border-right($val, $style: solid, $color: null) {
+    @include -border-side(right, $val, $style, $color, "border-right");
 }
 
-@mixin border-left($val, $style: var(--border-style, solid)) {
-    $val: fn-units.fix-units($val, px);
-
-    border-left-width: $val;
-    @if $val != 0 {
-        border-left-style: $style;
-        border-left-color: var(--border-base);
-    }
+// @mixin border-bottom
+// @description Draws a border on the bottom side in the border-regular colour unless a colour is given.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @example
+// .item {
+//   @include border-bottom(1);
+// }
+// @example
+// .divider {
+//   @include border-bottom(2, dashed, brand);
+// }
+// @see border, border-color
+@mixin border-bottom($val, $style: solid, $color: null) {
+    @include -border-side(bottom, $val, $style, $color, "border-bottom");
 }
 
-// @description Applies border radius to all corners
-// @param {String} $val - The border radius value
+// @mixin border-left
+// @description Draws a border on the left side (physical) in the border-regular colour unless a colour is given.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @example
+// .item {
+//   @include border-left(1);
+// }
+// @example
+// .divider {
+//   @include border-left(2, dashed, brand);
+// }
+// @see border, border-color
+@mixin border-left($val, $style: solid, $color: null) {
+    @include -border-side(left, $val, $style, $color, "border-left");
+}
+
+// @mixin border-start
+// @description Draws a border on the inline start side (left in LTR, right in RTL) in the border-regular colour unless a colour is given.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @example
+// .item {
+//   @include border-start(1);
+// }
+// @example
+// .divider {
+//   @include border-start(2, dashed, brand);
+// }
+// @see border, border-color
+@mixin border-start($val, $style: solid, $color: null) {
+    @include -border-side(inline-start, $val, $style, $color, "border-start");
+}
+
+// @mixin border-end
+// @description Draws a border on the inline end side (right in LTR, left in RTL) in the border-regular colour unless a colour is given.
+// @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
+// @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @example
+// .item {
+//   @include border-end(1);
+// }
+// @example
+// .divider {
+//   @include border-end(2, dashed, brand);
+// }
+// @see border, border-color
+@mixin border-end($val, $style: solid, $color: null) {
+    @include -border-side(inline-end, $val, $style, $color, "border-end");
+}
+
+// @mixin rounded
+// @description Rounds all corners with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .card {
+//   @include rounded; // border-radius: var(--nu-radius-md)
+// }
+// @example
+// .avatar {
+//   @include apply(rounded(full), border(2, solid, brand));
+// }
+// @note A unitless number that is not a key, such as 4, raises an error.
+// @see pill, get-rounded-value
 @mixin rounded($val: null) {
-    border-radius: get-rounded-value($val);
+    border-radius: get-rounded-value($val, "rounded");
 }
 
+// @mixin rounded-t
+// @description Rounds the top left and top right corners with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-t(lg);
+// }
+// @see rounded
 @mixin rounded-t($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-t");
 
     border-top-left-radius: $val;
     border-top-right-radius: $val;
 }
 
+// @mixin rounded-r
+// @description Rounds the top right and bottom right corners (physical) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-r(lg);
+// }
+// @see rounded
 @mixin rounded-r($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-r");
 
     border-top-right-radius: $val;
     border-bottom-right-radius: $val;
 }
 
+// @mixin rounded-b
+// @description Rounds the bottom left and bottom right corners with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-b(lg);
+// }
+// @see rounded
 @mixin rounded-b($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-b");
 
     border-bottom-left-radius: $val;
     border-bottom-right-radius: $val;
 }
 
+// @mixin rounded-l
+// @description Rounds the top left and bottom left corners (physical) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-l(lg);
+// }
+// @see rounded
 @mixin rounded-l($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-l");
 
     border-top-left-radius: $val;
     border-bottom-left-radius: $val;
 }
 
+// @mixin rounded-tl
+// @description Rounds the top left corner with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-tl(lg);
+// }
+// @see rounded
 @mixin rounded-tl($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-tl");
 
     border-top-left-radius: $val;
 }
+
+// @mixin rounded-tr
+// @description Rounds the top right corner with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-tr(lg);
+// }
+// @see rounded
 @mixin rounded-tr($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-tr");
 
     border-top-right-radius: $val;
 }
+
+// @mixin rounded-br
+// @description Rounds the bottom right corner with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-br(lg);
+// }
+// @see rounded
 @mixin rounded-br($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-br");
 
     border-bottom-right-radius: $val;
 }
+
+// @mixin rounded-bl
+// @description Rounds the bottom left corner with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-bl(lg);
+// }
+// @see rounded
 @mixin rounded-bl($val: null) {
-    $val: get-rounded-value($val);
+    $val: get-rounded-value($val, "rounded-bl");
 
     border-bottom-left-radius: $val;
+}
+
+// @mixin rounded-s
+// @description Rounds both inline start corners (border-start-start-radius and border-end-start-radius) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-s(lg);
+// }
+// @see rounded
+@mixin rounded-s($val: null) {
+    $val: get-rounded-value($val, "rounded-s");
+
+    border-start-start-radius: $val;
+    border-end-start-radius: $val;
+}
+
+// @mixin rounded-e
+// @description Rounds both inline end corners (border-start-end-radius and border-end-end-radius) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-e(lg);
+// }
+// @see rounded
+@mixin rounded-e($val: null) {
+    $val: get-rounded-value($val, "rounded-e");
+
+    border-start-end-radius: $val;
+    border-end-end-radius: $val;
+}
+
+// @mixin rounded-ss
+// @description Rounds the block start, inline start corner (border-start-start-radius) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-ss(lg);
+// }
+// @see rounded
+@mixin rounded-ss($val: null) {
+    border-start-start-radius: get-rounded-value($val, "rounded-ss");
+}
+
+// @mixin rounded-se
+// @description Rounds the block start, inline end corner (border-start-end-radius) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-se(lg);
+// }
+// @see rounded
+@mixin rounded-se($val: null) {
+    border-start-end-radius: get-rounded-value($val, "rounded-se");
+}
+
+// @mixin rounded-es
+// @description Rounds the block end, inline start corner (border-end-start-radius) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-es(lg);
+// }
+// @see rounded
+@mixin rounded-es($val: null) {
+    border-end-start-radius: get-rounded-value($val, "rounded-es");
+}
+
+// @mixin rounded-ee
+// @description Rounds the block end, inline end corner (border-end-end-radius) with a $border-radii key (md when omitted) or a raw length.
+// @param {String|Length|Null} $val [null] - A $border-radii key (xs, sm, md, lg, xl, 2xl, full, none), a length, calc() or var()
+// @example
+// .tab {
+//   @include rounded-ee(lg);
+// }
+// @see rounded
+@mixin rounded-ee($val: null) {
+    border-end-end-radius: get-rounded-value($val, "rounded-ee");
 }
 
 // Border Style and Color
+
+// @mixin border-style
+// @description Sets --nu-border-style, which changes the style of borders drawn by border(), border-top() and the other side mixins on the same element.
+// @param {String} $style - solid, dashed, dotted, double, none, a CSS-wide keyword or var()
+// @output --nu-border-style only; it draws nothing without a border mixin or class
+// @example
+// .dropzone {
+//   @include border(2);
+//   @include border-style(dashed);
+// }
+// @note Include it after the border mixin, which also writes --nu-border-style; an unknown style raises an error.
+// @see border
 @mixin border-style($style) {
-    --border-style: #{$style};
-}
-@mixin border-color($color) {
-    border-color: $color;
-
-    --border-color: #{$color};
+    --nu-border-style: #{-style($style)};
 }
 
-// Combined border properties
+// @mixin border-color
+// @description Sets border-color from a role, palette name, theme word or colour, emitting the matching var(--nu-*) token.
+// @param {String|Color} $color - A role (brand, danger), role state (danger-border, brand-hover), palette name (red), theme word (regular, strong, control, control-hover, focus), colour value or var()
+// @param {Number|Null} $shade [null] - A shade stop (50, 100 to 900, 950) for a role or palette name
+// @example
+// .card {
+//   @include border-color(regular); // var(--nu-border-regular)
+// }
+// @example
+// .alert {
+//   @include apply(border(1), border-color(danger-border));
+// }
+// @example
+// .tag {
+//   @include border-color(purple, 300); // var(--nu-purple-300)
+// }
+// @note Roles give their fill {role} and palette names give {hue}-500; a shade outside 50 to 950 raises an error, and a raw colour with a shade is shaded at compile time.
+// @see border, bg, text-color
+@mixin border-color($color, $shade: null) {
+    border-color: util-color.color-value($color, $shade, "border");
+}
+
+// @mixin border-all
+// @description Draws a border on all sides with a width, a style and a colour, all required; the same output as border() with every argument given.
+// @param {Number|Length} $width - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length
+// @param {String} $style - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
+// @param {String|Color} $color - A role, palette name, theme word, colour value or var(); resolved like border-color()
+// @example
+// .panel {
+//   @include border-all(1, solid, strong);
+// }
+// @note The style goes through --nu-border-style, so border-style() and .border-{style} classes change it, as with border().
+// @see border
 @mixin border-all($width, $style, $color) {
-    border-width: $width;
-    border-style: $style;
-    border-color: $color;
+    @include border($width, $style, $color);
 }
 
+// @mixin pill
+// @description Rounds all corners fully with the full radius token, var(--nu-radius-full).
+// @example
+// .badge {
+//   @include apply(pill, px(3));
+// }
+// @see rounded
 @mixin pill {
-    @include rounded(9999px);
+    @include rounded(full);
 }
 
 @if fn-flags.feature-enabled("borders") {
@@ -182,10 +548,6 @@ $border-styles: (solid, dashed, dotted, double, none);
     }
 
     // Common shortcuts for single-side borders
-    #{config-flags.$parent-selector} .border-0 {
-        @include border(0);
-    }
-
     #{config-flags.$parent-selector} .border-t {
         @include border-top(1);
     }
@@ -202,46 +564,62 @@ $border-styles: (solid, dashed, dotted, double, none);
         @include border-left(1);
     }
 
+    #{config-flags.$parent-selector} .border-s {
+        @include border-start(1);
+    }
+
+    #{config-flags.$parent-selector} .border-e {
+        @include border-end(1);
+    }
+
     #{config-flags.$parent-selector} .border-x {
-        @include border-left(1);
-        @include border-right(1);
+        @include -border-side((left, right), 1, solid);
     }
 
     #{config-flags.$parent-selector} .border-y {
-        @include border-top(1);
-        @include border-bottom(1);
+        @include -border-side((top, bottom), 1, solid);
     }
 
     // Directional border width
     @each $width in config-border.$border-widths {
-        #{config-flags.$parent-selector} .border-#{$width},
-        #{config-flags.$parent-selector} .hover\:border-#{$width}:hover,
-        #{config-flags.$parent-selector} .active\:border-#{$width}:active,
-        #{config-flags.$parent-selector} .focus\:border-#{$width}:focus,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$width} {
+        $w: fn-css-vars.class-key($width);
+
+        #{config-flags.$parent-selector} .border-#{$w} {
             @include border($width);
         }
-        #{config-flags.$parent-selector} .border-t-#{$width} {
+
+        // State classes change the width only, so the element keeps its border style and colour
+        #{config-flags.$parent-selector} .hover\:border-#{$w}:hover,
+        #{config-flags.$parent-selector} .active\:border-#{$w}:active,
+        #{config-flags.$parent-selector} .focus\:border-#{$w}:focus,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$w} {
+            border-width: -width($width);
+        }
+        #{config-flags.$parent-selector} .border-t-#{$w} {
             @include border-top($width);
         }
-        #{config-flags.$parent-selector} .border-r-#{$width} {
+        #{config-flags.$parent-selector} .border-r-#{$w} {
             @include border-right($width);
         }
-        #{config-flags.$parent-selector} .border-b-#{$width} {
+        #{config-flags.$parent-selector} .border-b-#{$w} {
             @include border-bottom($width);
         }
-        #{config-flags.$parent-selector} .border-l-#{$width} {
+        #{config-flags.$parent-selector} .border-l-#{$w} {
             @include border-left($width);
         }
-
-        #{config-flags.$parent-selector} .border-x-#{$width} {
-            @include border-left($width);
-            @include border-right($width);
+        #{config-flags.$parent-selector} .border-s-#{$w} {
+            @include border-start($width);
+        }
+        #{config-flags.$parent-selector} .border-e-#{$w} {
+            @include border-end($width);
         }
 
-        #{config-flags.$parent-selector} .border-y-#{$width} {
-            @include border-top($width);
-            @include border-bottom($width);
+        #{config-flags.$parent-selector} .border-x-#{$w} {
+            @include -border-side((left, right), $width, solid);
+        }
+
+        #{config-flags.$parent-selector} .border-y-#{$w} {
+            @include -border-side((top, bottom), $width, solid);
         }
     }
 
@@ -249,66 +627,67 @@ $border-styles: (solid, dashed, dotted, double, none);
     #{config-flags.$parent-selector} .rounded {
         @include rounded;
     }
+
+    // Alias for no radius
     #{config-flags.$parent-selector} .square {
-        @include rounded(0);
-    } // Alias for no radius
+        @include rounded("none");
+    }
 
     @each $name, $value in config-border.$border-radii {
-        #{config-flags.$parent-selector} .rounded-#{$name} {
-            @include rounded($value);
+        $n: fn-css-vars.class-key($name);
+
+        #{config-flags.$parent-selector} .rounded-#{$n} {
+            @include rounded($name);
         }
-        #{config-flags.$parent-selector} .rounded-t-#{$name} {
-            @include rounded-t($value);
+        #{config-flags.$parent-selector} .rounded-t-#{$n} {
+            @include rounded-t($name);
         }
-        #{config-flags.$parent-selector} .rounded-r-#{$name} {
-            @include rounded-r($value);
+        #{config-flags.$parent-selector} .rounded-r-#{$n} {
+            @include rounded-r($name);
         }
-        #{config-flags.$parent-selector} .rounded-b-#{$name} {
-            @include rounded-b($value);
+        #{config-flags.$parent-selector} .rounded-b-#{$n} {
+            @include rounded-b($name);
         }
-        #{config-flags.$parent-selector} .rounded-l-#{$name} {
-            @include rounded-l($value);
+        #{config-flags.$parent-selector} .rounded-l-#{$n} {
+            @include rounded-l($name);
+        }
+        #{config-flags.$parent-selector} .rounded-s-#{$n} {
+            @include rounded-s($name);
+        }
+        #{config-flags.$parent-selector} .rounded-e-#{$n} {
+            @include rounded-e($name);
         }
 
         // Individual corners
-        #{config-flags.$parent-selector} .rounded-tl-#{$name} {
-            @include rounded-tl($value);
+        #{config-flags.$parent-selector} .rounded-tl-#{$n} {
+            @include rounded-tl($name);
         }
-        #{config-flags.$parent-selector} .rounded-tr-#{$name} {
-            @include rounded-tr($value);
+        #{config-flags.$parent-selector} .rounded-tr-#{$n} {
+            @include rounded-tr($name);
         }
-        #{config-flags.$parent-selector} .rounded-br-#{$name} {
-            @include rounded-br($value);
+        #{config-flags.$parent-selector} .rounded-br-#{$n} {
+            @include rounded-br($name);
         }
-        #{config-flags.$parent-selector} .rounded-bl-#{$name} {
-            @include rounded-bl($value);
+        #{config-flags.$parent-selector} .rounded-bl-#{$n} {
+            @include rounded-bl($name);
+        }
+        #{config-flags.$parent-selector} .rounded-ss-#{$n} {
+            @include rounded-ss($name);
+        }
+        #{config-flags.$parent-selector} .rounded-se-#{$n} {
+            @include rounded-se($name);
+        }
+        #{config-flags.$parent-selector} .rounded-es-#{$n} {
+            @include rounded-es($name);
+        }
+        #{config-flags.$parent-selector} .rounded-ee-#{$n} {
+            @include rounded-ee($name);
         }
     }
 
     // Pill shape (alias for full radius)
     #{config-flags.$parent-selector} .pill {
         @include pill;
-    }
-
-    // Border styles - these override the default solid style if needed
-    @each $style in $border-styles {
-        #{config-flags.$parent-selector} .border-#{$style},
-        #{config-flags.$parent-selector} .hover\:border-#{$style}:hover,
-        #{config-flags.$parent-selector} .active\:border-#{$style}:active,
-        #{config-flags.$parent-selector} .focus\:border-#{$style}:focus,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$style} {
-            @include border-style($style);
-        }
-    }
-
-    @each $color-name in config-color.$color-names-with-basic {
-        #{config-flags.$parent-selector} .border-#{$color-name},
-        #{config-flags.$parent-selector} .hover\:border-#{$color-name}:hover,
-        #{config-flags.$parent-selector} .active\:border-#{$color-name}:active,
-        #{config-flags.$parent-selector} .focus\:border-#{$color-name}:focus,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$color-name} {
-            @include border-color(var(--#{$color-name}));
-        }
     }
 
     // -----------------------------------------------
@@ -319,7 +698,7 @@ $border-styles: (solid, dashed, dotted, double, none);
         @media (min-width: #{$width}) {
             // Border width responsive
             @each $val in config-border.$border-widths {
-                #{config-flags.$parent-selector} .border-#{$val}\@#{$breakpoint} {
+                #{config-flags.$parent-selector} .border-#{fn-css-vars.class-key($val)}\@#{$breakpoint} {
                     @include border($val);
                 }
             }
@@ -328,14 +707,11 @@ $border-styles: (solid, dashed, dotted, double, none);
             #{config-flags.$parent-selector} .border\@#{$breakpoint} {
                 @include border(1);
             }
-            #{config-flags.$parent-selector} .border-0\@#{$breakpoint} {
-                @include border(0);
-            }
 
             // Border radius responsive
             @each $name, $value in config-border.$border-radii {
-                #{config-flags.$parent-selector} .rounded-#{$name}\@#{$breakpoint} {
-                    @include rounded($value);
+                #{config-flags.$parent-selector} .rounded-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                    @include rounded($name);
                 }
             }
 
@@ -343,11 +719,22 @@ $border-styles: (solid, dashed, dotted, double, none);
                 @include rounded;
             }
             #{config-flags.$parent-selector} .square\@#{$breakpoint} {
-                @include rounded(0);
+                @include rounded("none");
             }
             #{config-flags.$parent-selector} .pill\@#{$breakpoint} {
                 @include pill;
             }
+        }
+    }
+
+    // Border styles: emitted after every width class (responsive included), so a later width class cannot reset the style
+    @each $style in $border-styles {
+        #{config-flags.$parent-selector} .border-#{$style},
+        #{config-flags.$parent-selector} .hover\:border-#{$style}:hover,
+        #{config-flags.$parent-selector} .active\:border-#{$style}:active,
+        #{config-flags.$parent-selector} .focus\:border-#{$style}:focus,
+        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$style} {
+            @include border-style($style);
         }
     }
 }

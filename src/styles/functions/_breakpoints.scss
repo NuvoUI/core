@@ -1,15 +1,46 @@
 @use "sass:map";
+@use "sass:math";
 @use "sass:meta";
 
 @use "../config/breakpoints" as config-breakpoint;
+@use "./math" as fn-math;
 
+// @function get-breakpoint-value
+// @description Resolves a breakpoint name from $breakpoints to its width; a length passes through, and a unitless number that is not a breakpoint name or an unknown name raises an error.
+// @param {String|Number} $bp - Breakpoint name (xs, sm, md, lg, xl, 2xl; quoting 2xl is optional) or a length such as 800px
+// @param {Boolean} $debug [false] - Unused
+// @return {Number} - The breakpoint width
+// @example
+// .sidebar {
+//   max-width: get-breakpoint-value(md);
+// }
 @function get-breakpoint-value($bp, $debug: false) {
-    @if map.has-key(config-breakpoint.$breakpoints, #{$bp}) {
-        @return map.get(config-breakpoint.$breakpoints, #{$bp});
-    } @else if meta.type-of($bp) == "number" {
-        @return $bp;
-    } @else {
-        @error 'Invalid breakpoint: #{$bp}';
-        @return null;
+    // Interpolated so an unquoted 2xl (the number 2 with unit xl) matches "2xl"
+    @if map.has-key(config-breakpoint.$breakpoints, "#{$bp}") {
+        @return map.get(config-breakpoint.$breakpoints, "#{$bp}");
     }
+    $bp: fn-math.css-arg($bp);
+    @if meta.type-of($bp) == "number" {
+        @if math.is-unitless($bp) {
+            @error "Invalid breakpoint: #{$bp} is not a breakpoint name (#{map.keys(config-breakpoint.$breakpoints)}). Write a unit for a custom width (#{$bp}px).";
+        }
+        @return $bp;
+    }
+    @error "Invalid breakpoint: #{$bp}. Use a breakpoint name (#{map.keys(config-breakpoint.$breakpoints)}) or a length such as 800px.";
+}
+
+// Upper bound of a range ending below a breakpoint: 0.02px less (0.00125em or rem); 0.01px rounds wrongly in Safari
+@function breakpoint-max($bp) {
+    $value: get-breakpoint-value($bp);
+    $unit: math.unit($value);
+    @if $unit == "px" {
+        @return $value - 0.02px;
+    }
+    @if $unit == "em" {
+        @return $value - math.div(0.02em, 16);
+    }
+    @if $unit == "rem" {
+        @return $value - math.div(0.02rem, 16);
+    }
+    @error "Invalid breakpoint: #{$value}. Ranges that end below a breakpoint need a px, em or rem width.";
 }

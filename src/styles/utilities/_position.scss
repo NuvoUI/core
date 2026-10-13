@@ -1,8 +1,16 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../config/spacing" as config-spacing;
+@use "../functions/css-vars" as fn-css-vars;
 @use "../functions/feature-flags" as fn-flags;
-@use "../functions/units" as fn-units;
+@use "../functions/math" as fn-math;
+@use "../functions/strings" as fn-strings;
+@use "./spacing" as util-spacing;
 
 // @component Position
 // @description Controls element positioning and placement within the document flow
@@ -30,12 +38,16 @@
 //  - absolute: Positioned relative to nearest positioned ancestor
 //  - fixed: Positioned relative to viewport
 //  - sticky: Positioned based on scroll position
+// Inset:
+//  - inset-{key}, inset-x-{key}, inset-y-{key}: Sets inset, left and right, or top and bottom from the spacing scale
+//  - inset-auto, inset-x-auto, inset-y-auto: Resets the matching sides to auto
 // Placement:
 //  - top-{value}: Sets top position
 //  - right-{value}: Sets right position
 //  - bottom-{value}: Sets bottom position
 //  - left-{value}: Sets left position
-// Common values: 0, 1, 2, 3, 4, 5, 10, etc. (based on spacing scale)
+//  - start-{value}, end-{value}: Sets inset-inline-start and inset-inline-end (follow text direction)
+// Common values: spacing keys 0, 1, 2, 3, 4, 5, 6, 8, etc. (var(--nu-space-*)) and fractions 25p, 33p, 50p, 66p, 75p, 100p (percentages)
 //  @responsive
 // All position classes support responsive variants using @breakpoint suffix:
 //  - relative@md: Relative positioning on medium screens and up
@@ -46,8 +58,51 @@
 // MIXINS
 // -----------------------------------------------
 
+// Resolved offset values by fn-css-vars.value-key()
+$-offset-cache: ();
+
+// Offset values: a $position-fractions key (25p, -25p) gives its percentage, other values resolve as
+// util-spacing.space-offset(). A number followed by p that is not a fraction key raises an error. $label names the
+// mixin in error messages
+@function -offset($value, $label: "offset") {
+    @if meta.type-of($value) == "number" and map.has-key(fn-css-vars.$length-percent-unit-set, math.unit($value)) and not map.has-key(config-spacing.$spacings, $value) {
+        @return $value;
+    }
+    $cache-key: fn-css-vars.value-key($value);
+    @if map.has-key($-offset-cache, $cache-key) {
+        @return map.get($-offset-cache, $cache-key);
+    }
+    $result: -resolve-offset($value, $label);
+    @if fn-css-vars.is-bounded-value($value) {
+        $-offset-cache: map.set($-offset-cache, $cache-key, $result) !global;
+    }
+    @return $result;
+}
+
+// Uncached resolver behind -offset()
+@function -resolve-offset($value, $label) {
+    $type: meta.type-of($value);
+    @if $type == "string" or ($type == "number" and math.unit($value) == "p") {
+        $text: "#{$value}";
+        @if $type == "string" {
+            $text: string.unquote(fn-strings.str-trim(fn-strings.strip-quotes($value)));
+        }
+        @if map.has-key($position-fractions, $text) {
+            @return map.get($position-fractions, $text);
+        }
+        @if string.index($text, "-") == 1 and map.has-key($position-fractions, string.slice($text, 2)) {
+            @return -1 * map.get($position-fractions, string.slice($text, 2));
+        }
+        $parsed: fn-math.to-number-raw($text);
+        @if $parsed and list.nth($parsed, 2) == "p" {
+            @error "#{$label}: #{$text} is not a fraction key. Use #{map.keys($position-fractions)} (or a negated key such as -25p), a spacing key or a value with a unit.";
+        }
+    }
+    @return util-spacing.space-offset($value, $label);
+}
+
 // @mixin static
-// @description Sets position to static (default document flow)
+// @description Sets position to static, the default document flow.
 // @example
 // .element {
 //   @include static;
@@ -57,7 +112,7 @@
 }
 
 // @mixin relative
-// @description Sets position to relative, creating a positioning context
+// @description Sets position to relative, creating a positioning context for absolute children.
 // @example
 // .container {
 //   @include relative;
@@ -67,31 +122,32 @@
 }
 
 // @mixin absolute
-// @description Sets position to absolute, removing from normal document flow
+// @description Sets position to absolute, removing the element from the normal document flow.
 // @example
 // .popup {
 //   @include absolute;
-//   top: 0;
-//   left: 0;
+//   @include top(0);
+//   @include left(0);
 // }
 @mixin absolute {
     position: absolute;
 }
 
 // @mixin fixed
-// @description Sets position to fixed, removing from normal document flow and fixing relative to viewport
+// @description Sets position to fixed, placing the element relative to the viewport.
 // @example
-// .popup {
+// .banner {
 //   @include fixed;
-//   top: 0;
-//   left: 0;
+//   @include top(0);
+//   @include inset-x(0);
 // }
 @mixin fixed {
     position: fixed;
 }
 
 // @mixin sticky
-// @description Creates a sticky element that remains in view during scrolling
+// @description Sets position to sticky with top 0 and z-index 999, so the element stays in view while scrolling.
+// @output position: sticky; z-index: 999; top: 0
 // @example
 // .nav {
 //   @include sticky;
@@ -103,74 +159,190 @@
 }
 
 // @mixin top
-// @description Sets the top position of an element
-// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @description Sets the physical top offset from the spacing scale or a raw value.
+// @param {Number|Length|String} $value - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
 // @example
 // .toast {
 //   @include absolute;
-//   @include top(1rem);
+//   @include top(4); // top: var(--nu-space-4)
 // }
 @mixin top($value) {
-    top: fn-units.fix-units($value);
+    top: -offset($value, "top");
 }
 
 // @mixin right
-// @description Sets the right position of an element
-// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @description Sets the physical right offset from the spacing scale or a raw value.
+// @param {Number|Length|String} $value - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
 // @example
 // .badge {
 //   @include absolute;
-//   @include right(0);
+//   @include right(-2); // right: calc(-1 * var(--nu-space-2))
 // }
 @mixin right($value) {
-    right: fn-units.fix-units($value);
+    right: -offset($value, "right");
 }
 
 // @mixin bottom
-// @description Sets the bottom position of an element
-// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @description Sets the physical bottom offset from the spacing scale or a raw value.
+// @param {Number|Length|String} $value - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
 // @example
 // .footer {
-//  @include fixed;
-//  @include bottom(0);
+//   @include fixed;
+//   @include bottom(0);
 // }
 @mixin bottom($value) {
-    bottom: fn-units.fix-units($value);
+    bottom: -offset($value, "bottom");
 }
 
 // @mixin left
-// @description Sets the left position of an element
-// @param {Number|Length} $value - Position value (in px, rem, etc.)
+// @description Sets the physical left offset from the spacing scale or a raw value.
+// @param {Number|Length|String} $value - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
 // @example
 // .sidebar {
-//  @include fixed;
-//  @include left(0);
+//   @include fixed;
+//   @include left(50%);
 // }
 @mixin left($value) {
-    left: fn-units.fix-units($value);
+    left: -offset($value, "left");
+}
+
+// @mixin inset-start
+// @description Sets inset-inline-start, which is the left offset in LTR and the right offset in RTL.
+// @param {Number|Length|String} $value - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
+// @example
+// .close-button {
+//   @include absolute;
+//   @include inset-start(2); // inset-inline-start: var(--nu-space-2)
+// }
+// @see inset-end, left
+@mixin inset-start($value) {
+    inset-inline-start: -offset($value, "inset-start");
+}
+
+// @mixin inset-end
+// @description Sets inset-inline-end, which is the right offset in LTR and the left offset in RTL.
+// @param {Number|Length|String} $value - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
+// @example
+// .close-button {
+//   @include absolute;
+//   @include top(2);
+//   @include inset-end(2); // inset-inline-end: var(--nu-space-2)
+// }
+// @see inset-start, right
+@mixin inset-end($value) {
+    inset-inline-end: -offset($value, "inset-end");
+}
+
+// -----------------------------------------------
+// INSET MIXINS
+// -----------------------------------------------
+
+// @mixin inset
+// @description Sets the inset shorthand (top, right, bottom and left) to one value.
+// @param {Number|Length|String} $val - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
+// @example
+// .overlay {
+//   @include absolute;
+//   @include inset(0); // inset: var(--nu-space-0)
+// }
+@mixin inset($val) {
+    inset: -offset($val, "inset");
+}
+
+// @mixin inset-x
+// @description Sets the physical left and right offsets to one value.
+// @param {Number|Length|String} $val - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
+// @example
+// .drawer-footer {
+//   @include absolute;
+//   @include bottom(0);
+//   @include inset-x(4);
+// }
+@mixin inset-x($val) {
+    $val: -offset($val, "inset-x");
+
+    left: $val;
+    right: $val;
+}
+
+// @mixin inset-y
+// @description Sets the top and bottom offsets to one value.
+// @param {Number|Length|String} $val - Spacing key (4), negative key (-4), fraction key (25p, -25p; 33p gives 33.333%), auto, or a raw length, percentage, calc() or var()
+// @example
+// .side-rail {
+//   @include absolute;
+//   @include inset-y(0);
+//   @include left(0);
+// }
+@mixin inset-y($val) {
+    $val: -offset($val, "inset-y");
+
+    top: $val;
+    bottom: $val;
+}
+
+// @mixin inset-auto
+// @description Sets the inset shorthand to auto on all four sides.
+// @example
+// .popover {
+//   @include inset-auto;
+// }
+@mixin inset-auto {
+    inset: auto;
+}
+
+// @mixin inset-x-auto
+// @description Sets the physical left and right offsets to auto.
+// @example
+// .tooltip {
+//   @include inset-x-auto;
+// }
+@mixin inset-x-auto {
+    left: auto;
+    right: auto;
+}
+
+// @mixin inset-y-auto
+// @description Sets the top and bottom offsets to auto.
+// @example
+// .tooltip {
+//   @include inset-y-auto;
+// }
+@mixin inset-y-auto {
+    top: auto;
+    bottom: auto;
 }
 
 // @mixin absolute-center
-// @description Centers an element absolutely within its positioned parent
+// @description Centers an element absolutely within its positioned parent using top and left 50% and a -50% translate.
 // @example
 // .modal {
 //   @include absolute-center;
 // }
 @mixin absolute-center {
+    @include -center-box;
+    @include -center-translate;
+}
+
+// absolute-center without its translate, for the classes
+@mixin -center-box {
     position: absolute;
     left: 50%;
     top: 50%;
+    transform: translateX(var(--nu-translate-x)) translateY(var(--nu-translate-y)) translateZ(var(--nu-translate-z)) rotate(var(--nu-rotate)) skewX(var(--nu-skew-x)) skewY(var(--nu-skew-y)) scaleX(var(--nu-scale-x)) scaleY(var(--nu-scale-y));
+}
 
-    --translate-x: -50%;
-    --translate-y: -50%;
-
-    transform: translateX(var(--translate-x)) translateY(var(--translate-y)) translateZ(var(--translate-z, 0)) rotate(var(--rotate, 0)) skewX(var(--skew-x, 0)) skewY(var(--skew-y, 0)) scaleX(var(--scale-x, 1)) scaleY(var(--scale-y, 1));
+// The -50% translate of absolute-center
+@mixin -center-translate {
+    --nu-translate-x: -50%;
+    --nu-translate-y: -50%;
 }
 
 // @variable $position-fractions
 // @description Common percentage values for positioning elements
 // @note These values are used to generate position utility classes like .top-25p, .left-50p, etc.
 // @example
+// @use "sass:map";
 // .sidebar {
 //   @include absolute;
 //   @include top(map.get($position-fractions, "25p")); // top: 25%
@@ -182,7 +354,7 @@ $position-fractions: (
     "66p": 66.667%,
     "75p": 75%,
     "100p": 100%,
-);
+) !default;
 
 // -----------------------------------------------
 // UTILITY CLASSES
@@ -205,12 +377,46 @@ $position-fractions: (
         @include fixed;
     }
 
+    // Offset and stacking defaults sit in :where() (no specificity), so .top-* and .z-* override them
     #{config-flags.$parent-selector} .sticky {
-        @include sticky;
+        position: sticky;
+    }
+    #{config-flags.$parent-selector} :where(.sticky) {
+        top: 0;
+        z-index: 999;
     }
 
+    // The centring translate sits in :where(), so a .translate-* class (responsive ones included) adjusts it
     #{config-flags.$parent-selector} .absolute-center {
-        @include absolute-center;
+        @include -center-box;
+    }
+    #{config-flags.$parent-selector} :where(.absolute-center) {
+        @include -center-translate;
+    }
+
+    // Inset classes come before the side offsets, so a side class can adjust an inset (inset-0 top-4)
+    #{config-flags.$parent-selector} .inset-auto {
+        @include inset-auto;
+    }
+    #{config-flags.$parent-selector} .inset-x-auto {
+        @include inset-x-auto;
+    }
+    #{config-flags.$parent-selector} .inset-y-auto {
+        @include inset-y-auto;
+    }
+
+    @each $key, $value in config-spacing.$spacings {
+        $k: fn-css-vars.class-key($key);
+
+        #{config-flags.$parent-selector} .inset-#{$k} {
+            @include inset($key);
+        }
+        #{config-flags.$parent-selector} .inset-x-#{$k} {
+            @include inset-x($key);
+        }
+        #{config-flags.$parent-selector} .inset-y-#{$k} {
+            @include inset-y($key);
+        }
     }
 
     @each $key, $value in $position-fractions {
@@ -226,21 +432,35 @@ $position-fractions: (
         #{config-flags.$parent-selector} .left-#{$key} {
             @include left($value);
         }
+        #{config-flags.$parent-selector} .start-#{$key} {
+            @include inset-start($value);
+        }
+        #{config-flags.$parent-selector} .end-#{$key} {
+            @include inset-end($value);
+        }
     }
 
     // Placement Classes
     @each $key, $value in config-spacing.$spacings {
-        #{config-flags.$parent-selector} .top-#{$key} {
-            @include top($value);
+        $k: fn-css-vars.class-key($key);
+
+        #{config-flags.$parent-selector} .top-#{$k} {
+            @include top($key);
         }
-        #{config-flags.$parent-selector} .right-#{$key} {
-            @include right($value);
+        #{config-flags.$parent-selector} .right-#{$k} {
+            @include right($key);
         }
-        #{config-flags.$parent-selector} .bottom-#{$key} {
-            @include bottom($value);
+        #{config-flags.$parent-selector} .bottom-#{$k} {
+            @include bottom($key);
         }
-        #{config-flags.$parent-selector} .left-#{$key} {
-            @include left($value);
+        #{config-flags.$parent-selector} .left-#{$k} {
+            @include left($key);
+        }
+        #{config-flags.$parent-selector} .start-#{$k} {
+            @include inset-start($key);
+        }
+        #{config-flags.$parent-selector} .end-#{$k} {
+            @include inset-end($key);
         }
     }
 
@@ -264,10 +484,17 @@ $position-fractions: (
                 @include fixed;
             }
             #{config-flags.$parent-selector} .sticky\@#{$breakpoint} {
-                @include sticky;
+                position: sticky;
+            }
+            #{config-flags.$parent-selector} :where(.sticky\@#{$breakpoint}) {
+                top: 0;
+                z-index: 999;
             }
             #{config-flags.$parent-selector} .absolute-center\@#{$breakpoint} {
-                @include absolute-center;
+                @include -center-box;
+            }
+            #{config-flags.$parent-selector} :where(.absolute-center\@#{$breakpoint}) {
+                @include -center-translate;
             }
 
             // Fractional responsive placements
@@ -284,20 +511,58 @@ $position-fractions: (
                 #{config-flags.$parent-selector} .left-#{$key}\@#{$breakpoint} {
                     @include left($value);
                 }
+                #{config-flags.$parent-selector} .start-#{$key}\@#{$breakpoint} {
+                    @include inset-start($value);
+                }
+                #{config-flags.$parent-selector} .end-#{$key}\@#{$breakpoint} {
+                    @include inset-end($value);
+                }
             }
 
             @each $key, $value in config-spacing.$spacings {
-                #{config-flags.$parent-selector} .top-#{$key}\@#{$breakpoint} {
-                    @include top($value);
+                $k: fn-css-vars.class-key($key);
+
+                #{config-flags.$parent-selector} .top-#{$k}\@#{$breakpoint} {
+                    @include top($key);
                 }
-                #{config-flags.$parent-selector} .right-#{$key}\@#{$breakpoint} {
-                    @include right($value);
+                #{config-flags.$parent-selector} .right-#{$k}\@#{$breakpoint} {
+                    @include right($key);
                 }
-                #{config-flags.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
-                    @include bottom($value);
+                #{config-flags.$parent-selector} .bottom-#{$k}\@#{$breakpoint} {
+                    @include bottom($key);
                 }
-                #{config-flags.$parent-selector} .left-#{$key}\@#{$breakpoint} {
-                    @include left($value);
+                #{config-flags.$parent-selector} .left-#{$k}\@#{$breakpoint} {
+                    @include left($key);
+                }
+                #{config-flags.$parent-selector} .start-#{$k}\@#{$breakpoint} {
+                    @include inset-start($key);
+                }
+                #{config-flags.$parent-selector} .end-#{$k}\@#{$breakpoint} {
+                    @include inset-end($key);
+                }
+            }
+
+            #{config-flags.$parent-selector} .inset-auto\@#{$breakpoint} {
+                @include inset-auto;
+            }
+            #{config-flags.$parent-selector} .inset-x-auto\@#{$breakpoint} {
+                @include inset-x-auto;
+            }
+            #{config-flags.$parent-selector} .inset-y-auto\@#{$breakpoint} {
+                @include inset-y-auto;
+            }
+
+            @each $key, $value in config-spacing.$spacings {
+                $k: fn-css-vars.class-key($key);
+
+                #{config-flags.$parent-selector} .inset-#{$k}\@#{$breakpoint} {
+                    @include inset($key);
+                }
+                #{config-flags.$parent-selector} .inset-x-#{$k}\@#{$breakpoint} {
+                    @include inset-x($key);
+                }
+                #{config-flags.$parent-selector} .inset-y-#{$k}\@#{$breakpoint} {
+                    @include inset-y($key);
                 }
             }
         }
