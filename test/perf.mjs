@@ -1,19 +1,20 @@
-// apply() compile time guard, measured against v1 live.
+// apply() compile time guard, measured against a released baseline live.
 //
 // Usage: node test/perf.mjs (npm run test:perf)
 //
-// v1-relative checks. The v1 sources (1.5.7, commit V1_COMMIT) are extracted from git into a temporary directory at
-// run time and removed at the end. Each fixture is compiled against v1 and v2 in this process, interleaved: after
-// WARMUP rounds, PAIRS pairs, each compiling both sides' empty entries and fixtures (v1 first in even pairs, v2 first
-// in odd pairs). The empty entry is the fixture's `@use` line with no rules; each side's median empty entry time
-// (package load) is subtracted from that side's fixture times.
-// The pair ratio is v2 cost per call over v1 cost per call; the guard uses the median pair ratio. Above FAIL_RATIO
-// the fixture is measured again, up to ATTEMPTS times in all, and fails only if every attempt is above FAIL_RATIO.
-// Above WARN_RATIO it prints a warning and passes. Without git or the v1 commit (a tarball install) the v1-relative
-// checks are skipped with a notice.
+// Baseline checks. The baseline sources (BASELINE_VERSION, commit BASELINE_COMMIT: the last release) are extracted
+// from git into a temporary directory at run time and removed at the end. Each fixture is compiled against the
+// baseline and the working tree in this process, interleaved: after WARMUP rounds, PAIRS pairs, each compiling both
+// sides' empty entries and fixtures (baseline first in even pairs, current first in odd pairs). The empty entry is the
+// fixture's `@use` line with no rules; each side's median empty entry time (package load) is subtracted from that
+// side's fixture times.
+// The pair ratio is current cost per call over baseline cost per call; the guard uses the median pair ratio. Above
+// FAIL_RATIO the fixture is measured again, up to ATTEMPTS times in all, and fails only if every attempt is above
+// FAIL_RATIO. Above WARN_RATIO it prints a warning and passes. Without git or the baseline commit (a tarball install)
+// the baseline checks are skipped with a notice.
 //
-// v1 cannot compile v2-only names, so every v1-relative fixture uses names both versions share; the large-app
-// fixture is translated to v1 names through V1_NAMES.
+// After a release, set BASELINE_COMMIT and BASELINE_VERSION to that release. Fixtures must use names the baseline
+// also compiles.
 //
 //   as * identical, as * varied, as * modifiers   `@use "mixins-map" as *` with apply(): items are real mixin calls.
 //                One item list in every rule; spacing keys, palette colours and shades cycled; the same items with
@@ -23,7 +24,7 @@
 //                colours at a shade), so every value repeats across rules, as in a real stylesheet.
 //   large-app    the first LARGE_APP_RULES rules of test/fixtures/large-app.scss (namespaced, 10 items per call).
 //
-// Self-relative checks (no v1 needed):
+// Self-relative checks (no baseline needed):
 //   get-color    GET_COLOR_RULES get-color() calls on 24 repeated hex colours at a shade must cost at most
 //                GET_COLOR_LIMIT times the same calls on palette names (uncached raw colours cost about 4 times as much).
 //   unique       namespaced rules whose items hold values no other rule repeats; the cost per call at UNIQUE_RULES may
@@ -38,8 +39,8 @@ import { spawnSync } from 'node:child_process';
 import * as sass from 'sass';
 import { BUILD_FILE, CORE_DIR, STYLES_DIR, TEST_DIR, pad } from './helpers.mjs';
 
-const V1_COMMIT = 'c82f4d3';
-const V1_VERSION = '1.5.7';
+const BASELINE_COMMIT = '3cf0693';
+const BASELINE_VERSION = '2.0.0';
 
 const WARMUP = 3;
 const PAIRS = 7;
@@ -94,20 +95,6 @@ const GENERATED = [
 
 const LARGE_APP = path.join(TEST_DIR, 'fixtures', 'large-app.scss');
 const LARGE_APP_RULES = 1500;
-// v2 item text to v1 item text, longest first so an item is not rewritten by a shorter one it contains
-const V1_NAMES = [
-    ['bg(brand, 600) hover', 'bg(primary, 600) hover'],
-    ['border-color(brand) focus', 'border-color(primary) focus'],
-    ['border-color(gray, 200)', 'border-color(gray)'],
-    ['border-color(regular)', 'border-color(gray)'],
-    ['text-color(regular)', 'text-color(gray, 900)'],
-    ['text-color(muted)', 'text-color(gray, 500)'],
-    ['text-color(brand)', 'text-color(primary)'],
-    ['bg(hover) hover', 'bg(gray, 100) hover'],
-    ['bg(alternate)', 'bg(gray, 50)'],
-    ['bg(surface)', 'bg(white)'],
-    ['bg(brand)', 'bg(primary)'],
-];
 
 function time(fn) {
     const start = process.hrtime.bigint();
@@ -128,7 +115,7 @@ function compiler(stylesDir) {
         });
 }
 
-const compileV2 = compiler(STYLES_DIR);
+const compileCurrent = compiler(STYLES_DIR);
 
 // Median compile time in ms after one warm-up compile
 function measure(compile) {
@@ -148,30 +135,30 @@ function git(args, options = {}) {
     return result.error || result.status !== 0 ? null : result.stdout;
 }
 
-// Extracts the v1 sources into a new temporary directory; returns it, or null with the reason
-function extractV1() {
-    const pkg = git(['show', `${V1_COMMIT}:package.json`], {
+// Extracts the baseline sources into a new temporary directory; returns it, or null with the reason
+function extractBaseline() {
+    const pkg = git(['show', `${BASELINE_COMMIT}:package.json`], {
         encoding: 'utf8',
     });
     if (pkg === null) {
-        return [null, `git or commit ${V1_COMMIT} is not available`];
+        return [null, `git or commit ${BASELINE_COMMIT} is not available`];
     }
     const version = JSON.parse(pkg).version;
-    if (version !== V1_VERSION) {
+    if (version !== BASELINE_VERSION) {
         return [
             null,
-            `commit ${V1_COMMIT} is version ${version}, not ${V1_VERSION}`,
+            `commit ${BASELINE_COMMIT} is version ${version}, not ${BASELINE_VERSION}`,
         ];
     }
-    const archive = git(['archive', '--format=tar', V1_COMMIT, 'src']);
+    const archive = git(['archive', '--format=tar', BASELINE_COMMIT, 'src']);
     if (archive === null) {
-        return [null, `git archive ${V1_COMMIT} failed`];
+        return [null, `git archive ${BASELINE_COMMIT} failed`];
     }
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'nuvoui-perf-v1-'));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'nuvoui-perf-baseline-'));
     const tar = spawnSync('tar', ['-x', '-C', dir], { input: archive });
     if (tar.error || tar.status !== 0) {
         fs.rmSync(dir, { recursive: true, force: true });
-        return [null, 'extracting the v1 sources failed'];
+        return [null, 'extracting the baseline sources failed'];
     }
     return [dir, null];
 }
@@ -182,7 +169,12 @@ function generated([name, use, applyName, items]) {
         lines.push(`.r-${i} { @include ${applyName}(${items(i)}); }`);
     }
     const source = lines.join('\n');
-    return { name, calls: RULES, v1: [use, source], v2: [use, source] };
+    return {
+        name,
+        calls: RULES,
+        baseline: [use, source],
+        current: [use, source],
+    };
 }
 
 function largeApp() {
@@ -191,26 +183,22 @@ function largeApp() {
         .split('\n')
         .filter((line) => line.startsWith('.c-'))
         .slice(0, LARGE_APP_RULES);
-    const v2 = [NAMESPACED, ...lines].join('\n');
-    let v1 = v2;
-    for (const [from, to] of V1_NAMES) {
-        v1 = v1.split(from).join(to);
-    }
+    const source = [NAMESPACED, ...lines].join('\n');
     return {
         name: 'large-app',
         calls: lines.length,
-        v1: [NAMESPACED, v1],
-        v2: [NAMESPACED, v2],
+        baseline: [NAMESPACED, source],
+        current: [NAMESPACED, source],
     };
 }
 
 // One interleaved measurement: median pair ratio, its spread, and each side's median µs per call. Each pair compiles
-// both sides' empty entries and fixtures, v1 first in even pairs and v2 first in odd pairs so drift in machine speed
+// both sides' empty entries and fixtures, baseline first in even pairs and current first in odd pairs so drift in machine speed
 // hits both sides alike; each side's empty entry time is the median over the pairs
-function attempt(fixture, compileV1) {
+function attempt(fixture, compileBaseline) {
     const sides = [
-        [compileV1, ...fixture.v1],
-        [compileV2, ...fixture.v2],
+        [compileBaseline, ...fixture.baseline],
+        [compileCurrent, ...fixture.current],
     ];
     const timeSide = ([compile, empty, source]) => [
         time(() => compile(empty)),
@@ -226,34 +214,34 @@ function attempt(fixture, compileV1) {
             runs[side].push(timeSide(sides[side]));
         }
     }
-    const [v1, v2] = runs.map((pairs) => {
+    const [baseline, current] = runs.map((pairs) => {
         const emptyMs = median(pairs.map(([empty]) => empty));
         return pairs.map(
             ([, full]) => ((full - emptyMs) / fixture.calls) * 1000
         );
     });
-    const ratios = v2.map((cost, i) => cost / v1[i]);
+    const ratios = current.map((cost, i) => cost / baseline[i]);
     return {
-        v1: median(v1),
-        v2: median(v2),
+        baseline: median(baseline),
+        current: median(current),
         ratio: median(ratios),
         spread: `${Math.min(...ratios).toFixed(2)}-${Math.max(...ratios).toFixed(2)}`,
     };
 }
 
-function checkAgainstV1(compileV1, problems) {
+function checkAgainstBaseline(compileBaseline, problems) {
     const fixtures = [...GENERATED.map(generated), largeApp()];
     console.log(
-        `v1 ${V1_VERSION} (${V1_COMMIT}) measured live: ${PAIRS} interleaved pairs per fixture after ${WARMUP} warm-up rounds; fail above ${FAIL_RATIO}x v1 on all of ${ATTEMPTS} attempts, warn above ${WARN_RATIO}x\n`
+        `baseline ${BASELINE_VERSION} (${BASELINE_COMMIT}) measured live: ${PAIRS} interleaved pairs per fixture after ${WARMUP} warm-up rounds; fail above ${FAIL_RATIO}x baseline on all of ${ATTEMPTS} attempts, warn above ${WARN_RATIO}x\n`
     );
-    const widths = [22, 12, 12, 8, 11, 0];
+    const widths = [22, 17, 17, 8, 11, 0];
     const row = (cells) =>
         cells.map((cell, k) => pad(cell, widths[k])).join('');
     console.log(
         row([
             'fixture',
-            'v1 µs/call',
-            'v2 µs/call',
+            'baseline µs/call',
+            'current µs/call',
             'ratio',
             'spread',
             'result',
@@ -263,14 +251,14 @@ function checkAgainstV1(compileV1, problems) {
         let result;
         let attempts = 0;
         do {
-            result = attempt(fixture, compileV1);
+            result = attempt(fixture, compileBaseline);
             attempts++;
         } while (result.ratio > FAIL_RATIO && attempts < ATTEMPTS);
         let status = 'pass';
         if (result.ratio > FAIL_RATIO) {
             status = 'FAIL';
             problems.push(
-                `${fixture.name}: ${result.ratio.toFixed(2)}x the v1 cost per apply() on all ${attempts} attempts (limit ${FAIL_RATIO})`
+                `${fixture.name}: ${result.ratio.toFixed(2)}x the baseline cost per apply() on all ${attempts} attempts (limit ${FAIL_RATIO})`
             );
         } else if (result.ratio > WARN_RATIO) {
             status = `warn (above ${WARN_RATIO})`;
@@ -281,8 +269,8 @@ function checkAgainstV1(compileV1, problems) {
         console.log(
             row([
                 fixture.name,
-                result.v1.toFixed(1),
-                result.v2.toFixed(1),
+                result.baseline.toFixed(1),
+                result.current.toFixed(1),
                 result.ratio.toFixed(2),
                 result.spread,
                 status,
@@ -327,8 +315,8 @@ function uniqueGrowth() {
     const quarterRules = UNIQUE_RULES / 4;
     const full = uniqueSource(fullRules);
     const quarter = uniqueSource(quarterRules);
-    compileV2(full);
-    compileV2(quarter);
+    compileCurrent(full);
+    compileCurrent(quarter);
     const fulls = [];
     const quarters = [];
     const ratios = [];
@@ -336,11 +324,11 @@ function uniqueGrowth() {
         let fullMs;
         let quarterMs;
         if (i % 2 === 0) {
-            fullMs = time(() => compileV2(full)) / fullRules;
-            quarterMs = time(() => compileV2(quarter)) / quarterRules;
+            fullMs = time(() => compileCurrent(full)) / fullRules;
+            quarterMs = time(() => compileCurrent(quarter)) / quarterRules;
         } else {
-            quarterMs = time(() => compileV2(quarter)) / quarterRules;
-            fullMs = time(() => compileV2(full)) / fullRules;
+            quarterMs = time(() => compileCurrent(quarter)) / quarterRules;
+            fullMs = time(() => compileCurrent(full)) / fullRules;
         }
         fulls.push(fullMs);
         quarters.push(quarterMs);
@@ -354,11 +342,13 @@ function uniqueGrowth() {
 }
 
 function checkSelfRelative(problems) {
-    const getColorEmpty = measure(() => compileV2(getColorSource(true, 0)));
+    const getColorEmpty = measure(() =>
+        compileCurrent(getColorSource(true, 0))
+    );
     const rawColors =
-        measure(() => compileV2(getColorSource(true))) - getColorEmpty;
+        measure(() => compileCurrent(getColorSource(true))) - getColorEmpty;
     const namedColors =
-        measure(() => compileV2(getColorSource(false))) - getColorEmpty;
+        measure(() => compileCurrent(getColorSource(false))) - getColorEmpty;
     const getColorRatio = rawColors / namedColors;
     console.log(
         `${pad('repeated get-color', 22)}${((rawColors / GET_COLOR_RULES) * 1000).toFixed(1)} µs per call on hex colours, ${((namedColors / GET_COLOR_RULES) * 1000).toFixed(1)} on palette names (ratio ${getColorRatio.toFixed(2)}, limit ${GET_COLOR_LIMIT})`
@@ -387,22 +377,22 @@ function checkSelfRelative(problems) {
 
 function run() {
     const problems = [];
-    const [v1Dir, reason] = extractV1();
+    const [baselineDir, reason] = extractBaseline();
     try {
-        if (v1Dir) {
-            checkAgainstV1(
-                compiler(path.join(v1Dir, 'src', 'styles')),
+        if (baselineDir) {
+            checkAgainstBaseline(
+                compiler(path.join(baselineDir, 'src', 'styles')),
                 problems
             );
         } else {
             console.log(
-                `perf: ${reason}; skipping the v1-relative checks (run from a git checkout of @nuvoui/core to include them)\n`
+                `perf: ${reason}; skipping the baseline checks (run from a git checkout of @nuvoui/core to include them)\n`
             );
         }
         checkSelfRelative(problems);
     } finally {
-        if (v1Dir) {
-            fs.rmSync(v1Dir, { recursive: true, force: true });
+        if (baselineDir) {
+            fs.rmSync(baselineDir, { recursive: true, force: true });
         }
     }
 
@@ -412,7 +402,7 @@ function run() {
         return;
     }
     console.log(
-        `\nperf: ${v1Dir ? `apply() within ${FAIL_RATIO}x v1 on every fixture, ` : ''}get-color cache and unique value growth within limits`
+        `\nperf: ${baselineDir ? `apply() within ${FAIL_RATIO}x baseline on every fixture, ` : ''}get-color cache and unique value growth within limits`
     );
 }
 

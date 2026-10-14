@@ -14,7 +14,7 @@ Run from the repository root. `pnpm` and `npm` both work (`pnpm-lock.yaml` is co
 | Command | What it does |
 | --- | --- |
 | `pnpm test` | Runs contrast, tokens, mixins, config, docblocks, mixins-map sync, scales check, size and TOKENS.md check |
-| `pnpm test:perf` | `apply()` compile-time guard against v1 (extracts the 1.5.7 sources from git; skipped without git history) |
+| `pnpm test:perf` | `apply()` compile-time guard against the last release (extracts its sources from git, see BASELINE_VERSION in `test/perf.mjs`; skipped without git history) |
 | `pnpm test:all` | `test` then `test:perf` |
 | `pnpm lint` | stylelint on `src/**/*.scss` |
 | `pnpm format` / `pnpm format:check` | Prettier write / check on `src`, `test/[a-z]*.mjs`, `scripts/**/*.mjs` |
