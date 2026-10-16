@@ -2,6 +2,7 @@
 // Module: Grid | Grid Inline
 // Note: Gap utilities are defined in _spacing.scss
 
+@use "sass:list";
 @use "sass:map";
 @use "sass:math";
 @use "sass:meta";
@@ -366,114 +367,119 @@ $alignments: (
     grid-row: -line("grid-row-at", $row);
 }
 
-@if fn-flags.feature-enabled("grid") {
-    // Build the flat selector list manually with proper escaping
-    $base-grid-selector: #{config-flags.$parent-selector} + " .grid";
-    $all-grid-selectors: $base-grid-selector;
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("grid") {
+        // Build the flat selector list manually with proper escaping
+        $base-grid-selector: #{config-flags.$parent-selector} + " .grid";
+        $all-grid-selectors: $base-grid-selector;
 
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        $all-grid-selectors: "#{$all-grid-selectors}, #{config-flags.$parent-selector} .grid\\@#{$breakpoint}";
-    }
-
-    // Apply base grid styles to all grid variants at once
-    #{$all-grid-selectors} {
-        // Auto-fit/fill Classes
-        @each $size, $width in config-layout.$grid-item-sizes {
-            &.auto-fit-#{$size} {
-                @include auto-fit($width);
-            }
-
-            &.auto-fill-#{$size} {
-                @include auto-fill($width);
-            }
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            $all-grid-selectors: "#{$all-grid-selectors}, #{config-flags.$parent-selector} .grid\\@#{$breakpoint}";
         }
 
-        // Flow Classes
-        &.flow-row {
-            @include flow-row;
-        }
+        // Apply base grid styles to all grid variants at once
+        #{$all-grid-selectors} {
+            // Auto-fit/fill Classes
+            @each $size, $width in config-layout.$grid-item-sizes {
+                &.auto-fit-#{$size} {
+                    @include auto-fit($width);
+                }
 
-        &.flow-col {
-            @include flow-col;
-        }
-
-        &.flow-dense {
-            @include flow-dense;
-        }
-
-        // Basic column and row count
-        @for $i from 1 through config-layout.$column-count {
-            &.cols-#{$i} {
-                @include cols($i);
-            }
-            &.rows-#{$i} {
-                @include rows($i);
-            }
-        }
-
-        // Alignment classes
-        @each $name, $value in $alignments {
-            &.justify-#{$name} {
-                @include justify($value);
-            }
-            &.align-#{$name} {
-                @include align($value);
-            }
-            &.place-#{$name} {
-                @include place($value);
-            }
-        }
-    }
-
-    // Span classes sit on grid items, so they stand alone: they work in any grid, including one built with mixins
-    @for $i from 1 through config-layout.$column-count {
-        #{config-flags.$parent-selector} .col-span-#{$i} {
-            @include col-span($i);
-        }
-        #{config-flags.$parent-selector} .row-span-#{$i} {
-            @include row-span($i);
-        }
-    }
-
-    // Handle responsive variants
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            // Responsive grid columns/rows
-            #{$all-grid-selectors} {
-                @for $i from 1 through config-layout.$column-count {
-                    &.cols-#{$i}\@#{$breakpoint} {
-                        @include cols($i);
-                    }
-                    &.rows-#{$i}\@#{$breakpoint} {
-                        @include rows($i);
-                    }
+                &.auto-fill-#{$size} {
+                    @include auto-fill($width);
                 }
             }
 
-            // Responsive spans
+            // Flow Classes
+            &.flow-row {
+                @include flow-row;
+            }
+
+            &.flow-col {
+                @include flow-col;
+            }
+
+            &.flow-dense {
+                @include flow-dense;
+            }
+
+            // Basic column and row count
             @for $i from 1 through config-layout.$column-count {
-                #{config-flags.$parent-selector} .col-span-#{$i}\@#{$breakpoint} {
-                    @include col-span($i);
+                &.cols-#{$i} {
+                    @include cols($i);
                 }
-                #{config-flags.$parent-selector} .row-span-#{$i}\@#{$breakpoint} {
-                    @include row-span($i);
+                &.rows-#{$i} {
+                    @include rows($i);
                 }
             }
 
-            // Responsive alignments
-            #{$all-grid-selectors} {
-                @each $name, $value in $alignments {
-                    &.justify-#{$name}\@#{$breakpoint} {
-                        @include justify($value);
+            // Alignment classes
+            @each $name, $value in $alignments {
+                &.justify-#{$name} {
+                    @include justify($value);
+                }
+                &.align-#{$name} {
+                    @include align($value);
+                }
+                &.place-#{$name} {
+                    @include place($value);
+                }
+            }
+        }
+
+        // Span classes sit on grid items, so they stand alone: they work in any grid, including one built with mixins
+        @for $i from 1 through config-layout.$column-count {
+            #{config-flags.$parent-selector} .col-span-#{$i} {
+                @include col-span($i);
+            }
+            #{config-flags.$parent-selector} .row-span-#{$i} {
+                @include row-span($i);
+            }
+        }
+
+        // Handle responsive variants
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                // Responsive grid columns/rows
+                #{$all-grid-selectors} {
+                    @for $i from 1 through config-layout.$column-count {
+                        &.cols-#{$i}\@#{$breakpoint} {
+                            @include cols($i);
+                        }
+                        &.rows-#{$i}\@#{$breakpoint} {
+                            @include rows($i);
+                        }
                     }
-                    &.align-#{$name}\@#{$breakpoint} {
-                        @include align($value);
+                }
+
+                // Responsive spans
+                @for $i from 1 through config-layout.$column-count {
+                    #{config-flags.$parent-selector} .col-span-#{$i}\@#{$breakpoint} {
+                        @include col-span($i);
                     }
-                    &.place-#{$name}\@#{$breakpoint} {
-                        @include place($value);
+                    #{config-flags.$parent-selector} .row-span-#{$i}\@#{$breakpoint} {
+                        @include row-span($i);
+                    }
+                }
+
+                // Responsive alignments
+                #{$all-grid-selectors} {
+                    @each $name, $value in $alignments {
+                        &.justify-#{$name}\@#{$breakpoint} {
+                            @include justify($value);
+                        }
+                        &.align-#{$name}\@#{$breakpoint} {
+                            @include align($value);
+                        }
+                        &.place-#{$name}\@#{$breakpoint} {
+                            @include place($value);
+                        }
                     }
                 }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

@@ -356,215 +356,220 @@ $position-fractions: (
     "100p": 100%,
 ) !default;
 
-// -----------------------------------------------
-// UTILITY CLASSES
-// -----------------------------------------------
-@if fn-flags.feature-enabled("position") {
-    // Position Classes
-    #{config-flags.$parent-selector} .static {
-        @include static;
-    }
-
-    #{config-flags.$parent-selector} .relative {
-        @include relative;
-    }
-
-    #{config-flags.$parent-selector} .absolute {
-        @include absolute;
-    }
-
-    #{config-flags.$parent-selector} .fixed {
-        @include fixed;
-    }
-
-    // Offset and stacking defaults sit in :where() (no specificity), so .top-* and .z-* override them
-    #{config-flags.$parent-selector} .sticky {
-        position: sticky;
-    }
-    #{config-flags.$parent-selector} :where(.sticky) {
-        top: 0;
-        z-index: 999;
-    }
-
-    // The centring translate sits in :where(), so a .translate-* class (responsive ones included) adjusts it
-    #{config-flags.$parent-selector} .absolute-center {
-        @include -center-box;
-    }
-    #{config-flags.$parent-selector} :where(.absolute-center) {
-        @include -center-translate;
-    }
-
-    // Inset classes come before the side offsets, so a side class can adjust an inset (inset-0 top-4)
-    #{config-flags.$parent-selector} .inset-auto {
-        @include inset-auto;
-    }
-    #{config-flags.$parent-selector} .inset-x-auto {
-        @include inset-x-auto;
-    }
-    #{config-flags.$parent-selector} .inset-y-auto {
-        @include inset-y-auto;
-    }
-
-    @each $key, $value in config-spacing.$spacings {
-        $k: fn-css-vars.class-key($key);
-
-        #{config-flags.$parent-selector} .inset-#{$k} {
-            @include inset($key);
-        }
-        #{config-flags.$parent-selector} .inset-x-#{$k} {
-            @include inset-x($key);
-        }
-        #{config-flags.$parent-selector} .inset-y-#{$k} {
-            @include inset-y($key);
-        }
-    }
-
-    @each $key, $value in $position-fractions {
-        #{config-flags.$parent-selector} .top-#{$key} {
-            @include top($value);
-        }
-        #{config-flags.$parent-selector} .right-#{$key} {
-            @include right($value);
-        }
-        #{config-flags.$parent-selector} .bottom-#{$key} {
-            @include bottom($value);
-        }
-        #{config-flags.$parent-selector} .left-#{$key} {
-            @include left($value);
-        }
-        #{config-flags.$parent-selector} .start-#{$key} {
-            @include inset-start($value);
-        }
-        #{config-flags.$parent-selector} .end-#{$key} {
-            @include inset-end($value);
-        }
-    }
-
-    // Placement Classes
-    @each $key, $value in config-spacing.$spacings {
-        $k: fn-css-vars.class-key($key);
-
-        #{config-flags.$parent-selector} .top-#{$k} {
-            @include top($key);
-        }
-        #{config-flags.$parent-selector} .right-#{$k} {
-            @include right($key);
-        }
-        #{config-flags.$parent-selector} .bottom-#{$k} {
-            @include bottom($key);
-        }
-        #{config-flags.$parent-selector} .left-#{$k} {
-            @include left($key);
-        }
-        #{config-flags.$parent-selector} .start-#{$k} {
-            @include inset-start($key);
-        }
-        #{config-flags.$parent-selector} .end-#{$k} {
-            @include inset-end($key);
-        }
-    }
-
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
     // -----------------------------------------------
-    // RESPONSIVE CLASSES
+    // UTILITY CLASSES
     // -----------------------------------------------
+    @if fn-flags.feature-enabled("position") {
+        // Position Classes
+        #{config-flags.$parent-selector} .static {
+            @include static;
+        }
 
-    // Responsive Position Classes
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            #{config-flags.$parent-selector} .static\@#{$breakpoint} {
-                @include static;
-            }
-            #{config-flags.$parent-selector} .relative\@#{$breakpoint} {
-                @include relative;
-            }
-            #{config-flags.$parent-selector} .absolute\@#{$breakpoint} {
-                @include absolute;
-            }
-            #{config-flags.$parent-selector} .fixed\@#{$breakpoint} {
-                @include fixed;
-            }
-            #{config-flags.$parent-selector} .sticky\@#{$breakpoint} {
-                position: sticky;
-            }
-            #{config-flags.$parent-selector} :where(.sticky\@#{$breakpoint}) {
-                top: 0;
-                z-index: 999;
-            }
-            #{config-flags.$parent-selector} .absolute-center\@#{$breakpoint} {
-                @include -center-box;
-            }
-            #{config-flags.$parent-selector} :where(.absolute-center\@#{$breakpoint}) {
-                @include -center-translate;
-            }
+        #{config-flags.$parent-selector} .relative {
+            @include relative;
+        }
 
-            // Fractional responsive placements
-            @each $key, $value in $position-fractions {
-                #{config-flags.$parent-selector} .top-#{$key}\@#{$breakpoint} {
-                    @include top($value);
-                }
-                #{config-flags.$parent-selector} .right-#{$key}\@#{$breakpoint} {
-                    @include right($value);
-                }
-                #{config-flags.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
-                    @include bottom($value);
-                }
-                #{config-flags.$parent-selector} .left-#{$key}\@#{$breakpoint} {
-                    @include left($value);
-                }
-                #{config-flags.$parent-selector} .start-#{$key}\@#{$breakpoint} {
-                    @include inset-start($value);
-                }
-                #{config-flags.$parent-selector} .end-#{$key}\@#{$breakpoint} {
-                    @include inset-end($value);
-                }
-            }
+        #{config-flags.$parent-selector} .absolute {
+            @include absolute;
+        }
 
-            @each $key, $value in config-spacing.$spacings {
-                $k: fn-css-vars.class-key($key);
+        #{config-flags.$parent-selector} .fixed {
+            @include fixed;
+        }
 
-                #{config-flags.$parent-selector} .top-#{$k}\@#{$breakpoint} {
-                    @include top($key);
-                }
-                #{config-flags.$parent-selector} .right-#{$k}\@#{$breakpoint} {
-                    @include right($key);
-                }
-                #{config-flags.$parent-selector} .bottom-#{$k}\@#{$breakpoint} {
-                    @include bottom($key);
-                }
-                #{config-flags.$parent-selector} .left-#{$k}\@#{$breakpoint} {
-                    @include left($key);
-                }
-                #{config-flags.$parent-selector} .start-#{$k}\@#{$breakpoint} {
-                    @include inset-start($key);
-                }
-                #{config-flags.$parent-selector} .end-#{$k}\@#{$breakpoint} {
-                    @include inset-end($key);
-                }
-            }
+        // Offset and stacking defaults sit in :where() (no specificity), so .top-* and .z-* override them
+        #{config-flags.$parent-selector} .sticky {
+            position: sticky;
+        }
+        #{config-flags.$parent-selector} :where(.sticky) {
+            top: 0;
+            z-index: 999;
+        }
 
-            #{config-flags.$parent-selector} .inset-auto\@#{$breakpoint} {
-                @include inset-auto;
-            }
-            #{config-flags.$parent-selector} .inset-x-auto\@#{$breakpoint} {
-                @include inset-x-auto;
-            }
-            #{config-flags.$parent-selector} .inset-y-auto\@#{$breakpoint} {
-                @include inset-y-auto;
-            }
+        // The centring translate sits in :where(), so a .translate-* class (responsive ones included) adjusts it
+        #{config-flags.$parent-selector} .absolute-center {
+            @include -center-box;
+        }
+        #{config-flags.$parent-selector} :where(.absolute-center) {
+            @include -center-translate;
+        }
 
-            @each $key, $value in config-spacing.$spacings {
-                $k: fn-css-vars.class-key($key);
+        // Inset classes come before the side offsets, so a side class can adjust an inset (inset-0 top-4)
+        #{config-flags.$parent-selector} .inset-auto {
+            @include inset-auto;
+        }
+        #{config-flags.$parent-selector} .inset-x-auto {
+            @include inset-x-auto;
+        }
+        #{config-flags.$parent-selector} .inset-y-auto {
+            @include inset-y-auto;
+        }
 
-                #{config-flags.$parent-selector} .inset-#{$k}\@#{$breakpoint} {
-                    @include inset($key);
+        @each $key, $value in config-spacing.$spacings {
+            $k: fn-css-vars.class-key($key);
+
+            #{config-flags.$parent-selector} .inset-#{$k} {
+                @include inset($key);
+            }
+            #{config-flags.$parent-selector} .inset-x-#{$k} {
+                @include inset-x($key);
+            }
+            #{config-flags.$parent-selector} .inset-y-#{$k} {
+                @include inset-y($key);
+            }
+        }
+
+        @each $key, $value in $position-fractions {
+            #{config-flags.$parent-selector} .top-#{$key} {
+                @include top($value);
+            }
+            #{config-flags.$parent-selector} .right-#{$key} {
+                @include right($value);
+            }
+            #{config-flags.$parent-selector} .bottom-#{$key} {
+                @include bottom($value);
+            }
+            #{config-flags.$parent-selector} .left-#{$key} {
+                @include left($value);
+            }
+            #{config-flags.$parent-selector} .start-#{$key} {
+                @include inset-start($value);
+            }
+            #{config-flags.$parent-selector} .end-#{$key} {
+                @include inset-end($value);
+            }
+        }
+
+        // Placement Classes
+        @each $key, $value in config-spacing.$spacings {
+            $k: fn-css-vars.class-key($key);
+
+            #{config-flags.$parent-selector} .top-#{$k} {
+                @include top($key);
+            }
+            #{config-flags.$parent-selector} .right-#{$k} {
+                @include right($key);
+            }
+            #{config-flags.$parent-selector} .bottom-#{$k} {
+                @include bottom($key);
+            }
+            #{config-flags.$parent-selector} .left-#{$k} {
+                @include left($key);
+            }
+            #{config-flags.$parent-selector} .start-#{$k} {
+                @include inset-start($key);
+            }
+            #{config-flags.$parent-selector} .end-#{$k} {
+                @include inset-end($key);
+            }
+        }
+
+        // -----------------------------------------------
+        // RESPONSIVE CLASSES
+        // -----------------------------------------------
+
+        // Responsive Position Classes
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                #{config-flags.$parent-selector} .static\@#{$breakpoint} {
+                    @include static;
                 }
-                #{config-flags.$parent-selector} .inset-x-#{$k}\@#{$breakpoint} {
-                    @include inset-x($key);
+                #{config-flags.$parent-selector} .relative\@#{$breakpoint} {
+                    @include relative;
                 }
-                #{config-flags.$parent-selector} .inset-y-#{$k}\@#{$breakpoint} {
-                    @include inset-y($key);
+                #{config-flags.$parent-selector} .absolute\@#{$breakpoint} {
+                    @include absolute;
+                }
+                #{config-flags.$parent-selector} .fixed\@#{$breakpoint} {
+                    @include fixed;
+                }
+                #{config-flags.$parent-selector} .sticky\@#{$breakpoint} {
+                    position: sticky;
+                }
+                #{config-flags.$parent-selector} :where(.sticky\@#{$breakpoint}) {
+                    top: 0;
+                    z-index: 999;
+                }
+                #{config-flags.$parent-selector} .absolute-center\@#{$breakpoint} {
+                    @include -center-box;
+                }
+                #{config-flags.$parent-selector} :where(.absolute-center\@#{$breakpoint}) {
+                    @include -center-translate;
+                }
+
+                // Fractional responsive placements
+                @each $key, $value in $position-fractions {
+                    #{config-flags.$parent-selector} .top-#{$key}\@#{$breakpoint} {
+                        @include top($value);
+                    }
+                    #{config-flags.$parent-selector} .right-#{$key}\@#{$breakpoint} {
+                        @include right($value);
+                    }
+                    #{config-flags.$parent-selector} .bottom-#{$key}\@#{$breakpoint} {
+                        @include bottom($value);
+                    }
+                    #{config-flags.$parent-selector} .left-#{$key}\@#{$breakpoint} {
+                        @include left($value);
+                    }
+                    #{config-flags.$parent-selector} .start-#{$key}\@#{$breakpoint} {
+                        @include inset-start($value);
+                    }
+                    #{config-flags.$parent-selector} .end-#{$key}\@#{$breakpoint} {
+                        @include inset-end($value);
+                    }
+                }
+
+                @each $key, $value in config-spacing.$spacings {
+                    $k: fn-css-vars.class-key($key);
+
+                    #{config-flags.$parent-selector} .top-#{$k}\@#{$breakpoint} {
+                        @include top($key);
+                    }
+                    #{config-flags.$parent-selector} .right-#{$k}\@#{$breakpoint} {
+                        @include right($key);
+                    }
+                    #{config-flags.$parent-selector} .bottom-#{$k}\@#{$breakpoint} {
+                        @include bottom($key);
+                    }
+                    #{config-flags.$parent-selector} .left-#{$k}\@#{$breakpoint} {
+                        @include left($key);
+                    }
+                    #{config-flags.$parent-selector} .start-#{$k}\@#{$breakpoint} {
+                        @include inset-start($key);
+                    }
+                    #{config-flags.$parent-selector} .end-#{$k}\@#{$breakpoint} {
+                        @include inset-end($key);
+                    }
+                }
+
+                #{config-flags.$parent-selector} .inset-auto\@#{$breakpoint} {
+                    @include inset-auto;
+                }
+                #{config-flags.$parent-selector} .inset-x-auto\@#{$breakpoint} {
+                    @include inset-x-auto;
+                }
+                #{config-flags.$parent-selector} .inset-y-auto\@#{$breakpoint} {
+                    @include inset-y-auto;
+                }
+
+                @each $key, $value in config-spacing.$spacings {
+                    $k: fn-css-vars.class-key($key);
+
+                    #{config-flags.$parent-selector} .inset-#{$k}\@#{$breakpoint} {
+                        @include inset($key);
+                    }
+                    #{config-flags.$parent-selector} .inset-x-#{$k}\@#{$breakpoint} {
+                        @include inset-x($key);
+                    }
+                    #{config-flags.$parent-selector} .inset-y-#{$k}\@#{$breakpoint} {
+                        @include inset-y($key);
+                    }
                 }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

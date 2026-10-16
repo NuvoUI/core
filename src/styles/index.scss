@@ -1,61 +1,9 @@
-@forward "config/borders";
-@forward "config/breakpoints";
-@forward "config/colors";
-@forward "config/constants";
-@forward "config/container-queries";
-@forward "config/feature-flags";
-@forward "config/layouts";
-@forward "config/opacity";
-@forward "config/shadows";
-@forward "config/spacing";
-@forward "config/transitions";
-@forward "config/typography";
-@forward "config/z-index";
-@forward "config/theme-validation" show $light-theme, $dark-theme, $high-contrast-light, $high-contrast-dark;
+// @nuvoui/core: the public API (see mixins/index.scss) and its CSS output, in module load order
+@forward "mixins";
 
-@forward "functions/breakpoints" hide breakpoint-max;
-@forward "functions/colors" hide is-valid-shade, $color-cache;
-@forward "functions/css-vars" hide css-var-key, class-key, is-bounded-value, is-css-function, is-length-unit, key-token, key-tokens, scale-key, scale-var, scale-value, unknown-key-message, value-key, $length-units, $length-unit-set, $length-percent-unit-set;
-@forward "functions/feature-flags" hide feature-flag-on;
-@forward "functions/math" hide css-arg, to-css-number, $digit-map, $unit-values;
-@forward "functions/strings";
-@forward "functions/tokens" show token;
-@forward "functions/types";
-@forward "functions/units";
+@use "sass:meta";
+@use "functions/feature-flags" as fn-flags;
 
-@forward "base/reset";
-@forward "base/base";
-
-@forward "layouts/container";
-@forward "layouts/flex";
-@forward "layouts/grid";
-
-@forward "tools/container-queries";
-@forward "tools/media-queries";
-@forward "tools/accessibility";
-@forward "tools/feature-support";
-@forward "tools/modern-layout";
-
-@forward "components/tooltips";
-
-@forward "utilities/opacity";
-@forward "utilities/helpers";
-@forward "utilities/alignment";
-@forward "utilities/backdrop-filters";
-@forward "utilities/borders";
-@forward "utilities/colors" hide color-value;
-@forward "utilities/cursor";
-@forward "utilities/display";
-@forward "utilities/shadows";
-@forward "utilities/sizing";
-@forward "utilities/transforms";
-@forward "utilities/transitions";
-@forward "utilities/typography";
-@forward "utilities/z-index";
-@forward "utilities/spacing" hide space-offset;
-@forward "utilities/animations";
-@forward "utilities/position";
-
-@forward "themes/theme";
-
-@forward "./mixins-map" hide pam, pai, amo, am, $ac, $as;
+@each $output in fn-flags.$output-mixins {
+    @include meta.apply($output);
+}

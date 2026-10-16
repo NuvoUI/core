@@ -1,5 +1,7 @@
 // Import variables
+@use "sass:list";
 @use "sass:map";
+@use "sass:meta";
 
 // The reset first, so its layer is declared before the base layer in every entry that loads this module
 @use "./reset";
@@ -76,234 +78,239 @@ $-invalid-border: "border-control";
     outline-offset: -token("border-focus-offset");
 }
 
-// The base feature flag controls the element styles below; they do not need $generate-utility-classes
-@if fn-flags.feature-flag-on("base") {
-    $-transition-duration: -scale-var("duration", config-transition.$durations, config-transition.$transition-default-duration);
-    $-transition-ease: -scale-var("ease", config-transition.$timing-functions, config-transition.$transition-default-ease);
-    $-space-2: -scale-var("space", config-spacing.$spacings, 2);
-    $-space-4: -scale-var("space", config-spacing.$spacings, 4);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    // The base feature flag controls the element styles below; they do not need $generate-utility-classes
+    @if fn-flags.feature-flag-on("base") {
+        $-transition-duration: -scale-var("duration", config-transition.$durations, config-transition.$transition-default-duration);
+        $-transition-ease: -scale-var("ease", config-transition.$timing-functions, config-transition.$transition-default-ease);
+        $-space-2: -scale-var("space", config-spacing.$spacings, 2);
+        $-space-4: -scale-var("space", config-spacing.$spacings, 4);
 
-    @layer base {
-        // Base typography styles
-        html {
-            font-size: config-typo.$base-size;
-        }
-
-        #{$-body} {
-            background-color: -token("bg-base");
-            font-family: $-font-family;
-            font-weight: -scale-var("font-weight", config-typo.$font-weights, "normal");
-            line-height: -scale-var("line-height", config-typo.$line-heights, "normal");
-            color: -token("text-regular");
-        }
-
-        // Headings
-        #{config-flags.$parent-selector} h1,
-        #{config-flags.$parent-selector} h2,
-        #{config-flags.$parent-selector} h3,
-        #{config-flags.$parent-selector} h4,
-        #{config-flags.$parent-selector} h5,
-        #{config-flags.$parent-selector} h6 {
-            margin-bottom: 0.5em; // em, so the gap follows each heading size; space tokens are rem
-            font-family: $-font-family;
-            font-weight: -scale-var("font-weight", config-typo.$font-weights, "bold");
-            line-height: -scale-var("line-height", config-typo.$line-heights, "tight");
-        }
-
-        #{config-flags.$parent-selector} h1 {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "4xl");
-        }
-
-        #{config-flags.$parent-selector} h2 {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "3xl");
-        }
-
-        #{config-flags.$parent-selector} h3 {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "2xl");
-        }
-
-        #{config-flags.$parent-selector} h4 {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "xl");
-        }
-
-        #{config-flags.$parent-selector} h5 {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "lg");
-        }
-
-        #{config-flags.$parent-selector} h6 {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "base");
-        }
-
-        // Paragraphs
-        #{config-flags.$parent-selector} p {
-            margin-bottom: $-space-4;
-        }
-
-        // Small text
-        #{config-flags.$parent-selector} small {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "sm");
-        }
-
-        // Buttons
-        #{config-flags.$parent-selector} button,
-        #{config-flags.$parent-selector} input[type="submit"],
-        #{config-flags.$parent-selector} input[type="button"],
-        #{config-flags.$parent-selector} input[type="reset"] {
-            min-height: -scale-var("control-height", config-spacing.$control-heights, "md");
-            padding-block: $-space-2;
-            padding-inline: -scale-var("control-padding-inline", config-spacing.$control-padding-inline, "md");
-            border: 0;
-            border-radius: -scale-var("radius", config-border.$border-radii, "xs");
-            background-color: -token("brand");
-            color: -token("text-on-brand");
-            font-family: $-font-family;
-            cursor: pointer;
-            transition:
-                background-color $-transition-duration $-transition-ease,
-                color $-transition-duration $-transition-ease;
-
-            &:hover:not(:disabled) {
-                background-color: -token("brand-hover");
+        @layer base {
+            // Base typography styles
+            html {
+                font-size: config-typo.$base-size;
             }
 
-            &:active:not(:disabled) {
-                background-color: -token("brand-active");
+            #{$-body} {
+                background-color: -token("bg-base");
+                font-family: $-font-family;
+                font-weight: -scale-var("font-weight", config-typo.$font-weights, "normal");
+                line-height: -scale-var("line-height", config-typo.$line-heights, "normal");
+                color: -token("text-regular");
             }
 
-            &:focus-visible {
-                @include -focus-ring;
+            // Headings
+            #{config-flags.$parent-selector} h1,
+            #{config-flags.$parent-selector} h2,
+            #{config-flags.$parent-selector} h3,
+            #{config-flags.$parent-selector} h4,
+            #{config-flags.$parent-selector} h5,
+            #{config-flags.$parent-selector} h6 {
+                margin-bottom: 0.5em; // em, so the gap follows each heading size; space tokens are rem
+                font-family: $-font-family;
+                font-weight: -scale-var("font-weight", config-typo.$font-weights, "bold");
+                line-height: -scale-var("line-height", config-typo.$line-heights, "tight");
             }
 
-            &:disabled {
-                opacity: $-disabled-opacity;
-                cursor: not-allowed;
-            }
-        }
-
-        // Inputs, textareas and selects
-        #{config-flags.$parent-selector} :is(#{$-text-inputs}, textarea, select) {
-            padding-block: $-space-2;
-            padding-inline: -scale-var("control-padding-inline", config-spacing.$control-padding-inline, "md");
-            border: -scale-var("border-width", $-border-width-map, 1) var(--nu-border-style) -token("border-control");
-            border-radius: -scale-var("radius", config-border.$border-radii, "xs");
-            width: 100%; // Full width
-            background-color: -token("bg-surface");
-            color: -token("text-regular");
-            font-family: $-font-family;
-            transition: border-color $-transition-duration $-transition-ease;
-
-            --nu-border-style: solid;
-
-            // :is() is forgiving, so browsers without :user-invalid keep the rule
-            &:hover:not(:disabled, [aria-invalid="true"], :is(:user-invalid)) {
-                border-color: -token("border-control-hover");
+            #{config-flags.$parent-selector} h1 {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "4xl");
             }
 
-            &:focus-visible {
-                @include -focus-ring;
+            #{config-flags.$parent-selector} h2 {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "3xl");
             }
 
-            &:is([aria-invalid="true"], :user-invalid) {
-                border-color: -token($-invalid-border);
+            #{config-flags.$parent-selector} h3 {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "2xl");
             }
 
-            &:disabled {
-                background-color: -token("bg-disabled");
-                opacity: $-disabled-opacity;
+            #{config-flags.$parent-selector} h4 {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "xl");
             }
-        }
 
-        // Single-line inputs and selects (a select with multiple or a size other than 1 is a list box and keeps its
-        // natural height); :where() keeps the specificity of the size check at zero
-        #{config-flags.$parent-selector} :is(#{$-text-inputs}, select:not([multiple], :where([size]:not([size="1"])))) {
-            height: -scale-var("control-height", config-spacing.$control-heights, "md");
-        }
+            #{config-flags.$parent-selector} h5 {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "lg");
+            }
 
-        #{config-flags.$parent-selector} :is(#{$-text-inputs}, textarea)::placeholder {
-            color: -token("text-subtle");
-        }
+            #{config-flags.$parent-selector} h6 {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "base");
+            }
 
-        // Checkboxes and Radio Buttons
-        #{config-flags.$parent-selector} input[type="checkbox"],
-        #{config-flags.$parent-selector} input[type="radio"] {
-            margin-inline-end: $-space-2; // Space between input and label
-        }
+            // Paragraphs
+            #{config-flags.$parent-selector} p {
+                margin-bottom: $-space-4;
+            }
 
-        // Blockquotes
-        #{config-flags.$parent-selector} blockquote {
-            margin: $-space-4 0;
-            padding: $-space-2 $-space-4;
-            border-inline-start: -scale-var("border-width", $-border-width-map, 4) var(--nu-border-style) -token("border-regular");
-            font-style: italic;
+            // Small text
+            #{config-flags.$parent-selector} small {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "sm");
+            }
 
-            --nu-border-style: solid;
-        }
+            // Buttons
+            #{config-flags.$parent-selector} button,
+            #{config-flags.$parent-selector} input[type="submit"],
+            #{config-flags.$parent-selector} input[type="button"],
+            #{config-flags.$parent-selector} input[type="reset"] {
+                min-height: -scale-var("control-height", config-spacing.$control-heights, "md");
+                padding-block: $-space-2;
+                padding-inline: -scale-var("control-padding-inline", config-spacing.$control-padding-inline, "md");
+                border: 0;
+                border-radius: -scale-var("radius", config-border.$border-radii, "xs");
+                background-color: -token("brand");
+                color: -token("text-on-brand");
+                font-family: $-font-family;
+                cursor: pointer;
+                transition:
+                    background-color $-transition-duration $-transition-ease,
+                    color $-transition-duration $-transition-ease;
 
-        // Horizontal Rule
-        #{config-flags.$parent-selector} hr {
-            border: none;
-            border-top: -scale-var("border-width", $-border-width-map, 1) var(--nu-border-style) -token("border-regular");
-            margin: $-space-4 0;
+                &:hover:not(:disabled) {
+                    background-color: -token("brand-hover");
+                }
 
-            --nu-border-style: solid;
-        }
+                &:active:not(:disabled) {
+                    background-color: -token("brand-active");
+                }
 
-        // Images
-        #{config-flags.$parent-selector} img {
-            max-width: 100%; // Responsive images
-            height: auto;
-        }
+                &:focus-visible {
+                    @include -focus-ring;
+                }
 
-        // Figures and Captions
-        #{config-flags.$parent-selector} figure {
-            margin: $-space-4 0;
-        }
-
-        #{config-flags.$parent-selector} figcaption {
-            font-size: -scale-var("font-size", config-typo.$font-sizes, "sm");
-            color: -token("text-muted");
-        }
-
-        // Links
-        #{config-flags.$parent-selector} a {
-            &:not([class]) {
-                color: -token("text-link");
-
-                &:hover {
-                    color: -token("text-link-hover");
+                &:disabled {
+                    opacity: $-disabled-opacity;
+                    cursor: not-allowed;
                 }
             }
-        }
 
-        // Labels
-        #{config-flags.$parent-selector} label[for] {
-            cursor: pointer;
-        }
+            // Inputs, textareas and selects
+            #{config-flags.$parent-selector} :is(#{$-text-inputs}, textarea, select) {
+                padding-block: $-space-2;
+                padding-inline: -scale-var("control-padding-inline", config-spacing.$control-padding-inline, "md");
+                border: -scale-var("border-width", $-border-width-map, 1) var(--nu-border-style) -token("border-control");
+                border-radius: -scale-var("radius", config-border.$border-radii, "xs");
+                width: 100%; // Full width
+                background-color: -token("bg-surface");
+                color: -token("text-regular");
+                font-family: $-font-family;
+                transition: border-color $-transition-duration $-transition-ease;
 
-        // Visually hidden, still read by screen readers
-        #{config-flags.$parent-selector} .sr-only {
-            position: absolute !important;
-            width: 1px !important;
-            height: 1px !important;
-            padding: 0 !important;
-            margin: -1px !important;
-            overflow: hidden !important;
-            clip-path: inset(50%) !important;
-            white-space: nowrap !important;
-            border: 0 !important;
-        }
+                --nu-border-style: solid;
 
-        #{config-flags.$parent-selector} code {
-            font-family: "Courier New", Courier, monospace;
-            background-color: -token("bg-alternate");
-            color: -token("text-regular");
-            padding: 0 -scale-var("space", config-spacing.$spacings, 1);
-            border-radius: -scale-var("radius", config-border.$border-radii, "xs");
-        }
+                // :is() is forgiving, so browsers without :user-invalid keep the rule
+                &:hover:not(:disabled, [aria-invalid="true"], :is(:user-invalid)) {
+                    border-color: -token("border-control-hover");
+                }
 
-        // Inline code stays on one line; code inside pre keeps the block's line breaks
-        #{config-flags.$parent-selector} :not(pre) > code {
-            white-space: nowrap;
-        }
-    } // end @layer base
+                &:focus-visible {
+                    @include -focus-ring;
+                }
+
+                &:is([aria-invalid="true"], :user-invalid) {
+                    border-color: -token($-invalid-border);
+                }
+
+                &:disabled {
+                    background-color: -token("bg-disabled");
+                    opacity: $-disabled-opacity;
+                }
+            }
+
+            // Single-line inputs and selects (a select with multiple or a size other than 1 is a list box and keeps its
+            // natural height); :where() keeps the specificity of the size check at zero
+            #{config-flags.$parent-selector} :is(#{$-text-inputs}, select:not([multiple], :where([size]:not([size="1"])))) {
+                height: -scale-var("control-height", config-spacing.$control-heights, "md");
+            }
+
+            #{config-flags.$parent-selector} :is(#{$-text-inputs}, textarea)::placeholder {
+                color: -token("text-subtle");
+            }
+
+            // Checkboxes and Radio Buttons
+            #{config-flags.$parent-selector} input[type="checkbox"],
+            #{config-flags.$parent-selector} input[type="radio"] {
+                margin-inline-end: $-space-2; // Space between input and label
+            }
+
+            // Blockquotes
+            #{config-flags.$parent-selector} blockquote {
+                margin: $-space-4 0;
+                padding: $-space-2 $-space-4;
+                border-inline-start: -scale-var("border-width", $-border-width-map, 4) var(--nu-border-style) -token("border-regular");
+                font-style: italic;
+
+                --nu-border-style: solid;
+            }
+
+            // Horizontal Rule
+            #{config-flags.$parent-selector} hr {
+                border: none;
+                border-top: -scale-var("border-width", $-border-width-map, 1) var(--nu-border-style) -token("border-regular");
+                margin: $-space-4 0;
+
+                --nu-border-style: solid;
+            }
+
+            // Images
+            #{config-flags.$parent-selector} img {
+                max-width: 100%; // Responsive images
+                height: auto;
+            }
+
+            // Figures and Captions
+            #{config-flags.$parent-selector} figure {
+                margin: $-space-4 0;
+            }
+
+            #{config-flags.$parent-selector} figcaption {
+                font-size: -scale-var("font-size", config-typo.$font-sizes, "sm");
+                color: -token("text-muted");
+            }
+
+            // Links
+            #{config-flags.$parent-selector} a {
+                &:not([class]) {
+                    color: -token("text-link");
+
+                    &:hover {
+                        color: -token("text-link-hover");
+                    }
+                }
+            }
+
+            // Labels
+            #{config-flags.$parent-selector} label[for] {
+                cursor: pointer;
+            }
+
+            // Visually hidden, still read by screen readers
+            #{config-flags.$parent-selector} .sr-only {
+                position: absolute !important;
+                width: 1px !important;
+                height: 1px !important;
+                padding: 0 !important;
+                margin: -1px !important;
+                overflow: hidden !important;
+                clip-path: inset(50%) !important;
+                white-space: nowrap !important;
+                border: 0 !important;
+            }
+
+            #{config-flags.$parent-selector} code {
+                font-family: "Courier New", Courier, monospace;
+                background-color: -token("bg-alternate");
+                color: -token("text-regular");
+                padding: 0 -scale-var("space", config-spacing.$spacings, 1);
+                border-radius: -scale-var("radius", config-border.$border-radii, "xs");
+            }
+
+            // Inline code stays on one line; code inside pre keeps the block's line breaks
+            #{config-flags.$parent-selector} :not(pre) > code {
+                white-space: nowrap;
+            }
+        } // end @layer base
+    }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

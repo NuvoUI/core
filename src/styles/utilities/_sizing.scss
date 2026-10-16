@@ -395,226 +395,231 @@ $-size-cache: ();
     height: 100dvh;
 }
 
-@if fn-flags.feature-enabled("sizing") {
-    #{config-flags.$parent-selector} .w-screen {
-        @include w-screen;
-    }
-
-    #{config-flags.$parent-selector} .h-screen {
-        @include h-screen;
-    }
-
-    #{config-flags.$parent-selector} .w-auto {
-        @include w-auto;
-    }
-
-    #{config-flags.$parent-selector} .w-full {
-        @include w-full;
-    }
-
-    #{config-flags.$parent-selector} .h-auto {
-        @include h-auto;
-    }
-
-    #{config-flags.$parent-selector} .h-full {
-        @include h-full;
-    }
-
-    #{config-flags.$parent-selector} .w-max {
-        @include w-max;
-    }
-
-    #{config-flags.$parent-selector} .h-max {
-        @include h-max;
-    }
-
-    #{config-flags.$parent-selector} .w-min {
-        @include w-min;
-    }
-
-    #{config-flags.$parent-selector} .h-min {
-        @include h-min;
-    }
-
-    #{config-flags.$parent-selector} .w-fit {
-        @include w-fit;
-    }
-
-    #{config-flags.$parent-selector} .h-fit {
-        @include h-fit;
-    }
-
-    #{config-flags.$parent-selector} .min-w-full {
-        @include min-w-full;
-    }
-
-    #{config-flags.$parent-selector} .max-w-full {
-        @include max-w-full;
-    }
-
-    #{config-flags.$parent-selector} .min-h-full {
-        @include min-h-full;
-    }
-
-    #{config-flags.$parent-selector} .max-h-full {
-        @include max-h-full;
-    }
-
-    // Percentage widths
-    @each $i in config-spacing.$percentages {
-        #{config-flags.$parent-selector} .w-#{fn-css-vars.class-key($i)}p,
-        #{config-flags.$parent-selector} .hover\:w-#{fn-css-vars.class-key($i)}p:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{fn-css-vars.class-key($i)}p {
-            @include width-percent($i);
-        }
-        #{config-flags.$parent-selector} .h-#{fn-css-vars.class-key($i)}p,
-        #{config-flags.$parent-selector} .hover\:h-#{fn-css-vars.class-key($i)}p:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{fn-css-vars.class-key($i)}p {
-            @include height-percent($i);
-        }
-        #{config-flags.$parent-selector} .min-w-#{fn-css-vars.class-key($i)}p {
-            @include min-width-percent($i);
-        }
-        #{config-flags.$parent-selector} .min-h-#{fn-css-vars.class-key($i)}p {
-            @include min-height-percent($i);
-        }
-        #{config-flags.$parent-selector} .max-w-#{fn-css-vars.class-key($i)}p {
-            @include max-width-percent($i);
-        }
-        #{config-flags.$parent-selector} .max-h-#{fn-css-vars.class-key($i)}p {
-            @include max-height-percent($i);
-        }
-    }
-
-    // Generate utilities from spacing map
-    @each $key, $value in config-spacing.$spacings {
-        $k: fn-css-vars.class-key($key);
-
-        #{config-flags.$parent-selector} .w-#{$k},
-        #{config-flags.$parent-selector} .hover\:w-#{$k}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$k} {
-            @include width($key);
-        }
-        #{config-flags.$parent-selector} .h-#{$k},
-        #{config-flags.$parent-selector} .hover\:h-#{$k}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$k} {
-            @include height($key);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("sizing") {
+        #{config-flags.$parent-selector} .w-screen {
+            @include w-screen;
         }
 
-        #{config-flags.$parent-selector} .min-w-#{$k} {
-            @include min-width($key);
+        #{config-flags.$parent-selector} .h-screen {
+            @include h-screen;
         }
-        #{config-flags.$parent-selector} .min-h-#{$k} {
-            @include min-height($key);
-        }
-        #{config-flags.$parent-selector} .max-w-#{$k} {
-            @include max-width($key);
-        }
-        #{config-flags.$parent-selector} .max-h-#{$k} {
-            @include max-height($key);
-        }
-    }
 
-    // Fixed widths from the breakpoint values; all non-responsive classes come before the media blocks
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        #{config-flags.$parent-selector} .w-#{$breakpoint} {
-            @include width($width);
+        #{config-flags.$parent-selector} .w-auto {
+            @include w-auto;
         }
-        #{config-flags.$parent-selector} .min-w-#{$breakpoint} {
-            @include min-width($width);
-        }
-        #{config-flags.$parent-selector} .max-w-#{$breakpoint} {
-            @include max-width($width);
-        }
-    }
 
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @include MQ.media-up($breakpoint) {
-            #{config-flags.$parent-selector} .w-auto\@#{$breakpoint} {
-                @include w-auto;
+        #{config-flags.$parent-selector} .w-full {
+            @include w-full;
+        }
+
+        #{config-flags.$parent-selector} .h-auto {
+            @include h-auto;
+        }
+
+        #{config-flags.$parent-selector} .h-full {
+            @include h-full;
+        }
+
+        #{config-flags.$parent-selector} .w-max {
+            @include w-max;
+        }
+
+        #{config-flags.$parent-selector} .h-max {
+            @include h-max;
+        }
+
+        #{config-flags.$parent-selector} .w-min {
+            @include w-min;
+        }
+
+        #{config-flags.$parent-selector} .h-min {
+            @include h-min;
+        }
+
+        #{config-flags.$parent-selector} .w-fit {
+            @include w-fit;
+        }
+
+        #{config-flags.$parent-selector} .h-fit {
+            @include h-fit;
+        }
+
+        #{config-flags.$parent-selector} .min-w-full {
+            @include min-w-full;
+        }
+
+        #{config-flags.$parent-selector} .max-w-full {
+            @include max-w-full;
+        }
+
+        #{config-flags.$parent-selector} .min-h-full {
+            @include min-h-full;
+        }
+
+        #{config-flags.$parent-selector} .max-h-full {
+            @include max-h-full;
+        }
+
+        // Percentage widths
+        @each $i in config-spacing.$percentages {
+            #{config-flags.$parent-selector} .w-#{fn-css-vars.class-key($i)}p,
+            #{config-flags.$parent-selector} .hover\:w-#{fn-css-vars.class-key($i)}p:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{fn-css-vars.class-key($i)}p {
+                @include width-percent($i);
             }
-            #{config-flags.$parent-selector} .w-full\@#{$breakpoint} {
-                @include w-full;
+            #{config-flags.$parent-selector} .h-#{fn-css-vars.class-key($i)}p,
+            #{config-flags.$parent-selector} .hover\:h-#{fn-css-vars.class-key($i)}p:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{fn-css-vars.class-key($i)}p {
+                @include height-percent($i);
             }
-            #{config-flags.$parent-selector} .h-auto\@#{$breakpoint} {
-                @include h-auto;
+            #{config-flags.$parent-selector} .min-w-#{fn-css-vars.class-key($i)}p {
+                @include min-width-percent($i);
             }
-            #{config-flags.$parent-selector} .h-full\@#{$breakpoint} {
-                @include h-full;
+            #{config-flags.$parent-selector} .min-h-#{fn-css-vars.class-key($i)}p {
+                @include min-height-percent($i);
             }
-            #{config-flags.$parent-selector} .w-max\@#{$breakpoint} {
-                @include w-max;
+            #{config-flags.$parent-selector} .max-w-#{fn-css-vars.class-key($i)}p {
+                @include max-width-percent($i);
             }
-            #{config-flags.$parent-selector} .h-max\@#{$breakpoint} {
-                @include h-max;
+            #{config-flags.$parent-selector} .max-h-#{fn-css-vars.class-key($i)}p {
+                @include max-height-percent($i);
             }
-            #{config-flags.$parent-selector} .w-min\@#{$breakpoint} {
-                @include w-min;
+        }
+
+        // Generate utilities from spacing map
+        @each $key, $value in config-spacing.$spacings {
+            $k: fn-css-vars.class-key($key);
+
+            #{config-flags.$parent-selector} .w-#{$k},
+            #{config-flags.$parent-selector} .hover\:w-#{$k}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$k} {
+                @include width($key);
             }
-            #{config-flags.$parent-selector} .h-min\@#{$breakpoint} {
-                @include h-min;
-            }
-            #{config-flags.$parent-selector} .w-fit\@#{$breakpoint} {
-                @include w-fit;
-            }
-            #{config-flags.$parent-selector} .h-fit\@#{$breakpoint} {
-                @include h-fit;
+            #{config-flags.$parent-selector} .h-#{$k},
+            #{config-flags.$parent-selector} .hover\:h-#{$k}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$k} {
+                @include height($key);
             }
 
-            // Generate utilities from spacing map
-            @each $i in config-spacing.$percentages {
-                #{config-flags.$parent-selector} .w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
-                    @include width-percent($i);
-                }
-                #{config-flags.$parent-selector} .h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
-                    @include height-percent($i);
-                }
-
-                #{config-flags.$parent-selector} .min-w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
-                    @include min-width-percent($i);
-                }
-                #{config-flags.$parent-selector} .min-h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
-                    @include min-height-percent($i);
-                }
-                #{config-flags.$parent-selector} .max-w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
-                    @include max-width-percent($i);
-                }
-                #{config-flags.$parent-selector} .max-h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
-                    @include max-height-percent($i);
-                }
+            #{config-flags.$parent-selector} .min-w-#{$k} {
+                @include min-width($key);
             }
+            #{config-flags.$parent-selector} .min-h-#{$k} {
+                @include min-height($key);
+            }
+            #{config-flags.$parent-selector} .max-w-#{$k} {
+                @include max-width($key);
+            }
+            #{config-flags.$parent-selector} .max-h-#{$k} {
+                @include max-height($key);
+            }
+        }
 
-            @each $key, $value in config-spacing.$spacings {
-                $k: fn-css-vars.class-key($key);
+        // Fixed widths from the breakpoint values; all non-responsive classes come before the media blocks
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            #{config-flags.$parent-selector} .w-#{$breakpoint} {
+                @include width($width);
+            }
+            #{config-flags.$parent-selector} .min-w-#{$breakpoint} {
+                @include min-width($width);
+            }
+            #{config-flags.$parent-selector} .max-w-#{$breakpoint} {
+                @include max-width($width);
+            }
+        }
 
-                #{config-flags.$parent-selector} .w-#{$k}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:w-#{$k}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$k}\@#{$breakpoint} {
-                    @include width($key);
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @include MQ.media-up($breakpoint) {
+                #{config-flags.$parent-selector} .w-auto\@#{$breakpoint} {
+                    @include w-auto;
                 }
-                #{config-flags.$parent-selector} .h-#{$k}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:h-#{$k}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$k}\@#{$breakpoint} {
-                    @include height($key);
+                #{config-flags.$parent-selector} .w-full\@#{$breakpoint} {
+                    @include w-full;
+                }
+                #{config-flags.$parent-selector} .h-auto\@#{$breakpoint} {
+                    @include h-auto;
+                }
+                #{config-flags.$parent-selector} .h-full\@#{$breakpoint} {
+                    @include h-full;
+                }
+                #{config-flags.$parent-selector} .w-max\@#{$breakpoint} {
+                    @include w-max;
+                }
+                #{config-flags.$parent-selector} .h-max\@#{$breakpoint} {
+                    @include h-max;
+                }
+                #{config-flags.$parent-selector} .w-min\@#{$breakpoint} {
+                    @include w-min;
+                }
+                #{config-flags.$parent-selector} .h-min\@#{$breakpoint} {
+                    @include h-min;
+                }
+                #{config-flags.$parent-selector} .w-fit\@#{$breakpoint} {
+                    @include w-fit;
+                }
+                #{config-flags.$parent-selector} .h-fit\@#{$breakpoint} {
+                    @include h-fit;
                 }
 
-                #{config-flags.$parent-selector} .min-w-#{$k}\@#{$breakpoint} {
-                    @include min-width($key);
+                // Generate utilities from spacing map
+                @each $i in config-spacing.$percentages {
+                    #{config-flags.$parent-selector} .w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
+                        @include width-percent($i);
+                    }
+                    #{config-flags.$parent-selector} .h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
+                        @include height-percent($i);
+                    }
+
+                    #{config-flags.$parent-selector} .min-w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
+                        @include min-width-percent($i);
+                    }
+                    #{config-flags.$parent-selector} .min-h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
+                        @include min-height-percent($i);
+                    }
+                    #{config-flags.$parent-selector} .max-w-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
+                        @include max-width-percent($i);
+                    }
+                    #{config-flags.$parent-selector} .max-h-#{fn-css-vars.class-key($i)}p\@#{$breakpoint} {
+                        @include max-height-percent($i);
+                    }
                 }
-                #{config-flags.$parent-selector} .min-h-#{$k}\@#{$breakpoint} {
-                    @include min-height($key);
-                }
-                #{config-flags.$parent-selector} .max-w-#{$k}\@#{$breakpoint} {
-                    @include max-width($key);
-                }
-                #{config-flags.$parent-selector} .max-h-#{$k}\@#{$breakpoint} {
-                    @include max-height($key);
+
+                @each $key, $value in config-spacing.$spacings {
+                    $k: fn-css-vars.class-key($key);
+
+                    #{config-flags.$parent-selector} .w-#{$k}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:w-#{$k}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:w-#{$k}\@#{$breakpoint} {
+                        @include width($key);
+                    }
+                    #{config-flags.$parent-selector} .h-#{$k}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:h-#{$k}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:h-#{$k}\@#{$breakpoint} {
+                        @include height($key);
+                    }
+
+                    #{config-flags.$parent-selector} .min-w-#{$k}\@#{$breakpoint} {
+                        @include min-width($key);
+                    }
+                    #{config-flags.$parent-selector} .min-h-#{$k}\@#{$breakpoint} {
+                        @include min-height($key);
+                    }
+                    #{config-flags.$parent-selector} .max-w-#{$k}\@#{$breakpoint} {
+                        @include max-width($key);
+                    }
+                    #{config-flags.$parent-selector} .max-h-#{$k}\@#{$breakpoint} {
+                        @include max-height($key);
+                    }
                 }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

@@ -395,116 +395,121 @@ $generated-keyframes: ();
     }
 }
 
-@if fn-flags.feature-enabled("animations") {
-    // Add to your existing animation utilities
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("animations") {
+        // Add to your existing animation utilities
 
-    #{config-flags.$parent-selector} .animate-pulse {
-        @include animate-pulse;
-    }
+        #{config-flags.$parent-selector} .animate-pulse {
+            @include animate-pulse;
+        }
 
-    #{config-flags.$parent-selector} .animate-spin {
-        @include animate-spin;
-    }
+        #{config-flags.$parent-selector} .animate-spin {
+            @include animate-spin;
+        }
 
-    #{config-flags.$parent-selector} .animate-ping {
-        @include animate-ping;
-    }
+        #{config-flags.$parent-selector} .animate-ping {
+            @include animate-ping;
+        }
 
-    #{config-flags.$parent-selector} .animate-fade-in {
-        @include animate-fade(
-            (
-                type: in,
-            )
-        );
-    }
+        #{config-flags.$parent-selector} .animate-fade-in {
+            @include animate-fade(
+                (
+                    type: in,
+                )
+            );
+        }
 
-    #{config-flags.$parent-selector} .animate-fade-out {
-        @include animate-fade(
-            (
-                type: out,
-            )
-        );
-    }
+        #{config-flags.$parent-selector} .animate-fade-out {
+            @include animate-fade(
+                (
+                    type: out,
+                )
+            );
+        }
 
-    #{config-flags.$parent-selector} .animate-fade-in-up {
-        @include animate-fade(
-            (
-                type: in-up,
-            )
-        );
-    }
+        #{config-flags.$parent-selector} .animate-fade-in-up {
+            @include animate-fade(
+                (
+                    type: in-up,
+                )
+            );
+        }
 
-    #{config-flags.$parent-selector} .animate-fade-in-down {
-        @include animate-fade(
-            (
-                type: in-down,
-            )
-        );
-    }
+        #{config-flags.$parent-selector} .animate-fade-in-down {
+            @include animate-fade(
+                (
+                    type: in-down,
+                )
+            );
+        }
 
-    #{config-flags.$parent-selector} .animate-shake {
-        @include animate-shake;
-    }
+        #{config-flags.$parent-selector} .animate-shake {
+            @include animate-shake;
+        }
 
-    // Add responsive variants if needed
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            #{config-flags.$parent-selector} .animate-pulse\@#{$breakpoint} {
-                @include animate-pulse;
-            }
+        // Add responsive variants if needed
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                #{config-flags.$parent-selector} .animate-pulse\@#{$breakpoint} {
+                    @include animate-pulse;
+                }
 
-            #{config-flags.$parent-selector} .animate-spin\@#{$breakpoint} {
-                @include animate-spin;
-            }
+                #{config-flags.$parent-selector} .animate-spin\@#{$breakpoint} {
+                    @include animate-spin;
+                }
 
-            #{config-flags.$parent-selector} .animate-ping\@#{$breakpoint} {
-                @include animate-ping;
-            }
+                #{config-flags.$parent-selector} .animate-ping\@#{$breakpoint} {
+                    @include animate-ping;
+                }
 
-            #{config-flags.$parent-selector} .animate-fade-in\@#{$breakpoint} {
-                @include animate-fade(
-                    (
-                        type: in,
-                    )
-                );
-            }
+                #{config-flags.$parent-selector} .animate-fade-in\@#{$breakpoint} {
+                    @include animate-fade(
+                        (
+                            type: in,
+                        )
+                    );
+                }
 
-            #{config-flags.$parent-selector} .animate-fade-out\@#{$breakpoint} {
-                @include animate-fade(
-                    (
-                        type: out,
-                    )
-                );
-            }
+                #{config-flags.$parent-selector} .animate-fade-out\@#{$breakpoint} {
+                    @include animate-fade(
+                        (
+                            type: out,
+                        )
+                    );
+                }
 
-            #{config-flags.$parent-selector} .animate-fade-in-up\@#{$breakpoint} {
-                @include animate-fade(
-                    (
-                        type: in-up,
-                    )
-                );
-            }
+                #{config-flags.$parent-selector} .animate-fade-in-up\@#{$breakpoint} {
+                    @include animate-fade(
+                        (
+                            type: in-up,
+                        )
+                    );
+                }
 
-            #{config-flags.$parent-selector} .animate-fade-in-down\@#{$breakpoint} {
-                @include animate-fade(
-                    (
-                        type: in-down,
-                    )
-                );
-            }
+                #{config-flags.$parent-selector} .animate-fade-in-down\@#{$breakpoint} {
+                    @include animate-fade(
+                        (
+                            type: in-down,
+                        )
+                    );
+                }
 
-            #{config-flags.$parent-selector} .animate-shake\@#{$breakpoint} {
-                @include animate-shake;
+                #{config-flags.$parent-selector} .animate-shake\@#{$breakpoint} {
+                    @include animate-shake;
+                }
             }
         }
-    }
 
-    // Duration and easing in :where() (no specificity), as for .transition, so .duration-* and .ease-* override them
-    #{config-flags.$parent-selector} .hover-ready {
-        transition-property: all;
-    }
-    #{config-flags.$parent-selector} :where(.hover-ready) {
-        transition-duration: fn-css-vars.scale-var("duration", config-transitions.$durations, config-transitions.$transition-default-duration);
-        transition-timing-function: fn-css-vars.scale-var("ease", config-transitions.$timing-functions, config-transitions.$transition-default-ease);
+        // Duration and easing in :where() (no specificity), as for .transition, so .duration-* and .ease-* override them
+        #{config-flags.$parent-selector} .hover-ready {
+            transition-property: all;
+        }
+        #{config-flags.$parent-selector} :where(.hover-ready) {
+            transition-duration: fn-css-vars.scale-var("duration", config-transitions.$durations, config-transitions.$transition-default-duration);
+            transition-timing-function: fn-css-vars.scale-var("ease", config-transitions.$timing-functions, config-transitions.$transition-default-ease);
+        }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

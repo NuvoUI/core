@@ -60,7 +60,7 @@
 $-color-properties: color, background-color, border-color, text-decoration-color, fill, stroke;
 
 // @mixin transition-colors
-// @description Transitions colour properties (color, background-color, border-color, text-decoration-color, fill, stroke) with the default duration and easing tokens, like transition.
+// @description Transitions color properties (color, background-color, border-color, text-decoration-color, fill, stroke) with the default duration and easing tokens, like transition.
 // @output transition-property: color, background-color, ...; transition-duration: var(--nu-duration-200); transition-timing-function: var(--nu-ease-in-out)
 // @example
 // .button {
@@ -272,102 +272,107 @@ $-timing-keywords: (linear, ease, ease-in, ease-out, ease-in-out, step-start, st
     transition-delay: -time($time, config-transitions.$delays, "delay", $allow-negative: true);
 }
 
-@if fn-flags.feature-enabled("transitions") {
-    // Property-specific transitions
-    #{config-flags.$parent-selector} .transition-none {
-        @include transition-none;
-    }
-
-    // Defaults in :where() (no specificity), so .duration-* and .ease-* override them wherever they appear
-    #{config-flags.$parent-selector} .transition {
-        transition-property: all;
-    }
-    #{config-flags.$parent-selector} :where(.transition, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
-        @include -transition-defaults;
-    }
-
-    #{config-flags.$parent-selector} .transition-colors {
-        transition-property: $-color-properties;
-    }
-
-    #{config-flags.$parent-selector} .transition-opacity {
-        transition-property: opacity;
-    }
-
-    #{config-flags.$parent-selector} .transition-shadow {
-        transition-property: box-shadow;
-    }
-
-    #{config-flags.$parent-selector} .transition-transform {
-        transition-property: transform;
-    }
-
-    @each $name, $value in config-transitions.$durations {
-        #{config-flags.$parent-selector} .duration-#{fn-css-vars.class-key($name)} {
-            @include duration($name);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("transitions") {
+        // Property-specific transitions
+        #{config-flags.$parent-selector} .transition-none {
+            @include transition-none;
         }
-    }
 
-    @each $name, $value in config-transitions.$timing-functions {
-        #{config-flags.$parent-selector} .ease-#{fn-css-vars.class-key($name)} {
-            @include ease($name);
+        // Defaults in :where() (no specificity), so .duration-* and .ease-* override them wherever they appear
+        #{config-flags.$parent-selector} .transition {
+            transition-property: all;
         }
-    }
-
-    @each $name, $value in config-transitions.$delays {
-        #{config-flags.$parent-selector} .delay-#{fn-css-vars.class-key($name)} {
-            @include delay($value);
+        #{config-flags.$parent-selector} :where(.transition, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
+            @include -transition-defaults;
         }
-    }
 
-    // Responsive variants
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            // Base transition
-            #{config-flags.$parent-selector} .transition\@#{$breakpoint} {
-                transition-property: all;
-            }
-            #{config-flags.$parent-selector} :where(.transition\@#{$breakpoint}, .transition-colors\@#{$breakpoint}, .transition-opacity\@#{$breakpoint}, .transition-shadow\@#{$breakpoint}, .transition-transform\@#{$breakpoint}) {
-                @include -transition-defaults;
-            }
+        #{config-flags.$parent-selector} .transition-colors {
+            transition-property: $-color-properties;
+        }
 
-            // Property-specific transitions
-            #{config-flags.$parent-selector} .transition-none\@#{$breakpoint} {
-                @include transition-none;
-            }
-            #{config-flags.$parent-selector} .transition-colors\@#{$breakpoint} {
-                transition-property: $-color-properties;
-            }
-            #{config-flags.$parent-selector} .transition-opacity\@#{$breakpoint} {
-                transition-property: opacity;
-            }
-            #{config-flags.$parent-selector} .transition-shadow\@#{$breakpoint} {
-                transition-property: box-shadow;
-            }
-            #{config-flags.$parent-selector} .transition-transform\@#{$breakpoint} {
-                transition-property: transform;
-            }
+        #{config-flags.$parent-selector} .transition-opacity {
+            transition-property: opacity;
+        }
 
-            // Duration responsive variants
-            @each $name, $value in config-transitions.$durations {
-                #{config-flags.$parent-selector} .duration-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
-                    @include duration($name);
+        #{config-flags.$parent-selector} .transition-shadow {
+            transition-property: box-shadow;
+        }
+
+        #{config-flags.$parent-selector} .transition-transform {
+            transition-property: transform;
+        }
+
+        @each $name, $value in config-transitions.$durations {
+            #{config-flags.$parent-selector} .duration-#{fn-css-vars.class-key($name)} {
+                @include duration($name);
+            }
+        }
+
+        @each $name, $value in config-transitions.$timing-functions {
+            #{config-flags.$parent-selector} .ease-#{fn-css-vars.class-key($name)} {
+                @include ease($name);
+            }
+        }
+
+        @each $name, $value in config-transitions.$delays {
+            #{config-flags.$parent-selector} .delay-#{fn-css-vars.class-key($name)} {
+                @include delay($value);
+            }
+        }
+
+        // Responsive variants
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                // Base transition
+                #{config-flags.$parent-selector} .transition\@#{$breakpoint} {
+                    transition-property: all;
                 }
-            }
-
-            // Timing function responsive variants
-            @each $name, $value in config-transitions.$timing-functions {
-                #{config-flags.$parent-selector} .ease-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
-                    @include ease($name);
+                #{config-flags.$parent-selector} :where(.transition\@#{$breakpoint}, .transition-colors\@#{$breakpoint}, .transition-opacity\@#{$breakpoint}, .transition-shadow\@#{$breakpoint}, .transition-transform\@#{$breakpoint}) {
+                    @include -transition-defaults;
                 }
-            }
 
-            // Delay responsive variants
-            @each $name, $value in config-transitions.$delays {
-                #{config-flags.$parent-selector} .delay-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
-                    @include delay($value);
+                // Property-specific transitions
+                #{config-flags.$parent-selector} .transition-none\@#{$breakpoint} {
+                    @include transition-none;
+                }
+                #{config-flags.$parent-selector} .transition-colors\@#{$breakpoint} {
+                    transition-property: $-color-properties;
+                }
+                #{config-flags.$parent-selector} .transition-opacity\@#{$breakpoint} {
+                    transition-property: opacity;
+                }
+                #{config-flags.$parent-selector} .transition-shadow\@#{$breakpoint} {
+                    transition-property: box-shadow;
+                }
+                #{config-flags.$parent-selector} .transition-transform\@#{$breakpoint} {
+                    transition-property: transform;
+                }
+
+                // Duration responsive variants
+                @each $name, $value in config-transitions.$durations {
+                    #{config-flags.$parent-selector} .duration-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                        @include duration($name);
+                    }
+                }
+
+                // Timing function responsive variants
+                @each $name, $value in config-transitions.$timing-functions {
+                    #{config-flags.$parent-selector} .ease-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                        @include ease($name);
+                    }
+                }
+
+                // Delay responsive variants
+                @each $name, $value in config-transitions.$delays {
+                    #{config-flags.$parent-selector} .delay-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                        @include delay($value);
+                    }
                 }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

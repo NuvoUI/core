@@ -8,7 +8,7 @@
 @use "../functions/feature-flags" as fn-flags;
 
 // @mixin container-base
-// @description Makes an element full width and centres it on the inline axis (margin-inline: auto).
+// @description Makes an element full width and centers it on the inline axis (margin-inline: auto).
 // @example
 // .page {
 //   @include container-base;
@@ -40,7 +40,7 @@
 $-container-displays: (block, flex, grid, inline-block, inline-flex, inline-grid, flow-root, inherit, initial, unset, revert, revert-layer);
 
 // @mixin container
-// @description Builds a centred, full-width container whose max-width steps up at each breakpoint (breakpoint width minus 100px), with block padding of spacing key 4 (top and bottom only, as in v1).
+// @description Builds a centered, full-width container whose max-width steps up at each breakpoint (breakpoint width minus 100px), with block padding of spacing key 4 (top and bottom only, as in v1).
 // @param {String} $display [block] - Display value: block, flex, grid, inline-block, inline-flex, inline-grid, flow-root, a CSS-wide keyword or var(); anything else raises an error
 // @example
 // .page {
@@ -71,22 +71,27 @@ $-container-displays: (block, flex, grid, inline-block, inline-flex, inline-grid
     }
 }
 
-@if fn-flags.feature-enabled("container") {
-    // Container classes
-    #{config-flags.$parent-selector} .container {
-        @include container;
-    }
-
-    // .container.flex and .container.grid also need the flex and grid flags, which own every .flex and .grid class.
-    // :where() keeps them at one class of specificity, so later utilities (.hide, .py-0, .max-w-full) still win
-    @if fn-flags.feature-flag-on("flex") {
-        #{config-flags.$parent-selector} .container:where(.flex) {
-            @include container(flex);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("container") {
+        // Container classes
+        #{config-flags.$parent-selector} .container {
+            @include container;
         }
-    }
-    @if fn-flags.feature-flag-on("grid") {
-        #{config-flags.$parent-selector} .container:where(.grid) {
-            @include container(grid);
+
+        // .container.flex and .container.grid also need the flex and grid flags, which own every .flex and .grid class.
+        // :where() keeps them at one class of specificity, so later utilities (.hide, .py-0, .max-w-full) still win
+        @if fn-flags.feature-flag-on("flex") {
+            #{config-flags.$parent-selector} .container:where(.flex) {
+                @include container(flex);
+            }
+        }
+        @if fn-flags.feature-flag-on("grid") {
+            #{config-flags.$parent-selector} .container:where(.grid) {
+                @include container(grid);
+            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

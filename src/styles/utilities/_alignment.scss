@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:meta";
 @use "../config/feature-flags" as config-flags;
 @use "../config/breakpoints" as config-breakpoint;
 @use "../functions/feature-flags" as fn-flags;
@@ -46,37 +48,42 @@
     vertical-align: bottom;
 }
 
-@if fn-flags.feature-enabled("alignments") {
-    #{config-flags.$parent-selector} .align-baseline {
-        @include align-baseline;
-    }
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("alignments") {
+        #{config-flags.$parent-selector} .align-baseline {
+            @include align-baseline;
+        }
 
-    #{config-flags.$parent-selector} .align-top {
-        @include align-top;
-    }
+        #{config-flags.$parent-selector} .align-top {
+            @include align-top;
+        }
 
-    #{config-flags.$parent-selector} .align-middle {
-        @include align-middle;
-    }
+        #{config-flags.$parent-selector} .align-middle {
+            @include align-middle;
+        }
 
-    #{config-flags.$parent-selector} .align-bottom {
-        @include align-bottom;
-    }
+        #{config-flags.$parent-selector} .align-bottom {
+            @include align-bottom;
+        }
 
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            #{config-flags.$parent-selector} .align-baseline\@#{$breakpoint} {
-                @include align-baseline;
-            }
-            #{config-flags.$parent-selector} .align-top\@#{$breakpoint} {
-                @include align-top;
-            }
-            #{config-flags.$parent-selector} .align-middle\@#{$breakpoint} {
-                @include align-middle;
-            }
-            #{config-flags.$parent-selector} .align-bottom\@#{$breakpoint} {
-                @include align-bottom;
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                #{config-flags.$parent-selector} .align-baseline\@#{$breakpoint} {
+                    @include align-baseline;
+                }
+                #{config-flags.$parent-selector} .align-top\@#{$breakpoint} {
+                    @include align-top;
+                }
+                #{config-flags.$parent-selector} .align-middle\@#{$breakpoint} {
+                    @include align-middle;
+                }
+                #{config-flags.$parent-selector} .align-bottom\@#{$breakpoint} {
+                    @include align-bottom;
+                }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

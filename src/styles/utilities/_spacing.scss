@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:map";
 @use "sass:math";
 @use "sass:meta";
@@ -495,16 +496,6 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
 // GAP MIXINS
 // -----------------------------------------------
 
-// --nu-flex-gap is set on the children of a gap container and feeds their fill() width maths, so it must be a length:
-// normal (no gap in flex layout) gives 0px. Registered so it does not inherit (a nested flex reads only its own gap)
-// and so fill() outside a gap container reads 0px, since fill() has no fallback. Registered whenever the module loads,
-// independent of feature flags, because the gap and fill() mixins need it too
-@property --nu-flex-gap {
-    syntax: "<length-percentage>";
-    inherits: false;
-    initial-value: 0px; // stylelint-disable-line length-zero-no-unit -- a length, as fill() uses it in calc()
-}
-
 // normal becomes 0px so --nu-flex-gap stays a length; any other value passes through
 @function -flex-gap($val) {
     @if $val == "normal" {
@@ -565,218 +556,233 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
     row-gap: -space($val, (normal), "gap-y");
 }
 
-@if fn-flags.feature-enabled("spacing") {
-    // -----------------------------------------------
-    // SPACING CLASSES
-    // -----------------------------------------------
-
-    @each $key, $value in config-spacing.$spacings {
-        $k: fn-css-vars.class-key($key);
-
-        // Padding classes
-        #{config-flags.$parent-selector} .p-#{$k} {
-            @include p($key);
-        }
-        #{config-flags.$parent-selector} .px-#{$k} {
-            @include px($key);
-        }
-        #{config-flags.$parent-selector} .py-#{$k} {
-            @include py($key);
-        }
-        #{config-flags.$parent-selector} .pt-#{$k} {
-            @include pt($key);
-        }
-        #{config-flags.$parent-selector} .pr-#{$k} {
-            @include pr($key);
-        }
-        #{config-flags.$parent-selector} .pb-#{$k} {
-            @include pb($key);
-        }
-        #{config-flags.$parent-selector} .pl-#{$k} {
-            @include pl($key);
-        }
-        #{config-flags.$parent-selector} .ps-#{$k} {
-            @include ps($key);
-        }
-        #{config-flags.$parent-selector} .pe-#{$k} {
-            @include pe($key);
-        }
-
-        // Margin classes
-        #{config-flags.$parent-selector} .m-#{$k} {
-            @include m($key);
-        }
-        #{config-flags.$parent-selector} .mx-#{$k} {
-            @include mx($key);
-        }
-        #{config-flags.$parent-selector} .my-#{$k} {
-            @include my($key);
-        }
-        #{config-flags.$parent-selector} .mt-#{$k} {
-            @include mt($key);
-        }
-        #{config-flags.$parent-selector} .mr-#{$k} {
-            @include mr($key);
-        }
-        #{config-flags.$parent-selector} .mb-#{$k} {
-            @include mb($key);
-        }
-        #{config-flags.$parent-selector} .ml-#{$k} {
-            @include ml($key);
-        }
-        #{config-flags.$parent-selector} .ms-#{$k} {
-            @include ms($key);
-        }
-        #{config-flags.$parent-selector} .me-#{$k} {
-            @include me($key);
-        }
-
-        // Gap classes
-        #{config-flags.$parent-selector} .gap-#{$k} {
-            @include gap($key);
-        }
-        #{config-flags.$parent-selector} .gap-x-#{$k} {
-            @include gap-x($key);
-        }
-        #{config-flags.$parent-selector} .gap-y-#{$k} {
-            @include gap-y($key);
-        }
-
-        // Space classes
-        #{config-flags.$parent-selector} .space-x-#{$k} {
-            @include space-x($key);
-        }
-        #{config-flags.$parent-selector} .space-y-#{$k} {
-            @include space-y($key);
-        }
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    // --nu-flex-gap is set on the children of a gap container and feeds their fill() width math, so it must be a length:
+    // normal (no gap in flex layout) gives 0px. Registered so it does not inherit (a nested flex reads only its own gap)
+    // and so fill() outside a gap container reads 0px, since fill() has no fallback. Registered by every
+    // index.scss compile, independent of feature flags, because the gap and fill() mixins need it too
+    @property --nu-flex-gap {
+        syntax: "<length-percentage>";
+        inherits: false;
+        initial-value: 0px; // stylelint-disable-line length-zero-no-unit -- a length, as fill() uses it in calc()
     }
 
-    // -----------------------------------------------
-    // AUTO MARGIN UTILITY CLASSES (after .m-*, so .mx-auto wins over .m-4 on the same element)
-    // -----------------------------------------------
+    @if fn-flags.feature-enabled("spacing") {
+        // -----------------------------------------------
+        // SPACING CLASSES
+        // -----------------------------------------------
 
-    #{config-flags.$parent-selector} .mx-auto {
-        @include mx-auto;
-    }
+        @each $key, $value in config-spacing.$spacings {
+            $k: fn-css-vars.class-key($key);
 
-    #{config-flags.$parent-selector} .ml-auto {
-        @include ml-auto;
-    }
-
-    #{config-flags.$parent-selector} .mr-auto {
-        @include mr-auto;
-    }
-
-    #{config-flags.$parent-selector} .ms-auto {
-        @include ms-auto;
-    }
-
-    #{config-flags.$parent-selector} .me-auto {
-        @include me-auto;
-    }
-
-    // -----------------------------------------------
-    // RESPONSIVE SPACING CLASSES
-    // -----------------------------------------------
-
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            // Generate utilities from spacing map
-            @each $key, $value in config-spacing.$spacings {
-                $k: fn-css-vars.class-key($key);
-
-                // Padding classes
-                #{config-flags.$parent-selector} .p-#{$k}\@#{$breakpoint} {
-                    @include p($key);
-                }
-                #{config-flags.$parent-selector} .px-#{$k}\@#{$breakpoint} {
-                    @include px($key);
-                }
-                #{config-flags.$parent-selector} .py-#{$k}\@#{$breakpoint} {
-                    @include py($key);
-                }
-                #{config-flags.$parent-selector} .pt-#{$k}\@#{$breakpoint} {
-                    @include pt($key);
-                }
-                #{config-flags.$parent-selector} .pr-#{$k}\@#{$breakpoint} {
-                    @include pr($key);
-                }
-                #{config-flags.$parent-selector} .pb-#{$k}\@#{$breakpoint} {
-                    @include pb($key);
-                }
-                #{config-flags.$parent-selector} .pl-#{$k}\@#{$breakpoint} {
-                    @include pl($key);
-                }
-                #{config-flags.$parent-selector} .ps-#{$k}\@#{$breakpoint} {
-                    @include ps($key);
-                }
-                #{config-flags.$parent-selector} .pe-#{$k}\@#{$breakpoint} {
-                    @include pe($key);
-                }
-
-                // Margin classes
-                #{config-flags.$parent-selector} .m-#{$k}\@#{$breakpoint} {
-                    @include m($key);
-                }
-                #{config-flags.$parent-selector} .mx-#{$k}\@#{$breakpoint} {
-                    @include mx($key);
-                }
-                #{config-flags.$parent-selector} .my-#{$k}\@#{$breakpoint} {
-                    @include my($key);
-                }
-                #{config-flags.$parent-selector} .mt-#{$k}\@#{$breakpoint} {
-                    @include mt($key);
-                }
-                #{config-flags.$parent-selector} .mr-#{$k}\@#{$breakpoint} {
-                    @include mr($key);
-                }
-                #{config-flags.$parent-selector} .mb-#{$k}\@#{$breakpoint} {
-                    @include mb($key);
-                }
-                #{config-flags.$parent-selector} .ml-#{$k}\@#{$breakpoint} {
-                    @include ml($key);
-                }
-                #{config-flags.$parent-selector} .ms-#{$k}\@#{$breakpoint} {
-                    @include ms($key);
-                }
-                #{config-flags.$parent-selector} .me-#{$k}\@#{$breakpoint} {
-                    @include me($key);
-                }
-
-                #{config-flags.$parent-selector} .gap-#{$k}\@#{$breakpoint} {
-                    @include gap($key);
-                }
-                #{config-flags.$parent-selector} .gap-x-#{$k}\@#{$breakpoint} {
-                    @include gap-x($key);
-                }
-                #{config-flags.$parent-selector} .gap-y-#{$k}\@#{$breakpoint} {
-                    @include gap-y($key);
-                }
-
-                // Space classes
-                #{config-flags.$parent-selector} .space-x-#{$k}\@#{$breakpoint} {
-                    @include space-x($key);
-                }
-                #{config-flags.$parent-selector} .space-y-#{$k}\@#{$breakpoint} {
-                    @include space-y($key);
-                }
+            // Padding classes
+            #{config-flags.$parent-selector} .p-#{$k} {
+                @include p($key);
+            }
+            #{config-flags.$parent-selector} .px-#{$k} {
+                @include px($key);
+            }
+            #{config-flags.$parent-selector} .py-#{$k} {
+                @include py($key);
+            }
+            #{config-flags.$parent-selector} .pt-#{$k} {
+                @include pt($key);
+            }
+            #{config-flags.$parent-selector} .pr-#{$k} {
+                @include pr($key);
+            }
+            #{config-flags.$parent-selector} .pb-#{$k} {
+                @include pb($key);
+            }
+            #{config-flags.$parent-selector} .pl-#{$k} {
+                @include pl($key);
+            }
+            #{config-flags.$parent-selector} .ps-#{$k} {
+                @include ps($key);
+            }
+            #{config-flags.$parent-selector} .pe-#{$k} {
+                @include pe($key);
             }
 
-            #{config-flags.$parent-selector} .mx-auto\@#{$breakpoint} {
-                @include mx-auto;
+            // Margin classes
+            #{config-flags.$parent-selector} .m-#{$k} {
+                @include m($key);
             }
-            #{config-flags.$parent-selector} .ml-auto\@#{$breakpoint} {
-                @include ml-auto;
+            #{config-flags.$parent-selector} .mx-#{$k} {
+                @include mx($key);
             }
-            #{config-flags.$parent-selector} .mr-auto\@#{$breakpoint} {
-                @include mr-auto;
+            #{config-flags.$parent-selector} .my-#{$k} {
+                @include my($key);
             }
-            #{config-flags.$parent-selector} .ms-auto\@#{$breakpoint} {
-                @include ms-auto;
+            #{config-flags.$parent-selector} .mt-#{$k} {
+                @include mt($key);
             }
-            #{config-flags.$parent-selector} .me-auto\@#{$breakpoint} {
-                @include me-auto;
+            #{config-flags.$parent-selector} .mr-#{$k} {
+                @include mr($key);
+            }
+            #{config-flags.$parent-selector} .mb-#{$k} {
+                @include mb($key);
+            }
+            #{config-flags.$parent-selector} .ml-#{$k} {
+                @include ml($key);
+            }
+            #{config-flags.$parent-selector} .ms-#{$k} {
+                @include ms($key);
+            }
+            #{config-flags.$parent-selector} .me-#{$k} {
+                @include me($key);
+            }
+
+            // Gap classes
+            #{config-flags.$parent-selector} .gap-#{$k} {
+                @include gap($key);
+            }
+            #{config-flags.$parent-selector} .gap-x-#{$k} {
+                @include gap-x($key);
+            }
+            #{config-flags.$parent-selector} .gap-y-#{$k} {
+                @include gap-y($key);
+            }
+
+            // Space classes
+            #{config-flags.$parent-selector} .space-x-#{$k} {
+                @include space-x($key);
+            }
+            #{config-flags.$parent-selector} .space-y-#{$k} {
+                @include space-y($key);
+            }
+        }
+
+        // -----------------------------------------------
+        // AUTO MARGIN UTILITY CLASSES (after .m-*, so .mx-auto wins over .m-4 on the same element)
+        // -----------------------------------------------
+
+        #{config-flags.$parent-selector} .mx-auto {
+            @include mx-auto;
+        }
+
+        #{config-flags.$parent-selector} .ml-auto {
+            @include ml-auto;
+        }
+
+        #{config-flags.$parent-selector} .mr-auto {
+            @include mr-auto;
+        }
+
+        #{config-flags.$parent-selector} .ms-auto {
+            @include ms-auto;
+        }
+
+        #{config-flags.$parent-selector} .me-auto {
+            @include me-auto;
+        }
+
+        // -----------------------------------------------
+        // RESPONSIVE SPACING CLASSES
+        // -----------------------------------------------
+
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                // Generate utilities from spacing map
+                @each $key, $value in config-spacing.$spacings {
+                    $k: fn-css-vars.class-key($key);
+
+                    // Padding classes
+                    #{config-flags.$parent-selector} .p-#{$k}\@#{$breakpoint} {
+                        @include p($key);
+                    }
+                    #{config-flags.$parent-selector} .px-#{$k}\@#{$breakpoint} {
+                        @include px($key);
+                    }
+                    #{config-flags.$parent-selector} .py-#{$k}\@#{$breakpoint} {
+                        @include py($key);
+                    }
+                    #{config-flags.$parent-selector} .pt-#{$k}\@#{$breakpoint} {
+                        @include pt($key);
+                    }
+                    #{config-flags.$parent-selector} .pr-#{$k}\@#{$breakpoint} {
+                        @include pr($key);
+                    }
+                    #{config-flags.$parent-selector} .pb-#{$k}\@#{$breakpoint} {
+                        @include pb($key);
+                    }
+                    #{config-flags.$parent-selector} .pl-#{$k}\@#{$breakpoint} {
+                        @include pl($key);
+                    }
+                    #{config-flags.$parent-selector} .ps-#{$k}\@#{$breakpoint} {
+                        @include ps($key);
+                    }
+                    #{config-flags.$parent-selector} .pe-#{$k}\@#{$breakpoint} {
+                        @include pe($key);
+                    }
+
+                    // Margin classes
+                    #{config-flags.$parent-selector} .m-#{$k}\@#{$breakpoint} {
+                        @include m($key);
+                    }
+                    #{config-flags.$parent-selector} .mx-#{$k}\@#{$breakpoint} {
+                        @include mx($key);
+                    }
+                    #{config-flags.$parent-selector} .my-#{$k}\@#{$breakpoint} {
+                        @include my($key);
+                    }
+                    #{config-flags.$parent-selector} .mt-#{$k}\@#{$breakpoint} {
+                        @include mt($key);
+                    }
+                    #{config-flags.$parent-selector} .mr-#{$k}\@#{$breakpoint} {
+                        @include mr($key);
+                    }
+                    #{config-flags.$parent-selector} .mb-#{$k}\@#{$breakpoint} {
+                        @include mb($key);
+                    }
+                    #{config-flags.$parent-selector} .ml-#{$k}\@#{$breakpoint} {
+                        @include ml($key);
+                    }
+                    #{config-flags.$parent-selector} .ms-#{$k}\@#{$breakpoint} {
+                        @include ms($key);
+                    }
+                    #{config-flags.$parent-selector} .me-#{$k}\@#{$breakpoint} {
+                        @include me($key);
+                    }
+
+                    #{config-flags.$parent-selector} .gap-#{$k}\@#{$breakpoint} {
+                        @include gap($key);
+                    }
+                    #{config-flags.$parent-selector} .gap-x-#{$k}\@#{$breakpoint} {
+                        @include gap-x($key);
+                    }
+                    #{config-flags.$parent-selector} .gap-y-#{$k}\@#{$breakpoint} {
+                        @include gap-y($key);
+                    }
+
+                    // Space classes
+                    #{config-flags.$parent-selector} .space-x-#{$k}\@#{$breakpoint} {
+                        @include space-x($key);
+                    }
+                    #{config-flags.$parent-selector} .space-y-#{$k}\@#{$breakpoint} {
+                        @include space-y($key);
+                    }
+                }
+
+                #{config-flags.$parent-selector} .mx-auto\@#{$breakpoint} {
+                    @include mx-auto;
+                }
+                #{config-flags.$parent-selector} .ml-auto\@#{$breakpoint} {
+                    @include ml-auto;
+                }
+                #{config-flags.$parent-selector} .mr-auto\@#{$breakpoint} {
+                    @include mr-auto;
+                }
+                #{config-flags.$parent-selector} .ms-auto\@#{$breakpoint} {
+                    @include ms-auto;
+                }
+                #{config-flags.$parent-selector} .me-auto\@#{$breakpoint} {
+                    @include me-auto;
+                }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

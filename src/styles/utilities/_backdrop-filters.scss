@@ -496,14 +496,19 @@ $-backdrop-identity: (
     }
 }
 
-@if fn-flags.feature-enabled("backdrops") {
-    // Generate base utilities
-    @include generate-backdrop-filter-utilities;
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("backdrops") {
+        // Generate base utilities
+        @include generate-backdrop-filter-utilities;
 
-    // Generate responsive variants
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @include generate-backdrop-filter-utilities($breakpoint);
+        // Generate responsive variants
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @include generate-backdrop-filter-utilities($breakpoint);
+            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

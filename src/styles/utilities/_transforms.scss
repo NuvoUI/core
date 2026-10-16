@@ -439,177 +439,182 @@ $-translate-spacing-keys: ();
 }
 $translate-keys: list.join($-translate-spacing-keys, map.keys($translate-fractions));
 
-// Transform variables are registered so they do not inherit (a child of a .rotate-45 element keeps its own transform)
-// and so unset ones take their initial value, as transform and absolute-center() read them without fallbacks.
-// Registered whenever the module loads, independent of feature flags, because the mixins need them too
-@each $name, $syntax, $initial in (translate-x "<length-percentage>" 0, translate-y "<length-percentage>" 0, translate-z "<length>" 0, scale-x "<number> | <percentage>" 1, scale-y "<number> | <percentage>" 1, rotate "<angle>" 0deg, skew-x "<angle>" 0deg, skew-y "<angle>" 0deg) {
-    @property --nu-#{$name} {
-        syntax: $syntax;
-        inherits: false;
-        initial-value: $initial;
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    // Transform variables are registered so they do not inherit (a child of a .rotate-45 element keeps its own transform)
+    // and so unset ones take their initial value, as transform and absolute-center() read them without fallbacks.
+    // Registered by every index.scss compile, independent of feature flags, because the mixins need them too
+    @each $name, $syntax, $initial in (translate-x "<length-percentage>" 0, translate-y "<length-percentage>" 0, translate-z "<length>" 0, scale-x "<number> | <percentage>" 1, scale-y "<number> | <percentage>" 1, rotate "<angle>" 0deg, skew-x "<angle>" 0deg, skew-y "<angle>" 0deg) {
+        @property --nu-#{$name} {
+            syntax: $syntax;
+            inherits: false;
+            initial-value: $initial;
+        }
+    }
+
+    // Generate utility classes
+    @if fn-flags.feature-enabled("transforms") {
+        // Translate utilities: spacing keys (tokens) and fraction keys, each with a negative class
+        @each $key in $translate-keys {
+            $k: fn-css-vars.class-key($key);
+
+            #{config-flags.$parent-selector} .translate-x-#{$k},
+            #{config-flags.$parent-selector} .hover\:translate-x-#{$k}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:translate-x-#{$k} {
+                @include translate-x($key);
+            }
+
+            #{config-flags.$parent-selector} .translate-y-#{$k},
+            #{config-flags.$parent-selector} .hover\:translate-y-#{$k}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:translate-y-#{$k} {
+                @include translate-y($key);
+            }
+
+            @if "#{$key}" != "0" {
+                #{config-flags.$parent-selector} .-translate-x-#{$k},
+                #{config-flags.$parent-selector} .hover\:-translate-x-#{$k}:hover,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-x-#{$k} {
+                    @include translate-x("-#{$key}");
+                }
+
+                #{config-flags.$parent-selector} .-translate-y-#{$k},
+                #{config-flags.$parent-selector} .hover\:-translate-y-#{$k}:hover,
+                #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-y-#{$k} {
+                    @include translate-y("-#{$key}");
+                }
+            }
+        }
+
+        @each $key, $value in $scale-values {
+            #{config-flags.$parent-selector} .scale-#{$key},
+            #{config-flags.$parent-selector} .hover\:scale-#{$key}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:scale-#{$key} {
+                @include scale($value);
+            }
+
+            #{config-flags.$parent-selector} .scale-x-#{$key},
+            #{config-flags.$parent-selector} .hover\:scale-x-#{$key}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:scale-x-#{$key} {
+                @include scale-x($value);
+            }
+
+            #{config-flags.$parent-selector} .scale-y-#{$key},
+            #{config-flags.$parent-selector} .hover\:scale-y-#{$key}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:scale-y-#{$key} {
+                @include scale-y($value);
+            }
+        }
+
+        // Rotation utilities
+        @each $key, $value in $rotation-values {
+            #{config-flags.$parent-selector} .rotate-#{$key},
+            #{config-flags.$parent-selector} .hover\:rotate-#{$key}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:rotate-#{$key} {
+                @include rotate($value);
+            }
+        }
+
+        // Negative rotation utilities
+        @each $key, $value in $negative-rotation-values {
+            #{config-flags.$parent-selector} .-rotate-#{$key},
+            #{config-flags.$parent-selector} .hover\:-rotate-#{$key}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:-rotate-#{$key} {
+                @include rotate($value);
+            }
+        }
+
+        // Origin utilities
+        @each $key, $value in $origin-values {
+            #{config-flags.$parent-selector} .origin-#{$key},
+            #{config-flags.$parent-selector} .hover\:origin-#{$key}:hover,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:origin-#{$key} {
+                @include origin($value);
+            }
+        }
+
+        // Responsive variants
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @each $key in $translate-keys {
+                    $k: fn-css-vars.class-key($key);
+
+                    #{config-flags.$parent-selector} .translate-x-#{$k}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:translate-x-#{$k}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:translate-x-#{$k}\@#{$breakpoint} {
+                        @include translate-x($key);
+                    }
+
+                    #{config-flags.$parent-selector} .translate-y-#{$k}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:translate-y-#{$k}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:translate-y-#{$k}\@#{$breakpoint} {
+                        @include translate-y($key);
+                    }
+
+                    @if "#{$key}" != "0" {
+                        #{config-flags.$parent-selector} .-translate-x-#{$k}\@#{$breakpoint},
+                        #{config-flags.$parent-selector} .hover\:-translate-x-#{$k}\@#{$breakpoint}:hover,
+                        #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-x-#{$k}\@#{$breakpoint} {
+                            @include translate-x("-#{$key}");
+                        }
+
+                        #{config-flags.$parent-selector} .-translate-y-#{$k}\@#{$breakpoint},
+                        #{config-flags.$parent-selector} .hover\:-translate-y-#{$k}\@#{$breakpoint}:hover,
+                        #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-y-#{$k}\@#{$breakpoint} {
+                            @include translate-y("-#{$key}");
+                        }
+                    }
+                }
+
+                // Scale hover responsive
+                @each $key, $value in $scale-values {
+                    #{config-flags.$parent-selector} .scale-#{$key}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:scale-#{$key}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:scale-#{$key}\@#{$breakpoint} {
+                        @include scale($value);
+                    }
+
+                    #{config-flags.$parent-selector} .scale-x-#{$key}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:scale-x-#{$key}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:scale-x-#{$key}\@#{$breakpoint} {
+                        @include scale-x($value);
+                    }
+
+                    #{config-flags.$parent-selector} .scale-y-#{$key}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:scale-y-#{$key}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:scale-y-#{$key}\@#{$breakpoint} {
+                        @include scale-y($value);
+                    }
+                }
+
+                // Rotation hover responsive
+                @each $key, $value in $rotation-values {
+                    #{config-flags.$parent-selector} .rotate-#{$key}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:rotate-#{$key}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:rotate-#{$key}\@#{$breakpoint} {
+                        @include rotate($value);
+                    }
+                }
+
+                // Negative rotation utilities
+                @each $key, $value in $negative-rotation-values {
+                    #{config-flags.$parent-selector} .-rotate-#{$key}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:-rotate-#{$key}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:-rotate-#{$key}\@#{$breakpoint} {
+                        @include rotate($value);
+                    }
+                }
+
+                // Add missing origin responsive variants
+                @each $key, $value in $origin-values {
+                    #{config-flags.$parent-selector} .origin-#{$key}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:origin-#{$key}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:origin-#{$key}\@#{$breakpoint} {
+                        @include origin($value);
+                    }
+                }
+            }
+        }
     }
 }
 
-// Generate utility classes
-@if fn-flags.feature-enabled("transforms") {
-    // Translate utilities: spacing keys (tokens) and fraction keys, each with a negative class
-    @each $key in $translate-keys {
-        $k: fn-css-vars.class-key($key);
-
-        #{config-flags.$parent-selector} .translate-x-#{$k},
-        #{config-flags.$parent-selector} .hover\:translate-x-#{$k}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:translate-x-#{$k} {
-            @include translate-x($key);
-        }
-
-        #{config-flags.$parent-selector} .translate-y-#{$k},
-        #{config-flags.$parent-selector} .hover\:translate-y-#{$k}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:translate-y-#{$k} {
-            @include translate-y($key);
-        }
-
-        @if "#{$key}" != "0" {
-            #{config-flags.$parent-selector} .-translate-x-#{$k},
-            #{config-flags.$parent-selector} .hover\:-translate-x-#{$k}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-x-#{$k} {
-                @include translate-x("-#{$key}");
-            }
-
-            #{config-flags.$parent-selector} .-translate-y-#{$k},
-            #{config-flags.$parent-selector} .hover\:-translate-y-#{$k}:hover,
-            #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-y-#{$k} {
-                @include translate-y("-#{$key}");
-            }
-        }
-    }
-
-    @each $key, $value in $scale-values {
-        #{config-flags.$parent-selector} .scale-#{$key},
-        #{config-flags.$parent-selector} .hover\:scale-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:scale-#{$key} {
-            @include scale($value);
-        }
-
-        #{config-flags.$parent-selector} .scale-x-#{$key},
-        #{config-flags.$parent-selector} .hover\:scale-x-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:scale-x-#{$key} {
-            @include scale-x($value);
-        }
-
-        #{config-flags.$parent-selector} .scale-y-#{$key},
-        #{config-flags.$parent-selector} .hover\:scale-y-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:scale-y-#{$key} {
-            @include scale-y($value);
-        }
-    }
-
-    // Rotation utilities
-    @each $key, $value in $rotation-values {
-        #{config-flags.$parent-selector} .rotate-#{$key},
-        #{config-flags.$parent-selector} .hover\:rotate-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:rotate-#{$key} {
-            @include rotate($value);
-        }
-    }
-
-    // Negative rotation utilities
-    @each $key, $value in $negative-rotation-values {
-        #{config-flags.$parent-selector} .-rotate-#{$key},
-        #{config-flags.$parent-selector} .hover\:-rotate-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:-rotate-#{$key} {
-            @include rotate($value);
-        }
-    }
-
-    // Origin utilities
-    @each $key, $value in $origin-values {
-        #{config-flags.$parent-selector} .origin-#{$key},
-        #{config-flags.$parent-selector} .hover\:origin-#{$key}:hover,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:origin-#{$key} {
-            @include origin($value);
-        }
-    }
-
-    // Responsive variants
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @each $key in $translate-keys {
-                $k: fn-css-vars.class-key($key);
-
-                #{config-flags.$parent-selector} .translate-x-#{$k}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:translate-x-#{$k}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:translate-x-#{$k}\@#{$breakpoint} {
-                    @include translate-x($key);
-                }
-
-                #{config-flags.$parent-selector} .translate-y-#{$k}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:translate-y-#{$k}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:translate-y-#{$k}\@#{$breakpoint} {
-                    @include translate-y($key);
-                }
-
-                @if "#{$key}" != "0" {
-                    #{config-flags.$parent-selector} .-translate-x-#{$k}\@#{$breakpoint},
-                    #{config-flags.$parent-selector} .hover\:-translate-x-#{$k}\@#{$breakpoint}:hover,
-                    #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-x-#{$k}\@#{$breakpoint} {
-                        @include translate-x("-#{$key}");
-                    }
-
-                    #{config-flags.$parent-selector} .-translate-y-#{$k}\@#{$breakpoint},
-                    #{config-flags.$parent-selector} .hover\:-translate-y-#{$k}\@#{$breakpoint}:hover,
-                    #{config-flags.$parent-selector} .group:hover .group-hover\:-translate-y-#{$k}\@#{$breakpoint} {
-                        @include translate-y("-#{$key}");
-                    }
-                }
-            }
-
-            // Scale hover responsive
-            @each $key, $value in $scale-values {
-                #{config-flags.$parent-selector} .scale-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:scale-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:scale-#{$key}\@#{$breakpoint} {
-                    @include scale($value);
-                }
-
-                #{config-flags.$parent-selector} .scale-x-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:scale-x-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:scale-x-#{$key}\@#{$breakpoint} {
-                    @include scale-x($value);
-                }
-
-                #{config-flags.$parent-selector} .scale-y-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:scale-y-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:scale-y-#{$key}\@#{$breakpoint} {
-                    @include scale-y($value);
-                }
-            }
-
-            // Rotation hover responsive
-            @each $key, $value in $rotation-values {
-                #{config-flags.$parent-selector} .rotate-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:rotate-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:rotate-#{$key}\@#{$breakpoint} {
-                    @include rotate($value);
-                }
-            }
-
-            // Negative rotation utilities
-            @each $key, $value in $negative-rotation-values {
-                #{config-flags.$parent-selector} .-rotate-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:-rotate-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:-rotate-#{$key}\@#{$breakpoint} {
-                    @include rotate($value);
-                }
-            }
-
-            // Add missing origin responsive variants
-            @each $key, $value in $origin-values {
-                #{config-flags.$parent-selector} .origin-#{$key}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:origin-#{$key}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:origin-#{$key}\@#{$breakpoint} {
-                    @include origin($value);
-                }
-            }
-        }
-    }
-}
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

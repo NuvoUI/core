@@ -37,7 +37,7 @@ $-border-width-map: fn-tokens.border-width-map();
     @return fn-css-vars.scale-value("border-width", $-border-width-map, $val, px, $keywords: (thin, medium, thick), $percent: false, $label: $label);
 }
 
-// Default border colour: the border-regular token. Null when the theme feature is off (no tokens emitted).
+// Default border color: the border-regular token. Null when the theme feature is off (no tokens emitted).
 // Resolved on first use; config is fixed per compile
 $-default-color: null;
 
@@ -51,7 +51,7 @@ $-default-color: null;
     }
     @if not $-default-color {
         @if not config-theme.is-color-token("border-regular") {
-            @error "border(): the border-regular theme token must be a colour.";
+            @error "border(): the border-regular theme token must be a color.";
         }
         $-default-color: fn-tokens.token("border-regular") !global;
     }
@@ -99,10 +99,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 // border-style() override it, so class="border-t border-dashed" gives a dashed top border only
 
 // @mixin border
-// @description Draws a border on all sides with a width key, a style and a colour that defaults to the border-regular token.
+// @description Draws a border on all sides with a width key, a style and a color that defaults to the border-regular token.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word (regular, strong, control, control-hover, focus), colour value or var(); resolved like border-color()
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word (regular, strong, control, control-hover, focus), color value or var(); resolved like border-color()
 // @output border-width, border-style: var(--nu-border-style), border-color and --nu-border-style; a zero width emits border-width only
 // @example
 // .card {
@@ -136,7 +136,7 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
     }
 }
 
-// Border on one or more sides (top, right, bottom, left, inline-start, inline-end); colour as in border()
+// Border on one or more sides (top, right, bottom, left, inline-start, inline-end); color as in border()
 @mixin -border-side($sides, $val, $style, $color: null, $label: "border") {
     $width: -width($val, $label);
     @if not $color {
@@ -158,10 +158,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-top
-// @description Draws a border on the top side in the border-regular colour unless a colour is given.
+// @description Draws a border on the top side in the border-regular color unless a color is given.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, color value or var(), resolved like border-color(); null gives the border-regular token
 // @example
 // .item {
 //   @include border-top(1);
@@ -176,10 +176,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-right
-// @description Draws a border on the right side (physical) in the border-regular colour unless a colour is given.
+// @description Draws a border on the right side (physical) in the border-regular color unless a color is given.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, color value or var(), resolved like border-color(); null gives the border-regular token
 // @example
 // .item {
 //   @include border-right(1);
@@ -194,10 +194,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-bottom
-// @description Draws a border on the bottom side in the border-regular colour unless a colour is given.
+// @description Draws a border on the bottom side in the border-regular color unless a color is given.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, color value or var(), resolved like border-color(); null gives the border-regular token
 // @example
 // .item {
 //   @include border-bottom(1);
@@ -212,10 +212,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-left
-// @description Draws a border on the left side (physical) in the border-regular colour unless a colour is given.
+// @description Draws a border on the left side (physical) in the border-regular color unless a color is given.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, color value or var(), resolved like border-color(); null gives the border-regular token
 // @example
 // .item {
 //   @include border-left(1);
@@ -230,10 +230,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-start
-// @description Draws a border on the inline start side (left in LTR, right in RTL) in the border-regular colour unless a colour is given.
+// @description Draws a border on the inline start side (left in LTR, right in RTL) in the border-regular color unless a color is given.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, color value or var(), resolved like border-color(); null gives the border-regular token
 // @example
 // .item {
 //   @include border-start(1);
@@ -248,10 +248,10 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-end
-// @description Draws a border on the inline end side (right in LTR, left in RTL) in the border-regular colour unless a colour is given.
+// @description Draws a border on the inline end side (right in LTR, left in RTL) in the border-regular color unless a color is given.
 // @param {Number|Length} $val - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length such as 3px
 // @param {String} $style [solid] - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color|Null} $color [null] - A role, palette name, theme word, colour value or var(), resolved like border-color(); null gives the border-regular token
+// @param {String|Color|Null} $color [null] - A role, palette name, theme word, color value or var(), resolved like border-color(); null gives the border-regular token
 // @example
 // .item {
 //   @include border-end(1);
@@ -494,8 +494,8 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 }
 
 // @mixin border-color
-// @description Sets border-color from a role, palette name, theme word or colour, emitting the matching var(--nu-*) token.
-// @param {String|Color} $color - A role (brand, danger), role state (danger-border, brand-hover), palette name (red), theme word (regular, strong, control, control-hover, focus), colour value or var()
+// @description Sets border-color from a role, palette name, theme word or color, emitting the matching var(--nu-*) token.
+// @param {String|Color} $color - A role (brand, danger), role state (danger-border, brand-hover), palette name (red), theme word (regular, strong, control, control-hover, focus), color value or var()
 // @param {Number|Null} $shade [null] - A shade stop (50, 100 to 900, 950) for a role or palette name
 // @example
 // .card {
@@ -509,17 +509,17 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
 // .tag {
 //   @include border-color(purple, 300); // var(--nu-purple-300)
 // }
-// @note Roles give their fill {role} and palette names give {hue}-500; a shade outside 50 to 950 raises an error, and a raw colour with a shade is shaded at compile time.
+// @note Roles give their fill {role} and palette names give {hue}-500; a shade outside 50 to 950 raises an error, and a raw color with a shade is shaded at compile time.
 // @see border, bg, text-color
 @mixin border-color($color, $shade: null) {
     border-color: util-color.color-value($color, $shade, "border");
 }
 
 // @mixin border-all
-// @description Draws a border on all sides with a width, a style and a colour, all required; the same output as border() with every argument given.
+// @description Draws a border on all sides with a width, a style and a color, all required; the same output as border() with every argument given.
 // @param {Number|Length} $width - A $border-widths key (0, 1, 2, 4, 8) giving var(--nu-border-width-*), or a length
 // @param {String} $style - solid, dashed, dotted, double, none, a CSS-wide keyword or var(); written to --nu-border-style
-// @param {String|Color} $color - A role, palette name, theme word, colour value or var(); resolved like border-color()
+// @param {String|Color} $color - A role, palette name, theme word, color value or var(); resolved like border-color()
 // @example
 // .panel {
 //   @include border-all(1, solid, strong);
@@ -541,200 +541,205 @@ $-radius-tokens: fn-css-vars.key-tokens("radius", config-border.$border-radii);
     @include rounded(full);
 }
 
-@if fn-flags.feature-enabled("borders") {
-    // Basic border classes (all sides)
-    #{config-flags.$parent-selector} .border {
-        @include border(1);
-    }
-
-    // Common shortcuts for single-side borders
-    #{config-flags.$parent-selector} .border-t {
-        @include border-top(1);
-    }
-
-    #{config-flags.$parent-selector} .border-r {
-        @include border-right(1);
-    }
-
-    #{config-flags.$parent-selector} .border-b {
-        @include border-bottom(1);
-    }
-
-    #{config-flags.$parent-selector} .border-l {
-        @include border-left(1);
-    }
-
-    #{config-flags.$parent-selector} .border-s {
-        @include border-start(1);
-    }
-
-    #{config-flags.$parent-selector} .border-e {
-        @include border-end(1);
-    }
-
-    #{config-flags.$parent-selector} .border-x {
-        @include -border-side((left, right), 1, solid);
-    }
-
-    #{config-flags.$parent-selector} .border-y {
-        @include -border-side((top, bottom), 1, solid);
-    }
-
-    // Directional border width
-    @each $width in config-border.$border-widths {
-        $w: fn-css-vars.class-key($width);
-
-        #{config-flags.$parent-selector} .border-#{$w} {
-            @include border($width);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("borders") {
+        // Basic border classes (all sides)
+        #{config-flags.$parent-selector} .border {
+            @include border(1);
         }
 
-        // State classes change the width only, so the element keeps its border style and colour
-        #{config-flags.$parent-selector} .hover\:border-#{$w}:hover,
-        #{config-flags.$parent-selector} .active\:border-#{$w}:active,
-        #{config-flags.$parent-selector} .focus\:border-#{$w}:focus,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$w} {
-            border-width: -width($width);
-        }
-        #{config-flags.$parent-selector} .border-t-#{$w} {
-            @include border-top($width);
-        }
-        #{config-flags.$parent-selector} .border-r-#{$w} {
-            @include border-right($width);
-        }
-        #{config-flags.$parent-selector} .border-b-#{$w} {
-            @include border-bottom($width);
-        }
-        #{config-flags.$parent-selector} .border-l-#{$w} {
-            @include border-left($width);
-        }
-        #{config-flags.$parent-selector} .border-s-#{$w} {
-            @include border-start($width);
-        }
-        #{config-flags.$parent-selector} .border-e-#{$w} {
-            @include border-end($width);
+        // Common shortcuts for single-side borders
+        #{config-flags.$parent-selector} .border-t {
+            @include border-top(1);
         }
 
-        #{config-flags.$parent-selector} .border-x-#{$w} {
-            @include -border-side((left, right), $width, solid);
+        #{config-flags.$parent-selector} .border-r {
+            @include border-right(1);
         }
 
-        #{config-flags.$parent-selector} .border-y-#{$w} {
-            @include -border-side((top, bottom), $width, solid);
-        }
-    }
-
-    // Border radius classes
-    #{config-flags.$parent-selector} .rounded {
-        @include rounded;
-    }
-
-    // Alias for no radius
-    #{config-flags.$parent-selector} .square {
-        @include rounded("none");
-    }
-
-    @each $name, $value in config-border.$border-radii {
-        $n: fn-css-vars.class-key($name);
-
-        #{config-flags.$parent-selector} .rounded-#{$n} {
-            @include rounded($name);
-        }
-        #{config-flags.$parent-selector} .rounded-t-#{$n} {
-            @include rounded-t($name);
-        }
-        #{config-flags.$parent-selector} .rounded-r-#{$n} {
-            @include rounded-r($name);
-        }
-        #{config-flags.$parent-selector} .rounded-b-#{$n} {
-            @include rounded-b($name);
-        }
-        #{config-flags.$parent-selector} .rounded-l-#{$n} {
-            @include rounded-l($name);
-        }
-        #{config-flags.$parent-selector} .rounded-s-#{$n} {
-            @include rounded-s($name);
-        }
-        #{config-flags.$parent-selector} .rounded-e-#{$n} {
-            @include rounded-e($name);
+        #{config-flags.$parent-selector} .border-b {
+            @include border-bottom(1);
         }
 
-        // Individual corners
-        #{config-flags.$parent-selector} .rounded-tl-#{$n} {
-            @include rounded-tl($name);
+        #{config-flags.$parent-selector} .border-l {
+            @include border-left(1);
         }
-        #{config-flags.$parent-selector} .rounded-tr-#{$n} {
-            @include rounded-tr($name);
-        }
-        #{config-flags.$parent-selector} .rounded-br-#{$n} {
-            @include rounded-br($name);
-        }
-        #{config-flags.$parent-selector} .rounded-bl-#{$n} {
-            @include rounded-bl($name);
-        }
-        #{config-flags.$parent-selector} .rounded-ss-#{$n} {
-            @include rounded-ss($name);
-        }
-        #{config-flags.$parent-selector} .rounded-se-#{$n} {
-            @include rounded-se($name);
-        }
-        #{config-flags.$parent-selector} .rounded-es-#{$n} {
-            @include rounded-es($name);
-        }
-        #{config-flags.$parent-selector} .rounded-ee-#{$n} {
-            @include rounded-ee($name);
-        }
-    }
 
-    // Pill shape (alias for full radius)
-    #{config-flags.$parent-selector} .pill {
-        @include pill;
-    }
+        #{config-flags.$parent-selector} .border-s {
+            @include border-start(1);
+        }
 
-    // -----------------------------------------------
-    // RESPONSIVE CLASSES
-    // -----------------------------------------------
+        #{config-flags.$parent-selector} .border-e {
+            @include border-end(1);
+        }
 
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            // Border width responsive
-            @each $val in config-border.$border-widths {
-                #{config-flags.$parent-selector} .border-#{fn-css-vars.class-key($val)}\@#{$breakpoint} {
-                    @include border($val);
+        #{config-flags.$parent-selector} .border-x {
+            @include -border-side((left, right), 1, solid);
+        }
+
+        #{config-flags.$parent-selector} .border-y {
+            @include -border-side((top, bottom), 1, solid);
+        }
+
+        // Directional border width
+        @each $width in config-border.$border-widths {
+            $w: fn-css-vars.class-key($width);
+
+            #{config-flags.$parent-selector} .border-#{$w} {
+                @include border($width);
+            }
+
+            // State classes change the width only, so the element keeps its border style and color
+            #{config-flags.$parent-selector} .hover\:border-#{$w}:hover,
+            #{config-flags.$parent-selector} .active\:border-#{$w}:active,
+            #{config-flags.$parent-selector} .focus\:border-#{$w}:focus,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$w} {
+                border-width: -width($width);
+            }
+            #{config-flags.$parent-selector} .border-t-#{$w} {
+                @include border-top($width);
+            }
+            #{config-flags.$parent-selector} .border-r-#{$w} {
+                @include border-right($width);
+            }
+            #{config-flags.$parent-selector} .border-b-#{$w} {
+                @include border-bottom($width);
+            }
+            #{config-flags.$parent-selector} .border-l-#{$w} {
+                @include border-left($width);
+            }
+            #{config-flags.$parent-selector} .border-s-#{$w} {
+                @include border-start($width);
+            }
+            #{config-flags.$parent-selector} .border-e-#{$w} {
+                @include border-end($width);
+            }
+
+            #{config-flags.$parent-selector} .border-x-#{$w} {
+                @include -border-side((left, right), $width, solid);
+            }
+
+            #{config-flags.$parent-selector} .border-y-#{$w} {
+                @include -border-side((top, bottom), $width, solid);
+            }
+        }
+
+        // Border radius classes
+        #{config-flags.$parent-selector} .rounded {
+            @include rounded;
+        }
+
+        // Alias for no radius
+        #{config-flags.$parent-selector} .square {
+            @include rounded("none");
+        }
+
+        @each $name, $value in config-border.$border-radii {
+            $n: fn-css-vars.class-key($name);
+
+            #{config-flags.$parent-selector} .rounded-#{$n} {
+                @include rounded($name);
+            }
+            #{config-flags.$parent-selector} .rounded-t-#{$n} {
+                @include rounded-t($name);
+            }
+            #{config-flags.$parent-selector} .rounded-r-#{$n} {
+                @include rounded-r($name);
+            }
+            #{config-flags.$parent-selector} .rounded-b-#{$n} {
+                @include rounded-b($name);
+            }
+            #{config-flags.$parent-selector} .rounded-l-#{$n} {
+                @include rounded-l($name);
+            }
+            #{config-flags.$parent-selector} .rounded-s-#{$n} {
+                @include rounded-s($name);
+            }
+            #{config-flags.$parent-selector} .rounded-e-#{$n} {
+                @include rounded-e($name);
+            }
+
+            // Individual corners
+            #{config-flags.$parent-selector} .rounded-tl-#{$n} {
+                @include rounded-tl($name);
+            }
+            #{config-flags.$parent-selector} .rounded-tr-#{$n} {
+                @include rounded-tr($name);
+            }
+            #{config-flags.$parent-selector} .rounded-br-#{$n} {
+                @include rounded-br($name);
+            }
+            #{config-flags.$parent-selector} .rounded-bl-#{$n} {
+                @include rounded-bl($name);
+            }
+            #{config-flags.$parent-selector} .rounded-ss-#{$n} {
+                @include rounded-ss($name);
+            }
+            #{config-flags.$parent-selector} .rounded-se-#{$n} {
+                @include rounded-se($name);
+            }
+            #{config-flags.$parent-selector} .rounded-es-#{$n} {
+                @include rounded-es($name);
+            }
+            #{config-flags.$parent-selector} .rounded-ee-#{$n} {
+                @include rounded-ee($name);
+            }
+        }
+
+        // Pill shape (alias for full radius)
+        #{config-flags.$parent-selector} .pill {
+            @include pill;
+        }
+
+        // -----------------------------------------------
+        // RESPONSIVE CLASSES
+        // -----------------------------------------------
+
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                // Border width responsive
+                @each $val in config-border.$border-widths {
+                    #{config-flags.$parent-selector} .border-#{fn-css-vars.class-key($val)}\@#{$breakpoint} {
+                        @include border($val);
+                    }
+                }
+
+                // Common shortcuts for responsive
+                #{config-flags.$parent-selector} .border\@#{$breakpoint} {
+                    @include border(1);
+                }
+
+                // Border radius responsive
+                @each $name, $value in config-border.$border-radii {
+                    #{config-flags.$parent-selector} .rounded-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
+                        @include rounded($name);
+                    }
+                }
+
+                #{config-flags.$parent-selector} .rounded\@#{$breakpoint} {
+                    @include rounded;
+                }
+                #{config-flags.$parent-selector} .square\@#{$breakpoint} {
+                    @include rounded("none");
+                }
+                #{config-flags.$parent-selector} .pill\@#{$breakpoint} {
+                    @include pill;
                 }
             }
-
-            // Common shortcuts for responsive
-            #{config-flags.$parent-selector} .border\@#{$breakpoint} {
-                @include border(1);
-            }
-
-            // Border radius responsive
-            @each $name, $value in config-border.$border-radii {
-                #{config-flags.$parent-selector} .rounded-#{fn-css-vars.class-key($name)}\@#{$breakpoint} {
-                    @include rounded($name);
-                }
-            }
-
-            #{config-flags.$parent-selector} .rounded\@#{$breakpoint} {
-                @include rounded;
-            }
-            #{config-flags.$parent-selector} .square\@#{$breakpoint} {
-                @include rounded("none");
-            }
-            #{config-flags.$parent-selector} .pill\@#{$breakpoint} {
-                @include pill;
-            }
         }
-    }
 
-    // Border styles: emitted after every width class (responsive included), so a later width class cannot reset the style
-    @each $style in $border-styles {
-        #{config-flags.$parent-selector} .border-#{$style},
-        #{config-flags.$parent-selector} .hover\:border-#{$style}:hover,
-        #{config-flags.$parent-selector} .active\:border-#{$style}:active,
-        #{config-flags.$parent-selector} .focus\:border-#{$style}:focus,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$style} {
-            @include border-style($style);
+        // Border styles: emitted after every width class (responsive included), so a later width class cannot reset the style
+        @each $style in $border-styles {
+            #{config-flags.$parent-selector} .border-#{$style},
+            #{config-flags.$parent-selector} .hover\:border-#{$style}:hover,
+            #{config-flags.$parent-selector} .active\:border-#{$style}:active,
+            #{config-flags.$parent-selector} .focus\:border-#{$style}:focus,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:border-#{$style} {
+                @include border-style($style);
+            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

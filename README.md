@@ -23,7 +23,7 @@ Version 2.0 is a breaking release. Projects upgrading from 1.x should read the [
 
 ## Requirements
 
-- Dart Sass `>=1.79.0 <2` (peer dependency). The colour space API in Sass 1.79 is required for OKLCH shade generation.
+- Dart Sass `>=1.79.0 <2` (peer dependency). The color space API in Sass 1.79 is required for OKLCH shade generation.
 
 ## Installation
 
@@ -53,10 +53,10 @@ yarn add @nuvoui/core sass
 );
 ```
 
-- `$brand` sets the main colour role. `$success`, `$danger`, `$warning` and `$info` set the status roles.
+- `$brand` sets the main color role. `$success`, `$danger`, `$warning` and `$info` set the status roles.
 - `$light-theme`, `$dark-theme`, `$high-contrast-light` and `$high-contrast-dark` hold overrides only. Keys are token names without `--nu-`. A value is a CSS value or a scale reference written as a name and a stop (`brand 800`), emitted as `var(--nu-brand-800)`. Unknown keys and malformed references raise compile errors.
 - Tokens and base styles are emitted by default. Utility classes are emitted only with `$generate-utility-classes: true`; mixin-only projects can leave it off.
-- Every compiled entry that `@use`s the package emits the tokens, reset, base layer, tooltips and `@property` registrations (about 42 KB with `--style=compressed`, under 6 KB gzipped), so compile one entry that imports your partials rather than one stylesheet per component.
+- Every compiled entry that `@use`s `@nuvoui/core` emits the tokens, reset, base layer, tooltips and `@property` registrations (about 42 KB with `--style=compressed`, under 6 KB gzipped). Load it once, in the global stylesheet; component styles load `@nuvoui/core/mixins` (see [Component styles](#component-styles)).
 
 `@use "@nuvoui/core"` resolves through the package `sass` export in bundlers that support it, such as Vite and webpack `sass-loader`. With the Dart Sass command line or JavaScript API, use the Node package importer:
 
@@ -67,6 +67,28 @@ yarn add @nuvoui/core sass
 ```bash
 sass --pkg-importer=node src/app.scss dist/app.css
 ```
+
+### Component styles
+
+`@nuvoui/core/mixins` is the same API as `@nuvoui/core` (`apply()`, every mixin, `token()`, `get-color()`, the variables and the same `with()` configuration) with no CSS output. Use it in CSS modules, Vue and Svelte `<style>` blocks and any other per-component compile, so the tokens and base styles are not repeated in every component and a component never resets the configured brand. Write the configuration once in a partial:
+
+```scss
+// src/styles/_nuvo.scss
+@forward "@nuvoui/core/mixins" with ($brand: #4361ee);
+
+// src/styles/global.scss, loaded once by the app: tokens, base styles and classes with the same configuration
+@use "nuvo";
+@use "@nuvoui/core";
+
+// Card.module.scss: outputs only .card
+@use "../styles/nuvo" as *;
+
+.card {
+    @include apply(p(4), bg(surface), rounded(md), shadow(md) hover, p(6) md);
+}
+```
+
+In `global.scss`, `@use "nuvo"` must come before `@use "@nuvoui/core"`: both load the same configured modules, and configuring them after `@nuvoui/core` has loaded raises an error. Put `$generate-utility-classes: true` in the partial to get the classes in the global stylesheet; component compiles still output nothing extra.
 
 ### Prebuilt CSS
 
@@ -80,7 +102,7 @@ sass --pkg-importer=node src/app.scss dist/app.css
 
 Every token is a CSS custom property named `--nu-{name}` with single hyphens (`--nu-text-muted`, `--nu-space-4`). Tokens fall into two groups:
 
-| Tier                     | Examples                                                                                                                      | Behaviour                                                                     |
+| Tier                     | Examples                                                                                                                      | Behavior                                                                      |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | Palette, basic and scale | `--nu-red-500`, `--nu-white`, `--nu-space-4`, `--nu-radius-md`, `--nu-font-size-lg`, `--nu-font-family`                    | Fixed. The same value in every theme. Emitted on `:root` only.                |
 | Theme and role           | `--nu-bg-surface`, `--nu-text-muted`, `--nu-border-regular`, `--nu-brand`, `--nu-danger-subtle`, `--nu-text-on-brand`         | Flip per theme. The dark theme points roles at other stops of the same scale. |
@@ -128,7 +150,7 @@ The full token list with light and dark values is in the [token reference](docs/
 </div>
 ```
 
-- Colour classes use theme words (`bg-surface`, `text-muted`, `border-regular`), roles (`bg-brand`, `text-danger`, `text-on-brand`, `bg-danger-subtle`) and palette shades (`bg-blue-100`).
+- Color classes use theme words (`bg-surface`, `text-muted`, `border-regular`), roles (`bg-brand`, `text-danger`, `text-on-brand`, `bg-danger-subtle`) and palette shades (`bg-blue-100`).
 - Logical classes (`ms-*`, `me-*`, `ps-*`, `pe-*`, `text-start`, `text-end`) follow the text direction. Physical classes (`ml-*`, `pr-*`, `text-left`) remain for content that keeps its side in both directions.
 - A breakpoint suffix applies from that width up: `p-6@md`, `col-span-4@lg`.
 
@@ -150,8 +172,8 @@ The full token list with light and dark values is in the [token reference](docs/
 ```
 
 - A unitless number is a configuration key: `p(4)` outputs `padding: var(--nu-space-4)`, the same value as the `.p-4` class. A number that is not a key raises an error. Values with units pass through: `p(1.5rem)`.
-- Colour mixins take the class words and output tokens: `bg(brand)` gives `var(--nu-brand)`, `text-color(muted)` gives `var(--nu-text-muted)`.
-- With a namespaced load (`@use "@nuvoui/core" as nu`), write `nu.apply(...)`. One item needs the namespace inside it: Sass reads a bare `opacity(inherit)` or `opacity("50")` as its built-in colour function, so write `nu.apply(nu.opacity(inherit))` (`opacity(50)` works as it is).
+- Color mixins take the class words and output tokens: `bg(brand)` gives `var(--nu-brand)`, `text-color(muted)` gives `var(--nu-text-muted)`.
+- With a namespaced load (`@use "@nuvoui/core" as nu`), write `nu.apply(...)`. One item needs the namespace inside it: Sass reads a bare `opacity(inherit)` or `opacity("50")` as its built-in color function, so write `nu.apply(nu.opacity(inherit))` (`opacity(50)` works as it is).
 
 ## Performance
 
@@ -193,7 +215,7 @@ Method and discussion: [We Tried to Break Our Own SCSS Compiler](https://dev.to/
 }
 ```
 
-`get-color($name, $stop)` returns a real colour value for Sass maths, for example `color.mix(nu.get-color(brand, 600), #fff, 80%)`.
+`get-color($name, $stop)` returns a real color value for Sass math, for example `color.mix(nu.get-color(brand, 600), #fff, 80%)`.
 
 ## Documentation
 

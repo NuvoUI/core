@@ -217,7 +217,7 @@ function run() {
         }
     );
 
-    check('basic colour tokens exist in light', () => {
+    check('basic color tokens exist in light', () => {
         BASIC.forEach((name) => {
             if (!(name in light)) {
                 fail(`light: --nu-${name} is missing`);
@@ -315,7 +315,7 @@ function run() {
             }
         });
         warnings.forEach((warning) => fail(`warning: ${warning.message}`));
-        // Unquoted black, white and transparent arrive as colours
+        // Unquoted black, white and transparent arrive as colors
         const basic = compileSource(
             `@use "index" as nu;\n.t { a: nu.token(black); b: nu.token(white); c: nu.token(transparent); }\n`
         ).css;
@@ -358,6 +358,33 @@ function run() {
             }
         }
     });
+
+    check(
+        'shared configuration: the global stylesheet emits the configured brand',
+        () => {
+            const global = compileSource(
+                '@use "fixtures/shared-config/nuvo";\n@use "index";'
+            ).css;
+            const fixed = themeBlocks(global).root;
+            if (fixed['brand-500'] !== '#4361ee') {
+                fail(
+                    `--nu-brand-500 is ${fixed['brand-500']}, expected #4361ee`
+                );
+            }
+            if ((global.match(/--nu-brand-500:/g) || []).length !== 1) {
+                fail('--nu-brand-500 must be declared once');
+            }
+            const component = compileSource(
+                '@use "fixtures/shared-config/nuvo" as *;\n.a { color: get-color(brand, 500); b: token(brand); }'
+            ).css;
+            if (
+                component.trim() !==
+                '.a {\n  color: #4361ee;\n  b: var(--nu-brand);\n}'
+            ) {
+                fail(`component output: ${component}`);
+            }
+        }
+    );
 
     const legacy = [
         ...build.matchAll(/var\(\s*(--(?!nu-)[a-zA-Z0-9_-]+)/g),

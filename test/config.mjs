@@ -5,8 +5,11 @@
 // Checks emitted tokens and classes for custom roles, hues, theme tokens and flags, and that the
 // configuration validator rejects bad input with a message containing the expected text.
 // Exits with code 1 on any failure.
+import fs from 'node:fs';
+import path from 'node:path';
 import {
     BUILD_FILE,
+    CORE_DIR,
     DARK_FALLBACK_SELECTOR,
     DARK_SELECTOR,
     INVERSE_DARK_FALLBACK_SELECTOR,
@@ -183,7 +186,7 @@ const ERROR_CASES = [
     [
         'role whose bare token is a palette token (red-500 with hue red)',
         `$semantic-colors: (${ROLES}, "red-500": #f00)`,
-        "'red-500' generates the token 'red-500', which is already a palette, basic colour or scale token",
+        "'red-500' generates the token 'red-500', which is already a palette, basic color or scale token",
     ],
     [
         'role and hue with the same name',
@@ -208,17 +211,17 @@ const ERROR_CASES = [
     [
         'custom token reusing a palette token name',
         '$light-theme: ("red-500": #f00), $dark-theme: ("red-500": #f00)',
-        "custom token 'red-500' is already a palette, basic colour or scale token",
+        "custom token 'red-500' is already a palette, basic color or scale token",
     ],
     [
         'scale token name in $light-theme alone gets the reserved-name error, not the unknown-key one',
         '$light-theme: ("space-4": 2rem)',
-        "$light-theme: custom token 'space-4' is already a palette, basic colour or scale token",
+        "$light-theme: custom token 'space-4' is already a palette, basic color or scale token",
     ],
     [
         'scale token name in $dark-theme alone gets the reserved-name error',
         '$dark-theme: ("space-4": 2rem)',
-        "$dark-theme: custom token 'space-4' is already a palette, basic colour or scale token",
+        "$dark-theme: custom token 'space-4' is already a palette, basic color or scale token",
     ],
     [
         'unknown $high-contrast-light key',
@@ -248,17 +251,17 @@ const ERROR_CASES = [
     [
         'custom token reusing an opacity token name',
         '$light-theme: ("opacity-50": 0.4), $dark-theme: ("opacity-50": 0.4)',
-        "custom token 'opacity-50' is already a palette, basic colour or scale token",
+        "custom token 'opacity-50' is already a palette, basic color or scale token",
     ],
     [
-        'quoted invalid hex colour in a theme map',
+        'quoted invalid hex color in a theme map',
         '$light-theme: ("bg-base": "#ggg")',
         "token 'bg-base' (set in $light-theme)",
     ],
     [
-        'quoted invalid hex colour in a theme map (message)',
+        'quoted invalid hex color in a theme map (message)',
         '$light-theme: ("bg-base": "#ggg")',
-        'is not a valid hex colour (#rgb, #rgba, #rrggbb or #rrggbbaa)',
+        'is not a valid hex color (#rgb, #rgba, #rrggbb or #rrggbbaa)',
     ],
     [
         'removed gray reports every token that refers to it in one error',
@@ -266,14 +269,14 @@ const ERROR_CASES = [
         "token 'border-control-hover' (built-in default): gray 600 refers to 'gray'",
     ],
     [
-        'hue named like a basic colour',
+        'hue named like a basic color',
         `$color-primitives: (${HUES}, "black": #111)`,
-        "'black' is a basic colour ($basic-colors) and cannot also be a role or palette hue name",
+        "'black' is a basic color ($basic-colors) and cannot also be a role or palette hue name",
     ],
     [
         'hue whose palette tokens reuse a scale token (opacity)',
         `$color-primitives: (${HUES}, "opacity": #123456)`,
-        "The colour token 'opacity-50' (from a role or palette hue name) is also a non-colour scale token",
+        "The color token 'opacity-50' (from a role or palette hue name) is also a non-color scale token",
     ],
 ];
 
@@ -326,7 +329,7 @@ function run() {
     );
 
     check(
-        'ruled behaviours: space-x is logical, .sticky defaults in :where(), @property inherits: false, scale(150) is a key, invalid inputs use danger, container-only(md) ends at 1023.98px',
+        'ruled behaviors: space-x is logical, .sticky defaults in :where(), @property inherits: false, scale(150) is a key, invalid inputs use danger, container-only(md) ends at 1023.98px',
         () => {
             const css = compileWith(
                 '$generate-utility-classes: true',
@@ -422,7 +425,7 @@ function run() {
     );
 
     check(
-        'dark text-on-{role} picks from the dark theme text colours, light from the light ones',
+        'dark text-on-{role} picks from the dark theme text colors, light from the light ones',
         () => {
             const css = compileWith(
                 '$light-theme: ("text-regular": #202020, "text-inverted": #fafafa), $dark-theme: ("text-regular": #e8e8e8, "text-inverted": #0c0c0c)'
@@ -441,12 +444,12 @@ function run() {
                 const darkValue = (dark[`text-on-${role}`] || '').toLowerCase();
                 if (!['#202020', '#fafafa'].includes(lightValue)) {
                     fail(
-                        `light text-on-${role} is ${lightValue}, not a light theme text colour`
+                        `light text-on-${role} is ${lightValue}, not a light theme text color`
                     );
                 }
                 if (!['#e8e8e8', '#0c0c0c'].includes(darkValue)) {
                     fail(
-                        `dark text-on-${role} is ${darkValue}, not a dark theme text colour`
+                        `dark text-on-${role} is ${darkValue}, not a dark theme text color`
                     );
                 }
             }
@@ -520,24 +523,21 @@ function run() {
         expectIncludes(css, '.text-teal,', 'classes');
     });
 
-    check(
-        'unquoted colour map keys give the same output as quoted keys',
-        () => {
-            const quoted = compileWith(
-                `$generate-utility-classes: true, $semantic-colors: (${ROLES}), $color-primitives: (${HUES}, "teal": #14b8a6)`,
-                '.x { a: nu.get-color(red, 700); b: nu.get-color(teal); @include nu.apply(bg(red), text-color(teal), text-on-color(brand)); }'
-            );
-            const unquoted = compileWith(
-                `$generate-utility-classes: true, $semantic-colors: (${ROLES.replace(/"/g, '')}), $color-primitives: (${HUES.replace(/"/g, '')}, teal: #14b8a6)`,
-                '.x { a: nu.get-color(red, 700); b: nu.get-color(teal); @include nu.apply(bg(red), text-color(teal), text-on-color(brand)); }'
-            );
-            if (quoted !== unquoted) {
-                fail('unquoted keys changed the output');
-            }
-            expectIncludes(unquoted, '--nu-red-700:', 'unquoted');
-            expectIncludes(unquoted, '--nu-teal-subtle:', 'unquoted');
+    check('unquoted color map keys give the same output as quoted keys', () => {
+        const quoted = compileWith(
+            `$generate-utility-classes: true, $semantic-colors: (${ROLES}), $color-primitives: (${HUES}, "teal": #14b8a6)`,
+            '.x { a: nu.get-color(red, 700); b: nu.get-color(teal); @include nu.apply(bg(red), text-color(teal), text-on-color(brand)); }'
+        );
+        const unquoted = compileWith(
+            `$generate-utility-classes: true, $semantic-colors: (${ROLES.replace(/"/g, '')}), $color-primitives: (${HUES.replace(/"/g, '')}, teal: #14b8a6)`,
+            '.x { a: nu.get-color(red, 700); b: nu.get-color(teal); @include nu.apply(bg(red), text-color(teal), text-on-color(brand)); }'
+        );
+        if (quoted !== unquoted) {
+            fail('unquoted keys changed the output');
         }
-    );
+        expectIncludes(unquoted, '--nu-red-700:', 'unquoted');
+        expectIncludes(unquoted, '--nu-teal-subtle:', 'unquoted');
+    });
 
     check(
         'custom theme token in both maps: emitted per theme, class and token()',
@@ -900,7 +900,7 @@ function run() {
     );
 
     check(
-        'dark text-on-{role} is computed from the dark default fill: dark brand colours get the higher-contrast text (>= 4.5:1)',
+        'dark text-on-{role} is computed from the dark default fill: dark brand colors get the higher-contrast text (>= 4.5:1)',
         () => {
             for (const brand of ['#0b1f3a', '#000080']) {
                 const { light, dark } = themeBlocks(
@@ -1165,7 +1165,7 @@ function run() {
     );
 
     check(
-        'tooltips: emitted without utility classes, top is the default position, colour variables follow each theme block',
+        'tooltips: emitted without utility classes, top is the default position, color variables follow each theme block',
         () => {
             const css = compileWith('$generate-utility-classes: false');
             expectIncludes(css, '[data-tooltip] {', 'no utility classes');
@@ -1316,7 +1316,7 @@ function run() {
     );
 
     check(
-        'high contrast: text colour overrides recompute text-on, explicit text-on values are kept',
+        'high contrast: text color overrides recompute text-on, explicit text-on values are kept',
         () => {
             const recompute = parseBlocks(
                 compileWith('$high-contrast-light: ("text-regular": #000)')
@@ -1346,19 +1346,14 @@ function run() {
     );
 
     check(
-        'theme maps: colour-named keys, quoted colours, quoted font list, dark-off custom keys, explicit text-on classes',
+        'theme maps: color-named keys, quoted colors, quoted font list, dark-off custom keys, explicit text-on classes',
         () => {
             const tan = parseBlocks(
                 compileWith(
                     '$generate-utility-classes: true, $light-theme: (tan: #d2b48c), $dark-theme: (tan: #333)'
                 )
             );
-            expectToken(
-                tan.get(LIGHT_SELECTOR),
-                'colour key',
-                'tan',
-                '#d2b48c'
-            );
+            expectToken(tan.get(LIGHT_SELECTOR), 'color key', 'tan', '#d2b48c');
 
             const basic = compileError(
                 '@use "functions/tokens" as t;\n@if not t.has-token(black) or not t.has-token("black") { @error "has-token(black) is false"; }\n@error "ok";'
@@ -1372,13 +1367,13 @@ function run() {
             );
             expectToken(
                 quoted.light,
-                'quoted colour',
+                'quoted color',
                 'text-on-brand',
                 '#f1f1f1'
             );
             expectToken(
                 quoted.light,
-                'quoted colour',
+                'quoted color',
                 'text-on-warning',
                 '#111111'
             );
@@ -1434,24 +1429,24 @@ function run() {
     );
 
     check(
-        'theme feature off: colour names raise a theme flag error naming the mixin',
+        'theme feature off: color names raise a theme flag error naming the mixin',
         () => {
             for (const [body, expected] of [
                 [
                     '.x { @include nu.bg(brand); }',
-                    'bg(brand): colour names give --nu-* tokens',
+                    'bg(brand): color names give --nu-* tokens',
                 ],
                 [
                     '.x { @include nu.text-color(muted); }',
-                    'text-color(muted): colour names give --nu-* tokens',
+                    'text-color(muted): color names give --nu-* tokens',
                 ],
                 [
                     '.x { @include nu.border-color(red); }',
-                    'border-color(red): colour names give --nu-* tokens',
+                    'border-color(red): color names give --nu-* tokens',
                 ],
                 [
                     '.x { @include nu.bg(red, 600); }',
-                    'bg(red, 600): colour names give --nu-* tokens',
+                    'bg(red, 600): color names give --nu-* tokens',
                 ],
             ]) {
                 const message = compileError(
@@ -1470,7 +1465,7 @@ function run() {
             expectIncludes(
                 basic,
                 '.x {\n  background-color: black;\n  color: white;\n  border-color: transparent;',
-                'basic colours, theme off'
+                'basic colors, theme off'
             );
         }
     );
@@ -1520,7 +1515,7 @@ function run() {
     );
 
     check(
-        'base layer: list-box selects keep their height, only inline code is nowrap, the reset layer comes first in mixins-map',
+        'base layer: list-box selects keep their height, only inline code is nowrap, the reset layer comes first when mixins-map loads before index',
         () => {
             const css = compileWith('$generate-utility-classes: false');
             expectIncludes(
@@ -1533,13 +1528,85 @@ function run() {
                 ':not(pre) > code {\n    white-space: nowrap;',
                 'inline code'
             );
-            const mm = compileSource('@use "mixins-map" as *;').css;
+            const mm = compileSource(
+                '@use "mixins-map" as *;\n@use "index";'
+            ).css;
             const reset = mm.indexOf('@layer reset {');
             const base = mm.indexOf('@layer base {');
             if (reset === -1 || base === -1 || reset > base) {
                 fail(
                     `mixins-map: @layer reset (${reset}) must come before @layer base (${base})`
                 );
+            }
+        }
+    );
+
+    check(
+        'mixins entry: no CSS output, with() configures it and is validated',
+        () => {
+            const pkg = JSON.parse(
+                fs.readFileSync(path.join(CORE_DIR, 'package.json'), 'utf8')
+            );
+            const target = pkg.exports['./mixins']?.sass;
+            if (target !== './src/styles/mixins/index.scss') {
+                fail(`package.json exports ./mixins sass is ${target}`);
+            }
+            for (const source of [
+                '@use "../src/styles/mixins";',
+                '@use "../src/styles/mixins" with ($brand: #4361ee, $generate-utility-classes: true, $enable-debugger: true);',
+                '@use "../src/styles/mixins" as nu;\n@use "mixins-map" as *;',
+            ]) {
+                const { css, warnings } = compileSource(source);
+                if (css.trim() !== '') {
+                    fail(`${source} emits CSS: ${css.slice(0, 80)}`);
+                }
+                warnings.forEach((warning) =>
+                    fail(`warning: ${warning.message.split('\n')[0]}`)
+                );
+            }
+            const unknown = compileError(
+                '@use "../src/styles/mixins" with ($nope: 1);'
+            );
+            if (!unknown || !unknown.includes('not declared with !default')) {
+                fail(`mixins entry with ($nope: 1): ${unknown}`);
+            }
+            const theme = compileError(
+                '@use "../src/styles/mixins" with ($light-theme: ("bg-surfase": #fff));'
+            );
+            const themeMain = compileError(
+                '@use "index" with ($light-theme: ("bg-surfase": #fff));'
+            );
+            if (!theme || theme !== themeMain) {
+                fail(
+                    `mixins entry theme validation differs from index: ${theme} / ${themeMain}`
+                );
+            }
+            const hidden = compileError(
+                '@use "../src/styles/mixins" as nu;\n.a { b: nu.$output-mixins; }'
+            );
+            if (!hidden) {
+                fail('the mixins entry exposes $output-mixins');
+            }
+        }
+    );
+
+    check(
+        'mixins entry and index share one configuration in one compile',
+        () => {
+            const shared = compileSource(
+                '@use "../src/styles/mixins" with ($brand: #4361ee, $generate-utility-classes: true);\n@use "index";'
+            ).css;
+            const direct = compileWith(
+                '$brand: #4361ee, $generate-utility-classes: true'
+            );
+            if (shared !== direct) {
+                fail('shared configuration output differs from index with()');
+            }
+            const late = compileError(
+                '@use "index";\n@use "../src/styles/mixins" with ($brand: #4361ee);'
+            );
+            if (!late || !late.includes('already loaded')) {
+                fail(`configuring the mixins entry after index: ${late}`);
             }
         }
     );
@@ -1612,7 +1679,7 @@ function run() {
     );
 
     check(
-        'default colour scales: every default role and palette colour is a key of the precomputed scales',
+        'default color scales: every default role and palette color is a key of the precomputed scales',
         () => {
             const message = compileError(
                 '@use "sass:map";\n@use "sass:meta";\n@use "config/colors" as c;\n@use "functions/default-scales" as d;\n@each $name, $value in map.merge(c.$semantic-colors, c.$color-primitives) { @if not map.has-key(d.$default-color-scales, meta.inspect($value)) { @error "#{$name} (#{$value}) is not precomputed"; } }\n@error "ok";'

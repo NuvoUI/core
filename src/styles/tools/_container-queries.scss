@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:math";
 @use "sass:meta";
 @use "sass:string";
@@ -161,19 +162,24 @@
     container-name: #{string.unquote($name)};
 }
 
-@if fn-flags.feature-enabled("container-queries") {
-    // Utility classes
-    #{config-flags.$parent-selector} .container-inline-size {
-        container-type: inline-size;
-    }
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("container-queries") {
+        // Utility classes
+        #{config-flags.$parent-selector} .container-inline-size {
+            container-type: inline-size;
+        }
 
-    #{config-flags.$parent-selector} .container-size {
-        container-type: size;
-    }
+        #{config-flags.$parent-selector} .container-size {
+            container-type: size;
+        }
 
-    @each $name in config-container.$container-names {
-        #{config-flags.$parent-selector} .container-#{$name} {
-            @include container-name($name);
+        @each $name in config-container.$container-names {
+            #{config-flags.$parent-selector} .container-#{$name} {
+                @include container-name($name);
+            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

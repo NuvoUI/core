@@ -12,6 +12,7 @@
 @use "../functions/feature-flags" as fn-flags;
 @use "../functions/css-vars" as fn-css-vars;
 @use "../functions/math" as fn-math;
+@use "sass:list";
 
 // Z-Index Utilities
 // Classes:
@@ -260,15 +261,20 @@ $-z-index-cache: ();
     @include z-index("auto");
 }
 
-// Generate utility classes
-@if fn-flags.feature-enabled("z-index") {
-    // Generate base utilities
-    @include z-index-utilities;
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    // Generate utility classes
+    @if fn-flags.feature-enabled("z-index") {
+        // Generate base utilities
+        @include z-index-utilities;
 
-    // Generate responsive variants
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @include z-index-utilities($breakpoint);
+        // Generate responsive variants
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @include z-index-utilities($breakpoint);
+            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

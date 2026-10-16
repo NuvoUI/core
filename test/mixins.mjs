@@ -295,7 +295,7 @@ const EXPECTED_ERRORS = [
         '@include apply(p(auto));',
         'p: auto is not a valid padding value',
     ],
-    ['bg(nope)', '@include apply(bg(nope));', 'bg(nope): unknown colour'],
+    ['bg(nope)', '@include apply(bg(nope));', 'bg(nope): unknown color'],
     ['cols(foo)', '@include apply(cols(foo));', 'cols: foo is not a count'],
     ['cols(0)', '@include apply(cols(0));', 'cols: 0 is not a count'],
     ['rows(-1)', '@include apply(rows(-1));', 'rows: -1 is not a count'],
@@ -405,7 +405,7 @@ const EXPECTED_ERRORS = [
     [
         'gradient(to right, foo, red)',
         '@include apply(gradient(to right, foo, red));',
-        'bg(foo): unknown colour',
+        'bg(foo): unknown color',
     ],
     [
         'bg(brand-default) names the renamed role',
@@ -462,22 +462,22 @@ const EXPECTED_ERRORS = [
     [
         'bg(color-mix(...), 600)',
         '@include apply(bg(color-mix(in srgb, red, blue), 600));',
-        'only a role, a palette name or a value Sass reads as a colour takes a shade',
+        'only a role, a palette name or a value Sass reads as a color takes a shade',
     ],
     [
         'text-color(light-dark(...), 600)',
         '@include text-color(light-dark(#fff, #000), 600);',
-        'only a role, a palette name or a value Sass reads as a colour takes a shade',
+        'only a role, a palette name or a value Sass reads as a color takes a shade',
     ],
     [
         'bg(bg-surface)',
         '@include apply(bg(bg-surface));',
-        'bg(bg-surface): unknown colour',
+        'bg(bg-surface): unknown color',
     ],
     [
         'get-color(var(--x))',
         'color: get-color(var(--x));',
-        'a CSS variable has no compile time colour',
+        'a CSS variable has no compile time color',
     ],
     [
         'get-color(red, 450)',
@@ -701,7 +701,7 @@ const EXPECTED_ERRORS = [
     [
         'text-on-color(foo) names text-on-color',
         '@include text-on-color(foo);',
-        'text-on-color(foo): unknown colour',
+        'text-on-color(foo): unknown color',
     ],
     [
         'origin(foo)',
@@ -785,7 +785,7 @@ const EXPECTED_OUTPUT = [
         ],
     ],
     [
-        'get-color(): palette names win over CSS named colours, other named colours and hex values pass through',
+        'get-color(): palette names win over CSS named colors, other named colors and hex values pass through',
         'a: get-color(red); b: get-color(coral); c: get-color(#ff5733, 200); d: get-color(#ff5733);',
         ['a: #ef4444;', 'b: coral;', 'c: #ffcfc4;', 'd: #ff5733;'],
     ],
@@ -833,7 +833,7 @@ const EXPECTED_OUTPUT = [
         ],
     ],
     [
-        'dark-mode scopes to the elements whose theme tokens are dark, per colour scheme',
+        'dark-mode scopes to the elements whose theme tokens are dark, per color scheme',
         '@include dark-mode { color: red; }',
         [
             '@media not all and (prefers-color-scheme: dark) {\n  @scope ([data-theme="dark"], [data-theme="inverse"]:not([data-theme="dark"] *, [data-theme="inverse"] *), [data-theme="dark"] [data-theme="inverse"] [data-theme="inverse"]) to ([data-theme="light"], [data-theme="dark"], [data-theme="inverse"]) {\n    .t:scope, .t:is(:scope *) {\n      color: red;',
@@ -884,7 +884,7 @@ const EXPECTED_OUTPUT = [
         ],
     ],
     [
-        'border-top takes a colour',
+        'border-top takes a color',
         '@include apply(border-top(1, solid, danger));',
         ['border-top-color: var(--nu-danger)'],
     ],
@@ -1015,7 +1015,7 @@ const EXPECTED_OUTPUT = [
         ],
     ],
     [
-        'cache keys keep same-compile calls apart (font-size key and text, colour shades)',
+        'cache keys keep same-compile calls apart (font-size key and text, color shades)',
         '@include font-size(lg); } .b { @include font-size("lg"); } .c { @include font-size(sm); } .d { @include bg(red, 500); } .e { @include bg(red, "600"); } .f { @include bg(blue, 500); } .g { @include bg(#336699, 600); } .h { @include bg(#336699, 700); } .i { @include bg("#336699", 600);',
         [
             '.t {\n  font-size: var(--nu-font-size-lg);',
@@ -1317,7 +1317,7 @@ function run() {
         );
     }
 
-    // Namespaced apply(): opacity(...) inside nu.apply() is Sass's built-in colour function, so keywords and quoted
+    // Namespaced apply(): opacity(...) inside nu.apply() is Sass's built-in color function, so keywords and quoted
     // values go through nu.opacity(), which hands the item to apply()
     {
         const label =
@@ -1371,6 +1371,48 @@ function run() {
             failures.push(`${label}: output lacks ${missing.join(', ')}`);
         } else {
             console.log(`pass  ${label}`);
+        }
+    }
+
+    // A component compiled through the mixins entry outputs only its own rules, in all three load styles
+    const COMPONENT_EXPECTED =
+        '.card {\n  color: var(--nu-text-muted);\n  padding: var(--nu-space-4);\n  background-color: var(--nu-bg-surface);\n}\n.card:hover {\n  box-shadow: var(--nu-shadow-md);\n}\n@media (min-width: 768px) {\n  .card {\n    padding: var(--nu-space-6);\n  }\n}';
+    for (const [label, use, prefix] of [
+        ['as *', '@use "../src/styles/mixins" as *;', ''],
+        ['namespaced', '@use "../src/styles/mixins" as nu;', 'nu.'],
+        [
+            'configured as *',
+            '@use "../src/styles/mixins" as * with ($brand: #4361ee, $generate-utility-classes: true);',
+            '',
+        ],
+    ]) {
+        const name = `mixins entry (${label}): a component outputs only its own rules`;
+        try {
+            const { css, warnings } = compileSource(
+                `${use}\n.card {\n    color: ${prefix}token(text-muted);\n    @include ${prefix}apply(p(4), bg(surface), shadow(md) hover, p(6) md);\n}\n`
+            );
+            const leaked = [
+                ':root',
+                '@layer',
+                '@property',
+                'data-theme',
+                'box-sizing',
+            ].filter((text) => css.includes(text));
+            if (warnings.length) {
+                failures.push(
+                    `${name}: warning: ${warnings[0].message.split('\n')[0]}`
+                );
+            } else if (leaked.length || css.trim() !== COMPONENT_EXPECTED) {
+                failures.push(
+                    `${name}: unexpected output (${leaked.join(', ') || 'rules differ'}): ${css.slice(0, 120)}`
+                );
+            } else {
+                console.log(`pass  ${name}`);
+            }
+        } catch (error) {
+            failures.push(
+                `${name}: error: ${(error.sassMessage ?? error.message).split('\n')[0]}`
+            );
         }
     }
 

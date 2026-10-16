@@ -1,4 +1,5 @@
 @use "sass:list";
+@use "sass:meta";
 @use "sass:string";
 @use "../config/feature-flags" as config-flags;
 @use "../functions/feature-flags" as fn-flags;
@@ -22,13 +23,18 @@ $-cursor-keywords: (auto, default, none, context-menu, help, pointer, progress, 
     cursor: $text;
 }
 
-@if fn-flags.feature-enabled("cursors") {
-    $cursor-values: ("auto", "pointer", "default", "move", "not-allowed", "wait", "help", "text", "cell", "crosshair", "grabbing", "grab", "zoom-in", "zoom-out", "none", "progress", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "context-menu", "all-scroll");
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("cursors") {
+        $cursor-values: ("auto", "pointer", "default", "move", "not-allowed", "wait", "help", "text", "cell", "crosshair", "grabbing", "grab", "zoom-in", "zoom-out", "none", "progress", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "context-menu", "all-scroll");
 
-    // Generate classes for each cursor value
-    @each $value in $cursor-values {
-        #{config-flags.$parent-selector} .cursor-#{$value} {
-            @include cursor($value);
+        // Generate classes for each cursor value
+        @each $value in $cursor-values {
+            #{config-flags.$parent-selector} .cursor-#{$value} {
+                @include cursor($value);
+            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

@@ -1,4 +1,6 @@
+@use "sass:list";
 @use "sass:map";
+@use "sass:meta";
 @use "../config/borders" as config-border;
 @use "../config/feature-flags" as config-flags;
 @use "../config/transitions" as config-transitions;
@@ -8,7 +10,7 @@
 @use "../functions/feature-flags" as fn-flags;
 @use "../functions/tokens" as fn-tokens;
 
-// Theme colour token, or the fixed v1 colour when the theme feature is off (no tokens emitted)
+// Theme color token, or the fixed v1 color when the theme feature is off (no tokens emitted)
 @function -color($token, $fallback) {
     @if not fn-flags.feature-flag-on("theme") {
         @return $fallback;
@@ -37,13 +39,13 @@ $-map-names: (
 
 // @mixin tooltip-variables
 // @description Emits the tooltip component variables (--nu-tooltip--{Name}); the bubble uses text-regular as background and text-inverted as text, so it contrasts with the page in both themes.
-// @output --nu-tooltip--* custom properties for colours, z-index, transition, typography, widths and radius
+// @output --nu-tooltip--* custom properties for colors, z-index, transition, typography, widths and radius
 // @example
 // .help-panel {
 //   @include tooltip-variables;
 //   --nu-tooltip--WidthLarge: 320px;
 // }
-// @note Already emitted on :root (or $parent-selector) when the tooltips feature is enabled; include it again only to reset a scope. The theme blocks re-declare the two colour variables, so tooltips inside a data-theme section take that section's colours.
+// @note Already emitted on :root (or $parent-selector) when the tooltips feature is enabled; include it again only to reset a scope. The theme blocks re-declare the two color variables, so tooltips inside a data-theme section take that section's colors.
 @mixin tooltip-variables {
     // Tooltip core variables
     --nu-tooltip--Background: #{-color("text-regular", rgb(17 17 17 / 90%))};
@@ -68,262 +70,267 @@ $-map-names: (
     --nu-tooltip--BorderRadius: #{-scale-var("radius", config-border.$border-radii, "xs")};
 }
 
-// Tooltips are a component: they follow the tooltips feature flag alone, independent of $generate-utility-classes
-@if fn-flags.feature-flag-on("tooltips") {
-    @layer components {
-        // Apply variables based on parent selector
-        @if config-flags.$parent-selector == "" {
-            :root {
-                @include tooltip-variables;
-            }
-        } @else {
-            #{config-flags.$parent-selector} {
-                @include tooltip-variables;
-            }
-        }
-
-        #{config-flags.$parent-selector} [data-tooltip] {
-            position: relative;
-
-            &::before,
-            &::after {
-                transform: translate3d(0, 0, 0);
-                backface-visibility: hidden;
-                will-change: transform;
-                opacity: 0;
-                pointer-events: none;
-                transition:
-                    opacity var(--nu-tooltip--TransitionDuration) var(--nu-tooltip--TransitionTimingFunction) var(--nu-tooltip--TransitionDelay),
-                    transform var(--nu-tooltip--TransitionDuration) var(--nu-tooltip--TransitionTimingFunction) var(--nu-tooltip--TransitionDelay);
-                position: absolute;
-                box-sizing: border-box;
-                z-index: var(--nu-tooltip--ZIndex);
-                transform-origin: top;
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    // Tooltips are a component: they follow the tooltips feature flag alone, independent of $generate-utility-classes
+    @if fn-flags.feature-flag-on("tooltips") {
+        @layer components {
+            // Apply variables based on parent selector
+            @if config-flags.$parent-selector == "" {
+                :root {
+                    @include tooltip-variables;
+                }
+            } @else {
+                #{config-flags.$parent-selector} {
+                    @include tooltip-variables;
+                }
             }
 
-            &::before {
-                background-size: 100% auto !important;
-                content: "";
+            #{config-flags.$parent-selector} [data-tooltip] {
+                position: relative;
+
+                &::before,
+                &::after {
+                    transform: translate3d(0, 0, 0);
+                    backface-visibility: hidden;
+                    will-change: transform;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition:
+                        opacity var(--nu-tooltip--TransitionDuration) var(--nu-tooltip--TransitionTimingFunction) var(--nu-tooltip--TransitionDelay),
+                        transform var(--nu-tooltip--TransitionDuration) var(--nu-tooltip--TransitionTimingFunction) var(--nu-tooltip--TransitionDelay);
+                    position: absolute;
+                    box-sizing: border-box;
+                    z-index: var(--nu-tooltip--ZIndex);
+                    transform-origin: top;
+                }
+
+                &::before {
+                    background-size: 100% auto !important;
+                    content: "";
+                }
+
+                &::after {
+                    background: var(--nu-tooltip--Background);
+                    box-shadow: 0 3px 7px var(--nu-tooltip--ShadowColor);
+                    border-radius: var(--nu-tooltip--BorderRadius);
+                    color: var(--nu-tooltip--Color);
+                    content: attr(data-tooltip);
+                    font-size: var(--nu-tooltip--FontSize);
+                    font-weight: var(--nu-tooltip--FontWeight);
+                    text-transform: var(--nu-tooltip--TextTransform);
+                    padding-block: 0.5em;
+                    padding-inline: 1em;
+                    white-space: nowrap;
+                    box-sizing: content-box;
+                }
+
+                &:hover::before,
+                &:hover::after,
+                &:focus-visible::before,
+                &:focus-visible::after {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
             }
 
-            &::after {
-                background: var(--nu-tooltip--Background);
-                box-shadow: 0 3px 7px var(--nu-tooltip--ShadowColor);
-                border-radius: var(--nu-tooltip--BorderRadius);
-                color: var(--nu-tooltip--Color);
-                content: attr(data-tooltip);
-                font-size: var(--nu-tooltip--FontSize);
-                font-weight: var(--nu-tooltip--FontWeight);
-                text-transform: var(--nu-tooltip--TextTransform);
-                padding-block: 0.5em;
-                padding-inline: 1em;
-                white-space: nowrap;
-                box-sizing: content-box;
+            // Top position tooltips; top is the default when data-tooltip-position is absent
+            #{config-flags.$parent-selector} [data-tooltip]:not([data-tooltip-position]),
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position|="top"] {
+                // Block-axis offsets are logical; the horizontal centring stays physical to match translate3d()
+                &::before {
+                    border-inline: 9px solid transparent;
+                    border-block-start: 6px solid var(--nu-tooltip--Background);
+                    height: 0;
+                    width: 0;
+                    margin-block-end: 6px;
+                    transform: translate3d(-50%, 0, 0);
+                    inset-block-end: 100%;
+                    left: 50%;
+                    z-index: var(--nu-tooltip--ZIndex);
+                }
+
+                &::after {
+                    margin-block-end: 11px;
+                    transform: translate3d(-50%, 0, 0);
+                    inset-block-end: 100%;
+                    left: 50%;
+                }
+
+                &:hover::before,
+                &:focus-visible::before {
+                    transform: translate3d(-50%, -5px, 0);
+                }
+
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: translate3d(-50%, -5px, 0);
+                }
             }
 
-            &:hover::before,
-            &:hover::after,
-            &:focus-visible::before,
-            &:focus-visible::after {
-                opacity: 1;
-                pointer-events: auto;
-            }
-        }
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="top-left"] {
+                &::after {
+                    transform: translate3d(calc(-100% + 16px), 0, 0);
+                    inset-block-end: 100%;
+                }
 
-        // Top position tooltips; top is the default when data-tooltip-position is absent
-        #{config-flags.$parent-selector} [data-tooltip]:not([data-tooltip-position]),
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position|="top"] {
-            // Block-axis offsets are logical; the horizontal centring stays physical to match translate3d()
-            &::before {
-                border-inline: 9px solid transparent;
-                border-block-start: 6px solid var(--nu-tooltip--Background);
-                height: 0;
-                width: 0;
-                margin-block-end: 6px;
-                transform: translate3d(-50%, 0, 0);
-                inset-block-end: 100%;
-                left: 50%;
-                z-index: var(--nu-tooltip--ZIndex);
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: translate3d(calc(-100% + 16px), -5px, 0);
+                }
             }
 
-            &::after {
-                margin-block-end: 11px;
-                transform: translate3d(-50%, 0, 0);
-                inset-block-end: 100%;
-                left: 50%;
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="top-right"] {
+                &::after {
+                    transform: translate3d(calc(0% + -16px), 0, 0);
+                    inset-block-end: 100%;
+                }
+
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: translate3d(calc(0% + -16px), -5px, 0);
+                }
             }
 
-            &:hover::before,
-            &:focus-visible::before {
-                transform: translate3d(-50%, -5px, 0);
+            // Bottom position tooltips
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position|="bottom"] {
+                &::before {
+                    border-inline: 9px solid transparent;
+                    border-block-end: 6px solid var(--nu-tooltip--Background);
+                    height: 0;
+                    width: 0;
+                    margin-block: 5px 0;
+                    transform: translate3d(-50%, -10px, 0);
+                    inset-block: 100% auto;
+                    left: 50%;
+                    z-index: var(--nu-tooltip--ZIndex);
+                }
+
+                &::after {
+                    margin-block-start: 11px;
+                    transform: translate3d(-50%, -10px, 0);
+                    inset-block-start: 100%;
+                    left: 50%;
+                }
+
+                &:hover::before,
+                &:focus-visible::before {
+                    transform: translate3d(-50%, 0, 0);
+                }
+
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: translate3d(-50%, 0, 0);
+                }
             }
 
-            &:hover::after,
-            &:focus-visible::after {
-                transform: translate3d(-50%, -5px, 0);
-            }
-        }
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="bottom-left"] {
+                &::after {
+                    transform: translate3d(calc(-100% + 16px), -10px, 0);
+                    inset-block-start: 100%;
+                }
 
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="top-left"] {
-            &::after {
-                transform: translate3d(calc(-100% + 16px), 0, 0);
-                inset-block-end: 100%;
-            }
-
-            &:hover::after,
-            &:focus-visible::after {
-                transform: translate3d(calc(-100% + 16px), -5px, 0);
-            }
-        }
-
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="top-right"] {
-            &::after {
-                transform: translate3d(calc(0% + -16px), 0, 0);
-                inset-block-end: 100%;
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: translate3d(calc(-100% + 16px), 0, 0);
+                }
             }
 
-            &:hover::after,
-            &:focus-visible::after {
-                transform: translate3d(calc(0% + -16px), -5px, 0);
-            }
-        }
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="bottom-right"] {
+                &::after {
+                    transform: translate3d(calc(0% + -16px), -10px, 0);
+                    inset-block-start: 100%;
+                }
 
-        // Bottom position tooltips
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position|="bottom"] {
-            &::before {
-                border-inline: 9px solid transparent;
-                border-block-end: 6px solid var(--nu-tooltip--Background);
-                height: 0;
-                width: 0;
-                margin-block: 5px 0;
-                transform: translate3d(-50%, -10px, 0);
-                inset-block: 100% auto;
-                left: 50%;
-                z-index: var(--nu-tooltip--ZIndex);
+                &:hover::after,
+                &:focus-visible::after {
+                    transform: translate3d(calc(0% + -16px), 0, 0);
+                }
             }
 
-            &::after {
-                margin-block-start: 11px;
-                transform: translate3d(-50%, -10px, 0);
-                inset-block-start: 100%;
-                left: 50%;
+            // Left and right position tooltips name physical sides, so their inline offsets stay physical
+            // Left position tooltips
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="left"] {
+                &::before,
+                &::after {
+                    inset: auto auto auto 100%;
+                    left: auto; // Remove any left positioning
+                    right: 100%; // Position to the left of the element
+                    top: 50%;
+                    transform: translate3d(10px, -50%, 0);
+                }
+
+                &::before {
+                    border-block: 9px solid transparent;
+                    border-left: 6px solid var(--nu-tooltip--Background);
+                    height: 0;
+                    width: 0;
+                    margin-right: 5px;
+                    margin-block-end: 0;
+                    z-index: var(--nu-tooltip--ZIndex);
+                }
+
+                &::after {
+                    margin-right: 11px;
+                }
+
+                &:hover::before,
+                &:hover::after,
+                &:focus-visible::before,
+                &:focus-visible::after {
+                    transform: translate3d(0, -50%, 0);
+                }
             }
 
-            &:hover::before,
-            &:focus-visible::before {
-                transform: translate3d(-50%, 0, 0);
+            // Right position tooltips
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="right"] {
+                &::before,
+                &::after {
+                    inset-block-end: auto;
+                    left: 100%;
+                    top: 50%;
+                    transform: translate3d(-10px, -50%, 0);
+                }
+
+                &::before {
+                    border-block: 9px solid transparent;
+                    border-right: 6px solid var(--nu-tooltip--Background);
+                    height: 0;
+                    width: 0;
+                    margin-block-end: 0;
+                    margin-left: 5px;
+                    z-index: var(--nu-tooltip--ZIndex);
+                }
+
+                &::after {
+                    margin-left: 11px;
+                }
+
+                &:hover::before,
+                &:hover::after,
+                &:focus-visible::before,
+                &:focus-visible::after {
+                    transform: translate3d(0, -50%, 0);
+                }
             }
 
-            &:hover::after,
-            &:focus-visible::after {
-                transform: translate3d(-50%, 0, 0);
-            }
-        }
-
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="bottom-left"] {
-            &::after {
-                transform: translate3d(calc(-100% + 16px), -10px, 0);
-                inset-block-start: 100%;
+            // Tooltip sizes
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="small"]::after {
+                white-space: initial;
+                width: var(--nu-tooltip--WidthSmall);
             }
 
-            &:hover::after,
-            &:focus-visible::after {
-                transform: translate3d(calc(-100% + 16px), 0, 0);
-            }
-        }
-
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="bottom-right"] {
-            &::after {
-                transform: translate3d(calc(0% + -16px), -10px, 0);
-                inset-block-start: 100%;
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="medium"]::after {
+                white-space: initial;
+                width: var(--nu-tooltip--WidthMedium);
             }
 
-            &:hover::after,
-            &:focus-visible::after {
-                transform: translate3d(calc(0% + -16px), 0, 0);
+            #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="large"]::after {
+                white-space: initial;
+                width: var(--nu-tooltip--WidthLarge);
             }
-        }
-
-        // Left and right position tooltips name physical sides, so their inline offsets stay physical
-        // Left position tooltips
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="left"] {
-            &::before,
-            &::after {
-                inset: auto auto auto 100%;
-                left: auto; // Remove any left positioning
-                right: 100%; // Position to the left of the element
-                top: 50%;
-                transform: translate3d(10px, -50%, 0);
-            }
-
-            &::before {
-                border-block: 9px solid transparent;
-                border-left: 6px solid var(--nu-tooltip--Background);
-                height: 0;
-                width: 0;
-                margin-right: 5px;
-                margin-block-end: 0;
-                z-index: var(--nu-tooltip--ZIndex);
-            }
-
-            &::after {
-                margin-right: 11px;
-            }
-
-            &:hover::before,
-            &:hover::after,
-            &:focus-visible::before,
-            &:focus-visible::after {
-                transform: translate3d(0, -50%, 0);
-            }
-        }
-
-        // Right position tooltips
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-position="right"] {
-            &::before,
-            &::after {
-                inset-block-end: auto;
-                left: 100%;
-                top: 50%;
-                transform: translate3d(-10px, -50%, 0);
-            }
-
-            &::before {
-                border-block: 9px solid transparent;
-                border-right: 6px solid var(--nu-tooltip--Background);
-                height: 0;
-                width: 0;
-                margin-block-end: 0;
-                margin-left: 5px;
-                z-index: var(--nu-tooltip--ZIndex);
-            }
-
-            &::after {
-                margin-left: 11px;
-            }
-
-            &:hover::before,
-            &:hover::after,
-            &:focus-visible::before,
-            &:focus-visible::after {
-                transform: translate3d(0, -50%, 0);
-            }
-        }
-
-        // Tooltip sizes
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="small"]::after {
-            white-space: initial;
-            width: var(--nu-tooltip--WidthSmall);
-        }
-
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="medium"]::after {
-            white-space: initial;
-            width: var(--nu-tooltip--WidthMedium);
-        }
-
-        #{config-flags.$parent-selector} [data-tooltip][data-tooltip-size="large"]::after {
-            white-space: initial;
-            width: var(--nu-tooltip--WidthLarge);
-        }
-    } // end @layer components
+        } // end @layer components
+    }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

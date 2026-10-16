@@ -27,3 +27,6 @@
 
     @return feature-flag-on($feature);
 }
+
+// Output mixins of the modules, in load order. index.scss includes them; the mixins entry does not
+$output-mixins: ();

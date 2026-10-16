@@ -823,53 +823,58 @@ $-tracking-keywords: ("inherit", "initial", "unset", "revert", "revert-layer");
     }
 }
 
-@if fn-flags.feature-enabled("typography") {
-    @include responsive-typography;
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("typography") {
+        @include responsive-typography;
 
-    #{config-flags.$parent-selector} .break-normal {
-        @include break-normal;
+        #{config-flags.$parent-selector} .break-normal {
+            @include break-normal;
+        }
+
+        #{config-flags.$parent-selector} .break-words {
+            @include break-words;
+        }
+
+        #{config-flags.$parent-selector} .break-all {
+            @include break-all;
+        }
+
+        #{config-flags.$parent-selector} .whitespace-normal {
+            @include whitespace-normal;
+        }
+
+        #{config-flags.$parent-selector} .whitespace-nowrap {
+            @include whitespace-nowrap;
+        }
+
+        #{config-flags.$parent-selector} .whitespace-pre {
+            @include whitespace-pre;
+        }
+
+        #{config-flags.$parent-selector} .whitespace-pre-line {
+            @include whitespace-pre-line;
+        }
+
+        #{config-flags.$parent-selector} .whitespace-pre-wrap {
+            @include whitespace-pre-wrap;
+        }
+
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @include responsive-typography($breakpoint);
+            }
+        }
     }
 
-    #{config-flags.$parent-selector} .break-words {
-        @include break-words;
-    }
-
-    #{config-flags.$parent-selector} .break-all {
-        @include break-all;
-    }
-
-    #{config-flags.$parent-selector} .whitespace-normal {
-        @include whitespace-normal;
-    }
-
-    #{config-flags.$parent-selector} .whitespace-nowrap {
-        @include whitespace-nowrap;
-    }
-
-    #{config-flags.$parent-selector} .whitespace-pre {
-        @include whitespace-pre;
-    }
-
-    #{config-flags.$parent-selector} .whitespace-pre-line {
-        @include whitespace-pre-line;
-    }
-
-    #{config-flags.$parent-selector} .whitespace-pre-wrap {
-        @include whitespace-pre-wrap;
-    }
-
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @include responsive-typography($breakpoint);
+    // Without the typography flag, the displays flag still gets its responsive truncate classes
+    @if not fn-flags.feature-enabled("typography") and fn-flags.feature-enabled("displays") {
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @include -responsive-truncate("\\@#{$breakpoint}");
+            }
         }
     }
 }
 
-// Without the typography flag, the displays flag still gets its responsive truncate classes
-@if not fn-flags.feature-enabled("typography") and fn-flags.feature-enabled("displays") {
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @include -responsive-truncate("\\@#{$breakpoint}");
-        }
-    }
-}
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

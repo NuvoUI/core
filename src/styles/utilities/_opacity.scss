@@ -123,30 +123,35 @@ $-opacity-cache: ();
     opacity: -opacity($value);
 }
 
-@if fn-flags.feature-enabled("opacity") {
-    // Opacity Utilities
-    @each $i, $value in config-opacity.$opacities {
-        #{config-flags.$parent-selector} .opacity-#{fn-css-vars.class-key($i)},
-        #{config-flags.$parent-selector} .hover\:opacity-#{fn-css-vars.class-key($i)}:hover,
-        #{config-flags.$parent-selector} .focus\:opacity-#{fn-css-vars.class-key($i)}:focus,
-        #{config-flags.$parent-selector} .active\:opacity-#{fn-css-vars.class-key($i)}:active,
-        #{config-flags.$parent-selector} .group:hover .group-hover\:opacity-#{fn-css-vars.class-key($i)} {
-            @include opacity($i);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if fn-flags.feature-enabled("opacity") {
+        // Opacity Utilities
+        @each $i, $value in config-opacity.$opacities {
+            #{config-flags.$parent-selector} .opacity-#{fn-css-vars.class-key($i)},
+            #{config-flags.$parent-selector} .hover\:opacity-#{fn-css-vars.class-key($i)}:hover,
+            #{config-flags.$parent-selector} .focus\:opacity-#{fn-css-vars.class-key($i)}:focus,
+            #{config-flags.$parent-selector} .active\:opacity-#{fn-css-vars.class-key($i)}:active,
+            #{config-flags.$parent-selector} .group:hover .group-hover\:opacity-#{fn-css-vars.class-key($i)} {
+                @include opacity($i);
+            }
         }
-    }
 
-    // Responsive Variants for Opacity
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @each $i, $value in config-opacity.$opacities {
-                #{config-flags.$parent-selector} .opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint},
-                #{config-flags.$parent-selector} .hover\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint}:hover,
-                #{config-flags.$parent-selector} .focus\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint}:focus,
-                #{config-flags.$parent-selector} .active\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint}:active,
-                #{config-flags.$parent-selector} .group:hover .group-hover\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint} {
-                    @include opacity($i);
+        // Responsive Variants for Opacity
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @each $i, $value in config-opacity.$opacities {
+                    #{config-flags.$parent-selector} .opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint},
+                    #{config-flags.$parent-selector} .hover\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint}:hover,
+                    #{config-flags.$parent-selector} .focus\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint}:focus,
+                    #{config-flags.$parent-selector} .active\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint}:active,
+                    #{config-flags.$parent-selector} .group:hover .group-hover\:opacity-#{fn-css-vars.class-key($i)}\@#{$breakpoint} {
+                        @include opacity($i);
+                    }
                 }
             }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));

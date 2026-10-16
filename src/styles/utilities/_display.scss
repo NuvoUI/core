@@ -1,6 +1,7 @@
 // Section: Utilities
 // Module: Display
 
+@use "sass:list";
 @use "sass:math";
 @use "sass:meta";
 @use "../config/feature-flags" as config-flags;
@@ -355,233 +356,238 @@ $-displays: fn-flags.feature-enabled("displays");
 $-flex: fn-flags.feature-enabled("flex");
 $-grid: fn-flags.feature-enabled("grid");
 
-@if $-displays {
-    // Truncate classes come before the display and overflow classes so .block or .overflow-visible overrides them.
-    // Their responsive variants are emitted by utilities/_typography.scss, after every non-responsive class they
-    // must override (white-space, word-break, min-width)
-    #{config-flags.$parent-selector} .truncate {
-        @include truncate;
-    }
-
-    @for $lines from 2 through 5 {
-        #{config-flags.$parent-selector} .truncate-#{$lines} {
-            @include truncate-lines($lines);
+// CSS output of this module; index.scss includes it, the mixins entry does not
+@mixin -emit {
+    @if $-displays {
+        // Truncate classes come before the display and overflow classes so .block or .overflow-visible overrides them.
+        // Their responsive variants are emitted by utilities/_typography.scss, after every non-responsive class they
+        // must override (white-space, word-break, min-width)
+        #{config-flags.$parent-selector} .truncate {
+            @include truncate;
         }
-    }
 
-    #{config-flags.$parent-selector} .overflow-label {
-        @include overflow-label;
-    }
-
-    #{config-flags.$parent-selector} .show {
-        @include show;
-    }
-
-    #{config-flags.$parent-selector} .block {
-        @include block;
-    }
-
-    #{config-flags.$parent-selector} .inline {
-        @include inline;
-    }
-
-    #{config-flags.$parent-selector} .inline-block {
-        @include inline-block;
-    }
-
-    #{config-flags.$parent-selector} .contents {
-        @include contents;
-    }
-}
-
-@if $-grid {
-    #{config-flags.$parent-selector} .grid {
-        @include grid;
-
-        &:where(.inline) {
-            @include inline-grid;
-        }
-    }
-}
-
-@if $-flex {
-    #{config-flags.$parent-selector} .flex {
-        @include flex;
-
-        &:where(.inline) {
-            @include inline-flex;
-        }
-    }
-}
-
-@if $-displays {
-    #{config-flags.$parent-selector} .visible {
-        @include visible;
-    }
-
-    #{config-flags.$parent-selector} .invisible {
-        @include invisible;
-    }
-
-    #{config-flags.$parent-selector} .collapse {
-        @include collapse;
-    }
-
-    #{config-flags.$parent-selector} .hide {
-        @include hide;
-    }
-
-    #{config-flags.$parent-selector} .hidden {
-        display: none !important;
-    }
-
-    #{config-flags.$parent-selector} .overflow-hidden {
-        @include overflow-hidden;
-    }
-
-    #{config-flags.$parent-selector} .overflow-visible {
-        @include overflow-visible;
-    }
-
-    #{config-flags.$parent-selector} .overflow-scroll {
-        @include overflow-scroll;
-    }
-
-    #{config-flags.$parent-selector} .overflow-auto {
-        @include overflow-auto;
-    }
-
-    #{config-flags.$parent-selector} .overflow-x-hidden {
-        @include overflow-x-hidden;
-    }
-
-    #{config-flags.$parent-selector} .overflow-y-hidden {
-        @include overflow-y-hidden;
-    }
-
-    #{config-flags.$parent-selector} .overflow-x-scroll {
-        @include overflow-x-scroll;
-    }
-
-    #{config-flags.$parent-selector} .overflow-y-scroll {
-        @include overflow-y-scroll;
-    }
-
-    #{config-flags.$parent-selector} .overflow-x-auto {
-        @include overflow-x-auto;
-    }
-
-    #{config-flags.$parent-selector} .overflow-y-auto {
-        @include overflow-y-auto;
-    }
-
-    #{config-flags.$parent-selector} .table {
-        @include table;
-    }
-
-    #{config-flags.$parent-selector} .table-row {
-        @include table-row;
-    }
-
-    #{config-flags.$parent-selector} .table-cell {
-        @include table-cell;
-    }
-}
-
-// Responsive Variants
-@if $-displays or $-flex or $-grid {
-    @each $breakpoint, $width in config-breakpoint.$breakpoints {
-        @media (min-width: #{$width}) {
-            @if $-displays {
-                #{config-flags.$parent-selector} .hide\@#{$breakpoint} {
-                    @include hide;
-                }
-                #{config-flags.$parent-selector} .show\@#{$breakpoint} {
-                    @include show;
-                }
-                #{config-flags.$parent-selector} .block\@#{$breakpoint} {
-                    @include block;
-                }
-                #{config-flags.$parent-selector} .inline\@#{$breakpoint} {
-                    @include inline;
-                }
-                #{config-flags.$parent-selector} .inline-block\@#{$breakpoint} {
-                    @include inline-block;
-                }
-
-                #{config-flags.$parent-selector} .contents\@#{$breakpoint} {
-                    @include contents;
-                }
+        @for $lines from 2 through 5 {
+            #{config-flags.$parent-selector} .truncate-#{$lines} {
+                @include truncate-lines($lines);
             }
-            @if $-grid {
-                #{config-flags.$parent-selector} .grid\@#{$breakpoint} {
-                    @include grid;
+        }
 
-                    &:where(.inline) {
-                        @include inline-grid;
+        #{config-flags.$parent-selector} .overflow-label {
+            @include overflow-label;
+        }
+
+        #{config-flags.$parent-selector} .show {
+            @include show;
+        }
+
+        #{config-flags.$parent-selector} .block {
+            @include block;
+        }
+
+        #{config-flags.$parent-selector} .inline {
+            @include inline;
+        }
+
+        #{config-flags.$parent-selector} .inline-block {
+            @include inline-block;
+        }
+
+        #{config-flags.$parent-selector} .contents {
+            @include contents;
+        }
+    }
+
+    @if $-grid {
+        #{config-flags.$parent-selector} .grid {
+            @include grid;
+
+            &:where(.inline) {
+                @include inline-grid;
+            }
+        }
+    }
+
+    @if $-flex {
+        #{config-flags.$parent-selector} .flex {
+            @include flex;
+
+            &:where(.inline) {
+                @include inline-flex;
+            }
+        }
+    }
+
+    @if $-displays {
+        #{config-flags.$parent-selector} .visible {
+            @include visible;
+        }
+
+        #{config-flags.$parent-selector} .invisible {
+            @include invisible;
+        }
+
+        #{config-flags.$parent-selector} .collapse {
+            @include collapse;
+        }
+
+        #{config-flags.$parent-selector} .hide {
+            @include hide;
+        }
+
+        #{config-flags.$parent-selector} .hidden {
+            display: none !important;
+        }
+
+        #{config-flags.$parent-selector} .overflow-hidden {
+            @include overflow-hidden;
+        }
+
+        #{config-flags.$parent-selector} .overflow-visible {
+            @include overflow-visible;
+        }
+
+        #{config-flags.$parent-selector} .overflow-scroll {
+            @include overflow-scroll;
+        }
+
+        #{config-flags.$parent-selector} .overflow-auto {
+            @include overflow-auto;
+        }
+
+        #{config-flags.$parent-selector} .overflow-x-hidden {
+            @include overflow-x-hidden;
+        }
+
+        #{config-flags.$parent-selector} .overflow-y-hidden {
+            @include overflow-y-hidden;
+        }
+
+        #{config-flags.$parent-selector} .overflow-x-scroll {
+            @include overflow-x-scroll;
+        }
+
+        #{config-flags.$parent-selector} .overflow-y-scroll {
+            @include overflow-y-scroll;
+        }
+
+        #{config-flags.$parent-selector} .overflow-x-auto {
+            @include overflow-x-auto;
+        }
+
+        #{config-flags.$parent-selector} .overflow-y-auto {
+            @include overflow-y-auto;
+        }
+
+        #{config-flags.$parent-selector} .table {
+            @include table;
+        }
+
+        #{config-flags.$parent-selector} .table-row {
+            @include table-row;
+        }
+
+        #{config-flags.$parent-selector} .table-cell {
+            @include table-cell;
+        }
+    }
+
+    // Responsive Variants
+    @if $-displays or $-flex or $-grid {
+        @each $breakpoint, $width in config-breakpoint.$breakpoints {
+            @media (min-width: #{$width}) {
+                @if $-displays {
+                    #{config-flags.$parent-selector} .hide\@#{$breakpoint} {
+                        @include hide;
+                    }
+                    #{config-flags.$parent-selector} .show\@#{$breakpoint} {
+                        @include show;
+                    }
+                    #{config-flags.$parent-selector} .block\@#{$breakpoint} {
+                        @include block;
+                    }
+                    #{config-flags.$parent-selector} .inline\@#{$breakpoint} {
+                        @include inline;
+                    }
+                    #{config-flags.$parent-selector} .inline-block\@#{$breakpoint} {
+                        @include inline-block;
+                    }
+
+                    #{config-flags.$parent-selector} .contents\@#{$breakpoint} {
+                        @include contents;
+                    }
+                }
+                @if $-grid {
+                    #{config-flags.$parent-selector} .grid\@#{$breakpoint} {
+                        @include grid;
+
+                        &:where(.inline) {
+                            @include inline-grid;
+                        }
+                    }
+                }
+                @if $-flex {
+                    #{config-flags.$parent-selector} .flex\@#{$breakpoint} {
+                        @include flex;
+
+                        &:where(.inline) {
+                            @include inline-flex;
+                        }
+                    }
+                }
+                @if $-displays {
+                    #{config-flags.$parent-selector} .visible\@#{$breakpoint} {
+                        @include visible;
+                    }
+                    #{config-flags.$parent-selector} .invisible\@#{$breakpoint} {
+                        @include invisible;
+                    }
+                    #{config-flags.$parent-selector} .collapse\@#{$breakpoint} {
+                        @include collapse;
+                    }
+                    #{config-flags.$parent-selector} .overflow-hidden\@#{$breakpoint} {
+                        @include overflow-hidden;
+                    }
+                    #{config-flags.$parent-selector} .overflow-visible\@#{$breakpoint} {
+                        @include overflow-visible;
+                    }
+                    #{config-flags.$parent-selector} .overflow-scroll\@#{$breakpoint} {
+                        @include overflow-scroll;
+                    }
+                    #{config-flags.$parent-selector} .overflow-auto\@#{$breakpoint} {
+                        @include overflow-auto;
+                    }
+                    #{config-flags.$parent-selector} .overflow-x-hidden\@#{$breakpoint} {
+                        @include overflow-x-hidden;
+                    }
+                    #{config-flags.$parent-selector} .overflow-y-hidden\@#{$breakpoint} {
+                        @include overflow-y-hidden;
+                    }
+                    #{config-flags.$parent-selector} .overflow-x-scroll\@#{$breakpoint} {
+                        @include overflow-x-scroll;
+                    }
+                    #{config-flags.$parent-selector} .overflow-y-scroll\@#{$breakpoint} {
+                        @include overflow-y-scroll;
+                    }
+                    #{config-flags.$parent-selector} .overflow-x-auto\@#{$breakpoint} {
+                        @include overflow-x-auto;
+                    }
+                    #{config-flags.$parent-selector} .overflow-y-auto\@#{$breakpoint} {
+                        @include overflow-y-auto;
+                    }
+
+                    #{config-flags.$parent-selector} .table\@#{$breakpoint} {
+                        @include table;
+                    }
+                    #{config-flags.$parent-selector} .table-row\@#{$breakpoint} {
+                        @include table-row;
+                    }
+                    #{config-flags.$parent-selector} .table-cell\@#{$breakpoint} {
+                        @include table-cell;
                     }
                 }
             }
-            @if $-flex {
-                #{config-flags.$parent-selector} .flex\@#{$breakpoint} {
-                    @include flex;
-
-                    &:where(.inline) {
-                        @include inline-flex;
-                    }
-                }
-            }
-            @if $-displays {
-                #{config-flags.$parent-selector} .visible\@#{$breakpoint} {
-                    @include visible;
-                }
-                #{config-flags.$parent-selector} .invisible\@#{$breakpoint} {
-                    @include invisible;
-                }
-                #{config-flags.$parent-selector} .collapse\@#{$breakpoint} {
-                    @include collapse;
-                }
-                #{config-flags.$parent-selector} .overflow-hidden\@#{$breakpoint} {
-                    @include overflow-hidden;
-                }
-                #{config-flags.$parent-selector} .overflow-visible\@#{$breakpoint} {
-                    @include overflow-visible;
-                }
-                #{config-flags.$parent-selector} .overflow-scroll\@#{$breakpoint} {
-                    @include overflow-scroll;
-                }
-                #{config-flags.$parent-selector} .overflow-auto\@#{$breakpoint} {
-                    @include overflow-auto;
-                }
-                #{config-flags.$parent-selector} .overflow-x-hidden\@#{$breakpoint} {
-                    @include overflow-x-hidden;
-                }
-                #{config-flags.$parent-selector} .overflow-y-hidden\@#{$breakpoint} {
-                    @include overflow-y-hidden;
-                }
-                #{config-flags.$parent-selector} .overflow-x-scroll\@#{$breakpoint} {
-                    @include overflow-x-scroll;
-                }
-                #{config-flags.$parent-selector} .overflow-y-scroll\@#{$breakpoint} {
-                    @include overflow-y-scroll;
-                }
-                #{config-flags.$parent-selector} .overflow-x-auto\@#{$breakpoint} {
-                    @include overflow-x-auto;
-                }
-                #{config-flags.$parent-selector} .overflow-y-auto\@#{$breakpoint} {
-                    @include overflow-y-auto;
-                }
-
-                #{config-flags.$parent-selector} .table\@#{$breakpoint} {
-                    @include table;
-                }
-                #{config-flags.$parent-selector} .table-row\@#{$breakpoint} {
-                    @include table-row;
-                }
-                #{config-flags.$parent-selector} .table-cell\@#{$breakpoint} {
-                    @include table-cell;
-                }
-            }
         }
     }
 }
+
+fn-flags.$output-mixins: list.append(fn-flags.$output-mixins, meta.get-mixin("-emit"));
