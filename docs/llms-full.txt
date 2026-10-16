@@ -105,7 +105,7 @@ What the entry emits:
 | --- | --- |
 | `@layer reset, components` (reset, tooltips) | Always (tooltips follow the `tooltips` flag alone, independent of `$generate-utility-classes`) |
 | `@layer base` (base element styles, `.sr-only`) | `base` feature flag on (default), independent of `$generate-utility-classes` |
-| `@property` registrations (transform variables, `--nu-flex-gap`) | Always, independent of feature flags |
+| `@property` registrations (transform variables, `--nu-gap`) | Always, independent of feature flags |
 | Tokens (`:root` fixed block, light block, dark block, inverse blocks, dark fallback, high-contrast twins when set) | `theme` feature flag on (default), independent of `$generate-utility-classes` |
 | Utility classes | `$generate-utility-classes: true` (default `false` in `index.scss`) and the feature flag on |
 
@@ -208,7 +208,7 @@ There are no delay tokens and no disabled text token (disabled text uses opacity
 
 - **Prefix**: `--nu-` then single hyphens only: `--nu-text-muted`, `--nu-brand-hover`.
 - **Component variables** always contain `__` or `--` after the component name: `--nu-btn--BackgroundColor`, `--nu-sidebar__link--Color`. They can never clash with core tokens. Core's tooltip uses this grammar: `--nu-tooltip--Background`, `--nu-tooltip--Color`, `--nu-tooltip--ZIndex`.
-- **Internal utility variables** also carry `--nu-` but are not tokens (`token()` rejects them): `--nu-border-style`, `--nu-flex-gap`, `--nu-translate-x`, `--nu-scale-x`, `--nu-rotate`, `--nu-skew-x`, `--nu-backdrop-blur` and so on. The transform variables and `--nu-flex-gap` are registered with `@property` (`inherits: false`), so they never leak into descendants, and they are read without `var()` fallbacks: an unset one takes its registered initial value. The registrations are emitted whenever the package loads, independent of feature flags, so the mixins work with the utility classes off.
+- **Internal utility variables** also carry `--nu-` but are not tokens (`token()` rejects them): `--nu-border-style`, `--nu-gap`, `--nu-translate-x`, `--nu-scale-x`, `--nu-rotate`, `--nu-skew-x`, `--nu-backdrop-blur` and so on. The transform variables and `--nu-gap` are registered with `@property` (`inherits: false`), so they never leak into descendants, and they are read without `var()` fallbacks: an unset one takes its registered initial value. The registrations are emitted whenever the package loads, independent of feature flags, so the mixins work with the utility classes off.
 - **Classes stay short**: `text-muted`, `bg-danger`. Only the variables carry `--nu-`.
 - **Role state ladder**: `--nu-{role}` (the bare name is the resting fill: `--nu-brand`, `--nu-danger`, `--nu-error`), `-hover`, `-active`, plus `-subtle` (tinted background) and `-border` (soft edge). There is no `--nu-{role}-default`: `token(brand-default)` and a `"brand-default"` theme key raise a rename error pointing at `brand`.
 - **`text-{role}` vs `text-on-{role}`**:
@@ -249,7 +249,7 @@ There are no delay tokens and no disabled text token (disabled text uses opacity
 }
 ```
 
-`token()` rules: pass the name without `--nu-`; unknown names raise an error listing close matches; an old `{role}-default` name raises `token(brand-default): renamed in 2.0, use token(brand)`; `token()` raises an error when the `theme` feature flag is off. Internal variables (`--nu-flex-gap`) and component variables (`--nu-tooltip--Color`) are not tokens.
+`token()` rules: pass the name without `--nu-`; unknown names raise an error listing close matches; an old `{role}-default` name raises `token(brand-default): renamed in 2.0, use token(brand)`; `token()` raises an error when the `theme` feature flag is off. Internal variables (`--nu-gap`) and component variables (`--nu-tooltip--Color`) are not tokens.
 
 `get-color()` rules: role and palette names first (`get-color(red)` is palette red `#ef4444`, not CSS `red`), then any CSS color or named color; stops 50, 100 to 900, 950 only; never returns `var()`; errors on unknown names.
 
@@ -548,7 +548,7 @@ Values: a `$spacings` key gives `var(--nu-space-{key})`; values with units, `cal
 - Padding: `p`, `px` (L), `py` (L), `pt`, `pr`, `pb`, `pl`, `ps` (L), `pe` (L). No negative keys or negative raw lengths (`p(-1rem)`), no `auto`.
 - Margin: `m`, `mx` (L), `my` (L), `mt`, `mr`, `mb`, `ml`, `ms` (L), `me` (L). Negative keys allowed: `m(-4)` gives `calc(-1 * var(--nu-space-4))`.
 - Auto margins: `ml-auto`, `mr-auto`, `ms-auto` (L), `me-auto` (L), `mx-auto` (L, `margin-inline: auto`). The classes come after the `.m-*` classes of the same breakpoint, so `mx-auto m-4` keeps the centring.
-- Gap: `gap`, `gap-x`, `gap-y`. No negative keys; `gap(normal)` is allowed. `gap` and `gap-x` also set `--nu-flex-gap` on direct children (`& > *`), which `fill($size)` reads, so a nested flex container does not inherit an outer gap.
+- Gap: `gap`, `gap-x`, `gap-y`. No negative keys; `gap(normal)` is allowed. `gap` and `gap-x` also set `--nu-gap` on direct children (`& > *`), which `fill($size)` reads, so a nested flex container does not inherit an outer gap.
 - Between children: `space-x` (L, `margin-inline-start`), `space-y` (L, `margin-block-start`). Negative keys allowed.
 - Inset: `inset`, `inset-x`, `inset-y`, `inset-auto`, `inset-x-auto`, `inset-y-auto`. Negative keys allowed. `inset-x()` / `.inset-x-*` and `.border-x` are physical (left and right), unlike `mx`, `px` and `space-x`, which are logical; use `inset-start()` / `inset-end()` where the direction matters.
 
@@ -654,7 +654,7 @@ Keywords: `w-auto`, `w-full`, `w-screen`, `w-min`, `w-max`, `w-fit`, `h-auto`, `
 
 ### Functions
 
-`token($name)`, `get-color($color, [$stop])`, `find-text-color($background, [$text-colors])` (higher-contrast text color for an opaque color; candidates default to the light theme `text-regular` and `text-inverted`), `to-number($value, [$append-unit])` (`"12px"` gives the number `12px`), `create-color-scale($color)` (map of stop to color; takes a color or a string holding one, such as `"#007bff"`). `get-breakpoint-value($bp)` (a breakpoint name or a length; `get-breakpoint-value(md)` is `768px`). Not public: `to-color()`, `from-hex()`, `hex-to-dec()`, `luminance()`, `is-valid-color()`, `is-valid-shade()`, `to-css-var()`, `validate-theme-tokens()`, `has-token()` and the `apply()` internals (`pam`, `pai`, `am`, `ai`). Sass does not report an unknown function: it writes the call into the CSS as text, so never call them.
+`token($name)`, `get-color($color, [$stop])`, `find-text-color($background, [$text-colors])` (higher-contrast text color for an opaque color; candidates default to the light theme `text-regular` and `text-inverted`), `to-number($value, [$append-unit])` (`"12px"` gives the number `12px`), `create-color-scale($color)` (map of stop to color; takes a color or a string holding one, such as `"#007bff"`). `get-breakpoint-value($bp)` (a breakpoint name or a length; `get-breakpoint-value(md)` is `768px`). Not public: `to-color()`, `from-hex()`, `hex-to-dec()`, `luminance()`, `is-valid-color()`, `is-valid-shade()`, `to-css-var()`, `validate-theme-tokens()`, `has-token()` and the `apply()` internals (`pam`, `pai`, `am`). Sass does not report an unknown function: it writes the call into the CSS as text, so never call them.
 
 ---
 
@@ -878,7 +878,7 @@ NuvoUI 2 fails at compile time instead of emitting broken CSS. Every message nam
 | `shadow(0 4px 20px ...)` | `shadow-base(0, 4px, 20px, 0, ...)` | `shadow()` takes keys |
 | `z-index(9999)` for modals | `z-modal` | Named levels |
 | `[data-theme="system"]` for auto dark | omit `data-theme` | Tokens and the `dark-mode` mixin follow the OS only on `:root:not([data-theme])`; `system` is not read |
-| `--flex-gap`, `--translate-x`, `--border-style` | `--nu-flex-gap`, `--nu-translate-x`, `--nu-border-style` | Internal variables carry `--nu-` |
+| `--flex-gap`, `--translate-x`, `--border-style` | `--nu-gap`, `--nu-translate-x`, `--nu-border-style` | Internal variables carry `--nu-` |
 | `--tooltip-bg`, `--tooltip-text-color` | `--nu-tooltip--Background`, `--nu-tooltip--Color` | Component grammar |
 | `opacity(0.5)` | `opacity(50)` | Keys, as `.opacity-50` |
 | `scale(1.5)` only | `scale(150)` or `scale(1.5)` | Both give 1.5 |

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [2.1.1] - 2026-10-16
 
+### Changed
+
+- The internal variable `--nu-flex-gap` is renamed `--nu-gap`. `gap()` and `gap-x()` set it on direct children of flex and grid containers alike, and `fill()` reads it. Replace any hand-written `var(--nu-flex-gap)` with `var(--nu-gap)`.
+
 ### Fixed
 
 - `apply()` output no longer depends on the written order of its items. Items without a modifier come first, then state items, then each breakpoint from the smallest up with its own state items. `apply(flex md, hide)` now gives the same CSS as `apply(hide, flex md)`: hidden below `md`, flex from `md` up. Before, the later `hide` overrode the `md` rule at every width.
@@ -167,9 +171,6 @@ Version 2.0 is a breaking release that rebuilds core as the foundation layer of 
 - `validate-theme-tokens()`, the `validate-tokens` mixin, `$translate-values`, `$negative-translate-values`, `$colors-primitives`, `$digit-map`, `$colors` and `$color-cache` from the public API.
 - `$color-names` and `$color-names-with-basic`. `$primitive-color-names` remains, derived from `$color-primitives` and not configurable.
 - The `apply()` internals `pam()`, `pai()`, `am()` and `$ac` are not forwarded by the package entry.
-
-### Not included in 2.0.0
-
 - The v1 `--inverted-*` custom properties and `.inverted-*` classes. For an opposite-theme region, use `data-theme="inverse"` or set `data-theme` on that element.
 
 ### Fixed

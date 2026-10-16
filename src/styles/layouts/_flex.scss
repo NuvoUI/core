@@ -522,9 +522,9 @@
 }
 
 // @mixin fill
-// @description Sizes a flex child to span a number of columns out of `$column-count` (12 by default), subtracting the container gap from `--nu-flex-gap`.
+// @description Sizes a flex child to span a number of columns out of `$column-count` (12 by default), subtracting the container gap from `--nu-gap`.
 // @param {Number} $size - Whole number of columns to span, from 1 to `$column-count`; a fraction, 0, a negative number, more than `$column-count`, a value with a unit or a non-number raises an error
-// @output flex: 0 0 <width>; max-width: <width>; min-width: 0, where width is a calc() over 100% and var(--nu-flex-gap)
+// @output flex: 0 0 <width>; max-width: <width>; min-width: 0, where width is a calc() over 100% and var(--nu-gap)
 // @example
 // .sidebar {
 //   @include fill(4); // one third of the row, minus its share of the gap
@@ -535,7 +535,7 @@
 //     @include fill(8);
 //   }
 // }
-// @note Gap mixins set `--nu-flex-gap` on direct children, so place the item directly inside the gap container; without a gap it reads the registered initial value 0px.
+// @note Gap mixins set `--nu-gap` on direct children, so place the item directly inside the gap container; without a gap it reads the registered initial value 0px.
 // @see grow, fill-full, gap
 @mixin fill($size) {
     $size: fn-math.css-arg($size);
@@ -543,7 +543,7 @@
         @error "fill(#{$size}): use a whole number of columns from 1 to #{config-layout.$column-count}.";
     }
     $columns: math.div(config-layout.$column-count, $size); // How many items per row
-    $width: calc((100% - (#{$columns - 1} * var(--nu-flex-gap))) / #{$columns});
+    $width: calc((100% - (#{$columns - 1} * var(--nu-gap))) / #{$columns});
 
     flex: 0 0 $width;
     max-width: $width; // Add this to ensure content doesn't push width wider

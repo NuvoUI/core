@@ -969,7 +969,7 @@ function run() {
                 'rotate',
                 'skew-x',
                 'skew-y',
-                'flex-gap',
+                'gap',
             ]) {
                 expectIncludes(css, `@property --nu-${name} {`, 'flags off');
             }
@@ -978,11 +978,7 @@ function run() {
                 '--nu-translate-x: var(--nu-space-4)',
                 'flags off'
             );
-            expectIncludes(
-                css,
-                '--nu-flex-gap: var(--nu-space-4)',
-                'flags off'
-            );
+            expectIncludes(css, '--nu-gap: var(--nu-space-4)', 'flags off');
         }
     );
 

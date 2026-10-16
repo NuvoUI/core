@@ -496,7 +496,7 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
 // GAP MIXINS
 // -----------------------------------------------
 
-// normal becomes 0px so --nu-flex-gap stays a length; any other value passes through
+// normal becomes 0px so --nu-gap stays a length; any other value passes through
 @function -flex-gap($val) {
     @if $val == "normal" {
         @return 0px; // stylelint-disable-line length-zero-no-unit -- unitless 0 is invalid in the fill() calc()
@@ -505,7 +505,7 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
 }
 
 // @mixin gap
-// @description Sets gap on a flex or grid container and passes it to direct children as --nu-flex-gap for fill() widths.
+// @description Sets gap on a flex or grid container and passes it to direct children as --nu-gap for fill() widths.
 // @param {Number|Length|Calculation|String} $val - Spacing key, normal, or a value with a unit, calc() or var(); negative keys raise an error
 // @example
 // .grid {
@@ -522,12 +522,12 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
     gap: $val;
 
     & > * {
-        --nu-flex-gap: #{-flex-gap($val)};
+        --nu-gap: #{-flex-gap($val)};
     }
 }
 
 // @mixin gap-x
-// @description Sets column-gap on a flex or grid container and passes it to direct children as --nu-flex-gap for fill() widths.
+// @description Sets column-gap on a flex or grid container and passes it to direct children as --nu-gap for fill() widths.
 // @param {Number|Length|Calculation|String} $val - Spacing key, normal, or a value with a unit, calc() or var(); negative keys raise an error
 // @example
 // .row {
@@ -540,12 +540,12 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
     column-gap: $val;
 
     & > * {
-        --nu-flex-gap: #{-flex-gap($val)};
+        --nu-gap: #{-flex-gap($val)};
     }
 }
 
 // @mixin gap-y
-// @description Sets row-gap on a flex or grid container; --nu-flex-gap is not set because it only feeds inline widths.
+// @description Sets row-gap on a flex or grid container; --nu-gap is not set because it only feeds inline widths.
 // @param {Number|Length|Calculation|String} $val - Spacing key, normal, or a value with a unit, calc() or var(); negative keys raise an error
 // @example
 // .column {
@@ -558,11 +558,11 @@ $-space-tokens: fn-css-vars.key-tokens("space", config-spacing.$spacings);
 
 // CSS output of this module; index.scss includes it, the mixins entry does not
 @mixin -emit {
-    // --nu-flex-gap is set on the children of a gap container and feeds their fill() width math, so it must be a length:
+    // --nu-gap is set on the children of a gap container and feeds their fill() width math, so it must be a length:
     // normal (no gap in flex layout) gives 0px. Registered so it does not inherit (a nested flex reads only its own gap)
     // and so fill() outside a gap container reads 0px, since fill() has no fallback. Registered by every
     // index.scss compile, independent of feature flags, because the gap and fill() mixins need it too
-    @property --nu-flex-gap {
+    @property --nu-gap {
         syntax: "<length-percentage>";
         inherits: false;
         initial-value: 0px; // stylelint-disable-line length-zero-no-unit -- a length, as fill() uses it in calc()

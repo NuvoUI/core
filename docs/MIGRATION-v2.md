@@ -178,7 +178,7 @@ Utility and component variables also take the `--nu-` prefix. They are not token
 | v1 | v2 | Notes |
 | --- | --- | --- |
 | `--border-style` | `--nu-border-style` | Set by `border-style()` and the border mixins. |
-| `--flex-gap` | `--nu-flex-gap` | Set on the direct children of a gap container, not on the container. Registered with `@property` (`inherits: false`): a `.fill-{n}` item reads the gap of its direct parent only. |
+| `--flex-gap` | `--nu-gap` | Set on the direct children of a gap container, not on the container. Registered with `@property` (`inherits: false`): a `.fill-{n}` item reads the gap of its direct parent only. |
 | `--translate-x`, `--translate-y`, `--translate-z` | `--nu-translate-x`, `--nu-translate-y`, `--nu-translate-z` | Registered with `@property` (`inherits: false`). |
 | `--scale-x`, `--scale-y` | `--nu-scale-x`, `--nu-scale-y` | Registered with `@property` (`inherits: false`). |
 | `--scale-z` | removed | The transform no longer includes `scaleZ()`. |
@@ -269,7 +269,7 @@ Utility classes are generated only with `$generate-utility-classes: true` (`npm 
 | `.animate-shake` | Keyframes `anim-shake-5` | Keyframes `anim-shake-5px` (the name includes the unit) |
 | `.border-0` | Also set `border-style` and `border-color` | Sets width only |
 | Responsive `.w-auto@sm` and other sizing keyword classes | Emitted outside the media query | Inside the media query |
-| `.gap-{key}`, `.gap-x-{key}` and their responsive variants | Set `--flex-gap` on the container (responsive variants did not set it) | Set `gap` on the container and `--nu-flex-gap` on its direct children |
+| `.gap-{key}`, `.gap-x-{key}` and their responsive variants | Set `--flex-gap` on the container (responsive variants did not set it) | Set `gap` on the container and `--nu-gap` on its direct children |
 | `.mx-auto` | `margin-left` and `margin-right` | `margin-inline: auto` (logical, like `mx`) |
 | `.sticky` | `top: 0` and `z-index: 999` at class specificity | Both inside `:where()`, so `.top-*` and `.z-*` override them. The value stays `999` (not the `z-sticky` token) |
 | `.shadow-none` | `box-shadow: none !important` | No `!important`; responsive variants added |
@@ -499,7 +499,7 @@ A removed name raises "Undefined mixin" (direct `@include`) or "Mixin not found"
 - `border()` with no color uses `--nu-border-regular`. `border(0)` sets the width only.
 - `dark-mode { ... }` applies where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and (through `prefers-color-scheme: dark`) `:root:not([data-theme])`, stopping at a nested `data-theme` section that resolves light; v1 also matched inside a light section of a dark page. The output is CSS `@scope` (Chrome 118, Safari 17.4, Firefox 146); a browser without `@scope` ignores the dark-mode styles. v1 read `[data-theme="system"]` for the OS case; that value is no longer recognized. Omit `data-theme` on the root element to follow the OS.
 - `mx-auto` sets `margin-inline: auto`.
-- `gap()` and `gap-x()` set `--nu-flex-gap` on direct children (`& > *`), so they need a selector. `gap(normal)` emits `gap: normal` (v1 emitted `normalrem`).
+- `gap()` and `gap-x()` set `--nu-gap` on direct children (`& > *`), so they need a selector. `gap(normal)` emits `gap: normal` (v1 emitted `normalrem`).
 - `container-name()` emits the name unquoted (v1 emitted a quoted string, which is not a valid container name).
 - `cols-custom("1fr 2fr")` emits the template unquoted (v1 emitted a quoted string). `_` still works as a space: `cols-custom("1fr_auto")`.
 - `create-color-scale()` takes a color or a string holding one (`"#007bff"`); any other value raises an error.
