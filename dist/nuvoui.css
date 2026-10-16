@@ -556,96 +556,96 @@
   align-self: auto;
 }
 .flex > .fill-1, .flex\@xs > .fill-1, .flex\@sm > .fill-1, .flex\@md > .fill-1, .flex\@lg > .fill-1, .flex\@xl > .fill-1, .flex\@2xl > .fill-1 {
-  flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-  max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+  flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+  max-width: calc((100% - 11 * var(--nu-gap)) / 12);
   min-width: 0;
 }
 .flex > .order-1, .flex\@xs > .order-1, .flex\@sm > .order-1, .flex\@md > .order-1, .flex\@lg > .order-1, .flex\@xl > .order-1, .flex\@2xl > .order-1 {
   order: 1;
 }
 .flex > .fill-2, .flex\@xs > .fill-2, .flex\@sm > .fill-2, .flex\@md > .fill-2, .flex\@lg > .fill-2, .flex\@xl > .fill-2, .flex\@2xl > .fill-2 {
-  flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-  max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+  flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+  max-width: calc((100% - 5 * var(--nu-gap)) / 6);
   min-width: 0;
 }
 .flex > .order-2, .flex\@xs > .order-2, .flex\@sm > .order-2, .flex\@md > .order-2, .flex\@lg > .order-2, .flex\@xl > .order-2, .flex\@2xl > .order-2 {
   order: 2;
 }
 .flex > .fill-3, .flex\@xs > .fill-3, .flex\@sm > .fill-3, .flex\@md > .fill-3, .flex\@lg > .fill-3, .flex\@xl > .fill-3, .flex\@2xl > .fill-3 {
-  flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-  max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+  flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+  max-width: calc((100% - 3 * var(--nu-gap)) / 4);
   min-width: 0;
 }
 .flex > .order-3, .flex\@xs > .order-3, .flex\@sm > .order-3, .flex\@md > .order-3, .flex\@lg > .order-3, .flex\@xl > .order-3, .flex\@2xl > .order-3 {
   order: 3;
 }
 .flex > .fill-4, .flex\@xs > .fill-4, .flex\@sm > .fill-4, .flex\@md > .fill-4, .flex\@lg > .fill-4, .flex\@xl > .fill-4, .flex\@2xl > .fill-4 {
-  flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-  max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+  flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+  max-width: calc((100% - 2 * var(--nu-gap)) / 3);
   min-width: 0;
 }
 .flex > .order-4, .flex\@xs > .order-4, .flex\@sm > .order-4, .flex\@md > .order-4, .flex\@lg > .order-4, .flex\@xl > .order-4, .flex\@2xl > .order-4 {
   order: 4;
 }
 .flex > .fill-5, .flex\@xs > .fill-5, .flex\@sm > .fill-5, .flex\@md > .fill-5, .flex\@lg > .fill-5, .flex\@xl > .fill-5, .flex\@2xl > .fill-5 {
-  flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-  max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+  flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+  max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
   min-width: 0;
 }
 .flex > .order-5, .flex\@xs > .order-5, .flex\@sm > .order-5, .flex\@md > .order-5, .flex\@lg > .order-5, .flex\@xl > .order-5, .flex\@2xl > .order-5 {
   order: 5;
 }
 .flex > .fill-6, .flex\@xs > .fill-6, .flex\@sm > .fill-6, .flex\@md > .fill-6, .flex\@lg > .fill-6, .flex\@xl > .fill-6, .flex\@2xl > .fill-6 {
-  flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-  max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+  flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+  max-width: calc((100% - 1 * var(--nu-gap)) / 2);
   min-width: 0;
 }
 .flex > .order-6, .flex\@xs > .order-6, .flex\@sm > .order-6, .flex\@md > .order-6, .flex\@lg > .order-6, .flex\@xl > .order-6, .flex\@2xl > .order-6 {
   order: 6;
 }
 .flex > .fill-7, .flex\@xs > .fill-7, .flex\@sm > .fill-7, .flex\@md > .fill-7, .flex\@lg > .fill-7, .flex\@xl > .fill-7, .flex\@2xl > .fill-7 {
-  flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-  max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+  flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+  max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
   min-width: 0;
 }
 .flex > .order-7, .flex\@xs > .order-7, .flex\@sm > .order-7, .flex\@md > .order-7, .flex\@lg > .order-7, .flex\@xl > .order-7, .flex\@2xl > .order-7 {
   order: 7;
 }
 .flex > .fill-8, .flex\@xs > .fill-8, .flex\@sm > .fill-8, .flex\@md > .fill-8, .flex\@lg > .fill-8, .flex\@xl > .fill-8, .flex\@2xl > .fill-8 {
-  flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-  max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+  flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+  max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
   min-width: 0;
 }
 .flex > .order-8, .flex\@xs > .order-8, .flex\@sm > .order-8, .flex\@md > .order-8, .flex\@lg > .order-8, .flex\@xl > .order-8, .flex\@2xl > .order-8 {
   order: 8;
 }
 .flex > .fill-9, .flex\@xs > .fill-9, .flex\@sm > .fill-9, .flex\@md > .fill-9, .flex\@lg > .fill-9, .flex\@xl > .fill-9, .flex\@2xl > .fill-9 {
-  flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-  max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+  flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+  max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
   min-width: 0;
 }
 .flex > .order-9, .flex\@xs > .order-9, .flex\@sm > .order-9, .flex\@md > .order-9, .flex\@lg > .order-9, .flex\@xl > .order-9, .flex\@2xl > .order-9 {
   order: 9;
 }
 .flex > .fill-10, .flex\@xs > .fill-10, .flex\@sm > .fill-10, .flex\@md > .fill-10, .flex\@lg > .fill-10, .flex\@xl > .fill-10, .flex\@2xl > .fill-10 {
-  flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-  max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+  flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+  max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
   min-width: 0;
 }
 .flex > .order-10, .flex\@xs > .order-10, .flex\@sm > .order-10, .flex\@md > .order-10, .flex\@lg > .order-10, .flex\@xl > .order-10, .flex\@2xl > .order-10 {
   order: 10;
 }
 .flex > .fill-11, .flex\@xs > .fill-11, .flex\@sm > .fill-11, .flex\@md > .fill-11, .flex\@lg > .fill-11, .flex\@xl > .fill-11, .flex\@2xl > .fill-11 {
-  flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-  max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+  flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+  max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
   min-width: 0;
 }
 .flex > .order-11, .flex\@xs > .order-11, .flex\@sm > .order-11, .flex\@md > .order-11, .flex\@lg > .order-11, .flex\@xl > .order-11, .flex\@2xl > .order-11 {
   order: 11;
 }
 .flex > .fill-12, .flex\@xs > .fill-12, .flex\@sm > .fill-12, .flex\@md > .fill-12, .flex\@lg > .fill-12, .flex\@xl > .fill-12, .flex\@2xl > .fill-12 {
-  flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-  max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+  flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+  max-width: calc((100% - 0 * var(--nu-gap)) / 1);
   min-width: 0;
 }
 .flex > .order-12, .flex\@xs > .order-12, .flex\@sm > .order-12, .flex\@md > .order-12, .flex\@lg > .order-12, .flex\@xl > .order-12, .flex\@2xl > .order-12 {
@@ -780,96 +780,96 @@
     align-self: auto;
   }
   .flex > .fill-1\@xs, .flex\@xs > .fill-1\@xs, .flex\@sm > .fill-1\@xs, .flex\@md > .fill-1\@xs, .flex\@lg > .fill-1\@xs, .flex\@xl > .fill-1\@xs, .flex\@2xl > .fill-1\@xs {
-    flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-    max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+    flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+    max-width: calc((100% - 11 * var(--nu-gap)) / 12);
     min-width: 0;
   }
   .flex > .order-1\@xs, .flex\@xs > .order-1\@xs, .flex\@sm > .order-1\@xs, .flex\@md > .order-1\@xs, .flex\@lg > .order-1\@xs, .flex\@xl > .order-1\@xs, .flex\@2xl > .order-1\@xs {
     order: 1;
   }
   .flex > .fill-2\@xs, .flex\@xs > .fill-2\@xs, .flex\@sm > .fill-2\@xs, .flex\@md > .fill-2\@xs, .flex\@lg > .fill-2\@xs, .flex\@xl > .fill-2\@xs, .flex\@2xl > .fill-2\@xs {
-    flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-    max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+    flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+    max-width: calc((100% - 5 * var(--nu-gap)) / 6);
     min-width: 0;
   }
   .flex > .order-2\@xs, .flex\@xs > .order-2\@xs, .flex\@sm > .order-2\@xs, .flex\@md > .order-2\@xs, .flex\@lg > .order-2\@xs, .flex\@xl > .order-2\@xs, .flex\@2xl > .order-2\@xs {
     order: 2;
   }
   .flex > .fill-3\@xs, .flex\@xs > .fill-3\@xs, .flex\@sm > .fill-3\@xs, .flex\@md > .fill-3\@xs, .flex\@lg > .fill-3\@xs, .flex\@xl > .fill-3\@xs, .flex\@2xl > .fill-3\@xs {
-    flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-    max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+    flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+    max-width: calc((100% - 3 * var(--nu-gap)) / 4);
     min-width: 0;
   }
   .flex > .order-3\@xs, .flex\@xs > .order-3\@xs, .flex\@sm > .order-3\@xs, .flex\@md > .order-3\@xs, .flex\@lg > .order-3\@xs, .flex\@xl > .order-3\@xs, .flex\@2xl > .order-3\@xs {
     order: 3;
   }
   .flex > .fill-4\@xs, .flex\@xs > .fill-4\@xs, .flex\@sm > .fill-4\@xs, .flex\@md > .fill-4\@xs, .flex\@lg > .fill-4\@xs, .flex\@xl > .fill-4\@xs, .flex\@2xl > .fill-4\@xs {
-    flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-    max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+    flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+    max-width: calc((100% - 2 * var(--nu-gap)) / 3);
     min-width: 0;
   }
   .flex > .order-4\@xs, .flex\@xs > .order-4\@xs, .flex\@sm > .order-4\@xs, .flex\@md > .order-4\@xs, .flex\@lg > .order-4\@xs, .flex\@xl > .order-4\@xs, .flex\@2xl > .order-4\@xs {
     order: 4;
   }
   .flex > .fill-5\@xs, .flex\@xs > .fill-5\@xs, .flex\@sm > .fill-5\@xs, .flex\@md > .fill-5\@xs, .flex\@lg > .fill-5\@xs, .flex\@xl > .fill-5\@xs, .flex\@2xl > .fill-5\@xs {
-    flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-    max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+    flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+    max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
     min-width: 0;
   }
   .flex > .order-5\@xs, .flex\@xs > .order-5\@xs, .flex\@sm > .order-5\@xs, .flex\@md > .order-5\@xs, .flex\@lg > .order-5\@xs, .flex\@xl > .order-5\@xs, .flex\@2xl > .order-5\@xs {
     order: 5;
   }
   .flex > .fill-6\@xs, .flex\@xs > .fill-6\@xs, .flex\@sm > .fill-6\@xs, .flex\@md > .fill-6\@xs, .flex\@lg > .fill-6\@xs, .flex\@xl > .fill-6\@xs, .flex\@2xl > .fill-6\@xs {
-    flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-    max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+    flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+    max-width: calc((100% - 1 * var(--nu-gap)) / 2);
     min-width: 0;
   }
   .flex > .order-6\@xs, .flex\@xs > .order-6\@xs, .flex\@sm > .order-6\@xs, .flex\@md > .order-6\@xs, .flex\@lg > .order-6\@xs, .flex\@xl > .order-6\@xs, .flex\@2xl > .order-6\@xs {
     order: 6;
   }
   .flex > .fill-7\@xs, .flex\@xs > .fill-7\@xs, .flex\@sm > .fill-7\@xs, .flex\@md > .fill-7\@xs, .flex\@lg > .fill-7\@xs, .flex\@xl > .fill-7\@xs, .flex\@2xl > .fill-7\@xs {
-    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-    max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+    max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
     min-width: 0;
   }
   .flex > .order-7\@xs, .flex\@xs > .order-7\@xs, .flex\@sm > .order-7\@xs, .flex\@md > .order-7\@xs, .flex\@lg > .order-7\@xs, .flex\@xl > .order-7\@xs, .flex\@2xl > .order-7\@xs {
     order: 7;
   }
   .flex > .fill-8\@xs, .flex\@xs > .fill-8\@xs, .flex\@sm > .fill-8\@xs, .flex\@md > .fill-8\@xs, .flex\@lg > .fill-8\@xs, .flex\@xl > .fill-8\@xs, .flex\@2xl > .fill-8\@xs {
-    flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-    max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+    flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+    max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
     min-width: 0;
   }
   .flex > .order-8\@xs, .flex\@xs > .order-8\@xs, .flex\@sm > .order-8\@xs, .flex\@md > .order-8\@xs, .flex\@lg > .order-8\@xs, .flex\@xl > .order-8\@xs, .flex\@2xl > .order-8\@xs {
     order: 8;
   }
   .flex > .fill-9\@xs, .flex\@xs > .fill-9\@xs, .flex\@sm > .fill-9\@xs, .flex\@md > .fill-9\@xs, .flex\@lg > .fill-9\@xs, .flex\@xl > .fill-9\@xs, .flex\@2xl > .fill-9\@xs {
-    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-    max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+    max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
     min-width: 0;
   }
   .flex > .order-9\@xs, .flex\@xs > .order-9\@xs, .flex\@sm > .order-9\@xs, .flex\@md > .order-9\@xs, .flex\@lg > .order-9\@xs, .flex\@xl > .order-9\@xs, .flex\@2xl > .order-9\@xs {
     order: 9;
   }
   .flex > .fill-10\@xs, .flex\@xs > .fill-10\@xs, .flex\@sm > .fill-10\@xs, .flex\@md > .fill-10\@xs, .flex\@lg > .fill-10\@xs, .flex\@xl > .fill-10\@xs, .flex\@2xl > .fill-10\@xs {
-    flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-    max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+    flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+    max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
     min-width: 0;
   }
   .flex > .order-10\@xs, .flex\@xs > .order-10\@xs, .flex\@sm > .order-10\@xs, .flex\@md > .order-10\@xs, .flex\@lg > .order-10\@xs, .flex\@xl > .order-10\@xs, .flex\@2xl > .order-10\@xs {
     order: 10;
   }
   .flex > .fill-11\@xs, .flex\@xs > .fill-11\@xs, .flex\@sm > .fill-11\@xs, .flex\@md > .fill-11\@xs, .flex\@lg > .fill-11\@xs, .flex\@xl > .fill-11\@xs, .flex\@2xl > .fill-11\@xs {
-    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-    max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+    max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
     min-width: 0;
   }
   .flex > .order-11\@xs, .flex\@xs > .order-11\@xs, .flex\@sm > .order-11\@xs, .flex\@md > .order-11\@xs, .flex\@lg > .order-11\@xs, .flex\@xl > .order-11\@xs, .flex\@2xl > .order-11\@xs {
     order: 11;
   }
   .flex > .fill-12\@xs, .flex\@xs > .fill-12\@xs, .flex\@sm > .fill-12\@xs, .flex\@md > .fill-12\@xs, .flex\@lg > .fill-12\@xs, .flex\@xl > .fill-12\@xs, .flex\@2xl > .fill-12\@xs {
-    flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-    max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+    flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+    max-width: calc((100% - 0 * var(--nu-gap)) / 1);
     min-width: 0;
   }
   .flex > .order-12\@xs, .flex\@xs > .order-12\@xs, .flex\@sm > .order-12\@xs, .flex\@md > .order-12\@xs, .flex\@lg > .order-12\@xs, .flex\@xl > .order-12\@xs, .flex\@2xl > .order-12\@xs {
@@ -1004,96 +1004,96 @@
     align-self: auto;
   }
   .flex > .fill-1\@sm, .flex\@xs > .fill-1\@sm, .flex\@sm > .fill-1\@sm, .flex\@md > .fill-1\@sm, .flex\@lg > .fill-1\@sm, .flex\@xl > .fill-1\@sm, .flex\@2xl > .fill-1\@sm {
-    flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-    max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+    flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+    max-width: calc((100% - 11 * var(--nu-gap)) / 12);
     min-width: 0;
   }
   .flex > .order-1\@sm, .flex\@xs > .order-1\@sm, .flex\@sm > .order-1\@sm, .flex\@md > .order-1\@sm, .flex\@lg > .order-1\@sm, .flex\@xl > .order-1\@sm, .flex\@2xl > .order-1\@sm {
     order: 1;
   }
   .flex > .fill-2\@sm, .flex\@xs > .fill-2\@sm, .flex\@sm > .fill-2\@sm, .flex\@md > .fill-2\@sm, .flex\@lg > .fill-2\@sm, .flex\@xl > .fill-2\@sm, .flex\@2xl > .fill-2\@sm {
-    flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-    max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+    flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+    max-width: calc((100% - 5 * var(--nu-gap)) / 6);
     min-width: 0;
   }
   .flex > .order-2\@sm, .flex\@xs > .order-2\@sm, .flex\@sm > .order-2\@sm, .flex\@md > .order-2\@sm, .flex\@lg > .order-2\@sm, .flex\@xl > .order-2\@sm, .flex\@2xl > .order-2\@sm {
     order: 2;
   }
   .flex > .fill-3\@sm, .flex\@xs > .fill-3\@sm, .flex\@sm > .fill-3\@sm, .flex\@md > .fill-3\@sm, .flex\@lg > .fill-3\@sm, .flex\@xl > .fill-3\@sm, .flex\@2xl > .fill-3\@sm {
-    flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-    max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+    flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+    max-width: calc((100% - 3 * var(--nu-gap)) / 4);
     min-width: 0;
   }
   .flex > .order-3\@sm, .flex\@xs > .order-3\@sm, .flex\@sm > .order-3\@sm, .flex\@md > .order-3\@sm, .flex\@lg > .order-3\@sm, .flex\@xl > .order-3\@sm, .flex\@2xl > .order-3\@sm {
     order: 3;
   }
   .flex > .fill-4\@sm, .flex\@xs > .fill-4\@sm, .flex\@sm > .fill-4\@sm, .flex\@md > .fill-4\@sm, .flex\@lg > .fill-4\@sm, .flex\@xl > .fill-4\@sm, .flex\@2xl > .fill-4\@sm {
-    flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-    max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+    flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+    max-width: calc((100% - 2 * var(--nu-gap)) / 3);
     min-width: 0;
   }
   .flex > .order-4\@sm, .flex\@xs > .order-4\@sm, .flex\@sm > .order-4\@sm, .flex\@md > .order-4\@sm, .flex\@lg > .order-4\@sm, .flex\@xl > .order-4\@sm, .flex\@2xl > .order-4\@sm {
     order: 4;
   }
   .flex > .fill-5\@sm, .flex\@xs > .fill-5\@sm, .flex\@sm > .fill-5\@sm, .flex\@md > .fill-5\@sm, .flex\@lg > .fill-5\@sm, .flex\@xl > .fill-5\@sm, .flex\@2xl > .fill-5\@sm {
-    flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-    max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+    flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+    max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
     min-width: 0;
   }
   .flex > .order-5\@sm, .flex\@xs > .order-5\@sm, .flex\@sm > .order-5\@sm, .flex\@md > .order-5\@sm, .flex\@lg > .order-5\@sm, .flex\@xl > .order-5\@sm, .flex\@2xl > .order-5\@sm {
     order: 5;
   }
   .flex > .fill-6\@sm, .flex\@xs > .fill-6\@sm, .flex\@sm > .fill-6\@sm, .flex\@md > .fill-6\@sm, .flex\@lg > .fill-6\@sm, .flex\@xl > .fill-6\@sm, .flex\@2xl > .fill-6\@sm {
-    flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-    max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+    flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+    max-width: calc((100% - 1 * var(--nu-gap)) / 2);
     min-width: 0;
   }
   .flex > .order-6\@sm, .flex\@xs > .order-6\@sm, .flex\@sm > .order-6\@sm, .flex\@md > .order-6\@sm, .flex\@lg > .order-6\@sm, .flex\@xl > .order-6\@sm, .flex\@2xl > .order-6\@sm {
     order: 6;
   }
   .flex > .fill-7\@sm, .flex\@xs > .fill-7\@sm, .flex\@sm > .fill-7\@sm, .flex\@md > .fill-7\@sm, .flex\@lg > .fill-7\@sm, .flex\@xl > .fill-7\@sm, .flex\@2xl > .fill-7\@sm {
-    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-    max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+    max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
     min-width: 0;
   }
   .flex > .order-7\@sm, .flex\@xs > .order-7\@sm, .flex\@sm > .order-7\@sm, .flex\@md > .order-7\@sm, .flex\@lg > .order-7\@sm, .flex\@xl > .order-7\@sm, .flex\@2xl > .order-7\@sm {
     order: 7;
   }
   .flex > .fill-8\@sm, .flex\@xs > .fill-8\@sm, .flex\@sm > .fill-8\@sm, .flex\@md > .fill-8\@sm, .flex\@lg > .fill-8\@sm, .flex\@xl > .fill-8\@sm, .flex\@2xl > .fill-8\@sm {
-    flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-    max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+    flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+    max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
     min-width: 0;
   }
   .flex > .order-8\@sm, .flex\@xs > .order-8\@sm, .flex\@sm > .order-8\@sm, .flex\@md > .order-8\@sm, .flex\@lg > .order-8\@sm, .flex\@xl > .order-8\@sm, .flex\@2xl > .order-8\@sm {
     order: 8;
   }
   .flex > .fill-9\@sm, .flex\@xs > .fill-9\@sm, .flex\@sm > .fill-9\@sm, .flex\@md > .fill-9\@sm, .flex\@lg > .fill-9\@sm, .flex\@xl > .fill-9\@sm, .flex\@2xl > .fill-9\@sm {
-    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-    max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+    max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
     min-width: 0;
   }
   .flex > .order-9\@sm, .flex\@xs > .order-9\@sm, .flex\@sm > .order-9\@sm, .flex\@md > .order-9\@sm, .flex\@lg > .order-9\@sm, .flex\@xl > .order-9\@sm, .flex\@2xl > .order-9\@sm {
     order: 9;
   }
   .flex > .fill-10\@sm, .flex\@xs > .fill-10\@sm, .flex\@sm > .fill-10\@sm, .flex\@md > .fill-10\@sm, .flex\@lg > .fill-10\@sm, .flex\@xl > .fill-10\@sm, .flex\@2xl > .fill-10\@sm {
-    flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-    max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+    flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+    max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
     min-width: 0;
   }
   .flex > .order-10\@sm, .flex\@xs > .order-10\@sm, .flex\@sm > .order-10\@sm, .flex\@md > .order-10\@sm, .flex\@lg > .order-10\@sm, .flex\@xl > .order-10\@sm, .flex\@2xl > .order-10\@sm {
     order: 10;
   }
   .flex > .fill-11\@sm, .flex\@xs > .fill-11\@sm, .flex\@sm > .fill-11\@sm, .flex\@md > .fill-11\@sm, .flex\@lg > .fill-11\@sm, .flex\@xl > .fill-11\@sm, .flex\@2xl > .fill-11\@sm {
-    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-    max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+    max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
     min-width: 0;
   }
   .flex > .order-11\@sm, .flex\@xs > .order-11\@sm, .flex\@sm > .order-11\@sm, .flex\@md > .order-11\@sm, .flex\@lg > .order-11\@sm, .flex\@xl > .order-11\@sm, .flex\@2xl > .order-11\@sm {
     order: 11;
   }
   .flex > .fill-12\@sm, .flex\@xs > .fill-12\@sm, .flex\@sm > .fill-12\@sm, .flex\@md > .fill-12\@sm, .flex\@lg > .fill-12\@sm, .flex\@xl > .fill-12\@sm, .flex\@2xl > .fill-12\@sm {
-    flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-    max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+    flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+    max-width: calc((100% - 0 * var(--nu-gap)) / 1);
     min-width: 0;
   }
   .flex > .order-12\@sm, .flex\@xs > .order-12\@sm, .flex\@sm > .order-12\@sm, .flex\@md > .order-12\@sm, .flex\@lg > .order-12\@sm, .flex\@xl > .order-12\@sm, .flex\@2xl > .order-12\@sm {
@@ -1228,96 +1228,96 @@
     align-self: auto;
   }
   .flex > .fill-1\@md, .flex\@xs > .fill-1\@md, .flex\@sm > .fill-1\@md, .flex\@md > .fill-1\@md, .flex\@lg > .fill-1\@md, .flex\@xl > .fill-1\@md, .flex\@2xl > .fill-1\@md {
-    flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-    max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+    flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+    max-width: calc((100% - 11 * var(--nu-gap)) / 12);
     min-width: 0;
   }
   .flex > .order-1\@md, .flex\@xs > .order-1\@md, .flex\@sm > .order-1\@md, .flex\@md > .order-1\@md, .flex\@lg > .order-1\@md, .flex\@xl > .order-1\@md, .flex\@2xl > .order-1\@md {
     order: 1;
   }
   .flex > .fill-2\@md, .flex\@xs > .fill-2\@md, .flex\@sm > .fill-2\@md, .flex\@md > .fill-2\@md, .flex\@lg > .fill-2\@md, .flex\@xl > .fill-2\@md, .flex\@2xl > .fill-2\@md {
-    flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-    max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+    flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+    max-width: calc((100% - 5 * var(--nu-gap)) / 6);
     min-width: 0;
   }
   .flex > .order-2\@md, .flex\@xs > .order-2\@md, .flex\@sm > .order-2\@md, .flex\@md > .order-2\@md, .flex\@lg > .order-2\@md, .flex\@xl > .order-2\@md, .flex\@2xl > .order-2\@md {
     order: 2;
   }
   .flex > .fill-3\@md, .flex\@xs > .fill-3\@md, .flex\@sm > .fill-3\@md, .flex\@md > .fill-3\@md, .flex\@lg > .fill-3\@md, .flex\@xl > .fill-3\@md, .flex\@2xl > .fill-3\@md {
-    flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-    max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+    flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+    max-width: calc((100% - 3 * var(--nu-gap)) / 4);
     min-width: 0;
   }
   .flex > .order-3\@md, .flex\@xs > .order-3\@md, .flex\@sm > .order-3\@md, .flex\@md > .order-3\@md, .flex\@lg > .order-3\@md, .flex\@xl > .order-3\@md, .flex\@2xl > .order-3\@md {
     order: 3;
   }
   .flex > .fill-4\@md, .flex\@xs > .fill-4\@md, .flex\@sm > .fill-4\@md, .flex\@md > .fill-4\@md, .flex\@lg > .fill-4\@md, .flex\@xl > .fill-4\@md, .flex\@2xl > .fill-4\@md {
-    flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-    max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+    flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+    max-width: calc((100% - 2 * var(--nu-gap)) / 3);
     min-width: 0;
   }
   .flex > .order-4\@md, .flex\@xs > .order-4\@md, .flex\@sm > .order-4\@md, .flex\@md > .order-4\@md, .flex\@lg > .order-4\@md, .flex\@xl > .order-4\@md, .flex\@2xl > .order-4\@md {
     order: 4;
   }
   .flex > .fill-5\@md, .flex\@xs > .fill-5\@md, .flex\@sm > .fill-5\@md, .flex\@md > .fill-5\@md, .flex\@lg > .fill-5\@md, .flex\@xl > .fill-5\@md, .flex\@2xl > .fill-5\@md {
-    flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-    max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+    flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+    max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
     min-width: 0;
   }
   .flex > .order-5\@md, .flex\@xs > .order-5\@md, .flex\@sm > .order-5\@md, .flex\@md > .order-5\@md, .flex\@lg > .order-5\@md, .flex\@xl > .order-5\@md, .flex\@2xl > .order-5\@md {
     order: 5;
   }
   .flex > .fill-6\@md, .flex\@xs > .fill-6\@md, .flex\@sm > .fill-6\@md, .flex\@md > .fill-6\@md, .flex\@lg > .fill-6\@md, .flex\@xl > .fill-6\@md, .flex\@2xl > .fill-6\@md {
-    flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-    max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+    flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+    max-width: calc((100% - 1 * var(--nu-gap)) / 2);
     min-width: 0;
   }
   .flex > .order-6\@md, .flex\@xs > .order-6\@md, .flex\@sm > .order-6\@md, .flex\@md > .order-6\@md, .flex\@lg > .order-6\@md, .flex\@xl > .order-6\@md, .flex\@2xl > .order-6\@md {
     order: 6;
   }
   .flex > .fill-7\@md, .flex\@xs > .fill-7\@md, .flex\@sm > .fill-7\@md, .flex\@md > .fill-7\@md, .flex\@lg > .fill-7\@md, .flex\@xl > .fill-7\@md, .flex\@2xl > .fill-7\@md {
-    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-    max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+    max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
     min-width: 0;
   }
   .flex > .order-7\@md, .flex\@xs > .order-7\@md, .flex\@sm > .order-7\@md, .flex\@md > .order-7\@md, .flex\@lg > .order-7\@md, .flex\@xl > .order-7\@md, .flex\@2xl > .order-7\@md {
     order: 7;
   }
   .flex > .fill-8\@md, .flex\@xs > .fill-8\@md, .flex\@sm > .fill-8\@md, .flex\@md > .fill-8\@md, .flex\@lg > .fill-8\@md, .flex\@xl > .fill-8\@md, .flex\@2xl > .fill-8\@md {
-    flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-    max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+    flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+    max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
     min-width: 0;
   }
   .flex > .order-8\@md, .flex\@xs > .order-8\@md, .flex\@sm > .order-8\@md, .flex\@md > .order-8\@md, .flex\@lg > .order-8\@md, .flex\@xl > .order-8\@md, .flex\@2xl > .order-8\@md {
     order: 8;
   }
   .flex > .fill-9\@md, .flex\@xs > .fill-9\@md, .flex\@sm > .fill-9\@md, .flex\@md > .fill-9\@md, .flex\@lg > .fill-9\@md, .flex\@xl > .fill-9\@md, .flex\@2xl > .fill-9\@md {
-    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-    max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+    max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
     min-width: 0;
   }
   .flex > .order-9\@md, .flex\@xs > .order-9\@md, .flex\@sm > .order-9\@md, .flex\@md > .order-9\@md, .flex\@lg > .order-9\@md, .flex\@xl > .order-9\@md, .flex\@2xl > .order-9\@md {
     order: 9;
   }
   .flex > .fill-10\@md, .flex\@xs > .fill-10\@md, .flex\@sm > .fill-10\@md, .flex\@md > .fill-10\@md, .flex\@lg > .fill-10\@md, .flex\@xl > .fill-10\@md, .flex\@2xl > .fill-10\@md {
-    flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-    max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+    flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+    max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
     min-width: 0;
   }
   .flex > .order-10\@md, .flex\@xs > .order-10\@md, .flex\@sm > .order-10\@md, .flex\@md > .order-10\@md, .flex\@lg > .order-10\@md, .flex\@xl > .order-10\@md, .flex\@2xl > .order-10\@md {
     order: 10;
   }
   .flex > .fill-11\@md, .flex\@xs > .fill-11\@md, .flex\@sm > .fill-11\@md, .flex\@md > .fill-11\@md, .flex\@lg > .fill-11\@md, .flex\@xl > .fill-11\@md, .flex\@2xl > .fill-11\@md {
-    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-    max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+    max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
     min-width: 0;
   }
   .flex > .order-11\@md, .flex\@xs > .order-11\@md, .flex\@sm > .order-11\@md, .flex\@md > .order-11\@md, .flex\@lg > .order-11\@md, .flex\@xl > .order-11\@md, .flex\@2xl > .order-11\@md {
     order: 11;
   }
   .flex > .fill-12\@md, .flex\@xs > .fill-12\@md, .flex\@sm > .fill-12\@md, .flex\@md > .fill-12\@md, .flex\@lg > .fill-12\@md, .flex\@xl > .fill-12\@md, .flex\@2xl > .fill-12\@md {
-    flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-    max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+    flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+    max-width: calc((100% - 0 * var(--nu-gap)) / 1);
     min-width: 0;
   }
   .flex > .order-12\@md, .flex\@xs > .order-12\@md, .flex\@sm > .order-12\@md, .flex\@md > .order-12\@md, .flex\@lg > .order-12\@md, .flex\@xl > .order-12\@md, .flex\@2xl > .order-12\@md {
@@ -1452,96 +1452,96 @@
     align-self: auto;
   }
   .flex > .fill-1\@lg, .flex\@xs > .fill-1\@lg, .flex\@sm > .fill-1\@lg, .flex\@md > .fill-1\@lg, .flex\@lg > .fill-1\@lg, .flex\@xl > .fill-1\@lg, .flex\@2xl > .fill-1\@lg {
-    flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-    max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+    flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+    max-width: calc((100% - 11 * var(--nu-gap)) / 12);
     min-width: 0;
   }
   .flex > .order-1\@lg, .flex\@xs > .order-1\@lg, .flex\@sm > .order-1\@lg, .flex\@md > .order-1\@lg, .flex\@lg > .order-1\@lg, .flex\@xl > .order-1\@lg, .flex\@2xl > .order-1\@lg {
     order: 1;
   }
   .flex > .fill-2\@lg, .flex\@xs > .fill-2\@lg, .flex\@sm > .fill-2\@lg, .flex\@md > .fill-2\@lg, .flex\@lg > .fill-2\@lg, .flex\@xl > .fill-2\@lg, .flex\@2xl > .fill-2\@lg {
-    flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-    max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+    flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+    max-width: calc((100% - 5 * var(--nu-gap)) / 6);
     min-width: 0;
   }
   .flex > .order-2\@lg, .flex\@xs > .order-2\@lg, .flex\@sm > .order-2\@lg, .flex\@md > .order-2\@lg, .flex\@lg > .order-2\@lg, .flex\@xl > .order-2\@lg, .flex\@2xl > .order-2\@lg {
     order: 2;
   }
   .flex > .fill-3\@lg, .flex\@xs > .fill-3\@lg, .flex\@sm > .fill-3\@lg, .flex\@md > .fill-3\@lg, .flex\@lg > .fill-3\@lg, .flex\@xl > .fill-3\@lg, .flex\@2xl > .fill-3\@lg {
-    flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-    max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+    flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+    max-width: calc((100% - 3 * var(--nu-gap)) / 4);
     min-width: 0;
   }
   .flex > .order-3\@lg, .flex\@xs > .order-3\@lg, .flex\@sm > .order-3\@lg, .flex\@md > .order-3\@lg, .flex\@lg > .order-3\@lg, .flex\@xl > .order-3\@lg, .flex\@2xl > .order-3\@lg {
     order: 3;
   }
   .flex > .fill-4\@lg, .flex\@xs > .fill-4\@lg, .flex\@sm > .fill-4\@lg, .flex\@md > .fill-4\@lg, .flex\@lg > .fill-4\@lg, .flex\@xl > .fill-4\@lg, .flex\@2xl > .fill-4\@lg {
-    flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-    max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+    flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+    max-width: calc((100% - 2 * var(--nu-gap)) / 3);
     min-width: 0;
   }
   .flex > .order-4\@lg, .flex\@xs > .order-4\@lg, .flex\@sm > .order-4\@lg, .flex\@md > .order-4\@lg, .flex\@lg > .order-4\@lg, .flex\@xl > .order-4\@lg, .flex\@2xl > .order-4\@lg {
     order: 4;
   }
   .flex > .fill-5\@lg, .flex\@xs > .fill-5\@lg, .flex\@sm > .fill-5\@lg, .flex\@md > .fill-5\@lg, .flex\@lg > .fill-5\@lg, .flex\@xl > .fill-5\@lg, .flex\@2xl > .fill-5\@lg {
-    flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-    max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+    flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+    max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
     min-width: 0;
   }
   .flex > .order-5\@lg, .flex\@xs > .order-5\@lg, .flex\@sm > .order-5\@lg, .flex\@md > .order-5\@lg, .flex\@lg > .order-5\@lg, .flex\@xl > .order-5\@lg, .flex\@2xl > .order-5\@lg {
     order: 5;
   }
   .flex > .fill-6\@lg, .flex\@xs > .fill-6\@lg, .flex\@sm > .fill-6\@lg, .flex\@md > .fill-6\@lg, .flex\@lg > .fill-6\@lg, .flex\@xl > .fill-6\@lg, .flex\@2xl > .fill-6\@lg {
-    flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-    max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+    flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+    max-width: calc((100% - 1 * var(--nu-gap)) / 2);
     min-width: 0;
   }
   .flex > .order-6\@lg, .flex\@xs > .order-6\@lg, .flex\@sm > .order-6\@lg, .flex\@md > .order-6\@lg, .flex\@lg > .order-6\@lg, .flex\@xl > .order-6\@lg, .flex\@2xl > .order-6\@lg {
     order: 6;
   }
   .flex > .fill-7\@lg, .flex\@xs > .fill-7\@lg, .flex\@sm > .fill-7\@lg, .flex\@md > .fill-7\@lg, .flex\@lg > .fill-7\@lg, .flex\@xl > .fill-7\@lg, .flex\@2xl > .fill-7\@lg {
-    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-    max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+    max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
     min-width: 0;
   }
   .flex > .order-7\@lg, .flex\@xs > .order-7\@lg, .flex\@sm > .order-7\@lg, .flex\@md > .order-7\@lg, .flex\@lg > .order-7\@lg, .flex\@xl > .order-7\@lg, .flex\@2xl > .order-7\@lg {
     order: 7;
   }
   .flex > .fill-8\@lg, .flex\@xs > .fill-8\@lg, .flex\@sm > .fill-8\@lg, .flex\@md > .fill-8\@lg, .flex\@lg > .fill-8\@lg, .flex\@xl > .fill-8\@lg, .flex\@2xl > .fill-8\@lg {
-    flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-    max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+    flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+    max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
     min-width: 0;
   }
   .flex > .order-8\@lg, .flex\@xs > .order-8\@lg, .flex\@sm > .order-8\@lg, .flex\@md > .order-8\@lg, .flex\@lg > .order-8\@lg, .flex\@xl > .order-8\@lg, .flex\@2xl > .order-8\@lg {
     order: 8;
   }
   .flex > .fill-9\@lg, .flex\@xs > .fill-9\@lg, .flex\@sm > .fill-9\@lg, .flex\@md > .fill-9\@lg, .flex\@lg > .fill-9\@lg, .flex\@xl > .fill-9\@lg, .flex\@2xl > .fill-9\@lg {
-    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-    max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+    max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
     min-width: 0;
   }
   .flex > .order-9\@lg, .flex\@xs > .order-9\@lg, .flex\@sm > .order-9\@lg, .flex\@md > .order-9\@lg, .flex\@lg > .order-9\@lg, .flex\@xl > .order-9\@lg, .flex\@2xl > .order-9\@lg {
     order: 9;
   }
   .flex > .fill-10\@lg, .flex\@xs > .fill-10\@lg, .flex\@sm > .fill-10\@lg, .flex\@md > .fill-10\@lg, .flex\@lg > .fill-10\@lg, .flex\@xl > .fill-10\@lg, .flex\@2xl > .fill-10\@lg {
-    flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-    max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+    flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+    max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
     min-width: 0;
   }
   .flex > .order-10\@lg, .flex\@xs > .order-10\@lg, .flex\@sm > .order-10\@lg, .flex\@md > .order-10\@lg, .flex\@lg > .order-10\@lg, .flex\@xl > .order-10\@lg, .flex\@2xl > .order-10\@lg {
     order: 10;
   }
   .flex > .fill-11\@lg, .flex\@xs > .fill-11\@lg, .flex\@sm > .fill-11\@lg, .flex\@md > .fill-11\@lg, .flex\@lg > .fill-11\@lg, .flex\@xl > .fill-11\@lg, .flex\@2xl > .fill-11\@lg {
-    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-    max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+    max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
     min-width: 0;
   }
   .flex > .order-11\@lg, .flex\@xs > .order-11\@lg, .flex\@sm > .order-11\@lg, .flex\@md > .order-11\@lg, .flex\@lg > .order-11\@lg, .flex\@xl > .order-11\@lg, .flex\@2xl > .order-11\@lg {
     order: 11;
   }
   .flex > .fill-12\@lg, .flex\@xs > .fill-12\@lg, .flex\@sm > .fill-12\@lg, .flex\@md > .fill-12\@lg, .flex\@lg > .fill-12\@lg, .flex\@xl > .fill-12\@lg, .flex\@2xl > .fill-12\@lg {
-    flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-    max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+    flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+    max-width: calc((100% - 0 * var(--nu-gap)) / 1);
     min-width: 0;
   }
   .flex > .order-12\@lg, .flex\@xs > .order-12\@lg, .flex\@sm > .order-12\@lg, .flex\@md > .order-12\@lg, .flex\@lg > .order-12\@lg, .flex\@xl > .order-12\@lg, .flex\@2xl > .order-12\@lg {
@@ -1676,96 +1676,96 @@
     align-self: auto;
   }
   .flex > .fill-1\@xl, .flex\@xs > .fill-1\@xl, .flex\@sm > .fill-1\@xl, .flex\@md > .fill-1\@xl, .flex\@lg > .fill-1\@xl, .flex\@xl > .fill-1\@xl, .flex\@2xl > .fill-1\@xl {
-    flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-    max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+    flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+    max-width: calc((100% - 11 * var(--nu-gap)) / 12);
     min-width: 0;
   }
   .flex > .order-1\@xl, .flex\@xs > .order-1\@xl, .flex\@sm > .order-1\@xl, .flex\@md > .order-1\@xl, .flex\@lg > .order-1\@xl, .flex\@xl > .order-1\@xl, .flex\@2xl > .order-1\@xl {
     order: 1;
   }
   .flex > .fill-2\@xl, .flex\@xs > .fill-2\@xl, .flex\@sm > .fill-2\@xl, .flex\@md > .fill-2\@xl, .flex\@lg > .fill-2\@xl, .flex\@xl > .fill-2\@xl, .flex\@2xl > .fill-2\@xl {
-    flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-    max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+    flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+    max-width: calc((100% - 5 * var(--nu-gap)) / 6);
     min-width: 0;
   }
   .flex > .order-2\@xl, .flex\@xs > .order-2\@xl, .flex\@sm > .order-2\@xl, .flex\@md > .order-2\@xl, .flex\@lg > .order-2\@xl, .flex\@xl > .order-2\@xl, .flex\@2xl > .order-2\@xl {
     order: 2;
   }
   .flex > .fill-3\@xl, .flex\@xs > .fill-3\@xl, .flex\@sm > .fill-3\@xl, .flex\@md > .fill-3\@xl, .flex\@lg > .fill-3\@xl, .flex\@xl > .fill-3\@xl, .flex\@2xl > .fill-3\@xl {
-    flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-    max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+    flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+    max-width: calc((100% - 3 * var(--nu-gap)) / 4);
     min-width: 0;
   }
   .flex > .order-3\@xl, .flex\@xs > .order-3\@xl, .flex\@sm > .order-3\@xl, .flex\@md > .order-3\@xl, .flex\@lg > .order-3\@xl, .flex\@xl > .order-3\@xl, .flex\@2xl > .order-3\@xl {
     order: 3;
   }
   .flex > .fill-4\@xl, .flex\@xs > .fill-4\@xl, .flex\@sm > .fill-4\@xl, .flex\@md > .fill-4\@xl, .flex\@lg > .fill-4\@xl, .flex\@xl > .fill-4\@xl, .flex\@2xl > .fill-4\@xl {
-    flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-    max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+    flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+    max-width: calc((100% - 2 * var(--nu-gap)) / 3);
     min-width: 0;
   }
   .flex > .order-4\@xl, .flex\@xs > .order-4\@xl, .flex\@sm > .order-4\@xl, .flex\@md > .order-4\@xl, .flex\@lg > .order-4\@xl, .flex\@xl > .order-4\@xl, .flex\@2xl > .order-4\@xl {
     order: 4;
   }
   .flex > .fill-5\@xl, .flex\@xs > .fill-5\@xl, .flex\@sm > .fill-5\@xl, .flex\@md > .fill-5\@xl, .flex\@lg > .fill-5\@xl, .flex\@xl > .fill-5\@xl, .flex\@2xl > .fill-5\@xl {
-    flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-    max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+    flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+    max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
     min-width: 0;
   }
   .flex > .order-5\@xl, .flex\@xs > .order-5\@xl, .flex\@sm > .order-5\@xl, .flex\@md > .order-5\@xl, .flex\@lg > .order-5\@xl, .flex\@xl > .order-5\@xl, .flex\@2xl > .order-5\@xl {
     order: 5;
   }
   .flex > .fill-6\@xl, .flex\@xs > .fill-6\@xl, .flex\@sm > .fill-6\@xl, .flex\@md > .fill-6\@xl, .flex\@lg > .fill-6\@xl, .flex\@xl > .fill-6\@xl, .flex\@2xl > .fill-6\@xl {
-    flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-    max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+    flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+    max-width: calc((100% - 1 * var(--nu-gap)) / 2);
     min-width: 0;
   }
   .flex > .order-6\@xl, .flex\@xs > .order-6\@xl, .flex\@sm > .order-6\@xl, .flex\@md > .order-6\@xl, .flex\@lg > .order-6\@xl, .flex\@xl > .order-6\@xl, .flex\@2xl > .order-6\@xl {
     order: 6;
   }
   .flex > .fill-7\@xl, .flex\@xs > .fill-7\@xl, .flex\@sm > .fill-7\@xl, .flex\@md > .fill-7\@xl, .flex\@lg > .fill-7\@xl, .flex\@xl > .fill-7\@xl, .flex\@2xl > .fill-7\@xl {
-    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-    max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+    max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
     min-width: 0;
   }
   .flex > .order-7\@xl, .flex\@xs > .order-7\@xl, .flex\@sm > .order-7\@xl, .flex\@md > .order-7\@xl, .flex\@lg > .order-7\@xl, .flex\@xl > .order-7\@xl, .flex\@2xl > .order-7\@xl {
     order: 7;
   }
   .flex > .fill-8\@xl, .flex\@xs > .fill-8\@xl, .flex\@sm > .fill-8\@xl, .flex\@md > .fill-8\@xl, .flex\@lg > .fill-8\@xl, .flex\@xl > .fill-8\@xl, .flex\@2xl > .fill-8\@xl {
-    flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-    max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+    flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+    max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
     min-width: 0;
   }
   .flex > .order-8\@xl, .flex\@xs > .order-8\@xl, .flex\@sm > .order-8\@xl, .flex\@md > .order-8\@xl, .flex\@lg > .order-8\@xl, .flex\@xl > .order-8\@xl, .flex\@2xl > .order-8\@xl {
     order: 8;
   }
   .flex > .fill-9\@xl, .flex\@xs > .fill-9\@xl, .flex\@sm > .fill-9\@xl, .flex\@md > .fill-9\@xl, .flex\@lg > .fill-9\@xl, .flex\@xl > .fill-9\@xl, .flex\@2xl > .fill-9\@xl {
-    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-    max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+    max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
     min-width: 0;
   }
   .flex > .order-9\@xl, .flex\@xs > .order-9\@xl, .flex\@sm > .order-9\@xl, .flex\@md > .order-9\@xl, .flex\@lg > .order-9\@xl, .flex\@xl > .order-9\@xl, .flex\@2xl > .order-9\@xl {
     order: 9;
   }
   .flex > .fill-10\@xl, .flex\@xs > .fill-10\@xl, .flex\@sm > .fill-10\@xl, .flex\@md > .fill-10\@xl, .flex\@lg > .fill-10\@xl, .flex\@xl > .fill-10\@xl, .flex\@2xl > .fill-10\@xl {
-    flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-    max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+    flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+    max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
     min-width: 0;
   }
   .flex > .order-10\@xl, .flex\@xs > .order-10\@xl, .flex\@sm > .order-10\@xl, .flex\@md > .order-10\@xl, .flex\@lg > .order-10\@xl, .flex\@xl > .order-10\@xl, .flex\@2xl > .order-10\@xl {
     order: 10;
   }
   .flex > .fill-11\@xl, .flex\@xs > .fill-11\@xl, .flex\@sm > .fill-11\@xl, .flex\@md > .fill-11\@xl, .flex\@lg > .fill-11\@xl, .flex\@xl > .fill-11\@xl, .flex\@2xl > .fill-11\@xl {
-    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-    max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+    max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
     min-width: 0;
   }
   .flex > .order-11\@xl, .flex\@xs > .order-11\@xl, .flex\@sm > .order-11\@xl, .flex\@md > .order-11\@xl, .flex\@lg > .order-11\@xl, .flex\@xl > .order-11\@xl, .flex\@2xl > .order-11\@xl {
     order: 11;
   }
   .flex > .fill-12\@xl, .flex\@xs > .fill-12\@xl, .flex\@sm > .fill-12\@xl, .flex\@md > .fill-12\@xl, .flex\@lg > .fill-12\@xl, .flex\@xl > .fill-12\@xl, .flex\@2xl > .fill-12\@xl {
-    flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-    max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+    flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+    max-width: calc((100% - 0 * var(--nu-gap)) / 1);
     min-width: 0;
   }
   .flex > .order-12\@xl, .flex\@xs > .order-12\@xl, .flex\@sm > .order-12\@xl, .flex\@md > .order-12\@xl, .flex\@lg > .order-12\@xl, .flex\@xl > .order-12\@xl, .flex\@2xl > .order-12\@xl {
@@ -1900,96 +1900,96 @@
     align-self: auto;
   }
   .flex > .fill-1\@2xl, .flex\@xs > .fill-1\@2xl, .flex\@sm > .fill-1\@2xl, .flex\@md > .fill-1\@2xl, .flex\@lg > .fill-1\@2xl, .flex\@xl > .fill-1\@2xl, .flex\@2xl > .fill-1\@2xl {
-    flex: 0 0 calc((100% - 11 * var(--nu-flex-gap)) / 12);
-    max-width: calc((100% - 11 * var(--nu-flex-gap)) / 12);
+    flex: 0 0 calc((100% - 11 * var(--nu-gap)) / 12);
+    max-width: calc((100% - 11 * var(--nu-gap)) / 12);
     min-width: 0;
   }
   .flex > .order-1\@2xl, .flex\@xs > .order-1\@2xl, .flex\@sm > .order-1\@2xl, .flex\@md > .order-1\@2xl, .flex\@lg > .order-1\@2xl, .flex\@xl > .order-1\@2xl, .flex\@2xl > .order-1\@2xl {
     order: 1;
   }
   .flex > .fill-2\@2xl, .flex\@xs > .fill-2\@2xl, .flex\@sm > .fill-2\@2xl, .flex\@md > .fill-2\@2xl, .flex\@lg > .fill-2\@2xl, .flex\@xl > .fill-2\@2xl, .flex\@2xl > .fill-2\@2xl {
-    flex: 0 0 calc((100% - 5 * var(--nu-flex-gap)) / 6);
-    max-width: calc((100% - 5 * var(--nu-flex-gap)) / 6);
+    flex: 0 0 calc((100% - 5 * var(--nu-gap)) / 6);
+    max-width: calc((100% - 5 * var(--nu-gap)) / 6);
     min-width: 0;
   }
   .flex > .order-2\@2xl, .flex\@xs > .order-2\@2xl, .flex\@sm > .order-2\@2xl, .flex\@md > .order-2\@2xl, .flex\@lg > .order-2\@2xl, .flex\@xl > .order-2\@2xl, .flex\@2xl > .order-2\@2xl {
     order: 2;
   }
   .flex > .fill-3\@2xl, .flex\@xs > .fill-3\@2xl, .flex\@sm > .fill-3\@2xl, .flex\@md > .fill-3\@2xl, .flex\@lg > .fill-3\@2xl, .flex\@xl > .fill-3\@2xl, .flex\@2xl > .fill-3\@2xl {
-    flex: 0 0 calc((100% - 3 * var(--nu-flex-gap)) / 4);
-    max-width: calc((100% - 3 * var(--nu-flex-gap)) / 4);
+    flex: 0 0 calc((100% - 3 * var(--nu-gap)) / 4);
+    max-width: calc((100% - 3 * var(--nu-gap)) / 4);
     min-width: 0;
   }
   .flex > .order-3\@2xl, .flex\@xs > .order-3\@2xl, .flex\@sm > .order-3\@2xl, .flex\@md > .order-3\@2xl, .flex\@lg > .order-3\@2xl, .flex\@xl > .order-3\@2xl, .flex\@2xl > .order-3\@2xl {
     order: 3;
   }
   .flex > .fill-4\@2xl, .flex\@xs > .fill-4\@2xl, .flex\@sm > .fill-4\@2xl, .flex\@md > .fill-4\@2xl, .flex\@lg > .fill-4\@2xl, .flex\@xl > .fill-4\@2xl, .flex\@2xl > .fill-4\@2xl {
-    flex: 0 0 calc((100% - 2 * var(--nu-flex-gap)) / 3);
-    max-width: calc((100% - 2 * var(--nu-flex-gap)) / 3);
+    flex: 0 0 calc((100% - 2 * var(--nu-gap)) / 3);
+    max-width: calc((100% - 2 * var(--nu-gap)) / 3);
     min-width: 0;
   }
   .flex > .order-4\@2xl, .flex\@xs > .order-4\@2xl, .flex\@sm > .order-4\@2xl, .flex\@md > .order-4\@2xl, .flex\@lg > .order-4\@2xl, .flex\@xl > .order-4\@2xl, .flex\@2xl > .order-4\@2xl {
     order: 4;
   }
   .flex > .fill-5\@2xl, .flex\@xs > .fill-5\@2xl, .flex\@sm > .fill-5\@2xl, .flex\@md > .fill-5\@2xl, .flex\@lg > .fill-5\@2xl, .flex\@xl > .fill-5\@2xl, .flex\@2xl > .fill-5\@2xl {
-    flex: 0 0 calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
-    max-width: calc((100% - 1.4 * var(--nu-flex-gap)) / 2.4);
+    flex: 0 0 calc((100% - 1.4 * var(--nu-gap)) / 2.4);
+    max-width: calc((100% - 1.4 * var(--nu-gap)) / 2.4);
     min-width: 0;
   }
   .flex > .order-5\@2xl, .flex\@xs > .order-5\@2xl, .flex\@sm > .order-5\@2xl, .flex\@md > .order-5\@2xl, .flex\@lg > .order-5\@2xl, .flex\@xl > .order-5\@2xl, .flex\@2xl > .order-5\@2xl {
     order: 5;
   }
   .flex > .fill-6\@2xl, .flex\@xs > .fill-6\@2xl, .flex\@sm > .fill-6\@2xl, .flex\@md > .fill-6\@2xl, .flex\@lg > .fill-6\@2xl, .flex\@xl > .fill-6\@2xl, .flex\@2xl > .fill-6\@2xl {
-    flex: 0 0 calc((100% - 1 * var(--nu-flex-gap)) / 2);
-    max-width: calc((100% - 1 * var(--nu-flex-gap)) / 2);
+    flex: 0 0 calc((100% - 1 * var(--nu-gap)) / 2);
+    max-width: calc((100% - 1 * var(--nu-gap)) / 2);
     min-width: 0;
   }
   .flex > .order-6\@2xl, .flex\@xs > .order-6\@2xl, .flex\@sm > .order-6\@2xl, .flex\@md > .order-6\@2xl, .flex\@lg > .order-6\@2xl, .flex\@xl > .order-6\@2xl, .flex\@2xl > .order-6\@2xl {
     order: 6;
   }
   .flex > .fill-7\@2xl, .flex\@xs > .fill-7\@2xl, .flex\@sm > .fill-7\@2xl, .flex\@md > .fill-7\@2xl, .flex\@lg > .fill-7\@2xl, .flex\@xl > .fill-7\@2xl, .flex\@2xl > .fill-7\@2xl {
-    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
-    max-width: calc((100% - 0.7142857143 * var(--nu-flex-gap)) / 1.7142857143);
+    flex: 0 0 calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
+    max-width: calc((100% - 0.7142857143 * var(--nu-gap)) / 1.7142857143);
     min-width: 0;
   }
   .flex > .order-7\@2xl, .flex\@xs > .order-7\@2xl, .flex\@sm > .order-7\@2xl, .flex\@md > .order-7\@2xl, .flex\@lg > .order-7\@2xl, .flex\@xl > .order-7\@2xl, .flex\@2xl > .order-7\@2xl {
     order: 7;
   }
   .flex > .fill-8\@2xl, .flex\@xs > .fill-8\@2xl, .flex\@sm > .fill-8\@2xl, .flex\@md > .fill-8\@2xl, .flex\@lg > .fill-8\@2xl, .flex\@xl > .fill-8\@2xl, .flex\@2xl > .fill-8\@2xl {
-    flex: 0 0 calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
-    max-width: calc((100% - 0.5 * var(--nu-flex-gap)) / 1.5);
+    flex: 0 0 calc((100% - 0.5 * var(--nu-gap)) / 1.5);
+    max-width: calc((100% - 0.5 * var(--nu-gap)) / 1.5);
     min-width: 0;
   }
   .flex > .order-8\@2xl, .flex\@xs > .order-8\@2xl, .flex\@sm > .order-8\@2xl, .flex\@md > .order-8\@2xl, .flex\@lg > .order-8\@2xl, .flex\@xl > .order-8\@2xl, .flex\@2xl > .order-8\@2xl {
     order: 8;
   }
   .flex > .fill-9\@2xl, .flex\@xs > .fill-9\@2xl, .flex\@sm > .fill-9\@2xl, .flex\@md > .fill-9\@2xl, .flex\@lg > .fill-9\@2xl, .flex\@xl > .fill-9\@2xl, .flex\@2xl > .fill-9\@2xl {
-    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
-    max-width: calc((100% - 0.3333333333 * var(--nu-flex-gap)) / 1.3333333333);
+    flex: 0 0 calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
+    max-width: calc((100% - 0.3333333333 * var(--nu-gap)) / 1.3333333333);
     min-width: 0;
   }
   .flex > .order-9\@2xl, .flex\@xs > .order-9\@2xl, .flex\@sm > .order-9\@2xl, .flex\@md > .order-9\@2xl, .flex\@lg > .order-9\@2xl, .flex\@xl > .order-9\@2xl, .flex\@2xl > .order-9\@2xl {
     order: 9;
   }
   .flex > .fill-10\@2xl, .flex\@xs > .fill-10\@2xl, .flex\@sm > .fill-10\@2xl, .flex\@md > .fill-10\@2xl, .flex\@lg > .fill-10\@2xl, .flex\@xl > .fill-10\@2xl, .flex\@2xl > .fill-10\@2xl {
-    flex: 0 0 calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
-    max-width: calc((100% - 0.2 * var(--nu-flex-gap)) / 1.2);
+    flex: 0 0 calc((100% - 0.2 * var(--nu-gap)) / 1.2);
+    max-width: calc((100% - 0.2 * var(--nu-gap)) / 1.2);
     min-width: 0;
   }
   .flex > .order-10\@2xl, .flex\@xs > .order-10\@2xl, .flex\@sm > .order-10\@2xl, .flex\@md > .order-10\@2xl, .flex\@lg > .order-10\@2xl, .flex\@xl > .order-10\@2xl, .flex\@2xl > .order-10\@2xl {
     order: 10;
   }
   .flex > .fill-11\@2xl, .flex\@xs > .fill-11\@2xl, .flex\@sm > .fill-11\@2xl, .flex\@md > .fill-11\@2xl, .flex\@lg > .fill-11\@2xl, .flex\@xl > .fill-11\@2xl, .flex\@2xl > .fill-11\@2xl {
-    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
-    max-width: calc((100% - 0.0909090909 * var(--nu-flex-gap)) / 1.0909090909);
+    flex: 0 0 calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
+    max-width: calc((100% - 0.0909090909 * var(--nu-gap)) / 1.0909090909);
     min-width: 0;
   }
   .flex > .order-11\@2xl, .flex\@xs > .order-11\@2xl, .flex\@sm > .order-11\@2xl, .flex\@md > .order-11\@2xl, .flex\@lg > .order-11\@2xl, .flex\@xl > .order-11\@2xl, .flex\@2xl > .order-11\@2xl {
     order: 11;
   }
   .flex > .fill-12\@2xl, .flex\@xs > .fill-12\@2xl, .flex\@sm > .fill-12\@2xl, .flex\@md > .fill-12\@2xl, .flex\@lg > .fill-12\@2xl, .flex\@xl > .fill-12\@2xl, .flex\@2xl > .fill-12\@2xl {
-    flex: 0 0 calc((100% - 0 * var(--nu-flex-gap)) / 1);
-    max-width: calc((100% - 0 * var(--nu-flex-gap)) / 1);
+    flex: 0 0 calc((100% - 0 * var(--nu-gap)) / 1);
+    max-width: calc((100% - 0 * var(--nu-gap)) / 1);
     min-width: 0;
   }
   .flex > .order-12\@2xl, .flex\@xs > .order-12\@2xl, .flex\@sm > .order-12\@2xl, .flex\@md > .order-12\@2xl, .flex\@lg > .order-12\@2xl, .flex\@xl > .order-12\@2xl, .flex\@2xl > .order-12\@2xl {
@@ -23186,7 +23186,7 @@
     z-index: var(--nu-z-max);
   }
 }
-@property --nu-flex-gap {
+@property --nu-gap {
   syntax: "<length-percentage>";
   inherits: false;
   initial-value: 0px;
@@ -23267,14 +23267,14 @@
   gap: var(--nu-space-0);
 }
 .gap-0 > * {
-  --nu-flex-gap: var(--nu-space-0);
+  --nu-gap: var(--nu-space-0);
 }
 
 .gap-x-0 {
   column-gap: var(--nu-space-0);
 }
 .gap-x-0 > * {
-  --nu-flex-gap: var(--nu-space-0);
+  --nu-gap: var(--nu-space-0);
 }
 
 .gap-y-0 {
@@ -23365,14 +23365,14 @@
   gap: var(--nu-space-1);
 }
 .gap-1 > * {
-  --nu-flex-gap: var(--nu-space-1);
+  --nu-gap: var(--nu-space-1);
 }
 
 .gap-x-1 {
   column-gap: var(--nu-space-1);
 }
 .gap-x-1 > * {
-  --nu-flex-gap: var(--nu-space-1);
+  --nu-gap: var(--nu-space-1);
 }
 
 .gap-y-1 {
@@ -23463,14 +23463,14 @@
   gap: var(--nu-space-2);
 }
 .gap-2 > * {
-  --nu-flex-gap: var(--nu-space-2);
+  --nu-gap: var(--nu-space-2);
 }
 
 .gap-x-2 {
   column-gap: var(--nu-space-2);
 }
 .gap-x-2 > * {
-  --nu-flex-gap: var(--nu-space-2);
+  --nu-gap: var(--nu-space-2);
 }
 
 .gap-y-2 {
@@ -23561,14 +23561,14 @@
   gap: var(--nu-space-3);
 }
 .gap-3 > * {
-  --nu-flex-gap: var(--nu-space-3);
+  --nu-gap: var(--nu-space-3);
 }
 
 .gap-x-3 {
   column-gap: var(--nu-space-3);
 }
 .gap-x-3 > * {
-  --nu-flex-gap: var(--nu-space-3);
+  --nu-gap: var(--nu-space-3);
 }
 
 .gap-y-3 {
@@ -23659,14 +23659,14 @@
   gap: var(--nu-space-4);
 }
 .gap-4 > * {
-  --nu-flex-gap: var(--nu-space-4);
+  --nu-gap: var(--nu-space-4);
 }
 
 .gap-x-4 {
   column-gap: var(--nu-space-4);
 }
 .gap-x-4 > * {
-  --nu-flex-gap: var(--nu-space-4);
+  --nu-gap: var(--nu-space-4);
 }
 
 .gap-y-4 {
@@ -23757,14 +23757,14 @@
   gap: var(--nu-space-5);
 }
 .gap-5 > * {
-  --nu-flex-gap: var(--nu-space-5);
+  --nu-gap: var(--nu-space-5);
 }
 
 .gap-x-5 {
   column-gap: var(--nu-space-5);
 }
 .gap-x-5 > * {
-  --nu-flex-gap: var(--nu-space-5);
+  --nu-gap: var(--nu-space-5);
 }
 
 .gap-y-5 {
@@ -23855,14 +23855,14 @@
   gap: var(--nu-space-6);
 }
 .gap-6 > * {
-  --nu-flex-gap: var(--nu-space-6);
+  --nu-gap: var(--nu-space-6);
 }
 
 .gap-x-6 {
   column-gap: var(--nu-space-6);
 }
 .gap-x-6 > * {
-  --nu-flex-gap: var(--nu-space-6);
+  --nu-gap: var(--nu-space-6);
 }
 
 .gap-y-6 {
@@ -23953,14 +23953,14 @@
   gap: var(--nu-space-8);
 }
 .gap-8 > * {
-  --nu-flex-gap: var(--nu-space-8);
+  --nu-gap: var(--nu-space-8);
 }
 
 .gap-x-8 {
   column-gap: var(--nu-space-8);
 }
 .gap-x-8 > * {
-  --nu-flex-gap: var(--nu-space-8);
+  --nu-gap: var(--nu-space-8);
 }
 
 .gap-y-8 {
@@ -24051,14 +24051,14 @@
   gap: var(--nu-space-10);
 }
 .gap-10 > * {
-  --nu-flex-gap: var(--nu-space-10);
+  --nu-gap: var(--nu-space-10);
 }
 
 .gap-x-10 {
   column-gap: var(--nu-space-10);
 }
 .gap-x-10 > * {
-  --nu-flex-gap: var(--nu-space-10);
+  --nu-gap: var(--nu-space-10);
 }
 
 .gap-y-10 {
@@ -24149,14 +24149,14 @@
   gap: var(--nu-space-12);
 }
 .gap-12 > * {
-  --nu-flex-gap: var(--nu-space-12);
+  --nu-gap: var(--nu-space-12);
 }
 
 .gap-x-12 {
   column-gap: var(--nu-space-12);
 }
 .gap-x-12 > * {
-  --nu-flex-gap: var(--nu-space-12);
+  --nu-gap: var(--nu-space-12);
 }
 
 .gap-y-12 {
@@ -24247,14 +24247,14 @@
   gap: var(--nu-space-16);
 }
 .gap-16 > * {
-  --nu-flex-gap: var(--nu-space-16);
+  --nu-gap: var(--nu-space-16);
 }
 
 .gap-x-16 {
   column-gap: var(--nu-space-16);
 }
 .gap-x-16 > * {
-  --nu-flex-gap: var(--nu-space-16);
+  --nu-gap: var(--nu-space-16);
 }
 
 .gap-y-16 {
@@ -24345,14 +24345,14 @@
   gap: var(--nu-space-20);
 }
 .gap-20 > * {
-  --nu-flex-gap: var(--nu-space-20);
+  --nu-gap: var(--nu-space-20);
 }
 
 .gap-x-20 {
   column-gap: var(--nu-space-20);
 }
 .gap-x-20 > * {
-  --nu-flex-gap: var(--nu-space-20);
+  --nu-gap: var(--nu-space-20);
 }
 
 .gap-y-20 {
@@ -24443,14 +24443,14 @@
   gap: var(--nu-space-24);
 }
 .gap-24 > * {
-  --nu-flex-gap: var(--nu-space-24);
+  --nu-gap: var(--nu-space-24);
 }
 
 .gap-x-24 {
   column-gap: var(--nu-space-24);
 }
 .gap-x-24 > * {
-  --nu-flex-gap: var(--nu-space-24);
+  --nu-gap: var(--nu-space-24);
 }
 
 .gap-y-24 {
@@ -24541,14 +24541,14 @@
   gap: var(--nu-space-32);
 }
 .gap-32 > * {
-  --nu-flex-gap: var(--nu-space-32);
+  --nu-gap: var(--nu-space-32);
 }
 
 .gap-x-32 {
   column-gap: var(--nu-space-32);
 }
 .gap-x-32 > * {
-  --nu-flex-gap: var(--nu-space-32);
+  --nu-gap: var(--nu-space-32);
 }
 
 .gap-y-32 {
@@ -24639,14 +24639,14 @@
   gap: var(--nu-space-40);
 }
 .gap-40 > * {
-  --nu-flex-gap: var(--nu-space-40);
+  --nu-gap: var(--nu-space-40);
 }
 
 .gap-x-40 {
   column-gap: var(--nu-space-40);
 }
 .gap-x-40 > * {
-  --nu-flex-gap: var(--nu-space-40);
+  --nu-gap: var(--nu-space-40);
 }
 
 .gap-y-40 {
@@ -24737,14 +24737,14 @@
   gap: var(--nu-space-48);
 }
 .gap-48 > * {
-  --nu-flex-gap: var(--nu-space-48);
+  --nu-gap: var(--nu-space-48);
 }
 
 .gap-x-48 {
   column-gap: var(--nu-space-48);
 }
 .gap-x-48 > * {
-  --nu-flex-gap: var(--nu-space-48);
+  --nu-gap: var(--nu-space-48);
 }
 
 .gap-y-48 {
@@ -24835,14 +24835,14 @@
   gap: var(--nu-space-56);
 }
 .gap-56 > * {
-  --nu-flex-gap: var(--nu-space-56);
+  --nu-gap: var(--nu-space-56);
 }
 
 .gap-x-56 {
   column-gap: var(--nu-space-56);
 }
 .gap-x-56 > * {
-  --nu-flex-gap: var(--nu-space-56);
+  --nu-gap: var(--nu-space-56);
 }
 
 .gap-y-56 {
@@ -24933,14 +24933,14 @@
   gap: var(--nu-space-64);
 }
 .gap-64 > * {
-  --nu-flex-gap: var(--nu-space-64);
+  --nu-gap: var(--nu-space-64);
 }
 
 .gap-x-64 {
   column-gap: var(--nu-space-64);
 }
 .gap-x-64 > * {
-  --nu-flex-gap: var(--nu-space-64);
+  --nu-gap: var(--nu-space-64);
 }
 
 .gap-y-64 {
@@ -25034,13 +25034,13 @@
     gap: var(--nu-space-0);
   }
   .gap-0\@xs > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-x-0\@xs {
     column-gap: var(--nu-space-0);
   }
   .gap-x-0\@xs > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-y-0\@xs {
     row-gap: var(--nu-space-0);
@@ -25109,13 +25109,13 @@
     gap: var(--nu-space-1);
   }
   .gap-1\@xs > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-x-1\@xs {
     column-gap: var(--nu-space-1);
   }
   .gap-x-1\@xs > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-y-1\@xs {
     row-gap: var(--nu-space-1);
@@ -25184,13 +25184,13 @@
     gap: var(--nu-space-2);
   }
   .gap-2\@xs > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-x-2\@xs {
     column-gap: var(--nu-space-2);
   }
   .gap-x-2\@xs > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-y-2\@xs {
     row-gap: var(--nu-space-2);
@@ -25259,13 +25259,13 @@
     gap: var(--nu-space-3);
   }
   .gap-3\@xs > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-x-3\@xs {
     column-gap: var(--nu-space-3);
   }
   .gap-x-3\@xs > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-y-3\@xs {
     row-gap: var(--nu-space-3);
@@ -25334,13 +25334,13 @@
     gap: var(--nu-space-4);
   }
   .gap-4\@xs > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-x-4\@xs {
     column-gap: var(--nu-space-4);
   }
   .gap-x-4\@xs > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-y-4\@xs {
     row-gap: var(--nu-space-4);
@@ -25409,13 +25409,13 @@
     gap: var(--nu-space-5);
   }
   .gap-5\@xs > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-x-5\@xs {
     column-gap: var(--nu-space-5);
   }
   .gap-x-5\@xs > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-y-5\@xs {
     row-gap: var(--nu-space-5);
@@ -25484,13 +25484,13 @@
     gap: var(--nu-space-6);
   }
   .gap-6\@xs > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-x-6\@xs {
     column-gap: var(--nu-space-6);
   }
   .gap-x-6\@xs > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-y-6\@xs {
     row-gap: var(--nu-space-6);
@@ -25559,13 +25559,13 @@
     gap: var(--nu-space-8);
   }
   .gap-8\@xs > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-x-8\@xs {
     column-gap: var(--nu-space-8);
   }
   .gap-x-8\@xs > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-y-8\@xs {
     row-gap: var(--nu-space-8);
@@ -25634,13 +25634,13 @@
     gap: var(--nu-space-10);
   }
   .gap-10\@xs > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-x-10\@xs {
     column-gap: var(--nu-space-10);
   }
   .gap-x-10\@xs > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-y-10\@xs {
     row-gap: var(--nu-space-10);
@@ -25709,13 +25709,13 @@
     gap: var(--nu-space-12);
   }
   .gap-12\@xs > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-x-12\@xs {
     column-gap: var(--nu-space-12);
   }
   .gap-x-12\@xs > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-y-12\@xs {
     row-gap: var(--nu-space-12);
@@ -25784,13 +25784,13 @@
     gap: var(--nu-space-16);
   }
   .gap-16\@xs > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-x-16\@xs {
     column-gap: var(--nu-space-16);
   }
   .gap-x-16\@xs > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-y-16\@xs {
     row-gap: var(--nu-space-16);
@@ -25859,13 +25859,13 @@
     gap: var(--nu-space-20);
   }
   .gap-20\@xs > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-x-20\@xs {
     column-gap: var(--nu-space-20);
   }
   .gap-x-20\@xs > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-y-20\@xs {
     row-gap: var(--nu-space-20);
@@ -25934,13 +25934,13 @@
     gap: var(--nu-space-24);
   }
   .gap-24\@xs > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-x-24\@xs {
     column-gap: var(--nu-space-24);
   }
   .gap-x-24\@xs > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-y-24\@xs {
     row-gap: var(--nu-space-24);
@@ -26009,13 +26009,13 @@
     gap: var(--nu-space-32);
   }
   .gap-32\@xs > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-x-32\@xs {
     column-gap: var(--nu-space-32);
   }
   .gap-x-32\@xs > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-y-32\@xs {
     row-gap: var(--nu-space-32);
@@ -26084,13 +26084,13 @@
     gap: var(--nu-space-40);
   }
   .gap-40\@xs > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-x-40\@xs {
     column-gap: var(--nu-space-40);
   }
   .gap-x-40\@xs > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-y-40\@xs {
     row-gap: var(--nu-space-40);
@@ -26159,13 +26159,13 @@
     gap: var(--nu-space-48);
   }
   .gap-48\@xs > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-x-48\@xs {
     column-gap: var(--nu-space-48);
   }
   .gap-x-48\@xs > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-y-48\@xs {
     row-gap: var(--nu-space-48);
@@ -26234,13 +26234,13 @@
     gap: var(--nu-space-56);
   }
   .gap-56\@xs > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-x-56\@xs {
     column-gap: var(--nu-space-56);
   }
   .gap-x-56\@xs > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-y-56\@xs {
     row-gap: var(--nu-space-56);
@@ -26309,13 +26309,13 @@
     gap: var(--nu-space-64);
   }
   .gap-64\@xs > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-x-64\@xs {
     column-gap: var(--nu-space-64);
   }
   .gap-x-64\@xs > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-y-64\@xs {
     row-gap: var(--nu-space-64);
@@ -26401,13 +26401,13 @@
     gap: var(--nu-space-0);
   }
   .gap-0\@sm > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-x-0\@sm {
     column-gap: var(--nu-space-0);
   }
   .gap-x-0\@sm > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-y-0\@sm {
     row-gap: var(--nu-space-0);
@@ -26476,13 +26476,13 @@
     gap: var(--nu-space-1);
   }
   .gap-1\@sm > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-x-1\@sm {
     column-gap: var(--nu-space-1);
   }
   .gap-x-1\@sm > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-y-1\@sm {
     row-gap: var(--nu-space-1);
@@ -26551,13 +26551,13 @@
     gap: var(--nu-space-2);
   }
   .gap-2\@sm > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-x-2\@sm {
     column-gap: var(--nu-space-2);
   }
   .gap-x-2\@sm > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-y-2\@sm {
     row-gap: var(--nu-space-2);
@@ -26626,13 +26626,13 @@
     gap: var(--nu-space-3);
   }
   .gap-3\@sm > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-x-3\@sm {
     column-gap: var(--nu-space-3);
   }
   .gap-x-3\@sm > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-y-3\@sm {
     row-gap: var(--nu-space-3);
@@ -26701,13 +26701,13 @@
     gap: var(--nu-space-4);
   }
   .gap-4\@sm > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-x-4\@sm {
     column-gap: var(--nu-space-4);
   }
   .gap-x-4\@sm > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-y-4\@sm {
     row-gap: var(--nu-space-4);
@@ -26776,13 +26776,13 @@
     gap: var(--nu-space-5);
   }
   .gap-5\@sm > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-x-5\@sm {
     column-gap: var(--nu-space-5);
   }
   .gap-x-5\@sm > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-y-5\@sm {
     row-gap: var(--nu-space-5);
@@ -26851,13 +26851,13 @@
     gap: var(--nu-space-6);
   }
   .gap-6\@sm > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-x-6\@sm {
     column-gap: var(--nu-space-6);
   }
   .gap-x-6\@sm > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-y-6\@sm {
     row-gap: var(--nu-space-6);
@@ -26926,13 +26926,13 @@
     gap: var(--nu-space-8);
   }
   .gap-8\@sm > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-x-8\@sm {
     column-gap: var(--nu-space-8);
   }
   .gap-x-8\@sm > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-y-8\@sm {
     row-gap: var(--nu-space-8);
@@ -27001,13 +27001,13 @@
     gap: var(--nu-space-10);
   }
   .gap-10\@sm > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-x-10\@sm {
     column-gap: var(--nu-space-10);
   }
   .gap-x-10\@sm > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-y-10\@sm {
     row-gap: var(--nu-space-10);
@@ -27076,13 +27076,13 @@
     gap: var(--nu-space-12);
   }
   .gap-12\@sm > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-x-12\@sm {
     column-gap: var(--nu-space-12);
   }
   .gap-x-12\@sm > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-y-12\@sm {
     row-gap: var(--nu-space-12);
@@ -27151,13 +27151,13 @@
     gap: var(--nu-space-16);
   }
   .gap-16\@sm > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-x-16\@sm {
     column-gap: var(--nu-space-16);
   }
   .gap-x-16\@sm > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-y-16\@sm {
     row-gap: var(--nu-space-16);
@@ -27226,13 +27226,13 @@
     gap: var(--nu-space-20);
   }
   .gap-20\@sm > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-x-20\@sm {
     column-gap: var(--nu-space-20);
   }
   .gap-x-20\@sm > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-y-20\@sm {
     row-gap: var(--nu-space-20);
@@ -27301,13 +27301,13 @@
     gap: var(--nu-space-24);
   }
   .gap-24\@sm > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-x-24\@sm {
     column-gap: var(--nu-space-24);
   }
   .gap-x-24\@sm > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-y-24\@sm {
     row-gap: var(--nu-space-24);
@@ -27376,13 +27376,13 @@
     gap: var(--nu-space-32);
   }
   .gap-32\@sm > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-x-32\@sm {
     column-gap: var(--nu-space-32);
   }
   .gap-x-32\@sm > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-y-32\@sm {
     row-gap: var(--nu-space-32);
@@ -27451,13 +27451,13 @@
     gap: var(--nu-space-40);
   }
   .gap-40\@sm > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-x-40\@sm {
     column-gap: var(--nu-space-40);
   }
   .gap-x-40\@sm > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-y-40\@sm {
     row-gap: var(--nu-space-40);
@@ -27526,13 +27526,13 @@
     gap: var(--nu-space-48);
   }
   .gap-48\@sm > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-x-48\@sm {
     column-gap: var(--nu-space-48);
   }
   .gap-x-48\@sm > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-y-48\@sm {
     row-gap: var(--nu-space-48);
@@ -27601,13 +27601,13 @@
     gap: var(--nu-space-56);
   }
   .gap-56\@sm > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-x-56\@sm {
     column-gap: var(--nu-space-56);
   }
   .gap-x-56\@sm > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-y-56\@sm {
     row-gap: var(--nu-space-56);
@@ -27676,13 +27676,13 @@
     gap: var(--nu-space-64);
   }
   .gap-64\@sm > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-x-64\@sm {
     column-gap: var(--nu-space-64);
   }
   .gap-x-64\@sm > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-y-64\@sm {
     row-gap: var(--nu-space-64);
@@ -27768,13 +27768,13 @@
     gap: var(--nu-space-0);
   }
   .gap-0\@md > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-x-0\@md {
     column-gap: var(--nu-space-0);
   }
   .gap-x-0\@md > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-y-0\@md {
     row-gap: var(--nu-space-0);
@@ -27843,13 +27843,13 @@
     gap: var(--nu-space-1);
   }
   .gap-1\@md > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-x-1\@md {
     column-gap: var(--nu-space-1);
   }
   .gap-x-1\@md > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-y-1\@md {
     row-gap: var(--nu-space-1);
@@ -27918,13 +27918,13 @@
     gap: var(--nu-space-2);
   }
   .gap-2\@md > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-x-2\@md {
     column-gap: var(--nu-space-2);
   }
   .gap-x-2\@md > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-y-2\@md {
     row-gap: var(--nu-space-2);
@@ -27993,13 +27993,13 @@
     gap: var(--nu-space-3);
   }
   .gap-3\@md > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-x-3\@md {
     column-gap: var(--nu-space-3);
   }
   .gap-x-3\@md > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-y-3\@md {
     row-gap: var(--nu-space-3);
@@ -28068,13 +28068,13 @@
     gap: var(--nu-space-4);
   }
   .gap-4\@md > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-x-4\@md {
     column-gap: var(--nu-space-4);
   }
   .gap-x-4\@md > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-y-4\@md {
     row-gap: var(--nu-space-4);
@@ -28143,13 +28143,13 @@
     gap: var(--nu-space-5);
   }
   .gap-5\@md > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-x-5\@md {
     column-gap: var(--nu-space-5);
   }
   .gap-x-5\@md > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-y-5\@md {
     row-gap: var(--nu-space-5);
@@ -28218,13 +28218,13 @@
     gap: var(--nu-space-6);
   }
   .gap-6\@md > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-x-6\@md {
     column-gap: var(--nu-space-6);
   }
   .gap-x-6\@md > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-y-6\@md {
     row-gap: var(--nu-space-6);
@@ -28293,13 +28293,13 @@
     gap: var(--nu-space-8);
   }
   .gap-8\@md > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-x-8\@md {
     column-gap: var(--nu-space-8);
   }
   .gap-x-8\@md > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-y-8\@md {
     row-gap: var(--nu-space-8);
@@ -28368,13 +28368,13 @@
     gap: var(--nu-space-10);
   }
   .gap-10\@md > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-x-10\@md {
     column-gap: var(--nu-space-10);
   }
   .gap-x-10\@md > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-y-10\@md {
     row-gap: var(--nu-space-10);
@@ -28443,13 +28443,13 @@
     gap: var(--nu-space-12);
   }
   .gap-12\@md > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-x-12\@md {
     column-gap: var(--nu-space-12);
   }
   .gap-x-12\@md > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-y-12\@md {
     row-gap: var(--nu-space-12);
@@ -28518,13 +28518,13 @@
     gap: var(--nu-space-16);
   }
   .gap-16\@md > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-x-16\@md {
     column-gap: var(--nu-space-16);
   }
   .gap-x-16\@md > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-y-16\@md {
     row-gap: var(--nu-space-16);
@@ -28593,13 +28593,13 @@
     gap: var(--nu-space-20);
   }
   .gap-20\@md > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-x-20\@md {
     column-gap: var(--nu-space-20);
   }
   .gap-x-20\@md > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-y-20\@md {
     row-gap: var(--nu-space-20);
@@ -28668,13 +28668,13 @@
     gap: var(--nu-space-24);
   }
   .gap-24\@md > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-x-24\@md {
     column-gap: var(--nu-space-24);
   }
   .gap-x-24\@md > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-y-24\@md {
     row-gap: var(--nu-space-24);
@@ -28743,13 +28743,13 @@
     gap: var(--nu-space-32);
   }
   .gap-32\@md > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-x-32\@md {
     column-gap: var(--nu-space-32);
   }
   .gap-x-32\@md > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-y-32\@md {
     row-gap: var(--nu-space-32);
@@ -28818,13 +28818,13 @@
     gap: var(--nu-space-40);
   }
   .gap-40\@md > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-x-40\@md {
     column-gap: var(--nu-space-40);
   }
   .gap-x-40\@md > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-y-40\@md {
     row-gap: var(--nu-space-40);
@@ -28893,13 +28893,13 @@
     gap: var(--nu-space-48);
   }
   .gap-48\@md > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-x-48\@md {
     column-gap: var(--nu-space-48);
   }
   .gap-x-48\@md > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-y-48\@md {
     row-gap: var(--nu-space-48);
@@ -28968,13 +28968,13 @@
     gap: var(--nu-space-56);
   }
   .gap-56\@md > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-x-56\@md {
     column-gap: var(--nu-space-56);
   }
   .gap-x-56\@md > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-y-56\@md {
     row-gap: var(--nu-space-56);
@@ -29043,13 +29043,13 @@
     gap: var(--nu-space-64);
   }
   .gap-64\@md > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-x-64\@md {
     column-gap: var(--nu-space-64);
   }
   .gap-x-64\@md > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-y-64\@md {
     row-gap: var(--nu-space-64);
@@ -29135,13 +29135,13 @@
     gap: var(--nu-space-0);
   }
   .gap-0\@lg > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-x-0\@lg {
     column-gap: var(--nu-space-0);
   }
   .gap-x-0\@lg > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-y-0\@lg {
     row-gap: var(--nu-space-0);
@@ -29210,13 +29210,13 @@
     gap: var(--nu-space-1);
   }
   .gap-1\@lg > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-x-1\@lg {
     column-gap: var(--nu-space-1);
   }
   .gap-x-1\@lg > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-y-1\@lg {
     row-gap: var(--nu-space-1);
@@ -29285,13 +29285,13 @@
     gap: var(--nu-space-2);
   }
   .gap-2\@lg > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-x-2\@lg {
     column-gap: var(--nu-space-2);
   }
   .gap-x-2\@lg > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-y-2\@lg {
     row-gap: var(--nu-space-2);
@@ -29360,13 +29360,13 @@
     gap: var(--nu-space-3);
   }
   .gap-3\@lg > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-x-3\@lg {
     column-gap: var(--nu-space-3);
   }
   .gap-x-3\@lg > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-y-3\@lg {
     row-gap: var(--nu-space-3);
@@ -29435,13 +29435,13 @@
     gap: var(--nu-space-4);
   }
   .gap-4\@lg > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-x-4\@lg {
     column-gap: var(--nu-space-4);
   }
   .gap-x-4\@lg > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-y-4\@lg {
     row-gap: var(--nu-space-4);
@@ -29510,13 +29510,13 @@
     gap: var(--nu-space-5);
   }
   .gap-5\@lg > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-x-5\@lg {
     column-gap: var(--nu-space-5);
   }
   .gap-x-5\@lg > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-y-5\@lg {
     row-gap: var(--nu-space-5);
@@ -29585,13 +29585,13 @@
     gap: var(--nu-space-6);
   }
   .gap-6\@lg > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-x-6\@lg {
     column-gap: var(--nu-space-6);
   }
   .gap-x-6\@lg > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-y-6\@lg {
     row-gap: var(--nu-space-6);
@@ -29660,13 +29660,13 @@
     gap: var(--nu-space-8);
   }
   .gap-8\@lg > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-x-8\@lg {
     column-gap: var(--nu-space-8);
   }
   .gap-x-8\@lg > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-y-8\@lg {
     row-gap: var(--nu-space-8);
@@ -29735,13 +29735,13 @@
     gap: var(--nu-space-10);
   }
   .gap-10\@lg > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-x-10\@lg {
     column-gap: var(--nu-space-10);
   }
   .gap-x-10\@lg > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-y-10\@lg {
     row-gap: var(--nu-space-10);
@@ -29810,13 +29810,13 @@
     gap: var(--nu-space-12);
   }
   .gap-12\@lg > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-x-12\@lg {
     column-gap: var(--nu-space-12);
   }
   .gap-x-12\@lg > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-y-12\@lg {
     row-gap: var(--nu-space-12);
@@ -29885,13 +29885,13 @@
     gap: var(--nu-space-16);
   }
   .gap-16\@lg > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-x-16\@lg {
     column-gap: var(--nu-space-16);
   }
   .gap-x-16\@lg > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-y-16\@lg {
     row-gap: var(--nu-space-16);
@@ -29960,13 +29960,13 @@
     gap: var(--nu-space-20);
   }
   .gap-20\@lg > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-x-20\@lg {
     column-gap: var(--nu-space-20);
   }
   .gap-x-20\@lg > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-y-20\@lg {
     row-gap: var(--nu-space-20);
@@ -30035,13 +30035,13 @@
     gap: var(--nu-space-24);
   }
   .gap-24\@lg > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-x-24\@lg {
     column-gap: var(--nu-space-24);
   }
   .gap-x-24\@lg > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-y-24\@lg {
     row-gap: var(--nu-space-24);
@@ -30110,13 +30110,13 @@
     gap: var(--nu-space-32);
   }
   .gap-32\@lg > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-x-32\@lg {
     column-gap: var(--nu-space-32);
   }
   .gap-x-32\@lg > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-y-32\@lg {
     row-gap: var(--nu-space-32);
@@ -30185,13 +30185,13 @@
     gap: var(--nu-space-40);
   }
   .gap-40\@lg > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-x-40\@lg {
     column-gap: var(--nu-space-40);
   }
   .gap-x-40\@lg > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-y-40\@lg {
     row-gap: var(--nu-space-40);
@@ -30260,13 +30260,13 @@
     gap: var(--nu-space-48);
   }
   .gap-48\@lg > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-x-48\@lg {
     column-gap: var(--nu-space-48);
   }
   .gap-x-48\@lg > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-y-48\@lg {
     row-gap: var(--nu-space-48);
@@ -30335,13 +30335,13 @@
     gap: var(--nu-space-56);
   }
   .gap-56\@lg > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-x-56\@lg {
     column-gap: var(--nu-space-56);
   }
   .gap-x-56\@lg > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-y-56\@lg {
     row-gap: var(--nu-space-56);
@@ -30410,13 +30410,13 @@
     gap: var(--nu-space-64);
   }
   .gap-64\@lg > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-x-64\@lg {
     column-gap: var(--nu-space-64);
   }
   .gap-x-64\@lg > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-y-64\@lg {
     row-gap: var(--nu-space-64);
@@ -30502,13 +30502,13 @@
     gap: var(--nu-space-0);
   }
   .gap-0\@xl > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-x-0\@xl {
     column-gap: var(--nu-space-0);
   }
   .gap-x-0\@xl > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-y-0\@xl {
     row-gap: var(--nu-space-0);
@@ -30577,13 +30577,13 @@
     gap: var(--nu-space-1);
   }
   .gap-1\@xl > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-x-1\@xl {
     column-gap: var(--nu-space-1);
   }
   .gap-x-1\@xl > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-y-1\@xl {
     row-gap: var(--nu-space-1);
@@ -30652,13 +30652,13 @@
     gap: var(--nu-space-2);
   }
   .gap-2\@xl > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-x-2\@xl {
     column-gap: var(--nu-space-2);
   }
   .gap-x-2\@xl > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-y-2\@xl {
     row-gap: var(--nu-space-2);
@@ -30727,13 +30727,13 @@
     gap: var(--nu-space-3);
   }
   .gap-3\@xl > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-x-3\@xl {
     column-gap: var(--nu-space-3);
   }
   .gap-x-3\@xl > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-y-3\@xl {
     row-gap: var(--nu-space-3);
@@ -30802,13 +30802,13 @@
     gap: var(--nu-space-4);
   }
   .gap-4\@xl > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-x-4\@xl {
     column-gap: var(--nu-space-4);
   }
   .gap-x-4\@xl > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-y-4\@xl {
     row-gap: var(--nu-space-4);
@@ -30877,13 +30877,13 @@
     gap: var(--nu-space-5);
   }
   .gap-5\@xl > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-x-5\@xl {
     column-gap: var(--nu-space-5);
   }
   .gap-x-5\@xl > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-y-5\@xl {
     row-gap: var(--nu-space-5);
@@ -30952,13 +30952,13 @@
     gap: var(--nu-space-6);
   }
   .gap-6\@xl > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-x-6\@xl {
     column-gap: var(--nu-space-6);
   }
   .gap-x-6\@xl > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-y-6\@xl {
     row-gap: var(--nu-space-6);
@@ -31027,13 +31027,13 @@
     gap: var(--nu-space-8);
   }
   .gap-8\@xl > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-x-8\@xl {
     column-gap: var(--nu-space-8);
   }
   .gap-x-8\@xl > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-y-8\@xl {
     row-gap: var(--nu-space-8);
@@ -31102,13 +31102,13 @@
     gap: var(--nu-space-10);
   }
   .gap-10\@xl > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-x-10\@xl {
     column-gap: var(--nu-space-10);
   }
   .gap-x-10\@xl > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-y-10\@xl {
     row-gap: var(--nu-space-10);
@@ -31177,13 +31177,13 @@
     gap: var(--nu-space-12);
   }
   .gap-12\@xl > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-x-12\@xl {
     column-gap: var(--nu-space-12);
   }
   .gap-x-12\@xl > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-y-12\@xl {
     row-gap: var(--nu-space-12);
@@ -31252,13 +31252,13 @@
     gap: var(--nu-space-16);
   }
   .gap-16\@xl > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-x-16\@xl {
     column-gap: var(--nu-space-16);
   }
   .gap-x-16\@xl > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-y-16\@xl {
     row-gap: var(--nu-space-16);
@@ -31327,13 +31327,13 @@
     gap: var(--nu-space-20);
   }
   .gap-20\@xl > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-x-20\@xl {
     column-gap: var(--nu-space-20);
   }
   .gap-x-20\@xl > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-y-20\@xl {
     row-gap: var(--nu-space-20);
@@ -31402,13 +31402,13 @@
     gap: var(--nu-space-24);
   }
   .gap-24\@xl > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-x-24\@xl {
     column-gap: var(--nu-space-24);
   }
   .gap-x-24\@xl > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-y-24\@xl {
     row-gap: var(--nu-space-24);
@@ -31477,13 +31477,13 @@
     gap: var(--nu-space-32);
   }
   .gap-32\@xl > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-x-32\@xl {
     column-gap: var(--nu-space-32);
   }
   .gap-x-32\@xl > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-y-32\@xl {
     row-gap: var(--nu-space-32);
@@ -31552,13 +31552,13 @@
     gap: var(--nu-space-40);
   }
   .gap-40\@xl > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-x-40\@xl {
     column-gap: var(--nu-space-40);
   }
   .gap-x-40\@xl > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-y-40\@xl {
     row-gap: var(--nu-space-40);
@@ -31627,13 +31627,13 @@
     gap: var(--nu-space-48);
   }
   .gap-48\@xl > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-x-48\@xl {
     column-gap: var(--nu-space-48);
   }
   .gap-x-48\@xl > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-y-48\@xl {
     row-gap: var(--nu-space-48);
@@ -31702,13 +31702,13 @@
     gap: var(--nu-space-56);
   }
   .gap-56\@xl > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-x-56\@xl {
     column-gap: var(--nu-space-56);
   }
   .gap-x-56\@xl > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-y-56\@xl {
     row-gap: var(--nu-space-56);
@@ -31777,13 +31777,13 @@
     gap: var(--nu-space-64);
   }
   .gap-64\@xl > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-x-64\@xl {
     column-gap: var(--nu-space-64);
   }
   .gap-x-64\@xl > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-y-64\@xl {
     row-gap: var(--nu-space-64);
@@ -31869,13 +31869,13 @@
     gap: var(--nu-space-0);
   }
   .gap-0\@2xl > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-x-0\@2xl {
     column-gap: var(--nu-space-0);
   }
   .gap-x-0\@2xl > * {
-    --nu-flex-gap: var(--nu-space-0);
+    --nu-gap: var(--nu-space-0);
   }
   .gap-y-0\@2xl {
     row-gap: var(--nu-space-0);
@@ -31944,13 +31944,13 @@
     gap: var(--nu-space-1);
   }
   .gap-1\@2xl > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-x-1\@2xl {
     column-gap: var(--nu-space-1);
   }
   .gap-x-1\@2xl > * {
-    --nu-flex-gap: var(--nu-space-1);
+    --nu-gap: var(--nu-space-1);
   }
   .gap-y-1\@2xl {
     row-gap: var(--nu-space-1);
@@ -32019,13 +32019,13 @@
     gap: var(--nu-space-2);
   }
   .gap-2\@2xl > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-x-2\@2xl {
     column-gap: var(--nu-space-2);
   }
   .gap-x-2\@2xl > * {
-    --nu-flex-gap: var(--nu-space-2);
+    --nu-gap: var(--nu-space-2);
   }
   .gap-y-2\@2xl {
     row-gap: var(--nu-space-2);
@@ -32094,13 +32094,13 @@
     gap: var(--nu-space-3);
   }
   .gap-3\@2xl > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-x-3\@2xl {
     column-gap: var(--nu-space-3);
   }
   .gap-x-3\@2xl > * {
-    --nu-flex-gap: var(--nu-space-3);
+    --nu-gap: var(--nu-space-3);
   }
   .gap-y-3\@2xl {
     row-gap: var(--nu-space-3);
@@ -32169,13 +32169,13 @@
     gap: var(--nu-space-4);
   }
   .gap-4\@2xl > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-x-4\@2xl {
     column-gap: var(--nu-space-4);
   }
   .gap-x-4\@2xl > * {
-    --nu-flex-gap: var(--nu-space-4);
+    --nu-gap: var(--nu-space-4);
   }
   .gap-y-4\@2xl {
     row-gap: var(--nu-space-4);
@@ -32244,13 +32244,13 @@
     gap: var(--nu-space-5);
   }
   .gap-5\@2xl > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-x-5\@2xl {
     column-gap: var(--nu-space-5);
   }
   .gap-x-5\@2xl > * {
-    --nu-flex-gap: var(--nu-space-5);
+    --nu-gap: var(--nu-space-5);
   }
   .gap-y-5\@2xl {
     row-gap: var(--nu-space-5);
@@ -32319,13 +32319,13 @@
     gap: var(--nu-space-6);
   }
   .gap-6\@2xl > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-x-6\@2xl {
     column-gap: var(--nu-space-6);
   }
   .gap-x-6\@2xl > * {
-    --nu-flex-gap: var(--nu-space-6);
+    --nu-gap: var(--nu-space-6);
   }
   .gap-y-6\@2xl {
     row-gap: var(--nu-space-6);
@@ -32394,13 +32394,13 @@
     gap: var(--nu-space-8);
   }
   .gap-8\@2xl > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-x-8\@2xl {
     column-gap: var(--nu-space-8);
   }
   .gap-x-8\@2xl > * {
-    --nu-flex-gap: var(--nu-space-8);
+    --nu-gap: var(--nu-space-8);
   }
   .gap-y-8\@2xl {
     row-gap: var(--nu-space-8);
@@ -32469,13 +32469,13 @@
     gap: var(--nu-space-10);
   }
   .gap-10\@2xl > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-x-10\@2xl {
     column-gap: var(--nu-space-10);
   }
   .gap-x-10\@2xl > * {
-    --nu-flex-gap: var(--nu-space-10);
+    --nu-gap: var(--nu-space-10);
   }
   .gap-y-10\@2xl {
     row-gap: var(--nu-space-10);
@@ -32544,13 +32544,13 @@
     gap: var(--nu-space-12);
   }
   .gap-12\@2xl > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-x-12\@2xl {
     column-gap: var(--nu-space-12);
   }
   .gap-x-12\@2xl > * {
-    --nu-flex-gap: var(--nu-space-12);
+    --nu-gap: var(--nu-space-12);
   }
   .gap-y-12\@2xl {
     row-gap: var(--nu-space-12);
@@ -32619,13 +32619,13 @@
     gap: var(--nu-space-16);
   }
   .gap-16\@2xl > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-x-16\@2xl {
     column-gap: var(--nu-space-16);
   }
   .gap-x-16\@2xl > * {
-    --nu-flex-gap: var(--nu-space-16);
+    --nu-gap: var(--nu-space-16);
   }
   .gap-y-16\@2xl {
     row-gap: var(--nu-space-16);
@@ -32694,13 +32694,13 @@
     gap: var(--nu-space-20);
   }
   .gap-20\@2xl > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-x-20\@2xl {
     column-gap: var(--nu-space-20);
   }
   .gap-x-20\@2xl > * {
-    --nu-flex-gap: var(--nu-space-20);
+    --nu-gap: var(--nu-space-20);
   }
   .gap-y-20\@2xl {
     row-gap: var(--nu-space-20);
@@ -32769,13 +32769,13 @@
     gap: var(--nu-space-24);
   }
   .gap-24\@2xl > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-x-24\@2xl {
     column-gap: var(--nu-space-24);
   }
   .gap-x-24\@2xl > * {
-    --nu-flex-gap: var(--nu-space-24);
+    --nu-gap: var(--nu-space-24);
   }
   .gap-y-24\@2xl {
     row-gap: var(--nu-space-24);
@@ -32844,13 +32844,13 @@
     gap: var(--nu-space-32);
   }
   .gap-32\@2xl > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-x-32\@2xl {
     column-gap: var(--nu-space-32);
   }
   .gap-x-32\@2xl > * {
-    --nu-flex-gap: var(--nu-space-32);
+    --nu-gap: var(--nu-space-32);
   }
   .gap-y-32\@2xl {
     row-gap: var(--nu-space-32);
@@ -32919,13 +32919,13 @@
     gap: var(--nu-space-40);
   }
   .gap-40\@2xl > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-x-40\@2xl {
     column-gap: var(--nu-space-40);
   }
   .gap-x-40\@2xl > * {
-    --nu-flex-gap: var(--nu-space-40);
+    --nu-gap: var(--nu-space-40);
   }
   .gap-y-40\@2xl {
     row-gap: var(--nu-space-40);
@@ -32994,13 +32994,13 @@
     gap: var(--nu-space-48);
   }
   .gap-48\@2xl > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-x-48\@2xl {
     column-gap: var(--nu-space-48);
   }
   .gap-x-48\@2xl > * {
-    --nu-flex-gap: var(--nu-space-48);
+    --nu-gap: var(--nu-space-48);
   }
   .gap-y-48\@2xl {
     row-gap: var(--nu-space-48);
@@ -33069,13 +33069,13 @@
     gap: var(--nu-space-56);
   }
   .gap-56\@2xl > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-x-56\@2xl {
     column-gap: var(--nu-space-56);
   }
   .gap-x-56\@2xl > * {
-    --nu-flex-gap: var(--nu-space-56);
+    --nu-gap: var(--nu-space-56);
   }
   .gap-y-56\@2xl {
     row-gap: var(--nu-space-56);
@@ -33144,13 +33144,13 @@
     gap: var(--nu-space-64);
   }
   .gap-64\@2xl > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-x-64\@2xl {
     column-gap: var(--nu-space-64);
   }
   .gap-x-64\@2xl > * {
-    --nu-flex-gap: var(--nu-space-64);
+    --nu-gap: var(--nu-space-64);
   }
   .gap-y-64\@2xl {
     row-gap: var(--nu-space-64);

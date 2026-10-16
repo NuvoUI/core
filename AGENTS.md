@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for AI coding tools working on this repository (`@nuvoui/core`, version 2.1.0).
+Guidance for AI coding tools working on this repository (`@nuvoui/core`, version 2.1.1).
 
 ## 1. What this repo is
 
