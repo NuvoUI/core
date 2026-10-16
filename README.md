@@ -158,7 +158,7 @@ The full token list with light and dark values is in the [token reference](docs/
 
 ## Mixins with `apply()`
 
-`apply()` takes mixin calls separated by commas. A state and a breakpoint follow the call, in that order.
+`apply()` takes mixin calls separated by commas. A state and a breakpoint follow the call, in either order.
 
 ```scss
 @use "@nuvoui/core" as *;

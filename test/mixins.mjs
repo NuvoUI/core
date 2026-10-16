@@ -1260,6 +1260,36 @@ function run() {
         `${failures.length === rawBefore ? 'pass' : 'FAIL'}  ${RAW_VALUES.length} raw values give the same rule directly, through apply(), nu.apply() and N.apply()`
     );
 
+    // A state and a breakpoint may follow the utility in either order, on all three apply() paths
+    const ORDER_EXPECTED =
+        '@media (min-width: 1024px) {\n  .t:hover {\n    box-shadow: var(--nu-shadow-md);\n  }\n}';
+    const orderBefore = failures.length;
+    for (const [label, use, prefix] of [
+        ['as *', '@use "../src/styles/index" as *;', ''],
+        ['N', '@use "mixins-map" as N;', 'N.'],
+        ['nu', '@use "../src/styles/index" as nu;', 'nu.'],
+    ]) {
+        for (const order of ['hover lg', 'lg hover']) {
+            try {
+                const { css, warnings } = compileSource(
+                    `${use}\n.t {\n    @include ${prefix}apply(shadow(md) ${order});\n}\n`
+                );
+                if (warnings.length || !css.trim().endsWith(ORDER_EXPECTED)) {
+                    failures.push(
+                        `shadow(md) ${order} (${label}): unexpected output: ${css.slice(0, 120)}`
+                    );
+                }
+            } catch (error) {
+                failures.push(
+                    `shadow(md) ${order} (${label}): error: ${(error.sassMessage ?? error.message).split('\n')[0]}`
+                );
+            }
+        }
+    }
+    console.log(
+        `${failures.length === orderBefore ? 'pass' : 'FAIL'}  state and breakpoint in either order give the same rule (as *, N.apply, nu.apply)`
+    );
+
     const removedBefore = failures.length;
     for (const [name, args] of REMOVED) {
         const callText = args ? `${name}(${args})` : name;

@@ -400,7 +400,7 @@ Namespaced loads work the same: with `@use "@nuvoui/core" as nuvo;`, write `@inc
 
 ### 3. Modifier order (critical)
 
-Modifiers always come **after** the utility. State first, breakpoint last.
+Modifiers always come **after** the utility, never before it. State and breakpoint can follow in either order: `shadow(md) hover lg` and `shadow(md) lg hover` give the same rule.
 
 ```scss
 @use "@nuvoui/core" as *;

@@ -70,7 +70,7 @@ Also: `CHANGELOG.md`, `README.md`, `dist/` (build output).
 
 Full usage guide: https://nuvoui.io/llms-full.txt. Documentation: https://nuvoui.io/core/.
 
-- Modifiers come after the utility inside `apply()`: state first, then breakpoint.
+- Modifiers come after the utility inside `apply()`: state and breakpoint in either order (`shadow(md) hover lg` or `shadow(md) lg hover`).
   ```scss
   @use "@nuvoui/core" as *;
 
