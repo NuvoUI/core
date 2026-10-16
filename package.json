@@ -76,7 +76,13 @@
     "oklch",
     "responsive",
     "sass-library",
-    "tailwind-alternative"
+    "tailwind-alternative",
+    "scss-framework",
+    "scss-library",
+    "sass-mixins",
+    "utility-first-css",
+    "utility-first-styling",
+    "rtl-design"
   ],
   "browserslist": [
     "> 1%",
