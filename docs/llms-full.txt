@@ -402,6 +402,8 @@ Namespaced loads work the same: with `@use "@nuvoui/core" as nuvo;`, write `@inc
 
 Modifiers always come **after** the utility, never before it. State and breakpoint can follow in either order: `shadow(md) hover lg` and `shadow(md) lg hover` give the same rule.
 
+Item order does not change the result. `apply()` emits items without a modifier first, then state items, then each breakpoint from the smallest up with its own state items. `apply(flex md, hide)` and `apply(hide, flex md)` both hide the element below `md` and make it flex from `md` up. States follow the LVHA order: first-child, last-child, only-child, first-of-type, last-of-type, empty, target, visited, checked, placeholder-shown, required, valid, invalid, read-only, group-hover, focus-within, hover, focus, focus-visible, active, enabled, disabled, so `focus` beats `hover` and `disabled` beats every interactive state.
+
 ```scss
 @use "@nuvoui/core" as *;
 
@@ -652,7 +654,7 @@ Keywords: `w-auto`, `w-full`, `w-screen`, `w-min`, `w-max`, `w-fit`, `h-auto`, `
 
 ### Functions
 
-`token($name)`, `get-color($color, [$stop])`, `find-text-color($background, [$text-colors])` (higher-contrast text color for an opaque color; candidates default to the light theme `text-regular` and `text-inverted`), `to-number($value, [$append-unit])` (`"12px"` gives the number `12px`), `create-color-scale($color)` (map of stop to color; takes a color or a string holding one, such as `"#007bff"`). `get-breakpoint-value($bp)` (a breakpoint name or a length; `get-breakpoint-value(md)` is `768px`). Not public: `to-color()`, `from-hex()`, `hex-to-dec()`, `luminance()`, `is-valid-color()`, `is-valid-shade()`, `to-css-var()`, `validate-theme-tokens()`, `has-token()` and the `apply()` internals (`pam`, `pai`, `am`). Sass does not report an unknown function: it writes the call into the CSS as text, so never call them.
+`token($name)`, `get-color($color, [$stop])`, `find-text-color($background, [$text-colors])` (higher-contrast text color for an opaque color; candidates default to the light theme `text-regular` and `text-inverted`), `to-number($value, [$append-unit])` (`"12px"` gives the number `12px`), `create-color-scale($color)` (map of stop to color; takes a color or a string holding one, such as `"#007bff"`). `get-breakpoint-value($bp)` (a breakpoint name or a length; `get-breakpoint-value(md)` is `768px`). Not public: `to-color()`, `from-hex()`, `hex-to-dec()`, `luminance()`, `is-valid-color()`, `is-valid-shade()`, `to-css-var()`, `validate-theme-tokens()`, `has-token()` and the `apply()` internals (`pam`, `pai`, `am`, `ai`). Sass does not report an unknown function: it writes the call into the CSS as text, so never call them.
 
 ---
 

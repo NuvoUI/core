@@ -4,6 +4,13 @@ All notable changes to `@nuvoui/core` are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-10-16
+
+### Fixed
+
+- `apply()` output no longer depends on the written order of its items. Items without a modifier come first, then state items, then each breakpoint from the smallest up with its own state items. `apply(flex md, hide)` now gives the same CSS as `apply(hide, flex md)`: hidden below `md`, flex from `md` up. Before, the later `hide` overrode the `md` rule at every width.
+- States within a breakpoint follow the LVHA order: first-child, last-child, only-child, first-of-type, last-of-type, empty, target, visited, checked, placeholder-shown, required, valid, invalid, read-only, group-hover, focus-within, hover, focus, focus-visible, active, enabled, disabled. `focus` beats `hover`, `active` beats `focus`, and `disabled` beats every interactive state, whatever the written order.
+
 ## [2.1.0] - 2026-10-16
 
 ### Added

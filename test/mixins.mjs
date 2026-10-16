@@ -1290,6 +1290,58 @@ function run() {
         `${failures.length === orderBefore ? 'pass' : 'FAIL'}  state and breakpoint in either order give the same rule (as *, N.apply, nu.apply)`
     );
 
+    // Base items, then breakpoints smallest first; within each, states in LVHA order, whatever the written order
+    const SORT_CASES = [
+        [
+            '.t {\n  display: none;\n}\n.t:hover {\n  opacity: var(--nu-opacity-50);\n}\n' +
+                '@media (min-width: 640px) {\n  .t {\n    padding: var(--nu-space-2);\n  }\n}\n' +
+                '@media (min-width: 768px) {\n  .t {\n    display: flex;\n  }\n}\n' +
+                '@media (min-width: 1024px) {\n  .t {\n    padding: var(--nu-space-6);\n  }\n}',
+            [
+                'hide, opacity(50) hover, p(2) sm, flex md, p(6) lg',
+                'p(6) lg, flex md, hide, p(2) sm, opacity(50) hover',
+            ],
+        ],
+        [
+            '.t:hover {\n  opacity: var(--nu-opacity-90);\n}\n.t:focus {\n  opacity: var(--nu-opacity-80);\n}\n' +
+                '.t:active {\n  opacity: var(--nu-opacity-70);\n}\n.t:disabled {\n  opacity: var(--nu-opacity-50);\n}\n' +
+                '@media (min-width: 768px) {\n  .t:hover {\n    opacity: var(--nu-opacity-60);\n  }\n}\n' +
+                '@media (min-width: 768px) {\n  .t:focus {\n    opacity: var(--nu-opacity-40);\n  }\n}',
+            [
+                'opacity(90) hover, opacity(80) focus, opacity(70) active, opacity(50) disabled, opacity(60) hover md, opacity(40) focus md',
+                'opacity(40) focus md, opacity(50) disabled, opacity(60) hover md, opacity(70) active, opacity(80) focus, opacity(90) hover',
+            ],
+        ],
+    ];
+    const sortBefore = failures.length;
+    for (const [label, use, prefix] of [
+        ['as *', '@use "../src/styles/mixins" as *;', ''],
+        ['N', '@use "mixins-map" as N;', 'N.'],
+        ['nu', '@use "../src/styles/mixins" as nu;', 'nu.'],
+    ]) {
+        for (const [expected, inputs] of SORT_CASES) {
+            for (const items of inputs) {
+                try {
+                    const { css, warnings } = compileSource(
+                        `${use}\n.t {\n    @include ${prefix}apply(${items});\n}\n`
+                    );
+                    if (warnings.length || css.trim() !== expected) {
+                        failures.push(
+                            `apply(${items}) (${label}): unexpected output: ${css.slice(0, 160)}`
+                        );
+                    }
+                } catch (error) {
+                    failures.push(
+                        `apply(${items}) (${label}): error: ${(error.sassMessage ?? error.message).split('\n')[0]}`
+                    );
+                }
+            }
+        }
+    }
+    console.log(
+        `${failures.length === sortBefore ? 'pass' : 'FAIL'}  base items, then breakpoints smallest first, states in LVHA order, in any written order (as *, N.apply, nu.apply)`
+    );
+
     const removedBefore = failures.length;
     for (const [name, args] of REMOVED) {
         const callText = args ? `${name}(${args})` : name;
