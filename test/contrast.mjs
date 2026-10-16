@@ -175,7 +175,7 @@ function run() {
                 const bg = parseColor(bgValue);
                 if (!fg || !bg) {
                     throw new Error(
-                        `cannot parse colour ${!fg ? fgValue : bgValue}`
+                        `cannot parse color ${!fg ? fgValue : bgValue}`
                     );
                 }
                 const ratio = contrast(fg, bg);

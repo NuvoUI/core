@@ -8,7 +8,7 @@ Public means exported by `src/styles/index.scss` (what a consumer gets from `@us
 
 ```scss
 // @mixin name
-// @description One sentence, plain English, accurate to the current behaviour.
+// @description One sentence, plain English, accurate to the current behavior.
 // @param {Type} $name - Description
 // @param {Type} $other [default] - Description
 // @content Description of the @content block (only for mixins that use @content)
@@ -46,7 +46,7 @@ Functions use `// @function name` and need a `@return` line:
 - Every tag except `@example` is a single line, with no continuation lines.
 - One `@param` per parameter, in signature order, with the name exactly as in the signature. A rest parameter is written without the dots (`$args`).
 - `@param` syntax: `{Type} $name - Description`, or `{Type} $name [default] - Description` with the default exactly as in the signature (`[null]`, `[()]`, `[md]`).
-- Types are capitalised and separated by `|`: `Number`, `String`, `Length`, `Color`, `Map`, `List`, `Boolean`, `Null`, `Any`, `Duration`, `Percentage`, `Calculation`. Example: `{Number|Length}`.
+- Types are capitalized and separated by `|`: `Number`, `String`, `Length`, `Color`, `Map`, `List`, `Boolean`, `Null`, `Any`, `Duration`, `Percentage`, `Calculation`. Example: `{Number|Length}`.
 - `@return` syntax: `{Type} - Description`.
 - `@example` stands alone on its line. The code follows, one line per comment, with two-space indentation inside the code. Empty `//` lines are not allowed (stylelint rejects them). The example ends at the next tag or at the end of the block.
 - Inside an example, a line is code unless it starts with one of the tags `@mixin`, `@function`, `@description`, `@param`, `@return`, `@example`, `@note`, `@output`, `@deprecated`, `@see` right after `// `. Code such as `@include`, `@if`, `@media` or `@keyframes` at the start of a line is fine. Indent `@return` and `@content` inside their body.
@@ -62,7 +62,7 @@ Functions use `// @function name` and need a `@return` line:
 - Describe what the code emits. When a mixin writes a logical property (`padding-inline`, `margin-block-start`), say inline or block, not left and right.
 - Mixin numbers are keys: `p(4)` emits `padding: var(--nu-space-4)`. A unitless number that is not a configured key raises an error; values with units, `calc()` and `var()` pass through.
 - Check the code for `@error` versus `@warn` before writing "raises an error" or "warns".
-- Colour mixins and utility classes emit `var(--nu-...)` references; `get-color()` returns a real colour value for Sass maths.
+- Color mixins and utility classes emit `var(--nu-...)` references; `get-color()` returns a real color value for Sass math.
 
 ## Checking
 

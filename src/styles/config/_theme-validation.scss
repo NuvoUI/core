@@ -18,7 +18,7 @@
 @use "../functions/css-vars" as fn-css-vars;
 
 // Theme maps are keyed by token name without the --nu- prefix ("bg-surface" is --nu-bg-surface).
-// A value is a colour (#fff), any CSS value (2px), or a scale reference: a two-item list of
+// A value is a color (#fff), any CSS value (2px), or a scale reference: a two-item list of
 // scale name and stop, e.g. brand 600 or gray 200, emitted as var(--nu-brand-600).
 // $light-theme and $dark-theme hold overrides; they merge over the defaults. $high-contrast-light and
 // $high-contrast-dark hold only the overrides emitted under [data-contrast="high"] in light and dark contexts.
@@ -31,7 +31,7 @@ $dark-theme: () !default;
 $high-contrast-light: () !default;
 $high-contrast-dark: () !default;
 
-// Keys as unquoted strings, so an unquoted key that Sass reads as a colour (tan, red) works like a quoted one
+// Keys as unquoted strings, so an unquoted key that Sass reads as a color (tan, red) works like a quoted one
 @function -string-keys($map) {
     $result: ();
     @each $key, $value in $map {
@@ -48,7 +48,7 @@ $dark-theme: -string-keys($dark-theme);
 $high-contrast-light: -string-keys($high-contrast-light);
 $high-contrast-dark: -string-keys($high-contrast-dark);
 
-// Map keys as strings: an unquoted colour key (red) becomes "red"
+// Map keys as strings: an unquoted color key (red) becomes "red"
 @function -key-names($map) {
     $names: ();
     @each $key in map.keys($map) {
@@ -226,12 +226,12 @@ $theme-tokens: map.keys($light-tokens);
 // Tokens generated per role and hue (no theme token utility class)
 $role-hue-tokens: map.keys(-role-hue-tokens($-dark-steps));
 
-// String values read as a colour when they start with one of these; CSS named colours, currentcolor and transparent also count
+// String values read as a color when they start with one of these; CSS named colors, currentcolor and transparent also count
 $-color-prefixes: ("var(", "color-mix(", "light-dark(", "color(", "rgb", "hsl", "hwb(", "oklch", "oklab", "lab(", "lch(", "#");
 
-// A theme token whose light value is a colour: a colour (#fff, red), a scale reference (brand 600), or a string
-// starting with var(, color-mix(, light-dark(, color(, rgb, hsl, hwb(, oklch, oklab, lab(, lch( or #, or naming a CSS colour.
-// Numbers, gradients and keywords such as uppercase are not colours
+// A theme token whose light value is a color: a color (#fff, red), a scale reference (brand 600), or a string
+// starting with var(, color-mix(, light-dark(, color(, rgb, hsl, hwb(, oklch, oklab, lab(, lch( or #, or naming a CSS color.
+// Numbers, gradients and keywords such as uppercase are not colors
 @function is-color-token($token) {
     @if not map.has-key($light-tokens, $token) {
         @return false;
@@ -369,7 +369,7 @@ $-error-tokens: ("text-error", "text-on-error");
 }
 
 // Values that look like a scale reference but are malformed: brand600, brand-600, "brand 600", brand 450,
-// brand 600 700, (gray, 900), brand 600px. A CSS colour followed by a length or percentage (red 50%) is a plain CSS value
+// brand 600 700, (gray, 900), brand 600px. A CSS color followed by a length or percentage (red 50%) is a plain CSS value
 @function -is-malformed-ref($value) {
     @if meta.type-of($value) == "string" {
         @return -is-ref-text(string.unquote($value));
@@ -387,7 +387,7 @@ $-error-tokens: ("text-error", "text-on-error");
     @return not $is-css-value and not $is-valid-ref;
 }
 
-// A quoted string that starts with # but is not a valid hex colour ("#ggg", "#12345")
+// A quoted string that starts with # but is not a valid hex color ("#ggg", "#12345")
 @function -is-invalid-hex($value) {
     @if meta.type-of($value) != "string" {
         @return false;
@@ -425,14 +425,14 @@ $-error-tokens: ("text-error", "text-on-error");
         } @else if -is-malformed-ref($value) {
             $problems: list.append($problems, "#{$where} has a malformed scale reference (#{meta.inspect($value)}). Write name and stop unquoted, separated by a space, e.g. brand 600. Valid stops: #{config-color.$shade-stops}.", comma);
         } @else if -is-invalid-hex($value) {
-            $problems: list.append($problems, "#{$where}: #{meta.inspect($value)} is not a valid hex colour (#rgb, #rgba, #rrggbb or #rrggbbaa).", comma);
+            $problems: list.append($problems, "#{$where}: #{meta.inspect($value)} is not a valid hex color (#rgb, #rgba, #rrggbb or #rrggbbaa).", comma);
         }
     }
     @return $problems;
 }
 
 // Role and hue names: no shared names, no "error", and no generated token that equals a built-in, a reserved
-// (palette, basic colour or scale) or another generated token. A role token is the bare role name (brand)
+// (palette, basic color or scale) or another generated token. A role token is the bare role name (brand)
 @mixin -validate-names($reserved) {
     @each $role in $role-names {
         @if list.index($hue-names, $role) {
@@ -450,7 +450,7 @@ $-error-tokens: ("text-error", "text-on-error");
                 @error "'#{$name}' generates the token '#{$token}', which is a built-in theme token. Rename '#{$name}'.";
             }
             @if map.has-key($reserved, $token) {
-                @error "'#{$name}' generates the token '#{$token}', which is already a palette, basic colour or scale token (--nu-#{$token}). Rename '#{$name}'.";
+                @error "'#{$name}' generates the token '#{$token}', which is already a palette, basic color or scale token (--nu-#{$token}). Rename '#{$name}'.";
             }
             @if map.has-key($owners, $token) {
                 @error "'#{map.get($owners, $token)}' and '#{$name}' both generate the token '#{$token}'. Rename one of them.";
@@ -465,7 +465,7 @@ $-error-tokens: ("text-error", "text-on-error");
     @return map.has-key($-light-defaults, $token) or map.has-key($-dark-defaults, $token) or -is-text-on($token);
 }
 
-// Palette, basic colour and non-colour scale token names (the keys of fn-tokens palette-tokens(), basic-tokens()
+// Palette, basic color and non-color scale token names (the keys of fn-tokens palette-tokens(), basic-tokens()
 // and scale-tokens()), so a reserved key is reported before the unknown-key checks
 @function -reserved-names() {
     $names: ();
@@ -505,7 +505,7 @@ $-error-tokens: ("text-error", "text-on-error");
     @return $names;
 }
 
-// Custom $light-theme and $dark-theme keys must not reuse a palette, basic colour or non-colour scale token name
+// Custom $light-theme and $dark-theme keys must not reuse a palette, basic color or non-color scale token name
 @mixin -validate-reserved-keys($reserved) {
     $themes: (
         "$light-theme": $light-theme,
@@ -516,7 +516,7 @@ $-error-tokens: ("text-error", "text-on-error");
     @each $theme-name, $theme in $themes {
         @each $token, $value in $theme {
             @if map.has-key($reserved, $token) and not is-builtin-token($token) {
-                @error "#{$theme-name}: custom token '#{$token}' is already a palette, basic colour or scale token (--nu-#{$token}). Choose another name.";
+                @error "#{$theme-name}: custom token '#{$token}' is already a palette, basic color or scale token (--nu-#{$token}). Choose another name.";
             }
         }
     }

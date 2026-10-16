@@ -44,7 +44,7 @@
 }
 
 // @function get-css-var
-// @description Normalises a var() reference given as a string (quoted or not) into a var() value; any other value raises an error.
+// @description Normalizes a var() reference given as a string (quoted or not) into a var() value; any other value raises an error.
 // @param {String} $value - A var() reference
 // @return {String} - The var() value
 // @example
@@ -72,7 +72,7 @@
     @return fn-strings.str-replace(fn-strings.str-replace("#{$key}", ".", "\\."), "/", "\\/");
 }
 
-// Key of $map matching $value; a number key also matches its string form ("4" finds 4) and a colour
+// Key of $map matching $value; a number key also matches its string form ("4" finds 4) and a color
 // matches its name (black finds "black"). Null when none
 @function scale-key($map, $value) {
     $type: meta.type-of($value);
@@ -109,8 +109,8 @@
     @return "#{$type}|#{meta.inspect($value)}";
 }
 
-// True for a value from a small fixed set (a unitless number, a word, a named colour, null), which is worth caching.
-// False for raw values (a number with a unit, calc(), var(), a hex colour, a list): those are never stored in an
+// True for a value from a small fixed set (a unitless number, a word, a named color, null), which is worth caching.
+// False for raw values (a number with a unit, calc(), var(), a hex color, a list): those are never stored in an
 // unbounded cache, because it would grow with every unique value and map.set() copies the whole map per insert; the
 // callers that cache them use functions/_raw-cache.scss
 @function is-bounded-value($value) {

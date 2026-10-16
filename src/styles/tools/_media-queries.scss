@@ -7,7 +7,7 @@
 @use "../functions/breakpoints" as fn-breakpoints;
 
 // @mixin media-up
-// @description Applies styles from the given breakpoint width upwards (min-width media query, no screen and).
+// @description Applies styles from the given breakpoint width upward (min-width media query, no screen and).
 // @param {String|Number} $breakpoint - Breakpoint name from $breakpoints (xs, sm, md, lg, xl, 2xl) or a length such as 800px; a unitless number that is not a name raises an error
 // @param {Any} $debug [null] - Unused
 // @content Styles to apply at and above the breakpoint

@@ -1,4 +1,4 @@
-// _color-parse.scss - Parse colour strings (named, hex, rgb, rgba) into Sass colours
+// _color-parse.scss - Parse color strings (named, hex, rgb, rgba) into Sass colors
 @use "sass:math";
 @use "sass:map";
 @use "sass:meta";
@@ -9,7 +9,7 @@
 @use "./math" as fn-math;
 @use "./strings" as fn-strings;
 
-// Internal: converts a colour, hex, rgb()/rgba() or CSS colour name string to a Sass colour
+// Internal: converts a color, hex, rgb()/rgba() or CSS color name string to a Sass color
 @function to-color($color-name) {
     // Return if already a color
     @if meta.type-of($color-name) == "color" {
@@ -49,10 +49,10 @@
         }
     }
 
-    @error "#{$color-string} is not a valid colour format. Use a hex colour (#ff0, #ff0000), rgb(r, g, b), rgba(r, g, b, a) or a CSS colour name.";
+    @error "#{$color-string} is not a valid color format. Use a hex color (#ff0, #ff0000), rgb(r, g, b), rgba(r, g, b, a) or a CSS color name.";
 }
 
-// Internal: converts a #rgb, #rgba, #rrggbb or #rrggbbaa string to a Sass colour
+// Internal: converts a #rgb, #rgba, #rrggbb or #rrggbbaa string to a Sass color
 @function from-hex($hex-string) {
     // Normalize input
 
@@ -62,12 +62,12 @@
 
     // Validate format and length
     @if string.slice($hex, 1, 1) != "#" {
-        @error "Invalid hex colour format: #{$hex-string}. It must start with #.";
+        @error "Invalid hex color format: #{$hex-string}. It must start with #.";
     }
 
     // Check for valid lengths: #RGB, #RGBA, #RRGGBB, #RRGGBBAA
     @if not($length == 4 or $length == 5 or $length == 7 or $length == 9) {
-        @error "Invalid hex colour length: #{$hex-string}. It must be 4, 5, 7 or 9 characters long.";
+        @error "Invalid hex color length: #{$hex-string}. It must be 4, 5, 7 or 9 characters long.";
     }
 
     // Extract components

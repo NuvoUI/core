@@ -9,7 +9,7 @@ export const STYLES_DIR = path.join(CORE_DIR, 'src', 'styles');
 export const BUILD_FILE = path.join(STYLES_DIR, 'build.scss');
 export const INDEX_FILE = path.join(STYLES_DIR, 'index.scss');
 
-// Fixed tokens (palette, basic colours, scales) live in a :root-only block; the light block holds theme tokens only
+// Fixed tokens (palette, basic colors, scales) live in a :root-only block; the light block holds theme tokens only
 export const ROOT_SELECTOR = ':root';
 export const LIGHT_SELECTOR = ':root, [data-theme=light]';
 // data-theme="inverse" shares the dark block; under a dark page it takes the light values
@@ -32,7 +32,7 @@ export const roleToken = (role, state) =>
     state === 'default' ? role : `${role}-${state}`;
 export const BASIC = ['black', 'white', 'transparent'];
 
-// Non-colour scale families in emission order: token prefix (without the trailing -) and heading
+// Non-color scale families in emission order: token prefix (without the trailing -) and heading
 export const SCALE_FAMILIES = [
     ['space', 'Spacing'],
     ['radius', 'Radius'],
@@ -195,7 +195,7 @@ const NAMED = {
     transparent: [0, 0, 0, 0],
 };
 
-// Parses hex, rgb()/rgba() and a few named colours to [r, g, b, a]. Returns null when unknown.
+// Parses hex, rgb()/rgba() and a few named colors to [r, g, b, a]. Returns null when unknown.
 export function parseColor(value) {
     const text = value.trim().toLowerCase();
     if (NAMED[text]) {
@@ -280,7 +280,7 @@ export function isPalette(name, palettes) {
     );
 }
 
-// True for a non-colour scale token (space-4, z-modal) or a single-token family (font-family).
+// True for a non-color scale token (space-4, z-modal) or a single-token family (font-family).
 export function isScale(name) {
     return SCALE_FAMILIES.some(([prefix]) => inFamily(name, prefix));
 }

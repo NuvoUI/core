@@ -12,7 +12,7 @@ import { BUILD_FILE, INDEX_FILE, compileFile, pad } from './helpers.mjs';
 
 const THRESHOLD = 0.05;
 
-// v2.0.0 measured 2026-10-13 (sass 1.103.1): build after the tooltip colour variables joined the theme blocks, index
+// v2.0.0 measured 2026-10-13 (sass 1.103.1): build after the tooltip color variables joined the theme blocks, index
 // after the base layer select and inline code rules.
 // v1 (git HEAD before v2, 1.5.7) for reference only, measured 2026-10-13 by compiling the HEAD src/styles files with
 // sass 1.103.1. The CLI build reported 1,038,132 expanded bytes (trailing newline).

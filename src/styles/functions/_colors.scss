@@ -1,4 +1,4 @@
-// _colors.scss - get-color() and the colour API used by other modules (scales and text contrast are forwarded)
+// _colors.scss - get-color() and the color API used by other modules (scales and text contrast are forwarded)
 @forward "./color-scale" show create-color-scale;
 @forward "./contrast" show find-text-color;
 
@@ -14,17 +14,17 @@
 @use "./types" as fn-types;
 @use "./math" as fn-math;
 
-// Resolved get-color() results, keyed by "{colour}-{stop}"; config is fixed per compile, so entries never go stale.
-// Bounded colours (role, palette and CSS names) go in $color-cache; raw values such as hex colours go in the
+// Resolved get-color() results, keyed by "{color}-{stop}"; config is fixed per compile, so entries never go stale.
+// Bounded colors (role, palette and CSS names) go in $color-cache; raw values such as hex colors go in the
 // size-capped raw cache, so neither grows with every unique value (map.set() copies the whole map per insert)
 $color-cache: ();
 
-// Base colour of a get-color() argument. Semantic and palette names take precedence over CSS named colours:
-// get-color(red) is palette red. Accepted consequence: a colour value that prints as a palette name (a variable
-// holding red, a computed colour printing as gray) resolves as the palette colour.
+// Base color of a get-color() argument. Semantic and palette names take precedence over CSS named colors:
+// get-color(red) is palette red. Accepted consequence: a color value that prints as a palette name (a variable
+// holding red, a computed color printing as gray) resolves as the palette color.
 @function -resolve-base($color) {
     @if fn-css-vars.is-css-var($color) {
-        @error "get-color(#{$color}): a CSS variable has no compile time colour. Use the variable directly, or a colour name or value.";
+        @error "get-color(#{$color}): a CSS variable has no compile time color. Use the variable directly, or a color name or value.";
     }
 
     $name: "#{$color}";
@@ -42,16 +42,16 @@ $color-cache: ();
     }
 
     @if meta.type-of($base) != "color" {
-        @error "get-color(#{$color}): unknown colour. Use a semantic name (#{map.keys(config-color.$semantic-colors)}), a palette name (#{map.keys(config-color.$color-primitives)}) or a colour value.";
+        @error "get-color(#{$color}): unknown color. Use a semantic name (#{map.keys(config-color.$semantic-colors)}), a palette name (#{map.keys(config-color.$color-primitives)}) or a color value.";
     }
     @return $base;
 }
 
 // @function get-color
-// @description Returns a real colour value for Sass maths from a role, palette name or colour value at a shade stop; role and palette names win over CSS named colours, and var() or an invalid stop raises an error.
-// @param {String|Color} $color - Role (brand, danger), palette hue (red, blue, gray) or colour value
+// @description Returns a real color value for Sass math from a role, palette name or color value at a shade stop; role and palette names win over CSS named colors, and var() or an invalid stop raises an error.
+// @param {String|Color} $color - Role (brand, danger), palette hue (red, blue, gray) or color value
 // @param {Number} $shade [500] - Shade stop: 50, 100 to 900, or 950
-// @return {Color} - The shaded colour (not a var() reference, so it does not follow the theme)
+// @return {Color} - The shaded color (not a var() reference, so it does not follow the theme)
 // @example
 // .chart-bar {
 //   background: get-color(brand, 600);
@@ -59,7 +59,7 @@ $color-cache: ();
 // }
 @function get-color($color, $shade: 500) {
     @if not $color {
-        @error "get-color() needs a colour name or colour value.";
+        @error "get-color() needs a color name or color value.";
     }
 
     // Convert string shade to number if needed; $shade keeps the original for messages

@@ -1,5 +1,5 @@
 // Large application fixture for test/perf.mjs: 5000 rules, each one apply() call with 10 items (spacing,
-// colours with shades and theme words, borders, radius, shadows, typography, layout, states and breakpoints).
+// colors with shades and theme words, borders, radius, shadows, typography, layout, states and breakpoints).
 // Static file. test/perf.mjs compiles its first LARGE_APP_RULES rules against v1 (names translated through V1_NAMES)
 // and v2, interleaved, and compares the cost per apply() call with FAIL_RATIO.
 @use "mixins-map" as NuvoUI;

@@ -1,8 +1,8 @@
 # Migrating from @nuvoui/core 1.x to 2.0
 
-Version 2.0 turns NuvoUI core into the foundation layer of a design system. Colours, spacing and every other scale are now emitted as `--nu-*` CSS custom properties, utility classes and `apply()` mixins output those tokens, and light and dark themes are built from one token model.
+Version 2.0 turns NuvoUI core into the foundation layer of a design system. Colors, spacing and every other scale are now emitted as `--nu-*` CSS custom properties, utility classes and `apply()` mixins output those tokens, and light and dark themes are built from one token model.
 
-2.0 is a breaking release. There is no compatibility layer for 1.x names: every v1 custom property, colour class and several mixin behaviours change. Projects that cannot migrate now should stay on 1.x.
+2.0 is a breaking release. There is no compatibility layer for 1.x names: every v1 custom property, color class and several mixin behaviors change. Projects that cannot migrate now should stay on 1.x.
 
 Related documents:
 
@@ -17,18 +17,18 @@ Related documents:
 4. [Custom properties](#custom-properties)
 5. [Utility classes](#utility-classes)
 6. [Mixins and functions](#mixins-and-functions)
-7. [Theme behaviour](#theme-behaviour)
+7. [Theme behavior](#theme-behavior)
 8. [Upgrade checklist](#upgrade-checklist)
 
 ## Breaking changes at a glance
 
 - Every custom property is renamed with the `--nu-` prefix and a new name. The v1 names (`--primary`, `--text-color`, `--border-base`, `--button-*`, `--link-*` and the rest) are no longer emitted.
-- The main colour role is `brand`, not `primary`: `$brand`, `--nu-brand`, `.bg-brand`, `bg(brand)`.
-- `secondary` is removed as a colour role. Use a palette hue instead.
+- The main color role is `brand`, not `primary`: `$brand`, `--nu-brand`, `.bg-brand`, `bg(brand)`.
+- `secondary` is removed as a color role. Use a palette hue instead.
 - `$light-theme` and `$dark-theme` hold overrides only, keyed by the new token names. Values can reference a scale stop with `name stop` (for example `brand 800`).
 - Mixin numbers are configuration keys: `p(4)` is spacing key 4 (`1rem` by default), the same value as the `.p-4` class. In v1 the mixin gave `4rem`. A unitless number that is not a key raises an error.
-- Colour mixins output tokens (`var(--nu-...)`) and follow the theme. In v1 they output fixed colour values.
-- `get-color()` raises an error for an unknown colour instead of returning `currentcolor`, and never returns `var()`.
+- Color mixins output tokens (`var(--nu-...)`) and follow the theme. In v1 they output fixed color values.
+- `get-color()` raises an error for an unknown color instead of returning `currentcolor`, and never returns `var()`.
 - Shade stops are 50, 100 to 900 and 950. In-between stops such as 450 raise an error. Shades are generated in OKLCH, so every shade value differs from v1.
 - Palette shades are fixed across themes. Role tokens (brand, statuses, hue roles, surfaces, text, borders) change per theme.
 - Tokens are emitted whenever the theme feature is on, even with `$generate-utility-classes: false`.
@@ -45,7 +45,7 @@ Related documents:
 
 | | 1.x | 2.0 |
 | --- | --- | --- |
-| Sass peer dependency | any Dart Sass | `>=1.79.0 <2` (the colour space API is required for OKLCH shade generation) |
+| Sass peer dependency | any Dart Sass | `>=1.79.0 <2` (the color space API is required for OKLCH shade generation) |
 | Entry points | `@nuvoui/core` (SCSS), `dist/nuvoui.css` | Same paths. The `dist/` stylesheets are produced by `npm run build` from the v2 sources. |
 
 ## Configuration variables
@@ -53,12 +53,12 @@ Related documents:
 | v1 variable | v2 | Notes |
 | --- | --- | --- |
 | `$primary` | `$brand` | Passing `$primary` in `with()` now fails with "This variable was not declared with !default". |
-| `$secondary` | removed | Take a second colour from the palette (`$color-primitives`) or add a custom theme token. |
+| `$secondary` | removed | Take a second color from the palette (`$color-primitives`) or add a custom theme token. |
 | `$success`, `$danger`, `$warning`, `$info` | unchanged | |
-| `$semantic-colors` | now a map of role name to colour | Built from `$brand`, `$success`, `$danger`, `$warning` and `$info`. In v1 it was a list of names. |
-| `$default-color` | removed | `get-color()` raises an error for an unknown colour. |
+| `$semantic-colors` | now a map of role name to color | Built from `$brand`, `$success`, `$danger`, `$warning` and `$info`. In v1 it was a list of names. |
+| `$default-color` | removed | `get-color()` raises an error for an unknown color. |
 | `$light-theme`, `$dark-theme` | override maps | Merged over built-in defaults. Keys are v2 token names without `--nu-`. See [Theme overrides](#theme-overrides). |
-| (none) | `$high-contrast-light`, `$high-contrast-dark` | Override maps applied under `[data-contrast="high"]` in light and dark contexts. Empty by default. See [Theme behaviour](#theme-behaviour). 1.x had no high-contrast map. |
+| (none) | `$high-contrast-light`, `$high-contrast-dark` | Override maps applied under `[data-contrast="high"]` in light and dark contexts. Empty by default. See [Theme behavior](#theme-behavior). 1.x had no high-contrast map. |
 | `$theme-tokens` | no longer exported | Derived from the light theme keys inside the package; the package entry does not forward it. |
 | `$color-names`, `$color-names-with-basic` | removed | |
 | `$primitive-color-names` | not configurable | Derived from `$color-primitives`. |
@@ -116,27 +116,27 @@ Related documents:
 
 Rules enforced at compile time:
 
-- A key must be a built-in token name, or a new token present in both `$light-theme` and `$dark-theme` (in `$light-theme` alone when `$enable-dark-mode` is false). A typo raises "unknown tokens". Keys may be quoted or unquoted, including words Sass reads as colours (`tan`).
-- A malformed reference (`brand600`, `brand-600`, `brand 450`) or a quoted string starting with `#` that is not a valid hex colour (`"#ggg"`) raises an error. Every bad value of every map is listed in one error. Quoted hex colours, colour names and comma-form `rgb()` values (`"#111"`, `"black"`, `"rgb(10, 20, 30)"`) are read like unquoted ones; a quoted space-syntax `rgb(10 20 30)` raises "not a valid colour format". A quoted `hsl()`, `hwb()` or `oklch()` value for a `{role}` fill, `text-regular` or `text-inverted` cannot be used to compute `text-on-{role}`; it raises an error telling you to set the text-on token (or the `text-on-{role}` tokens). Write it unquoted, or set the `text-on-{role}` tokens.
+- A key must be a built-in token name, or a new token present in both `$light-theme` and `$dark-theme` (in `$light-theme` alone when `$enable-dark-mode` is false). A typo raises "unknown tokens". Keys may be quoted or unquoted, including words Sass reads as colors (`tan`).
+- A malformed reference (`brand600`, `brand-600`, `brand 450`) or a quoted string starting with `#` that is not a valid hex color (`"#ggg"`) raises an error. Every bad value of every map is listed in one error. Quoted hex colors, color names and comma-form `rgb()` values (`"#111"`, `"black"`, `"rgb(10, 20, 30)"`) are read like unquoted ones; a quoted space-syntax `rgb(10 20 30)` raises "not a valid color format". A quoted `hsl()`, `hwb()` or `oklch()` value for a `{role}` fill, `text-regular` or `text-inverted` cannot be used to compute `text-on-{role}`; it raises an error telling you to set the text-on token (or the `text-on-{role}` tokens). Write it unquoted, or set the `text-on-{role}` tokens.
 - `error-*`, `text-error` and `text-on-error` cannot be set; they always follow `danger-*`.
 - `text-on-{role}` is computed from the `{role}` fill in each theme: of that theme's `text-regular` and `text-inverted`, the one with the higher WCAG contrast. Setting `text-on-{role}` in a theme map overrides it; the explicit value also applies under high contrast unless the high-contrast map sets its own, so set `text-on-{role}` there too when a high-contrast map changes the `{role}` fill.
 - A `{role}-default` key (`brand-default`, `error-default`) raises an error naming the bare key (`brand`); there is no fallback.
-- A new token named `bg-*`, `text-*` or `border-*` with a colour value also gets a utility class and works as a colour word in `bg()`, `text-color()` and `border-color()`.
-- A new key must not reuse a palette, basic colour or scale token name (`red-500`, `white`, `space-4`).
-- Role and hue names are checked too: a name in both `$semantic-colors` and `$color-primitives`, the name `error`, a basic colour name (`black`, `white`, `transparent`), or a name whose generated tokens equal a built-in token (a hue named `link` would generate `text-link`) or a non-colour scale token (a hue named `opacity` would generate `--nu-opacity-50`) raises an error. Keys may be quoted or unquoted.
+- A new token named `bg-*`, `text-*` or `border-*` with a color value also gets a utility class and works as a color word in `bg()`, `text-color()` and `border-color()`.
+- A new key must not reuse a palette, basic color or scale token name (`red-500`, `white`, `space-4`).
+- Role and hue names are checked too: a name in both `$semantic-colors` and `$color-primitives`, the name `error`, a basic color name (`black`, `white`, `transparent`), or a name whose generated tokens equal a built-in token (a hue named `link` would generate `text-link`) or a non-color scale token (a hue named `opacity` would generate `--nu-opacity-50`) raises an error. Keys may be quoted or unquoted.
 
 ## Custom properties
 
 All v2 properties use the `--nu-` prefix with single hyphens. The full list with default values is in [TOKENS.md](./TOKENS.md).
 
-### Colour roles and palette
+### Color roles and palette
 
 | v1 | v2 | Notes |
 | --- | --- | --- |
-| `--primary` | `--nu-brand` | v1 `--primary` was the 500 base and fixed. `--nu-brand` is the fill colour for the current theme, a different stop per theme (default stops are in [TOKENS.md](./TOKENS.md)). For the exact base colour use `--nu-brand-500`. |
+| `--primary` | `--nu-brand` | v1 `--primary` was the 500 base and fixed. `--nu-brand` is the fill color for the current theme, a different stop per theme (default stops are in [TOKENS.md](./TOKENS.md)). For the exact base color use `--nu-brand-500`. |
 | `--primary-50` to `--primary-900` | `--nu-brand-50` to `--nu-brand-900` | Fixed across themes. Values differ (new generator). `--nu-brand-950` is new. |
 | `--secondary`, `--secondary-*` | removed | Use a palette hue such as `--nu-purple-500`. |
-| `--success`, `--danger`, `--warning`, `--info` | `--nu-{role}` | Flips per theme. Exact base colour: `--nu-{role}-500`. |
+| `--success`, `--danger`, `--warning`, `--info` | `--nu-{role}` | Flips per theme. Exact base color: `--nu-{role}-500`. |
 | `--success-50` etc. | `--nu-{role}-{stop}` | Fixed across themes. |
 | `--red`, `--blue` and the other palette hues | `--nu-{hue}-500` | |
 | `--red-500` and every palette shade | `--nu-red-500` etc. | Fixed across themes. Stop 950 is new. |
@@ -152,11 +152,11 @@ New role tokens: `--nu-{role}-hover`, `-active`, `-subtle`, `-border`, `--nu-tex
 | `--bg-surface` | `--nu-bg-surface` | |
 | `--bg-alternate` | `--nu-bg-alternate` | Value changed. v1 light was near black; v2 defaults are gray 100 in light and `#242424` in dark. |
 | `--text-color` | `--nu-text-regular` | |
-| `--text-muted` | `--nu-text-muted` | Solid colour (v1 used alpha). |
-| `--text-subtle` | `--nu-text-subtle` | Solid colour (v1 used alpha). |
+| `--text-muted` | `--nu-text-muted` | Solid color (v1 used alpha). |
+| `--text-subtle` | `--nu-text-subtle` | Solid color (v1 used alpha). |
 | `--text-inverted` | `--nu-text-inverted` | |
 | `--border-base` | `--nu-border-regular` | Dark value changed (v1 matched the surface). |
-| `--inverted-bg-base`, `--inverted-text-color` and every `--inverted-*` | removed | For an opposite-theme region, set `data-theme="inverse"` on that element: the regular tokens (`--nu-bg-base`, `--nu-text-regular`, ...) take the opposite theme's values there (see [Theme behaviour](#theme-behaviour)). |
+| `--inverted-bg-base`, `--inverted-text-color` and every `--inverted-*` | removed | For an opposite-theme region, set `data-theme="inverse"` on that element: the regular tokens (`--nu-bg-base`, `--nu-text-regular`, ...) take the opposite theme's values there (see [Theme behavior](#theme-behavior)). |
 | `--button-text-color` | removed | Base buttons use `--nu-text-on-brand`. |
 | `--button-bg-color` | removed | Base buttons use `--nu-brand`. |
 | `--button-bg-color-hover` | removed | Base buttons use `--nu-brand-hover` (and `--nu-brand-active` when pressed). |
@@ -167,7 +167,7 @@ New role tokens: `--nu-{role}-hover`, `-active`, `-subtle`, `-border`, `--nu-tex
 
 New theme tokens: `--nu-bg-raised`, `--nu-bg-hover`, `--nu-bg-selected`, `--nu-bg-disabled`, `--nu-border-strong`, `--nu-border-control`, `--nu-border-control-hover`, `--nu-border-focus`, `--nu-border-focus-width`, `--nu-border-focus-offset`.
 
-### Non-colour scales (new)
+### Non-color scales (new)
 
 `--nu-space-{key}`, `--nu-radius-{key}`, `--nu-border-width-{key}`, `--nu-font-family`, `--nu-font-size-{key}`, `--nu-font-weight-{key}`, `--nu-line-height-{key}`, `--nu-shadow-{key}`, `--nu-opacity-{key}`, `--nu-z-{level}`, `--nu-duration-{key}`, `--nu-ease-{key}`, `--nu-control-height-{sm|md|lg}`, `--nu-control-padding-inline-{sm|md|lg}`. Decimal keys use `_` (`--nu-space-0_5`). Delays are not emitted as tokens.
 
@@ -236,19 +236,19 @@ Utility classes are generated only with `$generate-utility-classes: true` (`npm 
 | `.bg-secondary*`, `.text-secondary*`, `.border-secondary*` | removed | Use a palette hue class such as `.bg-purple`. |
 | `.text-color` | `.text-regular` | |
 | `.border-base` | `.border-regular` | |
-| `.text-on-{color}-{stop}` (for example `.text-on-red-700`) | removed | Use `.text-on-{role}` for role fills, or the `text-on-color()` mixin for any other colour. |
+| `.text-on-{color}-{stop}` (for example `.text-on-red-700`) | removed | Use `.text-on-{role}` for role fills, or the `text-on-color()` mixin for any other color. |
 | `.inverted-*` | removed | Use `data-theme="inverse"` on the region and the regular classes inside it. |
 | `.gap-auto` | removed | `gap: auto` is not a valid CSS value. |
 | `.backdrop-hue-{0\|90\|180\|270}` | `.backdrop-hue-rotate-{0\|90\|180\|270}` | Matches the `backdrop-hue-rotate()` mixin. |
 
-### Changed behaviour
+### Changed behavior
 
 | Class | v1 | v2 |
 | --- | --- | --- |
-| `.bg-{role}`, `.border-{role}` (brand, success, danger, warning, info) | Fixed 500 colour | `--nu-{role}`, which flips per theme |
-| `.text-{role}` | Fixed 500 colour | `--nu-text-{role}`, which flips per theme |
-| `.text-{hue}` (red, blue, ...) | Fixed 500 colour | `--nu-text-{hue}`, which flips per theme |
-| `.bg-{hue}`, `.border-{hue}` | Fixed 500 colour | Fixed `--nu-{hue}-500` (unchanged meaning) |
+| `.bg-{role}`, `.border-{role}` (brand, success, danger, warning, info) | Fixed 500 color | `--nu-{role}`, which flips per theme |
+| `.text-{role}` | Fixed 500 color | `--nu-text-{role}`, which flips per theme |
+| `.text-{hue}` (red, blue, ...) | Fixed 500 color | `--nu-text-{hue}`, which flips per theme |
+| `.bg-{hue}`, `.border-{hue}` | Fixed 500 color | Fixed `--nu-{hue}-500` (unchanged meaning) |
 | `.space-x-{key}` | `margin-left` | `margin-inline-start` (follows text direction, like `mx` and `px`) |
 | `.space-y-{key}` | `margin-top` | `margin-block-start` (the same in horizontal writing modes) |
 | `.container` | `margin-left` and `margin-right: auto` | `margin-inline: auto`; padding stays top and bottom only |
@@ -263,7 +263,7 @@ Utility classes are generated only with `$generate-utility-classes: true` (`npm 
 | Tooltips (`data-tooltip`) | Needed `role="tooltip"` on the trigger | `[data-tooltip]` alone; remove `role="tooltip"` from triggers so they keep their real role |
 | Tooltips without `data-tooltip-position` | No offset or arrow | Shown on top, as `data-tooltip-position="top"` |
 | Tooltips on keyboard focus | Appeared without the slide | `:focus-visible` slides the tooltip in as hover does |
-| Tooltip colours, size and stacking | 90% alpha background, 13px text, z-index 10 and 999 | `text-regular` as background and `text-inverted` as text (opaque, flipping with the theme), font size `sm` (14px), z-index `--nu-z-tooltip` (800) |
+| Tooltip colors, size and stacking | 90% alpha background, 13px text, z-index 10 and 999 | `text-regular` as background and `text-inverted` as text (opaque, flipping with the theme), font size `sm` (14px), z-index `--nu-z-tooltip` (800) |
 | Tooltips and `$generate-utility-classes` | Emitted only with `$generate-utility-classes: true` | Emitted whenever the `tooltips` flag is on (a component, like the base layer); set `"tooltips": false` to leave them out |
 | Backdrop presets, `.backdrop-layer` and `.backdrop-none` | `backdrop-filter` only | `-webkit-backdrop-filter` and `backdrop-filter` |
 | `.animate-shake` | Keyframes `anim-shake-5` | Keyframes `anim-shake-5px` (the name includes the unit) |
@@ -287,11 +287,11 @@ Utility classes are generated only with `$generate-utility-classes: true` (`npm 
 ### Added
 
 - Role classes: `.text-on-brand`, `.text-on-success`, `.text-on-danger`, `.text-on-warning`, `.text-on-info`.
-- Subtle backgrounds: `.bg-{role}-subtle` and `.bg-{hue}-subtle` (for example `.bg-danger-subtle`, `.bg-blue-subtle`). Colour with alpha is provided through these classes only; there is no generated alpha syntax.
+- Subtle backgrounds: `.bg-{role}-subtle` and `.bg-{hue}-subtle` (for example `.bg-danger-subtle`, `.bg-blue-subtle`). Color with alpha is provided through these classes only; there is no generated alpha syntax.
 - Error aliases: `.bg-error`, `.text-error`, `.border-error`, `.bg-error-subtle`, `.text-on-error`.
 - Theme classes: `.bg-raised`, `.bg-hover`, `.bg-selected`, `.bg-disabled`, `.text-link`, `.text-link-hover`, `.border-strong`, `.border-control`, `.border-control-hover`.
 - Shade 950 for every role and hue (`.bg-red-950`).
-- `active:` and `focus:` variants for the shade and theme word border colour classes (`.focus:border-brand-300`, `.focus:border-control`). The base role and hue border classes (`.focus:border-red`) had them in v1.
+- `active:` and `focus:` variants for the shade and theme word border color classes (`.focus:border-brand-300`, `.focus:border-control`). The base role and hue border classes (`.focus:border-red`) had them in v1.
 - Logical utilities: `.ps-*`, `.pe-*`, `.ms-*`, `.me-*`, `.ms-auto`, `.me-auto`, `.start-*`, `.end-*`, `.border-s`, `.border-e`, `.border-s-{w}`, `.border-e-{w}`, `.rounded-s-*`, `.rounded-e-*`, `.rounded-ss-*`, `.rounded-se-*`, `.rounded-es-*`, `.rounded-ee-*`, `.text-start`, `.text-end`. Physical utilities (`.ml-*`, `.pr-*`, `.text-left`) remain for content that must keep its side in both directions.
 - `.w-max` and `.h-max` (and their responsive variants). The mixins existed in v1 without classes.
 - `hover:` and `group-hover:` forms of the non-responsive percentage width and height classes (`.hover:w-50p`, `.group-hover:h-50p`). v1 had them only with a breakpoint (`.hover:w-50p@md`).
@@ -349,7 +349,7 @@ Negative keys work for margin, inset, top, right, bottom, left, translate and sp
 
 To keep a v1 result exactly, write the unit: v1 `p(4)` is v2 `p(4rem)`; v1 `width(300)` is v2 `width(300px)` or `width(300rem)`, depending on `$default-unit` in your v1 configuration.
 
-### Colour words
+### Color words
 
 `bg()`, `text-color()` and `border-color()` take the short word used by the class name and output a token.
 
@@ -366,7 +366,7 @@ To keep a v1 result exactly, write the unit: v1 `p(4)` is v2 `p(4rem)`; v1 `widt
 | `border-color(regular)`, `border-color(control)` | `var(--nu-border-regular)`, `var(--nu-border-control)` |
 | `bg(#123456)`, `bg(var(--x))`, `text-color(inherit)` | Unchanged raw value |
 
-In v1 these mixins resolved through `get-color()` to a fixed colour (`bg(primary)` gave `#007bff`) and theme words gave `currentcolor` with a warning. `bg(primary)`, `bg(secondary)` and the prefixed form `bg(bg-surface)` now raise an error.
+In v1 these mixins resolved through `get-color()` to a fixed color (`bg(primary)` gave `#007bff`) and theme words gave `currentcolor` with a warning. `bg(primary)`, `bg(secondary)` and the prefixed form `bg(bg-surface)` now raise an error.
 
 ```scss
 // v1
@@ -383,11 +383,11 @@ In v1 these mixins resolved through `get-color()` to a fixed colour (`bg(primary
 
 ### `get-color()`
 
-- Returns a real colour for Sass maths. It never returns `var()`; `get-color(var(--x))` raises an error (v1 returned the variable).
-- Role and palette names win over CSS named colours: `get-color(red)` is palette red (`#ef4444`), not CSS `red`. Other CSS names (`coral`) still work.
+- Returns a real color for Sass math. It never returns `var()`; `get-color(var(--x))` raises an error (v1 returned the variable).
+- Role and palette names win over CSS named colors: `get-color(red)` is palette red (`#ef4444`), not CSS `red`. Other CSS names (`coral`) still work.
 - An unknown name raises an error (v1 returned `currentcolor`).
 - Stops: 50, 100 to 900, 950. Any other stop raises an error (v1 accepted 450 and similar).
-- A colour without its own shades raises an error only when another stop is requested: `get-color(transparent)` returns `transparent`, `get-color(transparent, 700)` raises an error. The same applies to a darker stop of pure black and a lighter stop of pure white.
+- A color without its own shades raises an error only when another stop is requested: `get-color(transparent)` returns `transparent`, `get-color(transparent, 700)` raises an error. The same applies to a darker stop of pure black and a lighter stop of pure white.
 
 ```scss
 @use "@nuvoui/core" as nuvo;
@@ -450,15 +450,15 @@ In v1 these mixins resolved through `get-color()` to a fixed colour (`bg(primary
 | `truncate-lines()`, `truncate()` | `truncate-lines()` took any value; `truncate()` took no argument | Line counts are a whole number of 1 or more, `calc()` or `var()`. `truncate($lines: 1)` takes a count like the classes: `truncate(2)` is `truncate-lines(2)`, as `.truncate-2` |
 | `aspect-ratio()` | Emitted the argument as written (`16/9` unquoted was Sass division) | `aspect-ratio(16, 9)` and `aspect-ratio("16/9")` give `16 / 9`; a positive number, `auto`, `calc()` or `var()` passes through; anything else raises an error. An unquoted `16/9` is still Sass division (Sass warns) |
 | `cursor()` | Any value | A CSS cursor keyword, a CSS-wide keyword, or a value holding `url()` or `var()`; anything else raises an error |
-| `gradient()` | Stops written as passed | Colour names resolve like `bg()` (`gradient(to right, brand, red 40%)` gives `var(--nu-brand), var(--nu-red-500) 40%`); unknown words raise the `bg()` error |
+| `gradient()` | Stops written as passed | Color names resolve like `bg()` (`gradient(to right, brand, red 40%)` gives `var(--nu-brand), var(--nu-red-500) 40%`); unknown words raise the `bg()` error |
 | `media-between()` | Any pair | Raises an error when the lower breakpoint is not smaller than the upper one (`media-between(lg, sm)`) |
 | `animate-*()` `$props` | Unknown keys were ignored | An unknown key raises an error listing the valid keys |
-| `bg()`, `text-color()`, `border-color()` | Colour functions other than `rgb()` passed only in some load styles | Without a shade, any CSS colour function (`hsl()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, `color()`, `color-mix()`, `light-dark()`) passes through on every path; a quoted hex (`bg("#ff5733")`) is emitted unquoted. With a shade the value must be one Sass reads as a colour (in a namespaced load only hex, `rgb()`, `rgba()` and CSS colour names) |
+| `bg()`, `text-color()`, `border-color()` | Color functions other than `rgb()` passed only in some load styles | Without a shade, any CSS color function (`hsl()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, `color()`, `color-mix()`, `light-dark()`) passes through on every path; a quoted hex (`bg("#ff5733")`) is emitted unquoted. With a shade the value must be one Sass reads as a color (in a namespaced load only hex, `rgb()`, `rgba()` and CSS color names) |
 | `animate-fade()` | An unknown type emitted empty keyframes | `in`, `out`, `in-up` or `in-down`; anything else raises an error |
 | `animate-shake()`, `animate-bounce()`, `animate-ping()` | A unitless offset emitted invalid `translateX(8)` | Offsets are lengths (`(intensity: 8px)`): a unitless number other than 0, `calc()` or `var()` raises an error. `animate-ping()` takes a unitless scale. Quoted map values are read like unquoted ones |
 | `container-query()` | Any value; `container-query(md)` emitted `min-width: md` and `container-query(30)` emitted `min-width: 30` | A breakpoint name resolves to its width (`md` gives 768px), a length or `calc()` is used as is; any other word or a unitless number raises an error |
 | Scale mixins given a list (`p(4px 8px)`, `m(0 auto)`) | Failed inside `fix-units()` with an unrelated message | Raise `{mixin}: unknown value 4px 8px`, as through namespaced `nu.apply()` |
-| Colour strings (`get-color("#ggg")`) | An invalid hex or rgb() string warned | Raises an error |
+| Color strings (`get-color("#ggg")`) | An invalid hex or rgb() string warned | Raises an error |
 
 ### Removed and renamed mixins
 
@@ -473,7 +473,7 @@ In v1 these mixins resolved through `get-color()` to a fixed colour (`bg(primary
 | `position-col($col)` | `grid-col-at($col)` | |
 | `position-row($row)` | `grid-row-at($row)` | |
 | `responsive-config-typo($breakpoint)` | `responsive-typography($breakpoint)` | Follows the flag rename. |
-| `stretch` | `stretch` | Same name, new behaviour: sets `flex: 1 1 0%` on direct children (`& > *`) instead of `justify-content: stretch`. Takes no argument. |
+| `stretch` | `stretch` | Same name, new behavior: sets `flex: 1 1 0%` on direct children (`& > *`) instead of `justify-content: stretch`. Takes no argument. |
 | `show` | `show` | Same name: `display: revert` instead of `display: initial`. |
 
 A removed name raises "Undefined mixin" (direct `@include`) or "Mixin not found" (inside `apply()`). `justify()`, `align()` and `place()` keep their names; they set `justify-items`, `align-items` and `place-items` and are meant for grid containers (for flex use `start`, `center`, `between` and the `x-*` mixins).
@@ -486,43 +486,43 @@ A removed name raises "Undefined mixin" (direct `@include`) or "Mixin not found"
 - `$container-names` is forwarded by the package entry and configurable.
 - `transition-colors`, `transition-opacity`, `transition-shadow` and `transition-transform` set the default duration and easing like `transition()`; include `duration()` or `ease()` after them to change one.
 
-- `text-on-color(role)` outputs `var(--nu-text-on-{role})`. Any other colour, or a role with a shade, is computed at compile time and picks the theme text colour with the higher WCAG contrast (v1 used a fixed luminance threshold).
+- `text-on-color(role)` outputs `var(--nu-text-on-{role})`. Any other color, or a role with a shade, is computed at compile time and picks the theme text color with the higher WCAG contrast (v1 used a fixed luminance threshold).
 - `space-x()` sets `margin-inline-start` and `space-y()` sets `margin-block-start`.
-- `container-base()` and `container()` centre with `margin-inline: auto`.
+- `container-base()` and `container()` center with `margin-inline: auto`.
 - `transition()` sets `transition-property: all` plus the default duration and easing tokens, from `$transition-default-duration` and `$transition-default-ease`; include `duration()` or `ease()` after it to change one. `hover-ready` uses the same defaults.
-- `border-top()`, `border-right()`, `border-bottom()`, `border-left()`, `border-start()` and `border-end()` take an optional colour as a third argument (`border-top(1, solid, danger)`), resolved like `border()`.
+- `border-top()`, `border-right()`, `border-bottom()`, `border-left()`, `border-start()` and `border-end()` take an optional color as a third argument (`border-top(1, solid, danger)`), resolved like `border()`.
 - `border-all()` gives the same output as `border()` with all three arguments: the style goes through `--nu-border-style`.
 - `pill` uses `var(--nu-radius-full)`.
 - `media-down()` and `media-between()` end 0.02px below the breakpoint (v1: 0.01px), like `media-only()` and the container query mixins; em and rem breakpoints subtract 0.00125 of their unit. `landscape` and `portrait` no longer include `screen and`. `container-query()` interpolates its size (v1 emitted `(min-width: $size)` literally).
 - `animate-shake`, `animate-ping`, `animate-pulse` and `animate-bounce` build valid keyframes names from decimal values (`.` becomes `_`); `animate-shake` includes the unit in the name.
 - New logical mixins: `ps()`, `pe()`, `ms()`, `me()`, `ms-auto`, `me-auto`, `inset-start()`, `inset-end()`, `border-start()`, `border-end()`, `rounded-s()`, `rounded-e()`, `rounded-ss()`, `rounded-se()`, `rounded-es()`, `rounded-ee()`, `text-start`, `text-end`.
-- `border()` with no colour uses `--nu-border-regular`. `border(0)` sets the width only.
-- `dark-mode { ... }` applies where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and (through `prefers-color-scheme: dark`) `:root:not([data-theme])`, stopping at a nested `data-theme` section that resolves light; v1 also matched inside a light section of a dark page. The output is CSS `@scope` (Chrome 118, Safari 17.4, Firefox 146); a browser without `@scope` ignores the dark-mode styles. v1 read `[data-theme="system"]` for the OS case; that value is no longer recognised. Omit `data-theme` on the root element to follow the OS.
+- `border()` with no color uses `--nu-border-regular`. `border(0)` sets the width only.
+- `dark-mode { ... }` applies where the dark tokens resolve: on and under `[data-theme="dark"]`, an inverse section that resolves dark, and (through `prefers-color-scheme: dark`) `:root:not([data-theme])`, stopping at a nested `data-theme` section that resolves light; v1 also matched inside a light section of a dark page. The output is CSS `@scope` (Chrome 118, Safari 17.4, Firefox 146); a browser without `@scope` ignores the dark-mode styles. v1 read `[data-theme="system"]` for the OS case; that value is no longer recognized. Omit `data-theme` on the root element to follow the OS.
 - `mx-auto` sets `margin-inline: auto`.
 - `gap()` and `gap-x()` set `--nu-flex-gap` on direct children (`& > *`), so they need a selector. `gap(normal)` emits `gap: normal` (v1 emitted `normalrem`).
 - `container-name()` emits the name unquoted (v1 emitted a quoted string, which is not a valid container name).
 - `cols-custom("1fr 2fr")` emits the template unquoted (v1 emitted a quoted string). `_` still works as a space: `cols-custom("1fr_auto")`.
-- `create-color-scale()` takes a colour or a string holding one (`"#007bff"`); any other value raises an error.
+- `create-color-scale()` takes a color or a string holding one (`"#007bff"`); any other value raises an error.
 - `to-css-var()` is no longer forwarded by the package entry and has no fallback parameter. Use `token()` for `--nu-*` tokens.
 - `to-color()`, `from-hex()`, `hex-to-dec()`, `luminance()`, `is-valid-color()`, `is-valid-shade()`, `validate-theme-tokens()`, the `validate-tokens` mixin, `$translate-values`, `$negative-translate-values`, `$colors-primitives`, `$digit-map`, `$colors` and `$color-cache` are no longer public. The `apply()` internals `pam()`, `pai()`, `am()` and `$ac` are not forwarded.
 - A CSS `inset()` value (`clip-path: inset(50%)`) in a stylesheet that loads the package with `as *` now compiles; in v1 it resolved to the `apply()` registry.
-- With a namespaced load (`@use "@nuvoui/core" as nu`), `nu.apply()` receives its items as text. Numeric arguments are converted to real numbers (`12px`, `250ms`, `-0.5`) and CSS functions written as text (`clamp(1rem, 2vw, 2rem)`) are accepted, so `nu.apply()` takes the same inputs as `apply()` and the direct `@include`, with these exceptions set by Sass: a map argument cannot be written into a text item, so pass such an item as a call (`nu.apply(nu.animate-spin((duration: 2s)))`); a colour function other than `rgb()` or `rgba()` with a shade raises an error (it arrives as text, not a colour); and `opacity(...)` with anything but a number (below). A quoted argument is read as the value it spells in every mixin and every load style (`font-size("1.25rem")` gives `1.25rem`, `cols("3")` gives `repeat(3, ...)`); v1 emitted some quoted values as invalid CSS. In a namespaced load Sass resolves `opacity(inherit)`, `opacity("50")` and any other non-number argument to its built-in colour function before `nu.apply()` sees it; call the package function instead, `nu.apply(nu.opacity(inherit), nu.opacity("50") hover)`, or write `opacity(50)` for a key. Likewise Sass evaluates the colour functions it knows (`hwb(0 0% 0%)`, `rgb(255, 0, 0)`) before `nu.apply()` sees them, so a result that prints as a palette name (`red`) resolves as the palette colour.
+- With a namespaced load (`@use "@nuvoui/core" as nu`), `nu.apply()` receives its items as text. Numeric arguments are converted to real numbers (`12px`, `250ms`, `-0.5`) and CSS functions written as text (`clamp(1rem, 2vw, 2rem)`) are accepted, so `nu.apply()` takes the same inputs as `apply()` and the direct `@include`, with these exceptions set by Sass: a map argument cannot be written into a text item, so pass such an item as a call (`nu.apply(nu.animate-spin((duration: 2s)))`); a color function other than `rgb()` or `rgba()` with a shade raises an error (it arrives as text, not a color); and `opacity(...)` with anything but a number (below). A quoted argument is read as the value it spells in every mixin and every load style (`font-size("1.25rem")` gives `1.25rem`, `cols("3")` gives `repeat(3, ...)`); v1 emitted some quoted values as invalid CSS. In a namespaced load Sass resolves `opacity(inherit)`, `opacity("50")` and any other non-number argument to its built-in color function before `nu.apply()` sees it; call the package function instead, `nu.apply(nu.opacity(inherit), nu.opacity("50") hover)`, or write `opacity(50)` for a key. Likewise Sass evaluates the color functions it knows (`hwb(0 0% 0%)`, `rgb(255, 0, 0)`) before `nu.apply()` sees them, so a result that prints as a palette name (`red`) resolves as the palette color.
 - `apply()` caches parsed items and resolved values. Bounded inputs (keys, theme words, role and hue names) are cached as in v1; raw values (`p(13px)`, `bg(#ff5733, 600)`) go in size-capped caches (128 entries per generation, two generations), so repeated raw values are resolved once and a stylesheet of unique values compiles in linear time. v1 cached every item in one cache, which made compile time grow quadratically with the number of unique values.
 - `to-number()` returns a real number with its unit (`to-number("12px")` is `12px`; v1 returned the string `12px`). `$append-unit` takes a unit name or a unit number (`to-number("8", 1rem)` is `8rem`).
 - `origin()` resolves `$origin-values` keys (`origin(top-left)` gives `transform-origin: top left`, like `.origin-top-left`); other values must be valid `transform-origin` parts.
 - `container()` and `.container` work with em and rem breakpoints (`calc(40em - 100px)`), and so does the breakpoint debugger. `media-only()` with a length in another unit than the breakpoints (`media-only(50em)` with px breakpoints) raises an error.
-- `text-on-color()` names itself in its errors; with the theme feature flag off, colour names in `bg()`, `text-color()` and `border-color()` raise an error that says so.
+- `text-on-color()` names itself in its errors; with the theme feature flag off, color names in `bg()`, `text-color()` and `border-color()` raise an error that says so.
 - `to-number()` returns `null` for a string with no digit before its first other character (`"."`).
-- `find-text-color($background, $text-colors: null)` takes an optional pair of candidate colours; without it, it uses the light theme `text-regular` and `text-inverted`.
+- `find-text-color($background, $text-colors: null)` takes an optional pair of candidate colors; without it, it uses the light theme `text-regular` and `text-inverted`.
 
-## Theme behaviour
+## Theme behavior
 
 - **Fixed palette, flipping roles.** Palette shades (`--nu-red-100`) never change. The dark theme re-points role and theme tokens at other stops of the same scale (default stops are listed in [TOKENS.md](./TOKENS.md)). `text-on-{role}` is computed in both themes and becomes dark in dark mode when the fill is light (the default dark role fills, stop 400, all take the dark text `#1a1a1a`).
-- **Selectors.** Fixed tokens (palette, basic colours, non-colour scales, `--nu-font-family`) are on `:root` only. Light theme tokens are on `:root, [data-theme="light"]`, so a runtime `:root { --nu-font-family: ... }` override also applies inside a `[data-theme="light"]` section. Dark tokens are on `[data-theme="dark"]` and, through `prefers-color-scheme: dark`, on `:root:not([data-theme])` only. In v1 the fallback selector also matched every element without a `data-theme` attribute, which overrode nested light sections.
+- **Selectors.** Fixed tokens (palette, basic colors, non-color scales, `--nu-font-family`) are on `:root` only. Light theme tokens are on `:root, [data-theme="light"]`, so a runtime `:root { --nu-font-family: ... }` override also applies inside a `[data-theme="light"]` section. Dark tokens are on `[data-theme="dark"]` and, through `prefers-color-scheme: dark`, on `:root:not([data-theme])` only. In v1 the fallback selector also matched every element without a `data-theme` attribute, which overrode nested light sections.
 - **Inverse sections.** `data-theme="inverse"` (replaces the v1 `inverted-*` layer) gives a section the opposite theme of the page: the dark values on a light page (`[data-theme="inverse"]`), the light values under an explicit dark page (`[data-theme="dark"] [data-theme="inverse"]`) or the OS fallback (`:root:not([data-theme]) [data-theme="inverse"]` inside `prefers-color-scheme: dark`). An inverse section inside another inverse section flips back (`[data-theme="inverse"] [data-theme="inverse"]` takes the light values; `[data-theme="dark"] [data-theme="inverse"] [data-theme="inverse"]` and the fallback form take the dark values): what counts is whether the outer inverse section has a `[data-theme="dark"]` ancestor or the fallback root, and a `data-theme="light"` or `"dark"` section between the two inverse sections is not taken into account. Deeper inverse nesting is not supported. Every theme token is set, so the regular classes and mixins work inside it. It resolves against the nearest `[data-theme="dark"]` ancestor or the page: inside a `[data-theme="light"]` section that sits in a dark page it still gives the light values, so set `data-theme="dark"` there instead. It is not emitted when `$enable-dark-mode` is false.
 - **Nested themes.** Because every role is a custom property, `data-theme="dark"` or `data-theme="light"` on any element re-themes that subtree.
 - **High contrast.** `[data-contrast="high"]` on the root, on an element that sets `data-theme`, or on an ancestor of either applies `$high-contrast-light` where the theme resolves to light and `$high-contrast-dark` where it resolves to dark: explicit themes, the `prefers-color-scheme` fallback, inverse and nested inverse sections alike. Every theme selector gets a twin compounded with `:is([data-contrast="high"], [data-contrast="high"] *)`, emitted after the theme blocks in the same order, so the twin that wins is always the twin of the theme block that wins. Each twin carries the keys of both maps; a key its own map lacks keeps the base theme value, so a key set in only one map never leaks into the other theme. An element without `data-theme` inherits its tokens and is not restyled by its own `data-contrast` attribute. Both maps are empty by default, so nothing is emitted until you set values; `$high-contrast-dark` is ignored when `$enable-dark-mode` is false. Keys and values follow the same rules as `$light-theme`.
-- **Tokens without classes.** Tokens are emitted whenever the `theme` feature flag is on, independent of `$generate-utility-classes`. Mixin-only projects get them. With the `theme` flag off, scale mixins output raw values, colour words and `token()` raise an error, and `text-on-color()` computes its colour at compile time. `border()` without a colour emits no `border-color` then (its default is the `--nu-border-regular` token), so the border takes `currentcolor`; pass a colour value for another one. `--nu-font-family` is not emitted either, and base elements use the `$font-family` value.
+- **Tokens without classes.** Tokens are emitted whenever the `theme` feature flag is on, independent of `$generate-utility-classes`. Mixin-only projects get them. With the `theme` flag off, scale mixins output raw values, color words and `token()` raise an error, and `text-on-color()` computes its color at compile time. `border()` without a color emits no `border-color` then (its default is the `--nu-border-regular` token), so the border takes `currentcolor`; pass a color value for another one. `--nu-font-family` is not emitted either, and base elements use the `$font-family` value.
 - **Base layer.** Controlled by the `base` feature flag (on by default). `body` sets `background-color: var(--nu-bg-base)` and `color: var(--nu-text-regular)` (v1 referenced an undefined `--text-default` and set no background). Buttons (`button` and `input` of type `submit`, `button`, `reset`) and form fields (including `input` without a `type`) are styled from tokens, with a visible `:focus-visible` ring (`--nu-border-focus`, width and offset tokens). Invalid fields use `--nu-danger`, or `--nu-border-control` when the configuration has no `danger` role. A `select` with `multiple` or a `size` other than 1 keeps its natural height, and only inline `code` (not code inside `pre`) is kept on one line. Base `<code>` padding is `0 var(--nu-space-1)` (0 and 4px; was 2px and 6px). Headings use the `tight` line height (1.25, was 1.2). The base layer reads these configuration keys and raises an error naming the map when one is removed: `$spacings` 1, 2 and 4, `$border-radii` `xs`, `$border-widths` 1 and 4, `$font-sizes` `sm`, `base`, `lg`, `xl`, `2xl`, `3xl` and `4xl`, `$font-weights` `normal` and `bold`, `$line-heights` `normal` and `tight`, `$control-heights` and `$control-padding-inline` `md`, and the transition default keys.
 - **Reduced motion.** As in 1.x, the reset shortens every animation and transition to 0.01ms (one iteration) and disables smooth scrolling under `prefers-reduced-motion: reduce`, with `!important`. This is deliberate (WCAG 2.3.3): it covers animations written by hand or with NuvoUI mixins alike, which a selector list of NuvoUI classes could not. Because important declarations in an earlier cascade layer win, an essential animation (a progress spinner) is restored inside the same layer, for example `@layer reset { @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 1s !important; animation-iteration-count: infinite !important; } } }`.
 
@@ -550,7 +550,7 @@ A removed name raises "Undefined mixin" (direct `@include`) or "Mixin not found"
 4. Search templates for `primary`, `secondary`, `text-color`, `border-base`, `text-on-`, `inverted-`, `backdrop-hue-` and `gap-auto` classes and rename or remove them (`inverted-*` regions become `data-theme="inverse"`, `.backdrop-hue-90` becomes `.backdrop-hue-rotate-90`, `.gap-auto` has no replacement). Remove `role="tooltip"` from tooltip triggers. Check `.stretch` (children now share the row) and `.show` (now restores the natural display).
 5. Rename removed and renamed mixins: `flex-inline`, `grid-inline`, `d-tbl*`, `text-size`, `flow-in-*`, `flow-dense-items`, `grid-position`, `position-col`, `position-row` (see [Removed and renamed mixins](#removed-and-renamed-mixins)); a removed mixin raises an error. Also search for the functions that are no longer public (`to-css-var()`, `to-color()`, `from-hex()`, `hex-to-dec()`, `luminance()`, `is-valid-color()`, `is-valid-shade()`, `validate-theme-tokens()`): Sass does not report an unknown function, it writes the call into the CSS as plain text.
 6. Review every numeric mixin argument: `p(4)` is now 1rem, not 4rem, and `translate-x(4)` is spacing key 4. Add units where you meant a raw value, including skew (`6deg`) and rotate angles that are not `$rotation-values` keys (`rotate(30deg)`; `rotate(45)` is the key, 45deg). Check `scale()` (`scale(150)` is now 1.5) and `opacity()` (keys such as 50, not 0.5).
-7. Replace `bg(primary)` with `bg(brand)`, theme colours with their short words (`bg(surface)`, `text-color(muted)`, `border-color(regular)`), and check calls that relied on `currentcolor` fallbacks.
+7. Replace `bg(primary)` with `bg(brand)`, theme colors with their short words (`bg(surface)`, `text-color(muted)`, `border-color(regular)`), and check calls that relied on `currentcolor` fallbacks.
 8. Replace `get-color(var(...))` with the variable itself, and any stop outside 50, 100 to 900, 950 with a valid stop.
 9. Check RTL layouts that used `space-x-*`: it now follows text direction. `space-y-*` uses `margin-block-start`, which differs from `margin-top` only in vertical writing modes.
 10. Add a unit to numeric breakpoints in media and container query mixins (`media-up(800px)`), and check custom `.transition` styles: the class now has a default duration.

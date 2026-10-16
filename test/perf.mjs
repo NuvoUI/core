@@ -17,16 +17,16 @@
 // also compiles.
 //
 //   as * identical, as * varied, as * modifiers   `@use "mixins-map" as *` with apply(): items are real mixin calls.
-//                One item list in every rule; spacing keys, palette colours and shades cycled; the same items with
+//                One item list in every rule; spacing keys, palette colors and shades cycled; the same items with
 //                state and breakpoint modifiers.
 //   namespaced keys    the varied items through `NuvoUI.apply()`, where items arrive as text and are parsed.
-//   repeated as *, repeated namespaced    raw values drawn from small pools (lengths, percentages, hex colours, hex
-//                colours at a shade), so every value repeats across rules, as in a real stylesheet.
+//   repeated as *, repeated namespaced    raw values drawn from small pools (lengths, percentages, hex colors, hex
+//                colors at a shade), so every value repeats across rules, as in a real stylesheet.
 //   large-app    the first LARGE_APP_RULES rules of test/fixtures/large-app.scss (namespaced, 10 items per call).
 //
 // Self-relative checks (no baseline needed):
-//   get-color    GET_COLOR_RULES get-color() calls on 24 repeated hex colours at a shade must cost at most
-//                GET_COLOR_LIMIT times the same calls on palette names (uncached raw colours cost about 4 times as much).
+//   get-color    GET_COLOR_RULES get-color() calls on 24 repeated hex colors at a shade must cost at most
+//                GET_COLOR_LIMIT times the same calls on palette names (uncached raw colors cost about 4 times as much).
 //   unique       namespaced rules whose items hold values no other rule repeats; the cost per call at UNIQUE_RULES may
 //                not exceed MAX_GROWTH times the cost at a quarter of the rules (a cache that grows with every unique
 //                value makes the cost per call grow with the rule count). The growth is the median of GROWTH_PAIRS
@@ -280,7 +280,7 @@ function checkAgainstBaseline(compileBaseline, problems) {
     console.log('');
 }
 
-// GET_COLOR_RULES rules of one get-color() call each, on the repeated hex colours or on palette names
+// GET_COLOR_RULES rules of one get-color() call each, on the repeated hex colors or on palette names
 function getColorSource(raw, rules = GET_COLOR_RULES) {
     const lines = ['@use "index" as *;'];
     for (let i = 1; i <= rules; i++) {
@@ -292,7 +292,7 @@ function getColorSource(raw, rules = GET_COLOR_RULES) {
     return lines.join('\n');
 }
 
-// A hex colour no other rule uses (never pure black or white, which cannot be shaded)
+// A hex color no other rule uses (never pure black or white, which cannot be shaded)
 function uniqueHex(i, salt) {
     const value = ((i * 2654435761 + salt) >>> 0) % 0xfffffe;
     return `#${(value + 1).toString(16).padStart(6, '0')}`;
@@ -351,11 +351,11 @@ function checkSelfRelative(problems) {
         measure(() => compileCurrent(getColorSource(false))) - getColorEmpty;
     const getColorRatio = rawColors / namedColors;
     console.log(
-        `${pad('repeated get-color', 22)}${((rawColors / GET_COLOR_RULES) * 1000).toFixed(1)} µs per call on hex colours, ${((namedColors / GET_COLOR_RULES) * 1000).toFixed(1)} on palette names (ratio ${getColorRatio.toFixed(2)}, limit ${GET_COLOR_LIMIT})`
+        `${pad('repeated get-color', 22)}${((rawColors / GET_COLOR_RULES) * 1000).toFixed(1)} µs per call on hex colors, ${((namedColors / GET_COLOR_RULES) * 1000).toFixed(1)} on palette names (ratio ${getColorRatio.toFixed(2)}, limit ${GET_COLOR_LIMIT})`
     );
     if (getColorRatio > GET_COLOR_LIMIT) {
         problems.push(
-            `repeated get-color: hex colours cost ${getColorRatio.toFixed(2)}x palette names (limit ${GET_COLOR_LIMIT}); is the raw colour cache working?`
+            `repeated get-color: hex colors cost ${getColorRatio.toFixed(2)}x palette names (limit ${GET_COLOR_LIMIT}); is the raw color cache working?`
         );
     }
 

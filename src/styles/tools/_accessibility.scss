@@ -19,7 +19,7 @@
 
 // @mixin prefers-dark
 // @description Wraps styles in a prefers-color-scheme: dark media query, following the OS setting only (data-theme is ignored).
-// @content Styles to apply when the OS prefers a dark colour scheme
+// @content Styles to apply when the OS prefers a dark color scheme
 // @example
 // .logo {
 //   @include prefers-dark {
@@ -36,7 +36,7 @@
 // @mixin dark-mode
 // @description Applies styles where the dark theme tokens resolve: on and under the elements a dark-valued theme block matches (data-theme="dark", data-theme="inverse" on a light page, a nested inverse section, and :root without data-theme when the OS is dark), stopping at a nested data-theme section that resolves light.
 // @content Styles to apply in dark mode
-// @output One @scope rule per colour scheme condition, rooted at the elements whose theme tokens are dark and bounded by nested data-theme sections. Nothing when $enable-dark-mode is false. At the top level the content applies to those dark elements, and rules nested in it to their descendants
+// @output One @scope rule per color scheme condition, rooted at the elements whose theme tokens are dark and bounded by nested data-theme sections. Nothing when $enable-dark-mode is false. At the top level the content applies to those dark elements, and rules nested in it to their descendants
 // @example
 // .card {
 //   @include dark-mode {
@@ -93,8 +93,8 @@
 }
 
 // @mixin high-contrast
-// @description Wraps styles in a forced-colors: active media query (Windows high contrast and other forced colour modes).
-// @content Styles to apply when the browser forces a limited colour palette
+// @description Wraps styles in a forced-colors: active media query (Windows high contrast and other forced color modes).
+// @content Styles to apply when the browser forces a limited color palette
 // @example
 // .button {
 //   @include high-contrast {
