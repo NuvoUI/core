@@ -1,6 +1,6 @@
 # NuvoUI LLM Guide v2
 
-**For @nuvoui/core 2.x. For 1.x use nuvoui-llm-guide.md.**
+**For @nuvoui/core 2.x.**
 
 **Purpose**: Drop this file into a project so an AI assistant writes correct NuvoUI 2.x code.
 **Source of truth**: `core/src/styles` (SCSS). When this guide and the source disagree, the source wins.
