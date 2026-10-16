@@ -2,6 +2,8 @@
 
 The foundation layer of the NuvoUI design system: design tokens, utility classes and SCSS mixins, written in Sass.
 
+NuvoUI is a utility-first framework for Sass projects and an alternative to Tailwind CSS. Use the classes in markup, or the same utilities as mixins through `apply()` in your stylesheets. See the [comparison with Tailwind CSS](https://nuvoui.io/vs/tailwind/) and the [setup guides](https://nuvoui.io/guides/).
+
 [![GitHub stars](https://img.shields.io/github/stars/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
 [![GitHub forks](https://img.shields.io/github/forks/NuvoUI/core?style=flat-square&color=FFB000)](https://github.com/NuvoUI/core)
 [![npm version](https://img.shields.io/npm/v/@nuvoui/core?style=flat-square&color=FF6F00)](https://www.npmjs.com/package/@nuvoui/core)
