@@ -60,7 +60,7 @@ yarn add @nuvoui/core sass
 - Tokens and base styles are emitted by default. Utility classes are emitted only with `$generate-utility-classes: true`; mixin-only projects can leave it off.
 - Every compiled entry that `@use`s `@nuvoui/core` emits the tokens, reset, base layer, tooltips and `@property` registrations (about 42 KB with `--style=compressed`, under 6 KB gzipped). Load it once, in the global stylesheet; component styles load `@nuvoui/core/mixins` (see [Component styles](#component-styles)).
 
-`@use "@nuvoui/core"` resolves through the package `sass` export in bundlers that support it, such as Vite and webpack `sass-loader`. With the Dart Sass command line or JavaScript API, use the Node package importer:
+`@use "@nuvoui/core"` resolves through the package `sass` export in bundlers that support it, such as Vite, Next.js (Turbopack and webpack), Astro and webpack `sass-loader`. With the Dart Sass command line or JavaScript API, use the Node package importer:
 
 ```scss
 @use "pkg:@nuvoui/core" as *;
