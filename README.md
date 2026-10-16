@@ -153,6 +153,31 @@ The full token list with light and dark values is in the [token reference](docs/
 - Colour mixins take the class words and output tokens: `bg(brand)` gives `var(--nu-brand)`, `text-color(muted)` gives `var(--nu-text-muted)`.
 - With a namespaced load (`@use "@nuvoui/core" as nu`), write `nu.apply(...)`. One item needs the namespace inside it: Sass reads a bare `opacity(inherit)` or `opacity("50")` as its built-in colour function, so write `nu.apply(nu.opacity(inherit))` (`opacity(50)` works as it is).
 
+## Performance
+
+`apply()` compile time, measured with Dart Sass 1.103.1 (the `sass` npm package) on Node 24, Apple M2 Pro, median of three runs, `@use "@nuvoui/core" as *`:
+
+| Stylesheet | Time | Output |
+| --- | --- | --- |
+| `@use` line only (package load, tokens, base) | 191 ms | 1,390 lines |
+| 5,000 rules, six repeated items each | 2,049 ms | 96,389 lines |
+| 2,000 rules, two unique raw values each | 2,686 ms | 29,389 lines |
+| 5,000 rules, two unique raw values each | 6,420 ms | 71,389 lines |
+
+```scss
+@for $i from 1 through 2000 {
+    .card-#{$i} {
+        @include apply(p(#{$i}px) md, m(#{$i * 0.01}rem) lg, bg(red, 500) hover);
+    }
+}
+```
+
+- A repeated item costs about 60 µs. A unique raw value costs about 0.6 ms, the same at 2,000 and 5,000 rules, so compile time grows linearly with the number of unique values.
+- The package load is a fixed cost per compiled entry. Compile one entry that imports your partials.
+- `pnpm test:perf` guards `apply()` against the last release, including the namespaced path, where parsed items go into size-capped caches.
+
+Method and discussion: [We Tried to Break Our Own SCSS Compiler](https://dev.to/nuvoui/we-tried-to-break-our-own-scss-compiler-here-are-the-numbers-1boj). Run the loop in the [playground](https://nuvoui.io/playground/).
+
 ## `token()`
 
 `token($name)` returns `var(--nu-{name})` and raises an error with close matches for an unknown name. Use it for tokens in hand-written CSS properties.
